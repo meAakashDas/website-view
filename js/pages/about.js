@@ -171,7 +171,7 @@ export function renderAboutPage() {
             <div class="founder-photo-col">
               <div class="founder-photo-card">
                 <img
-                  src="/assets/images/founder.png"
+                  src="assets/images/founder.png"
                   alt="Aakash Das | Founder of risePaisa"
                   class="founder-photo-img"
                   loading="lazy"

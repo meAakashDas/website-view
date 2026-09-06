@@ -5,6 +5,26 @@
 
 export const SITE_ORIGIN = 'https://risepaisa.com';
 
+export const APP_BASE_PATH = (() => {
+  if (typeof document === 'undefined') return '';
+  const base = document.querySelector('base');
+  if (!base) return '';
+  const path = new URL(base.href, window.location.href).pathname;
+  return path === '/' ? '' : path.replace(/\/+$/, '');
+})();
+
+export function getAppPathname(pathname = window.location.pathname) {
+  if (APP_BASE_PATH && pathname.startsWith(APP_BASE_PATH)) {
+    return pathname.slice(APP_BASE_PATH.length) || '/';
+  }
+  return pathname || '/';
+}
+
+export function toBrowserPath(pathname) {
+  const path = pathname.startsWith('/') ? pathname : `/${pathname}`;
+  return `${APP_BASE_PATH}${path === '/' ? '/' : path}`;
+}
+
 /**
  * Reusable Route URL Constants
  */

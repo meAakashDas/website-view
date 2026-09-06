@@ -16,7 +16,7 @@ import { renderAboutPage, initAboutPage } from './pages/about.js';
 import { renderContactPage, initContactPage } from './pages/contact.js';
 import { renderCalculatorsPage, initCalculatorsPage } from './pages/calculators.js';
 import { renderLegalPage, initLegalPage } from './pages/legal.js';
-import { ROUTES, resolveLegacyHash } from './routes.js';
+import { ROUTES, resolveLegacyHash, getAppPathname, toBrowserPath } from './routes.js';
 
 // ── Route Definitions ────────────────────────────
 const routes = [
@@ -88,9 +88,9 @@ export function navigateTo(url, replace = false) {
   }
 
   if (replace) {
-    window.history.replaceState({}, '', cleanUrl);
+    window.history.replaceState({}, '', toBrowserPath(cleanUrl));
   } else {
-    window.history.pushState({}, '', cleanUrl);
+    window.history.pushState({}, '', toBrowserPath(cleanUrl));
   }
 
   router();
@@ -107,11 +107,11 @@ function router() {
   if (rawHash && (rawHash.startsWith('#/') || rawHash === '#')) {
     const cleanPath = resolveLegacyHash(rawHash);
     if (cleanPath && cleanPath !== window.location.pathname) {
-      window.history.replaceState({}, '', cleanPath);
+      window.history.replaceState({}, '', toBrowserPath(cleanPath));
     }
   }
 
-  const pathname = window.location.pathname || '/';
+  const pathname = getAppPathname();
   const searchParams = new URLSearchParams(window.location.search);
 
   let matchedRoute = null;

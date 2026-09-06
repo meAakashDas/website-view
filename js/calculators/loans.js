@@ -18,6 +18,7 @@ import {
   VEHICLE_TYPES,
 } from './engine.js';
 import { renderLoanDonutChart, renderLoanBalanceChart, positionChartTooltip } from './charts.js';
+import { getAppPathname, toBrowserPath } from '../routes.js';
 
 /**
  * Shared state for all three loan calculators
@@ -1375,8 +1376,8 @@ export function initLoanCalculators(initialTab = 'home') {
         ? '/calculators/personal-loan'
         : '/calculators/vehicle-loan';
 
-    if (window.location.pathname.startsWith('/calculators/') && window.location.pathname !== targetUrl) {
-      window.history.pushState({}, '', targetUrl);
+    if (getAppPathname().startsWith('/calculators/') && getAppPathname() !== targetUrl) {
+      window.history.pushState({}, '', toBrowserPath(targetUrl));
     }
   }
 

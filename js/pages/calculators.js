@@ -14,7 +14,7 @@ import { renderFDRDCalculator, initFDRDCalculator } from '../calculators/fdrd.js
 import { renderRetirementGoalCalculator, initRetirementGoalCalculator } from '../calculators/retirement.js';
 import { renderCAGRCalculator, initCAGRCalculator } from '../calculators/cagr.js';
 import { renderInflationCalculator, initInflationCalculator } from '../calculators/inflation.js';
-import { ROUTES, CALCULATOR_ROUTES, CALCULATOR_SLUG_TO_ID } from '../routes.js';
+import { ROUTES, CALCULATOR_ROUTES, CALCULATOR_SLUG_TO_ID, getAppPathname, toBrowserPath } from '../routes.js';
 
 export const CALC_METAS = {
   sip: {
@@ -90,7 +90,7 @@ export function renderCalculatorsPage(calcSlug = '') {
   if (calcSlug === 'personal-loan') initialLoanSubtab = 'personal';
   else if (calcSlug === 'vehicle-loan') initialLoanSubtab = 'vehicle';
   else if (typeof window !== 'undefined') {
-    const p = window.location.pathname;
+    const p = getAppPathname();
     if (p.includes('/personal-loan')) initialLoanSubtab = 'personal';
     else if (p.includes('/vehicle-loan')) initialLoanSubtab = 'vehicle';
   }
@@ -100,7 +100,7 @@ export function renderCalculatorsPage(calcSlug = '') {
   if (calcSlug && CALCULATOR_SLUG_TO_ID[calcSlug]) {
     activeTab = CALCULATOR_SLUG_TO_ID[calcSlug];
   } else {
-    const path = typeof window !== 'undefined' ? window.location.pathname : '';
+    const path = typeof window !== 'undefined' ? getAppPathname() : '';
     if (path.includes('/sip')) activeTab = 'sip';
     else if (path.includes('/emi') || path.includes('/loan') || path.includes('/home-loan') || path.includes('/personal-loan') || path.includes('/vehicle-loan')) activeTab = 'emi';
     else if (path.includes('/swp')) activeTab = 'swp';
@@ -664,8 +664,8 @@ export function initCalculatorsPage(calcSlug = '') {
     const meta = CALC_METAS[target];
     if (meta) {
       setPageMeta(meta.title, meta.desc, meta.path);
-      if (updateUrl && window.location.pathname !== meta.path) {
-        window.history.pushState({}, '', meta.path);
+      if (updateUrl && getAppPathname() !== meta.path) {
+        window.history.pushState({}, '', toBrowserPath(meta.path));
       }
     }
   }
@@ -685,8 +685,8 @@ export function initCalculatorsPage(calcSlug = '') {
   document.querySelectorAll('.rp-view-all-btn').forEach(btn => {
     btn.addEventListener('click', (e) => {
       e.preventDefault();
-      if (window.location.pathname !== ROUTES.CALCULATORS) {
-        window.history.pushState({}, '', ROUTES.CALCULATORS);
+      if (getAppPathname() !== ROUTES.CALCULATORS) {
+        window.history.pushState({}, '', toBrowserPath(ROUTES.CALCULATORS));
         setPageMeta(
           'Financial Calculators for Nepal: Loans, SIP, Tax, NEPSE, FD & Retirement | risePaisa',
           'Free financial calculators designed for Nepal: Home/Personal/Vehicle Loans, Retirement corpus, Fixed Deposit, NEPSE share profit, Personal Income Tax FY 2082/83, SIP compounding, and SWP.',
@@ -738,7 +738,7 @@ export function initCalculatorsPage(calcSlug = '') {
   if (calcSlug && CALCULATOR_SLUG_TO_ID[calcSlug]) {
     initialTab = CALCULATOR_SLUG_TO_ID[calcSlug];
   } else {
-    const path = window.location.pathname;
+    const path = getAppPathname();
     if (path.includes('/sip')) initialTab = 'sip';
     else if (path.includes('/emi') || path.includes('/loan') || path.includes('/home-loan') || path.includes('/personal-loan') || path.includes('/vehicle-loan')) initialTab = 'emi';
     else if (path.includes('/swp')) initialTab = 'swp';
