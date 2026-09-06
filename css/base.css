@@ -1,0 +1,505 @@
+/* ==============================================
+   risePaisa — Base Styles & Reset
+   ============================================== */
+
+/* ── Modern CSS Reset ────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: auto; /* 'smooth' causes scroll lag on fast swipes */
+  -webkit-text-size-adjust: 100%;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  overflow-x: clip; /* Modern clean way to prevent horizontal overflow without creating nested scroll containers */
+  background: #050B18; /* Prevent white flash behind body during fast scroll */
+}
+
+body {
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  font-weight: var(--weight-normal);
+  line-height: var(--leading-normal);
+  color: var(--color-text);
+  background-color: #050B18;
+  min-height: 100vh;
+  min-height: 100svh; /* stable — won't shift when mobile browser chrome changes */
+  overflow-x: clip;
+  position: relative;
+  overscroll-behavior-x: none; /* Only prevent horizontal overscroll bounce */
+  -webkit-overflow-scrolling: touch; /* Smooth momentum scroll on iOS */
+  padding-bottom: env(safe-area-inset-bottom); /* Notch / home-bar safe area */
+}
+
+/* GPU-promoted fixed background layer: combines deep gradient and dot-grid.
+   Eliminating background-attachment: fixed enables native GPU-composited scrolling
+   on desktop and mobile with zero full-viewport repaints per scroll frame. */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image:
+    radial-gradient(circle, rgba(255,255,255,0.025) 1px, transparent 1px),
+    linear-gradient(160deg, #060e22 0%, #050B18 40%, #020609 100%);
+  background-size: 32px 32px, 100% 100%;
+  background-position: 0 0, 0 0;
+  background-repeat: repeat, no-repeat;
+  pointer-events: none;
+  z-index: 0;
+  transform: translateZ(0);
+}
+
+/* Ensure all app content renders above the body overlay */
+/* #navbar-container must be ABOVE #app — both having z-index:1 caused #app
+   (rendered later in DOM) to cover the navbar and block all click events. */
+#navbar-container {
+  position: relative;
+  z-index: 300; /* Must exceed #app so navbar is always clickable */
+}
+
+#app,
+#footer-container,
+#whatsapp-container {
+  position: relative;
+  z-index: 1;
+}
+
+/* ── Typography ──────────────────────────────── */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  font-weight: var(--weight-bold);
+  line-height: var(--leading-tight);
+  color: var(--color-heading);
+  letter-spacing: -0.03em;
+}
+
+h1 { font-size: var(--text-4xl); }
+h2 { font-size: var(--text-3xl); }
+h3 { font-size: var(--text-2xl); }
+h4 { font-size: var(--text-xl); }
+h5 { font-size: var(--text-lg); }
+h6 { font-size: var(--text-base); }
+
+@media (min-width: 768px) {
+  h1 { font-size: var(--text-5xl); }
+  h2 { font-size: var(--text-4xl); }
+  h3 { font-size: var(--text-3xl); }
+}
+
+@media (min-width: 1024px) {
+  h1 { font-size: var(--text-6xl); }
+  h2 { font-size: var(--text-5xl); }
+}
+
+p {
+  color: var(--color-text-secondary);
+  margin-bottom: var(--space-4);
+  line-height: var(--leading-relaxed);
+}
+
+p:last-child {
+  margin-bottom: 0;
+}
+
+a {
+  color: var(--color-accent);
+  text-decoration: none;
+  transition: color var(--duration-fast) var(--ease-out);
+}
+
+a:hover {
+  color: var(--color-accent-hover);
+}
+
+strong, b {
+  font-weight: var(--weight-semibold);
+  color: var(--color-text);
+}
+
+small {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+}
+
+/* ── Lists ───────────────────────────────────── */
+ul, ol {
+  list-style: none;
+}
+
+/* ── Images ──────────────────────────────────── */
+img, video {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+img {
+  image-rendering: auto;
+}
+
+/* ── Forms ───────────────────────────────────── */
+button, input, textarea, select {
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  color: inherit;
+  border: none;
+  outline: none;
+  background: none;
+}
+
+button {
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+input, textarea {
+  width: 100%;
+}
+
+textarea {
+  resize: vertical;
+}
+
+/* ── Utility ─────────────────────────────────── */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+.container {
+  width: 100%;
+  max-width: var(--container-xl);
+  margin: 0 auto;
+  padding: 0 var(--space-5);
+}
+
+@media (min-width: 768px) {
+  .container {
+    padding: 0 var(--space-8);
+  }
+}
+
+@media (min-width: 1024px) {
+  .container {
+    padding: 0 var(--space-12);
+  }
+}
+
+.container-narrow {
+  max-width: var(--container-md);
+}
+
+/* ── Section spacing ─────────────────────────── */
+.section {
+  padding: var(--space-16) 0;
+}
+
+@media (min-width: 768px) {
+  .section {
+    padding: var(--space-20) 0;
+  }
+}
+
+@media (min-width: 1024px) {
+  .section {
+    padding: var(--space-24) 0;
+  }
+}
+
+.section-header {
+  text-align: center;
+  margin-bottom: var(--space-12);
+}
+
+.section-header h2 {
+  margin-bottom: var(--space-4);
+}
+
+.section-header p {
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: var(--text-lg);
+  opacity: 0.85;
+}
+
+/* Section header accent underline */
+.section-header h2 {
+  position: relative;
+  display: inline-block;
+}
+
+/* ── Gradient Text Utility ───────────────────── */
+.gradient-text {
+  background: linear-gradient(135deg, #1da1f2, #4db8ff, #a8d8ff);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* ── Keyframe Animations ─────────────────────── */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes pageFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50%       { transform: scale(1.03); opacity: 0.9; }
+}
+
+@keyframes shimmer {
+  0%   { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+@keyframes countUp {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-4px); }
+}
+
+@keyframes floatSlow {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-6px); }
+}
+
+@keyframes glimmer {
+  0%   { opacity: 0.6; }
+  50%  { opacity: 1; }
+  100% { opacity: 0.6; }
+}
+
+@keyframes gradientShift {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes rotateSlow {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes glowPulse {
+  0%, 100% { box-shadow: 0 0 16px rgba(29,161,242,0.15); }
+  50%       { box-shadow: 0 0 28px rgba(29,161,242,0.35); }
+}
+
+@keyframes borderGlow {
+  0%, 100% { border-color: rgba(29,161,242,0.2); }
+  50%       { border-color: rgba(29,161,242,0.5); }
+}
+
+/* ── Animation Classes ───────────────────────── */
+.animate-fade-in-up {
+  animation: fadeInUp var(--duration-normal) var(--ease-out) forwards;
+  opacity: 0;
+}
+
+.animate-fade-in {
+  animation: fadeIn var(--duration-normal) var(--ease-out) forwards;
+  opacity: 0;
+}
+
+.page-enter {
+  animation: pageFadeIn var(--duration-normal) var(--ease-out) forwards;
+}
+
+.animate-float {
+  animation: float 4s ease-in-out infinite;
+}
+
+.animate-float-slow {
+  animation: floatSlow 6s ease-in-out infinite;
+}
+
+.animate-glimmer {
+  animation: glimmer 3s ease-in-out infinite;
+}
+
+/* Stagger children animations */
+.stagger-children > * {
+  opacity: 0;
+  animation: fadeInUp var(--duration-normal) var(--ease-out) forwards;
+}
+
+.stagger-children > *:nth-child(1) { animation-delay: 0ms; }
+.stagger-children > *:nth-child(2) { animation-delay: 60ms; }
+.stagger-children > *:nth-child(3) { animation-delay: 120ms; }
+.stagger-children > *:nth-child(4) { animation-delay: 180ms; }
+.stagger-children > *:nth-child(5) { animation-delay: 240ms; }
+.stagger-children > *:nth-child(6) { animation-delay: 300ms; }
+
+/* ── Scroll-reveal (JS adds .revealed) ─────── */
+.reveal {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.35s var(--ease-out), transform 0.35s var(--ease-out);
+  will-change: opacity, transform;
+  contain: layout style; /* Isolate reflow — prevents content below from shifting */
+}
+
+.reveal.revealed {
+  opacity: 1;
+  transform: translateY(0);
+  will-change: auto; /* Release GPU backing texture once revealed */
+}
+
+.reveal-delay-1 { transition-delay: 50ms; }
+.reveal-delay-2 { transition-delay: 100ms; }
+.reveal-delay-3 { transition-delay: 150ms; }
+.reveal-delay-4 { transition-delay: 200ms; }
+
+/* ── Scrollbar ───────────────────────────────── */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-primary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, var(--color-accent), var(--color-accent-dark));
+  border-radius: var(--radius-full);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-accent);
+}
+
+/* ── Selection ───────────────────────────────── */
+::selection {
+  background-color: rgba(29, 161, 242, 0.3);
+  color: var(--color-white);
+}
+
+/* ── GPU-promote key scrolled containers for 60 FPS compositor scrolling ── */
+.section,
+.hero,
+.footer,
+#app {
+  transform: translateZ(0);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+/* ── Content Visibility: skip offscreen rendering during scroll ── */
+.rp-guide-section,
+.rp-faq-section,
+.rp-directory-section,
+.footer {
+  content-visibility: auto;
+  contain-intrinsic-size: 0 500px;
+}
+
+/* ── Mobile Scroll Performance ──────────────── */
+@media (max-width: 1024px), (hover: none) {
+  /* Cap blur intensity — heavy blur causes frame drops during scroll */
+  .card,
+  .topic-card,
+  .hero-badge,
+  .cta-banner,
+  .cd-pricing-card,
+  .cd-mobile-cta,
+  .blog-post-hero,
+  .trust-bar,
+  .btn-secondary,
+  .btn-ghost {
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+  }
+
+  /* Disable heavy decorative animations that cause jank during scroll */
+  .hero::before,
+  .hero::after,
+  .hero-particle,
+  .cta-banner::after {
+    animation: none !important;
+  }
+
+  /* Reduce floating icon animations to avoid repaint during scroll */
+  .topic-card .topic-icon {
+    animation: none;
+  }
+
+  /* Reduce WhatsApp pulse ring animation complexity */
+  .whatsapp-float::before {
+    animation: none;
+  }
+}
+
+/* ── Accessibility: Reduced Motion ──────────── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  html {
+    scroll-behavior: auto !important;
+  }
+}

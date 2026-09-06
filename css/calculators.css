@@ -1,0 +1,3495 @@
+/* ==============================================
+   risePaisa — Calculator Hub & Financial Tools
+   Design System & Responsive Styles
+   ============================================== */
+
+/* ── Calculator Hero & Filter Section ─────────── */
+.rp-hub-hero {
+  padding: var(--space-16) 0 var(--space-10);
+  text-align: center;
+  background: radial-gradient(ellipse 70% 60% at 50% 0%, rgba(29, 161, 242, 0.12), transparent 75%), var(--color-bg);
+  border-bottom: 1px solid var(--color-border);
+  position: relative;
+  overflow: hidden;
+}
+
+.rp-hub-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: 6px 14px;
+  background: rgba(29, 161, 242, 0.1);
+  border: 1px solid rgba(29, 161, 242, 0.25);
+  border-radius: var(--radius-full);
+  font-size: 0.8125rem;
+  font-weight: var(--weight-semibold);
+  color: var(--color-accent);
+  margin-bottom: var(--space-4);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.rp-hub-title {
+  font-size: clamp(2.2rem, 4.2vw, 3.25rem);
+  font-family: var(--font-display);
+  font-weight: var(--weight-bold);
+  color: var(--color-heading);
+  margin-bottom: var(--space-3);
+  line-height: var(--leading-tight);
+}
+
+.rp-hub-desc {
+  max-width: 680px;
+  margin: 0 auto;
+  font-size: 1.125rem;
+  color: var(--color-text-secondary);
+  line-height: var(--leading-relaxed);
+}
+
+/* ── Active Calculator Container ─────────────── */
+.rp-calc-section-active {
+  padding: var(--space-8) 0 var(--space-16);
+}
+
+.rp-calc-wrapper {
+  background: rgba(10, 18, 38, 0.85);
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-xl);
+  padding: 34px;
+  box-shadow: var(--shadow-card);
+  margin-bottom: var(--space-12);
+  position: relative;
+}
+
+@media (max-width: 768px) {
+  .rp-calc-wrapper {
+    padding: 16px 14px;
+    border-radius: var(--radius-lg);
+    margin-bottom: var(--space-8);
+  }
+}
+
+@media (max-width: 360px) {
+  .rp-calc-wrapper {
+    padding: 12px 10px;
+    border-radius: 12px;
+  }
+}
+
+.rp-calc-wrapper::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 10%;
+  right: 10%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(29, 161, 242, 0.4), transparent);
+}
+
+/* ── Calculator Layout Grid ───────────────────── */
+.rp-calc-layout {
+  display: grid;
+  grid-template-columns: 1.16fr 0.84fr;
+  gap: 32px;
+  margin-bottom: 32px;
+}
+
+@media (max-width: 900px) {
+  .rp-calc-layout {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+}
+
+/* ── Calculator Controls Card ─────────────────── */
+.rp-calc-controls-card {
+  background: rgba(7, 13, 31, 0.7);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 26px;
+}
+
+@media (max-width: 600px) {
+  .rp-calc-controls-card {
+    padding: 20px 16px;
+    gap: 20px;
+  }
+}
+
+.rp-calc-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--color-divider);
+}
+
+.rp-calc-card-header h3 {
+  font-size: 1.22rem;
+  font-weight: var(--weight-semibold);
+  color: var(--color-heading);
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+
+/* ── Field Groups & Inputs ────────────────────── */
+.rp-field-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.rp-field-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  min-height: 44px;
+}
+
+/* ── Two Column Sub-Row (Age, Tenure, etc.) ───── */
+.rp-row-2col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+@media (max-width: 540px) {
+  .rp-row-2col {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+}
+
+.rp-field-label {
+  font-size: 0.9375rem;
+  font-weight: 550;
+  color: var(--color-text);
+  margin: 0;
+  letter-spacing: 0.01em;
+  flex: 1;
+}
+
+.rp-label-with-toggle {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  flex: 1;
+}
+
+.rp-input-affix-wrap {
+  display: inline-flex;
+  align-items: center;
+  background: rgba(15, 26, 55, 0.85);
+  border: 1.5px solid var(--color-border-light);
+  border-radius: var(--radius-md);
+  padding: 0 12px;
+  min-height: 44px;
+  width: 168px;
+  max-width: 100%;
+  flex-shrink: 0;
+  justify-content: space-between;
+  gap: 8px;
+  box-sizing: border-box;
+  transition: border-color var(--duration-fast) var(--ease-out),
+              box-shadow var(--duration-fast) var(--ease-out),
+              background-color var(--duration-fast) var(--ease-out);
+}
+
+.rp-input-affix-wrap:focus-within {
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 3px rgba(29, 161, 242, 0.15), 0 2px 8px rgba(0, 0, 0, 0.25);
+  background: rgba(18, 32, 68, 0.95);
+}
+
+.rp-affix {
+  font-size: 0.875rem;
+  font-weight: var(--weight-semibold);
+  color: var(--color-accent);
+  user-select: none;
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+}
+
+.rp-number-input {
+  background: transparent;
+  border: none;
+  color: var(--color-white);
+  font-family: var(--font-body);
+  font-size: 1.0625rem;
+  font-weight: var(--weight-semibold);
+  padding: 6px 0;
+  width: 100%;
+  min-width: 0;
+  flex: 1;
+  outline: none;
+  box-shadow: none;
+  box-sizing: border-box;
+  caret-color: var(--color-accent);
+  font-variant-numeric: tabular-nums;
+}
+
+.rp-number-input.text-right {
+  text-align: right;
+}
+
+/* Remove number spinner arrows for clean look */
+.rp-number-input::-webkit-outer-spin-button,
+.rp-number-input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.rp-number-input[type=number] {
+  -moz-appearance: textfield;
+}
+
+/* ── Range Slider ─────────────────────────────── */
+.rp-range-slider,
+.rp-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 8px;
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: var(--radius-full);
+  outline: none;
+  cursor: pointer;
+  margin: 12px 0 6px 0;
+  touch-action: pan-y;
+  transition: background-color var(--duration-fast) var(--ease-out);
+}
+
+.rp-range-slider::-webkit-slider-thumb,
+.rp-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  border: 2.5px solid #ffffff;
+  box-shadow: 0 0 10px rgba(29, 161, 242, 0.55);
+  cursor: grab;
+  transition: transform var(--duration-fast) var(--ease-out), box-shadow var(--duration-fast) var(--ease-out);
+}
+
+.rp-range-slider::-webkit-slider-thumb:hover,
+.rp-slider::-webkit-slider-thumb:hover {
+  transform: scale(1.08);
+  box-shadow: 0 0 14px rgba(29, 161, 242, 0.8);
+}
+
+.rp-range-slider:active::-webkit-slider-thumb,
+.rp-slider:active::-webkit-slider-thumb {
+  cursor: grabbing;
+  transform: scale(1.18);
+  box-shadow: 0 0 16px rgba(29, 161, 242, 0.85);
+}
+
+.rp-range-slider::-moz-range-thumb,
+.rp-slider::-moz-range-thumb {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  border: 2.5px solid #ffffff;
+  box-shadow: 0 0 10px rgba(29, 161, 242, 0.55);
+  cursor: grab;
+}
+
+.rp-range-slider:active::-moz-range-thumb,
+.rp-slider:active::-moz-range-thumb {
+  cursor: grabbing;
+  transform: scale(1.18);
+  box-shadow: 0 0 16px rgba(29, 161, 242, 0.85);
+}
+
+.rp-range-ticks,
+.rp-slider-track-labels {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.8125rem;
+  color: var(--color-text-secondary);
+  margin-top: 4px;
+}
+
+.rp-field-error {
+  font-size: 0.8125rem;
+  color: var(--color-error);
+  min-height: 16px;
+}
+
+/* ── Unit Switcher Pills ──────────────────────── */
+.rp-unit-switch {
+  display: inline-flex;
+  background: rgba(255, 255, 255, 0.07);
+  padding: 3px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border);
+}
+
+.rp-unit-btn {
+  background: transparent;
+  border: none;
+  color: var(--color-text-secondary);
+  font-size: 0.8125rem;
+  font-weight: 550;
+  padding: 5px 12px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all var(--duration-fast) var(--ease-out);
+}
+
+.rp-unit-btn.active {
+  background: var(--color-accent);
+  color: #ffffff;
+  font-weight: var(--weight-semibold);
+  box-shadow: 0 2px 8px rgba(29, 161, 242, 0.4);
+}
+
+/* ── Presets Row ──────────────────────────────── */
+.rp-presets-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  padding-top: 14px;
+  border-top: 1px solid var(--color-divider);
+}
+
+.rp-preset-title {
+  font-size: 0.8125rem;
+  font-weight: 550;
+  color: var(--color-text-secondary);
+}
+
+.rp-preset-btn {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--color-border);
+  color: var(--color-text-secondary);
+  font-size: 0.8125rem;
+  font-weight: 550;
+  padding: 6px 14px;
+  min-height: 32px;
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  transition: all var(--duration-fast);
+}
+
+.rp-preset-btn:hover {
+  background: rgba(29, 161, 242, 0.15);
+  border-color: var(--color-accent);
+  color: var(--color-white);
+  transform: translateY(-1px);
+}
+
+/* ── Button Tap Micro-Interactions ────────────── */
+.rp-calc-tab-btn:active,
+.rp-loan-tab-btn:active,
+.rp-preset-btn:active,
+.rp-tax-preset-btn:active,
+.rp-unit-btn:active,
+.rp-marital-btn:active,
+.rp-freq-btn:active,
+.rp-kitta-btn:active,
+.rp-cagr-quick-btn:active,
+.rp-cagr-mode-btn:active {
+  transform: scale(0.97);
+}
+
+/* ── Results Cards ────────────────────────────── */
+.rp-calc-results-card {
+  display: flex;
+  flex-direction: column;
+  gap: 26px;
+}
+
+.rp-results-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  align-items: stretch;
+}
+
+.rp-stat-card {
+  background: rgba(7, 13, 31, 0.7);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 20px 22px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 112px;
+  box-sizing: border-box;
+}
+
+.rp-stat-card.span-2 {
+  grid-column: span 2;
+}
+
+.rp-stat-card.maturity {
+  background: linear-gradient(135deg, rgba(10, 24, 56, 0.9) 0%, rgba(7, 13, 31, 0.9) 100%);
+  border: 1.5px solid rgba(29, 161, 242, 0.35);
+  box-shadow: 0 4px 24px rgba(29, 161, 242, 0.14), inset 0 0 20px rgba(29, 161, 242, 0.06);
+  position: relative;
+  overflow: hidden;
+  padding: 22px 26px;
+}
+
+.rp-stat-card.maturity::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(29, 161, 242, 0.08) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+.rp-maturity-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 6px;
+}
+
+.rp-stat-label {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-text-secondary);
+}
+
+.rp-stat-value {
+  font-family: var(--font-display);
+  font-size: 1.375rem;
+  font-weight: 700;
+  color: var(--color-white);
+  margin-top: 4px;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+  transition: color var(--duration-fast) var(--ease-out), opacity var(--duration-fast) var(--ease-out);
+}
+
+.rp-stat-value.profit {
+  color: var(--color-accent);
+}
+
+.rp-stat-value.maturity-large {
+  font-size: clamp(1.75rem, 2.75vw, 2.45rem);
+  font-weight: 700;
+  color: #ffffff;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+  text-shadow: 0 0 18px rgba(29, 161, 242, 0.45);
+  transition: color var(--duration-fast) var(--ease-out), opacity var(--duration-fast) var(--ease-out);
+}
+
+.rp-stat-sub {
+  font-size: 0.8125rem;
+  color: var(--color-text-secondary);
+  margin-top: 4px;
+}
+
+.rp-stat-caption {
+  font-size: 0.8125rem;
+  color: var(--color-text-secondary);
+  margin-top: 4px;
+}
+
+/* ── Badges ───────────────────────────────────── */
+.rp-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 10px;
+  border-radius: var(--radius-full);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.rp-badge-accent {
+  background: rgba(29, 161, 242, 0.15);
+  color: var(--color-accent);
+  border: 1px solid rgba(29, 161, 242, 0.35);
+}
+
+.rp-badge-outline {
+  background: transparent;
+  color: var(--color-text-secondary);
+  border: 1px solid var(--color-border-light);
+}
+
+.rp-badge-pulse {
+  position: relative;
+  background: rgba(29, 161, 242, 0.2);
+  color: #ffffff;
+  border: 1px solid rgba(29, 161, 242, 0.5);
+}
+
+.rp-badge-pulse::after {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  box-shadow: 0 0 12px 2px rgba(29, 161, 242, 0.45);
+  opacity: 0;
+  animation: pulseGlowOpacity 2.5s ease-in-out infinite;
+  pointer-events: none;
+  will-change: opacity;
+  transform: translateZ(0);
+}
+
+@keyframes pulseGlowOpacity {
+  0%, 100% { opacity: 0; }
+  50%      { opacity: 1; }
+}
+
+/* ── Doughnut Chart Card ──────────────────────── */
+.rp-donut-card {
+  background: rgba(7, 13, 31, 0.7);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 22px 26px;
+  display: flex;
+  align-items: center;
+  gap: 26px;
+}
+
+@media (max-width: 500px) {
+  .rp-donut-card {
+    flex-direction: column;
+    text-align: center;
+    padding: 18px 16px;
+  }
+}
+
+.rp-donut-chart-wrap {
+  width: 150px;
+  height: 150px;
+  flex-shrink: 0;
+  position: relative;
+}
+
+.rp-donut-svg {
+  width: 100%;
+  height: 100%;
+  transform: rotate(0deg);
+}
+
+.rp-donut-segment {
+  transition: stroke-dasharray 0.4s var(--ease-out), stroke-dashoffset 0.4s var(--ease-out);
+}
+
+.rp-donut-center-label {
+  font-size: 11.5px;
+  fill: var(--color-text-secondary);
+  font-family: var(--font-body);
+}
+
+.rp-donut-center-val {
+  font-size: 18px;
+  font-weight: bold;
+  fill: var(--color-white);
+  font-family: var(--font-display);
+}
+
+.rp-donut-legend {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  flex-grow: 1;
+}
+
+.rp-legend-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.rp-legend-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.rp-legend-dot {
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.rp-legend-dot.dot-invested {
+  background: #2a3b5c;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+}
+
+.rp-legend-dot.dot-profit {
+  background: var(--color-accent);
+  box-shadow: 0 0 6px var(--color-accent);
+}
+
+.rp-legend-name {
+  font-size: 0.84375rem;
+  color: var(--color-text-secondary);
+  font-weight: 500;
+}
+
+.rp-legend-pct {
+  margin-left: auto;
+  font-size: 0.8125rem;
+  color: var(--color-text-secondary);
+  font-weight: 550;
+}
+
+.rp-legend-amount {
+  font-size: 0.9375rem;
+  font-weight: var(--weight-semibold);
+  color: var(--color-text);
+  padding-left: calc(11px + 8px);
+}
+
+.rp-legend-amount.accent {
+  color: var(--color-accent);
+}
+
+/* ── Visual Investment Summary Flow ──────────── */
+.rp-summary-flow-card {
+  background: rgba(7, 13, 31, 0.7);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 26px 28px;
+  margin-bottom: 32px;
+}
+
+.rp-summary-flow-title {
+  font-size: 1.125rem;
+  font-weight: var(--weight-semibold);
+  color: var(--color-heading);
+  margin: 0 0 20px 0;
+}
+
+.rp-flow-chain {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  overflow-x: auto;
+  padding-bottom: 6px;
+}
+
+.rp-flow-step {
+  flex: 1;
+  min-width: 170px;
+  background: rgba(15, 26, 55, 0.65);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  transition: transform var(--duration-fast), border-color var(--duration-fast);
+}
+
+.rp-flow-step:hover {
+  transform: translateY(-2px);
+  border-color: rgba(29, 161, 242, 0.35);
+}
+
+.rp-flow-step.highlight {
+  background: linear-gradient(135deg, rgba(29, 161, 242, 0.14), rgba(15, 26, 55, 0.85));
+  border-color: var(--color-accent);
+  box-shadow: 0 4px 20px rgba(29, 161, 242, 0.16);
+}
+
+.rp-flow-step-num {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  font-size: 12px;
+  font-weight: bold;
+  color: var(--color-text-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
+.rp-flow-step.highlight .rp-flow-step-num {
+  background: var(--color-accent);
+  color: #ffffff;
+}
+
+.rp-flow-step-label {
+  font-size: 0.8125rem;
+  color: var(--color-text-secondary);
+  margin-bottom: 4px;
+  font-weight: 500;
+}
+
+.rp-flow-step-val {
+  font-family: var(--font-display);
+  font-size: 1.125rem;
+  font-weight: var(--weight-bold);
+  color: var(--color-white);
+}
+
+.rp-flow-step-val.profit {
+  color: var(--color-accent);
+}
+
+.rp-flow-step-val.maturity {
+  color: #ffffff;
+  text-shadow: 0 0 10px rgba(29, 161, 242, 0.4);
+}
+
+.rp-flow-step-sub {
+  font-size: 0.75rem;
+  color: var(--color-text-secondary);
+  margin-top: 4px;
+}
+
+.rp-flow-arrow {
+  color: var(--color-accent);
+  font-size: 1.25rem;
+  font-weight: bold;
+  opacity: 0.7;
+  flex-shrink: 0;
+  user-select: none;
+}
+
+@media (max-width: 768px) {
+  .rp-flow-chain {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .rp-flow-arrow {
+    text-align: center;
+    transform: rotate(90deg);
+    margin: -6px 0;
+  }
+}
+
+/* ── Growth Chart Section ─────────────────────── */
+.rp-growth-chart-container {
+  background: rgba(7, 13, 31, 0.7);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 26px 28px;
+  margin-bottom: 32px;
+  position: relative;
+}
+
+.rp-chart-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 18px;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.rp-chart-title {
+  font-size: 1.125rem;
+  font-weight: var(--weight-semibold);
+  color: var(--color-heading);
+}
+
+.rp-chart-badges {
+  display: flex;
+  gap: 14px;
+}
+
+.rp-badge-line {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.8125rem;
+  color: var(--color-text-secondary);
+  font-weight: 500;
+}
+
+.rp-badge-line::before {
+  content: '';
+  width: 16px;
+  height: 3.5px;
+  display: inline-block;
+  border-radius: 2px;
+}
+
+.rp-badge-line.invested-line::before {
+  background: #486581;
+  border-bottom: 1px dashed #ffffff;
+}
+
+.rp-badge-line.value-line::before {
+  background: var(--color-accent);
+  box-shadow: 0 0 6px var(--color-accent);
+}
+
+.rp-chart-svg-wrapper {
+  position: relative;
+  width: 100%;
+  overflow: visible;
+}
+
+.rp-growth-svg {
+  width: 100%;
+  height: auto;
+  min-height: 230px;
+  display: block;
+}
+
+.rp-grid-line {
+  stroke: rgba(255, 255, 255, 0.06);
+  stroke-width: 1;
+}
+
+.rp-tick-line {
+  stroke: rgba(255, 255, 255, 0.12);
+  stroke-width: 1;
+}
+
+.rp-axis-text {
+  font-size: 12px;
+  fill: #8EA0B6;
+  font-family: var(--font-body);
+}
+
+.rp-chart-point {
+  cursor: pointer;
+  outline: none;
+}
+
+.rp-point-outer {
+  transition: transform 0.2s, r 0.2s;
+  transform-origin: center;
+}
+
+.rp-chart-point:hover .rp-point-outer,
+.rp-chart-point:focus .rp-point-outer {
+  r: 9;
+  fill: rgba(29, 161, 242, 0.45);
+}
+
+/* ── Interactive Chart Tooltip ────────────────── */
+.rp-chart-tooltip {
+  position: absolute;
+  background: rgba(6, 13, 27, 0.95);
+  border: 1px solid var(--color-accent);
+  border-radius: var(--radius-md);
+  padding: 14px 18px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.8), 0 0 15px rgba(29, 161, 242, 0.25);
+  pointer-events: none;
+  backdrop-filter: blur(8px);
+  z-index: 20;
+  transition: opacity 0.15s ease;
+  min-width: 200px;
+  max-width: calc(100vw - 24px);
+  box-sizing: border-box;
+}
+
+.rp-tt-title {
+  font-size: 0.84375rem;
+  font-weight: var(--weight-bold);
+  color: var(--color-white);
+  border-bottom: 1px solid var(--color-border);
+  padding-bottom: 6px;
+  margin-bottom: 8px;
+}
+
+.rp-tt-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 14px;
+  font-size: 12.5px;
+  margin-bottom: 4px;
+}
+
+.rp-tt-label {
+  color: var(--color-text-secondary);
+}
+
+.rp-tt-val {
+  font-weight: var(--weight-semibold);
+  color: var(--color-text);
+  font-size: 13px;
+}
+
+.rp-tt-val.accent {
+  color: var(--color-accent);
+}
+
+.rp-tt-val.profit {
+  color: #10B981;
+}
+
+/* ── Year-wise Growth Table ───────────────────── */
+.rp-table-section {
+  background: rgba(7, 13, 31, 0.7);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 26px 28px;
+  margin-bottom: 32px;
+}
+
+.rp-section-heading-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 18px;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.rp-section-heading-row h3 {
+  font-size: 1.2rem;
+  color: var(--color-heading);
+  margin: 0 0 4px 0;
+  letter-spacing: -0.01em;
+}
+
+.rp-subtext {
+  font-size: 0.9375rem;
+  color: var(--color-text-secondary);
+  margin: 0;
+}
+
+.rp-table-responsive {
+  width: 100%;
+  max-height: 480px;
+  overflow: auto;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border);
+  box-shadow: inset -10px 0 12px -6px rgba(0, 0, 0, 0.55);
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+}
+
+.rp-growth-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  text-align: left;
+  font-size: 0.9375rem;
+}
+
+.rp-growth-table thead,
+.rp-amort-table thead,
+.rp-tax-table thead {
+  background: #0B152D;
+  position: sticky;
+  top: 0;
+  z-index: 5;
+}
+
+.rp-growth-table th,
+.rp-amort-table th,
+.rp-tax-table th {
+  padding: 14px 18px;
+  font-weight: var(--weight-semibold);
+  font-size: 0.875rem;
+  color: var(--color-heading);
+  border-bottom: 1px solid var(--color-border-light);
+  white-space: nowrap;
+  background: #0B152D;
+}
+
+.rp-growth-table td,
+.rp-amort-table td,
+.rp-tax-table td {
+  padding: 14px 18px;
+  border-bottom: 1px solid var(--color-divider);
+  color: var(--color-text);
+  white-space: nowrap;
+}
+
+/* Sticky first column for effortless mobile scanning */
+@media (max-width: 768px) {
+  .rp-growth-table th:first-child,
+  .rp-growth-table td:first-child,
+  .rp-amort-table th:first-child,
+  .rp-amort-table td:first-child,
+  .rp-tax-table th:first-child,
+  .rp-tax-table td:first-child {
+    position: sticky;
+    left: 0;
+    z-index: 2;
+    background: #080F22;
+    box-shadow: 2px 0 8px rgba(0, 0, 0, 0.45);
+  }
+  .rp-growth-table thead th:first-child,
+  .rp-amort-table thead th:first-child,
+  .rp-tax-table thead th:first-child {
+    z-index: 6;
+    background: #0B152D;
+  }
+  .rp-growth-table tr.rp-row-final td:first-child {
+    background: #0E1F47;
+  }
+  .rp-growth-table tbody tr:hover td:first-child {
+    background: #0F224E;
+  }
+}
+
+.rp-growth-table tbody tr:hover {
+  background: rgba(29, 161, 242, 0.06);
+}
+
+.rp-row-final {
+  background: rgba(29, 161, 242, 0.09);
+  font-weight: var(--weight-semibold);
+}
+
+.rp-num {
+  font-family: var(--font-mono);
+  font-size: 0.9375rem;
+  font-weight: 550;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.rp-num.accent {
+  color: var(--color-accent);
+}
+
+.rp-num.profit {
+  color: #10B981;
+}
+
+.rp-year-badge {
+  display: inline-block;
+  font-weight: var(--weight-semibold);
+  font-size: 0.9rem;
+  color: var(--color-heading);
+}
+
+.rp-pill-final {
+  display: inline-block;
+  margin-left: 8px;
+  padding: 3px 8px;
+  background: var(--color-accent);
+  color: #ffffff;
+  font-size: 11px;
+  border-radius: var(--radius-xs);
+  text-transform: uppercase;
+  font-weight: var(--weight-bold);
+}
+
+/* ── Nepal Educational Note ──────────────────── */
+.rp-educational-note {
+  display: flex;
+  align-items: flex-start;
+  gap: 18px;
+  background: rgba(29, 161, 242, 0.06);
+  border: 1px solid rgba(29, 161, 242, 0.22);
+  border-radius: var(--radius-lg);
+  padding: 18px 24px;
+  margin-top: 26px;
+}
+
+.rp-edu-icon {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+  color: var(--color-accent);
+  margin-top: 2px;
+}
+
+.rp-edu-text {
+  font-size: 0.9375rem;
+  color: var(--color-text-secondary);
+  line-height: 1.65;
+}
+
+.rp-edu-text strong {
+  color: var(--color-white);
+}
+
+/* ── Future Calculators Section ──────────────── */
+.rp-future-section {
+  padding: var(--space-12) 0 var(--space-20);
+  content-visibility: auto;
+  contain-intrinsic-size: 600px;
+}
+
+.rp-future-header {
+  text-align: center;
+  max-width: 700px;
+  margin: 0 auto var(--space-10);
+}
+
+.rp-future-header h2 {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  color: var(--color-heading);
+  margin-bottom: var(--space-2);
+}
+
+.rp-future-header p {
+  color: var(--color-text-secondary);
+  font-size: 1.0625rem;
+  line-height: 1.6;
+}
+
+.rp-calc-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+  gap: 24px;
+}
+
+.rp-calc-card {
+  background: rgba(10, 18, 38, 0.6);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 26px 28px;
+  display: flex;
+  flex-direction: column;
+  transition: all var(--duration-base) var(--ease-spring);
+  position: relative;
+  overflow: hidden;
+}
+
+.rp-calc-card.active-card {
+  border-color: rgba(29, 161, 242, 0.4);
+  background: rgba(15, 26, 55, 0.8);
+  box-shadow: 0 8px 32px rgba(29, 161, 242, 0.12);
+}
+
+.rp-calc-card.active-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--color-accent);
+  box-shadow: 0 10px 32px rgba(29, 161, 242, 0.2);
+}
+
+.rp-calc-card.disabled-card {
+  opacity: 0.72;
+  cursor: default;
+}
+
+.rp-calc-card.disabled-card:hover {
+  opacity: 0.9;
+  border-color: rgba(255, 255, 255, 0.15);
+  transform: translateY(-2px);
+}
+
+.rp-calc-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.rp-calc-card-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-md);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--color-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text-secondary);
+}
+
+.rp-calc-card.active-card .rp-calc-card-icon {
+  background: rgba(29, 161, 242, 0.15);
+  border-color: rgba(29, 161, 242, 0.3);
+  color: var(--color-accent);
+}
+
+.rp-calc-card-icon svg {
+  width: 24px;
+  height: 24px;
+}
+
+.rp-calc-card-title {
+  font-size: 1.2rem;
+  font-weight: var(--weight-semibold);
+  color: var(--color-heading);
+  margin-bottom: 8px;
+}
+
+.rp-calc-card-desc {
+  font-size: 0.9375rem;
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+  flex-grow: 1;
+  margin-bottom: 20px;
+}
+
+.rp-calc-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 14px;
+  border-top: 1px solid var(--color-divider);
+}
+
+.rp-calc-category {
+  font-size: 0.8125rem;
+  color: var(--color-text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: 600;
+}
+
+.rp-card-dev-label {
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+  font-weight: 500;
+}
+
+.rp-badge-coming-soon {
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--color-text-secondary);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  font-size: 0.75rem;
+  padding: 3px 10px;
+  border-radius: var(--radius-full);
+  font-weight: 550;
+}
+
+.rp-badge-live {
+  background: rgba(29, 161, 242, 0.15);
+  color: var(--color-accent);
+  border: 1px solid rgba(29, 161, 242, 0.3);
+  font-size: 0.75rem;
+  padding: 3px 10px;
+  border-radius: var(--radius-full);
+  font-weight: var(--weight-semibold);
+}
+
+/* ── Calculator Navigation Tabs ───────────────── */
+.rp-calc-nav-bar {
+  background: rgba(7, 13, 31, 0.96);
+  border-bottom: 1px solid var(--color-border);
+  position: sticky;
+  top: var(--nav-height, 72px);
+  z-index: 40;
+  padding: 10px 0;
+  contain: paint;
+  transform: translateZ(0);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+.rp-calc-tabs-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  overflow-x: auto;
+  padding: 4px 16px 4px 0;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  -webkit-overflow-scrolling: touch;
+}
+.rp-calc-tabs-wrapper::-webkit-scrollbar {
+  display: none;
+}
+
+.rp-calc-tab-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: transparent;
+  border: 1px solid transparent;
+  color: var(--color-text-secondary);
+  font-family: var(--font-body);
+  font-size: 0.9375rem;
+  font-weight: 550;
+  padding: 10px 18px;
+  min-height: 42px;
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background-color var(--duration-fast) var(--ease-out),
+              border-color var(--duration-fast) var(--ease-out),
+              color var(--duration-fast) var(--ease-out),
+              box-shadow var(--duration-fast) var(--ease-out);
+}
+
+.rp-calc-tab-btn:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--color-white);
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+.rp-calc-tab-btn.active {
+  background: rgba(29, 161, 242, 0.18);
+  color: #ffffff;
+  border-color: var(--color-accent);
+  box-shadow: 0 0 16px rgba(29, 161, 242, 0.25);
+  font-weight: var(--weight-semibold);
+}
+
+.rp-tab-bullet {
+  color: var(--color-accent);
+  font-size: 15px;
+  line-height: 1;
+}
+
+.rp-calc-tab-btn.disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.rp-calc-tab-btn.disabled:hover {
+  background: transparent;
+  border-color: transparent;
+  color: var(--color-text-secondary);
+}
+
+.rp-tab-pill-soon {
+  background: rgba(255, 255, 255, 0.08);
+  font-size: 10px;
+  padding: 1px 6px;
+  border-radius: var(--radius-full);
+  color: var(--color-text-muted);
+}
+
+.rp-calc-pane-header {
+  margin-bottom: var(--space-6);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+}
+
+.rp-pane-title {
+  font-family: var(--font-display);
+  font-size: 1.625rem;
+  font-weight: var(--weight-bold);
+  color: var(--color-heading);
+  margin: 0 0 6px 0;
+  letter-spacing: -0.02em;
+}
+
+.rp-pane-desc {
+  font-size: 0.9375rem;
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+  margin: 0;
+}
+
+.rp-view-all-btn {
+  font-size: 0.84375rem;
+  font-weight: 550;
+  padding: 8px 16px;
+  min-height: 36px;
+}
+
+.rp-switch-calc-btn {
+  font-size: 0.8125rem;
+  padding: 6px 14px;
+}
+
+/* ── Loan Presets Bar ─────────────────────────── */
+.rp-loan-presets-bar {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+  padding-bottom: var(--space-5);
+  margin-bottom: var(--space-6);
+  border-bottom: 1px solid var(--color-divider);
+}
+
+.rp-loan-presets-list {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.rp-loan-preset-btn {
+  background: rgba(15, 26, 55, 0.85);
+  border: 1px solid var(--color-border);
+  color: var(--color-text-secondary);
+  font-family: var(--font-body);
+  font-size: 0.8125rem;
+  font-weight: 550;
+  padding: 6px 14px;
+  min-height: 32px;
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  transition: all var(--duration-fast);
+}
+
+.rp-loan-preset-btn:hover {
+  border-color: var(--color-accent);
+  color: var(--color-white);
+  background: rgba(29, 161, 242, 0.14);
+  transform: translateY(-1px);
+}
+
+.rp-loan-preset-btn.active {
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+  color: #ffffff;
+  font-weight: var(--weight-semibold);
+  box-shadow: 0 2px 10px rgba(29, 161, 242, 0.35);
+}
+
+/* ── Loan Composition Breakdown ───────────────── */
+.rp-breakdown-container {
+  background: rgba(7, 13, 31, 0.7);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 24px 28px;
+  margin-bottom: 32px;
+}
+
+.rp-breakdown-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+@media (max-width: 768px) {
+  .rp-breakdown-cards {
+    grid-template-columns: 1fr;
+  }
+}
+
+.rp-breakdown-card {
+  background: rgba(15, 26, 55, 0.65);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 16px 20px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.rp-bd-dot {
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.rp-bd-info {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  flex-grow: 1;
+}
+
+.rp-bd-label {
+  font-size: 0.8125rem;
+  color: var(--color-text-secondary);
+  font-weight: 500;
+}
+
+.rp-bd-val {
+  font-family: var(--font-display);
+  font-size: 1.0625rem;
+  font-weight: 700;
+  color: var(--color-white);
+}
+
+.rp-bd-badge {
+  font-size: 0.8125rem;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: var(--radius-sm);
+  background: rgba(29, 161, 242, 0.15);
+  color: var(--color-accent);
+  border: 1px solid rgba(29, 161, 242, 0.3);
+}
+
+/* ── Rate Change Sensitivity Comparison ───────── */
+.rp-comparison-section {
+  background: rgba(7, 13, 31, 0.7);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 26px 28px;
+  margin-bottom: 32px;
+}
+
+.rp-comparison-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-top: 16px;
+}
+
+@media (max-width: 768px) {
+  .rp-comparison-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.rp-comp-card {
+  background: rgba(15, 26, 55, 0.65);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 18px 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  position: relative;
+  transition: transform var(--duration-fast), border-color var(--duration-fast);
+}
+
+.rp-comp-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(29, 161, 242, 0.35);
+}
+
+.rp-comp-card.active {
+  background: linear-gradient(135deg, rgba(29, 161, 242, 0.14), rgba(15, 26, 55, 0.85));
+  border-color: var(--color-accent);
+  box-shadow: 0 4px 20px rgba(29, 161, 242, 0.16);
+}
+
+.rp-comp-badge {
+  align-self: flex-start;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: var(--radius-full);
+}
+
+.rp-comp-rate {
+  font-size: 0.9375rem;
+  font-weight: 550;
+  color: var(--color-text-secondary);
+}
+
+.rp-comp-rate.accent {
+  color: var(--color-accent);
+}
+
+.rp-comp-emi {
+  font-family: var(--font-display);
+  font-size: 1.375rem;
+  font-weight: 700;
+  color: var(--color-white);
+}
+
+.rp-comp-emi.accent {
+  color: #ffffff;
+  text-shadow: 0 0 10px rgba(29, 161, 242, 0.4);
+}
+
+.rp-comp-diff {
+  font-size: 0.8125rem;
+  font-weight: 600;
+}
+
+.rp-comp-interest {
+  font-size: 0.8125rem;
+  color: var(--color-text-secondary);
+  padding-top: 10px;
+  border-top: 1px solid var(--color-divider);
+  margin-top: auto;
+}
+
+.rp-comp-interest strong {
+  color: var(--color-text);
+}
+
+/* ── Educational Cards Section ────────────────── */
+.rp-edu-cards-section {
+  background: rgba(7, 13, 31, 0.7);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 26px 28px;
+  margin-bottom: 32px;
+}
+
+.rp-edu-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+@media (max-width: 860px) {
+  .rp-edu-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.rp-edu-card {
+  background: rgba(15, 26, 55, 0.55);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 22px 24px;
+}
+
+.rp-edu-card h4 {
+  font-size: 1.0625rem;
+  font-weight: var(--weight-semibold);
+  color: var(--color-heading);
+  margin: 0 0 8px 0;
+}
+
+.rp-edu-card p {
+  font-size: 0.9375rem;
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+  margin: 0;
+}
+
+.rp-edu-card strong {
+  color: var(--color-accent);
+}
+
+/* ── Amortization Table Specifics ─────────────── */
+.rp-amort-table td {
+  padding: 14px 18px;
+}
+
+/* ── SWP Frequency Switcher ───────────────────── */
+.rp-freq-switch {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 6px;
+}
+
+.rp-freq-btn {
+  flex: 1;
+  background: rgba(15, 26, 55, 0.65);
+  border: 1px solid var(--color-border);
+  color: var(--color-text-secondary);
+  font-family: var(--font-body);
+  font-size: 0.8125rem;
+  font-weight: 550;
+  padding: 8px 14px;
+  min-height: 36px;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all var(--duration-fast);
+}
+
+.rp-freq-btn:hover {
+  border-color: var(--color-accent);
+  color: var(--color-white);
+  background: rgba(29, 161, 242, 0.12);
+}
+
+.rp-freq-btn.active {
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+  color: #ffffff;
+  font-weight: var(--weight-semibold);
+  box-shadow: 0 2px 8px rgba(29, 161, 242, 0.35);
+}
+
+/* ── SWP Withdrawal Sustainability Indicator ──── */
+.rp-sustainability-card {
+  border-radius: var(--radius-md);
+  padding: 18px 22px;
+  margin-bottom: 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  border: 1px solid transparent;
+  transition: all var(--duration-fast);
+}
+
+.rp-sustainability-card.sustainable {
+  background: rgba(16, 185, 129, 0.12);
+  border-color: rgba(16, 185, 129, 0.35);
+}
+
+.rp-sustainability-card.sustainable .rp-sustain-dot {
+  background: #10B981;
+  box-shadow: 0 0 8px #10B981;
+}
+
+.rp-sustainability-card.sustainable .rp-sustain-title {
+  color: #10B981;
+}
+
+.rp-sustainability-card.monitor {
+  background: rgba(245, 158, 11, 0.12);
+  border-color: rgba(245, 158, 11, 0.35);
+}
+
+.rp-sustainability-card.monitor .rp-sustain-dot {
+  background: #F59E0B;
+  box-shadow: 0 0 8px #F59E0B;
+}
+
+.rp-sustainability-card.monitor .rp-sustain-title {
+  color: #F59E0B;
+}
+
+.rp-sustainability-card.exhausted {
+  background: rgba(239, 68, 68, 0.12);
+  border-color: rgba(239, 68, 68, 0.4);
+}
+
+.rp-sustainability-card.exhausted .rp-sustain-dot {
+  background: #EF4444;
+  box-shadow: 0 0 8px #EF4444;
+}
+
+.rp-sustainability-card.exhausted .rp-sustain-title {
+  color: #EF4444;
+}
+
+.rp-sustain-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.rp-sustain-dot {
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.rp-sustain-title {
+  font-family: var(--font-display);
+  font-size: 0.9375rem;
+  font-weight: var(--weight-bold);
+  letter-spacing: 0.02em;
+}
+
+.rp-sustain-desc {
+  font-size: 0.8125rem;
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* ── Danger & Exhaustion Styles ───────────────── */
+.text-danger {
+  color: #EF4444 !important;
+}
+
+.rp-badge-danger {
+  background: rgba(239, 68, 68, 0.15);
+  color: #EF4444;
+  border: 1px solid rgba(239, 68, 68, 0.35);
+  font-size: 0.75rem;
+  padding: 3px 10px;
+  border-radius: var(--radius-full);
+  font-weight: var(--weight-semibold);
+}
+
+.rp-row-exhausted {
+  background: rgba(239, 68, 68, 0.06);
+}
+
+.rp-row-exhausted td {
+  color: rgba(255, 255, 255, 0.55);
+}
+
+/* ── Tax Assessment Type Bar ─────────────────── */
+.rp-tax-type-bar {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+  padding-bottom: var(--space-5);
+  margin-bottom: var(--space-6);
+  border-bottom: 1px solid var(--color-divider);
+}
+
+.rp-marital-switch {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.rp-marital-btn {
+  background: rgba(15, 26, 55, 0.75);
+  border: 1px solid var(--color-border);
+  color: var(--color-text-secondary);
+  font-family: var(--font-body);
+  font-size: 0.8125rem;
+  font-weight: 550;
+  padding: 8px 16px;
+  min-height: 36px;
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  transition: all var(--duration-fast);
+}
+
+.rp-marital-btn:hover {
+  border-color: var(--color-accent);
+  color: var(--color-white);
+  background: rgba(29, 161, 242, 0.12);
+}
+
+.rp-marital-btn.active {
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+  color: #ffffff;
+  font-weight: var(--weight-semibold);
+  box-shadow: 0 2px 10px rgba(29, 161, 242, 0.35);
+}
+
+.rp-tax-preset-btn {
+  background: rgba(15, 26, 55, 0.65);
+  border: 1px solid var(--color-border);
+  color: var(--color-text-secondary);
+  font-family: var(--font-body);
+  font-size: 0.8125rem;
+  font-weight: 550;
+  padding: 6px 14px;
+  min-height: 32px;
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  transition: all var(--duration-fast);
+}
+
+.rp-tax-preset-btn:hover {
+  border-color: var(--color-accent);
+  color: var(--color-white);
+  background: rgba(29, 161, 242, 0.12);
+  transform: translateY(-1px);
+}
+
+/* ── Collapsible Deductions Section ───────────── */
+.rp-deductions-container {
+  background: rgba(7, 13, 31, 0.65);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  margin-top: var(--space-4);
+  overflow: hidden;
+  transition: border-color var(--duration-fast);
+}
+
+.rp-deductions-container:hover {
+  border-color: rgba(29, 161, 242, 0.35);
+}
+
+.rp-deductions-toggle {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 18px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+}
+
+.rp-chevron {
+  width: 18px;
+  height: 18px;
+  color: var(--color-text-secondary);
+  transition: transform var(--duration-fast);
+}
+
+.rp-deductions-toggle.open .rp-chevron {
+  transform: rotate(180deg);
+}
+
+.rp-deductions-panel {
+  padding: 18px 20px;
+  border-top: 1px solid var(--color-divider);
+  background: rgba(10, 18, 38, 0.45);
+}
+
+.rp-ded-subtext {
+  font-size: 0.8125rem;
+  color: var(--color-text-secondary);
+  margin: 0 0 16px 0;
+  line-height: 1.6;
+}
+
+.rp-ded-field {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 16px;
+  min-height: 44px;
+}
+
+.rp-ded-field .rp-field-label {
+  flex: 1;
+  margin: 0;
+}
+
+.rp-ded-hint {
+  font-size: 0.75rem;
+  color: var(--color-text-secondary);
+  font-style: italic;
+  margin-top: 4px;
+}
+
+/* ── Tax Breakdown Table ──────────────────────── */
+.rp-tax-table td {
+  padding: 14px 18px;
+}
+
+.rp-slab-active {
+  background: rgba(29, 161, 242, 0.05);
+}
+
+.rp-slab-inactive {
+  opacity: 0.75;
+}
+
+.rp-tax-rate-pill {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: var(--weight-bold);
+  padding: 3px 10px;
+  border-radius: var(--radius-sm);
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--color-text-secondary);
+}
+
+.rp-tax-rate-pill.active {
+  background: rgba(245, 158, 11, 0.18);
+  color: #F59E0B;
+  border: 1px solid rgba(245, 158, 11, 0.35);
+}
+
+/* ── NEPSE Share Calculator Sub-Tabs ──────────── */
+.rp-share-subtabs {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  overflow-x: auto;
+  padding-bottom: 14px;
+  margin-bottom: 24px;
+  border-bottom: 1px solid var(--color-divider);
+  scrollbar-width: none;
+}
+.rp-share-subtabs::-webkit-scrollbar {
+  display: none;
+}
+
+.rp-subtab-btn {
+  background: rgba(15, 26, 55, 0.75);
+  border: 1px solid var(--color-border);
+  color: var(--color-text-secondary);
+  font-family: var(--font-body);
+  font-size: 0.9375rem;
+  font-weight: 550;
+  padding: 10px 18px;
+  min-height: 42px;
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all var(--duration-fast);
+}
+
+.rp-subtab-btn:hover {
+  border-color: var(--color-accent);
+  color: var(--color-white);
+  background: rgba(29, 161, 242, 0.12);
+}
+
+.rp-subtab-btn.active {
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+  color: #ffffff;
+  font-weight: var(--weight-semibold);
+  box-shadow: 0 2px 10px rgba(29, 161, 242, 0.35);
+}
+
+.rp-kitta-btn {
+  background: rgba(15, 26, 55, 0.65);
+  border: 1px solid var(--color-border);
+  color: var(--color-text-secondary);
+  font-family: var(--font-body);
+  font-size: 0.8125rem;
+  font-weight: 550;
+  padding: 6px 14px;
+  min-height: 32px;
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  transition: all var(--duration-fast);
+}
+
+.rp-kitta-btn:hover {
+  border-color: var(--color-accent);
+  color: var(--color-white);
+  background: rgba(29, 161, 242, 0.12);
+  transform: translateY(-1px);
+}
+
+/* ── WACC Specifics ───────────────────────────── */
+.rp-wacc-table td {
+  padding: 14px 18px;
+  vertical-align: middle;
+}
+
+.rp-wacc-summary-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-top: 24px;
+}
+
+@media (max-width: 900px) {
+  .rp-wacc-summary-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 540px) {
+  .rp-wacc-summary-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ── Fixed Deposit & RD Sub-Tabs ──────────────── */
+.rp-fdrd-subtabs {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  overflow-x: auto;
+  padding-bottom: 14px;
+  margin-bottom: 24px;
+  border-bottom: 1px solid var(--color-divider);
+  scrollbar-width: none;
+}
+.rp-fdrd-subtabs::-webkit-scrollbar {
+  display: none;
+}
+
+.rp-fdrd-tab-btn {
+  background: rgba(15, 26, 55, 0.75);
+  border: 1px solid var(--color-border);
+  color: var(--color-text-secondary);
+  font-family: var(--font-body);
+  font-size: 0.9375rem;
+  font-weight: 550;
+  padding: 10px 20px;
+  min-height: 42px;
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all var(--duration-fast);
+}
+
+.rp-fdrd-tab-btn:hover {
+  border-color: var(--color-accent);
+  color: var(--color-white);
+  background: rgba(29, 161, 242, 0.12);
+}
+
+.rp-fdrd-tab-btn.active {
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+  color: #ffffff;
+  font-weight: var(--weight-semibold);
+  box-shadow: 0 2px 10px rgba(29, 161, 242, 0.35);
+}
+
+/* ── FD vs SIP Educational Comparison Card ─────── */
+.rp-fd-sip-compare-card {
+  background: rgba(10, 18, 38, 0.65);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: var(--radius-lg);
+  padding: 22px 26px;
+  margin-top: 22px;
+  transition: border-color var(--duration-fast);
+}
+
+.rp-fd-sip-compare-card:hover {
+  border-color: rgba(29, 161, 242, 0.35);
+}
+
+.rp-compare-badge {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--color-accent);
+  background: rgba(29, 161, 242, 0.12);
+  border: 1px solid rgba(29, 161, 242, 0.25);
+  padding: 3px 10px;
+  border-radius: var(--radius-full);
+  margin-bottom: 8px;
+}
+
+.rp-compare-title {
+  font-size: 1rem;
+  font-weight: var(--weight-semibold);
+  color: var(--color-heading);
+  margin-bottom: 14px;
+}
+
+.rp-compare-stats {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  background: rgba(7, 13, 31, 0.65);
+  padding: 14px 18px;
+  border-radius: var(--radius-md);
+  margin-bottom: 14px;
+}
+
+.rp-compare-stat {
+  flex: 1;
+}
+
+.rp-compare-arrow {
+  color: var(--color-text-secondary);
+  font-size: 1.125rem;
+}
+
+.rp-compare-val {
+  font-family: var(--font-display);
+  font-size: 1.125rem;
+  font-weight: var(--weight-bold);
+  color: var(--color-heading);
+  margin-top: 4px;
+}
+
+.rp-compare-note {
+  font-size: 0.8125rem;
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+}
+
+/* ── Retirement & Goal Planner Sub-Tabs ───────── */
+.rp-retire-subtabs {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  overflow-x: auto;
+  padding-bottom: 14px;
+  margin-bottom: 24px;
+  border-bottom: 1px solid var(--color-divider);
+  scrollbar-width: none;
+}
+.rp-retire-subtabs::-webkit-scrollbar {
+  display: none;
+}
+
+.rp-retire-tab-btn {
+  background: rgba(15, 26, 55, 0.75);
+  border: 1px solid var(--color-border);
+  color: var(--color-text-secondary);
+  font-family: var(--font-body);
+  font-size: 0.9375rem;
+  font-weight: 550;
+  padding: 10px 20px;
+  min-height: 42px;
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all var(--duration-fast);
+}
+
+.rp-retire-tab-btn:hover {
+  border-color: var(--color-accent);
+  color: var(--color-white);
+  background: rgba(29, 161, 242, 0.12);
+}
+
+.rp-retire-tab-btn.active {
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+  color: #ffffff;
+  font-weight: var(--weight-semibold);
+  box-shadow: 0 2px 10px rgba(29, 161, 242, 0.35);
+}
+
+/* ── Quick Goal Preset Chips ──────────────────── */
+.rp-goal-presets-bar {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  background: rgba(10, 18, 38, 0.55);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 14px 18px;
+  margin-bottom: 18px;
+}
+
+.rp-goal-presets-list {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.rp-goal-preset-btn {
+  background: rgba(15, 26, 55, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  color: var(--color-text-secondary);
+  font-family: var(--font-body);
+  font-size: 0.8125rem;
+  font-weight: 550;
+  padding: 6px 14px;
+  min-height: 32px;
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  transition: all var(--duration-fast);
+}
+
+.rp-goal-preset-btn:hover {
+  border-color: var(--color-accent);
+  color: #ffffff;
+  background: rgba(29, 161, 242, 0.16);
+  transform: translateY(-1px);
+}
+
+/* ── Goal Progress Bar Graphic ────────────────── */
+.rp-goal-progress-wrap {
+  background: rgba(10, 18, 38, 0.65);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 18px 22px;
+}
+
+.rp-goal-progress-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+
+.rp-goal-bar-track {
+  display: flex;
+  height: 16px;
+  border-radius: var(--radius-full);
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.06);
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3);
+  margin-bottom: 18px;
+}
+
+.rp-goal-bar-seg {
+  height: 100%;
+  transition: width var(--duration-normal) ease;
+}
+
+.rp-goal-legend-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+}
+
+.rp-goal-legend-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.8125rem;
+}
+
+.rp-goal-legend-item .rp-legend-amount {
+  margin-left: auto;
+  font-weight: var(--weight-semibold);
+  font-family: var(--font-display);
+}
+
+/* ── Accessibility & Production Readiness Polish ── */
+
+/* High-Visibility Focus Indicators for Keyboard Navigation */
+.rp-calc-tab-btn:focus-visible,
+.rp-share-subtab-btn:focus-visible,
+.rp-fdrd-tab-btn:focus-visible,
+.rp-retire-tab-btn:focus-visible,
+.rp-goal-preset-btn:focus-visible,
+.rp-loan-type-chip:focus-visible,
+.rp-time-btn:focus-visible,
+.rp-status-btn:focus-visible,
+.rp-cgt-btn:focus-visible,
+.rp-switch-calc-btn:focus-visible,
+.rp-btn-reset:focus-visible,
+.rp-unit-btn:focus-visible,
+.rp-kitta-btn:focus-visible,
+.rp-preset-btn:focus-visible,
+.rp-tax-preset-btn:focus-visible,
+.rp-cagr-mode-btn:focus-visible,
+.rp-cagr-quick-btn:focus-visible,
+.rp-deductions-toggle:focus-visible,
+.btn:focus-visible {
+  outline: 2px solid var(--color-accent) !important;
+  outline-offset: 2px !important;
+}
+
+.rp-number-input:focus-visible {
+  outline: none !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+.rp-select:focus-visible {
+  outline: 2px solid var(--color-accent) !important;
+  outline-offset: 2px !important;
+  border-color: var(--color-accent) !important;
+}
+
+.rp-slider:focus-visible,
+.rp-range-slider:focus-visible {
+  outline: 2px solid var(--color-accent) !important;
+  outline-offset: 4px !important;
+  border-radius: var(--radius-full);
+}
+
+/* Responsive Table Scroll Hints */
+.rp-table-wrap {
+  position: relative;
+}
+
+@media (max-width: 768px) {
+  /* ── Mobile Layout & Hero Polish ─────────────── */
+  .rp-hub-hero {
+    padding: var(--space-10) 0 var(--space-6);
+  }
+  .rp-hub-title {
+    font-size: 1.85rem;
+    margin-bottom: 8px;
+  }
+  .rp-hub-desc {
+    font-size: 0.9375rem;
+    line-height: 1.55;
+  }
+  .rp-calc-section-active {
+    padding: var(--space-4) 0 var(--space-10);
+  }
+
+  /* ── Pane Header & Hierarchy ─────────────────── */
+  .rp-calc-pane-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    margin-bottom: 18px;
+  }
+  .rp-pane-title {
+    font-size: 1.4rem;
+    margin-bottom: 4px;
+  }
+  .rp-pane-desc {
+    font-size: 0.875rem;
+    line-height: 1.5;
+  }
+  .rp-view-all-btn {
+    font-size: 0.8125rem;
+    padding: 6px 12px;
+    align-self: flex-start;
+    margin-top: 4px;
+  }
+
+  /* ── Standardized Card Padding & Radius ─────── */
+  .rp-calc-controls-card,
+  .rp-stat-card,
+  .rp-donut-card,
+  .rp-summary-flow-card,
+  .rp-growth-chart-container,
+  .rp-table-section,
+  .rp-ltv-card,
+  .rp-cagr-nepal-examples,
+  .rp-nepal-context-box {
+    padding: 18px 16px;
+    border-radius: 14px;
+    border: 1px solid var(--color-border);
+    margin-bottom: 22px;
+  }
+
+  .rp-educational-note {
+    padding: 16px 16px;
+    border-radius: 12px;
+    border: 1px solid rgba(29, 161, 242, 0.22);
+    margin-top: 20px;
+    gap: 12px;
+  }
+  .rp-edu-icon {
+    width: 20px;
+    height: 20px;
+    margin-top: 1px;
+  }
+  .rp-edu-text {
+    font-size: 0.84375rem;
+    line-height: 1.55;
+  }
+
+  /* ── Input Readability & Touch Targets ───────── */
+  .rp-number-input {
+    font-size: 16px !important; /* Prevents iOS Safari auto-zoom on input focus */
+    font-weight: 600;
+  }
+  .rp-input-affix-wrap {
+    min-height: 46px;
+    padding: 0 12px;
+    border-radius: var(--radius-md);
+  }
+  .rp-affix {
+    font-size: 0.8125rem;
+    font-weight: 600;
+  }
+  .rp-field-label {
+    font-size: 0.875rem;
+    font-weight: 600;
+  }
+  .rp-range-ticks,
+  .rp-slider-track-labels {
+    font-size: 0.75rem;
+  }
+  .rp-range-slider::-webkit-slider-thumb {
+    width: 22px;
+    height: 22px;
+  }
+  .rp-range-slider::-moz-range-thumb {
+    width: 22px;
+    height: 22px;
+  }
+
+  /* ── Button Usability & Touch Heights ────────── */
+  .rp-calc-tab-btn {
+    min-height: 42px;
+    padding: 8px 16px;
+    font-size: 0.875rem;
+  }
+  .rp-loan-tab-btn {
+    min-height: 42px;
+    padding: 8px 16px;
+    font-size: 0.875rem;
+  }
+  .rp-preset-btn,
+  .rp-tax-preset-btn,
+  .rp-unit-btn,
+  .rp-kitta-btn,
+  .rp-cagr-quick-btn {
+    min-height: 36px;
+    padding: 7px 13px;
+    font-size: 0.8125rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .rp-presets-row {
+    gap: 8px;
+    padding-top: 12px;
+  }
+
+  /* ── Results & Stat Cards ───────────────────── */
+  .rp-calc-results-card {
+    gap: 20px;
+  }
+  .rp-stat-card {
+    padding: 16px 16px;
+    min-height: 92px;
+  }
+  .rp-stat-label {
+    font-size: 0.75rem;
+    letter-spacing: 0.04em;
+  }
+  .rp-stat-value {
+    font-size: clamp(1.15rem, 4.5vw, 1.35rem);
+    white-space: nowrap;
+    font-variant-numeric: tabular-nums;
+  }
+  .rp-stat-card.maturity {
+    padding: 18px 16px;
+  }
+  .rp-stat-value.maturity-large {
+    font-size: clamp(1.45rem, 5.5vw, 1.85rem);
+    white-space: nowrap;
+    font-variant-numeric: tabular-nums;
+    line-height: 1.25;
+  }
+
+  /* ── Investment Journey Flow ────────────────── */
+  .rp-flow-chain {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+  }
+  .rp-flow-step {
+    min-width: 0;
+    width: 100%;
+    padding: 14px 16px;
+    border-radius: 12px;
+  }
+  .rp-flow-arrow {
+    text-align: center;
+    transform: rotate(90deg);
+    margin: 2px 0;
+    font-size: 1.1rem;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* ── Tables on Mobile ───────────────────────── */
+  .rp-table-section {
+    padding: 18px 16px;
+  }
+  .rp-section-heading-row {
+    margin-bottom: 14px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+  }
+  .rp-section-heading-row h3 {
+    font-size: 1.1rem;
+  }
+  .rp-table-responsive {
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-x: contain;
+  }
+  .rp-growth-table th,
+  .rp-growth-table td,
+  .rp-amort-table th,
+  .rp-amort-table td,
+  .rp-tax-table th,
+  .rp-tax-table td {
+    padding: 10px 12px;
+    font-size: 0.8125rem;
+  }
+  .rp-num {
+    font-size: 0.84375rem;
+  }
+
+  .rp-goal-legend-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  /* ── Segmented Control Button Wrapping ───────── */
+  .rp-tax-type-bar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+  .rp-marital-switch {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 8px;
+    width: 100%;
+  }
+  .rp-marital-btn {
+    width: 100%;
+    text-align: center;
+    justify-content: center;
+    min-height: 40px;
+  }
+  .rp-tax-type-bar .rp-badge {
+    align-self: flex-start;
+    margin-left: 0 !important;
+  }
+
+  /* Compounding Frequency & Classification: 2x2 grid */
+  [aria-label="FD Compounding Frequency"],
+  [aria-label="Holding Period"],
+  [aria-label="Investor Type"] {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    width: 100%;
+  }
+  .rp-freq-btn {
+    width: 100%;
+    text-align: center;
+    justify-content: center;
+    min-height: 40px;
+    padding: 8px 10px;
+    font-size: 0.78125rem;
+  }
+}
+
+@media (max-width: 540px) {
+  .rp-field-top,
+  .rp-ded-field {
+    flex-wrap: wrap;
+    gap: 8px;
+    align-items: flex-start;
+  }
+  .rp-field-top .rp-input-affix-wrap,
+  .rp-ded-field .rp-input-affix-wrap {
+    width: 100%;
+  }
+  .rp-results-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  .rp-stat-card.span-2 {
+    grid-column: span 1;
+  }
+}
+
+@media (max-width: 420px) {
+  /* Holding Period with detailed text stacks cleanly on narrow screens */
+  [aria-label="Holding Period"],
+  [aria-label="Investor Type"] {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ── Part 9: Loan Calculators Sub-Tabs & Styling ───── */
+.rp-loan-tabs-nav {
+  margin-bottom: var(--space-6);
+  border-bottom: 1px solid var(--color-border);
+  padding-bottom: 14px;
+}
+
+.rp-loan-tabs-list {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  overflow-x: auto;
+  padding: 4px 16px 4px 0;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+.rp-loan-tabs-list::-webkit-scrollbar {
+  display: none;
+}
+
+.rp-loan-tab-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--color-border);
+  color: var(--color-text-secondary);
+  font-family: var(--font-body);
+  font-size: 0.9375rem;
+  font-weight: 550;
+  padding: 10px 20px;
+  min-height: 42px;
+  border-radius: var(--radius-lg);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all var(--duration-fast) var(--ease-out);
+}
+
+.rp-loan-tab-btn:hover {
+  background: rgba(255, 255, 255, 0.09);
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.22);
+}
+
+.rp-loan-tab-btn.active {
+  background: linear-gradient(135deg, rgba(29, 161, 242, 0.22), rgba(29, 161, 242, 0.09));
+  color: #ffffff;
+  border-color: var(--color-accent);
+  box-shadow: 0 0 16px rgba(29, 161, 242, 0.25);
+  font-weight: var(--weight-semibold);
+}
+
+.rp-tab-icon {
+  font-size: 17px;
+  line-height: 1;
+}
+
+.rp-loan-subpane {
+  display: block;
+  animation: fadeIn 0.2s ease-in-out;
+}
+
+/* ── LTV Health Indicator & Meter ─────────────────── */
+.rp-ltv-card {
+  background: rgba(7, 13, 31, 0.7);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 22px 26px;
+  margin-top: 24px;
+  margin-bottom: 24px;
+}
+
+.rp-ltv-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.rp-ltv-title-group {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.rp-ltv-title {
+  font-size: 0.9375rem;
+  font-weight: var(--weight-semibold);
+  color: var(--color-heading);
+}
+
+.rp-ltv-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 5px 14px;
+  border-radius: var(--radius-full);
+  font-size: 0.8125rem;
+  font-weight: var(--weight-semibold);
+  letter-spacing: 0.02em;
+}
+
+.rp-ltv-badge.rp-ltv-green {
+  background: rgba(16, 185, 129, 0.15);
+  color: #10b981;
+  border: 1px solid rgba(16, 185, 129, 0.35);
+}
+
+.rp-ltv-badge.rp-ltv-yellow {
+  background: rgba(245, 158, 11, 0.15);
+  color: #f59e0b;
+  border: 1px solid rgba(245, 158, 11, 0.35);
+}
+
+.rp-ltv-badge.rp-ltv-red {
+  background: rgba(239, 68, 68, 0.15);
+  color: #ef4444;
+  border: 1px solid rgba(239, 68, 68, 0.35);
+}
+
+.rp-ltv-meter-track {
+  position: relative;
+  width: 100%;
+  height: 12px;
+  background: rgba(255, 255, 255, 0.09);
+  border-radius: 6px;
+  margin-top: 18px;
+  margin-bottom: 14px;
+  overflow: visible;
+}
+
+.rp-ltv-meter-fill {
+  height: 100%;
+  border-radius: 6px;
+  transition: width 0.3s ease, background-color 0.3s ease;
+}
+
+.rp-ltv-threshold {
+  position: absolute;
+  top: -20px;
+  transform: translateX(-50%);
+  font-size: 11px;
+  color: var(--color-text-secondary);
+}
+
+.rp-ltv-threshold::after {
+  content: '';
+  position: absolute;
+  top: 15px;
+  left: 50%;
+  width: 1px;
+  height: 15px;
+  background: rgba(255, 255, 255, 0.28);
+}
+
+.rp-ltv-threshold.mark-70 {
+  left: 70%;
+}
+
+.rp-ltv-threshold.mark-85 {
+  left: 85%;
+}
+
+.rp-ltv-legend {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  font-size: 0.8125rem;
+  color: var(--color-text-secondary);
+  margin-bottom: 14px;
+  flex-wrap: wrap;
+}
+
+.rp-ltv-legend-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.rp-ltv-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+}
+
+.rp-ltv-dot.green {
+  background: #10b981;
+  box-shadow: 0 0 6px #10b981;
+}
+
+.rp-ltv-dot.yellow {
+  background: #f59e0b;
+  box-shadow: 0 0 6px #f59e0b;
+}
+
+.rp-ltv-dot.red {
+  background: #ef4444;
+  box-shadow: 0 0 6px #ef4444;
+}
+
+.rp-ltv-desc {
+  font-size: 0.8125rem;
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+  margin: 0 0 10px 0;
+}
+
+.rp-ltv-disclaimer {
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+  line-height: 1.5;
+}
+
+/* ── Quick Tenure Comparison ──────────────────────── */
+.rp-tenure-comp-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+@media (max-width: 768px) {
+  .rp-tenure-comp-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.rp-comp-card {
+  background: rgba(7, 13, 31, 0.7);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 18px 20px;
+  transition: all var(--duration-fast) var(--ease-out);
+}
+
+.rp-comp-card:hover {
+  border-color: rgba(29, 161, 242, 0.35);
+  transform: translateY(-2px);
+}
+
+.rp-comp-card.current-active {
+  border-color: var(--color-accent);
+  background: rgba(29, 161, 242, 0.07);
+  box-shadow: 0 0 16px rgba(29, 161, 242, 0.16);
+}
+
+.rp-comp-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.rp-comp-years {
+  font-family: var(--font-display);
+  font-size: 1.0625rem;
+  font-weight: var(--weight-bold);
+  color: var(--color-heading);
+}
+
+.rp-comp-metric {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.8125rem;
+  padding: 6px 0;
+}
+
+.rp-comp-label {
+  color: var(--color-text-secondary);
+}
+
+.rp-comp-val {
+  font-weight: var(--weight-semibold);
+  color: var(--color-text);
+}
+
+.rp-comp-foot {
+  margin-top: 12px;
+  padding-top: 10px;
+  border-top: 1px dashed var(--color-border);
+  font-size: 0.75rem;
+  color: var(--color-text-secondary);
+}
+
+.rp-tradeoff-note {
+  background: rgba(245, 158, 11, 0.08);
+  border: 1px solid rgba(245, 158, 11, 0.25);
+  border-radius: var(--radius-md);
+  padding: 14px 18px;
+  font-size: 0.8125rem;
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+}
+
+/* ── Vehicle Type Selector ────────────────────────── */
+.rp-vtype-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.rp-vtype-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--color-border);
+  color: var(--color-text-secondary);
+  font-size: 0.8125rem;
+  font-weight: 550;
+  padding: 8px 16px;
+  min-height: 36px;
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  transition: all var(--duration-fast) var(--ease-out);
+}
+
+.rp-vtype-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.22);
+}
+
+.rp-vtype-btn.active {
+  background: rgba(29, 161, 242, 0.22);
+  color: #ffffff;
+  border-color: var(--color-accent);
+  box-shadow: 0 0 10px rgba(29, 161, 242, 0.25);
+  font-weight: var(--weight-semibold);
+}
+
+.rp-vtype-context-note {
+  background: rgba(29, 161, 242, 0.06);
+  border: 1px solid rgba(29, 161, 242, 0.2);
+  border-radius: var(--radius-md);
+  padding: 10px 14px;
+  font-size: 0.75rem;
+  color: var(--color-text-secondary);
+  line-height: 1.5;
+  margin-top: 6px;
+}
+
+/* ── Educational List Elements ─────────────────────── */
+.rp-edu-list {
+  margin: 12px 0 0 0;
+  padding-left: 18px;
+  font-size: 0.9375rem;
+  color: var(--color-text-secondary);
+  line-height: 1.65;
+}
+
+.rp-edu-list li {
+  margin-bottom: 8px;
+}
+
+.rp-edu-icon-wrap {
+  font-size: 26px;
+  margin-bottom: 8px;
+}
+
+.rp-loan-tab-btn:focus-visible,
+.rp-vtype-btn:focus-visible {
+  outline: 2px solid var(--color-accent) !important;
+  outline-offset: 2px !important;
+}
+
+/* ── Part 10: CAGR & Investment Growth Calculator ── */
+.rp-cagr-mode-nav {
+  margin-bottom: var(--space-6);
+}
+
+.rp-cagr-mode-switch {
+  display: inline-flex;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 4px;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border);
+  gap: 6px;
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+.rp-cagr-mode-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  min-height: 42px;
+  border-radius: var(--radius-md);
+  border: none;
+  background: transparent;
+  color: var(--color-text-secondary);
+  font-family: var(--font-body);
+  font-size: 0.9375rem;
+  font-weight: 550;
+  cursor: pointer;
+  transition: all var(--duration-fast) var(--ease-out);
+  white-space: nowrap;
+}
+
+.rp-cagr-mode-btn:hover {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.rp-cagr-mode-btn.active {
+  background: linear-gradient(135deg, rgba(29, 161, 242, 0.25), rgba(29, 161, 242, 0.1));
+  color: #ffffff;
+  border: 1px solid var(--color-accent);
+  box-shadow: 0 0 16px rgba(29, 161, 242, 0.25);
+  font-weight: var(--weight-semibold);
+}
+
+.rp-mode-sub {
+  font-size: 0.75rem;
+  opacity: 0.8;
+  font-weight: normal;
+}
+
+@media (max-width: 600px) {
+  .rp-cagr-mode-switch {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 8px;
+  }
+  .rp-cagr-mode-btn {
+    width: 100%;
+    justify-content: center;
+    text-align: center;
+    white-space: normal;
+    padding: 10px 14px;
+    font-size: 0.875rem;
+  }
+}
+
+.rp-cagr-duration-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.rp-cagr-dur-col .rp-input-affix-wrap {
+  width: 100%;
+}
+
+.rp-cagr-dur-presets {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 14px;
+  flex-wrap: wrap;
+}
+
+.rp-cagr-quick-btn {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--color-border);
+  color: var(--color-text-secondary);
+  font-size: 0.75rem;
+  font-weight: 550;
+  padding: 5px 12px;
+  min-height: 28px;
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  transition: all var(--duration-fast) var(--ease-out);
+}
+
+.rp-cagr-quick-btn:hover {
+  background: rgba(255, 255, 255, 0.12);
+  color: #ffffff;
+}
+
+.rp-cagr-quick-btn.active {
+  background: rgba(29, 161, 242, 0.22);
+  border-color: var(--color-accent);
+  color: #ffffff;
+  font-weight: var(--weight-semibold);
+}
+
+/* Milestones Grid */
+.rp-cagr-milestone-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-top: 16px;
+}
+
+@media (max-width: 900px) {
+  .rp-cagr-milestone-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 540px) {
+  .rp-cagr-milestone-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.rp-cagr-milestone-card {
+  background: rgba(7, 13, 31, 0.7);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 16px 20px;
+  transition: all var(--duration-fast) var(--ease-out);
+  position: relative;
+  overflow: hidden;
+}
+
+.rp-cagr-milestone-card:hover {
+  border-color: rgba(29, 161, 242, 0.35);
+  transform: translateY(-2px);
+}
+
+.rp-ms-year-badge {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--color-accent);
+  background: rgba(29, 161, 242, 0.12);
+  padding: 3px 10px;
+  border-radius: var(--radius-full);
+  margin-bottom: 8px;
+}
+
+.rp-ms-val {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--color-heading);
+  margin-bottom: 4px;
+}
+
+.rp-ms-sub {
+  font-size: 0.8125rem;
+  color: var(--color-text-secondary);
+  margin-bottom: 6px;
+}
+
+.rp-ms-multiple {
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+  font-family: var(--font-mono);
+}
+
+.rp-cagr-disclaimer-note {
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+  margin-top: 14px;
+  line-height: 1.5;
+}
+
+/* 3-Way Comparison Grid */
+.rp-cagr-comp-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-top: 16px;
+}
+
+@media (max-width: 768px) {
+  .rp-cagr-comp-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.rp-cagr-comp-card {
+  background: rgba(7, 13, 31, 0.7);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 22px 26px;
+  transition: all var(--duration-fast) var(--ease-out);
+  position: relative;
+}
+
+.rp-cagr-comp-card:hover {
+  border-color: rgba(255, 255, 255, 0.22);
+  transform: translateY(-2px);
+}
+
+.rp-cagr-comp-card.is-winner {
+  border-color: #10B981;
+  background: linear-gradient(180deg, rgba(16, 185, 129, 0.08) 0%, rgba(7, 13, 31, 0.8) 100%);
+  box-shadow: 0 0 20px rgba(16, 185, 129, 0.2);
+}
+
+.rp-comp-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+  gap: 10px;
+}
+
+.rp-comp-asset-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.rp-comp-icon {
+  font-size: 20px;
+}
+
+.rp-comp-name {
+  font-family: var(--font-heading);
+  font-size: 0.9375rem;
+  font-weight: var(--weight-semibold);
+  color: var(--color-heading);
+}
+
+.rp-cagr-winner-badge {
+  background: rgba(16, 185, 129, 0.18);
+  color: #10B981;
+  border: 1px solid rgba(16, 185, 129, 0.4);
+  font-size: 0.75rem;
+  font-weight: var(--weight-bold);
+  padding: 3px 10px;
+  border-radius: var(--radius-full);
+  letter-spacing: 0.03em;
+  white-space: nowrap;
+}
+
+.rp-comp-cagr-val {
+  font-family: var(--font-display);
+  font-size: 1.625rem;
+  font-weight: var(--weight-extrabold);
+  color: var(--color-heading);
+  margin-bottom: 18px;
+  line-height: 1;
+}
+
+.rp-comp-cagr-val.accent {
+  color: #10B981;
+}
+
+.rp-comp-stats-table {
+  border-top: 1px solid var(--color-border);
+  padding-top: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.rp-comp-stat-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.8125rem;
+  color: var(--color-text-secondary);
+}
+
+.rp-comp-stat-row .rp-num {
+  font-family: var(--font-mono);
+  color: var(--color-text);
+  font-weight: var(--weight-medium);
+}
+
+/* Nepal Context Examples */
+.rp-cagr-nepal-examples {
+  margin-top: 26px;
+  background: rgba(7, 13, 31, 0.65);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 22px 26px;
+}
+
+.rp-nepal-examples-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-top: 14px;
+}
+
+@media (max-width: 768px) {
+  .rp-nepal-examples-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.rp-nepal-ex-item {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: var(--radius-md);
+  padding: 16px;
+}
+
+.rp-nepal-ex-badge {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: var(--weight-semibold);
+  color: var(--color-accent);
+  margin-bottom: 8px;
+}
+
+.rp-nepal-ex-item p {
+  font-size: 0.8125rem;
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* Bar Chart Legend */
+.rp-cagr-bar-legend {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 26px;
+  margin-top: 14px;
+  flex-wrap: wrap;
+}
+
+.rp-cagr-legend-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.8125rem;
+}
+
+.rp-cagr-point:focus {
+  outline: 2px solid var(--color-accent);
+}
+
+/* ── Part 11: Nepal Inflation Calculator & Final Polishing ── */
+.rp-inflation-presets-wrap {
+  margin-bottom: 24px;
+  padding: 18px 22px;
+  background: rgba(7, 13, 31, 0.65);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.rp-preset-title {
+  font-size: 0.8125rem;
+  font-weight: var(--weight-semibold);
+  color: var(--color-heading);
+  letter-spacing: 0.02em;
+}
+
+.rp-preset-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.rp-preset-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--color-border);
+  color: var(--color-text-secondary);
+  font-size: 0.8125rem;
+  font-weight: 550;
+  padding: 7px 16px;
+  min-height: 34px;
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  transition: all var(--duration-fast) var(--ease-out);
+}
+
+.rp-preset-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.22);
+  transform: translateY(-1px);
+}
+
+.rp-preset-btn.active {
+  background: rgba(29, 161, 242, 0.22);
+  border-color: var(--color-accent);
+  color: #ffffff;
+  box-shadow: 0 0 12px rgba(29, 161, 242, 0.3);
+  font-weight: var(--weight-semibold);
+}
+
+.rp-preset-btn:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+/* Nepal Macro Context Box */
+.rp-nepal-context-box {
+  background: rgba(7, 13, 31, 0.7);
+  border: 1px solid var(--color-border);
+  border-left: 4px solid var(--color-accent);
+  border-radius: var(--radius-lg);
+  padding: 24px 28px;
+  margin-top: 26px;
+}
+
+.rp-context-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.rp-context-desc {
+  font-size: 0.9375rem;
+  color: var(--color-text-secondary);
+  line-height: 1.65;
+  margin: 0 0 18px 0;
+}
+
+.rp-nepal-context-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+@media (max-width: 768px) {
+  .rp-nepal-context-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.rp-context-point {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: var(--radius-md);
+  padding: 16px 18px;
+}
+
+.rp-context-point strong {
+  display: block;
+  font-size: 0.875rem;
+  color: var(--color-heading);
+  margin-bottom: 8px;
+}
+
+.rp-context-point p {
+  font-size: 0.8125rem;
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+  margin: 0;
+}
+
+.rp-inf-point:focus {
+  outline: 2px solid #F59E0B;
+}
+
+
+
+
+
+
+
+
+
