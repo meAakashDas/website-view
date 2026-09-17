@@ -1,5 +1,5 @@
 // ==============================================
-// risePaisa — Nepal SIP Calculator Component
+// risePaisa - Nepal SIP Calculator Component
 // Interactive, responsive, high-performance calculator
 // ==============================================
 import { formatNPR, formatCompactNPR, validateSIPInputs, calculateSIP, SIP_BOUNDS } from './engine.js';
@@ -299,13 +299,60 @@ export function renderSIPCalculator() {
         </div>
       </div>
 
-      <!-- Nepal Educational Context Note -->
-      <div class="rp-educational-note">
+      <!-- Educational Section: SIP Compounding in Nepal -->
+      <div class="rp-calc-section rp-edu-cards-section" style="margin-top:var(--space-8)">
+        <h3 style="font-size:var(--text-xl);color:var(--color-heading);margin-bottom:var(--space-2)">
+          Understanding SIP Compounding & Market Dynamics in Nepal
+        </h3>
+        <p style="font-size:var(--text-sm);color:var(--color-text-secondary);margin-bottom:var(--space-6)">
+          Essential principles for building long-term wealth through Systematic Investment Plans in open-ended mutual funds.
+        </p>
+
+        <div class="rp-edu-grid">
+          <!-- Card 1: The Mathematical Engine -->
+          <div class="rp-edu-card">
+            <div class="rp-edu-icon-wrap" style="color:var(--color-accent);font-size:24px;margin-bottom:8px">📐</div>
+            <h4>How the Formula Works</h4>
+            <p style="margin-bottom:10px">
+              Calculated using the standard future value annuity formula:
+              <br><code>M = P × [((1 + i)ⁿ - 1) / i] × (1 + i)</code>
+            </p>
+            <p style="font-size:0.875rem;line-height:1.55">
+              Where <strong>P</strong> is monthly deposit, <strong>i</strong> is monthly interest rate (annual return ÷ 12), and <strong>n</strong> is total months. Compounding produces an exponential curve where interest earns interest on itself over decades.
+            </p>
+          </div>
+
+          <!-- Card 2: Nepal Context & Assumptions -->
+          <div class="rp-edu-card">
+            <div class="rp-edu-icon-wrap" style="color:#10b981;font-size:24px;margin-bottom:8px">🇳🇵</div>
+            <h4>Nepal Regulatory Realities</h4>
+            <ul class="rp-edu-list" style="margin:0;padding-left:18px;font-size:0.875rem;color:var(--color-text-secondary);line-height:1.6">
+              <li><strong>SEBON Regulation:</strong> Open-ended mutual funds are managed by licensed Asset Management Companies (NIBL Ace, Siddhartha, Sanima) under SEBON directives.</li>
+              <li><strong>Digital Mandate:</strong> Auto-debits occur via ConnectIPS or direct bank standing orders on salary day.</li>
+              <li><strong>Tax Advantage:</strong> Individual capital gains on mutual fund units are taxed at only 5% on redemption, vastly lower than progressive salary tax slabs.</li>
+            </ul>
+          </div>
+
+          <!-- Card 3: Decision Guide & Pitfalls -->
+          <div class="rp-edu-card">
+            <div class="rp-edu-icon-wrap" style="color:#f59e0b;font-size:24px;margin-bottom:8px">⚖️</div>
+            <h4>Decision Guide & Common Errors</h4>
+            <ul class="rp-edu-list" style="margin:0;padding-left:18px;font-size:0.875rem;color:var(--color-text-secondary);line-height:1.6">
+              <li><strong>Do Not Stop in Bear Markets:</strong> Stopping your SIP when NEPSE falls eliminates Rupee-Cost Averaging-the exact mechanism that buys cheap units and drives future outperformance.</li>
+              <li><strong>Not a Bank FD:</strong> A 12% projected return is an illustrative long-term historical equity reference, not a guaranteed contractual yield.</li>
+              <li><strong>Minimum Horizon:</strong> SIPs require at least 5 to 7 years to smooth short-term equity market volatility.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Nepal Educational Context Note & Companion Links -->
+      <div class="rp-educational-note" style="margin-top:var(--space-6)">
         <div class="rp-edu-icon">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
         </div>
         <div class="rp-edu-text">
-          <strong>Nepal Investment Context:</strong> Historically, long-term equity returns vary significantly. This calculator provides estimates only and does not guarantee investment performance. Investors should evaluate risk, inflation, and market volatility before investing. 12% is a standard historical reference for equity mutual funds and does not imply guaranteed returns.
+          <strong>Recommended Learning Path:</strong> Ready to set up your first monthly investment in Nepal? Read our comprehensive lesson on <a href="/learn/investing/how-to-start-monthly-sip-nepal" style="color:var(--color-accent);text-decoration:underline">How to Start a Monthly SIP via ConnectIPS</a> or review the end-to-end <a href="/learn/guides/complete-sip-guide" style="color:var(--color-accent);text-decoration:underline">Complete SIP & Mutual Funds Guide</a>.
         </div>
       </div>
     </div>

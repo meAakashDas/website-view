@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SEBON Mutual Fund & SIP Selection Checklist | risePaisa Nepal</title>
+  <style>
+    :root {
+      --font: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      --ink: #1D1D1F;
+      --muted: #6E6E73;
+      --border: #E5E5EA;
+      --bg: #F5F5F7;
+      --white: #FFFFFF;
+      --blue: #1DA1F2;
+      --blue-hover: #0c85d0;
+      --green: #34C759;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --ink: #F5F5F7;
+        --muted: #86868B;
+        --border: #38383A;
+        --bg: #000000;
+        --white: #1C1C1E;
+      }
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.5;
+      padding: 40px 20px;
+    }
+    .sheet-card {
+      max-width: 800px;
+      margin: 0 auto;
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 48px;
+      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.04);
+    }
+    .header {
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 24px;
+      margin-bottom: 32px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 20px;
+    }
+    .brand {
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      color: var(--blue);
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+    h1 {
+      font-size: 28px;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      margin-bottom: 8px;
+    }
+    p.lead {
+      color: var(--muted);
+      font-size: 15px;
+    }
+    .actions {
+      display: flex;
+      gap: 12px;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      padding: 10px 20px;
+      border-radius: 9999px;
+      cursor: pointer;
+      border: none;
+      transition: all 0.2s ease;
+      text-decoration: none;
+    }
+    .btn-primary {
+      background: var(--blue);
+      color: #fff;
+    }
+    .btn-primary:hover {
+      background: var(--blue-hover);
+    }
+    .btn-secondary {
+      background: var(--bg);
+      color: var(--ink);
+      border: 1px solid var(--border);
+    }
+    .checklist-section {
+      margin-bottom: 36px;
+    }
+    .section-title {
+      font-size: 18px;
+      font-weight: 600;
+      letter-spacing: -0.2px;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .step-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: var(--blue);
+      color: #fff;
+      font-size: 12px;
+      font-weight: 700;
+    }
+    .item-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .check-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      padding: 14px 18px;
+      background: var(--bg);
+      border-radius: 12px;
+      cursor: pointer;
+      user-select: none;
+      transition: background 0.15s ease;
+    }
+    .check-item:hover {
+      background: rgba(29, 161, 242, 0.06);
+    }
+    .check-item input[type="checkbox"] {
+      appearance: none;
+      width: 20px;
+      height: 20px;
+      border: 2px solid var(--border);
+      border-radius: 6px;
+      margin-top: 2px;
+      flex-shrink: 0;
+      display: grid;
+      place-content: center;
+      cursor: pointer;
+      transition: all 0.2s;
+      background: var(--white);
+    }
+    .check-item input[type="checkbox"]:checked {
+      background: var(--blue);
+      border-color: var(--blue);
+    }
+    .check-item input[type="checkbox"]:checked::before {
+      content: "";
+      width: 10px;
+      height: 6px;
+      border-left: 2px solid white;
+      border-bottom: 2px solid white;
+      transform: rotate(-45deg) translate(1px, -1px);
+    }
+    .item-content h4 {
+      font-size: 15px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+    .item-content p {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.4;
+    }
+    .note-box {
+      background: rgba(29, 161, 242, 0.08);
+      border-left: 4px solid var(--blue);
+      padding: 16px 20px;
+      border-radius: 0 12px 12px 0;
+      margin: 24px 0;
+      font-size: 14px;
+    }
+    .footer {
+      border-top: 1px solid var(--border);
+      padding-top: 24px;
+      text-align: center;
+      font-size: 12px;
+      color: var(--muted);
+    }
+    @media print {
+      body { background: #fff; padding: 0; }
+      .sheet-card { border: none; box-shadow: none; padding: 0; }
+      .actions { display: none; }
+      .check-item { background: #fff; border: 1px solid #ddd; page-break-inside: avoid; }
+    }
+  </style>
+</head>
+<body>
+  <div class="sheet-card">
+    <div class="header">
+      <div>
+        <div class="brand">risePaisa Free Educational Tools</div>
+        <h1>Mutual Fund & SIP Evaluation Checklist</h1>
+        <p class="lead">Step-by-step screening framework for Open-Ended Schemes in Nepal.</p>
+      </div>
+      <div class="actions">
+        <button class="btn btn-primary" onclick="window.print()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9V2h12v7M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2"/><path d="M6 14h12v8H6z"/></svg>
+          Print / Save PDF
+        </button>
+      </div>
+    </div>
+
+    <div class="note-box">
+      <strong>Rule of Thumb:</strong> In Nepal, open-ended mutual funds offer Systematic Investment Plans (SIP) with zero broker commission and auto-debit through ConnectIPS or bank mandate. Look for Expense Ratio &lt; 1.5% and 3-year consistency over NEPSE benchmark.
+    </div>
+
+    <!-- Section 1 -->
+    <div class="checklist-section">
+      <div class="section-title">
+        <span class="step-badge">1</span>
+        <span>Fund House & Sponsor Verification</span>
+      </div>
+      <div class="item-list">
+        <label class="check-item">
+          <input type="checkbox">
+          <div class="item-content">
+            <h4>SEBON License & BFI Sponsor Standing</h4>
+            <p>Verify that the Fund Manager is a subsidiary of a Class 'A' Commercial Bank (e.g., NIBL Ace, Siddhartha Capital, Nabil Invest, Sanima Capital) licensed by SEBON.</p>
+          </div>
+        </label>
+        <label class="check-item">
+          <input type="checkbox">
+          <div class="item-content">
+            <h4>AUM (Assets Under Management) Size</h4>
+            <p>Target schemes with over NPR 50 Crores in AUM. Larger funds offer superior diversification and liquidity for redeeming units.</p>
+          </div>
+        </label>
+      </div>
+    </div>
+
+    <!-- Section 2 -->
+    <div class="checklist-section">
+      <div class="section-title">
+        <span class="step-badge">2</span>
+        <span>Cost & Fee Structure Audit</span>
+      </div>
+      <div class="item-list">
+        <label class="check-item">
+          <input type="checkbox">
+          <div class="item-content">
+            <h4>Management & Depository Fees</h4>
+            <p>Check the latest monthly fact sheet. Combined management, depository, and supervisor fees must not exceed SEBON caps (max 1.5% annually).</p>
+          </div>
+        </label>
+        <label class="check-item">
+          <input type="checkbox">
+          <div class="item-content">
+            <h4>Exit Load Policy</h4>
+            <p>Understand exit fees: Most open-ended funds charge 1.5% if redeemed within 1 year, 1.0% in year 2, and 0% after 2 years. Align with your investment horizon.</p>
+          </div>
+        </label>
+      </div>
+    </div>
+
+    <!-- Section 3 -->
+    <div class="checklist-section">
+      <div class="section-title">
+        <span class="step-badge">3</span>
+        <span>Performance & Portfolio Composition</span>
+      </div>
+      <div class="item-list">
+        <label class="check-item">
+          <input type="checkbox">
+          <div class="item-content">
+            <h4>NAV vs NEPSE Index Performance</h4>
+            <p>Compare the fund's Net Asset Value (NAV) growth against NEPSE over 1-year, 2-year, and 3-year cycles. Did it preserve capital during bear trends?</p>
+          </div>
+        </label>
+        <label class="check-item">
+          <input type="checkbox">
+          <div class="item-content">
+            <h4>Asset Allocation Breakdown</h4>
+            <p>Review the top 10 portfolio holdings. Ideal balance for moderate risk: 60-70% Listed Equities, 15-20% Fixed Deposits / Debentures, 10-15% Cash/Short-term reserves.</p>
+          </div>
+        </label>
+      </div>
+    </div>
+
+    <!-- Section 4 -->
+    <div class="checklist-section">
+      <div class="section-title">
+        <span class="step-badge">4</span>
+        <span>SIP Setup & Execution</span>
+      </div>
+      <div class="item-list">
+        <label class="check-item">
+          <input type="checkbox">
+          <div class="item-content">
+            <h4>Dividend Re-Investment Plan (DREP)</h4>
+            <p>Opt into DREP. Instead of cash dividends credited to your bank account, dividends are automatically used to purchase additional units at NAV, compounding your wealth.</p>
+          </div>
+        </label>
+        <label class="check-item">
+          <input type="checkbox">
+          <div class="item-content">
+            <h4>Auto-Debit Date Alignment</h4>
+            <p>Set your monthly SIP deduction date between the 3rd and 7th of the Nepali calendar month, immediately following salary disbursement.</p>
+          </div>
+        </label>
+      </div>
+    </div>
+
+    <div class="footer">
+      © 2026 risePaisa • Independent Financial Education for Nepal • risepaisa.com
+    </div>
+  </div>
+</body>
+</html>

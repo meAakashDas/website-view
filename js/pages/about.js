@@ -50,6 +50,7 @@ export function renderAboutPage() {
     <section class="section" id="about-mission" style="background:var(--color-bg-alt)">
       <div class="container">
         <div class="section-header" style="text-align:center;margin-bottom:var(--space-10)">
+          <span class="section-eyebrow">Purpose</span>
           <h2 class="about-section-heading">Mission & Vision</h2>
           <p style="max-width:600px;margin:var(--space-3) auto 0;color:var(--color-text-secondary)">
             Guiding the future of financial literacy and empowerment across Nepal.
@@ -117,6 +118,7 @@ export function renderAboutPage() {
     <section class="section" id="about-values">
       <div class="container">
         <div class="section-header" style="text-align:center;margin-bottom:var(--space-10)">
+          <span class="section-eyebrow">Core Values</span>
           <h2 class="about-section-heading">What We Stand For</h2>
           <p style="max-width:600px;margin:var(--space-3) auto 0;color:var(--color-text-secondary)">
             Our principles reflect our commitment to genuine value and clarity for our students.

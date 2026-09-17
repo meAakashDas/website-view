@@ -1,5 +1,5 @@
 // ==============================================
-// risePaisa — Native SVG Financial Chart Suite
+// risePaisa - Native SVG Financial Chart Suite
 // Lightweight, responsive, zero-dependency charts
 // ==============================================
 import { formatNPR, formatCompactNPR } from './engine.js';
@@ -42,19 +42,19 @@ export function renderDonutChart({ invested, profit }) {
         <svg class="rp-donut-svg" viewBox="0 0 ${size} ${size}" aria-label="Investment vs Returns Breakdown">
           <defs>
             <linearGradient id="profitGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stop-color="#4db8ff" />
-              <stop offset="100%" stop-color="#1da1f2" />
+              <stop offset="0%" stop-color="#389BFF" />
+              <stop offset="100%" stop-color="#0A84FF" />
             </linearGradient>
             <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
-              <feDropShadow dx="0" dy="0" stdDeviation="3" flood-color="#1da1f2" flood-opacity="0.3"/>
+              <feDropShadow dx="0" dy="0" stdDeviation="1" flood-color="#0A84FF" flood-opacity="0.15"/>
             </filter>
           </defs>
 
           <!-- Track Background -->
           <circle
+            class="rp-donut-track"
             cx="${cx}" cy="${cy}" r="${r}"
             fill="none"
-            stroke="rgba(255, 255, 255, 0.05)"
             stroke-width="18"
           />
 
@@ -228,8 +228,8 @@ export function renderGrowthChart({ yearlyBreakdown }) {
   const markers = pointsValue.slice(1).map((pt) => `
     <g class="rp-chart-point" data-year="${pt.year}" data-val="${pt.val}" data-invested="${pt.invested}" data-profit="${pt.profit}" tabindex="0" role="button" aria-label="Year ${pt.year}: ${formatNPR(pt.val)}">
       <circle class="rp-point-hit" cx="${pt.x.toFixed(1)}" cy="${pt.y.toFixed(1)}" r="14" fill="transparent" />
-      <circle class="rp-point-outer" cx="${pt.x.toFixed(1)}" cy="${pt.y.toFixed(1)}" r="6" fill="rgba(29, 161, 242, 0.25)" />
-      <circle class="rp-point-inner" cx="${pt.x.toFixed(1)}" cy="${pt.y.toFixed(1)}" r="3.5" fill="#1da1f2" />
+      <circle class="rp-point-outer" cx="${pt.x.toFixed(1)}" cy="${pt.y.toFixed(1)}" r="6" fill="rgba(10, 132, 255, 0.25)" />
+      <circle class="rp-point-inner" cx="${pt.x.toFixed(1)}" cy="${pt.y.toFixed(1)}" r="3.5" fill="#0A84FF" />
     </g>
   `).join('');
 
@@ -248,13 +248,13 @@ export function renderGrowthChart({ yearlyBreakdown }) {
           <defs>
             <!-- Area Gradient Fill -->
             <linearGradient id="growthAreaGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-              <stop offset="0%" stop-color="#1da1f2" stop-opacity="0.38" />
-              <stop offset="60%" stop-color="#1da1f2" stop-opacity="0.08" />
-              <stop offset="100%" stop-color="#1da1f2" stop-opacity="0.0" />
+              <stop offset="0%" stop-color="#0A84FF" stop-opacity="0.25" />
+              <stop offset="60%" stop-color="#0A84FF" stop-opacity="0.05" />
+              <stop offset="100%" stop-color="#0A84FF" stop-opacity="0.0" />
             </linearGradient>
 
             <filter id="lineGlow" x="-10%" y="-10%" width="120%" height="120%">
-              <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#1da1f2" flood-opacity="0.4"/>
+              <feDropShadow dx="0" dy="1" stdDeviation="1.5" flood-color="#0A84FF" flood-opacity="0.2"/>
             </filter>
           </defs>
 
@@ -276,8 +276,8 @@ export function renderGrowthChart({ yearlyBreakdown }) {
           <!-- Invested Principal Line (Dashed Slate) -->
           <path class="rp-chart-line-invested" d="${investedD}" fill="none" stroke="#486581" stroke-width="2" stroke-dasharray="4 4" />
 
-          <!-- Value Curve (Compounding Neon Blue) -->
-          <path class="rp-chart-line-value" d="${pathD}" fill="none" stroke="#1da1f2" stroke-width="3" filter="url(#lineGlow)" />
+          <!-- Value Curve (Compounding Accent Blue) -->
+          <path class="rp-chart-line-value" d="${pathD}" fill="none" stroke="#0A84FF" stroke-width="2.5" />
 
           <!-- Interactive Year Point Markers -->
           ${markers}
@@ -321,8 +321,8 @@ export function renderLoanDonutChart({ principal, totalInterest }) {
         <svg class="rp-donut-svg" viewBox="0 0 ${size} ${size}" aria-label="Principal vs Interest Breakdown">
           <defs>
             <linearGradient id="loanPrincipalGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stop-color="#4db8ff" />
-              <stop offset="100%" stop-color="#1da1f2" />
+              <stop offset="0%" stop-color="#389BFF" />
+              <stop offset="100%" stop-color="#0A84FF" />
             </linearGradient>
             <linearGradient id="loanInterestGrad" x1="0%" y1="0%" x2="100%" y2="100%">
               <stop offset="0%" stop-color="#fbbf24" />
@@ -332,9 +332,9 @@ export function renderLoanDonutChart({ principal, totalInterest }) {
 
           <!-- Track Background -->
           <circle
+            class="rp-donut-track"
             cx="${cx}" cy="${cy}" r="${r}"
             fill="none"
-            stroke="rgba(255, 255, 255, 0.05)"
             stroke-width="18"
           />
 
@@ -374,7 +374,7 @@ export function renderLoanDonutChart({ principal, totalInterest }) {
       <div class="rp-donut-legend">
         <div class="rp-legend-item">
           <div class="rp-legend-header">
-            <span class="rp-legend-dot" style="background:#1da1f2;box-shadow:0 0 6px #1da1f2"></span>
+            <span class="rp-legend-dot" style="background:#0A84FF"></span>
             <span class="rp-legend-name">Principal Amount</span>
             <span class="rp-legend-pct">${principalPct}%</span>
           </div>
@@ -481,8 +481,8 @@ export function renderLoanBalanceChart({ yearlyMilestones }) {
   const markers = points.map((pt) => `
     <g class="rp-chart-point" data-year="${pt.year}" data-balance="${pt.balance}" data-principal="${pt.cumPrincipal}" data-interest="${pt.cumInterest}" tabindex="0" role="button" aria-label="Year ${pt.year} Balance: ${formatNPR(pt.balance)}">
       <circle class="rp-point-hit" cx="${pt.x.toFixed(1)}" cy="${pt.y.toFixed(1)}" r="14" fill="transparent" />
-      <circle class="rp-point-outer" cx="${pt.x.toFixed(1)}" cy="${pt.y.toFixed(1)}" r="6" fill="rgba(29, 161, 242, 0.25)" />
-      <circle class="rp-point-inner" cx="${pt.x.toFixed(1)}" cy="${pt.y.toFixed(1)}" r="3.5" fill="#1da1f2" />
+      <circle class="rp-point-outer" cx="${pt.x.toFixed(1)}" cy="${pt.y.toFixed(1)}" r="6" fill="rgba(10, 132, 255, 0.25)" />
+      <circle class="rp-point-inner" cx="${pt.x.toFixed(1)}" cy="${pt.y.toFixed(1)}" r="3.5" fill="#0A84FF" />
     </g>
   `).join('');
 
@@ -499,12 +499,12 @@ export function renderLoanBalanceChart({ yearlyMilestones }) {
         <svg class="rp-growth-svg" viewBox="0 0 ${width} ${height}" preserveAspectRatio="none" role="img" aria-label="Loan Balance Reduction Graph">
           <defs>
             <linearGradient id="balanceAreaGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-              <stop offset="0%" stop-color="#1da1f2" stop-opacity="0.32" />
-              <stop offset="70%" stop-color="#1da1f2" stop-opacity="0.05" />
-              <stop offset="100%" stop-color="#1da1f2" stop-opacity="0.0" />
+              <stop offset="0%" stop-color="#0A84FF" stop-opacity="0.25" />
+              <stop offset="70%" stop-color="#0A84FF" stop-opacity="0.04" />
+              <stop offset="100%" stop-color="#0A84FF" stop-opacity="0.0" />
             </linearGradient>
             <filter id="loanLineGlow" x="-10%" y="-10%" width="120%" height="120%">
-              <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#1da1f2" flood-opacity="0.4"/>
+              <feDropShadow dx="0" dy="1" stdDeviation="1.5" flood-color="#0A84FF" flood-opacity="0.2"/>
             </filter>
           </defs>
 
@@ -524,7 +524,7 @@ export function renderLoanBalanceChart({ yearlyMilestones }) {
           <path class="rp-chart-area" d="${areaD}" fill="url(#balanceAreaGrad)" />
 
           <!-- Line Curve -->
-          <path class="rp-chart-line-value" d="${pathD}" fill="none" stroke="#1da1f2" stroke-width="3" filter="url(#loanLineGlow)" />
+          <path class="rp-chart-line-value" d="${pathD}" fill="none" stroke="#0A84FF" stroke-width="2.5" />
 
           <!-- Markers -->
           ${markers}
@@ -578,9 +578,9 @@ export function renderSWPDonutChart({ totalWithdrawn, finalBalance }) {
 
           <!-- Track Background -->
           <circle
+            class="rp-donut-track"
             cx="${cx}" cy="${cy}" r="${r}"
             fill="none"
-            stroke="rgba(255, 255, 255, 0.05)"
             stroke-width="18"
           />
 
@@ -725,14 +725,14 @@ export function renderSWPBalanceChart({ yearlyMilestones, isExhausted }) {
     });
   }
 
-  const strokeColor = isExhausted ? '#ef4444' : '#1da1f2';
-  const gradStop1 = isExhausted ? '#ef4444' : '#1da1f2';
+  const strokeColor = isExhausted ? '#ef4444' : '#0A84FF';
+  const gradStop1 = isExhausted ? '#ef4444' : '#0A84FF';
 
   const markers = points.map((pt) => `
     <g class="rp-chart-point" data-year="${pt.year}" data-balance="${pt.balance}" data-withdrawn="${pt.cumWithdrawn}" data-growth="${pt.cumGrowth}" tabindex="0" role="button" aria-label="Year ${pt.year} Remaining Corpus: ${formatNPR(pt.balance)}">
       <circle class="rp-point-hit" cx="${pt.x.toFixed(1)}" cy="${pt.y.toFixed(1)}" r="14" fill="transparent" />
-      <circle class="rp-point-outer" cx="${pt.x.toFixed(1)}" cy="${pt.y.toFixed(1)}" r="6" fill="${isExhausted && pt.balance === 0 ? 'rgba(239,68,68,0.25)' : 'rgba(29,161,242,0.25)'}" />
-      <circle class="rp-point-inner" cx="${pt.x.toFixed(1)}" cy="${pt.y.toFixed(1)}" r="3.5" fill="${isExhausted && pt.balance === 0 ? '#ef4444' : '#1da1f2'}" />
+      <circle class="rp-point-outer" cx="${pt.x.toFixed(1)}" cy="${pt.y.toFixed(1)}" r="6" fill="${isExhausted && pt.balance === 0 ? 'rgba(239,68,68,0.25)' : 'rgba(10, 132, 255, 0.25)'}" />
+      <circle class="rp-point-inner" cx="${pt.x.toFixed(1)}" cy="${pt.y.toFixed(1)}" r="3.5" fill="${isExhausted && pt.balance === 0 ? '#ef4444' : '#0A84FF'}" />
     </g>
   `).join('');
 
@@ -841,9 +841,9 @@ export function renderTaxDonutChart({ grossIncome, totalTax, takeHome, totalDedu
 
           <!-- Track Background -->
           <circle
+            class="rp-donut-track"
             cx="${cx}" cy="${cy}" r="${r}"
             fill="none"
-            stroke="rgba(255, 255, 255, 0.05)"
             stroke-width="18"
           />
 
@@ -1003,9 +1003,9 @@ export function renderShareProfitChart({ buyTotal, totalCharges, cgt, netProfit 
 
           <!-- Track Background -->
           <circle
+            class="rp-donut-track"
             cx="${cx}" cy="${cy}" r="${r}"
             fill="none"
-            stroke="rgba(255, 255, 255, 0.05)"
             stroke-width="18"
           />
 
@@ -1286,7 +1286,7 @@ export function renderFDDonutChart({ principal, netInterest, tds }) {
           </defs>
 
           <!-- Track -->
-          <circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="rgba(255, 255, 255, 0.05)" stroke-width="18" />
+          <circle class="rp-donut-track" cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke-width="18" />
 
           <!-- Principal -->
           <circle

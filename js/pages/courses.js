@@ -14,6 +14,7 @@ export function renderCoursesPage() {
   return `
     <div class="page-header" id="courses-header">
       <div class="container">
+        <span class="section-eyebrow">Masterclasses</span>
         <h1>Our Courses</h1>
         <p>Practical financial education designed for Nepal. Learn at your own pace.</p>
       </div>

@@ -1,5 +1,5 @@
 // ==============================================
-// risePaisa — Reusable Slug Generation & Validation Engine
+// risePaisa - Reusable Slug Generation & Validation Engine
 // Standardized slug system: lowercase, hyphen-delimited, collision-safe
 // ==============================================
 

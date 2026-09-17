@@ -1,5 +1,5 @@
 // ==============================================
-// risePaisa — Static Site Configuration & Settings
+// risePaisa - Static Site Configuration & Settings
 // 100% frontend static configuration (no backend/CMS required)
 // ==============================================
 

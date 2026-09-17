@@ -1,68 +1,184 @@
 // ==============================================
-// risePaisa — App Router & Initialization
+// risePaisa - App Router & Initialization
 // Premium HTML5 History API Routing Architecture
 // Clean, SEO-friendly, zero-hash paths with automatic legacy hash redirects
+// Ultra-optimized route-level code splitting & zero-reflow lifecycle
 // ==============================================
-import { renderNavbar, renderFooter, renderWhatsAppFloat, initNavbar } from './components.js';
+import { renderNavbar, renderFooter, renderWhatsAppFloat, initNavbar, updateNavbarActive, initTheme } from './components.js';
 import { initAllEnhancements } from './enhancements.js';
-import { renderHomePage, initHomePage } from './pages/home.js';
-import { renderCoursesPage, initCoursesPage } from './pages/courses.js';
-import { renderCourseDetailPage, initCourseDetailPage } from './pages/courseDetail.js';
-import { renderResourcesPage, initResourcesPage } from './pages/resources.js';
-import { renderResourceDetailPage, initResourceDetailPage } from './pages/resourceDetail.js';
-import { renderBlogPage, initBlogPage } from './pages/blog.js';
-import { renderBlogPostPage, initBlogPostPage } from './pages/blogPost.js';
-import { renderAboutPage, initAboutPage } from './pages/about.js';
-import { renderContactPage, initContactPage } from './pages/contact.js';
-import { renderCalculatorsPage, initCalculatorsPage } from './pages/calculators.js';
-import { renderLegalPage, initLegalPage } from './pages/legal.js';
+import { updatePageSEO } from './seo.js';
 import { ROUTES, resolveLegacyHash, getAppPathname, toBrowserPath } from './routes.js';
 
-// ── Route Definitions ────────────────────────────
+// ── Route Definitions (Dynamic Code-Split Imports) ──
 const routes = [
   // 1. Home
-  { pattern: /^\/?$/, render: () => renderHomePage(), init: () => initHomePage(), nav: ROUTES.HOME },
+  {
+    pattern: /^\/?$/,
+    load: () => import('./pages/home.js'),
+    render: (m, p, mod) => mod.renderHomePage(),
+    init: (m, p, mod) => mod.initHomePage(),
+    nav: ROUTES.HOME
+  },
 
   // 2. Courses Hierarchy
-  { pattern: /^\/courses\/?$/, render: () => renderCoursesPage(), init: () => initCoursesPage(), nav: ROUTES.COURSES },
-  { pattern: /^\/courses\/([a-z0-9-]+)\/?$/, render: (m) => renderCourseDetailPage(m[1]), init: () => initCourseDetailPage(), nav: ROUTES.COURSES },
+  {
+    pattern: /^\/courses\/?$/,
+    load: () => import('./pages/courses.js'),
+    render: (m, p, mod) => mod.renderCoursesPage(),
+    init: (m, p, mod) => mod.initCoursesPage(),
+    nav: ROUTES.COURSES
+  },
+  {
+    pattern: /^\/courses\/([a-z0-9-]+)\/?$/,
+    load: () => import('./pages/courseDetail.js'),
+    render: (m, p, mod) => mod.renderCourseDetailPage(m[1]),
+    init: (m, p, mod) => mod.initCourseDetailPage(),
+    nav: ROUTES.COURSES
+  },
   // Legacy /course/:slug redirect
   { pattern: /^\/course\/([a-z0-9-]+)\/?$/, redirect: (m) => ROUTES.COURSE_DETAIL(m[1]) },
 
   // 3. Resources Hierarchy
-  { pattern: /^\/resources\/?$/, render: () => renderResourcesPage(), init: () => initResourcesPage(), nav: ROUTES.RESOURCES },
-  { pattern: /^\/resources\/([a-z0-9-]+)\/?$/, render: (m) => renderResourceDetailPage(m[1]), init: () => initResourceDetailPage(), nav: ROUTES.RESOURCES },
+  {
+    pattern: /^\/resources\/?$/,
+    load: () => import('./pages/resources.js'),
+    render: (m, p, mod) => mod.renderResourcesPage(),
+    init: (m, p, mod) => mod.initResourcesPage(),
+    nav: ROUTES.RESOURCES
+  },
+  {
+    pattern: /^\/resources\/([a-z0-9-]+)\/?$/,
+    load: () => import('./pages/resourceDetail.js'),
+    render: (m, p, mod) => mod.renderResourceDetailPage(m[1]),
+    init: (m, p, mod) => mod.initResourceDetailPage(),
+    nav: ROUTES.RESOURCES
+  },
   // Legacy /resource/:slug redirect
   { pattern: /^\/resource\/([a-z0-9-]+)\/?$/, redirect: (m) => ROUTES.RESOURCE_DETAIL(m[1]) },
 
   // 4. Blog Hierarchy
-  { pattern: /^\/blog\/([a-z0-9-]+)\/?$/, render: (m) => renderBlogPostPage(m[1]), init: () => initBlogPostPage(), nav: ROUTES.BLOG },
-  { pattern: /^\/blog\/?$/, render: (m, params) => renderBlogPage(params), init: () => initBlogPage(), nav: ROUTES.BLOG },
+  {
+    pattern: /^\/blog\/([a-z0-9-]+)\/?$/,
+    load: () => import('./pages/blogPost.js'),
+    render: (m, p, mod) => mod.renderBlogPostPage(m[1]),
+    init: (m, p, mod) => mod.initBlogPostPage(),
+    nav: ROUTES.BLOG
+  },
+  {
+    pattern: /^\/blog\/?$/,
+    load: () => import('./pages/blog.js'),
+    render: (m, p, mod) => mod.renderBlogPage(p),
+    init: (m, p, mod) => mod.initBlogPage(),
+    nav: ROUTES.BLOG
+  },
 
   // 5. Calculators Hub & Dedicated Calculator URLs
-  { pattern: /^\/calculators\/?$/, render: () => renderCalculatorsPage(''), init: () => initCalculatorsPage(''), nav: ROUTES.CALCULATORS },
-  { pattern: /^\/calculators\/([a-z0-9-]+)\/?$/, render: (m) => renderCalculatorsPage(m[1]), init: (m) => initCalculatorsPage(m ? m[1] : ''), nav: ROUTES.CALCULATORS },
+  {
+    pattern: /^\/calculators\/?$/,
+    load: () => import('./pages/calculators.js'),
+    render: (m, p, mod) => mod.renderCalculatorsPage(''),
+    init: (m, p, mod) => mod.initCalculatorsPage(''),
+    nav: ROUTES.CALCULATORS
+  },
+  {
+    pattern: /^\/calculators\/([a-z0-9-]+)\/?$/,
+    load: () => import('./pages/calculators.js'),
+    render: (m, p, mod) => mod.renderCalculatorsPage(m[1]),
+    init: (m, p, mod) => mod.initCalculatorsPage(m ? m[1] : ''),
+    nav: ROUTES.CALCULATORS
+  },
   // Legacy /calculator aliases redirect to canonical /calculators
   { pattern: /^\/calculator\/?$/, redirect: () => ROUTES.CALCULATORS },
   { pattern: /^\/calculator\/([a-z0-9-]+)\/?$/, redirect: (m) => `/calculators/${m[1]}` },
   // Legacy consultancy redirect
   { pattern: /^\/consultancy\/?$/, redirect: () => ROUTES.CALCULATORS },
 
-  // 6. Static / Company Pages
-  { pattern: /^\/about\/?$/, render: () => renderAboutPage(), init: () => initAboutPage(), nav: ROUTES.ABOUT },
-  { pattern: /^\/contact\/?$/, render: () => renderContactPage(), init: () => initContactPage(), nav: ROUTES.CONTACT },
+  // 6. Learn Academy (Foundation, Dedicated Guides Hub, Cornerstone Guides & Lessons)
+  {
+    pattern: /^\/learn\/?$/,
+    load: () => import('./pages/learn.js'),
+    render: (m, p, mod) => mod.renderLearnPage(),
+    init: (m, p, mod) => mod.initLearnPage(),
+    nav: ROUTES.LEARN
+  },
+  {
+    pattern: /^\/learn\/guides\/?$/,
+    load: () => import('./pages/learnGuides.js'),
+    render: (m, p, mod) => mod.renderLearnGuidesHubPage(),
+    init: (m, p, mod) => mod.initLearnGuidesHubPage(),
+    nav: ROUTES.LEARN
+  },
+  {
+    pattern: /^\/learn\/guides\/([a-z0-9-]+)\/?$/,
+    load: () => import('./pages/learnGuideDetail.js'),
+    render: (m, p, mod) => mod.renderLearnGuideDetailPage(m[1]),
+    init: (m, p, mod) => mod.initLearnGuideDetailPage(m ? m[1] : ''),
+    nav: ROUTES.LEARN
+  },
+  {
+    pattern: /^\/learn\/glossary\/?$/,
+    load: () => import('./pages/learnGlossary.js'),
+    render: (m, p, mod) => mod.renderLearnGlossaryHubPage(),
+    init: (m, p, mod) => mod.initLearnGlossaryHubPage(),
+    nav: ROUTES.LEARN
+  },
+  {
+    pattern: /^\/learn\/glossary\/([a-z0-9-]+)\/?$/,
+    load: () => import('./pages/learnGlossaryDetail.js'),
+    render: (m, p, mod) => mod.renderLearnGlossaryDetailPage(m ? m[1] : ''),
+    init: (m, p, mod) => mod.initLearnGlossaryDetailPage(m ? m[1] : ''),
+    nav: ROUTES.LEARN
+  },
+  {
+    pattern: /^\/learn\/([a-z0-9-]+)\/([a-z0-9-]+)\/?$/,
+    load: () => import('./pages/learnLesson.js'),
+    render: (m, p, mod) => mod.renderLearnLessonPage(m[1], m[2]),
+    init: (m, p, mod) => mod.initLearnLessonPage(m ? m[1] : '', m ? m[2] : ''),
+    nav: ROUTES.LEARN
+  },
+  {
+    pattern: /^\/learn\/([a-z0-9-]+)\/?$/,
+    load: () => import('./pages/learnCategory.js'),
+    render: (m, p, mod) => mod.renderLearnCategoryPage(m[1]),
+    init: (m, p, mod) => mod.initLearnCategoryPage(m ? m[1] : ''),
+    nav: ROUTES.LEARN
+  },
 
-  // 7. Legal Pages
-  { pattern: /^\/privacy\/?$/, render: () => renderLegalPage('privacy'), init: () => initLegalPage(), nav: null },
-  { pattern: /^\/terms\/?$/, render: () => renderLegalPage('terms'), init: () => initLegalPage(), nav: null },
-  { pattern: /^\/refund-policy\/?$/, render: () => renderLegalPage('refund'), init: () => initLegalPage(), nav: null },
+  // 7. Search
+  {
+    pattern: /^\/search\/?$/,
+    load: () => import('./pages/search.js'),
+    render: (m, p, mod) => mod.renderSearchPage(p),
+    init: (m, p, mod) => mod.initSearchPage(p),
+    nav: ROUTES.LEARN
+  },
+
+  // 8. Static / Company Pages
+  {
+    pattern: /^\/about\/?$/,
+    load: () => import('./pages/about.js'),
+    render: (m, p, mod) => mod.renderAboutPage(),
+    init: (m, p, mod) => mod.initAboutPage(),
+    nav: ROUTES.ABOUT
+  },
+  {
+    pattern: /^\/contact\/?$/,
+    load: () => import('./pages/contact.js'),
+    render: (m, p, mod) => mod.renderContactPage(),
+    init: (m, p, mod) => mod.initContactPage(),
+    nav: ROUTES.CONTACT
+  },
+
+  // 9. Legal Pages
+  { pattern: /^\/privacy\/?$/, load: () => import('./pages/legal.js'), render: (m, p, mod) => mod.renderLegalPage('privacy'), init: (m, p, mod) => mod.initLegalPage(), nav: null },
+  { pattern: /^\/terms\/?$/, load: () => import('./pages/legal.js'), render: (m, p, mod) => mod.renderLegalPage('terms'), init: (m, p, mod) => mod.initLegalPage(), nav: null },
+  { pattern: /^\/refund-policy\/?$/, load: () => import('./pages/legal.js'), render: (m, p, mod) => mod.renderLegalPage('refund'), init: (m, p, mod) => mod.initLegalPage(), nav: null },
   { pattern: /^\/refund\/?$/, redirect: () => ROUTES.REFUND },
-  { pattern: /^\/disclaimer\/?$/, render: () => renderLegalPage('disclaimer'), init: () => initLegalPage(), nav: null },
-  { pattern: /^\/faq\/?$/, render: () => renderLegalPage('faq'), init: () => initLegalPage(), nav: null },
+  { pattern: /^\/disclaimer\/?$/, load: () => import('./pages/legal.js'), render: (m, p, mod) => mod.renderLegalPage('disclaimer'), init: (m, p, mod) => mod.initLegalPage(), nav: null },
+  { pattern: /^\/faq\/?$/, load: () => import('./pages/legal.js'), render: (m, p, mod) => mod.renderLegalPage('faq'), init: (m, p, mod) => mod.initLegalPage(), nav: null },
 
-  // 8. Retired Legacy Routes -> Safe Redirects
+  // 10. Retired Legacy Routes -> Safe Redirects
   { pattern: /^\/(?:login|register|forgot-password|reset-password|profile|my-courses)\/?$/, redirect: () => ROUTES.COURSES },
-  { pattern: /^\/learn(?:\/.*)?$/, redirect: () => ROUTES.COURSES },
   { pattern: /^\/admin(?:\/.*)?$/, redirect: () => ROUTES.HOME },
 ];
 
@@ -97,11 +213,16 @@ export function navigateTo(url, replace = false) {
 }
 
 // Expose globally for components
-window._rpNavigateTo = navigateTo;
-window._rpRouterReload = router;
+if (typeof window !== 'undefined') {
+  window._rpNavigateTo = navigateTo;
+  window._rpRouterReload = router;
+}
 
 // ── Router Core ──────────────────────────────────
-function router() {
+let currentPageCleanup = null;
+let currentNavRendered = false;
+
+async function router() {
   // Check for legacy hash link (e.g. #/courses or #/calculators)
   const rawHash = window.location.hash;
   if (rawHash && (rawHash.startsWith('#/') || rawHash === '#')) {
@@ -110,6 +231,8 @@ function router() {
       window.history.replaceState({}, '', toBrowserPath(cleanPath));
     }
   }
+
+  document.body.classList.remove('has-mobile-cta');
 
   const pathname = getAppPathname();
   const searchParams = new URLSearchParams(window.location.search);
@@ -133,22 +256,48 @@ function router() {
     return;
   }
 
+  // Clean up previous page listeners, observers, and timers before rendering new route
+  if (typeof currentPageCleanup === 'function') {
+    try {
+      currentPageCleanup();
+    } catch (e) {
+      console.error('Previous page cleanup error:', e);
+    }
+    currentPageCleanup = null;
+  }
+
   if (!matchedRoute) {
-    // 404 Not Found
+    try {
+      updatePageSEO(pathname, searchParams);
+    } catch (err) {
+      console.error('SEO update error:', err);
+    }
+
+    // 404 Not Found - Premium Apple-inspired layout
     document.getElementById('app').innerHTML = `
-      <div class="section" style="text-align:center;min-height:60vh;display:flex;align-items:center;justify-content:center">
-        <div>
-          <h1 style="font-size:var(--text-6xl);color:var(--color-accent);margin-bottom:var(--space-4)">404</h1>
-          <h2 style="margin-bottom:var(--space-4)">Page Not Found</h2>
-          <p style="margin-bottom:var(--space-8);color:var(--color-text-secondary)">The page you're looking for doesn't exist.</p>
-          <a href="${ROUTES.HOME}" class="btn btn-primary btn-lg">Go Home</a>
+      <div class="section not-found-section" style="min-height:72vh;display:flex;align-items:center;justify-content:center;padding:var(--space-16) 0">
+        <div class="container" style="max-width:640px;text-align:center">
+          <div class="badge badge-primary" style="margin-bottom:var(--space-4);font-weight:600">
+            404 · Page Not Found
+          </div>
+          <h1 style="font-size:clamp(2.5rem, 5vw, 3.75rem);font-weight:600;letter-spacing:-0.035em;line-height:1.1;color:var(--color-heading);margin-bottom:var(--space-4)">
+            Lost in Navigation
+          </h1>
+          <p style="font-size:1.125rem;color:var(--color-text-secondary);line-height:1.6;margin-bottom:var(--space-8);max-width:520px;margin-left:auto;margin-right:auto">
+            The page you requested could not be found or has been moved. Explore our financial learning tracks, free calculators, or return home.
+          </p>
+          <div style="display:flex;gap:var(--space-3);justify-content:center;flex-wrap:wrap;margin-bottom:var(--space-10)">
+            <a href="${ROUTES.HOME}" class="btn btn-primary btn-lg">Return Home</a>
+            <a href="${ROUTES.LEARN}" class="btn btn-secondary btn-lg">Explore Academy</a>
+            <a href="${ROUTES.CALCULATORS}" class="btn btn-secondary btn-lg">Calculators</a>
+          </div>
         </div>
       </div>
     `;
     return;
   }
 
-  // Handle fullscreen routes (learn page — no navbar/footer/whatsapp)
+  // Handle fullscreen routes
   const isFullscreen = matchedRoute.fullscreen;
   const navContainer = document.getElementById('navbar-container');
   const footerContainer = document.getElementById('footer-container');
@@ -163,13 +312,25 @@ function router() {
     if (footerContainer) footerContainer.style.display = '';
     if (waContainer) waContainer.style.display = '';
 
-    // Update navbar with active path
     const navPath = matchedRoute.nav || pathname;
-    navContainer.innerHTML = renderNavbar(navPath);
+    if (!currentNavRendered) {
+      navContainer.innerHTML = renderNavbar(navPath);
+      initNavbar();
+      currentNavRendered = true;
+    } else {
+      updateNavbarActive(navPath);
+      initNavbar();
+    }
+  }
+
+  // Dynamically load page module code chunk on-demand
+  let pageModule = null;
+  if (typeof matchedRoute.load === 'function') {
+    pageModule = await matchedRoute.load();
   }
 
   // Render page content with smooth fade transition
-  const content = matchedRoute.render(match, searchParams);
+  const content = matchedRoute.render(match, searchParams, pageModule);
   const appEl = document.getElementById('app');
   if (appEl) {
     appEl.classList.remove('page-enter');
@@ -178,12 +339,12 @@ function router() {
     appEl.classList.add('page-enter');
   }
 
-  // Initialize page interactivity
-  if (!isFullscreen) {
-    initNavbar();
-  }
+  // Initialize page interactivity and capture cleanup handler
   if (typeof matchedRoute.init === 'function') {
-    matchedRoute.init(match, searchParams);
+    const cleanup = matchedRoute.init(match, searchParams, pageModule);
+    if (typeof cleanup === 'function') {
+      currentPageCleanup = cleanup;
+    }
   }
 
   // Premium UI enhancements (runs after page init)
@@ -191,12 +352,48 @@ function router() {
     setTimeout(initAllEnhancements, 60);
   }
 
+  // Update page SEO metadata & Schema.org JSON-LD
+  try {
+    updatePageSEO(pathname, searchParams);
+  } catch (err) {
+    console.error('SEO update error:', err);
+  }
+
   // Scroll to top
   window.scrollTo({ top: 0, behavior: 'instant' });
 }
 
+// ── Intelligent Link Prefetching ─────────────────
+const prefetchedUrls = new Set();
+
+function prefetchRouteForUrl(url) {
+  if (!url || typeof url !== 'string' || !url.startsWith('/') || prefetchedUrls.has(url)) return;
+  prefetchedUrls.add(url);
+
+  const cleanPath = url.split('?')[0].split('#')[0];
+  for (const route of routes) {
+    if (route.pattern && route.pattern.test(cleanPath) && typeof route.load === 'function') {
+      route.load(); // Triggers browser fetch and module cache in background
+      break;
+    }
+  }
+}
+
+function initLinkPrefetch() {
+  // Prefetch route code chunks on link hover or pointer focus
+  document.addEventListener('mouseover', (e) => {
+    const link = e.target.closest('a');
+    if (!link) return;
+    const href = link.getAttribute('href');
+    if (href && href.startsWith('/') && !href.startsWith('//')) {
+      prefetchRouteForUrl(href);
+    }
+  }, { passive: true });
+}
+
 // ── Initialize App ───────────────────────────────
 function initApp() {
+  initTheme();
   const body = document.body;
 
   // Navbar container
@@ -261,13 +458,27 @@ function initApp() {
   // Listen for browser back / forward buttons
   window.addEventListener('popstate', router);
 
+  // Listen for language toggles to update SEO, html lang, and JSON-LD
+  window.addEventListener('rp-learn-lang-changed', (e) => {
+    try {
+      updatePageSEO(getAppPathname(), new URLSearchParams(window.location.search), e.detail?.lang);
+    } catch (err) {
+      console.error('SEO language update error:', err);
+    }
+  });
+
+  // Enable smart background link prefetching
+  initLinkPrefetch();
+
   // Initial routing
   router();
 }
 
 // Boot
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', initApp);
-} else {
-  initApp();
+if (typeof document !== 'undefined') {
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initApp);
+  } else {
+    initApp();
+  }
 }

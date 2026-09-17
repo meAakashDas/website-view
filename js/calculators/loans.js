@@ -1,5 +1,5 @@
 // ==============================================
-// risePaisa — Unified Nepal Loan Calculators Hub
+// risePaisa - Unified Nepal Loan Calculators Hub
 // Home Loan, Personal Loan & Vehicle Loan Calculators
 // Reusable Reducing-Balance Calculation Engine with Zero Duplication
 // ==============================================
@@ -422,7 +422,7 @@ function renderHomeLoanMarkup() {
           </div>
           <div class="rp-range-ticks" style="margin-top:2px">
             <span id="hl-fee-calc-text">Fee: ${formatNPR(res.processingFeeAmount)}</span>
-            <span>Typical Nepal bank: 0% – 0.75%</span>
+            <span>Typical Nepal bank: 0% - 0.75%</span>
           </div>
         </div>
 
@@ -487,7 +487,7 @@ function renderHomeLoanMarkup() {
 
           <div class="rp-ltv-legend">
             <span class="rp-ltv-legend-item"><span class="rp-ltv-dot green"></span> &lt;70% Low Risk</span>
-            <span class="rp-ltv-legend-item"><span class="rp-ltv-dot yellow"></span> 70%–85% Moderate</span>
+            <span class="rp-ltv-legend-item"><span class="rp-ltv-dot yellow"></span> 70%-85% Moderate</span>
             <span class="rp-ltv-legend-item"><span class="rp-ltv-dot red"></span> &gt;85% High Risk</span>
           </div>
 
@@ -748,7 +748,7 @@ function renderPersonalLoanMarkup() {
           </div>
           <div class="rp-range-ticks" style="margin-top:2px">
             <span id="pl-fee-calc-text">Fee: ${formatNPR(res.processingFeeAmount)}</span>
-            <span>Typical Nepal bank: 0.5% – 1.0%</span>
+            <span>Typical Nepal bank: 0.5% - 1.0%</span>
           </div>
         </div>
 
@@ -922,7 +922,7 @@ function renderVehicleLoanMarkup() {
           </div>
           <div class="rp-vtype-context-note" id="vl-vtype-note">
             ${s.vehicleType === 'Electric Vehicle (EV)'
-              ? '⚡ <strong>Nepal Rastra Bank (NRB) Green Incentive:</strong> Electric Vehicles (EVs) are eligible for up to <strong>80%–90% financing</strong> compared to 50% for standard fossil-fuel vehicles.'
+              ? '⚡ <strong>Nepal Rastra Bank (NRB) Green Incentive:</strong> Electric Vehicles (EVs) are eligible for up to <strong>80%-90% financing</strong> compared to 50% for standard fossil-fuel vehicles.'
               : '🚗 <strong>NRB Guideline:</strong> Maximum financing for standard private internal-combustion vehicles is <strong>50% LTV</strong>. Higher down payment is required.'}
           </div>
         </div>
@@ -1231,47 +1231,59 @@ function renderSharedEducationalSection() {
   return `
     <div class="rp-calc-section rp-edu-cards-section" style="margin-top:var(--space-8)">
       <h3 style="font-size:var(--text-xl);color:var(--color-heading);margin-bottom:var(--space-2)">
-        Understanding Loans in Nepal
+        Understanding Loans, EMI & Banking Directives in Nepal
       </h3>
       <p style="font-size:var(--text-sm);color:var(--color-text-secondary);margin-bottom:var(--space-6)">
-        Key differences, interest structures, and Nepal Rastra Bank (NRB) regulatory insights for smart borrowing.
+        Official Nepal Rastra Bank (NRB) guidelines, reducing balance mathematics, and strategies to save lakhs in interest.
       </p>
 
       <div class="rp-edu-grid">
         
-        <!-- Educational Card 1: Home Loan -->
+        <!-- Educational Card 1: Reducing Balance vs Flat Rate -->
         <div class="rp-edu-card">
-          <div class="rp-edu-icon-wrap" style="color:#1da1f2">🏠</div>
-          <h4 style="color:var(--color-heading)">Home Loan</h4>
-          <ul class="rp-edu-list">
-            <li><strong>Long Repayment Period:</strong> Typically 10 to 30 years, allowing for manageable monthly installments on large property purchases.</li>
-            <li><strong>Lower Interest Rates:</strong> Because real estate serves as prime collateral (registered mortgage deed), home loans carry lower interest rates than unsecured personal credit.</li>
-            <li><strong>NRB LTV Guidelines:</strong> Nepal Rastra Bank limits financing up to 70% for first-time residential home buyers, and 50% for real estate in Kathmandu valley.</li>
+          <div class="rp-edu-icon-wrap" style="color:var(--color-accent);font-size:24px;margin-bottom:8px">📐</div>
+          <h4 style="color:var(--color-heading)">The Reducing Balance Engine</h4>
+          <p style="margin-bottom:10px">
+            Commercial banks compute interest strictly on the declining principal balance:
+            <br><code>EMI = [P × r × (1 + r)ⁿ] / [(1 + r)ⁿ - 1]</code>
+          </p>
+          <p style="font-size:0.875rem;line-height:1.55">
+            Where <strong>P</strong> is principal, <strong>r</strong> is monthly interest, and <strong>n</strong> is months. In early years, up to 70% of your EMI goes toward interest. As principal reduces, interest drops and equity builds. Beware of informal cooperatives quoting "10% Flat Rate"-a 10% flat rate actually equates to an effective APR of over 18.5%!
+          </p>
+        </div>
+
+        <!-- Educational Card 2: NRB Base Rate & Lending Caps -->
+        <div class="rp-edu-card">
+          <div class="rp-edu-icon-wrap" style="color:#10b981;font-size:24px;margin-bottom:8px">🇳🇵</div>
+          <h4 style="color:var(--color-heading)">NRB Directives & Borrowing Limits</h4>
+          <ul class="rp-edu-list" style="margin:0;padding-left:18px;font-size:0.875rem;color:var(--color-text-secondary);line-height:1.6">
+            <li><strong>Base Rate + Premium:</strong> Interest rates equal the bank's published quarterly Base Rate plus a fixed premium spread (e.g. 8.0% Base + 2.5% Premium = 10.5%).</li>
+            <li><strong>DSTI 50% Rule:</strong> NRB limits your total monthly loan EMIs across all banks to a maximum of 50% of verified post-tax income.</li>
+            <li><strong>LTV Financing Caps:</strong> Banks finance up to 70% for first-time residential home buyers, 50% for Kathmandu real estate, and 80%-90% for Electric Vehicles (EVs).</li>
           </ul>
         </div>
 
-        <!-- Educational Card 2: Personal Loan -->
+        <!-- Educational Card 3: Prepayment Savings & Pitfalls -->
         <div class="rp-edu-card">
-          <div class="rp-edu-icon-wrap" style="color:#f59e0b">💼</div>
-          <h4 style="color:var(--color-heading)">Personal Loan</h4>
-          <ul class="rp-edu-list">
-            <li><strong>Usually Unsecured:</strong> Requires no physical collateral, approved primarily on monthly salary slips, tax clearance, or business cash flow.</li>
-            <li><strong>Higher Interest:</strong> Unsecured risk causes banks to charge higher interest rates (commonly 11%–16% in Nepal).</li>
-            <li><strong>Shorter Tenures:</strong> Typically capped at 3 to 5 years (maximum 7 years), making shorter duration essential to avoid paying massive interest markups.</li>
+          <div class="rp-edu-icon-wrap" style="color:#f59e0b;font-size:24px;margin-bottom:8px">⚖️</div>
+          <h4 style="color:var(--color-heading)">Prepayment Power & Common Traps</h4>
+          <ul class="rp-edu-list" style="margin:0;padding-left:18px;font-size:0.875rem;color:var(--color-text-secondary);line-height:1.6">
+            <li><strong>Zero Prepayment Penalty:</strong> Under NRB circulars, commercial banks cannot charge prepayment penalty fees on floating-rate individual home loans.</li>
+            <li><strong>The 1-Extra EMI Hack:</strong> Paying just 1 extra monthly EMI per year directly toward principal cuts a 20-year mortgage down by nearly 4.5 years and saves millions in interest.</li>
+            <li><strong>The Max-Tenure Trap:</strong> Choosing a 30-year tenure to lower monthly EMI can cause you to pay more than 160% of the original loan value in pure interest alone.</li>
           </ul>
         </div>
 
-        <!-- Educational Card 3: Vehicle Loan -->
-        <div class="rp-edu-card">
-          <div class="rp-edu-icon-wrap" style="color:#10b981">🚗</div>
-          <h4 style="color:var(--color-heading)">Vehicle Loan</h4>
-          <ul class="rp-edu-list">
-            <li><strong>Asset-Backed Hypothecation:</strong> Bank places a lien on the vehicle blue book (Yatayat Karyalaya), protecting the lender against default.</li>
-            <li><strong>Importance of Down Payment:</strong> Vehicles are depreciating assets that lose 15%–20% value upon registration. A solid down payment prevents "negative equity" (owing more than car is worth).</li>
-            <li><strong>Electric Vehicle (EV) Benefit:</strong> NRB allows up to 80%–90% financing for zero-emission electric vehicles, compared to 50% for petrol/diesel cars.</li>
-          </ul>
-        </div>
+      </div>
 
+      <!-- Nepal Educational Context Note & Companion Links -->
+      <div class="rp-educational-note" style="margin-top:var(--space-6)">
+        <div class="rp-edu-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+        </div>
+        <div class="rp-edu-text">
+          <strong>Recommended Learning Path:</strong> Learn how to negotiate your premium spread and review bank appraisal steps in our lesson on <a href="/learn/loans/flat-rate-vs-reducing-balance-emi" style="color:var(--color-accent);text-decoration:underline">Flat Rate vs Reducing Balance EMI</a> or explore the comprehensive <a href="/learn/guides/complete-home-loan-guide" style="color:var(--color-accent);text-decoration:underline">Complete Home Loan & Mortgage Guide for Nepal</a>.
+        </div>
       </div>
     </div>
   `;
@@ -2097,9 +2109,9 @@ function initVehicleLoanEvents(container) {
 
       if (elVTypeNote) {
         if (vtype === 'Electric Vehicle (EV)') {
-          elVTypeNote.innerHTML = '⚡ <strong>Nepal Rastra Bank (NRB) Green Incentive:</strong> Electric Vehicles (EVs) are eligible for up to <strong>80%–90% financing</strong> compared to 50% for standard fossil-fuel vehicles.';
+          elVTypeNote.innerHTML = '⚡ <strong>Nepal Rastra Bank (NRB) Green Incentive:</strong> Electric Vehicles (EVs) are eligible for up to <strong>80%-90% financing</strong> compared to 50% for standard fossil-fuel vehicles.';
         } else if (vtype === 'Motorcycle' || vtype === 'Scooter') {
-          elVTypeNote.innerHTML = '🏍️ <strong>Two-Wheeler Financing:</strong> Nepal banks generally cap two-wheeler loans at <strong>50% LTV</strong> with shorter 3–5 year tenures.';
+          elVTypeNote.innerHTML = '🏍️ <strong>Two-Wheeler Financing:</strong> Nepal banks generally cap two-wheeler loans at <strong>50% LTV</strong> with shorter 3-5 year tenures.';
         } else {
           elVTypeNote.innerHTML = '🚗 <strong>NRB Guideline:</strong> Maximum financing for standard private internal-combustion vehicles is <strong>50% LTV</strong>. Higher down payment is required.';
         }

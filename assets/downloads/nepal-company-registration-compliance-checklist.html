@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nepal Private Company Registration & Annual Compliance Checklist | risePaisa</title>
+  <style>
+    :root {
+      --font: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      --ink: #1D1D1F;
+      --muted: #6E6E73;
+      --border: #E5E5EA;
+      --bg: #F5F5F7;
+      --white: #FFFFFF;
+      --blue: #1DA1F2;
+      --blue-hover: #0c85d0;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --ink: #F5F5F7;
+        --muted: #86868B;
+        --border: #38383A;
+        --bg: #000000;
+        --white: #1C1C1E;
+      }
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.5;
+      padding: 40px 20px;
+    }
+    .sheet-card {
+      max-width: 800px;
+      margin: 0 auto;
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 48px;
+      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.04);
+    }
+    .header {
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 24px;
+      margin-bottom: 32px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 20px;
+    }
+    .brand {
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      color: var(--blue);
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+    h1 {
+      font-size: 28px;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      margin-bottom: 8px;
+    }
+    p.lead { color: var(--muted); font-size: 15px; }
+    .actions { display: flex; gap: 12px; }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      padding: 10px 20px;
+      border-radius: 9999px;
+      cursor: pointer;
+      border: none;
+      transition: all 0.2s ease;
+      text-decoration: none;
+    }
+    .btn-primary { background: var(--blue); color: #fff; }
+    .btn-primary:hover { background: var(--blue-hover); }
+    .checklist-section { margin-bottom: 36px; }
+    .section-title {
+      font-size: 18px;
+      font-weight: 600;
+      letter-spacing: -0.2px;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .step-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: var(--blue);
+      color: #fff;
+      font-size: 12px;
+      font-weight: 700;
+    }
+    .item-list { display: flex; flex-direction: column; gap: 12px; }
+    .check-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      padding: 14px 18px;
+      background: var(--bg);
+      border-radius: 12px;
+      cursor: pointer;
+      user-select: none;
+      transition: background 0.15s ease;
+    }
+    .check-item:hover { background: rgba(29, 161, 242, 0.06); }
+    .check-item input[type="checkbox"] {
+      appearance: none;
+      width: 20px;
+      height: 20px;
+      border: 2px solid var(--border);
+      border-radius: 6px;
+      margin-top: 2px;
+      flex-shrink: 0;
+      display: grid;
+      place-content: center;
+      cursor: pointer;
+      transition: all 0.2s;
+      background: var(--white);
+    }
+    .check-item input[type="checkbox"]:checked {
+      background: var(--blue);
+      border-color: var(--blue);
+    }
+    .check-item input[type="checkbox"]:checked::before {
+      content: "";
+      width: 10px;
+      height: 6px;
+      border-left: 2px solid white;
+      border-bottom: 2px solid white;
+      transform: rotate(-45deg) translate(1px, -1px);
+    }
+    .item-content h4 { font-size: 15px; font-weight: 600; margin-bottom: 4px; }
+    .item-content p { font-size: 13px; color: var(--muted); line-height: 1.4; }
+    .note-box {
+      background: rgba(29, 161, 242, 0.08);
+      border-left: 4px solid var(--blue);
+      padding: 16px 20px;
+      border-radius: 0 12px 12px 0;
+      margin: 24px 0;
+      font-size: 14px;
+    }
+    .footer {
+      border-top: 1px solid var(--border);
+      padding-top: 24px;
+      text-align: center;
+      font-size: 12px;
+      color: var(--muted);
+    }
+    @media print {
+      body { background: #fff; padding: 0; }
+      .sheet-card { border: none; box-shadow: none; padding: 0; }
+      .actions { display: none; }
+      .check-item { background: #fff; border: 1px solid #ddd; page-break-inside: avoid; }
+    }
+  </style>
+</head>
+<body>
+  <div class="sheet-card">
+    <div class="header">
+      <div>
+        <div class="brand">risePaisa Free Educational Tools</div>
+        <h1>Nepal Private Company Registration & Compliance Checklist</h1>
+        <p class="lead">From OCR name reservation to IRD PAN/VAT and Ward business registration.</p>
+      </div>
+      <div class="actions">
+        <button class="btn btn-primary" onclick="window.print()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9V2h12v7M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2"/><path d="M6 14h12v8H6z"/></svg>
+          Print / Save PDF
+        </button>
+      </div>
+    </div>
+
+    <div class="note-box">
+      <strong>Statutory Deadline Alert:</strong> Under the Companies Act 2063, annual filings (Section 51, 78, 80) and audited accounts must be uploaded to the OCR portal within 6 months of fiscal year close (by Poush end) to avoid compounding monthly penalties.
+    </div>
+
+    <!-- Phase 1 -->
+    <div class="checklist-section">
+      <div class="section-title">
+        <span class="step-badge">1</span>
+        <span>OCR Incorporation Stage (कम्पनी रजिष्ट्रारको कार्यालय)</span>
+      </div>
+      <div class="item-list">
+        <label class="check-item">
+          <input type="checkbox">
+          <div class="item-content">
+            <h4>Online Name Reservation on ocr.gov.np</h4>
+            <p>Search company registry to avoid identical or trademark-conflicting names in Devanagari and English.</p>
+          </div>
+        </label>
+        <label class="check-item">
+          <input type="checkbox">
+          <div class="item-content">
+            <h4>Drafting MOA & AOA (प्रबन्धपत्र तथा नियमावली)</h4>
+            <p>Clearly define Authorized Capital, Issued Capital, Paid-up Capital, and main business objective clauses.</p>
+          </div>
+        </label>
+        <label class="check-item">
+          <input type="checkbox">
+          <div class="item-content">
+            <h4>Upload Citizenships & Promoter Agreement</h4>
+            <p>Promoter signatures on all pages, witness details, and digital submission of incorporation documents.</p>
+          </div>
+        </label>
+      </div>
+    </div>
+
+    <!-- Phase 2 -->
+    <div class="checklist-section">
+      <div class="section-title">
+        <span class="step-badge">2</span>
+        <span>Post-Incorporation Compliance (पहिलो ३० दिन)</span>
+      </div>
+      <div class="item-list">
+        <label class="check-item">
+          <input type="checkbox">
+          <div class="item-content">
+            <h4>Corporate PAN / VAT Registration at IRD</h4>
+            <p>Obtain 9-digit Business PAN from the Inland Revenue Office (IRO) governing your registered office location.</p>
+          </div>
+        </label>
+        <label class="check-item">
+          <input type="checkbox">
+          <div class="item-content">
+            <h4>Local Ward Office Business Registration (वडा व्यवसाय दर्ता)</h4>
+            <p>Pay local municipality signage and business establishment taxes, submit rent agreement and house owner tax receipts.</p>
+          </div>
+        </label>
+        <label class="check-item">
+          <input type="checkbox">
+          <div class="item-content">
+            <h4>Commercial Bank Account & Capital Deposit</h4>
+            <p>Open corporate current account, deposit initial paid-up capital from promoter personal accounts, and obtain bank verification letter.</p>
+          </div>
+        </label>
+      </div>
+    </div>
+
+    <!-- Phase 3 -->
+    <div class="checklist-section">
+      <div class="section-title">
+        <span class="step-badge">3</span>
+        <span>Annual Recurring Compliance (वार्षिक जिम्मेवारीहरू)</span>
+      </div>
+      <div class="item-list">
+        <label class="check-item">
+          <input type="checkbox">
+          <div class="item-content">
+            <h4>Monthly / Trimester VAT Returns by 25th</h4>
+            <p>File sales and purchase returns on IRD portal by the 25th of every Nepali month even if zero transactions (Nil return).</p>
+          </div>
+        </label>
+        <label class="check-item">
+          <input type="checkbox">
+          <div class="item-content">
+            <h4>Annual General Meeting (AGM) & OCR Portal Submission</h4>
+            <p>Submit Auditor's Report, Section 51 Shareholder List, and AGM minutes on ocr.gov.np by Poush end.</p>
+          </div>
+        </label>
+      </div>
+    </div>
+
+    <div class="footer">
+      © 2026 risePaisa • Independent Financial Education for Nepal • risepaisa.com
+    </div>
+  </div>
+</body>
+</html>

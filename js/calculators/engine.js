@@ -1,5 +1,5 @@
 // ==============================================
-// risePaisa — Financial Calculator Engine
+// risePaisa - Financial Calculator Engine
 // Reusable math, validation, and currency utilities
 // ==============================================
 
@@ -655,7 +655,7 @@ export function calculateLTV(loanAmount, assetPrice) {
  * Get Loan Health assessment based on Loan-to-Value (LTV) Ratio
  * Guidelines:
  *  - Below 70%: Green (Low risk / Healthy)
- *  - 70% – 85%: Yellow (Moderate / High Equity Needed)
+ *  - 70% - 85%: Yellow (Moderate / High Equity Needed)
  *  - Above 85%: Red (High Risk / Exceeds NRB Guidelines)
  * @param {number} ltvPct
  * @returns {Object} { status: 'green'|'yellow'|'red', label: string, color: string, badgeClass: string, desc: string }

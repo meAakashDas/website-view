@@ -1,13 +1,13 @@
 /* ==============================================
-   risePaisa — Calculator Hub & Financial Tools
+   risePaisa - Calculator Hub & Financial Tools
    Design System & Responsive Styles
    ============================================== */
 
 /* ── Calculator Hero & Filter Section ─────────── */
 .rp-hub-hero {
-  padding: var(--space-16) 0 var(--space-10);
+  padding: clamp(36px, 5vw, 48px) 0 32px;
   text-align: center;
-  background: radial-gradient(ellipse 70% 60% at 50% 0%, rgba(29, 161, 242, 0.12), transparent 75%), var(--color-bg);
+  background: var(--color-bg);
   border-bottom: 1px solid var(--color-border);
   position: relative;
   overflow: hidden;
@@ -17,16 +17,16 @@
   display: inline-flex;
   align-items: center;
   gap: var(--space-2);
-  padding: 6px 14px;
-  background: rgba(29, 161, 242, 0.1);
-  border: 1px solid rgba(29, 161, 242, 0.25);
+  padding: 5px 14px;
+  background: var(--color-surface-hover);
+  border: 1px solid var(--color-border);
   border-radius: var(--radius-full);
   font-size: 0.8125rem;
-  font-weight: var(--weight-semibold);
-  color: var(--color-accent);
+  font-weight: var(--weight-medium);
+  color: var(--color-text-secondary);
   margin-bottom: var(--space-4);
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.04em;
 }
 
 .rp-hub-title {
@@ -52,11 +52,11 @@
 }
 
 .rp-calc-wrapper {
-  background: rgba(10, 18, 38, 0.85);
-  border: 1px solid var(--color-border-light);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
   border-radius: var(--radius-xl);
   padding: 34px;
-  box-shadow: var(--shadow-card);
+  box-shadow: var(--shadow-sm);
   margin-bottom: var(--space-12);
   position: relative;
 }
@@ -77,13 +77,7 @@
 }
 
 .rp-calc-wrapper::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 10%;
-  right: 10%;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(29, 161, 242, 0.4), transparent);
+  display: none;
 }
 
 /* ── Calculator Layout Grid ───────────────────── */
@@ -103,7 +97,7 @@
 
 /* ── Calculator Controls Card ─────────────────── */
 .rp-calc-controls-card {
-  background: rgba(7, 13, 31, 0.7);
+  background: var(--color-surface);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
   padding: 28px;
@@ -183,8 +177,8 @@
 .rp-input-affix-wrap {
   display: inline-flex;
   align-items: center;
-  background: rgba(15, 26, 55, 0.85);
-  border: 1.5px solid var(--color-border-light);
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
   padding: 0 12px;
   min-height: 44px;
@@ -195,14 +189,13 @@
   gap: 8px;
   box-sizing: border-box;
   transition: border-color var(--duration-fast) var(--ease-out),
-              box-shadow var(--duration-fast) var(--ease-out),
-              background-color var(--duration-fast) var(--ease-out);
+              box-shadow var(--duration-fast) var(--ease-out);
 }
 
 .rp-input-affix-wrap:focus-within {
   border-color: var(--color-accent);
-  box-shadow: 0 0 0 3px rgba(29, 161, 242, 0.15), 0 2px 8px rgba(0, 0, 0, 0.25);
-  background: rgba(18, 32, 68, 0.95);
+  box-shadow: 0 0 0 3px rgba(29, 161, 242, 0.15);
+  background: var(--color-bg);
 }
 
 .rp-affix {
@@ -218,7 +211,7 @@
 .rp-number-input {
   background: transparent;
   border: none;
-  color: var(--color-white);
+  color: var(--color-heading);
   font-family: var(--font-body);
   font-size: 1.0625rem;
   font-weight: var(--weight-semibold);
@@ -253,8 +246,8 @@
   -webkit-appearance: none;
   appearance: none;
   width: 100%;
-  height: 8px;
-  background: rgba(255, 255, 255, 0.12);
+  height: 4px;
+  background: var(--slider-track-bg);
   border-radius: var(--radius-full);
   outline: none;
   cursor: pointer;
@@ -267,45 +260,42 @@
 .rp-slider::-webkit-slider-thumb {
   -webkit-appearance: none;
   appearance: none;
-  width: 22px;
-  height: 22px;
+  width: 20px;
+  height: 20px;
   border-radius: 50%;
-  background: var(--color-accent);
-  border: 2.5px solid #ffffff;
-  box-shadow: 0 0 10px rgba(29, 161, 242, 0.55);
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.35);
   cursor: grab;
-  transition: transform var(--duration-fast) var(--ease-out), box-shadow var(--duration-fast) var(--ease-out);
+  transition: transform var(--duration-fast) var(--ease-out);
 }
 
 .rp-range-slider::-webkit-slider-thumb:hover,
 .rp-slider::-webkit-slider-thumb:hover {
-  transform: scale(1.08);
-  box-shadow: 0 0 14px rgba(29, 161, 242, 0.8);
+  transform: scale(1.1);
 }
 
 .rp-range-slider:active::-webkit-slider-thumb,
 .rp-slider:active::-webkit-slider-thumb {
   cursor: grabbing;
-  transform: scale(1.18);
-  box-shadow: 0 0 16px rgba(29, 161, 242, 0.85);
+  transform: scale(1.15);
 }
 
 .rp-range-slider::-moz-range-thumb,
 .rp-slider::-moz-range-thumb {
-  width: 22px;
-  height: 22px;
+  width: 20px;
+  height: 20px;
   border-radius: 50%;
-  background: var(--color-accent);
-  border: 2.5px solid #ffffff;
-  box-shadow: 0 0 10px rgba(29, 161, 242, 0.55);
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.35);
   cursor: grab;
 }
 
 .rp-range-slider:active::-moz-range-thumb,
 .rp-slider:active::-moz-range-thumb {
   cursor: grabbing;
-  transform: scale(1.18);
-  box-shadow: 0 0 16px rgba(29, 161, 242, 0.85);
+  transform: scale(1.15);
 }
 
 .rp-range-ticks,
@@ -327,7 +317,7 @@
 /* ── Unit Switcher Pills ──────────────────────── */
 .rp-unit-switch {
   display: inline-flex;
-  background: rgba(255, 255, 255, 0.07);
+  background: var(--color-surface-hover);
   padding: 3px;
   border-radius: var(--radius-md);
   border: 1px solid var(--color-border);
@@ -346,10 +336,10 @@
 }
 
 .rp-unit-btn.active {
-  background: var(--color-accent);
-  color: #ffffff;
+  background: var(--color-surface-elevated);
+  color: var(--color-heading);
   font-weight: var(--weight-semibold);
-  box-shadow: 0 2px 8px rgba(29, 161, 242, 0.4);
+  box-shadow: var(--shadow-sm);
 }
 
 /* ── Presets Row ──────────────────────────────── */
@@ -369,7 +359,7 @@
 }
 
 .rp-preset-btn {
-  background: rgba(255, 255, 255, 0.06);
+  background: var(--color-surface);
   border: 1px solid var(--color-border);
   color: var(--color-text-secondary);
   font-size: 0.8125rem;
@@ -382,10 +372,10 @@
 }
 
 .rp-preset-btn:hover {
-  background: rgba(29, 161, 242, 0.15);
-  border-color: var(--color-accent);
-  color: var(--color-white);
-  transform: translateY(-1px);
+  background: var(--color-surface-hover);
+  border-color: var(--color-border-hover);
+  color: var(--color-heading);
+  transform: none;
 }
 
 /* ── Button Tap Micro-Interactions ────────────── */
@@ -399,7 +389,7 @@
 .rp-kitta-btn:active,
 .rp-cagr-quick-btn:active,
 .rp-cagr-mode-btn:active {
-  transform: scale(0.97);
+  transform: scale(0.98);
 }
 
 /* ── Results Cards ────────────────────────────── */
@@ -417,7 +407,7 @@
 }
 
 .rp-stat-card {
-  background: rgba(7, 13, 31, 0.7);
+  background: var(--color-surface);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
   padding: 20px 22px;
@@ -433,23 +423,16 @@
 }
 
 .rp-stat-card.maturity {
-  background: linear-gradient(135deg, rgba(10, 24, 56, 0.9) 0%, rgba(7, 13, 31, 0.9) 100%);
-  border: 1.5px solid rgba(29, 161, 242, 0.35);
-  box-shadow: 0 4px 24px rgba(29, 161, 242, 0.14), inset 0 0 20px rgba(29, 161, 242, 0.06);
+  background: var(--color-surface-elevated);
+  border: 1px solid var(--color-border-hover);
+  box-shadow: var(--shadow-sm);
   position: relative;
   overflow: hidden;
   padding: 22px 26px;
 }
 
 .rp-stat-card.maturity::after {
-  content: '';
-  position: absolute;
-  top: -50%;
-  right: -50%;
-  width: 200%;
-  height: 200%;
-  background: radial-gradient(circle, rgba(29, 161, 242, 0.08) 0%, transparent 60%);
-  pointer-events: none;
+  display: none;
 }
 
 .rp-maturity-header {
@@ -471,7 +454,7 @@
   font-family: var(--font-display);
   font-size: 1.375rem;
   font-weight: 700;
-  color: var(--color-white);
+  color: var(--color-heading);
   margin-top: 4px;
   font-variant-numeric: tabular-nums;
   white-space: nowrap;
@@ -485,10 +468,10 @@
 .rp-stat-value.maturity-large {
   font-size: clamp(1.75rem, 2.75vw, 2.45rem);
   font-weight: 700;
-  color: #ffffff;
+  color: var(--color-heading);
   font-variant-numeric: tabular-nums;
   white-space: nowrap;
-  text-shadow: 0 0 18px rgba(29, 161, 242, 0.45);
+  text-shadow: none;
   transition: color var(--duration-fast) var(--ease-out), opacity var(--duration-fast) var(--ease-out);
 }
 
@@ -516,45 +499,31 @@
 }
 
 .rp-badge-accent {
-  background: rgba(29, 161, 242, 0.15);
+  background: var(--color-accent-soft);
   color: var(--color-accent);
-  border: 1px solid rgba(29, 161, 242, 0.35);
+  border: 1px solid rgba(29, 161, 242, 0.25);
 }
 
 .rp-badge-outline {
   background: transparent;
   color: var(--color-text-secondary);
-  border: 1px solid var(--color-border-light);
+  border: 1px solid var(--color-border);
 }
 
 .rp-badge-pulse {
   position: relative;
-  background: rgba(29, 161, 242, 0.2);
-  color: #ffffff;
-  border: 1px solid rgba(29, 161, 242, 0.5);
+  background: var(--color-accent-soft);
+  color: var(--color-accent);
+  border: 1px solid rgba(29, 161, 242, 0.3);
 }
 
 .rp-badge-pulse::after {
-  content: '';
-  position: absolute;
-  inset: -1px;
-  border-radius: inherit;
-  box-shadow: 0 0 12px 2px rgba(29, 161, 242, 0.45);
-  opacity: 0;
-  animation: pulseGlowOpacity 2.5s ease-in-out infinite;
-  pointer-events: none;
-  will-change: opacity;
-  transform: translateZ(0);
-}
-
-@keyframes pulseGlowOpacity {
-  0%, 100% { opacity: 0; }
-  50%      { opacity: 1; }
+  display: none;
 }
 
 /* ── Doughnut Chart Card ──────────────────────── */
 .rp-donut-card {
-  background: rgba(7, 13, 31, 0.7);
+  background: var(--color-surface);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
   padding: 22px 26px;
@@ -597,7 +566,7 @@
 .rp-donut-center-val {
   font-size: 18px;
   font-weight: bold;
-  fill: var(--color-white);
+  fill: var(--color-heading);
   font-family: var(--font-display);
 }
 
@@ -628,13 +597,13 @@
 }
 
 .rp-legend-dot.dot-invested {
-  background: #2a3b5c;
-  border: 1px solid rgba(255, 255, 255, 0.25);
+  background: var(--color-border-hover);
+  border: 1px solid var(--color-border-light);
 }
 
 .rp-legend-dot.dot-profit {
   background: var(--color-accent);
-  box-shadow: 0 0 6px var(--color-accent);
+  box-shadow: none;
 }
 
 .rp-legend-name {
@@ -663,7 +632,7 @@
 
 /* ── Visual Investment Summary Flow ──────────── */
 .rp-summary-flow-card {
-  background: rgba(7, 13, 31, 0.7);
+  background: var(--color-surface);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
   padding: 26px 28px;
@@ -689,25 +658,24 @@
 .rp-flow-step {
   flex: 1;
   min-width: 170px;
-  background: rgba(15, 26, 55, 0.65);
+  background: var(--color-surface);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
   padding: 18px;
   display: flex;
   flex-direction: column;
   position: relative;
-  transition: transform var(--duration-fast), border-color var(--duration-fast);
+  transition: border-color var(--duration-fast);
 }
 
 .rp-flow-step:hover {
-  transform: translateY(-2px);
-  border-color: rgba(29, 161, 242, 0.35);
+  border-color: var(--color-border-hover);
 }
 
 .rp-flow-step.highlight {
-  background: linear-gradient(135deg, rgba(29, 161, 242, 0.14), rgba(15, 26, 55, 0.85));
+  background: var(--color-surface-elevated);
   border-color: var(--color-accent);
-  box-shadow: 0 4px 20px rgba(29, 161, 242, 0.16);
+  box-shadow: var(--shadow-sm);
 }
 
 .rp-flow-step-num {
@@ -740,7 +708,7 @@
   font-family: var(--font-display);
   font-size: 1.125rem;
   font-weight: var(--weight-bold);
-  color: var(--color-white);
+  color: var(--color-heading);
 }
 
 .rp-flow-step-val.profit {
@@ -748,8 +716,8 @@
 }
 
 .rp-flow-step-val.maturity {
-  color: #ffffff;
-  text-shadow: 0 0 10px rgba(29, 161, 242, 0.4);
+  color: var(--color-accent);
+  text-shadow: none;
 }
 
 .rp-flow-step-sub {
@@ -781,7 +749,7 @@
 
 /* ── Growth Chart Section ─────────────────────── */
 .rp-growth-chart-container {
-  background: rgba(7, 13, 31, 0.7);
+  background: var(--color-surface);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
   padding: 26px 28px;
@@ -833,7 +801,7 @@
 
 .rp-badge-line.value-line::before {
   background: var(--color-accent);
-  box-shadow: 0 0 6px var(--color-accent);
+  box-shadow: none;
 }
 
 .rp-chart-svg-wrapper {
@@ -850,18 +818,18 @@
 }
 
 .rp-grid-line {
-  stroke: rgba(255, 255, 255, 0.06);
+  stroke: var(--color-border);
   stroke-width: 1;
 }
 
 .rp-tick-line {
-  stroke: rgba(255, 255, 255, 0.12);
+  stroke: var(--color-border-light);
   stroke-width: 1;
 }
 
 .rp-axis-text {
   font-size: 12px;
-  fill: #8EA0B6;
+  fill: var(--color-text-muted);
   font-family: var(--font-body);
 }
 
@@ -878,19 +846,20 @@
 .rp-chart-point:hover .rp-point-outer,
 .rp-chart-point:focus .rp-point-outer {
   r: 9;
-  fill: rgba(29, 161, 242, 0.45);
+  fill: rgba(29, 161, 242, 0.4);
 }
 
 /* ── Interactive Chart Tooltip ────────────────── */
 .rp-chart-tooltip {
   position: absolute;
-  background: rgba(6, 13, 27, 0.95);
-  border: 1px solid var(--color-accent);
+  background: rgba(15, 17, 23, 0.95);
+  border: 1px solid var(--color-border-hover);
   border-radius: var(--radius-md);
   padding: 14px 18px;
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.8), 0 0 15px rgba(29, 161, 242, 0.25);
+  box-shadow: var(--shadow-md);
   pointer-events: none;
-  backdrop-filter: blur(8px);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   z-index: 20;
   transition: opacity 0.15s ease;
   min-width: 200px;
@@ -901,7 +870,7 @@
 .rp-tt-title {
   font-size: 0.84375rem;
   font-weight: var(--weight-bold);
-  color: var(--color-white);
+  color: var(--color-heading);
   border-bottom: 1px solid var(--color-border);
   padding-bottom: 6px;
   margin-bottom: 8px;
@@ -935,7 +904,7 @@
 
 /* ── Year-wise Growth Table ───────────────────── */
 .rp-table-section {
-  background: rgba(7, 13, 31, 0.7);
+  background: var(--color-surface);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
   padding: 26px 28px;
@@ -970,7 +939,6 @@
   overflow: auto;
   border-radius: var(--radius-md);
   border: 1px solid var(--color-border);
-  box-shadow: inset -10px 0 12px -6px rgba(0, 0, 0, 0.55);
   -webkit-overflow-scrolling: touch;
   overscroll-behavior: contain;
 }
@@ -986,7 +954,7 @@
 .rp-growth-table thead,
 .rp-amort-table thead,
 .rp-tax-table thead {
-  background: #0B152D;
+  background: var(--color-bg-alt);
   position: sticky;
   top: 0;
   z-index: 5;
@@ -999,16 +967,16 @@
   font-weight: var(--weight-semibold);
   font-size: 0.875rem;
   color: var(--color-heading);
-  border-bottom: 1px solid var(--color-border-light);
+  border-bottom: 1px solid var(--color-border);
   white-space: nowrap;
-  background: #0B152D;
+  background: var(--color-bg-alt);
 }
 
 .rp-growth-table td,
 .rp-amort-table td,
 .rp-tax-table td {
   padding: 14px 18px;
-  border-bottom: 1px solid var(--color-divider);
+  border-bottom: 1px solid var(--color-border);
   color: var(--color-text);
   white-space: nowrap;
 }
@@ -1024,29 +992,29 @@
     position: sticky;
     left: 0;
     z-index: 2;
-    background: #080F22;
-    box-shadow: 2px 0 8px rgba(0, 0, 0, 0.45);
+    background: var(--color-bg-alt);
+    box-shadow: 1px 0 0 var(--color-border);
   }
   .rp-growth-table thead th:first-child,
   .rp-amort-table thead th:first-child,
   .rp-tax-table thead th:first-child {
     z-index: 6;
-    background: #0B152D;
+    background: var(--color-bg-alt);
   }
   .rp-growth-table tr.rp-row-final td:first-child {
-    background: #0E1F47;
+    background: var(--color-surface-hover);
   }
   .rp-growth-table tbody tr:hover td:first-child {
-    background: #0F224E;
+    background: var(--color-surface-hover);
   }
 }
 
 .rp-growth-table tbody tr:hover {
-  background: rgba(29, 161, 242, 0.06);
+  background: var(--color-surface-hover);
 }
 
 .rp-row-final {
-  background: rgba(29, 161, 242, 0.09);
+  background: var(--color-surface-hover);
   font-weight: var(--weight-semibold);
 }
 
@@ -1090,8 +1058,8 @@
   display: flex;
   align-items: flex-start;
   gap: 18px;
-  background: rgba(29, 161, 242, 0.06);
-  border: 1px solid rgba(29, 161, 242, 0.22);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
   padding: 18px 24px;
   margin-top: 26px;
@@ -1112,7 +1080,7 @@
 }
 
 .rp-edu-text strong {
-  color: var(--color-white);
+  color: var(--color-heading);
 }
 
 /* ── Future Calculators Section ──────────────── */
@@ -1145,41 +1113,55 @@
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
   gap: 24px;
+  align-items: stretch;
 }
 
 .rp-calc-card {
-  background: rgba(10, 18, 38, 0.6);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-lg);
-  padding: 26px 28px;
+  background: var(--card-bg);
+  border: var(--card-border);
+  border-radius: var(--card-radius, 16px);
+  padding: var(--card-padding, 24px);
   display: flex;
   flex-direction: column;
-  transition: all var(--duration-base) var(--ease-spring);
+  height: 100%;
+  transition: border-color var(--duration-normal) var(--ease-apple),
+              transform var(--duration-normal) var(--ease-apple),
+              background-color var(--duration-normal) var(--ease-apple),
+              box-shadow var(--duration-normal) var(--ease-apple);
   position: relative;
   overflow: hidden;
+  box-shadow: var(--shadow-card);
 }
 
 .rp-calc-card.active-card {
-  border-color: rgba(29, 161, 242, 0.4);
-  background: rgba(15, 26, 55, 0.8);
-  box-shadow: 0 8px 32px rgba(29, 161, 242, 0.12);
+  border-color: var(--color-border);
+  background: var(--color-surface);
+  cursor: pointer;
 }
 
 .rp-calc-card.active-card:hover {
-  transform: translateY(-2px);
+  transform: translateY(-6px);
   border-color: var(--color-accent);
-  box-shadow: 0 10px 32px rgba(29, 161, 242, 0.2);
+  background: var(--card-bg-hover);
+  box-shadow: 0 16px 32px rgba(0, 0, 0, 0.12), 0 0 0 1px rgba(29, 161, 242, 0.2);
+}
+
+.rp-calc-card.active-card:hover .calc-arrow-btn {
+  transform: translateX(4px);
+  background: var(--color-accent);
+  color: #ffffff;
+  border-color: var(--color-accent);
 }
 
 .rp-calc-card.disabled-card {
-  opacity: 0.72;
+  opacity: 0.5;
   cursor: default;
 }
 
 .rp-calc-card.disabled-card:hover {
-  opacity: 0.9;
-  border-color: rgba(255, 255, 255, 0.15);
-  transform: translateY(-2px);
+  opacity: 0.65;
+  border-color: var(--color-border);
+  transform: none;
 }
 
 .rp-calc-card-top {
@@ -1192,8 +1174,10 @@
 .rp-calc-card-icon {
   width: 48px;
   height: 48px;
+  min-width: 48px;
+  min-height: 48px;
   border-radius: var(--radius-md);
-  background: rgba(255, 255, 255, 0.05);
+  background: var(--color-surface-hover);
   border: 1px solid var(--color-border);
   display: flex;
   align-items: center;
@@ -1202,27 +1186,31 @@
 }
 
 .rp-calc-card.active-card .rp-calc-card-icon {
-  background: rgba(29, 161, 242, 0.15);
-  border-color: rgba(29, 161, 242, 0.3);
+  background: var(--color-accent-soft);
+  border-color: rgba(29, 161, 242, 0.25);
   color: var(--color-accent);
 }
 
 .rp-calc-card-icon svg {
   width: 24px;
   height: 24px;
+  max-width: 24px;
+  max-height: 24px;
 }
 
 .rp-calc-card-title {
-  font-size: 1.2rem;
+  font-size: var(--text-card-title, 1.125rem);
   font-weight: var(--weight-semibold);
   color: var(--color-heading);
+  letter-spacing: -0.015em;
+  line-height: 1.35;
   margin-bottom: 8px;
 }
 
 .rp-calc-card-desc {
-  font-size: 0.9375rem;
+  font-size: var(--text-card-body, 0.9375rem);
   color: var(--color-text-secondary);
-  line-height: 1.6;
+  line-height: 1.55;
   flex-grow: 1;
   margin-bottom: 20px;
 }
@@ -1233,6 +1221,17 @@
   justify-content: space-between;
   padding-top: 14px;
   border-top: 1px solid var(--color-divider);
+  margin-top: auto;
+}
+
+.rp-calc-cta {
+  font-size: 0.875rem;
+  font-weight: var(--weight-semibold);
+  color: var(--color-accent);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: color var(--duration-fast);
 }
 
 .rp-calc-category {
@@ -1250,9 +1249,9 @@
 }
 
 .rp-badge-coming-soon {
-  background: rgba(255, 255, 255, 0.06);
+  background: var(--color-surface-hover);
   color: var(--color-text-secondary);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  border: 1px solid var(--color-border);
   font-size: 0.75rem;
   padding: 3px 10px;
   border-radius: var(--radius-full);
@@ -1260,9 +1259,9 @@
 }
 
 .rp-badge-live {
-  background: rgba(29, 161, 242, 0.15);
+  background: var(--color-accent-soft);
   color: var(--color-accent);
-  border: 1px solid rgba(29, 161, 242, 0.3);
+  border: 1px solid rgba(29, 161, 242, 0.25);
   font-size: 0.75rem;
   padding: 3px 10px;
   border-radius: var(--radius-full);
@@ -1271,7 +1270,9 @@
 
 /* ── Calculator Navigation Tabs ───────────────── */
 .rp-calc-nav-bar {
-  background: rgba(7, 13, 31, 0.96);
+  background: var(--nav-bg);
+  backdrop-filter: saturate(180%) blur(20px);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
   border-bottom: 1px solid var(--color-border);
   position: sticky;
   top: var(--nav-height, 72px);
@@ -1307,28 +1308,27 @@
   font-family: var(--font-body);
   font-size: 0.9375rem;
   font-weight: 550;
-  padding: 10px 18px;
-  min-height: 42px;
+  padding: 9px 18px;
+  min-height: 40px;
   border-radius: var(--radius-full);
   cursor: pointer;
   white-space: nowrap;
   transition: background-color var(--duration-fast) var(--ease-out),
               border-color var(--duration-fast) var(--ease-out),
-              color var(--duration-fast) var(--ease-out),
-              box-shadow var(--duration-fast) var(--ease-out);
+              color var(--duration-fast) var(--ease-out);
 }
 
 .rp-calc-tab-btn:hover:not(:disabled) {
-  background: rgba(255, 255, 255, 0.06);
-  color: var(--color-white);
-  border-color: rgba(255, 255, 255, 0.15);
+  background: var(--color-surface-hover);
+  color: var(--color-heading);
+  border-color: var(--color-border);
 }
 
 .rp-calc-tab-btn.active {
-  background: rgba(29, 161, 242, 0.18);
-  color: #ffffff;
-  border-color: var(--color-accent);
-  box-shadow: 0 0 16px rgba(29, 161, 242, 0.25);
+  background: var(--color-surface-active);
+  color: var(--color-heading);
+  border-color: var(--color-border-hover);
+  box-shadow: var(--shadow-sm);
   font-weight: var(--weight-semibold);
 }
 
@@ -1339,7 +1339,7 @@
 }
 
 .rp-calc-tab-btn.disabled {
-  opacity: 0.55;
+  opacity: 0.5;
   cursor: not-allowed;
 }
 
@@ -1413,7 +1413,7 @@
 }
 
 .rp-loan-preset-btn {
-  background: rgba(15, 26, 55, 0.85);
+  background: var(--color-surface);
   border: 1px solid var(--color-border);
   color: var(--color-text-secondary);
   font-family: var(--font-body);
@@ -1427,23 +1427,22 @@
 }
 
 .rp-loan-preset-btn:hover {
-  border-color: var(--color-accent);
-  color: var(--color-white);
-  background: rgba(29, 161, 242, 0.14);
-  transform: translateY(-1px);
+  border-color: var(--color-border-hover);
+  color: var(--color-heading);
+  background: var(--color-surface-hover);
 }
 
 .rp-loan-preset-btn.active {
-  background: var(--color-accent);
-  border-color: var(--color-accent);
-  color: #ffffff;
+  background: var(--color-surface-elevated);
+  border-color: var(--color-border-hover);
+  color: var(--color-heading);
   font-weight: var(--weight-semibold);
-  box-shadow: 0 2px 10px rgba(29, 161, 242, 0.35);
+  box-shadow: var(--shadow-sm);
 }
 
 /* ── Loan Composition Breakdown ───────────────── */
 .rp-breakdown-container {
-  background: rgba(7, 13, 31, 0.7);
+  background: var(--color-surface);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
   padding: 24px 28px;
@@ -1463,7 +1462,7 @@
 }
 
 .rp-breakdown-card {
-  background: rgba(15, 26, 55, 0.65);
+  background: var(--color-surface);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
   padding: 16px 20px;
@@ -1496,7 +1495,7 @@
   font-family: var(--font-display);
   font-size: 1.0625rem;
   font-weight: 700;
-  color: var(--color-white);
+  color: var(--color-heading);
 }
 
 .rp-bd-badge {
@@ -1504,14 +1503,14 @@
   font-weight: 700;
   padding: 4px 10px;
   border-radius: var(--radius-sm);
-  background: rgba(29, 161, 242, 0.15);
+  background: var(--color-accent-soft);
   color: var(--color-accent);
-  border: 1px solid rgba(29, 161, 242, 0.3);
+  border: 1px solid rgba(29, 161, 242, 0.25);
 }
 
 /* ── Rate Change Sensitivity Comparison ───────── */
 .rp-comparison-section {
-  background: rgba(7, 13, 31, 0.7);
+  background: var(--color-surface);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
   padding: 26px 28px;
@@ -1532,7 +1531,7 @@
 }
 
 .rp-comp-card {
-  background: rgba(15, 26, 55, 0.65);
+  background: var(--color-surface);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
   padding: 18px 22px;
@@ -1545,13 +1544,13 @@
 
 .rp-comp-card:hover {
   transform: translateY(-2px);
-  border-color: rgba(29, 161, 242, 0.35);
+  border-color: var(--color-border-hover);
 }
 
 .rp-comp-card.active {
-  background: linear-gradient(135deg, rgba(29, 161, 242, 0.14), rgba(15, 26, 55, 0.85));
+  background: var(--color-surface-elevated);
   border-color: var(--color-accent);
-  box-shadow: 0 4px 20px rgba(29, 161, 242, 0.16);
+  box-shadow: var(--shadow-sm);
 }
 
 .rp-comp-badge {
@@ -1576,12 +1575,12 @@
   font-family: var(--font-display);
   font-size: 1.375rem;
   font-weight: 700;
-  color: var(--color-white);
+  color: var(--color-heading);
 }
 
 .rp-comp-emi.accent {
-  color: #ffffff;
-  text-shadow: 0 0 10px rgba(29, 161, 242, 0.4);
+  color: var(--color-accent);
+  text-shadow: none;
 }
 
 .rp-comp-diff {
@@ -1603,7 +1602,7 @@
 
 /* ── Educational Cards Section ────────────────── */
 .rp-edu-cards-section {
-  background: rgba(7, 13, 31, 0.7);
+  background: var(--color-surface);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
   padding: 26px 28px;
@@ -1623,7 +1622,7 @@
 }
 
 .rp-edu-card {
-  background: rgba(15, 26, 55, 0.55);
+  background: var(--color-surface);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
   padding: 22px 24px;
@@ -1662,7 +1661,7 @@
 
 .rp-freq-btn {
   flex: 1;
-  background: rgba(15, 26, 55, 0.65);
+  background: var(--color-surface);
   border: 1px solid var(--color-border);
   color: var(--color-text-secondary);
   font-family: var(--font-body);
@@ -1676,17 +1675,17 @@
 }
 
 .rp-freq-btn:hover {
-  border-color: var(--color-accent);
-  color: var(--color-white);
-  background: rgba(29, 161, 242, 0.12);
+  border-color: var(--color-border-hover);
+  color: var(--color-heading);
+  background: var(--color-surface-hover);
 }
 
 .rp-freq-btn.active {
-  background: var(--color-accent);
-  border-color: var(--color-accent);
-  color: #ffffff;
+  background: var(--color-surface-elevated);
+  border-color: var(--color-border-hover);
+  color: var(--color-heading);
   font-weight: var(--weight-semibold);
-  box-shadow: 0 2px 8px rgba(29, 161, 242, 0.35);
+  box-shadow: var(--shadow-sm);
 }
 
 /* ── SWP Withdrawal Sustainability Indicator ──── */
@@ -1702,13 +1701,12 @@
 }
 
 .rp-sustainability-card.sustainable {
-  background: rgba(16, 185, 129, 0.12);
-  border-color: rgba(16, 185, 129, 0.35);
+  background: rgba(16, 185, 129, 0.1);
+  border-color: rgba(16, 185, 129, 0.25);
 }
 
 .rp-sustainability-card.sustainable .rp-sustain-dot {
   background: #10B981;
-  box-shadow: 0 0 8px #10B981;
 }
 
 .rp-sustainability-card.sustainable .rp-sustain-title {
@@ -1716,13 +1714,12 @@
 }
 
 .rp-sustainability-card.monitor {
-  background: rgba(245, 158, 11, 0.12);
-  border-color: rgba(245, 158, 11, 0.35);
+  background: rgba(245, 158, 11, 0.1);
+  border-color: rgba(245, 158, 11, 0.25);
 }
 
 .rp-sustainability-card.monitor .rp-sustain-dot {
   background: #F59E0B;
-  box-shadow: 0 0 8px #F59E0B;
 }
 
 .rp-sustainability-card.monitor .rp-sustain-title {
@@ -1730,13 +1727,12 @@
 }
 
 .rp-sustainability-card.exhausted {
-  background: rgba(239, 68, 68, 0.12);
-  border-color: rgba(239, 68, 68, 0.4);
+  background: rgba(239, 68, 68, 0.1);
+  border-color: rgba(239, 68, 68, 0.3);
 }
 
 .rp-sustainability-card.exhausted .rp-sustain-dot {
   background: #EF4444;
-  box-shadow: 0 0 8px #EF4444;
 }
 
 .rp-sustainability-card.exhausted .rp-sustain-title {
@@ -1776,9 +1772,9 @@
 }
 
 .rp-badge-danger {
-  background: rgba(239, 68, 68, 0.15);
+  background: rgba(239, 68, 68, 0.12);
   color: #EF4444;
-  border: 1px solid rgba(239, 68, 68, 0.35);
+  border: 1px solid rgba(239, 68, 68, 0.3);
   font-size: 0.75rem;
   padding: 3px 10px;
   border-radius: var(--radius-full);
@@ -1786,7 +1782,7 @@
 }
 
 .rp-row-exhausted {
-  background: rgba(239, 68, 68, 0.06);
+  background: rgba(239, 68, 68, 0.05);
 }
 
 .rp-row-exhausted td {
@@ -1811,7 +1807,7 @@
 }
 
 .rp-marital-btn {
-  background: rgba(15, 26, 55, 0.75);
+  background: var(--color-surface);
   border: 1px solid var(--color-border);
   color: var(--color-text-secondary);
   font-family: var(--font-body);
@@ -1825,21 +1821,21 @@
 }
 
 .rp-marital-btn:hover {
-  border-color: var(--color-accent);
-  color: var(--color-white);
-  background: rgba(29, 161, 242, 0.12);
+  border-color: var(--color-border-hover);
+  color: var(--color-heading);
+  background: var(--color-surface-hover);
 }
 
 .rp-marital-btn.active {
-  background: var(--color-accent);
-  border-color: var(--color-accent);
-  color: #ffffff;
+  background: var(--color-surface-elevated);
+  border-color: var(--color-border-hover);
+  color: var(--color-heading);
   font-weight: var(--weight-semibold);
-  box-shadow: 0 2px 10px rgba(29, 161, 242, 0.35);
+  box-shadow: var(--shadow-sm);
 }
 
 .rp-tax-preset-btn {
-  background: rgba(15, 26, 55, 0.65);
+  background: var(--color-surface);
   border: 1px solid var(--color-border);
   color: var(--color-text-secondary);
   font-family: var(--font-body);
@@ -1853,15 +1849,14 @@
 }
 
 .rp-tax-preset-btn:hover {
-  border-color: var(--color-accent);
-  color: var(--color-white);
-  background: rgba(29, 161, 242, 0.12);
-  transform: translateY(-1px);
+  border-color: var(--color-border-hover);
+  color: var(--color-heading);
+  background: var(--color-surface-hover);
 }
 
 /* ── Collapsible Deductions Section ───────────── */
 .rp-deductions-container {
-  background: rgba(7, 13, 31, 0.65);
+  background: var(--color-surface);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
   margin-top: var(--space-4);
@@ -1870,7 +1865,7 @@
 }
 
 .rp-deductions-container:hover {
-  border-color: rgba(29, 161, 242, 0.35);
+  border-color: var(--color-border-hover);
 }
 
 .rp-deductions-toggle {
@@ -1899,7 +1894,7 @@
 .rp-deductions-panel {
   padding: 18px 20px;
   border-top: 1px solid var(--color-divider);
-  background: rgba(10, 18, 38, 0.45);
+  background: var(--color-surface);
 }
 
 .rp-ded-subtext {
@@ -1936,7 +1931,7 @@
 }
 
 .rp-slab-active {
-  background: rgba(29, 161, 242, 0.05);
+  background: rgba(29, 161, 242, 0.06);
 }
 
 .rp-slab-inactive {
@@ -1975,7 +1970,7 @@
 }
 
 .rp-subtab-btn {
-  background: rgba(15, 26, 55, 0.75);
+  background: var(--color-surface);
   border: 1px solid var(--color-border);
   color: var(--color-text-secondary);
   font-family: var(--font-body);
@@ -1990,21 +1985,21 @@
 }
 
 .rp-subtab-btn:hover {
-  border-color: var(--color-accent);
-  color: var(--color-white);
-  background: rgba(29, 161, 242, 0.12);
+  border-color: var(--color-border-hover);
+  color: var(--color-heading);
+  background: var(--color-surface-hover);
 }
 
 .rp-subtab-btn.active {
-  background: var(--color-accent);
-  border-color: var(--color-accent);
-  color: #ffffff;
+  background: var(--color-surface-elevated);
+  border-color: var(--color-border-hover);
+  color: var(--color-heading);
   font-weight: var(--weight-semibold);
-  box-shadow: 0 2px 10px rgba(29, 161, 242, 0.35);
+  box-shadow: var(--shadow-sm);
 }
 
 .rp-kitta-btn {
-  background: rgba(15, 26, 55, 0.65);
+  background: var(--color-surface);
   border: 1px solid var(--color-border);
   color: var(--color-text-secondary);
   font-family: var(--font-body);
@@ -2018,10 +2013,9 @@
 }
 
 .rp-kitta-btn:hover {
-  border-color: var(--color-accent);
-  color: var(--color-white);
-  background: rgba(29, 161, 242, 0.12);
-  transform: translateY(-1px);
+  border-color: var(--color-border-hover);
+  color: var(--color-heading);
+  background: var(--color-surface-hover);
 }
 
 /* ── WACC Specifics ───────────────────────────── */
@@ -2065,7 +2059,7 @@
 }
 
 .rp-fdrd-tab-btn {
-  background: rgba(15, 26, 55, 0.75);
+  background: var(--color-surface);
   border: 1px solid var(--color-border);
   color: var(--color-text-secondary);
   font-family: var(--font-body);
@@ -2080,23 +2074,23 @@
 }
 
 .rp-fdrd-tab-btn:hover {
-  border-color: var(--color-accent);
-  color: var(--color-white);
-  background: rgba(29, 161, 242, 0.12);
+  border-color: var(--color-border-hover);
+  color: var(--color-heading);
+  background: var(--color-surface-hover);
 }
 
 .rp-fdrd-tab-btn.active {
-  background: var(--color-accent);
-  border-color: var(--color-accent);
-  color: #ffffff;
+  background: var(--color-surface-elevated);
+  border-color: var(--color-border-hover);
+  color: var(--color-heading);
   font-weight: var(--weight-semibold);
-  box-shadow: 0 2px 10px rgba(29, 161, 242, 0.35);
+  box-shadow: var(--shadow-sm);
 }
 
 /* ── FD vs SIP Educational Comparison Card ─────── */
 .rp-fd-sip-compare-card {
-  background: rgba(10, 18, 38, 0.65);
-  border: 1px solid rgba(255, 255, 255, 0.09);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
   padding: 22px 26px;
   margin-top: 22px;
@@ -2104,7 +2098,7 @@
 }
 
 .rp-fd-sip-compare-card:hover {
-  border-color: rgba(29, 161, 242, 0.35);
+  border-color: var(--color-border-hover);
 }
 
 .rp-compare-badge {
@@ -2112,7 +2106,7 @@
   font-size: 0.75rem;
   font-weight: 600;
   color: var(--color-accent);
-  background: rgba(29, 161, 242, 0.12);
+  background: var(--color-accent-soft);
   border: 1px solid rgba(29, 161, 242, 0.25);
   padding: 3px 10px;
   border-radius: var(--radius-full);
@@ -2130,7 +2124,7 @@
   display: flex;
   align-items: center;
   gap: 18px;
-  background: rgba(7, 13, 31, 0.65);
+  background: var(--color-surface-hover);
   padding: 14px 18px;
   border-radius: var(--radius-md);
   margin-bottom: 14px;
@@ -2175,7 +2169,7 @@
 }
 
 .rp-retire-tab-btn {
-  background: rgba(15, 26, 55, 0.75);
+  background: var(--color-surface);
   border: 1px solid var(--color-border);
   color: var(--color-text-secondary);
   font-family: var(--font-body);
@@ -2190,17 +2184,17 @@
 }
 
 .rp-retire-tab-btn:hover {
-  border-color: var(--color-accent);
-  color: var(--color-white);
-  background: rgba(29, 161, 242, 0.12);
+  border-color: var(--color-border-hover);
+  color: var(--color-heading);
+  background: var(--color-surface-hover);
 }
 
 .rp-retire-tab-btn.active {
-  background: var(--color-accent);
-  border-color: var(--color-accent);
-  color: #ffffff;
+  background: var(--color-surface-elevated);
+  border-color: var(--color-border-hover);
+  color: var(--color-heading);
   font-weight: var(--weight-semibold);
-  box-shadow: 0 2px 10px rgba(29, 161, 242, 0.35);
+  box-shadow: var(--shadow-sm);
 }
 
 /* ── Quick Goal Preset Chips ──────────────────── */
@@ -2209,7 +2203,7 @@
   align-items: center;
   gap: 14px;
   flex-wrap: wrap;
-  background: rgba(10, 18, 38, 0.55);
+  background: var(--color-surface);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
   padding: 14px 18px;
@@ -2224,8 +2218,8 @@
 }
 
 .rp-goal-preset-btn {
-  background: rgba(15, 26, 55, 0.85);
-  border: 1px solid rgba(255, 255, 255, 0.09);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
   color: var(--color-text-secondary);
   font-family: var(--font-body);
   font-size: 0.8125rem;
@@ -2238,15 +2232,14 @@
 }
 
 .rp-goal-preset-btn:hover {
-  border-color: var(--color-accent);
-  color: #ffffff;
-  background: rgba(29, 161, 242, 0.16);
-  transform: translateY(-1px);
+  border-color: var(--color-border-hover);
+  color: var(--color-heading);
+  background: var(--color-surface-hover);
 }
 
 /* ── Goal Progress Bar Graphic ────────────────── */
 .rp-goal-progress-wrap {
-  background: rgba(10, 18, 38, 0.65);
+  background: var(--color-surface);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
   padding: 18px 22px;
@@ -2401,7 +2394,7 @@
   .rp-educational-note {
     padding: 16px 16px;
     border-radius: 12px;
-    border: 1px solid rgba(29, 161, 242, 0.22);
+    border: 1px solid var(--color-border);
     margin-top: 20px;
     gap: 12px;
   }
@@ -2670,16 +2663,16 @@
 }
 
 .rp-loan-tab-btn:hover {
-  background: rgba(255, 255, 255, 0.09);
-  color: #ffffff;
-  border-color: rgba(255, 255, 255, 0.22);
+  background: var(--color-surface-hover);
+  color: var(--color-heading);
+  border-color: var(--color-border-hover);
 }
 
 .rp-loan-tab-btn.active {
-  background: linear-gradient(135deg, rgba(29, 161, 242, 0.22), rgba(29, 161, 242, 0.09));
-  color: #ffffff;
-  border-color: var(--color-accent);
-  box-shadow: 0 0 16px rgba(29, 161, 242, 0.25);
+  background: var(--color-surface-elevated);
+  color: var(--color-heading);
+  border-color: var(--color-border-hover);
+  box-shadow: var(--shadow-sm);
   font-weight: var(--weight-semibold);
 }
 
@@ -2695,7 +2688,7 @@
 
 /* ── LTV Health Indicator & Meter ─────────────────── */
 .rp-ltv-card {
-  background: rgba(7, 13, 31, 0.7);
+  background: var(--color-surface);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
   padding: 22px 26px;
@@ -2863,7 +2856,7 @@
 }
 
 .rp-comp-card {
-  background: rgba(7, 13, 31, 0.7);
+  background: var(--color-surface);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
   padding: 18px 20px;
@@ -2871,14 +2864,14 @@
 }
 
 .rp-comp-card:hover {
-  border-color: rgba(29, 161, 242, 0.35);
+  border-color: var(--color-border-hover);
   transform: translateY(-2px);
 }
 
 .rp-comp-card.current-active {
   border-color: var(--color-accent);
-  background: rgba(29, 161, 242, 0.07);
-  box-shadow: 0 0 16px rgba(29, 161, 242, 0.16);
+  background: var(--color-surface-elevated);
+  box-shadow: var(--shadow-sm);
 }
 
 .rp-comp-header {
@@ -2957,22 +2950,22 @@
 }
 
 .rp-vtype-btn:hover {
-  background: rgba(255, 255, 255, 0.1);
-  color: #ffffff;
-  border-color: rgba(255, 255, 255, 0.22);
+  background: var(--color-surface-hover);
+  color: var(--color-heading);
+  border-color: var(--color-border-hover);
 }
 
 .rp-vtype-btn.active {
-  background: rgba(29, 161, 242, 0.22);
-  color: #ffffff;
-  border-color: var(--color-accent);
-  box-shadow: 0 0 10px rgba(29, 161, 242, 0.25);
+  background: var(--color-surface-elevated);
+  color: var(--color-heading);
+  border-color: var(--color-border-hover);
+  box-shadow: var(--shadow-sm);
   font-weight: var(--weight-semibold);
 }
 
 .rp-vtype-context-note {
-  background: rgba(29, 161, 242, 0.06);
-  border: 1px solid rgba(29, 161, 242, 0.2);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
   padding: 10px 14px;
   font-size: 0.75rem;
@@ -3040,15 +3033,15 @@
 }
 
 .rp-cagr-mode-btn:hover {
-  color: #ffffff;
-  background: rgba(255, 255, 255, 0.08);
+  color: var(--color-heading);
+  background: var(--color-surface-hover);
 }
 
 .rp-cagr-mode-btn.active {
-  background: linear-gradient(135deg, rgba(29, 161, 242, 0.25), rgba(29, 161, 242, 0.1));
-  color: #ffffff;
-  border: 1px solid var(--color-accent);
-  box-shadow: 0 0 16px rgba(29, 161, 242, 0.25);
+  background: var(--color-surface-elevated);
+  color: var(--color-heading);
+  border: 1px solid var(--color-border-hover);
+  box-shadow: var(--shadow-sm);
   font-weight: var(--weight-semibold);
 }
 
@@ -3108,14 +3101,14 @@
 }
 
 .rp-cagr-quick-btn:hover {
-  background: rgba(255, 255, 255, 0.12);
-  color: #ffffff;
+  background: var(--color-surface-hover);
+  color: var(--color-heading);
 }
 
 .rp-cagr-quick-btn.active {
-  background: rgba(29, 161, 242, 0.22);
-  border-color: var(--color-accent);
-  color: #ffffff;
+  background: var(--color-surface-elevated);
+  border-color: var(--color-border-hover);
+  color: var(--color-heading);
   font-weight: var(--weight-semibold);
 }
 
@@ -3140,18 +3133,17 @@
 }
 
 .rp-cagr-milestone-card {
-  background: rgba(7, 13, 31, 0.7);
+  background: var(--color-surface);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
   padding: 16px 20px;
-  transition: all var(--duration-fast) var(--ease-out);
+  transition: border-color var(--duration-fast) var(--ease-out);
   position: relative;
   overflow: hidden;
 }
 
 .rp-cagr-milestone-card:hover {
-  border-color: rgba(29, 161, 242, 0.35);
-  transform: translateY(-2px);
+  border-color: var(--color-border-hover);
 }
 
 .rp-ms-year-badge {
@@ -3159,7 +3151,7 @@
   font-size: 0.75rem;
   font-weight: 600;
   color: var(--color-accent);
-  background: rgba(29, 161, 242, 0.12);
+  background: var(--color-accent-soft);
   padding: 3px 10px;
   border-radius: var(--radius-full);
   margin-bottom: 8px;
@@ -3405,17 +3397,17 @@
 }
 
 .rp-preset-btn:hover {
-  background: rgba(255, 255, 255, 0.1);
-  color: #ffffff;
-  border-color: rgba(255, 255, 255, 0.22);
+  background: var(--color-surface-hover);
+  color: var(--color-heading);
+  border-color: var(--color-border-hover);
   transform: translateY(-1px);
 }
 
 .rp-preset-btn.active {
-  background: rgba(29, 161, 242, 0.22);
-  border-color: var(--color-accent);
-  color: #ffffff;
-  box-shadow: 0 0 12px rgba(29, 161, 242, 0.3);
+  background: var(--color-surface-elevated);
+  border-color: var(--color-border-hover);
+  color: var(--color-heading);
+  box-shadow: var(--shadow-sm);
   font-weight: var(--weight-semibold);
 }
 
@@ -3426,9 +3418,9 @@
 
 /* Nepal Macro Context Box */
 .rp-nepal-context-box {
-  background: rgba(7, 13, 31, 0.7);
+  background: var(--color-surface);
   border: 1px solid var(--color-border);
-  border-left: 4px solid var(--color-accent);
+  border-left: 3px solid var(--color-accent);
   border-radius: var(--radius-lg);
   padding: 24px 28px;
   margin-top: 26px;
@@ -3483,6 +3475,147 @@
 
 .rp-inf-point:focus {
   outline: 2px solid #F59E0B;
+}
+
+/* ==============================================================================
+   PART 12: DUAL-THEME PERFECTION & MOBILE EXCELLENCE (RELEASE CANDIDATE PASS)
+   Apple Design System Alignment: Light & Dark Mode Contrast, 320px-768px Touch
+   ============================================================================== */
+
+/* ── Donut Chart Track Stroke Default ────────────────────── */
+.rp-donut-track {
+  stroke: rgba(255, 255, 255, 0.08);
+}
+
+.rp-donut-invested {
+  stroke: #2a3b5c;
+}
+
+/* ── Light Mode Chart & Surface Refinements ──────────────── */
+[data-theme="light"] .rp-donut-track {
+  stroke: rgba(0, 0, 0, 0.07);
+}
+
+[data-theme="light"] .rp-donut-invested {
+  stroke: #8E8E93;
+}
+
+[data-theme="light"] .rp-chart-line-invested {
+  stroke: #6E6E73;
+}
+
+[data-theme="light"] .rp-grid-line {
+  stroke: rgba(0, 0, 0, 0.06);
+}
+
+[data-theme="light"] .rp-tick-line {
+  stroke: rgba(0, 0, 0, 0.12);
+}
+
+[data-theme="light"] .rp-axis-text {
+  fill: #6E6E73;
+}
+
+[data-theme="light"] .rp-chart-tooltip {
+  background: rgba(255, 255, 255, 0.97);
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.1);
+  color: #1D1D1F;
+}
+
+[data-theme="light"] .rp-tt-title {
+  color: #1D1D1F;
+  border-bottom-color: rgba(0, 0, 0, 0.08);
+}
+
+[data-theme="light"] .rp-tt-label {
+  color: #56565C;
+}
+
+[data-theme="light"] .rp-tt-val {
+  color: #1D1D1F;
+}
+
+[data-theme="light"] .rp-input-affix-wrap {
+  background: #FFFFFF;
+  border-color: rgba(0, 0, 0, 0.14);
+}
+
+[data-theme="light"] .rp-input-affix-wrap:focus-within {
+  background: #FFFFFF;
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 3px rgba(29, 161, 242, 0.15);
+}
+
+[data-theme="light"] .rp-calc-nav-bar {
+  background: rgba(245, 245, 247, 0.9);
+  border-bottom-color: rgba(0, 0, 0, 0.08);
+}
+
+[data-theme="light"] .rp-calc-tab-btn.active {
+  background: #FFFFFF;
+  color: #1D1D1F;
+  border-color: rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+}
+
+[data-theme="light"] .rp-context-point {
+  background: #FFFFFF;
+  border-color: rgba(0, 0, 0, 0.08);
+}
+
+[data-theme="light"] .rp-summary-flow-card {
+  background: #FFFFFF;
+  border-color: rgba(0, 0, 0, 0.08);
+}
+
+[data-theme="light"] .rp-legend-dot.dot-invested {
+  background: #8E8E93;
+  border-color: #6E6E73;
+}
+
+/* ── Mobile-First Touch Ergonomics (320px-480px) ─────────── */
+@media (max-width: 480px) {
+  .rp-field-top {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+    min-height: auto;
+  }
+
+  .rp-field-top .rp-field-label {
+    width: 100%;
+    margin-bottom: 2px;
+  }
+
+  .rp-field-top .rp-input-affix-wrap {
+    width: 100%;
+    min-width: 100%;
+  }
+
+  .rp-range-slider::-webkit-slider-thumb,
+  .rp-slider::-webkit-slider-thumb {
+    width: 24px;
+    height: 24px;
+  }
+
+  .rp-range-slider::-moz-range-thumb,
+  .rp-slider::-moz-range-thumb {
+    width: 24px;
+    height: 24px;
+  }
+
+  .rp-stat-value.maturity-large {
+    font-size: clamp(1.35rem, 5.5vw, 2.1rem);
+  }
+
+  .rp-calc-wrapper {
+    padding: 16px 12px;
+  }
+
+  .rp-calc-controls-card {
+    padding: 18px 14px;
+  }
 }
 
 

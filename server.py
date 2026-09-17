@@ -18,7 +18,13 @@ class SPAHandler(http.server.SimpleHTTPRequestHandler):
             return super().translate_path('/index.html')
         return real_path
 
-socketserver.TCPServer.allow_reuse_address = True
-with socketserver.TCPServer(("", PORT), SPAHandler) as httpd:
+class ThreadingTCPServer(socketserver.ThreadingMixIn, socketserver.TCPServer):
+    daemon_threads = True
+    allow_reuse_address = True
+
+with ThreadingTCPServer(("", PORT), SPAHandler) as httpd:
     print(f"SPA Dev Server running at http://localhost:{PORT}")
-    httpd.serve_forever()
+    try:
+        httpd.serve_forever()
+    except KeyboardInterrupt:
+        pass

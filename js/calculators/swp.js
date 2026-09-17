@@ -1,5 +1,5 @@
 // ==============================================
-// risePaisa — Nepal SWP Calculator Component
+// risePaisa - Nepal SWP Calculator Component
 // Systematic Withdrawal Plan simulation and sustainability analytics
 // ==============================================
 import {
@@ -382,39 +382,59 @@ export function renderSWPCalculator() {
       </div>
 
       <!-- Educational Insights Section -->
-      <div class="rp-calc-section rp-edu-cards-section">
-        <h3 style="font-size:var(--text-lg);color:var(--color-heading);margin-bottom:var(--space-4)">
-          Understanding SWP for Nepal Investors
+      <div class="rp-calc-section rp-edu-cards-section" style="margin-top:var(--space-8)">
+        <h3 style="font-size:var(--text-xl);color:var(--color-heading);margin-bottom:var(--space-2)">
+          Understanding SWP Pensions & Capital Preservation in Nepal
         </h3>
+        <p style="font-size:var(--text-sm);color:var(--color-text-secondary);margin-bottom:var(--space-6)">
+          How Systematic Withdrawal Plans create a predictable monthly retirement pension while minimizing tax drag.
+        </p>
+
         <div class="rp-edu-grid">
+          <!-- Card 1: Mathematical Formula & Drawdown Engine -->
           <div class="rp-edu-card">
-            <h4>What is an SWP?</h4>
-            <p>
-              A <strong>Systematic Withdrawal Plan (SWP)</strong> allows you to redeem a fixed sum from an existing investment corpus at regular intervals, providing steady cash flow while your unwithdrawn capital stays invested.
+            <div class="rp-edu-icon-wrap" style="color:var(--color-accent);font-size:24px;margin-bottom:8px">📐</div>
+            <h4>The Drawdown Mathematics</h4>
+            <p style="margin-bottom:10px">
+              Calculated month-by-month using iterative compounding:
+              <br><code>Bₜ = Bₜ₋₁ × (1 + r/12) - W</code>
+            </p>
+            <p style="font-size:0.875rem;line-height:1.55">
+              Where <strong>Bₜ</strong> is the remaining balance, <strong>r</strong> is the annual growth rate, and <strong>W</strong> is the periodic cash withdrawal. As long as your withdrawal rate (<code>W ÷ Total Corpus</code>) stays below the net real return, your principal survives permanently.
             </p>
           </div>
+
+          <!-- Card 2: Nepal Tax Efficiency vs Bank FD -->
           <div class="rp-edu-card">
-            <h4>Difference Between SIP & SWP</h4>
-            <p>
-              <strong>SIP</strong> accumulates wealth by depositing money periodically into markets. <strong>SWP</strong> does the inverse: you harvest regular income from an accumulated fund, commonly during retirement or sabbaticals.
-            </p>
+            <div class="rp-edu-icon-wrap" style="color:#10b981;font-size:24px;margin-bottom:8px">🇳🇵</div>
+            <h4>Tax Efficiency vs Bank Fixed Deposit</h4>
+            <ul class="rp-edu-list" style="margin:0;padding-left:18px;font-size:0.875rem;color:var(--color-text-secondary);line-height:1.6">
+              <li><strong>FD Interest Tax Drag:</strong> Commercial banks deduct 5% TDS upfront on 100% of the interest earned annually, eroding capital compound speed.</li>
+              <li><strong>Mutual Fund Capital Gains:</strong> Under an SWP, redemptions represent capital return plus capital gain. Only the net capital gain portion is taxed at 5% CGT, leaving unredeemed units compounding tax-free.</li>
+              <li><strong>ConnectIPS Direct Credit:</strong> Fund managers (AMCs) deposit monthly pension payouts directly to your commercial bank account on the 1st of every month.</li>
+            </ul>
           </div>
+
+          <!-- Card 3: Sequence of Returns & Sizing Guide -->
           <div class="rp-edu-card">
-            <h4>Growth vs Drawdown Balance</h4>
-            <p>
-              If your withdrawal rate is lower than your annual fund growth rate, your corpus can sustain you indefinitely. If withdrawals exceed growth, capital depletes and can reach zero prematurely.
-            </p>
+            <div class="rp-edu-icon-wrap" style="color:#f59e0b;font-size:24px;margin-bottom:8px">⚖️</div>
+            <h4>Sequence of Returns Risk & The 3.5% Rule</h4>
+            <ul class="rp-edu-list" style="margin:0;padding-left:18px;font-size:0.875rem;color:var(--color-text-secondary);line-height:1.6">
+              <li><strong>The Bear Market Trap:</strong> Withdrawing during an early NEPSE downturn forces selling more units at rock-bottom NAVs, causing permanent portfolio impairment.</li>
+              <li><strong>The 3-Year Cash Bucket:</strong> Maintain 2 to 3 years of living expenses in liquid fixed deposits or short-term debentures to fund cash flow during market corrections.</li>
+              <li><strong>Safe Withdrawal Rate:</strong> In Nepal's 6%-7% inflation environment, a conservative 3.0%-3.5% initial withdrawal rate provides bulletproof multi-decade sustainability.</li>
+            </ul>
           </div>
         </div>
       </div>
 
-      <!-- Nepal Context Information Note -->
-      <div class="rp-educational-note">
+      <!-- Nepal Educational Context Note & Companion Links -->
+      <div class="rp-educational-note" style="margin-top:var(--space-6)">
         <div class="rp-edu-icon">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
         </div>
         <div class="rp-edu-text">
-          <strong>Nepal Investment Context:</strong> SWP concepts are commonly used for open-ended mutual funds and long-term investment planning in Nepal. Actual returns depend on market performance, fund dividend policies, exit loads, and tax regulations. This calculator provides estimates for financial education and should not be construed as financial advice.
+          <strong>Recommended Learning Path:</strong> Explore how to engineer a lifelong private pension in our lesson on <a href="/learn/mutual-funds/systematic-withdrawal-plan-swp-pension" style="color:var(--color-accent);text-decoration:underline">SWP Pension Mechanics for Nepal</a> or read the comprehensive <a href="/learn/guides/complete-retirement-planning-guide" style="color:var(--color-accent);text-decoration:underline">Complete Retirement & Pension Guide</a>.
         </div>
       </div>
 
@@ -446,7 +466,7 @@ function renderSensitivityHTML(sens) {
 
     <!-- Current Withdrawal -->
     <div class="rp-comp-card active">
-      <div class="rp-comp-badge" style="background:rgba(29,161,242,0.2);color:var(--color-accent);border:1px solid rgba(29,161,242,0.4)">Current Plan</div>
+      <div class="rp-comp-badge" style="background:rgba(10,132,255,0.12);color:var(--color-accent);border:1px solid rgba(10,132,255,0.3)">Current Plan</div>
       <div class="rp-comp-rate accent">${formatNPR(sens.base.monthlyWithdrawal)} / mo</div>
       <div class="rp-comp-emi accent">${formatNPR(sens.base.finalBalance)}</div>
       <div class="rp-comp-diff" style="color:var(--color-text-muted)">

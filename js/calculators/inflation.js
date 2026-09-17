@@ -1,5 +1,5 @@
 // ==============================================
-// risePaisa — Nepal Inflation & Purchasing Power Calculator
+// risePaisa - Nepal Inflation & Purchasing Power Calculator
 // Compound Price Escalation, Purchasing Power Decay & Real-Life Presets
 // ==============================================
 import {
@@ -356,7 +356,7 @@ export function renderInflationCalculator() {
         <div class="rp-nepal-context-grid">
           <div class="rp-context-point">
             <strong>Target Inflation Bands</strong>
-            <p>Nepal Rastra Bank (NRB) monetary policy typically targets keeping consumer price inflation within a 5.0%–6.5% corridor, though supply shocks and fuel price volatility can cause temporary spikes.</p>
+            <p>Nepal Rastra Bank (NRB) monetary policy typically targets keeping consumer price inflation within a 5.0%-6.5% corridor, though supply shocks and fuel price volatility can cause temporary spikes.</p>
           </div>
           <div class="rp-context-point">
             <strong>Food & Import Linkages</strong>
@@ -369,43 +369,56 @@ export function renderInflationCalculator() {
         </div>
       </div>
 
-      <!-- Educational Section (< 200 words) -->
-      <div class="rp-calc-section rp-edu-cards-section">
+      <!-- Educational Section: Inflation in Nepal -->
+      <div class="rp-calc-section rp-edu-cards-section" style="margin-top:var(--space-8)">
         <h3 style="font-size:var(--text-xl);color:var(--color-heading);margin-bottom:var(--space-2)">
-          Understanding Inflation & Protecting Your Wealth
+          Understanding Inflation Dynamics, Nepal CPI & Wealth Defense
         </h3>
         <p style="font-size:var(--text-sm);color:var(--color-text-secondary);margin-bottom:var(--space-6)">
-          Essential principles for preserving real purchasing power over time.
+          How the silent tax of inflation erodes purchasing power and how to engineer real positive returns in Nepal.
         </p>
 
         <div class="rp-edu-grid">
           <div class="rp-edu-card">
-            <h4>What Inflation Is</h4>
-            <p>
-              Inflation is the persistent general rise in prices of goods and services over time. As prices increase, every single rupee buys fewer items than it did previously.
+            <div class="rp-edu-icon-wrap" style="color:var(--color-accent);font-size:24px;margin-bottom:8px">📐</div>
+            <h4>Purchasing Power Math & Rule of 72</h4>
+            <p style="margin-bottom:10px">
+              Future cost is calculated as <code>FV = PV × (1 + r)ⁿ</code> while remaining purchasing power is <code>PV = FV ÷ (1 + r)ⁿ</code>.
+            </p>
+            <p style="font-size:0.875rem;line-height:1.55">
+              Use the mental shortcut <strong>Rule of 72</strong>: divide 72 by the annual inflation rate to find how fast prices double. At Nepal's historical 6.5% inflation, everyday living costs double every 11.0 years (<code>72 ÷ 6.5 ≈ 11.0</code>).
             </p>
           </div>
 
           <div class="rp-edu-card">
-            <h4>Why Prices Rise Over Time</h4>
-            <p>
-              Prices rise when demand exceeds available supply (demand-pull), production and transport costs escalate (cost-push), or the broader money supply expands faster than economic output.
-            </p>
+            <div class="rp-edu-icon-wrap" style="color:#10b981;font-size:24px;margin-bottom:8px">🇳🇵</div>
+            <h4>Nepal Inflation Drivers & Currency Peg</h4>
+            <ul class="rp-edu-list" style="margin:0;padding-left:18px;font-size:0.875rem;color:var(--color-text-secondary);line-height:1.6">
+              <li><strong>INR-NPR Peg Transmission:</strong> Because Nepal pegs 100 Indian Rupees to 160 Nepali Rupees and imports over 65% of consumables from India, Indian inflation directly imports into Nepal within 60 days.</li>
+              <li><strong>Food vs Headline CPI:</strong> While general NRB CPI sits around 5%-7%, food, edible oil, and vegetables frequently spike at 9%-12% due to monsoon supply bottlenecks.</li>
+              <li><strong>Healthcare Inflation:</strong> Private tertiary healthcare in Kathmandu increases at an estimated 8%-11% annually, outpacing general consumer goods.</li>
+            </ul>
           </div>
 
           <div class="rp-edu-card">
-            <h4>The Silent Cost of Saving Cash</h4>
-            <p>
-              Holding uninvested cash or low-yielding deposits guarantees a silent loss in purchasing power. If inflation is 6% and your deposit yields 4%, you are losing 2% real wealth every year.
-            </p>
+            <div class="rp-edu-icon-wrap" style="color:#f59e0b;font-size:24px;margin-bottom:8px">⚖️</div>
+            <h4>Asset Defense: Real vs Nominal Returns</h4>
+            <ul class="rp-edu-list" style="margin:0;padding-left:18px;font-size:0.875rem;color:var(--color-text-secondary);line-height:1.6">
+              <li><strong>The Savings Account Illusion:</strong> Bank savings accounts yielding 3% while inflation is 6.5% create a guaranteed 3.5% annual loss in real wealth.</li>
+              <li><strong>Inflation-Beating Assets:</strong> Productive assets (dividend-paying equities, open-ended mutual funds, and commercial real estate) have pricing power that grows cash flows ahead of inflation.</li>
+              <li><strong>Debt Beneficiary:</strong> Borrowers with long-term fixed-rate loans repay banks with future inflated rupees that possess significantly diminished purchasing power.</li>
+            </ul>
           </div>
+        </div>
+      </div>
 
-          <div class="rp-edu-card">
-            <h4>Nominal vs Real Return</h4>
-            <p>
-              Nominal return is your stated rupee percentage gain. Real return is your gain minus inflation ($\text{Real} \approx \text{Nominal} - \text{Inflation}$). Always evaluate investments on real returns.
-            </p>
-          </div>
+      <!-- Nepal Educational Context Note & Companion Links -->
+      <div class="rp-educational-note" style="margin-top:var(--space-6)">
+        <div class="rp-edu-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+        </div>
+        <div class="rp-edu-text">
+          <strong>Recommended Learning Path:</strong> Learn how to structure an inflation-resilient portfolio in our lesson on <a href="/learn/investing/inflation-vs-savings-nepal" style="color:var(--color-accent);text-decoration:underline">Inflation vs Bank Savings in Nepal</a> or explore macroeconomic drivers in <a href="/learn/economics/inr-npr-currency-peg-inflation" style="color:var(--color-accent);text-decoration:underline">The INR-NPR Currency Peg & Imported Inflation</a>.
         </div>
       </div>
 

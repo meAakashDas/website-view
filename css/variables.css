@@ -1,130 +1,308 @@
-/* ==============================================
-   risePaisa Design System — Variables & Tokens
-   ============================================== */
+/* ==============================================================================
+   risePaisa - Premium Design System Tokens & Semantic Variables
+   Designed for Trust, Precision, Simplicity, and Financial Authority
+   Inspired by Apple, Linear, Notion, and Vercel
+   ============================================================================== */
+
+:root,
+[data-theme="dark"] {
+  /* ── Dark Mode: Layered Charcoal Surfaces, Restrained Contrast ── */
+  --color-bg:                  #0D0E12;  /* Deep rich canvas, never harsh void */
+  --color-bg-alt:              #13141A;  /* Secondary section canvas */
+  --color-bg-subtle:           #171820;  /* Sub-canvas / table header */
+  
+  /* Layered Card & Interactive Surfaces */
+  --color-surface:             #181920;
+  --color-surface-hover:       #1F202B;
+  --color-surface-active:      #262835;
+  --color-surface-elevated:    #21222E;  /* Modals, popovers, dropdowns */
+  --color-surface-subtle:      rgba(255, 255, 255, 0.04);
+  
+  /* Legacy primary compatibility mapped to neutral surfaces */
+  --color-primary:             #14151B;
+  --color-primary-light:       #1C1D26;
+
+  /* ── RisePaisa Signature Financial Blue (#1DA1F2) ────────── */
+  --color-accent:              #1DA1F2;
+  --color-accent-hover:        #0D8FDE;
+  --color-accent-active:       #0B7EC4;
+  --color-accent-dark:         #0D8FDE;
+  --color-accent-subtle:       rgba(29, 161, 242, 0.12);
+  --color-accent-glow:         transparent;
+  --focus-ring:                rgba(29, 161, 242, 0.35);
+
+  /* ── Typography Hierarchy: Clean Tonal Contrast ──────────── */
+  --color-white:               #FFFFFF;
+  --color-heading:             #FFFFFF;  /* Confident crisp titles */
+  --color-text:                #E4E4E7;  /* Primary body read */
+  --color-text-secondary:      #A1A1AA;  /* Supporting copy, subtitles */
+  --color-text-muted:          #71717A;  /* Micro-labels, fine print */
+
+  /* ── Precision Hairline Borders & Dividers ───────────────── */
+  --color-border:              rgba(255, 255, 255, 0.08);
+  --color-border-light:        rgba(255, 255, 255, 0.12);
+  --color-border-hover:        rgba(255, 255, 255, 0.16);
+  --color-border-focus:        rgba(29, 161, 242, 0.6);
+  --color-divider:             rgba(255, 255, 255, 0.06);
+
+  /* ── Navbar Chrome: Frosted Glass ────────────────────────── */
+  --nav-bg:                    rgba(13, 14, 18, 0.85);
+  --nav-bg-scrolled:           rgba(13, 14, 18, 0.95);
+  --nav-link-color:            rgba(228, 228, 231, 0.72);
+  --nav-link-hover:            #FFFFFF;
+
+  /* ── Card System Defaults ────────────────────────────────── */
+  --card-bg:                   #181920;
+  --card-bg-hover:             #1F202B;
+  --card-border:               1px solid rgba(255, 255, 255, 0.08);
+  --card-border-hover:         1px solid rgba(255, 255, 255, 0.16);
+
+  /* ── Form Controls & Inputs ──────────────────────────────── */
+  --input-bg:                  rgba(255, 255, 255, 0.04);
+  --input-bg-focus:            rgba(255, 255, 255, 0.07);
+  --input-border:              rgba(255, 255, 255, 0.11);
+
+  /* ── Shadows: Soft Atmospheric Elevation ─────────────────── */
+  --shadow-xs:                 0 1px 2px rgba(0, 0, 0, 0.3);
+  --shadow-sm:                 0 1px 3px rgba(0, 0, 0, 0.35);
+  --shadow-md:                 0 4px 16px rgba(0, 0, 0, 0.4);
+  --shadow-lg:                 0 12px 32px rgba(0, 0, 0, 0.5);
+  --shadow-xl:                 0 20px 48px rgba(0, 0, 0, 0.6);
+  --shadow-card:               0 1px 3px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.08);
+  --shadow-card-hover:         0 8px 24px rgba(0, 0, 0, 0.45), 0 0 0 1px rgba(255, 255, 255, 0.16);
+
+  /* ── Semantic Financial Status ───────────────────────────── */
+  --color-success:             #30D158;
+  --color-warning:             #FF9F0A;
+  --color-error:               #FF453A;
+  --color-danger:              #FF453A;
+  --color-info:                #1DA1F2;
+
+  /* ── Domain Category Tags ────────────────────────────────── */
+  --color-cat-nepse:           #1DA1F2;
+  --color-cat-tax:             #FF9F0A;
+  --color-cat-saving:          #30D158;
+  --color-cat-fintech:         #BF5AF2;
+  --color-cat-personal:        #FF375F;
+
+  /* ── Controls & Scrollbars ───────────────────────────────── */
+  --color-scrollbar-thumb:     rgba(255, 255, 255, 0.18);
+  --color-scrollbar-thumb-hover: rgba(255, 255, 255, 0.32);
+  --slider-track-bg:           rgba(255, 255, 255, 0.12);
+
+  /* ── Frosted Glass System (Dark Mode) ────────────────────── */
+  --glass-bg:                  rgba(13, 14, 18, 0.82);
+  --glass-border:              rgba(255, 255, 255, 0.08);
+  --glass-blur:                blur(20px);
+}
+
+[data-theme="light"] {
+  /* ── Light Mode: Warm Apple Parchment & Ink Hierarchy ────── */
+  --color-bg:                  #F5F5F7;  /* Apple parchment canvas */
+  --color-bg-alt:              #EDEDF0;  /* Alternating section canvas */
+  --color-bg-subtle:           #E5E5EA;  /* Sub-canvas / table header */
+  
+  /* Layered Card & Interactive Surfaces: Pure White on Parchment */
+  --color-surface:             #FFFFFF;
+  --color-surface-hover:       #FFFFFF;
+  --color-surface-active:      #F5F5F7;
+  --color-surface-elevated:    #FFFFFF;  /* Modals, popovers, dropdowns */
+  --color-surface-subtle:      rgba(0, 0, 0, 0.035);
+
+  /* Legacy primary compatibility mapped to neutral surfaces */
+  --color-primary:             #FFFFFF;
+  --color-primary-light:       #F0F0F2;
+
+  /* ── RisePaisa Signature Financial Blue (#1DA1F2) ────────── */
+  --color-accent:              #1DA1F2;
+  --color-accent-hover:        #0D8FDE;
+  --color-accent-active:       #0B7EC4;
+  --color-accent-dark:         #0D8FDE;
+  --color-accent-subtle:       rgba(29, 161, 242, 0.08);
+  --color-accent-glow:         transparent;
+  --focus-ring:                rgba(29, 161, 242, 0.3);
+
+  /* ── Typography Hierarchy: Apple Near-Black Ink ──────────── */
+  --color-white:               #FFFFFF;
+  --color-heading:             #1D1D1F;  /* Deep ink, photographic feel */
+  --color-text:                #1D1D1F;  /* Primary body text */
+  --color-text-secondary:      #56565C;  /* Reading subtitle / paragraphs */
+  --color-text-muted:          #86868B;  /* Metadata, timestamps */
+
+  /* ── Precision Hairline Borders & Dividers ───────────────── */
+  --color-border:              rgba(0, 0, 0, 0.07);
+  --color-border-light:        rgba(0, 0, 0, 0.11);
+  --color-border-hover:        rgba(0, 0, 0, 0.14);
+  --color-border-focus:        rgba(29, 161, 242, 0.6);
+  --color-divider:             rgba(0, 0, 0, 0.06);
+
+  /* ── Navbar Chrome: Frosted Glass ────────────────────────── */
+  --nav-bg:                    rgba(245, 245, 247, 0.85);
+  --nav-bg-scrolled:           rgba(245, 245, 247, 0.96);
+  --nav-link-color:            rgba(29, 29, 31, 0.72);
+  --nav-link-hover:            #1D1D1F;
+
+  /* ── Card System Defaults ────────────────────────────────── */
+  --card-bg:                   #FFFFFF;
+  --card-bg-hover:             #FFFFFF;
+  --card-border:               1px solid rgba(0, 0, 0, 0.06);
+  --card-border-hover:         1px solid rgba(0, 0, 0, 0.12);
+
+  /* ── Form Controls & Inputs ──────────────────────────────── */
+  --input-bg:                  #FFFFFF;
+  --input-bg-focus:            #FFFFFF;
+  --input-border:              rgba(0, 0, 0, 0.13);
+
+  /* ── Shadows: Restrained Micro-Elevation ─────────────────── */
+  --shadow-xs:                 0 1px 2px rgba(0, 0, 0, 0.03);
+  --shadow-sm:                 0 1px 3px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.02);
+  --shadow-md:                 0 4px 14px rgba(0, 0, 0, 0.05);
+  --shadow-lg:                 0 10px 28px rgba(0, 0, 0, 0.07);
+  --shadow-xl:                 0 20px 48px rgba(0, 0, 0, 0.09);
+  --shadow-card:               0 1px 3px rgba(0, 0, 0, 0.04), 0 0 0 1px rgba(0, 0, 0, 0.06);
+  --shadow-card-hover:         0 8px 24px rgba(0, 0, 0, 0.08), 0 0 0 1px rgba(0, 0, 0, 0.11);
+
+  /* ── Semantic Financial Status ───────────────────────────── */
+  --color-success:             #248A3D;
+  --color-warning:             #B25000;
+  --color-error:               #D70015;
+  --color-danger:              #D70015;
+  --color-info:                #1DA1F2;
+
+  /* ── Domain Category Tags ────────────────────────────────── */
+  --color-cat-nepse:           #1DA1F2;
+  --color-cat-tax:             #B25000;
+  --color-cat-saving:          #248A3D;
+  --color-cat-fintech:         #8944AB;
+  --color-cat-personal:        #D70015;
+
+  /* ── Controls & Scrollbars ───────────────────────────────── */
+  --color-scrollbar-thumb:     rgba(0, 0, 0, 0.18);
+  --color-scrollbar-thumb-hover: rgba(0, 0, 0, 0.32);
+  --slider-track-bg:           rgba(0, 0, 0, 0.1);
+
+  /* ── Frosted Glass System (Light Mode: Apple Translucent Pearl) ── */
+  --glass-bg:                  rgba(255, 255, 255, 0.92);
+  --glass-border:              rgba(0, 0, 0, 0.08);
+  --glass-blur:                blur(20px);
+}
 
 :root {
-  /* ── Color Palette ─────────────────────────── */
-  --color-bg:            #050B18;
-  --color-bg-alt:        #070D1F;
-  --color-surface:       rgba(10, 18, 38, 0.7);
-  --color-surface-hover: rgba(15, 26, 55, 0.85);
-  --color-primary:       #0A1226;
-  --color-primary-light: #0F1A37;
+  /* ── Typography Scale & Metrics (SF Pro + Inter Stack) ──── */
+  --font-body:                 'Inter', -apple-system, BlinkMacSystemFont, 'SF Pro Text', system-ui, sans-serif;
+  --font-display:              'Inter', -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Outfit', system-ui, sans-serif;
+  --font-mono:                 'SF Mono', 'JetBrains Mono', 'Fira Code', Menlo, monospace;
   
-  --color-accent:        #1da1f2;
-  --color-accent-hover:  #4db8ff;
-  --color-accent-dark:   #1188cc;
-  --color-accent-glow:   rgba(29, 161, 242, 0.15);
-  --color-accent-subtle: rgba(29, 161, 242, 0.08);
+  --text-xs:                   0.75rem;    /* 12px */
+  --text-sm:                   0.875rem;   /* 14px */
+  --text-base:                 1.0625rem;  /* 17px - Apple Reading Standard */
+  --text-lg:                   1.1875rem;  /* 19px */
+  --text-xl:                   1.3125rem;  /* 21px */
+  --text-2xl:                  1.5rem;     /* 24px */
+  --text-3xl:                  1.875rem;   /* 30px */
+  --text-4xl:                  2.25rem;    /* 36px */
+  --text-5xl:                  2.75rem;    /* 44px */
+  --text-6xl:                  3.5rem;     /* 56px */
   
-  --color-white:         #FFFFFF;
-  --color-text:          #F1F5F9;
-  --color-text-secondary:#CBD5E1;
-  --color-text-muted:    #8899AC;
-  --color-heading:       #FFFFFF;
+  /* Standardized Hierarchy Tokens */
+  --text-hero:                 clamp(2rem, 3.8vw, 2.85rem);
+  --text-section:              clamp(1.65rem, 2.5vw, 2.15rem);
+  --text-card-title:           1.125rem;   /* 18px */
+  --text-card-body:            0.9375rem;  /* 15px */
+  --text-meta:                 0.8125rem;  /* 13px */
+  --text-kicker:               11.5px;
   
-  --color-border:        rgba(255, 255, 255, 0.08);
-  --color-border-light:  rgba(255, 255, 255, 0.14);
-  --color-divider:       rgba(255, 255, 255, 0.07);
+  --leading-none:              1.0;
+  --leading-tight:             1.12;
+  --leading-snug:              1.28;
+  --leading-normal:            1.6;
+  --leading-relaxed:           1.68;
   
-  --color-success:       #1da1f2;
-  --color-warning:       #FFB020;
-  --color-error:         #FF4D4D;
-  --color-info:          #3B82F6;
+  --weight-normal:             400;
+  --weight-medium:             500;
+  --weight-semibold:           600;
+  --weight-bold:               700;
 
-  /* ── Category Colors ───────────────────────── */
-  --color-cat-nepse:     #3B82F6;
-  --color-cat-tax:       #F59E0B;
-  --color-cat-saving:    #06b6d4;
-  --color-cat-fintech:   #8B5CF6;
-  --color-cat-personal:  #EC4899;
+  /* ── Spacing (Strict 8pt Grid Rhythm) ────────────────────── */
+  --space-1:                   0.25rem;   /* 4px */
+  --space-2:                   0.5rem;    /* 8px */
+  --space-3:                   0.75rem;   /* 12px */
+  --space-4:                   1rem;      /* 16px */
+  --space-5:                   1.25rem;   /* 20px */
+  --space-6:                   1.5rem;    /* 24px */
+  --space-8:                   2rem;      /* 32px */
+  --space-10:                  2.5rem;    /* 40px */
+  --space-12:                  3rem;      /* 48px */
+  --space-16:                  4rem;      /* 64px */
+  --space-20:                  5rem;      /* 80px */
+  --space-24:                  6rem;      /* 96px */
 
-  /* ── Typography ────────────────────────────── */
-  --font-body:           'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  --font-display:        'Outfit', 'Inter', sans-serif;
-  --font-mono:           'JetBrains Mono', 'Fira Code', monospace;
-  
-  --text-xs:             0.75rem;    /* 12px */
-  --text-sm:             0.875rem;   /* 14px */
-  --text-base:           1rem;       /* 16px */
-  --text-lg:             1.125rem;   /* 18px */
-  --text-xl:             1.25rem;    /* 20px */
-  --text-2xl:            1.5rem;     /* 24px */
-  --text-3xl:            1.875rem;   /* 30px */
-  --text-4xl:            2.25rem;    /* 36px */
-  --text-5xl:            3rem;       /* 48px */
-  --text-6xl:            3.75rem;    /* 60px */
-  
-  --leading-tight:       1.2;
-  --leading-snug:        1.35;
-  --leading-normal:      1.6;
-  --leading-relaxed:     1.75;
-  
-  --weight-normal:       400;
-  --weight-medium:       500;
-  --weight-semibold:     600;
-  --weight-bold:         700;
+  /* ── Layout & Responsive Container Max-Widths ────────────── */
+  --container-reading:         min(92vw, 980px); /* Generous immersive reading */
+  --container-prose:           840px;            /* Comfortably proportioned reading line */
+  --container-sm:              640px;
+  --container-md:              768px;
+  --container-lg:              1024px;
+  --container-xl:              1200px;
+  --container-2xl:             1360px;
+  --nav-height:                76px;
+  --nav-height-mobile:         72px;
+  --section-padding-y:         64px;
+  --section-padding-y-mobile:  44px;
 
-  /* ── Spacing ───────────────────────────────── */
-  --space-1:  0.25rem;   /* 4px */
-  --space-2:  0.5rem;    /* 8px */
-  --space-3:  0.75rem;   /* 12px */
-  --space-4:  1rem;      /* 16px */
-  --space-5:  1.25rem;   /* 20px */
-  --space-6:  1.5rem;    /* 24px */
-  --space-8:  2rem;      /* 32px */
-  --space-10: 2.5rem;    /* 40px */
-  --space-12: 3rem;      /* 48px */
-  --space-16: 4rem;      /* 64px */
-  --space-20: 5rem;      /* 80px */
-  --space-24: 6rem;      /* 96px */
+  /* ── Standardized Card Geometry ──────────────────────────── */
+  --card-padding:              22px;
+  --card-padding-sm:           16px;
+  --card-radius:               16px;
 
-  /* ── Layout ────────────────────────────────── */
-  --container-sm:   640px;
-  --container-md:   768px;
-  --container-lg:   1024px;
-  --container-xl:   1200px;
-  --container-2xl:  1400px;
-  --nav-height:     72px;
+  /* ── Continuous Radii (Apple-Style Squircles) ────────────── */
+  --radius-xs:                 4px;
+  --radius-sm:                 8px;
+  --radius-md:                 12px;
+  --radius-lg:                 16px;
+  --radius-xl:                 20px;
+  --radius-2xl:                28px;
+  --radius-full:               9999px;
+  --radius-pill:               9999px;
 
-  /* ── Border Radius ─────────────────────────── */
-  --radius-xs:  4px;
-  --radius-sm:  6px;
-  --radius-md:  10px;
-  --radius-lg:  16px;
-  --radius-xl:  24px;
-  --radius-2xl: 32px;
-  --radius-full: 9999px;
+  /* ── Frosted Glass System (Tokens managed per theme) ────── */
+  --shadow-glow:               none;
+  --shadow-glow-lg:            none;
 
-  /* ── Shadows ───────────────────────────────── */
-  --shadow-sm:   0 1px 3px rgba(0, 0, 0, 0.4);
-  --shadow-md:   0 4px 16px rgba(0, 0, 0, 0.5);
-  --shadow-lg:   0 8px 40px rgba(0, 0, 0, 0.6);
-  --shadow-xl:   0 20px 60px rgba(0, 0, 0, 0.7);
-  --shadow-glow: 0 0 40px rgba(29, 161, 242, 0.25);
-  --shadow-glow-lg: 0 0 80px rgba(29, 161, 242, 0.15), 0 0 30px rgba(29, 161, 242, 0.3);
-  --shadow-card: 0 4px 24px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255,255,255,0.07);
-  --shadow-card-hover: 0 12px 48px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(29,161,242,0.2), 0 0 30px rgba(29,161,242,0.08);
-  --glass-bg:    rgba(10, 18, 38, 0.6);
-  --glass-border: rgba(255, 255, 255, 0.1);
-  --glass-blur:  blur(16px);
+  /* ── Restrained, Handcrafted Easing Transitions (Apple / Linear) ─ */
+  --ease-apple:                cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-out:                  cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out:               cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-smooth:               cubic-bezier(0.25, 0.1, 0.25, 1);
+  --duration-fast:             160ms;
+  --duration-normal:           220ms;
+  --duration-base:             220ms;
+  --duration-slow:             320ms;
+  --duration-slower:           420ms;
 
-  /* ── Transitions & Motion System ───────────── */
-  --ease-out:         cubic-bezier(0.16, 1, 0.3, 1);
-  --ease-in-out:      cubic-bezier(0.4, 0, 0.2, 1);
-  --ease-smooth:      cubic-bezier(0.25, 0.1, 0.25, 1);
-  --duration-fast:    150ms;   /* 120-160ms for fast micro-interactions */
-  --duration-normal:  200ms;   /* 180-220ms for standard interactions */
-  --duration-base:    200ms;
-  --duration-slow:    280ms;   /* 250-320ms for large transitions */
-  --duration-slower:  380ms;
+  /* ── Z-index Hierarchy ───────────────────────────────────── */
+  --z-base:                    1;
+  --z-dropdown:                100;
+  --z-sticky:                  200;
+  --z-overlay:                 300;
+  --z-modal:                   400;
+  --z-sidebar:                 500;
+  --z-toast:                   600;
+  --z-whatsapp:                700;
 
-  /* ── Z-index ───────────────────────────────── */
-  --z-base:      1;
-  --z-dropdown:  100;
-  --z-sticky:    200;
-  --z-overlay:   300;
-  --z-modal:     400;
-  --z-toast:     500;
-  --z-whatsapp:  600;
+  /* ── Safe Area Inset Support (Modern Notched & Island Devices) ─ */
+  --sat:                       env(safe-area-inset-top, 0px);
+  --sab:                       env(safe-area-inset-bottom, 0px);
+  --sal:                       env(safe-area-inset-left, 0px);
+  --sar:                       env(safe-area-inset-right, 0px);
+
+  /* ── Touch Interaction Ergonomics ───────────────────────── */
+  --touch-min-height:          44px;
+  --touch-min-width:           44px;
+}
+
+@media (max-width: 767px) {
+  :root {
+    --nav-height: var(--nav-height-mobile, 72px);
+  }
 }

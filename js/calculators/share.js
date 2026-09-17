@@ -1,5 +1,5 @@
 // ==============================================
-// risePaisa — Nepal NEPSE Share Calculator Component
+// risePaisa - Nepal NEPSE Share Calculator Component
 // Buy Cost, Sell & Profit, WACC Average Price, and Break-even Calculator
 // ==============================================
 import {
@@ -592,40 +592,62 @@ export function renderShareCalculator() {
         </div>
       </div>
 
-      <!-- Educational Section -->
+      <!-- Educational Section: NEPSE Trading & Statutory Charges -->
       <div class="rp-calc-section rp-edu-cards-section" style="margin-top:var(--space-8)">
-        <h3 style="font-size:var(--text-lg);color:var(--color-heading);margin-bottom:var(--space-4)">
-          Essential NEPSE Trading & Charge Concepts
+        <h3 style="font-size:var(--text-xl);color:var(--color-heading);margin-bottom:var(--space-2)">
+          Understanding NEPSE Share Transaction Costs, WACC & Taxes
         </h3>
+        <p style="font-size:var(--text-sm);color:var(--color-text-secondary);margin-bottom:var(--space-6)">
+          Official SEBON brokerage rates, CDSC fees, and capital gains tax mechanics for equity investors in Nepal.
+        </p>
+
         <div class="rp-edu-grid">
+          <!-- Card 1: Statutory Fee Hierarchy -->
           <div class="rp-edu-card">
-            <h4>Broker Commission</h4>
-            <p>
-              NEPSE brokers charge a tiered fee between <strong>0.27% and 0.40%</strong> based on transaction value, with a statutory minimum of NPR 10 per transaction.
-            </p>
+            <div class="rp-edu-icon-wrap" style="color:var(--color-accent);font-size:24px;margin-bottom:8px">📐</div>
+            <h4>SEBON Broker Commission Slabs</h4>
+            <ul class="rp-edu-list" style="margin:0;padding-left:18px;font-size:0.875rem;color:var(--color-text-secondary);line-height:1.6">
+              <li><strong>Up to NPR 50,000:</strong> 0.40% (minimum fee NPR 10)</li>
+              <li><strong>NPR 50,001 to 5,00,000:</strong> 0.37%</li>
+              <li><strong>NPR 5,00,001 to 20,00,000:</strong> 0.34%</li>
+              <li><strong>NPR 20,00,001 to 1,00,00,000:</strong> 0.30%</li>
+              <li><strong>Above NPR 1 Crore:</strong> 0.27%</li>
+              <li><em>Plus: SEBON Regulatory Fee (0.015%) and CDSC DP Fee (NPR 25 per transfer).</em></li>
+            </ul>
           </div>
+
+          <!-- Card 2: WACC & Capital Gains Tax -->
           <div class="rp-edu-card">
-            <h4>SEBON & DP Charges</h4>
-            <p>
-              SEBON levies a regulatory charge of <strong>0.015%</strong>. CDS & Clearing charges a flat <strong>NPR 25 DP fee</strong> per stock per day for depository transfers.
-            </p>
+            <div class="rp-edu-icon-wrap" style="color:#10b981;font-size:24px;margin-bottom:8px">🇳🇵</div>
+            <h4>WACC & Capital Gains Tax (CGT)</h4>
+            <ul class="rp-edu-list" style="margin:0;padding-left:18px;font-size:0.875rem;color:var(--color-text-secondary);line-height:1.6">
+              <li><strong>WACC in MeroShare:</strong> Weighted Average Cost of Capital must be calculated and declared via MeroShare EDIS before transferring sold shares.</li>
+              <li><strong>Individual Short-Term (≤365 Days):</strong> 7.5% CGT on net profit.</li>
+              <li><strong>Individual Long-Term (&gt;365 Days):</strong> 5.0% CGT on net profit, incentivizing multi-year investing.</li>
+              <li><strong>Institutional Investors:</strong> 10.0% CGT on net realized profit.</li>
+            </ul>
           </div>
+
+          <!-- Card 3: Break-Even Trading Friction & Pitfalls -->
           <div class="rp-edu-card">
-            <h4>Capital Gains Tax (CGT)</h4>
-            <p>
-              CGT is levied only on net taxable profit. For individuals, short-term (&lt;365 days) is <strong>7.5%</strong> and long-term is <strong>5.0%</strong>. Institutions pay <strong>10.0%</strong>.
-            </p>
+            <div class="rp-edu-icon-wrap" style="color:#f59e0b;font-size:24px;margin-bottom:8px">⚖️</div>
+            <h4>Break-Even Friction & Over-Trading</h4>
+            <ul class="rp-edu-list" style="margin:0;padding-left:18px;font-size:0.875rem;color:var(--color-text-secondary);line-height:1.6">
+              <li><strong>Round-Trip Drag:</strong> Buying and selling incurs approximately 0.8% to 1.1% in cumulative friction fees. A stock must rise at least ~1.0% just for you to break even.</li>
+              <li><strong>The Small-Order Penalty:</strong> The flat NPR 25 DP fee and minimum NPR 10 broker charge disproportionately penalize micro-orders under NPR 5,000.</li>
+              <li><strong>EDIS Deadline:</strong> Failure to complete EDIS transfer on MeroShare before 6:00 PM on T+1 causes an immediate 20% close-out penalty auction charge.</li>
+            </ul>
           </div>
         </div>
       </div>
 
-      <!-- Nepal Regulatory Disclaimer -->
-      <div class="rp-educational-note">
+      <!-- Nepal Stock Market Notice & Companion Links -->
+      <div class="rp-educational-note" style="margin-top:var(--space-6)">
         <div class="rp-edu-icon">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
         </div>
         <div class="rp-edu-text">
-          <strong>Nepal Stock Market Notice:</strong> Broker commission, SEBON fee, DP charges, and capital gains tax rules may change over time. This calculator provides estimates using the configured rates. Always verify charges with your licensed broker and current SEBON regulations before making investment decisions.
+          <strong>Recommended Learning Path:</strong> Learn the end-to-end trading and settlement process in our lesson on <a href="/learn/nepse/broker-account-tms-navigation" style="color:var(--color-accent);text-decoration:underline">Broker Account & TMS Navigation</a> or study the comprehensive <a href="/learn/guides/complete-tms-guide" style="color:var(--color-accent);text-decoration:underline">Complete NEPSE Online TMS Trading Guide</a>.
         </div>
       </div>
 
@@ -679,7 +701,7 @@ function renderWACCRows(lots) {
           <button type="button" class="btn btn-ghost btn-sm rp-wacc-delete-btn" data-lot-id="${lot.id}" style="color:#ef4444;padding:2px 6px;font-size:11px">
             Delete
           </button>
-        ` : '—'}
+        ` : '-'}
       </td>
     </tr>
   `).join('');

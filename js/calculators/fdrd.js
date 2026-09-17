@@ -1,5 +1,5 @@
 // ==============================================
-// risePaisa — Nepal Fixed Deposit (FD) & Recurring Deposit (RD) Calculator
+// risePaisa - Nepal Fixed Deposit (FD) & Recurring Deposit (RD) Calculator
 // Compound interest, quarterly compounding default, adjustable TDS, and growth charts
 // ==============================================
 import {
@@ -619,40 +619,60 @@ export function renderFDRDCalculator() {
         </div>
       </div>
 
-      <!-- Educational Section -->
+      <!-- Educational Section: FD & RD Principles in Nepal -->
       <div class="rp-calc-section rp-edu-cards-section" style="margin-top:var(--space-8)">
-        <h3 style="font-size:var(--text-lg);color:var(--color-heading);margin-bottom:var(--space-4)">
-          Understanding Fixed & Recurring Deposits in Nepal
+        <h3 style="font-size:var(--text-xl);color:var(--color-heading);margin-bottom:var(--space-2)">
+          Understanding Fixed & Recurring Deposits, NRB Directives & TDS
         </h3>
+        <p style="font-size:var(--text-sm);color:var(--color-text-secondary);margin-bottom:var(--space-6)">
+          Quarterly compounding mathematics, BAFIA banking protections, and tax withholding rules across Class A, B, and C financial institutions.
+        </p>
+
         <div class="rp-edu-grid">
+          <!-- Card 1: Compounding Formula -->
           <div class="rp-edu-card">
-            <h4>What is Fixed Deposit (FD)?</h4>
-            <p>
-              A lump-sum deposit locked with a Class A, B, or C financial institution for a fixed tenure (from 3 months to 10+ years) at a guaranteed contractual interest rate.
+            <div class="rp-edu-icon-wrap" style="color:var(--color-accent);font-size:24px;margin-bottom:8px">📐</div>
+            <h4>Quarterly Compounding Formula</h4>
+            <p style="margin-bottom:10px">
+              Nepali banks compound interest on fixed deposits every quarter (every 3 months):
+              <br><code>A = P × (1 + r/4)⁴ⁿ</code>
+            </p>
+            <p style="font-size:0.875rem;line-height:1.55">
+              Where <strong>P</strong> is principal, <strong>r</strong> is annual interest rate, and <strong>n</strong> is tenure in years. Because interest is credited 4 times a year and added to principal, the Effective Annual Rate (EAR) is approximately 0.25% to 0.40% higher than the nominal stated coupon rate.
             </p>
           </div>
+
+          <!-- Card 2: NRB Guidelines & DCGF Protection -->
           <div class="rp-edu-card">
-            <h4>What is Recurring Deposit (RD)?</h4>
-            <p>
-              A structured monthly savings scheme where you deposit a fixed sum every month into the bank, accumulating interest similar to an FD.
-            </p>
+            <div class="rp-edu-icon-wrap" style="color:#10b981;font-size:24px;margin-bottom:8px">🇳🇵</div>
+            <h4>NRB Circulars & Safety Net</h4>
+            <ul class="rp-edu-list" style="margin:0;padding-left:18px;font-size:0.875rem;color:var(--color-text-secondary);line-height:1.6">
+              <li><strong>DCGF Deposit Guarantee:</strong> Under the Deposit and Credit Guarantee Fund (DCGF), individual retail deposits are statutorily insured up to NPR 5,00,000 per depositor per licensed institution.</li>
+              <li><strong>Institutional Spread:</strong> By NRB circular, institutional fixed deposit rates must be at least 1.0% lower than individual retail rates.</li>
+              <li><strong>Rate Adjustment Limits:</strong> Banks can only adjust their published monthly deposit interest rates by a maximum of 10% relative to the prior month.</li>
+            </ul>
           </div>
+
+          <!-- Card 3: TDS, Real Returns & Loan on FD -->
           <div class="rp-edu-card">
-            <h4>FD vs RD: When to Use Which?</h4>
-            <p>
-              Use <strong>FD</strong> when you have an existing lump sum (e.g. severance, land sale, bonus) seeking safe yields. Use <strong>RD</strong> when building wealth out of monthly salary.
-            </p>
+            <div class="rp-edu-icon-wrap" style="color:#f59e0b;font-size:24px;margin-bottom:8px">⚖️</div>
+            <h4>TDS, Real Returns & Liquidity</h4>
+            <ul class="rp-edu-list" style="margin:0;padding-left:18px;font-size:0.875rem;color:var(--color-text-secondary);line-height:1.6">
+              <li><strong>5% Final Withholding:</strong> Resident individual deposit interest is subject to a 5% TDS deduction at source by the bank, which is a final tax.</li>
+              <li><strong>Inflation Trap:</strong> An 8.0% FD yields 7.6% net after 5% TDS. If annual inflation is 6.5%, your real purchasing power expands by only 1.1%.</li>
+              <li><strong>Loan Against FD:</strong> You can borrow up to 90% of your FD balance within 2 hours at an interest rate just 1% to 2% higher than your FD coupon, avoiding premature liquidation penalties.</li>
+            </ul>
           </div>
         </div>
       </div>
 
-      <!-- Nepal Banking Context Notice -->
-      <div class="rp-educational-note">
+      <!-- Nepal Banking Context Notice & Companion Links -->
+      <div class="rp-educational-note" style="margin-top:var(--space-6)">
         <div class="rp-edu-icon">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
         </div>
         <div class="rp-edu-text">
-          <strong>Nepal Banking Notice:</strong> Interest rates vary across Nepali commercial banks, development banks, and finance companies based on monthly NRB monetary circulars. Enter the exact annual interest rate offered by your bank. This calculator estimates maturity values using compound interest and an adjustable statutory TDS deduction (5% for resident individuals).
+          <strong>Recommended Learning Path:</strong> Master bank classification and deposit optimization in our lesson on <a href="/learn/banking/fixed-deposit" style="color:var(--color-accent);text-decoration:underline">Fixed Deposit Mechanics & TDS in Nepal</a> or review the comprehensive <a href="/learn/guides/complete-banking-guide" style="color:var(--color-accent);text-decoration:underline">Complete Nepal Banking & Deposit Guide</a>.
         </div>
       </div>
 

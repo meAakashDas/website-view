@@ -1,5 +1,5 @@
 // ==============================================
-// risePaisa — Nepal Personal Income Tax Calculator (FY 2082/83)
+// risePaisa - Nepal Personal Income Tax Calculator (FY 2082/83)
 // Progressive slab-by-slab taxation, deductions, and take-home analytics
 // ==============================================
 import {
@@ -373,7 +373,7 @@ export function renderTaxCalculator() {
             <tfoot>
               <tr class="rp-row-final">
                 <td style="font-weight:var(--weight-bold);color:var(--color-white)">Total Tax Liability</td>
-                <td>—</td>
+                <td>-</td>
                 <td class="rp-num font-semibold">${formatNPR(res.netTaxableIncome)}</td>
                 <td class="rp-num font-semibold" style="color:#F59E0B">${formatNPR(res.totalTax)}</td>
               </tr>
@@ -382,25 +382,59 @@ export function renderTaxCalculator() {
         </div>
       </div>
 
-      <!-- Educational Insights: Progressive Taxation -->
-      <div class="rp-calc-section rp-edu-cards-section">
-        <h3 style="font-size:var(--text-lg);color:var(--color-heading);margin-bottom:var(--space-4)">
-          How Progressive Income Tax Works in Nepal
+      <!-- Educational Insights: Progressive Taxation in Nepal -->
+      <div class="rp-calc-section rp-edu-cards-section" style="margin-top:var(--space-8)">
+        <h3 style="font-size:var(--text-xl);color:var(--color-heading);margin-bottom:var(--space-2)">
+          Understanding Progressive Income Tax & Legal Deductions in Nepal
         </h3>
-        <div class="rp-edu-card" style="max-width:100%">
-          <p>
-            Nepal uses a <strong>progressive slab taxation</strong> system. Earning more money never subjects your entire income to the highest tax bracket. Each tax rate applies <em>strictly</em> to the portion of income within that designated slab. For example, if your income crosses into the 30% slab, only the rupees above NPR 10 Lakhs (or 11 Lakhs if married) are taxed at 30%, while all previous rupees remain taxed at 1%, 10%, and 20%. Increasing your salary always results in higher net take-home pay.
-          </p>
+        <p style="font-size:var(--text-sm);color:var(--color-text-secondary);margin-bottom:var(--space-6)">
+          Inland Revenue Department (IRD) statutory provisions, slab mechanics, and strategies to legally reduce your tax burden.
+        </p>
+
+        <div class="rp-edu-grid">
+          <!-- Card 1: Progressive Slab Mechanics -->
+          <div class="rp-edu-card">
+            <div class="rp-edu-icon-wrap" style="color:var(--color-accent);font-size:24px;margin-bottom:8px">📐</div>
+            <h4>How Progressive Slabs Work</h4>
+            <p style="margin-bottom:10px">
+              Moving into a higher tax bracket <strong>never</strong> decreases your net take-home salary.
+            </p>
+            <p style="font-size:0.875rem;line-height:1.55">
+              Each tax rate applies strictly to the incremental rupees inside that specific band. For an unmarried earner: the first NPR 5 Lakhs is taxed at 1% (or 0% with SSF), the next NPR 2 Lakhs at 10%, the next NPR 3 Lakhs at 20%, the next NPR 10 Lakhs at 30%, and income exceeding NPR 20 Lakhs at 36% (plus a 39% super-tax on earnings above NPR 50 Lakhs).
+            </p>
+          </div>
+
+          <!-- Card 2: Section 63 & Legal Deductions -->
+          <div class="rp-edu-card">
+            <div class="rp-edu-icon-wrap" style="color:#10b981;font-size:24px;margin-bottom:8px">🇳🇵</div>
+            <h4>Legal Tax Deductions Checklist</h4>
+            <ul class="rp-edu-list" style="margin:0;padding-left:18px;font-size:0.875rem;color:var(--color-text-secondary);line-height:1.6">
+              <li><strong>Section 63 Retirement Funds:</strong> Deduct up to one-third of total taxable salary or NPR 3,00,000 (whichever is lower) by depositing into CIT, EPF, or SSF.</li>
+              <li><strong>SSF 1% Exemption:</strong> Employees enrolled in the Social Security Fund (SSF) are 100% exempt from the 1% Social Security Tax on their first income slab.</li>
+              <li><strong>Insurance Relief:</strong> Deduct up to NPR 40,000 for Life Insurance premiums and NPR 20,000 for Health Insurance premiums annually.</li>
+            </ul>
+          </div>
+
+          <!-- Card 3: Common Filing Errors & IRD Compliance -->
+          <div class="rp-edu-card">
+            <div class="rp-edu-icon-wrap" style="color:#f59e0b;font-size:24px;margin-bottom:8px">⚖️</div>
+            <h4>Common Mistakes & Compliance</h4>
+            <ul class="rp-edu-list" style="margin:0;padding-left:18px;font-size:0.875rem;color:var(--color-text-secondary);line-height:1.6">
+              <li><strong>TDS ≠ Final Tax:</strong> TDS deducted by your employer or bank is an advance payment. You must reconcile your annual return (Form D-01) on the IRD portal.</li>
+              <li><strong>Unlinked PAN in Demat:</strong> Forgetting to link your PAN with your Demat broker account causes automatic maximum capital gains tax withholding without setoff rights.</li>
+              <li><strong>Document Retention:</strong> Section 81 of the Income Tax Act requires preserving all tax clearance certificates, invoices, and bank statements for at least 5 years.</li>
+            </ul>
+          </div>
         </div>
       </div>
 
-      <!-- Official Disclaimer Notice -->
-      <div class="rp-educational-note">
+      <!-- Official IRD Notice & Companion Links -->
+      <div class="rp-educational-note" style="margin-top:var(--space-6)">
         <div class="rp-edu-icon">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
         </div>
         <div class="rp-edu-text">
-          <strong>Important Notice:</strong> This calculator is designed for educational and estimation purposes using FY 2082/83 resident natural person tax slabs. Actual tax liability may differ depending on deductions, exemptions, employment status, remote foreign income rules, or future legal changes. Always verify with the Inland Revenue Department (IRD) or a qualified tax professional.
+          <strong>Recommended Learning Path:</strong> Master salary tax planning in our lesson on <a href="/learn/taxation/nepal-income-tax-slabs-salary" style="color:var(--color-accent);text-decoration:underline">Nepal Income Tax Slabs & Salary Deductions</a> or review the end-to-end <a href="/learn/guides/complete-income-tax-guide" style="color:var(--color-accent);text-decoration:underline">Complete Nepal Income Tax Guide</a>.
         </div>
       </div>
 

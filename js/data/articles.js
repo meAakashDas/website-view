@@ -104,7 +104,7 @@ const ARTICLES = [
   {
     id: 3,
     slug: 'income-tax-nepal-explained',
-    title: 'Income Tax in Nepal Explained Simply (FY 2082/83)',
+    title: 'Income Tax in Nepal Explained Simply (FY 2081/82)',
     excerpt: 'Everything you need to know about Nepal\'s income tax system: slabs, deductions, and how to file your returns.',
     category: 'Taxation',
     categorySlug: 'taxation',
@@ -114,7 +114,7 @@ const ARTICLES = [
     featured: true,
     thumbnail: 'assets/images/blog-tax.png',
     content: `
-      <p>Taxes. The word alone makes most people zone out. But understanding income tax isn't just a legal requirement, it can actually save you money. Here's a plain-language breakdown of Nepal's income tax system.</p>
+      <p>Taxes. The word alone makes most people zone out. But understanding income tax isn't just a legal requirement, it can actually save you money. Here's a plain-language breakdown of Nepal's income tax system for FY 2081/82 and beyond.</p>
 
       <h2>Who Needs to Pay Income Tax?</h2>
       <p>In Nepal, if your annual income exceeds NPR 5,00,000 (for individuals), you're liable to pay income tax. This includes:</p>
@@ -125,47 +125,49 @@ const ARTICLES = [
         <li>Individuals earning rental income, capital gains, or investment income</li>
       </ul>
 
-      <h2>Current Tax Slabs (Individual)</h2>
+      <h2>Current Tax Slabs (Individual — FY 2081/82 Onwards)</h2>
       <p>Nepal uses a progressive tax system. Here are the current slabs:</p>
       <ul>
         <li>First NPR 5,00,000: 1% (Social Security Tax)</li>
         <li>NPR 5,00,001 to 7,00,000: 10%</li>
         <li>NPR 7,00,001 to 10,00,000: 20%</li>
         <li>NPR 10,00,001 to 20,00,000: 30%</li>
-        <li>Above NPR 20,00,000: 36%</li>
+        <li>NPR 20,00,001 to 50,00,000: 36%</li>
+        <li>Above NPR 50,00,000: 39%</li>
       </ul>
-      <p><em>Note: Married individuals and couples filing jointly may have different thresholds. Always check the latest IRD circular.</em></p>
+      <p><em>Note: Married couples filing jointly receive a 10% addition to each slab threshold. Always verify against the latest IRD circular for any mid-year amendments.</em></p>
 
       <h2>Tax Deductions Available</h2>
       <h3>Social Security Fund (SSF)</h3>
-      <p>Your SSF contribution is tax-deductible. Employers contribute 20% and employees contribute 11% of basic salary.</p>
+      <p>Your entire SSF contribution is 100% tax-deductible. Employers contribute 20% and employees contribute 11% of basic salary to SSF. The full employee contribution reduces your taxable assessable income before any slab is applied.</p>
 
       <h3>Life Insurance Premium</h3>
-      <p>Premium paid on life insurance policies is deductible up to NPR 40,000 per year.</p>
+      <p>Premium paid on life insurance policies is deductible up to NPR 40,000 per year, providing a direct reduction in your tax liability for both term life and endowment policies registered with Nepal Insurance Authority.</p>
 
-      <h3>Retirement Fund Contributions</h3>
-      <p>Contributions to approved retirement funds (like CIT, Citizen Investment Trust) are tax-deductible, reducing your taxable income.</p>
+      <h3>Retirement Fund Contributions (CIT / EPF)</h3>
+      <p>Contributions to approved retirement funds — Citizen Investment Trust (CIT) or Employee Provident Fund (EPF/Sanchaya Kosh) — are tax-deductible up to NPR 3,00,000 per year or one-third of your total assessable income, whichever is lower.</p>
 
       <h2>How to File Your Tax Return</h2>
-      <p>Nepal's Inland Revenue Department (IRD) has an e-filing system. Here's the basic process:</p>
+      <p>Nepal's Inland Revenue Department (IRD) has a full e-filing portal at ird.gov.np and the Nagarik App for mobile users. The standard process for salaried individuals:</p>
       <ul>
-        <li>Register for a PAN (if you don't have one)</li>
-        <li>Log into the IRD portal</li>
-        <li>Fill in income details, deductions, and tax paid (TDS)</li>
-        <li>Submit and download your acknowledgment</li>
+        <li>Register for a PAN if you don't have one — free on the Nagarik App in under 5 minutes</li>
+        <li>Log into the IRD portal with your PAN credentials</li>
+        <li>Fill the D-01 self-assessment form with your income, deductions, and TDS already withheld</li>
+        <li>Submit and download the official acknowledgment receipt</li>
       </ul>
 
-      <blockquote><p>Important: The tax filing deadline is within 3 months of the fiscal year end (mid-July to mid-October). Late filing attracts penalties.</p></blockquote>
+      <blockquote><p>Important: The tax filing deadline is within 3 months of the fiscal year end (Ashadh = mid-July, so deadline is mid-October each year). Late filing attracts 10% additional tax plus compounding interest penalties — file early.</p></blockquote>
 
       <h2>Common Tax Mistakes</h2>
       <ul>
-        <li>Not registering for PAN despite being above the threshold</li>
-        <li>Ignoring TDS certificates from employers/banks</li>
-        <li>Not claiming eligible deductions (leaving money on the table!)</li>
-        <li>Missing filing deadlines</li>
+        <li>Not registering for PAN despite income being above the NPR 4,00,000 annual threshold</li>
+        <li>Ignoring TDS certificates from employers and banks — these directly reduce your final tax payable</li>
+        <li>Not claiming legal deductions for SSF, CIT, and life insurance premiums (leaving thousands of rupees on the table each year)</li>
+        <li>Missing the mid-October filing deadline and paying avoidable late penalties</li>
+        <li>Confusing the 1% Social Security Tax on the first NPR 5,00,000 with a flat 1% rate on your entire gross salary</li>
       </ul>
 
-      <p>Understanding your taxes is one of the most valuable financial skills you can develop. It's not about paying less tax, but paying the right amount, legally and smartly.</p>
+      <p>Understanding your taxes is one of the most valuable financial skills you can develop. It's not about paying less than what you owe — it's about claiming every legal deduction available and paying the right amount, smartly and on time.</p>
     `
   },
   {

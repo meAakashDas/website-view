@@ -1,6 +1,7 @@
-/* ==============================================
-   risePaisa — Base Styles & Reset
-   ============================================== */
+/* ==============================================================================
+   risePaisa - Base Styles, CSS Reset & Typography
+   Apple & Linear-Inspired Visual Discipline
+   ============================================================================== */
 
 /* ── Modern CSS Reset ────────────────────────── */
 *, *::before, *::after {
@@ -12,13 +13,13 @@
 
 html {
   font-size: 16px;
-  scroll-behavior: auto; /* 'smooth' causes scroll lag on fast swipes */
+  scroll-behavior: auto; /* avoid scroll jank */
   -webkit-text-size-adjust: 100%;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
-  overflow-x: clip; /* Modern clean way to prevent horizontal overflow without creating nested scroll containers */
-  background: #050B18; /* Prevent white flash behind body during fast scroll */
+  overflow-x: clip;
+  background-color: var(--color-bg);
 }
 
 body {
@@ -27,40 +28,20 @@ body {
   font-weight: var(--weight-normal);
   line-height: var(--leading-normal);
   color: var(--color-text);
-  background-color: #050B18;
+  background-color: var(--color-bg);
   min-height: 100vh;
-  min-height: 100svh; /* stable — won't shift when mobile browser chrome changes */
+  min-height: 100svh;
   overflow-x: clip;
   position: relative;
-  overscroll-behavior-x: none; /* Only prevent horizontal overscroll bounce */
-  -webkit-overflow-scrolling: touch; /* Smooth momentum scroll on iOS */
-  padding-bottom: env(safe-area-inset-bottom); /* Notch / home-bar safe area */
+  overscroll-behavior-x: none;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: env(safe-area-inset-bottom);
 }
 
-/* GPU-promoted fixed background layer: combines deep gradient and dot-grid.
-   Eliminating background-attachment: fixed enables native GPU-composited scrolling
-   on desktop and mobile with zero full-viewport repaints per scroll frame. */
-body::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  background-image:
-    radial-gradient(circle, rgba(255,255,255,0.025) 1px, transparent 1px),
-    linear-gradient(160deg, #060e22 0%, #050B18 40%, #020609 100%);
-  background-size: 32px 32px, 100% 100%;
-  background-position: 0 0, 0 0;
-  background-repeat: repeat, no-repeat;
-  pointer-events: none;
-  z-index: 0;
-  transform: translateZ(0);
-}
-
-/* Ensure all app content renders above the body overlay */
-/* #navbar-container must be ABOVE #app — both having z-index:1 caused #app
-   (rendered later in DOM) to cover the navbar and block all click events. */
+/* Ensure clean layer stack */
 #navbar-container {
   position: relative;
-  z-index: 300; /* Must exceed #app so navbar is always clickable */
+  z-index: 300; /* Must exceed #app so navbar is always interactive */
 }
 
 #app,
@@ -70,37 +51,60 @@ body::before {
   z-index: 1;
 }
 
-/* ── Typography ──────────────────────────────── */
+/* ── Typography: Tight Display Tracking, Balanced Proportion ── */
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-display);
-  font-weight: var(--weight-bold);
+  font-weight: var(--weight-semibold);
   line-height: var(--leading-tight);
   color: var(--color-heading);
+  text-wrap: balance;
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+
+h1 {
+  font-size: var(--text-hero, clamp(2rem, 3.8vw, 2.85rem));
   letter-spacing: -0.03em;
+  line-height: 1.12;
 }
 
-h1 { font-size: var(--text-4xl); }
-h2 { font-size: var(--text-3xl); }
-h3 { font-size: var(--text-2xl); }
-h4 { font-size: var(--text-xl); }
-h5 { font-size: var(--text-lg); }
-h6 { font-size: var(--text-base); }
-
-@media (min-width: 768px) {
-  h1 { font-size: var(--text-5xl); }
-  h2 { font-size: var(--text-4xl); }
-  h3 { font-size: var(--text-3xl); }
+h2 {
+  font-size: var(--text-section, clamp(1.5rem, 2.6vw, 2.15rem));
+  letter-spacing: -0.025em;
+  line-height: 1.2;
 }
 
-@media (min-width: 1024px) {
-  h1 { font-size: var(--text-6xl); }
-  h2 { font-size: var(--text-5xl); }
+h3 {
+  font-size: clamp(1.25rem, 1.8vw, 1.5rem);
+  letter-spacing: -0.02em;
+  line-height: 1.28;
+}
+
+h4 {
+  font-size: var(--text-card-title, 1.125rem);
+  letter-spacing: -0.015em;
+  line-height: 1.35;
+}
+
+h5 {
+  font-size: 1rem;
+  letter-spacing: -0.01em;
+  line-height: 1.4;
+}
+
+h6 {
+  font-size: var(--text-sm, 0.875rem);
+  letter-spacing: 0;
+  line-height: 1.45;
 }
 
 p {
   color: var(--color-text-secondary);
   margin-bottom: var(--space-4);
-  line-height: var(--leading-relaxed);
+  line-height: var(--leading-normal);
+  font-size: var(--text-base);
+  text-wrap: pretty;
+  overflow-wrap: break-word;
 }
 
 p:last-child {
@@ -119,7 +123,7 @@ a:hover {
 
 strong, b {
   font-weight: var(--weight-semibold);
-  color: var(--color-text);
+  color: var(--color-heading);
 }
 
 small {
@@ -132,18 +136,36 @@ ul, ol {
   list-style: none;
 }
 
-/* ── Images ──────────────────────────────────── */
+/* ── Media Elements ──────────────────────────── */
 img, video {
   max-width: 100%;
   height: auto;
   display: block;
 }
 
-img {
-  image-rendering: auto;
+svg {
+  box-sizing: border-box;
+  max-width: 100%;
+  max-height: 100%;
+  flex-shrink: 0;
+  vertical-align: middle;
 }
 
-/* ── Forms ───────────────────────────────────── */
+/* Default safety fallback for inline icons without explicit width/height attributes */
+svg:not([width]):not([height]):not([class*="chart"]):not([class*="donut"]):not([class*="growth"]):not([class*="curve"]):not([class*="graph"]):not([class*="line"]):not([class*="canvas"]):not([class*="art"]):not([class*="visual"]) {
+  width: 24px;
+  height: 24px;
+}
+
+/* ── Standardized Icon Utility Tokens ─────────── */
+.icon-xs { width: 14px; height: 14px; }
+.icon-sm { width: 16px; height: 16px; }
+.icon-md { width: 20px; height: 20px; }
+.icon-lg { width: 24px; height: 24px; }
+.icon-xl { width: 32px; height: 32px; }
+
+
+/* ── Controls & Accessibility ────────────────── */
 button, input, textarea, select {
   font-family: inherit;
   font-size: inherit;
@@ -154,20 +176,26 @@ button, input, textarea, select {
   background: none;
 }
 
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
 button {
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
 }
 
-input, textarea {
+input, textarea, select {
   width: 100%;
+  font-size: 16px; /* Prevents unwanted iOS Safari auto-zoom on form focus */
 }
 
 textarea {
   resize: vertical;
 }
 
-/* ── Utility ─────────────────────────────────── */
+/* ── Layout Containers ───────────────────────── */
 .sr-only {
   position: absolute;
   width: 1px;
@@ -184,7 +212,17 @@ textarea {
   width: 100%;
   max-width: var(--container-xl);
   margin: 0 auto;
-  padding: 0 var(--space-5);
+  padding: 0 var(--space-4);
+  padding-left: max(var(--space-4), env(safe-area-inset-left, 0px));
+  padding-right: max(var(--space-4), env(safe-area-inset-right, 0px));
+}
+
+@media (min-width: 480px) {
+  .container {
+    padding: 0 var(--space-5);
+    padding-left: max(var(--space-5), env(safe-area-inset-left, 0px));
+    padding-right: max(var(--space-5), env(safe-area-inset-right, 0px));
+  }
 }
 
 @media (min-width: 768px) {
@@ -195,7 +233,7 @@ textarea {
 
 @media (min-width: 1024px) {
   .container {
-    padding: 0 var(--space-12);
+    padding: 0 var(--space-10);
   }
 }
 
@@ -203,59 +241,79 @@ textarea {
   max-width: var(--container-md);
 }
 
-/* ── Section spacing ─────────────────────────── */
+.container-reading {
+  max-width: var(--container-reading);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* ── Section Rhythm ──────────────────────────── */
 .section {
-  padding: var(--space-16) 0;
+  padding: var(--section-padding-y-mobile) 0;
+  position: relative;
 }
 
 @media (min-width: 768px) {
   .section {
-    padding: var(--space-20) 0;
+    padding: var(--section-padding-y) 0;
   }
 }
 
-@media (min-width: 1024px) {
-  .section {
-    padding: var(--space-24) 0;
-  }
+.section-alt {
+  background-color: var(--color-bg-alt);
 }
 
 .section-header {
   text-align: center;
-  margin-bottom: var(--space-12);
+  margin-bottom: var(--space-8);
+}
+
+@media (min-width: 768px) {
+  .section-header {
+    margin-bottom: var(--space-10);
+  }
+}
+
+.section-eyebrow,
+.section-label {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--text-kicker, 11.5px);
+  font-weight: var(--weight-semibold);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-accent);
+  margin-bottom: var(--space-2);
 }
 
 .section-header h2 {
-  margin-bottom: var(--space-4);
+  font-size: var(--text-section, clamp(1.65rem, 2.5vw, 2.15rem));
+  font-weight: var(--weight-semibold);
+  letter-spacing: -0.025em;
+  line-height: 1.2;
+  color: var(--color-heading);
+  margin-bottom: var(--space-2);
 }
 
 .section-header p {
-  max-width: 600px;
+  max-width: 580px;
   margin-left: auto;
   margin-right: auto;
-  font-size: var(--text-lg);
-  opacity: 0.85;
+  font-size: 1.0625rem;
+  line-height: var(--leading-relaxed);
+  color: var(--color-text-secondary);
 }
 
-/* Section header accent underline */
-.section-header h2 {
-  position: relative;
-  display: inline-block;
-}
-
-/* ── Gradient Text Utility ───────────────────── */
 .gradient-text {
-  background: linear-gradient(135deg, #1da1f2, #4db8ff, #a8d8ff);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
+  color: var(--color-heading);
 }
 
-/* ── Keyframe Animations ─────────────────────── */
+/* ── Refined Subtle Page Transitions ────────── */
 @keyframes fadeInUp {
   from {
     opacity: 0;
-    transform: translateY(14px);
+    transform: translateY(10px);
   }
   to {
     opacity: 1;
@@ -271,89 +329,12 @@ textarea {
 @keyframes pageFadeIn {
   from {
     opacity: 0;
-    transform: translateY(6px);
   }
   to {
     opacity: 1;
-    transform: translateY(0);
   }
 }
 
-@keyframes slideInRight {
-  from {
-    opacity: 0;
-    transform: translateX(14px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-@keyframes pulse {
-  0%, 100% { transform: scale(1); opacity: 1; }
-  50%       { transform: scale(1.03); opacity: 0.9; }
-}
-
-@keyframes shimmer {
-  0%   { background-position: -200% 0; }
-  100% { background-position: 200% 0; }
-}
-
-@keyframes countUp {
-  from { opacity: 0; transform: translateY(6px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes float {
-  0%, 100% { transform: translateY(0px); }
-  50%       { transform: translateY(-4px); }
-}
-
-@keyframes floatSlow {
-  0%, 100% { transform: translateY(0px); }
-  50%       { transform: translateY(-6px); }
-}
-
-@keyframes glimmer {
-  0%   { opacity: 0.6; }
-  50%  { opacity: 1; }
-  100% { opacity: 0.6; }
-}
-
-@keyframes gradientShift {
-  0%   { background-position: 0% 50%; }
-  50%  { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
-
-@keyframes rotateSlow {
-  from { transform: rotate(0deg); }
-  to   { transform: rotate(360deg); }
-}
-
-@keyframes slideUp {
-  from {
-    opacity: 0;
-    transform: translateY(16px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes glowPulse {
-  0%, 100% { box-shadow: 0 0 16px rgba(29,161,242,0.15); }
-  50%       { box-shadow: 0 0 28px rgba(29,161,242,0.35); }
-}
-
-@keyframes borderGlow {
-  0%, 100% { border-color: rgba(29,161,242,0.2); }
-  50%       { border-color: rgba(29,161,242,0.5); }
-}
-
-/* ── Animation Classes ───────────────────────── */
 .animate-fade-in-up {
   animation: fadeInUp var(--duration-normal) var(--ease-out) forwards;
   opacity: 0;
@@ -365,131 +346,39 @@ textarea {
 }
 
 .page-enter {
-  animation: pageFadeIn var(--duration-normal) var(--ease-out) forwards;
+  animation: none;
 }
 
-.animate-float {
-  animation: float 4s ease-in-out infinite;
-}
-
-.animate-float-slow {
-  animation: floatSlow 6s ease-in-out infinite;
-}
-
-.animate-glimmer {
-  animation: glimmer 3s ease-in-out infinite;
-}
-
-/* Stagger children animations */
-.stagger-children > * {
-  opacity: 0;
-  animation: fadeInUp var(--duration-normal) var(--ease-out) forwards;
-}
-
-.stagger-children > *:nth-child(1) { animation-delay: 0ms; }
-.stagger-children > *:nth-child(2) { animation-delay: 60ms; }
-.stagger-children > *:nth-child(3) { animation-delay: 120ms; }
-.stagger-children > *:nth-child(4) { animation-delay: 180ms; }
-.stagger-children > *:nth-child(5) { animation-delay: 240ms; }
-.stagger-children > *:nth-child(6) { animation-delay: 300ms; }
-
-/* ── Scroll-reveal (JS adds .revealed) ─────── */
-.reveal {
-  opacity: 0;
-  transform: translateY(16px);
-  transition: opacity 0.35s var(--ease-out), transform 0.35s var(--ease-out);
-  will-change: opacity, transform;
-  contain: layout style; /* Isolate reflow — prevents content below from shifting */
-}
-
-.reveal.revealed {
-  opacity: 1;
-  transform: translateY(0);
-  will-change: auto; /* Release GPU backing texture once revealed */
-}
-
-.reveal-delay-1 { transition-delay: 50ms; }
-.reveal-delay-2 { transition-delay: 100ms; }
-.reveal-delay-3 { transition-delay: 150ms; }
-.reveal-delay-4 { transition-delay: 200ms; }
-
-/* ── Scrollbar ───────────────────────────────── */
+/* ── Scrollbar Styling ───────────────────────── */
 ::-webkit-scrollbar {
-  width: 6px;
+  width: 8px;
+  height: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--color-primary);
+  background: transparent;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(180deg, var(--color-accent), var(--color-accent-dark));
+  background: var(--color-scrollbar-thumb);
   border-radius: var(--radius-full);
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--color-accent);
+  background: var(--color-scrollbar-thumb-hover);
 }
 
 /* ── Selection ───────────────────────────────── */
 ::selection {
-  background-color: rgba(29, 161, 242, 0.3);
-  color: var(--color-white);
+  background-color: var(--color-accent-subtle);
+  color: var(--color-accent);
 }
 
-/* ── GPU-promote key scrolled containers for 60 FPS compositor scrolling ── */
+/* ── Performance Optimizations ───────────────── */
 .section,
 .hero,
-.footer,
-#app {
-  transform: translateZ(0);
-  -webkit-backface-visibility: hidden;
-  backface-visibility: hidden;
-}
-
-/* ── Content Visibility: skip offscreen rendering during scroll ── */
-.rp-guide-section,
-.rp-faq-section,
-.rp-directory-section,
 .footer {
-  content-visibility: auto;
-  contain-intrinsic-size: 0 500px;
-}
-
-/* ── Mobile Scroll Performance ──────────────── */
-@media (max-width: 1024px), (hover: none) {
-  /* Cap blur intensity — heavy blur causes frame drops during scroll */
-  .card,
-  .topic-card,
-  .hero-badge,
-  .cta-banner,
-  .cd-pricing-card,
-  .cd-mobile-cta,
-  .blog-post-hero,
-  .trust-bar,
-  .btn-secondary,
-  .btn-ghost {
-    backdrop-filter: blur(4px);
-    -webkit-backdrop-filter: blur(4px);
-  }
-
-  /* Disable heavy decorative animations that cause jank during scroll */
-  .hero::before,
-  .hero::after,
-  .hero-particle,
-  .cta-banner::after {
-    animation: none !important;
-  }
-
-  /* Reduce floating icon animations to avoid repaint during scroll */
-  .topic-card .topic-icon {
-    animation: none;
-  }
-
-  /* Reduce WhatsApp pulse ring animation complexity */
-  .whatsapp-float::before {
-    animation: none;
-  }
+  transform: translateZ(0);
 }
 
 /* ── Accessibility: Reduced Motion ──────────── */

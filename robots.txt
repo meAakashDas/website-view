@@ -1,0 +1,57 @@
+# ==============================================================================
+# risePaisa — Robots.txt Policy
+# Modern Technical SEO & AI Search Engine Crawling Configuration
+# ==============================================================================
+
+# 1. Global Crawler Policy (Google, Bing, Yahoo, DuckDuckGo, Baidu)
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /api/
+Disallow: /_/
+Disallow: /search
+Disallow: /scratch/
+
+# 2. Google Search & Mobile Bots
+User-agent: Googlebot
+User-agent: Googlebot-Mobile
+User-agent: Googlebot-Image
+Allow: /
+
+# 3. Google AI Overviews & Gemini Extended Training
+User-agent: Google-Extended
+Allow: /
+
+# 4. Microsoft Bing & Copilot
+User-agent: Bingbot
+User-agent: msnbot
+Allow: /
+
+# 5. Apple Spotlight & Siri Knowledge Graph
+User-agent: Applebot
+User-agent: Applebot-Extended
+Allow: /
+
+# 6. OpenAI (ChatGPT Search & Browsing)
+User-agent: GPTBot
+User-agent: ChatGPT-User
+User-agent: OAI-SearchBot
+Allow: /
+
+# 7. Anthropic (Claude Search & AI Ingestion)
+User-agent: ClaudeBot
+User-agent: anthropic-ai
+Allow: /
+
+# 8. Perplexity AI Engine
+User-agent: PerplexityBot
+Allow: /
+
+# 9. Meta / Facebook External Hit & AI
+User-agent: Meta-ExternalAgent
+User-agent: FacebookBot
+Allow: /
+
+# 10. Sitemap & Canonical Host Reference
+Sitemap: https://risepaisa.com/sitemap.xml
+Host: https://risepaisa.com

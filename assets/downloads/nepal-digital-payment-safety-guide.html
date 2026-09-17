@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nepal Cyber Safety & Digital Payment Protocol Guide | risePaisa</title>
+  <style>
+    :root {
+      --font: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      --ink: #1D1D1F;
+      --muted: #6E6E73;
+      --border: #E5E5EA;
+      --bg: #F5F5F7;
+      --white: #FFFFFF;
+      --blue: #1DA1F2;
+      --blue-hover: #0c85d0;
+      --red: #FF3B30;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --ink: #F5F5F7;
+        --muted: #86868B;
+        --border: #38383A;
+        --bg: #000000;
+        --white: #1C1C1E;
+      }
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.5;
+      padding: 40px 20px;
+    }
+    .sheet-card {
+      max-width: 800px;
+      margin: 0 auto;
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 48px;
+      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.04);
+    }
+    .header {
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 24px;
+      margin-bottom: 32px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 20px;
+    }
+    .brand {
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      color: var(--blue);
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+    h1 {
+      font-size: 28px;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      margin-bottom: 8px;
+    }
+    p.lead { color: var(--muted); font-size: 15px; }
+    .actions { display: flex; gap: 12px; }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      padding: 10px 20px;
+      border-radius: 9999px;
+      cursor: pointer;
+      border: none;
+      transition: all 0.2s ease;
+      text-decoration: none;
+    }
+    .btn-primary { background: var(--blue); color: #fff; }
+    .btn-primary:hover { background: var(--blue-hover); }
+    .checklist-section { margin-bottom: 36px; }
+    .section-title {
+      font-size: 18px;
+      font-weight: 600;
+      letter-spacing: -0.2px;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .step-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: var(--blue);
+      color: #fff;
+      font-size: 12px;
+      font-weight: 700;
+    }
+    .item-list { display: flex; flex-direction: column; gap: 12px; }
+    .check-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      padding: 14px 18px;
+      background: var(--bg);
+      border-radius: 12px;
+      cursor: pointer;
+      user-select: none;
+      transition: background 0.15s ease;
+    }
+    .check-item:hover { background: rgba(29, 161, 242, 0.06); }
+    .check-item input[type="checkbox"] {
+      appearance: none;
+      width: 20px;
+      height: 20px;
+      border: 2px solid var(--border);
+      border-radius: 6px;
+      margin-top: 2px;
+      flex-shrink: 0;
+      display: grid;
+      place-content: center;
+      cursor: pointer;
+      transition: all 0.2s;
+      background: var(--white);
+    }
+    .check-item input[type="checkbox"]:checked {
+      background: var(--blue);
+      border-color: var(--blue);
+    }
+    .check-item input[type="checkbox"]:checked::before {
+      content: "";
+      width: 10px;
+      height: 6px;
+      border-left: 2px solid white;
+      border-bottom: 2px solid white;
+      transform: rotate(-45deg) translate(1px, -1px);
+    }
+    .item-content h4 { font-size: 15px; font-weight: 600; margin-bottom: 4px; }
+    .item-content p { font-size: 13px; color: var(--muted); line-height: 1.4; }
+    .alert-box {
+      background: rgba(255, 59, 48, 0.08);
+      border-left: 4px solid var(--red);
+      padding: 16px 20px;
+      border-radius: 0 12px 12px 0;
+      margin: 24px 0;
+      font-size: 14px;
+    }
+    .footer {
+      border-top: 1px solid var(--border);
+      padding-top: 24px;
+      text-align: center;
+      font-size: 12px;
+      color: var(--muted);
+    }
+    @media print {
+      body { background: #fff; padding: 0; }
+      .sheet-card { border: none; box-shadow: none; padding: 0; }
+      .actions { display: none; }
+      .check-item { background: #fff; border: 1px solid #ddd; page-break-inside: avoid; }
+    }
+  </style>
+</head>
+<body>
+  <div class="sheet-card">
+    <div class="header">
+      <div>
+        <div class="brand">risePaisa Free Educational Tools</div>
+        <h1>Nepal Cyber Safety & Digital Payment Protocol Guide</h1>
+        <p class="lead">Essential defense protocols against SIM swap, OTP phishing, and social engineering fraud in Nepal.</p>
+      </div>
+      <div class="actions">
+        <button class="btn btn-primary" onclick="window.print()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9V2h12v7M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2"/><path d="M6 14h12v8H6z"/></svg>
+          Print / Save PDF
+        </button>
+      </div>
+    </div>
+
+    <div class="alert-box">
+      <strong>URGENT SECURITY REMINDER:</strong> Neither Nepal Rastra Bank, commercial banks, eSewa, Khalti, nor ConnectIPS will EVER ask for your OTP (One-Time Password), MPIN, or transaction password via phone call or WhatsApp. Never reveal an OTP to anyone under any circumstances!
+    </div>
+
+    <!-- Protocol 1 -->
+    <div class="checklist-section">
+      <div class="section-title">
+        <span class="step-badge">1</span>
+        <span>Mobile Banking & Wallet Fortification</span>
+      </div>
+      <div class="item-list">
+        <label class="check-item">
+          <input type="checkbox">
+          <div class="item-content">
+            <h4>Biometric & 2-Factor Authentication (2FA)</h4>
+            <p>Enable fingerprint/FaceID on eSewa, Khalti, and bank mobile apps. Do not use birth year, vehicle number, or 1234 as MPIN.</p>
+          </div>
+        </label>
+        <label class="check-item">
+          <input type="checkbox">
+          <div class="item-content">
+            <h4>Dedicated SIM Card for Financial Services</h4>
+            <p>Keep your bank-registered mobile number private. Do not list it on public business directories, social media profiles, or shared family accounts.</p>
+          </div>
+        </label>
+        <label class="check-item">
+          <input type="checkbox">
+          <div class="item-content">
+            <h4>Daily Transaction Limit Restraint</h4>
+            <p>Log in to your bank portal or app and restrict daily QR and transfer limits to what you routinely spend (e.g. NPR 25,000/day) rather than the default maximum.</p>
+          </div>
+        </label>
+      </div>
+    </div>
+
+    <!-- Protocol 2 -->
+    <div class="checklist-section">
+      <div class="section-title">
+        <span class="step-badge">2</span>
+        <span>Social Engineering & Phishing Identification</span>
+      </div>
+      <div class="item-list">
+        <label class="check-item">
+          <input type="checkbox">
+          <div class="item-content">
+            <h4>Lottery / Reward Scheme Red Flags</h4>
+            <p>Block any caller claiming you have won a car, gold coin, or lottery on WhatsApp/Viber asking for a 'verification fee' or 'customs clearance transfer'.</p>
+          </div>
+        </label>
+        <label class="check-item">
+          <input type="checkbox">
+          <div class="item-content">
+            <h4>Impersonation of Relatives in Distress</h4>
+            <p>Verify voice calls independently if someone requests an emergency eSewa transfer claiming to be a cousin, brother, or friend stranded at an airport or hospital.</p>
+          </div>
+        </label>
+      </div>
+    </div>
+
+    <!-- Protocol 3 -->
+    <div class="checklist-section">
+      <div class="section-title">
+        <span class="step-badge">3</span>
+        <span>Emergency Incident Response (If Compromised)</span>
+      </div>
+      <div class="item-list">
+        <label class="check-item">
+          <input type="checkbox">
+          <div class="item-content">
+            <h4>Instant Bank Account Freeze</h4>
+            <p>Immediately call your bank's 24/7 card/digital banking hotline to freeze your account and disable debit card ATM functionality.</p>
+          </div>
+        </label>
+        <label class="check-item">
+          <input type="checkbox">
+          <div class="item-content">
+            <h4>Nepal Police Cyber Bureau Incident Filing</h4>
+            <p>Report immediately to Nepal Police Cyber Bureau, Bhotahiti, Kathmandu (Phone: 01-4219044 / Email: cyberbureau@nepalpolice.gov.np) with transaction IDs, screenshots, and suspect phone numbers.</p>
+          </div>
+        </label>
+      </div>
+    </div>
+
+    <div class="footer">
+      © 2026 risePaisa • Independent Financial Education for Nepal • risepaisa.com
+    </div>
+  </div>
+</body>
+</html>

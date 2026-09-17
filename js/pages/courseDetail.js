@@ -1,5 +1,5 @@
 // ==============================================
-// risePaisa — Course Detail Page (Auth-Aware)
+// risePaisa - Course Detail Page (Auth-Aware)
 // ==============================================
 import { getCourseBySlug } from '../data/courses.js';
 import { getSettings } from '../data/settings.js';
@@ -76,7 +76,7 @@ export function renderCourseDetailPage(slug) {
   // Parse fullDescription into paragraphs
   const descParagraphs = course.fullDescription.split('\n').filter(p => p.trim());
 
-  // Sidebar CTA — different for logged-in users with access
+  // Sidebar CTA - different for logged-in users with access
   // Sidebar CTA
   const sidebarCTA = `
     <a href="${waLink}" target="_blank" rel="noopener" class="btn btn-whatsapp btn-lg cd-cta-primary" id="buy-whatsapp-btn">
@@ -105,7 +105,7 @@ export function renderCourseDetailPage(slug) {
         </div>
         <h1 class="cd-title">${course.title}</h1>
         <div class="cd-instructor">
-          <div class="cd-avatar"><img src="assets/images/founder.png" alt="Aakash Das" decoding="async" /></div>
+          <div class="cd-avatar"><img src="assets/images/founder.png" alt="Aakash Das" loading="lazy" decoding="async" /></div>
           <span>Instructor: <strong>${course.instructor}</strong></span>
         </div>
         <span class="cd-category-tag">${course.category}</span>
@@ -130,7 +130,7 @@ export function renderCourseDetailPage(slug) {
                   }
                   return `<div class="cd-video-placeholder" style="background-image:url(${thumbMap[course.id] || thumbMap[1]})">
                       <div class="cd-play-btn">${ICONS.play}</div>
-                      <span class="cd-preview-label">Preview coming soon</span>
+                      <span class="cd-preview-label">Course Orientation & Overview</span>
                     </div>`;
                 })()}
               </div>
@@ -290,7 +290,9 @@ export function initCourseDetailPage() {
   if (mobileCta && pricingCard) {
     const observer = new IntersectionObserver(
       ([entry]) => {
-        mobileCta.classList.toggle('visible', !entry.isIntersecting);
+        const isVisible = !entry.isIntersecting;
+        mobileCta.classList.toggle('visible', isVisible);
+        document.body.classList.toggle('has-mobile-cta', isVisible);
       },
       { threshold: 0 }
     );

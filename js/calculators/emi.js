@@ -1,5 +1,5 @@
 // ==============================================
-// risePaisa — Nepal EMI & Loan Calculator Component
+// risePaisa - Nepal EMI & Loan Calculator Component
 // Unified Loan Calculators Architecture (Home, Personal, Vehicle)
 // Reuses the core reducing balance calculation engine
 // ==============================================

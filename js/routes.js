@@ -1,5 +1,5 @@
 // ==============================================
-// risePaisa — Centralized Route Definitions & Routing Architecture
+// risePaisa - Centralized Route Definitions & Routing Architecture
 // Single source of truth for all public, calculator, course, blog, learn, and admin URLs
 // ==============================================
 
@@ -25,12 +25,31 @@ export function toBrowserPath(pathname) {
   return `${APP_BASE_PATH}${path === '/' ? '/' : path}`;
 }
 
+export function navigateTo(url, replace = false) {
+  if (typeof window !== 'undefined' && typeof window._rpNavigateTo === 'function') {
+    window._rpNavigateTo(url, replace);
+  } else if (typeof window !== 'undefined') {
+    if (replace) {
+      window.location.replace(url);
+    } else {
+      window.location.href = url;
+    }
+  }
+}
+
 /**
  * Reusable Route URL Constants
  */
 export const ROUTES = {
   // Public Pages
   HOME: '/',
+  LEARN: '/learn',
+  LEARN_CATEGORY: (slug) => `/learn/${slug}`,
+  LEARN_LESSON: (categorySlug, lessonSlug) => `/learn/${categorySlug}/${lessonSlug}`,
+  LEARN_GUIDES: '/learn/guides',
+  LEARN_GUIDE: (slug) => `/learn/guides/${slug}`,
+  LEARN_GLOSSARY: '/learn/glossary',
+  LEARN_GLOSSARY_TERM: (slug) => `/learn/glossary/${slug}`,
   COURSES: '/courses',
   COURSE_DETAIL: (slug) => `/courses/${slug}`,
   RESOURCES: '/resources',
@@ -45,6 +64,7 @@ export const ROUTES = {
   REFUND: '/refund-policy',
   FAQ: '/faq',
   DISCLAIMER: '/disclaimer',
+  SEARCH: '/search',
 
   // Individual Calculator URLs
   CALCULATOR_SIP: '/calculators/sip',
@@ -95,6 +115,7 @@ export const CALCULATOR_SLUG_TO_ID = {
   emi: 'emi',
   loan: 'emi',
   loans: 'emi',
+  'loan-emi': 'emi',
   'home-loan': 'home-loan',
   'personal-loan': 'personal-loan',
   'vehicle-loan': 'vehicle-loan',
@@ -102,6 +123,7 @@ export const CALCULATOR_SLUG_TO_ID = {
   tax: 'tax',
   'nepal-income-tax': 'tax',
   'income-tax': 'tax',
+  'salary-tax': 'tax',
   share: 'share',
   'nepse-share': 'share',
   fd: 'fdrd',
@@ -199,8 +221,13 @@ export function resolveLegacyHash(hash) {
   if (basePath === '/faq') return ROUTES.FAQ;
   if (basePath === '/disclaimer') return ROUTES.DISCLAIMER;
 
+  if (basePath === '/learn') return ROUTES.LEARN;
+  if (basePath.startsWith('/learn/')) {
+    return basePath;
+  }
+
   // Retired legacy routes -> redirect to public equivalents
-  if (basePath === '/login' || basePath === '/register' || basePath === '/forgot-password' || basePath === '/reset-password' || basePath === '/profile' || basePath === '/my-courses' || basePath.startsWith('/learn')) {
+  if (basePath === '/login' || basePath === '/register' || basePath === '/forgot-password' || basePath === '/reset-password' || basePath === '/profile' || basePath === '/my-courses') {
     return ROUTES.COURSES;
   }
   if (basePath.startsWith('/admin')) {

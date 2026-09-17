@@ -127,7 +127,6 @@ export function renderCalculatorsPage(calcSlug = '') {
   setPageMeta(meta.title, meta.desc, meta.path);
 
   const activeCalculators = CALCULATOR_REGISTRY.filter(c => c.status === 'active');
-  const futureCalculators = CALCULATOR_REGISTRY.filter(c => c.status === 'coming-soon');
 
   return `
     <!-- Calculator Hub Hero -->
@@ -501,6 +500,7 @@ export function renderCalculatorsPage(calcSlug = '') {
     <section class="rp-future-section" id="future-calculators" style="background:var(--color-bg-alt);border-top:1px solid var(--color-border)">
       <div class="container">
         <div class="rp-future-header">
+          <span class="section-eyebrow">Directory</span>
           <h2>Financial Calculators Directory</h2>
           <p>
             Explore live calculators or preview upcoming tools tailored for Nepal's financial and regulatory landscape.
@@ -510,36 +510,24 @@ export function renderCalculatorsPage(calcSlug = '') {
         <div class="rp-calc-grid">
           <!-- Active Cards -->
           ${activeCalculators.map(c => `
-            <div class="rp-calc-card active-card" id="card-${c.id}">
+            <div class="rp-calc-card active-card" id="card-${c.id}" data-target="${c.id}" role="button" tabindex="0">
               <div class="rp-calc-card-top">
-                <div class="rp-calc-card-icon">${c.icon}</div>
+                <div class="rp-calc-card-icon" aria-hidden="true">${c.icon}</div>
                 <span class="rp-badge-live">${c.badge}</span>
               </div>
               <h3 class="rp-calc-card-title">${c.title}</h3>
               <p class="rp-calc-card-desc">${c.shortDesc}</p>
               <div class="rp-calc-card-footer">
-                <span class="rp-calc-category">${c.category}</span>
+                <span class="rp-calc-cta">Launch Calculator</span>
                 <button
                   type="button"
-                  class="btn btn-secondary btn-sm rp-switch-calc-btn"
+                  class="calc-arrow-btn rp-switch-calc-btn"
                   data-target="${c.id}"
-                >Use Calculator</button>
-              </div>
-            </div>
-          `).join('')}
-
-          <!-- Future Coming Soon Cards -->
-          ${futureCalculators.map(c => `
-            <div class="rp-calc-card disabled-card" id="calc-${c.id}">
-              <div class="rp-calc-card-top">
-                <div class="rp-calc-card-icon">${c.icon}</div>
-                <span class="rp-badge-coming-soon">${c.badge}</span>
-              </div>
-              <h3 class="rp-calc-card-title">${c.title}</h3>
-              <p class="rp-calc-card-desc">${c.shortDesc}</p>
-              <div class="rp-calc-card-footer">
-                <span class="rp-calc-category">${c.category}</span>
-                <span class="rp-card-dev-label">In Development</span>
+                  aria-label="Launch ${c.title}"
+                  title="Launch ${c.title}"
+                >
+                  <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                </button>
               </div>
             </div>
           `).join('')}
@@ -648,6 +636,9 @@ export function initCalculatorsPage(calcSlug = '') {
         if (btn) {
           btn.classList.add('active');
           btn.setAttribute('aria-selected', 'true');
+          try {
+            btn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+          } catch (e) {}
         }
       } else {
         if (pane) {
@@ -729,6 +720,22 @@ export function initCalculatorsPage(calcSlug = '') {
         if (displaySection) {
           displaySection.scrollIntoView({ behavior: 'smooth' });
         }
+      }
+    });
+  });
+
+  // Directory calculator card container click & accessibility keyboard handler
+  document.querySelectorAll('.rp-calc-card.active-card').forEach(card => {
+    card.addEventListener('click', (e) => {
+      if (e.target.closest('.rp-switch-calc-btn')) return;
+      const btn = card.querySelector('.rp-switch-calc-btn');
+      if (btn) btn.click();
+    });
+    card.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        const btn = card.querySelector('.rp-switch-calc-btn');
+        if (btn) btn.click();
       }
     });
   });

@@ -109,6 +109,7 @@ export function renderContactPage() {
   return `
     <div class="page-header" id="contact-header">
       <div class="container">
+        <span class="section-eyebrow">Get in Touch</span>
         <h1>Connect With Us</h1>
         <p>Choose how you want to connect: brand insights or personal journey.</p>
       </div>

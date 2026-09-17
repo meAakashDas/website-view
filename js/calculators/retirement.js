@@ -1,5 +1,5 @@
 // ==============================================
-// risePaisa — Nepal Retirement & Financial Goal Planner Component
+// risePaisa - Nepal Retirement & Financial Goal Planner Component
 // Retirement corpus estimation, inflation escalation, and goal SIP requirements
 // ==============================================
 import {
@@ -198,7 +198,7 @@ export function renderRetirementGoalCalculator() {
                   >
                   <span class="rp-affix">%</span>
                 </div>
-                <span class="rp-field-hint">Nepal average: 5% – 7%</span>
+                <span class="rp-field-hint">Nepal average: 5% - 7%</span>
               </div>
 
               <div class="rp-field-group">
@@ -218,7 +218,7 @@ export function renderRetirementGoalCalculator() {
                   >
                   <span class="rp-affix">%</span>
                 </div>
-                <span class="rp-field-hint">Safe yields (FD/Debt): 7% – 9%</span>
+                <span class="rp-field-hint">Safe yields (FD/Debt): 7% - 9%</span>
               </div>
             </div>
 
@@ -507,40 +507,60 @@ export function renderRetirementGoalCalculator() {
         </div>
       </div>
 
-      <!-- Educational Section -->
+      <!-- Educational Section: Retirement Planning in Nepal -->
       <div class="rp-calc-section rp-edu-cards-section" style="margin-top:var(--space-8)">
-        <h3 style="font-size:var(--text-lg);color:var(--color-heading);margin-bottom:var(--space-4)">
-          Essential Principles of Long-Term Financial Planning
+        <h3 style="font-size:var(--text-xl);color:var(--color-heading);margin-bottom:var(--space-2)">
+          Understanding Retirement Corpus Math & Nepal's 3-Pillar Model
         </h3>
+        <p style="font-size:var(--text-sm);color:var(--color-text-secondary);margin-bottom:var(--space-6)">
+          How to calculate an inflation-adjusted nest egg and coordinate statutory social security with personal investing.
+        </p>
+
         <div class="rp-edu-grid">
+          <!-- Card 1: Corpus Math & 25x-30x Rule -->
           <div class="rp-edu-card">
-            <h4>Why Inflation Matters</h4>
-            <p>
-              Over 20–30 years, inflation compounds silently. At 6% inflation, living costs double every 12 years. Planning in future rupees prevents retirement shortfalls.
+            <div class="rp-edu-icon-wrap" style="color:var(--color-accent);font-size:24px;margin-bottom:8px">📐</div>
+            <h4>Retirement Corpus Mathematics</h4>
+            <p style="margin-bottom:10px">
+              Required corpus is determined by inflation-adjusted future annual expenses:
+              <br><code>Corpus = Annual Expense × (25 to 30)</code>
+            </p>
+            <p style="font-size:0.875rem;line-height:1.55">
+              At 6.5% inflation, an NPR 50,000 monthly living cost today balloons to over NPR 1,76,000 per month in 20 years. To safely withdraw NPR 21 Lakhs annually for 25+ years without risking bankruptcy, an inflation-adjusted corpus of ~NPR 3.2 to 3.8 Crores is required.
             </p>
           </div>
+
+          <!-- Card 2: Nepal's 3-Pillar Architecture -->
           <div class="rp-edu-card">
-            <h4>The Power of Starting Early</h4>
-            <p>
-              Starting to invest at age 25 rather than 35 cuts your required monthly SIP by more than half, because compound interest does the heavy lifting for you.
-            </p>
+            <div class="rp-edu-icon-wrap" style="color:#10b981;font-size:24px;margin-bottom:8px">🇳🇵</div>
+            <h4>Nepal's 3 Retirement Pillars</h4>
+            <ul class="rp-edu-list" style="margin:0;padding-left:18px;font-size:0.875rem;color:var(--color-text-secondary);line-height:1.6">
+              <li><strong>Pillar 1 (SSF - Social Security Fund):</strong> Mandatory 31% contribution (20% employer + 11% employee) provides lifetime monthly pension from age 60, medical reimbursement, and dependent survivor protection.</li>
+              <li><strong>Pillar 2 (CIT / EPF):</strong> Statutory provident funds providing Section 63 tax deductions (up to NPR 3 Lakhs), 80% loan access, and capital preservation.</li>
+              <li><strong>Pillar 3 (Personal Growth Investments):</strong> Open-ended mutual fund SIPs, blue-chip NEPSE dividend equities, and real estate that generate inflation-beating capital growth.</li>
+            </ul>
           </div>
+
+          <!-- Card 3: Safe Withdrawal & Healthcare Buffers -->
           <div class="rp-edu-card">
-            <h4>Saving vs. Investing</h4>
-            <p>
-              Saving keeps money safe in cash or bank accounts, but loses purchasing power to inflation. Investing in compounding assets grows your wealth ahead of inflation.
-            </p>
+            <div class="rp-edu-icon-wrap" style="color:#f59e0b;font-size:24px;margin-bottom:8px">⚖️</div>
+            <h4>The Nepal-Adapted 3.5% Rule</h4>
+            <ul class="rp-edu-list" style="margin:0;padding-left:18px;font-size:0.875rem;color:var(--color-text-secondary);line-height:1.6">
+              <li><strong>Why the US 4% Rule Fails:</strong> Developed economies have 2% inflation and deep bond markets. In Nepal, 6.5% inflation requires withdrawing a conservative 3.0% to 3.5% annually.</li>
+              <li><strong>Critical Illness Isolation:</strong> Earmark a standalone health insurance policy (NPR 10-20 Lakhs sum insured) to ensure sudden private hospital bills do not force premature corpus liquidation.</li>
+              <li><strong>The Cost of Delay:</strong> Waiting 10 years to begin retirement investing forces you to invest nearly 3.5× more money each month to achieve the exact same retirement nest egg.</li>
+            </ul>
           </div>
         </div>
       </div>
 
-      <!-- Nepal Context Notice -->
-      <div class="rp-educational-note">
+      <!-- Nepal Educational Context Note & Companion Links -->
+      <div class="rp-educational-note" style="margin-top:var(--space-6)">
         <div class="rp-edu-icon">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
         </div>
         <div class="rp-edu-text">
-          <strong>Educational Planning Notice:</strong> This calculator is designed for educational financial planning. Inflation, investment returns, and personal circumstances vary over time. Review your financial plan periodically and verify assumptions before making long-term financial decisions.
+          <strong>Recommended Learning Path:</strong> Model your exact financial independence target in our lesson on <a href="/learn/retirement-planning/calculating-retirement-corpus-nepal" style="color:var(--color-accent);text-decoration:underline">Calculating Your Retirement Corpus in Nepal</a> or review the end-to-end <a href="/learn/guides/complete-retirement-planning-guide" style="color:var(--color-accent);text-decoration:underline">Complete Retirement & Pension Planning Guide</a>.
         </div>
       </div>
 

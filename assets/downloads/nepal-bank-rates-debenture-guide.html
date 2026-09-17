@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nepal Fixed Deposit Laddering & Bank Debenture Master Directory | risePaisa</title>
+  <style>
+    :root {
+      --font: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      --ink: #1D1D1F;
+      --muted: #6E6E73;
+      --border: #E5E5EA;
+      --bg: #F5F5F7;
+      --white: #FFFFFF;
+      --blue: #1DA1F2;
+      --blue-hover: #0c85d0;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --ink: #F5F5F7;
+        --muted: #86868B;
+        --border: #38383A;
+        --bg: #000000;
+        --white: #1C1C1E;
+      }
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.5;
+      padding: 40px 20px;
+    }
+    .sheet-card {
+      max-width: 800px;
+      margin: 0 auto;
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 48px;
+      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.04);
+    }
+    .header {
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 24px;
+      margin-bottom: 32px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 20px;
+    }
+    .brand {
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      color: var(--blue);
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+    h1 {
+      font-size: 28px;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      margin-bottom: 8px;
+    }
+    p.lead { color: var(--muted); font-size: 15px; }
+    .actions { display: flex; gap: 12px; }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      padding: 10px 20px;
+      border-radius: 9999px;
+      cursor: pointer;
+      border: none;
+      transition: all 0.2s ease;
+      text-decoration: none;
+    }
+    .btn-primary { background: var(--blue); color: #fff; }
+    .btn-primary:hover { background: var(--blue-hover); }
+    .checklist-section { margin-bottom: 36px; }
+    .section-title {
+      font-size: 18px;
+      font-weight: 600;
+      letter-spacing: -0.2px;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .step-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: var(--blue);
+      color: #fff;
+      font-size: 12px;
+      font-weight: 700;
+    }
+    .item-list { display: flex; flex-direction: column; gap: 12px; }
+    .check-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      padding: 14px 18px;
+      background: var(--bg);
+      border-radius: 12px;
+      cursor: pointer;
+      user-select: none;
+      transition: background 0.15s ease;
+    }
+    .check-item:hover { background: rgba(29, 161, 242, 0.06); }
+    .check-item input[type="checkbox"] {
+      appearance: none;
+      width: 20px;
+      height: 20px;
+      border: 2px solid var(--border);
+      border-radius: 6px;
+      margin-top: 2px;
+      flex-shrink: 0;
+      display: grid;
+      place-content: center;
+      cursor: pointer;
+      transition: all 0.2s;
+      background: var(--white);
+    }
+    .check-item input[type="checkbox"]:checked {
+      background: var(--blue);
+      border-color: var(--blue);
+    }
+    .check-item input[type="checkbox"]:checked::before {
+      content: "";
+      width: 10px;
+      height: 6px;
+      border-left: 2px solid white;
+      border-bottom: 2px solid white;
+      transform: rotate(-45deg) translate(1px, -1px);
+    }
+    .item-content h4 { font-size: 15px; font-weight: 600; margin-bottom: 4px; }
+    .item-content p { font-size: 13px; color: var(--muted); line-height: 1.4; }
+    .note-box {
+      background: rgba(29, 161, 242, 0.08);
+      border-left: 4px solid var(--blue);
+      padding: 16px 20px;
+      border-radius: 0 12px 12px 0;
+      margin: 24px 0;
+      font-size: 14px;
+    }
+    .footer {
+      border-top: 1px solid var(--border);
+      padding-top: 24px;
+      text-align: center;
+      font-size: 12px;
+      color: var(--muted);
+    }
+    @media print {
+      body { background: #fff; padding: 0; }
+      .sheet-card { border: none; box-shadow: none; padding: 0; }
+      .actions { display: none; }
+      .check-item { background: #fff; border: 1px solid #ddd; page-break-inside: avoid; }
+    }
+  </style>
+</head>
+<body>
+  <div class="sheet-card">
+    <div class="header">
+      <div>
+        <div class="brand">risePaisa Free Educational Tools</div>
+        <h1>Fixed Deposit Laddering & Debenture Guide</h1>
+        <p class="lead">Framework for maximizing fixed-income yield while preserving liquidity in Nepal BFIs.</p>
+      </div>
+      <div class="actions">
+        <button class="btn btn-primary" onclick="window.print()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9V2h12v7M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2"/><path d="M6 14h12v8H6z"/></svg>
+          Print / Save PDF
+        </button>
+      </div>
+    </div>
+
+    <div class="note-box">
+      <strong>Deposit Guarantee Protection:</strong> Under the Deposit and Credit Guarantee Fund (DCGF) Act, deposits up to NPR 500,000 per depositor per licensed institution are 100% insured by the Government of Nepal.
+    </div>
+
+    <!-- Strategy 1 -->
+    <div class="checklist-section">
+      <div class="section-title">
+        <span class="step-badge">1</span>
+        <span>Fixed Deposit (मुद्दती निक्षेप) Laddering Strategy</span>
+      </div>
+      <div class="item-list">
+        <label class="check-item">
+          <input type="checkbox">
+          <div class="item-content">
+            <h4>Split Capital Across 3 Maturity Tranches</h4>
+            <p>Instead of locking NPR 900,000 in a single 1-year FD, divide into three equal tranches: 3-month, 6-month, and 12-month terms to maintain rolling liquidity.</p>
+          </div>
+        </label>
+        <label class="check-item">
+          <input type="checkbox">
+          <div class="item-content">
+            <h4>Remittance FD Premium Verification</h4>
+            <p>For families receiving inward foreign remittances, verify that the bank applies the mandatory minimum 1.0% NRB interest rate premium on Remittance FD accounts.</p>
+          </div>
+        </label>
+        <label class="check-item">
+          <input type="checkbox">
+          <div class="item-content">
+            <h4>Premature Break Penalty Terms</h4>
+            <p>Check bank rules before signing: Most BFIs slash interest to basic savings rate (around 3-4%) and deduct penalty if liquidated before maturity date.</p>
+          </div>
+        </label>
+      </div>
+    </div>
+
+    <!-- Strategy 2 -->
+    <div class="checklist-section">
+      <div class="section-title">
+        <span class="step-badge">2</span>
+        <span>Commercial Bank Debenture (ऋणपत्र) Evaluation</span>
+      </div>
+      <div class="item-list">
+        <label class="check-item">
+          <input type="checkbox">
+          <div class="item-content">
+            <h4>Coupon Interest Rate & Payout Frequency</h4>
+            <p>Check whether interest is paid semi-annually (every 6 months) or annually, and whether the coupon rate (typically 8.5% to 10.5%) is fixed for the full 7-10 year tenure.</p>
+          </div>
+        </label>
+        <label class="check-item">
+          <input type="checkbox">
+          <div class="item-content">
+            <h4>Subordinated Debt Ranking</h4>
+            <p>Understand that debentures are subordinated debt: in case of liquidation, depositors are paid first, followed by debenture holders, and finally equity shareholders.</p>
+          </div>
+        </label>
+        <label class="check-item">
+          <input type="checkbox">
+          <div class="item-content">
+            <h4>NEPSE Secondary Market Liquidity</h4>
+            <p>Debentures are listed on NEPSE and can be traded through your broker TMS, or pledged as collateral for up to 80-90% bank loan against debenture units.</p>
+          </div>
+        </label>
+      </div>
+    </div>
+
+    <div class="footer">
+      © 2026 risePaisa • Independent Financial Education for Nepal • risepaisa.com
+    </div>
+  </div>
+</body>
+</html>

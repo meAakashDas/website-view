@@ -1,0 +1,43 @@
+# =====================================================================================
+# RISEPAISA PERSONAL CASH FLOW & NET WORTH LEDGER (NEPAL)
+# Format: Multi-Account Balance Sheet & Liquid Solvency Calculator (NPR)
+# Instructions:
+# 1. Update account values on the 1st of every Nepali month (Bikram Sambat).
+# 2. Track both liquid funds (immediate cash) and long-term compounding assets.
+# 3. Formula: TRUE NET WORTH = (Gross Assets) MINUS (Total Liabilities).
+# 4. Target Health Metric: Debt-to-Asset Ratio below 30%; Emergency Runway >= 6 Months.
+# =====================================================================================
+"Asset / Liability Class","Account Name & Institution","Platform / Identifier","Current Balance (NPR)","Liquidity Tier","Annual Yield / Cost","Strategic Notes & Action Triggers"
+"LIQUID CASH","Primary Salary Account (Class-A Bank)","Nabil Bank A/C ...801","75000","Instant (T+0)","3.50% p.a.","Monthly payroll buffer; keep 1-1.5x monthly expenses"
+"LIQUID CASH","Emergency Savings Account (High Yield)","Sanima Bank A/C ...412","180000","Instant (T+0)","5.25% p.a.","Mandatory 4-month living survival reserve; do not touch"
+"LIQUID CASH","Digital Wallet (eSewa Fonepay Linked)","eSewa ID: 98XXXXXXXX","14500","Instant (T+0)","0.00%","Daily merchant QR payments, NEA electricity, internet"
+"LIQUID CASH","Digital Wallet (Khalti)","Khalti ID: 98XXXXXXXX","8200","Instant (T+0)","0.00%","Movie tickets, food delivery, mobile balance recharges"
+"LIQUID CASH","Physical Cash in Hand & Home Vault","Physical Notes","10000","Instant (T+0)","0.00%","Emergency cash buffer for power or ATM network outages"
+"TOTAL LIQUID CASH","Sum of Readily Available Cash","All Liquid Cash Points","287700","Immediate Liquidity","Weighted ~3.5%","Covers ~6.7 months of essential survival expenses"
+"","","","","","",""
+"FIXED INCOME & RETIREMENT","Commercial Bank Fixed Deposit (FD)","Global IME Bank (1-Year Term)","350000","Semi-Liquid (3 Days)","7.75% p.a.","Matures Kartik 2083; auto-rollover if rates favorable"
+"FIXED INCOME & RETIREMENT","Citizen Investment Trust (CIT / NLK)","Nagarik Lagani Kosh Scheme","145000","Locked (Retirement)","6.50% + bonus","Monthly voluntary tax-deductible contribution (Sec 63)"
+"FIXED INCOME & RETIREMENT","Social Security Fund (SSF) Retirement Pool","SSF Portal Account","125000","Locked (Retirement)","Accrued Returns","Statutory 31% contribution (20% employer + 11% employee)"
+"FIXED INCOME & RETIREMENT","Commercial Bank Debentures","Sanima Bank Debenture 2085","100000","Semi-Liquid (NEPSE Bond)","9.50% Coupon","Quarterly interest credited directly to savings account"
+"TOTAL FIXED INCOME","Sum of Guaranteed & Debt Assets","Fixed Capital Pool","720000","Fixed Wealth","Weighted ~7.2%","Defensive foundation protecting against market volatility"
+"","","","","","",""
+"EQUITIES & TANGIBLE ASSETS","NEPSE Stock Portfolio (TMS Direct Trading)","Broker 58 / MeroShare Account","620000","Liquid (T+2 Settlement)","Historical 14%+","Valued at current market LTP across 8 fundamentally sound companies"
+"EQUITIES & TANGIBLE ASSETS","Open-Ended Mutual Fund (Monthly SIP)","NIBL / Siddhartha Mutual Fund","165000","Liquid (T+3 Redemption)","Compounding NAV","Accumulated via automated monthly connectIPS mandate"
+"EQUITIES & TANGIBLE ASSETS","Physical 24K Hallmark Gold Bullion","Federation Certified (2.5 Tola)","365000","Physical Asset","Currency Hedge","Held in secure bank safe locker; long-term rupee hedge"
+"EQUITIES & TANGIBLE ASSETS","Land & Real Estate Equity (Attributable Share)","Ancestral / Purchased Parcel","1200000","Illiquid (6+ Months)","Capital Growth","Conservative valuation based on municipal circle rate"
+"TOTAL GROWTH ASSETS","Sum of Market Equities & Tangible Assets","Growth Capital Pool","2350000","Growth Capital","High Compound","Generates long-term inflation-beating net worth expansion"
+"","","","","","",""
+"GROSS ASSETS (TOTAL WEALTH)","Liquid Cash + Fixed Income + Growth Capital","Consolidated Holdings","3357700","Total Assets","Portfolio Yield ~8.8%","Total economic resources under your management"
+"","","","","","",""
+"LIABILITIES & DEBTS","Commercial Bank Home Loan (Reducing Balance)","Class-A Commercial Bank","620000","Long-Term Liability","9.20% (Base + 1.75%)","Monthly EMI NPR 24,500; prioritized for partial prepayment"
+"LIABILITIES & DEBTS","Consumer EMI (Zero Percent Scheme)","Bank Credit Card Installment","28000","Current Liability","0.00% Interest","Smartphone purchase; 4 monthly installments of NPR 7,000 left"
+"LIABILITIES & DEBTS","Bank Credit Card Outstanding Balance","Class-A Bank Visa Card","12400","Revolving Credit","0% if cleared by 15th","Always cleared 100% in full before 45-day grace deadline"
+"LIABILITIES & DEBTS","Informal Family / Friendly Hand-Loan","Zero Interest Loan","15000","Short-Term Debt","0.00%","To be settled in full on next month salary deposit"
+"TOTAL LIABILITIES","Sum of All Debt Obligations & EMIs","Creditors Consolidated","675400","Total Debt Burden","Weighted ~8.5%","Total financial liabilities owed to banks and creditors"
+"","","","","","",""
+"TRUE NET WORTH (NET ASSETS)","GROSS ASSETS MINUS TOTAL LIABILITIES","TRUE WEALTH IN NPR","2682300","Net Financial Worth","Solvency Ratio: 80.0%","Real net balance of assets you own free and clear"
+"","","","","","",""
+"FINANCIAL HEALTH BENCHMARKS","Metric Name","Your Current Score","Recommended Healthy Range","Health Status"
+"SOLVENCY","Debt-to-Asset Ratio","20.1%","Below 30.0%","EXCELLENT (Very Low Leverage Risk)"
+"LIQUIDITY","Emergency Survival Cash Runway","6.7 Months","6.0 - 12.0 Months Living Costs","OPTIMAL (Full Safety Buffer Secured)"
+"SAVINGS PRODUCTIVITY","Productive Wealth (Investments / Assets)","91.4%","Above 70.0%","STRONG (Money is Actively Compounding)"

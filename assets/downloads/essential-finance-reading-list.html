@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Essential Finance Reading List for Nepal | risePaisa</title>
+  <style>
+    :root {
+      --primary: #0066cc;
+      --primary-hover: #0055b3;
+      --primary-light: rgba(0, 102, 204, 0.08);
+      --text: #1d1d1f;
+      --text-secondary: #6e6e73;
+      --border: #d2d2d7;
+      --border-subtle: #e5e5ea;
+      --bg: #f5f5f7;
+      --card-bg: #ffffff;
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 18px;
+      --radius-pill: 9999px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      color: var(--text);
+      background: var(--bg);
+      line-height: 1.5;
+      padding: 36px 16px 60px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .handbook-container {
+      max-width: 880px;
+      margin: 0 auto;
+      background: var(--card-bg);
+      border-radius: var(--radius-lg);
+      padding: 44px;
+      border: 1px solid var(--border);
+      box-shadow: 0 4px 28px rgba(0, 0, 0, 0.04);
+    }
+
+    .header-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      border-bottom: 1px solid var(--border-subtle);
+      padding-bottom: 24px;
+      margin-bottom: 28px;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .brand-eyebrow {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--primary);
+      margin-bottom: 4px;
+      display: inline-block;
+    }
+
+    h1 {
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", sans-serif;
+      font-size: 28px;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      color: var(--text);
+      line-height: 1.2;
+      margin-bottom: 6px;
+    }
+
+    .subtitle {
+      font-size: 14px;
+      color: var(--text-secondary);
+      max-width: 580px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 9px 18px;
+      border-radius: var(--radius-pill);
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      border: 1px solid transparent;
+    }
+    .btn-primary { background: var(--primary); color: #ffffff; }
+    .btn-primary:hover { background: var(--primary-hover); }
+
+    /* Tier Section */
+    .tier-section {
+      margin-bottom: 36px;
+    }
+    .tier-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 16px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+    .tier-tag {
+      font-size: 11px;
+      font-weight: 700;
+      padding: 3px 9px;
+      background: var(--primary-light);
+      color: var(--primary);
+      border-radius: var(--radius-pill);
+      text-transform: uppercase;
+    }
+    .tier-title {
+      font-size: 17px;
+      font-weight: 600;
+      color: var(--text);
+      letter-spacing: -0.01em;
+    }
+
+    .book-card {
+      background: #fafafc;
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 20px;
+      margin-bottom: 14px;
+      transition: all 0.15s ease;
+    }
+    .book-card:hover {
+      background: #ffffff;
+      border-color: var(--border);
+    }
+
+    .book-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 8px;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .book-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--text);
+      letter-spacing: -0.01em;
+    }
+    .book-author {
+      font-size: 13px;
+      color: var(--text-secondary);
+      font-weight: 500;
+    }
+
+    .core-premise {
+      font-size: 13px;
+      color: var(--text);
+      line-height: 1.5;
+      margin-bottom: 10px;
+    }
+
+    .nepal-context-box {
+      background: rgba(0, 102, 204, 0.04);
+      border-left: 3px solid var(--primary);
+      padding: 10px 14px;
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+      font-size: 12.5px;
+      line-height: 1.5;
+      color: var(--text);
+    }
+    .nepal-context-box strong {
+      color: var(--primary);
+      font-weight: 600;
+    }
+
+    .action-takeaway {
+      font-size: 12px;
+      color: var(--text-secondary);
+      margin-top: 8px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* Print Styles */
+    @media print {
+      body { background: #ffffff; padding: 0; }
+      .handbook-container { border: none; box-shadow: none; padding: 0; max-width: 100%; }
+      .btn { display: none !important; }
+      .book-card { border: 1px solid #ddd; background: #fff; page-break-inside: avoid; }
+      .tier-section { page-break-inside: avoid; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="handbook-container">
+    <header class="header-bar">
+      <div>
+        <span class="brand-eyebrow">risePaisa Recommended Curriculum</span>
+        <h1>Essential Finance Reading List for Nepal</h1>
+        <p class="subtitle">Timeless financial wisdom from classic literature, translated directly into practical realities for Nepali salary earners and investors.</p>
+      </div>
+      <div>
+        <button class="btn btn-primary" onclick="window.print()">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
+          Print / Save PDF
+        </button>
+      </div>
+    </header>
+
+    <!-- Tier 1 -->
+    <section class="tier-section">
+      <div class="tier-header">
+        <span class="tier-tag">Stage 1</span>
+        <h2 class="tier-title">Mindset, Psychology & Cash Flow Foundations</h2>
+      </div>
+
+      <!-- Book 1 -->
+      <article class="book-card">
+        <div class="book-top">
+          <span class="book-title">1. The Psychology of Money</span>
+          <span class="book-author">Morgan Housel</span>
+        </div>
+        <p class="core-premise">Doing well with money has a little to do with how smart you are and a lot to do with how you behave. Controlling your time and ego is the ultimate dividend of wealth.</p>
+        <div class="nepal-context-box">
+          <strong>Nepali Context Translation:</strong> In Nepal, family social comparison during Dashain, extravagant wedding feasts, and showing off expensive gadget EMIs are the #1 wealth killers. Housel’s rule: "Wealth is what you do not see"—the unbought car and unspent bonus.
+        </div>
+        <div class="action-takeaway">
+          🎯 <strong>Action:</strong> Establish an untouchable 6-month liquid emergency fund in a separate bank account before investing in stocks.
+        </div>
+      </article>
+
+      <!-- Book 2 -->
+      <article class="book-card">
+        <div class="book-top">
+          <span class="book-title">2. Rich Dad Poor Dad</span>
+          <span class="book-author">Robert Kiyosaki</span>
+        </div>
+        <p class="core-premise">The poor and middle class work for money; the rich have money work for them. Understand the crystal-clear difference between an asset and a liability.</p>
+        <div class="nepal-context-box">
+          <strong>Nepali Context Translation:</strong> Many Nepali families believe buying a financed car or heavy gold jewelry on high interest is an asset. Kiyosaki clarifies: If it takes money OUT of your pocket monthly (fuel, road tax, bank EMI), it is a liability. Focus first on cash-flowing assets.
+        </div>
+        <div class="action-takeaway">
+          🎯 <strong>Action:</strong> Calculate your Debt-to-Asset ratio using the risePaisa Cash Flow & Net Worth Tracker.
+        </div>
+      </article>
+
+      <!-- Book 3 -->
+      <article class="book-card">
+        <div class="book-top">
+          <span class="book-title">3. I Will Teach You To Be Rich</span>
+          <span class="book-author">Ramit Sethi</span>
+        </div>
+        <p class="core-premise">A 6-week automated personal finance system. Spend extravagantly on the things you truly love, as long as you ruthlessly cut costs on things you don't care about.</p>
+        <div class="nepal-context-box">
+          <strong>Nepali Context Translation:</strong> Automate your cash flow on the 1st of every Nepali month: When your salary hits your bank, immediately auto-transfer 20% to connectIPS mutual fund SIPs and emergency reserves before spending a single rupee on discretionary dining.
+        </div>
+        <div class="action-takeaway">
+          🎯 <strong>Action:</strong> Set up automated standing instructions on connectIPS for your monthly SIP deductions.
+        </div>
+      </article>
+    </section>
+
+    <!-- Tier 2 -->
+    <section class="tier-section">
+      <div class="tier-header">
+        <span class="tier-tag">Stage 2</span>
+        <h2 class="tier-title">Wealth Compounding & Systemic Investing</h2>
+      </div>
+
+      <!-- Book 4 -->
+      <article class="book-card">
+        <div class="book-top">
+          <span class="book-title">4. The Little Book of Common Sense Investing</span>
+          <span class="book-author">John C. Bogle</span>
+        </div>
+        <p class="core-premise">Investing is about common sense. Don't look for the needle in the haystack; just buy the whole haystack. Minimizing management fees and trading frequency guarantees market-matching returns.</p>
+        <div class="nepal-context-box">
+          <strong>Nepali Context Translation:</strong> Most retail traders on NEPSE lose capital through hyperactive intraday churning and broker commissions. Bogle’s philosophy proves that a disciplined, low-expense open-ended mutual fund SIP consistently beats 80% of emotional traders over 10-year horizons.
+        </div>
+        <div class="action-takeaway">
+          🎯 <strong>Action:</strong> Allocate at least 50% of your equity portfolio into diversified mutual funds rather than individual hype stocks.
+        </div>
+      </article>
+
+      <!-- Book 5 -->
+      <article class="book-card">
+        <div class="book-top">
+          <span class="book-title">5. Your Money or Your Life</span>
+          <span class="book-author">Vicki Robin & Joe Dominguez</span>
+        </div>
+        <p class="core-premise">Money is something you trade your life energy for. Learn to calculate your real hourly wage and achieve financial independence through conscious frugality.</p>
+        <div class="nepal-context-box">
+          <strong>Nepali Context Translation:</strong> A Kathmandu job paying NPR 50,000/month often requires NPR 12,000 in commute/fuel, formal clothes, and daily restaurant lunch. Your "real wage" is much lower than your gross contract. Measure purchases in hours of life worked, not just rupees.
+        </div>
+        <div class="action-takeaway">
+          🎯 <strong>Action:</strong> Audit your monthly food delivery and restaurant bills against your actual hourly take-home wage.
+        </div>
+      </article>
+    </section>
+
+    <!-- Tier 3 -->
+    <section class="tier-section">
+      <div class="tier-header">
+        <span class="tier-tag">Stage 3</span>
+        <h2 class="tier-title">Advanced Value Investing & NEPSE Mastery</h2>
+      </div>
+
+      <!-- Book 6 -->
+      <article class="book-card">
+        <div class="book-top">
+          <span class="book-title">6. The Intelligent Investor</span>
+          <span class="book-author">Benjamin Graham</span>
+        </div>
+        <p class="core-premise">The definitive book on value investing. The core pillar is 'Margin of Safety'—purchasing securities at a significant discount to their underlying intrinsic business value.</p>
+        <div class="nepal-context-box">
+          <strong>Nepali Context Translation:</strong> In NEPSE bull runs, speculative hydropower companies with negative reserve balances and heavy bank debt often surge due to market syndicates. Graham warns: When the bubble pops, only companies with strong cash earnings, low P/E, and high dividend yields survive.
+        </div>
+        <div class="action-takeaway">
+          🎯 <strong>Action:</strong> Never buy an individual stock without reviewing its quarterly EPS, Book Value, and Non-Performing Loan (NPL) ratio.
+        </div>
+      </article>
+
+      <!-- Book 7 -->
+      <article class="book-card">
+        <div class="book-top">
+          <span class="book-title">7. One Up On Wall Street</span>
+          <span class="book-author">Peter Lynch</span>
+        </div>
+        <p class="core-premise">How to use what you already know to make money in the market. Everyday consumers often spot great business opportunities long before institutional analysts.</p>
+        <div class="nepal-context-box">
+          <strong>Nepali Context Translation:</strong> Look around your everyday Nepali life: Which telecommunication networks do people rely on? Which commercial bank branches have lines out the door? Which consumer goods (soaps, teas, cement) dominate local stores? Invest in companies with tangible consumer stickiness.
+        </div>
+        <div class="action-takeaway">
+          🎯 <strong>Action:</strong> Create a watchlist of 5 listed companies whose products or services you personally use every single week.
+        </div>
+      </article>
+
+      <!-- Book 8 -->
+      <article class="book-card">
+        <div class="book-top">
+          <span class="book-title">8. Common Stocks and Uncommon Profits</span>
+          <span class="book-author">Philip Fisher</span>
+        </div>
+        <p class="core-premise">The 'Scuttlebutt Method' and 15 points to look for in a common stock. Focuses deeply on management integrity, R&D capability, and corporate governance.</p>
+        <div class="nepal-context-box">
+          <strong>Nepali Context Translation:</strong> Promoter integrity is the single most critical factor in Nepal’s capital markets. Examine AGM disclosures: Do promoters siphon capital into private subsidiary contracts? Are audited notes clean? A great business with dishonest promoters will eventually dilute retail shareholders.
+        </div>
+        <div class="action-takeaway">
+          🎯 <strong>Action:</strong> Read the Independent Auditor’s Report in the annual report before committing capital to any newly listed firm.
+        </div>
+      </article>
+    </section>
+
+    <!-- Footer Note -->
+    <div style="margin-top:36px; padding-top:16px; border-top:1px solid var(--border-subtle); display:flex; justify-content:space-between; font-size:12px; color:var(--text-secondary);">
+      <span>risePaisa Financial Education System · Kathmandu</span>
+      <span>Curated for Nepali Lifelong Investors</span>
+    </div>
+  </div>
+
+</body>
+</html>

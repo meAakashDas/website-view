@@ -1,5 +1,5 @@
 // ==============================================
-// risePaisa — Calculator Hub Registry
+// risePaisa - Calculator Hub Registry
 // Catalog of active and upcoming financial calculators
 // ==============================================
 
@@ -16,7 +16,7 @@ export const CALCULATOR_REGISTRY = [
     featured: true,
   },
 
-  // ── Coming Soon Calculators ────────────────────
+  // ── Active Financial Calculators ───────────────
   {
     id: 'emi',
     title: 'EMI & Loan Calculator',

@@ -1,0 +1,30 @@
+# =====================================================================================
+# RISEPAISA COMMERCIAL BANK LOAN COMPARISON MATRIX (NEPAL)
+# Benchmark: Class-A Commercial Banks (Home Loan, Auto Loan & Mortgage)
+# Regulatory Compliance: Nepal Rastra Bank (NRB) Unified Directives
+# Instructions:
+# 1. Fill in the published Base Rate and Premium Spread from each bank's latest offer.
+# 2. Check hidden fees: Processing fee (max 0.75%), CIC report, and Malpot Rokka cost.
+# 3. Calculate reducing balance EMI to reveal total lifetime interest outgo.
+# =====================================================================================
+"Evaluation Metric","Bank 1: Nabil Bank","Bank 2: Global IME Bank","Bank 3: NIC Asia Bank","Bank 4: Sanima Bank","Bank 5: Standard Chartered Nepal","NRB Directive / Benchmark Guideline"
+"Loan Product Name","Nabil Ghar Karja","Global Home Loan","NIC Asia Samriddhi Awas","Sanima Retail Housing","SCBNL Home Suite","Individual retail mortgage for land/construction"
+"Current Published Base Rate (%)","7.38%","7.75%","7.92%","7.55%","7.25%","Published monthly on bank website and NRB portal"
+"Offered Fixed Risk Premium Spread (%)","1.60%","1.85%","2.00%","1.75%","1.70%","Locked in contract; cannot be increased arbitrarily"
+"EFFECTIVE ANNUAL LENDING RATE (%)","8.98%","9.60%","9.92%","9.30%","8.95%","Base Rate + Premium (floating rate updates quarterly)"
+"Fixed Rate Alternative Option","10.25% (Fixed 5 Yrs)","10.50% (Fixed 7 Yrs)","10.75% (Fixed 5 Yrs)","10.40% (Fixed 5 Yrs)","Not Offered (Floating Only)","Provides cash flow predictability if rates rise"
+"Benchmark Principal Loan Amount (NPR)","5000000","5000000","5000000","5000000","5000000","NPR 50 Lakhs (Standard retail loan benchmark)"
+"Requested Loan Tenure (Years)","15 Years (180 Mos)","15 Years (180 Mos)","15 Years (180 Mos)","15 Years (180 Mos)","15 Years (180 Mos)","Max 20–25 years based on borrower retirement age"
+"ESTIMATED MONTHLY EMI (NPR)","50672","52554","53540","51638","50582","Calculated on monthly reducing balance amortization"
+"TOTAL REPAYMENT OVER 15 YEARS (NPR)","9120960","9459720","9637200","9294840","9104760","Sum of 180 monthly EMI payments"
+"TOTAL LIFETIME INTEREST PAID (NPR)","4120960","4459720","4637200","4294840","4104760","Total interest cost paid to bank on 50 Lakhs"
+"INTEREST DELTA VS LOWEST BANK","+NPR 16,200","+NPR 354,960","+NPR 532,440","+NPR 190,080","BASELINE (Lowest Interest)","A 0.97% rate difference costs NPR 5.32 Lakhs extra!"
+"One-Time Loan Processing Fee (%)","0.50% (NPR 25,000)","0.75% (NPR 37,500)","0.75% (NPR 37,500)","0.50% (NPR 25,000)","0.50% (NPR 25,000)","NRB strictly caps retail loan processing at 0.75%"
+"Credit Information Bureau (CIC) Fee","NPR 500","NPR 500","NPR 500","NPR 500","NPR 500","Standard CIB inquiry charge per applicant"
+"Property Distress Valuation Engineer Fee","NPR 12,000","NPR 14,000","NPR 12,000","NPR 12,000","NPR 15,000","Fee paid to independent licensed civil engineer"
+"Land Revenue (Malpot) Rokka Charge","NPR 15,000","NPR 15,000","NPR 15,000","NPR 15,000","NPR 15,000","Government mortgage stamping and legal freeze"
+"Prepayment Penalty Clause (NRB Rule)","0% (Zero after 2 Yrs)","0% (Zero after 2 Yrs)","0% (Zero after 2 Yrs)","0% (Zero after 2 Yrs)","0% (Zero after 2 Yrs)","NRB forbids prepayment penalty on individual retail loans"
+"Bank Swap / Refinancing Exit Fee","Max 0.15% service fee","Max 0.15% service fee","Max 0.15% service fee","Max 0.15% service fee","Max 0.15% service fee","NRB allows switching to another bank at minimal friction"
+"Maximum Loan-to-Value (LTV) Cap","70% First Home / 50% Others","70% First Home / 50% Others","70% First Home / 50% Others","70% First Home / 50% Others","60% Standard Limit","NRB statutory limit: 70% first home, 50% general"
+"Debt-Service-to-Income (DSTI) Cap","50% of Verifiable Income","50% of Verifiable Income","50% of Verifiable Income","50% of Verifiable Income","50% of Verifiable Income","Total EMIs cannot exceed 50% of certified net salary"
+"OVERALL VERDICT / RANKING","RANK 2 (Strong Value)","RANK 4 (Moderate Cost)","RANK 5 (High Interest)","RANK 3 (Competitive)","RANK 1 (Lowest Cost)","Choose lowest effective rate with lowest processing fee"

@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Financial Jargon Pocket Reference Guide | risePaisa</title>
+  <style>
+    :root {
+      --primary: #0066cc;
+      --primary-hover: #0055b3;
+      --primary-light: rgba(0, 102, 204, 0.08);
+      --text: #1d1d1f;
+      --text-secondary: #6e6e73;
+      --border: #d2d2d7;
+      --border-subtle: #e5e5ea;
+      --bg: #f5f5f7;
+      --card-bg: #ffffff;
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 18px;
+      --radius-pill: 9999px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      color: var(--text);
+      background: var(--bg);
+      line-height: 1.5;
+      padding: 36px 16px 60px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .guide-container {
+      max-width: 900px;
+      margin: 0 auto;
+      background: var(--card-bg);
+      border-radius: var(--radius-lg);
+      padding: 44px;
+      border: 1px solid var(--border);
+      box-shadow: 0 4px 28px rgba(0, 0, 0, 0.04);
+    }
+
+    .header-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      border-bottom: 1px solid var(--border-subtle);
+      padding-bottom: 24px;
+      margin-bottom: 24px;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .brand-eyebrow {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--primary);
+      margin-bottom: 4px;
+      display: inline-block;
+    }
+
+    h1 {
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", sans-serif;
+      font-size: 28px;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      color: var(--text);
+      line-height: 1.2;
+      margin-bottom: 6px;
+    }
+
+    .subtitle {
+      font-size: 14px;
+      color: var(--text-secondary);
+      max-width: 580px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 9px 18px;
+      border-radius: var(--radius-pill);
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      border: 1px solid transparent;
+    }
+    .btn-primary { background: var(--primary); color: #ffffff; }
+    .btn-primary:hover { background: var(--primary-hover); }
+
+    /* Search & Filter Toolbar */
+    .toolbar {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      margin-bottom: 28px;
+    }
+    .search-box {
+      width: 100%;
+      position: relative;
+    }
+    .search-input {
+      width: 100%;
+      padding: 12px 18px 12px 42px;
+      font-size: 14px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-pill);
+      background: var(--bg);
+      outline: none;
+      transition: all 0.15s ease;
+      font-family: inherit;
+    }
+    .search-input:focus {
+      background: #ffffff;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px var(--primary-light);
+    }
+    .search-icon {
+      position: absolute;
+      left: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-secondary);
+    }
+
+    .filter-chips {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding-bottom: 4px;
+    }
+    .chip {
+      padding: 6px 14px;
+      border-radius: var(--radius-pill);
+      font-size: 12px;
+      font-weight: 500;
+      background: var(--bg);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-secondary);
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.15s ease;
+    }
+    .chip.active, .chip:hover {
+      background: var(--primary-light);
+      border-color: var(--primary);
+      color: var(--primary);
+      font-weight: 600;
+    }
+
+    /* Terms Grid */
+    .terms-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 14px;
+    }
+
+    .term-card {
+      background: #fafafc;
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: all 0.15s ease;
+    }
+    .term-card:hover {
+      border-color: var(--border);
+      background: #ffffff;
+      transform: translateY(-1px);
+    }
+
+    .term-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 6px;
+      gap: 8px;
+    }
+    .term-name {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text);
+      letter-spacing: -0.01em;
+    }
+    .term-cat-tag {
+      font-size: 10px;
+      font-weight: 600;
+      text-transform: uppercase;
+      padding: 2px 7px;
+      border-radius: var(--radius-pill);
+      background: var(--primary-light);
+      color: var(--primary);
+      white-space: nowrap;
+    }
+
+    .term-nepali {
+      font-size: 13px;
+      color: var(--primary);
+      font-weight: 500;
+      margin-bottom: 8px;
+    }
+
+    .term-def {
+      font-size: 12.5px;
+      color: var(--text-secondary);
+      line-height: 1.45;
+      margin-bottom: 8px;
+    }
+
+    .term-example {
+      font-size: 11.5px;
+      background: rgba(0, 0, 0, 0.03);
+      padding: 6px 10px;
+      border-radius: var(--radius-sm);
+      color: var(--text);
+      line-height: 1.35;
+      border-left: 2px solid var(--primary);
+    }
+
+    .results-count {
+      font-size: 12px;
+      color: var(--text-secondary);
+      margin-bottom: 14px;
+      font-weight: 500;
+    }
+
+    /* Print Stylesheet */
+    @media print {
+      body { background: #ffffff; padding: 0; }
+      .guide-container { border: none; box-shadow: none; padding: 0; max-width: 100%; }
+      .toolbar, .btn { display: none !important; }
+      .terms-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+      .term-card { border: 1px solid #ddd; background: #fff; page-break-inside: avoid; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="guide-container">
+    <header class="header-bar">
+      <div>
+        <span class="brand-eyebrow">risePaisa Pocket Reference Series</span>
+        <h1>Financial Jargon Pocket Reference Guide</h1>
+        <p class="subtitle">Quick bilingual glossary of essential Nepal stock market (NEPSE), banking, tax, and investment terms.</p>
+      </div>
+      <div>
+        <button class="btn btn-primary" onclick="window.print()">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
+          Print / Save PDF
+        </button>
+      </div>
+    </header>
+
+    <!-- Search & Filter -->
+    <div class="toolbar">
+      <div class="search-box">
+        <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+        <input type="text" class="search-input" id="search-input" placeholder="Search terms (e.g. Demat, WACC, Base Rate, SIP, EDIS)..." oninput="filterTerms()">
+      </div>
+      <div class="filter-chips">
+        <button class="chip active" onclick="setCategory('All', this)">All Categories</button>
+        <button class="chip" onclick="setCategory('NEPSE', this)">NEPSE & Equities</button>
+        <button class="chip" onclick="setCategory('Banking', this)">Banking & Debt</button>
+        <button class="chip" onclick="setCategory('Wealth', this)">Mutual Funds & Wealth</button>
+        <button class="chip" onclick="setCategory('Tax', this)">Tax & Regulations</button>
+      </div>
+    </div>
+
+    <div class="results-count" id="results-count">Showing all 20 featured core terms</div>
+
+    <!-- Grid of Terms -->
+    <div class="terms-grid" id="terms-grid">
+      <!-- 1 -->
+      <article class="term-card" data-cat="NEPSE" data-keywords="demat boid account shares electronic डिम्याट">
+        <div>
+          <div class="term-header"><span class="term-name">Demat Account (BOID)</span><span class="term-cat-tag">NEPSE</span></div>
+          <div class="term-nepali">डिम्याट खाता (१६ अंकको BOID)</div>
+          <p class="term-def">An electronic account that holds your shares and bonds in digital, dematerialized form, similar to a bank account holding cash.</p>
+        </div>
+        <div class="term-example">Nepal Rule: Issued by CDSC Depository Participants with annual maintenance fee of NPR 100.</div>
+      </article>
+
+      <!-- 2 -->
+      <article class="term-card" data-cat="NEPSE" data-keywords="meroshare cdsc ipo edis wacc मेरोसेयर">
+        <div>
+          <div class="term-header"><span class="term-name">MeroShare</span><span class="term-cat-tag">NEPSE</span></div>
+          <div class="term-nepali">मेरोसेयर अनलाइन पोर्टल</div>
+          <p class="term-def">The official CDSC web and mobile portal allowing retail investors to apply for IPOs via C-ASBA, check portfolio value, and execute EDIS share transfers.</p>
+        </div>
+        <div class="term-example">Access: Available at meroshare.cdsc.com.np (Annual fee: NPR 50).</div>
+      </article>
+
+      <!-- 3 -->
+      <article class="term-card" data-cat="NEPSE" data-keywords="casba c-asba crn bank application सी-आस्वा">
+        <div>
+          <div class="term-header"><span class="term-name">C-ASBA & CRN</span><span class="term-cat-tag">NEPSE</span></div>
+          <div class="term-nepali">सी-आस्वा र CRN नम्बर</div>
+          <p class="term-def">Centralized Applications Supported by Blocked Amount. A system that blocks your IPO application amount in your bank account until allotment.</p>
+        </div>
+        <div class="term-example">Key Fact: Your bank provides a unique CRN (C-ASBA Registration Number) to authorize IPOs.</div>
+      </article>
+
+      <!-- 4 -->
+      <article class="term-card" data-cat="NEPSE" data-keywords="tms nots trading broker nepse टीएमएस">
+        <div>
+          <div class="term-header"><span class="term-name">NEPSE TMS</span><span class="term-cat-tag">NEPSE</span></div>
+          <div class="term-nepali">ट्रेड म्यानेजमेन्ट सिस्टम (TMS)</div>
+          <p class="term-def">Trade Management System hosted by stockbrokers enabling retail investors to place live secondary market buy and sell orders on the NEPSE exchange.</p>
+        </div>
+        <div class="term-example">Market Hours: 11:00 AM to 3:00 PM (Sunday through Thursday).</div>
+      </article>
+
+      <!-- 5 -->
+      <article class="term-card" data-cat="NEPSE" data-keywords="wacc purchase price tax holding cost औसत लागत">
+        <div>
+          <div class="term-header"><span class="term-name">WACC</span><span class="term-cat-tag">NEPSE</span></div>
+          <div class="term-nepali">औसत लागत (Weighted Average Cost of Capital)</div>
+          <p class="term-def">The weighted average cost basis of your purchased shares. Used by MeroShare to accurately compute Capital Gains Tax upon selling.</p>
+        </div>
+        <div class="term-example">Action: Mandatory to calculate in MeroShare 'My Purchase Source' before clearing EDIS.</div>
+      </article>
+
+      <!-- 6 -->
+      <article class="term-card" data-cat="NEPSE" data-keywords="edis transfer settlement shares closeout इडीआईएस">
+        <div>
+          <div class="term-header"><span class="term-name">EDIS</span><span class="term-cat-tag">NEPSE</span></div>
+          <div class="term-nepali">इलेक्ट्रोनिक डिपोजीटरी निर्देशन (EDIS)</div>
+          <p class="term-def">Electronic Depository Instruction Slip. The digital process through which you authorize CDSC to transfer sold shares from your Demat to the buyer's broker.</p>
+        </div>
+        <div class="term-example">Deadline: Must complete on MeroShare by T+2 settlement to avoid a severe 20% Close-Out Penalty!</div>
+      </article>
+
+      <!-- 7 -->
+      <article class="term-card" data-cat="NEPSE" data-keywords="ltp last traded price market live अन्तिम कारोबार मूल्य">
+        <div>
+          <div class="term-header"><span class="term-name">LTP (Last Traded Price)</span><span class="term-cat-tag">NEPSE</span></div>
+          <div class="term-nepali">अन्तिम कारोबार मूल्य</div>
+          <p class="term-def">The most recent per-share execution price at which a transaction occurred during NEPSE trading hours.</p>
+        </div>
+        <div class="term-example">Context: Portfolio market valuation is based on each stock's official daily closing LTP.</div>
+      </article>
+
+      <!-- 8 -->
+      <article class="term-card" data-cat="NEPSE" data-keywords="circuit breaker limit volatility halt सर्किट ब्रेकर">
+        <div>
+          <div class="term-header"><span class="term-name">Circuit Breaker</span><span class="term-cat-tag">NEPSE</span></div>
+          <div class="term-nepali">सर्किट ब्रेकर (कारोबार स्थगन)</div>
+          <p class="term-def">Regulatory trading halts triggered when NEPSE index moves by 4% (20 min halt), 5% (40 min halt), or 6% (closure for the remainder of the day).</p>
+        </div>
+        <div class="term-example">Individual Stocks: Capped at maximum daily price fluctuation band of +/- 10%.</div>
+      </article>
+
+      <!-- 9 -->
+      <article class="term-card" data-cat="Banking" data-keywords="base rate interest loan benchmark आधार दर">
+        <div>
+          <div class="term-header"><span class="term-name">Base Rate</span><span class="term-cat-tag">Banking</span></div>
+          <div class="term-nepali">बैंकको आधार दर (Base Rate)</div>
+          <p class="term-def">The minimum benchmark lending interest rate below which commercial banks are legally barred from extending loans by Nepal Rastra Bank.</p>
+        </div>
+        <div class="term-example">Loan Rate Formula: Your Effective Loan Interest Rate = Bank Base Rate + Fixed Premium Spread.</div>
+      </article>
+
+      <!-- 10 -->
+      <article class="term-card" data-cat="Banking" data-keywords="spread rate nrb margin lending deposit स्प्रेड दर">
+        <div>
+          <div class="term-header"><span class="term-name">Interest Rate Spread</span><span class="term-cat-tag">Banking</span></div>
+          <div class="term-nepali">ब्याजदर अन्तर (Spread Rate)</div>
+          <p class="term-def">The difference between the weighted average interest rate charged by a bank on loans and the interest rate paid on customer deposits.</p>
+        </div>
+        <div class="term-example">NRB Cap: Strictly capped at a maximum ceiling of 4.00% for commercial banks.</div>
+      </article>
+
+      <!-- 11 -->
+      <article class="term-card" data-cat="Banking" data-keywords="cd ratio liquidity deposits credit सिडी रेसियो">
+        <div>
+          <div class="term-header"><span class="term-name">CD Ratio</span><span class="term-cat-tag">Banking</span></div>
+          <div class="term-nepali">कर्जा-निक्षेप अनुपात (CD Ratio)</div>
+          <p class="term-def">Credit-to-Deposit Ratio measuring total loans issued against total deposits and core capital. Reflects banking system liquidity.</p>
+        </div>
+        <div class="term-example">Statutory Ceiling: Nepal Rastra Bank mandates a maximum ceiling of 90.00%.</div>
+      </article>
+
+      <!-- 12 -->
+      <article class="term-card" data-cat="Banking" data-keywords="reducing balance emi flat rate interest घट्दो किस्ता">
+        <div>
+          <div class="term-header"><span class="term-name">Reducing Balance EMI</span><span class="term-cat-tag">Banking</span></div>
+          <div class="term-nepali">घट्दो मौज्दात (Reducing Balance) EMI</div>
+          <p class="term-def">Loan repayment structure where interest is calculated strictly on the remaining unpaid principal rather than the initial total borrowed amount.</p>
+        </div>
+        <div class="term-example">Always Demand: Standard across Class-A banks; significantly cheaper than deceptive flat rates.</div>
+      </article>
+
+      <!-- 13 -->
+      <article class="term-card" data-cat="Wealth" data-keywords="sip mutual fund systematic investment plan एसआईपी">
+        <div>
+          <div class="term-header"><span class="term-name">SIP (Systematic Investment Plan)</span><span class="term-cat-tag">Wealth</span></div>
+          <div class="term-nepali">व्यवस्थित लगानी योजना (SIP)</div>
+          <p class="term-def">An automated wealth-building mechanism of investing a fixed rupee amount (e.g. NPR 1,000/month) into open-ended mutual funds at regular intervals.</p>
+        </div>
+        <div class="term-example">Advantage: Automates rupee-cost averaging via connectIPS without needing to time market tops or bottoms.</div>
+      </article>
+
+      <!-- 14 -->
+      <article class="term-card" data-cat="Wealth" data-keywords="nav net asset value mutual fund unit मूल्य प्रति एकाइ">
+        <div>
+          <div class="term-header"><span class="term-name">NAV (Net Asset Value)</span><span class="term-cat-tag">Wealth</span></div>
+          <div class="term-nepali">खुद सम्पत्ति मूल्य (NAV)</div>
+          <p class="term-def">The per-unit market value of a mutual fund scheme, calculated by dividing total assets minus liabilities by outstanding units.</p>
+        </div>
+        <div class="term-example">Par Value: Most schemes launch at NPR 10.00 base unit value during New Fund Offer (NFO).</div>
+      </article>
+
+      <!-- 15 -->
+      <article class="term-card" data-cat="Wealth" data-keywords="debenture bond corporate fixed interest डिबेन्चर">
+        <div>
+          <div class="term-header"><span class="term-name">Corporate Debenture</span><span class="term-cat-tag">Wealth</span></div>
+          <div class="term-nepali">ऋणपत्र (Debenture)</div>
+          <p class="term-def">A long-term debt instrument issued by commercial banks carrying a guaranteed fixed annual coupon rate (e.g. 8.5% - 10.5%) paid semi-annually.</p>
+        </div>
+        <div class="term-example">Safety: Backed by full bank balance sheet; safer than equity shares with predictable cash flow.</div>
+      </article>
+
+      <!-- 16 -->
+      <article class="term-card" data-cat="Tax" data-keywords="capital gains tax cgt shares nepse profit पुँजीगत लाभकर">
+        <div>
+          <div class="term-header"><span class="term-name">Capital Gains Tax (CGT)</span><span class="term-cat-tag">Tax</span></div>
+          <div class="term-nepali">पुँजीगत लाभकर (CGT)</div>
+          <p class="term-def">Statutory tax deducted at source on net profits realized from selling shares or real estate properties in Nepal.</p>
+        </div>
+        <div class="term-example">NEPSE Rates: Individual Short-Term (&lt;365 days): 7.5%; Individual Long-Term (&gt;365 days): 5.0%.</div>
+      </article>
+
+      <!-- 17 -->
+      <article class="term-card" data-cat="Tax" data-keywords="ssf social security fund pension सामाजिक सुरक्षा कोष">
+        <div>
+          <div class="term-header"><span class="term-name">Social Security Fund (SSF)</span><span class="term-cat-tag">Tax</span></div>
+          <div class="term-nepali">सामाजिक सुरक्षा कोष (SSF)</div>
+          <p class="term-def">State-administered pension and social protection fund with mandatory 31% monthly contribution (20% employer + 11% employee basic salary).</p>
+        </div>
+        <div class="term-example">Tax Perk: SSF contributors are exempt from the 1% Social Security Tax on their base income slab!</div>
+      </article>
+
+      <!-- 18 -->
+      <article class="term-card" data-cat="Tax" data-keywords="cit nlk nagarik lagani kosh retirement नागरिक लगानी कोष">
+        <div>
+          <div class="term-header"><span class="term-name">Citizen Investment Trust (CIT)</span><span class="term-cat-tag">Tax</span></div>
+          <div class="term-nepali">नागरिक लगानी कोष (NLK / CIT)</div>
+          <p class="term-def">Government-backed retirement and savings institution providing tax-deductible voluntary pension schemes under Section 63 of Income Tax Act.</p>
+        </div>
+        <div class="term-example">Tax Limit: Up to 1/3 of total income or NPR 3,00,000 max deduction per fiscal year.</div>
+      </article>
+
+      <!-- 19 -->
+      <article class="term-card" data-cat="Tax" data-keywords="sebon securities board regulator धितोपत्र बोर्ड">
+        <div>
+          <div class="term-header"><span class="term-name">SEBON</span><span class="term-cat-tag">Tax</span></div>
+          <div class="term-nepali">नेपाल धितोपत्र बोर्ड (SEBON)</div>
+          <p class="term-def">Securities Board of Nepal. The apex statutory government regulator governing capital markets, stockbrokers, merchant bankers, and listed companies.</p>
+        </div>
+        <div class="term-example">Role: Approves all IPO prospectuses, monitors insider trading, and sets broker commission slabs.</div>
+      </article>
+
+      <!-- 20 -->
+      <article class="term-card" data-cat="Banking" data-keywords="nrb central bank monetary policy नेपाल राष्ट्र बैंक">
+        <div>
+          <div class="term-header"><span class="term-name">Nepal Rastra Bank (NRB)</span><span class="term-cat-tag">Banking</span></div>
+          <div class="term-nepali">नेपाल राष्ट्र बैंक (केन्द्रीय बैंक)</div>
+          <p class="term-def">The central monetary authority of Nepal responsible for currency issuance, monetary policy, banking supervision, and forex reserve management.</p>
+        </div>
+        <div class="term-example">Consumer Protection: Regulates maximum loan fees, deposit insurance (NPR 5 Lakhs), and interest rate corridors.</div>
+      </article>
+    </div>
+
+    <!-- Footer Note -->
+    <div style="margin-top:36px; padding-top:16px; border-top:1px solid var(--border-subtle); display:flex; justify-content:space-between; font-size:12px; color:var(--text-secondary);">
+      <span>risePaisa Financial Education System · Kathmandu</span>
+      <span>Live Bilingual Terminology Reference (SEBON & NRB Aligned)</span>
+    </div>
+  </div>
+
+  <script>
+    let activeCategory = 'All';
+
+    function setCategory(cat, chip) {
+      activeCategory = cat;
+      document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+      chip.classList.add('active');
+      filterTerms();
+    }
+
+    function filterTerms() {
+      const q = document.getElementById('search-input').value.toLowerCase().trim();
+      const cards = document.querySelectorAll('.term-card');
+      let visibleCount = 0;
+
+      cards.forEach(card => {
+        const cat = card.getAttribute('data-cat');
+        const text = (card.innerText + ' ' + (card.getAttribute('data-keywords') || '')).toLowerCase();
+
+        const matchCat = activeCategory === 'All' || cat === activeCategory;
+        const matchText = !q || text.includes(q);
+
+        if (matchCat && matchText) {
+          card.style.display = 'flex';
+          visibleCount++;
+        } else {
+          card.style.display = 'none';
+        }
+      });
+
+      document.getElementById('results-count').textContent = `Showing ${visibleCount} of ${cards.length} terms`;
+    }
+  </script>
+</body>
+</html>

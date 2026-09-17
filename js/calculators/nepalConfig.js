@@ -1,5 +1,5 @@
 // ==============================================
-// risePaisa — Nepal Centralized Regulatory & Market Configuration
+// risePaisa - Nepal Centralized Regulatory & Market Configuration
 // Single source of truth for all Nepal tax, NEPSE, banking, and financial planning parameters
 // Update this file to modify tax slabs, broker commissions, bank compounding rules, or TDS
 // ==============================================

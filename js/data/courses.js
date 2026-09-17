@@ -1,4 +1,4 @@
-// risePaisa — Course Catalog Data
+// risePaisa - Course Catalog Data
 const COURSES = [
   {
     id: 1,

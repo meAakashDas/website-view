@@ -21,6 +21,7 @@ export function renderBlogPage(queryParams) {
   return `
     <div class="page-header" id="blog-header">
       <div class="container">
+        <span class="section-eyebrow">Insights & Guides</span>
         <h1>Blog & Articles</h1>
         <p>Free financial knowledge for every Nepali. Read, learn, grow.</p>
       </div>

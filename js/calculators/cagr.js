@@ -1,5 +1,5 @@
 // ==============================================
-// risePaisa — Nepal CAGR & Investment Growth Calculator Component
+// risePaisa - Nepal CAGR & Investment Growth Calculator Component
 // Precise Compound Annual Growth Rate, Projections & Multi-Asset Comparison
 // ==============================================
 import {
@@ -483,19 +483,29 @@ export function renderCAGRCalculator() {
           <div class="rp-nepal-examples-grid">
             <div class="rp-nepal-ex-item">
               <span class="rp-nepal-ex-badge">NEPSE Stocks</span>
-              <p>Top commercial banks and hydropower companies have historically cycled through bull and bear phases, yielding 12%–18% long-term CAGR.</p>
+              <p>Top commercial banks and hydropower companies have historically cycled through bull and bear phases, yielding 12%-18% long-term CAGR.</p>
             </div>
             <div class="rp-nepal-ex-item">
               <span class="rp-nepal-ex-badge">Fixed Deposits</span>
-              <p>Commercial bank FDs in Nepal typically compound at 7.5%–10.5% annualized before the statutory 5% TDS deduction.</p>
+              <p>Commercial bank FDs in Nepal typically compound at 7.5%-10.5% annualized before the statutory 5% TDS deduction.</p>
             </div>
             <div class="rp-nepal-ex-item">
               <span class="rp-nepal-ex-badge">Kathmandu Real Estate</span>
-              <p>Land in major urban belts has historically appreciated at 10%–16% CAGR, though liquidity is significantly lower than listed equities.</p>
+              <p>Land in major urban belts has historically appreciated at 10%-16% CAGR, though liquidity is significantly lower than listed equities.</p>
             </div>
           </div>
           <div style="font-size:11px;color:var(--color-text-muted);margin-top:var(--space-3)">
             * Illustrative historical examples for educational analysis. risePaisa does not provide investment recommendations or financial advice.
+          </div>
+        </div>
+
+        <!-- Nepal Educational Context Note & Companion Links -->
+        <div class="rp-educational-note" style="margin-top:var(--space-6)">
+          <div class="rp-edu-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+          </div>
+          <div class="rp-edu-text">
+            <strong>Recommended Learning Path:</strong> Learn how compounding velocity accelerates after year 7 in our flagship lesson on <a href="/learn/investing/compounding-engine-wealth" style="color:var(--color-accent);text-decoration:underline">The Compounding Engine of Wealth</a> or simulate recurring systematic investments using the <a href="/calculators/sip" style="color:var(--color-accent);text-decoration:underline">SIP Calculator</a>.
           </div>
         </div>
 

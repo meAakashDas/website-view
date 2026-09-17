@@ -3,15 +3,34 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <base href="./">
+  <base href="/">
   
   <!-- SEO Meta Tags -->
   <title>risePaisa | Nepal's Financial Education Platform</title>
   <meta name="description" content="Learn personal finance, stock market investing (NEPSE), taxation, and fintech in Nepal. risePaisa is Nepal's trusted financial literacy platform for youth.">
-  <meta name="keywords" content="risePaisa, Nepal finance, NEPSE, financial literacy Nepal, stock market Nepal, personal finance Nepal, tax Nepal, fintech Nepal, eSewa, Khalti">
+  <meta name="keywords" content="risePaisa, Nepal finance, NEPSE, financial literacy Nepal, stock market Nepal, personal finance Nepal, tax Nepal, fintech Nepal, eSewa, Khalti, MeroShare, Demat, SIP Nepal">
   <meta name="author" content="Aakash Das">
-  <meta name="robots" content="index, follow">
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+  <meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+  <meta name="bingbot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
   <link rel="canonical" href="https://risepaisa.com/">
+  <link rel="alternate" hreflang="en" href="https://risepaisa.com/">
+  <link rel="alternate" hreflang="ne" href="https://risepaisa.com/">
+  <link rel="alternate" hreflang="x-default" href="https://risepaisa.com/">
+
+  <!-- Geo & Local SEO Tags (Nepal) -->
+  <meta name="geo.region" content="NP">
+  <meta name="geo.placename" content="Kathmandu, Nepal">
+  <meta name="geo.position" content="27.7172;85.3240">
+  <meta name="ICBM" content="27.7172, 85.3240">
+
+  <!-- Mobile & PWA Web App Meta Tags -->
+  <meta name="theme-color" content="#0d1117">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="risePaisa">
+  <meta name="application-name" content="risePaisa">
+  <meta name="format-detection" content="telephone=no">
 
   <!-- Open Graph -->
   <meta property="og:type" content="website">
@@ -20,11 +39,104 @@
   <meta property="og:url" content="https://risepaisa.com/">
   <meta property="og:site_name" content="risePaisa">
   <meta property="og:locale" content="en_US">
+  <meta property="og:locale:alternate" content="ne_NP">
+  <meta property="og:image" content="https://risepaisa.com/assets/images/risepaisa_logo.png">
+  <meta property="og:image:width" content="512">
+  <meta property="og:image:height" content="512">
+  <meta property="og:image:alt" content="risePaisa - Nepal Financial Education Academy Logo">
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="risePaisa | Nepal's Financial Education Platform">
   <meta name="twitter:description" content="Learn personal finance, stock market investing (NEPSE), taxation, and fintech in Nepal.">
+  <meta name="twitter:image" content="https://risepaisa.com/assets/images/risepaisa_logo.png">
+  <meta name="twitter:image:alt" content="risePaisa - Nepal Financial Education Academy Logo">
+  <meta name="twitter:creator" content="@risepaisa">
+  <meta name="twitter:site" content="@risepaisa">
+
+  <!-- Base Schema.org Structured Data -->
+  <script type="application/ld+json" id="rp-ld-json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://risepaisa.com/#organization",
+        "name": "risePaisa",
+        "legalName": "risePaisa",
+        "url": "https://risepaisa.com",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://risepaisa.com/assets/images/risepaisa_logo.png",
+          "width": 512,
+          "height": 512,
+          "caption": "risePaisa Logo"
+        },
+        "image": "https://risepaisa.com/assets/images/risepaisa_logo.png",
+        "founder": {
+          "@type": "Person",
+          "name": "Aakash Das",
+          "jobTitle": "Founder & Lead Financial Educator",
+          "url": "https://risepaisa.com/about"
+        },
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Kathmandu",
+          "addressCountry": "NP"
+        },
+        "areaServed": {
+          "@type": "Country",
+          "name": "Nepal"
+        },
+        "knowsAbout": [
+          "Personal Finance Nepal",
+          "NEPSE Stock Market",
+          "Mutual Funds Nepal",
+          "Nepal Income Tax",
+          "Demat & MeroShare",
+          "Systematic Investment Plan (SIP)"
+        ],
+        "sameAs": [
+          "https://facebook.com/risepaisa",
+          "https://instagram.com/risepaisa",
+          "https://twitter.com/risepaisa",
+          "https://linkedin.com/company/risepaisa",
+          "https://www.youtube.com/@risePaisa",
+          "https://www.tiktok.com/@risepaisa"
+        ],
+        "description": "Nepal's independent financial education and research platform."
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://risepaisa.com/#website",
+        "url": "https://risepaisa.com",
+        "name": "risePaisa",
+        "publisher": { "@id": "https://risepaisa.com/#organization" },
+        "potentialAction": {
+          "@type": "SearchAction",
+          "target": {
+            "@type": "EntryPoint",
+            "urlTemplate": "https://risepaisa.com/search?q={search_term_string}"
+          },
+          "query-input": "required name=search_term_string"
+        },
+        "inLanguage": ["en-US", "ne-NP"]
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": "https://risepaisa.com/#breadcrumbs",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://risepaisa.com"
+          }
+        ]
+      }
+    ]
+  }
+  </script>
 
   <!-- Favicon -->
   <link rel="icon" type="image/png" href="assets/images/risepaisa_logo.png?v=1">
@@ -38,6 +150,20 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@600;700&display=swap" rel="stylesheet">
 
+  <!-- Theme Bootstrapper (Zero Flash) -->
+  <script>
+    (function() {
+      try {
+        var savedTheme = localStorage.getItem('rp_theme');
+        var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+        var theme = savedTheme || (prefersDark ? 'dark' : 'light');
+        document.documentElement.setAttribute('data-theme', theme);
+      } catch (e) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      }
+    })();
+  </script>
+
   <!-- Stylesheets -->
   <link rel="stylesheet" href="css/variables.css">
   <link rel="stylesheet" href="css/base.css">
@@ -45,12 +171,14 @@
   <link rel="stylesheet" href="css/layout.css">
   <link rel="stylesheet" href="css/pages.css?v=2">
   <link rel="stylesheet" href="css/calculators.css">
+  <link rel="stylesheet" href="css/learn.css">
+  <link rel="stylesheet" href="css/search.css">
 </head>
 <body>
   <!-- App Content -->
   <main id="app"></main>
 
   <!-- App Script -->
-  <script type="module" src="js/app.js?v=2"></script>
+  <script type="module" src="js/app.js?v=3"></script>
 </body>
 </html>

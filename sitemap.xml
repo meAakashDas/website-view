@@ -1,0 +1,1750 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url>
+    <loc>https://risepaisa.com/</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/learn</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.95</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/learn" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/learn" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/learn" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/learn/guides</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/learn/guides" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/learn/guides" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/learn/guides" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/learn/glossary</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/learn/glossary" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/learn/glossary" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/learn/glossary" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/calculators</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/calculators" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/calculators" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/calculators" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/resources</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/resources" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/resources" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/resources" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/courses</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/courses" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/courses" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/courses" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/blog</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/blog" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/blog" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/blog" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/about</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/about" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/about" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/about" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/contact</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/contact" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/contact" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/contact" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/privacy</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/privacy" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/privacy" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/privacy" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/terms</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/terms" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/terms" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/terms" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/disclaimer</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/disclaimer" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/disclaimer" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/disclaimer" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/faq</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/faq" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/faq" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/faq" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/refund-policy</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/refund-policy" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/refund-policy" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/refund-policy" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/learn/personal-finance</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/learn/personal-finance" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/learn/personal-finance" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/learn/personal-finance" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/learn/personal-finance/cash-flow-equation-nepal</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/learn/personal-finance/cash-flow-equation-nepal" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/learn/personal-finance/cash-flow-equation-nepal" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/learn/personal-finance/cash-flow-equation-nepal" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/learn/personal-finance/50-30-20-budget-nepal</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/learn/personal-finance/50-30-20-budget-nepal" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/learn/personal-finance/50-30-20-budget-nepal" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/learn/personal-finance/50-30-20-budget-nepal" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/learn/personal-finance/emergency-fund-building</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/learn/personal-finance/emergency-fund-building" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/learn/personal-finance/emergency-fund-building" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/learn/personal-finance/emergency-fund-building" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/learn/personal-finance/festival-expenses-nepal</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/learn/personal-finance/festival-expenses-nepal" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/learn/personal-finance/festival-expenses-nepal" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/learn/personal-finance/festival-expenses-nepal" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/learn/personal-finance/pay-yourself-first-nepal</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/learn/personal-finance/pay-yourself-first-nepal" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/learn/personal-finance/pay-yourself-first-nepal" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/learn/personal-finance/pay-yourself-first-nepal" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/learn/personal-finance/net-worth-tracking-nepal</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/learn/personal-finance/net-worth-tracking-nepal" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/learn/personal-finance/net-worth-tracking-nepal" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/learn/personal-finance/net-worth-tracking-nepal" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/learn/personal-finance/gold-as-investment-nepal</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/learn/personal-finance/gold-as-investment-nepal" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/learn/personal-finance/gold-as-investment-nepal" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/learn/personal-finance/gold-as-investment-nepal" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/learn/investing</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/learn/investing" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/learn/investing" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/learn/investing" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/learn/investing/inflation-vs-savings-nepal</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/learn/investing/inflation-vs-savings-nepal" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/learn/investing/inflation-vs-savings-nepal" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/learn/investing/inflation-vs-savings-nepal" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/learn/investing/compounding-engine-wealth</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/learn/investing/compounding-engine-wealth" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/learn/investing/compounding-engine-wealth" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/learn/investing/compounding-engine-wealth" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/learn/investing/open-ended-vs-close-ended-funds</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/learn/investing/open-ended-vs-close-ended-funds" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/learn/investing/open-ended-vs-close-ended-funds" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/learn/investing/open-ended-vs-close-ended-funds" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/learn/investing/how-to-start-monthly-sip-nepal</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/learn/investing/how-to-start-monthly-sip-nepal" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/learn/investing/how-to-start-monthly-sip-nepal" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/learn/investing/how-to-start-monthly-sip-nepal" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/learn/investing/age-based-asset-allocation-nepal</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/learn/investing/age-based-asset-allocation-nepal" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/learn/investing/age-based-asset-allocation-nepal" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/learn/investing/age-based-asset-allocation-nepal" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/learn/investing/market-psychology-down-markets</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/learn/investing/market-psychology-down-markets" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/learn/investing/market-psychology-down-markets" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/learn/investing/market-psychology-down-markets" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/learn/investing/dividend-investing-nepal</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/learn/investing/dividend-investing-nepal" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/learn/investing/dividend-investing-nepal" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/learn/investing/dividend-investing-nepal" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/learn/nepse</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/learn/nepse" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/learn/nepse" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/learn/nepse" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/learn/nepse/demat-meroshare-crn-setup</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/learn/nepse/demat-meroshare-crn-setup" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/learn/nepse/demat-meroshare-crn-setup" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/learn/nepse/demat-meroshare-crn-setup" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/learn/nepse/analyzing-applying-ipo-meroshare</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/learn/nepse/analyzing-applying-ipo-meroshare" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/learn/nepse/analyzing-applying-ipo-meroshare" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/learn/nepse/analyzing-applying-ipo-meroshare" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/learn/nepse/broker-account-tms-navigation</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/learn/nepse/broker-account-tms-navigation" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/learn/nepse/broker-account-tms-navigation" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/learn/nepse/broker-account-tms-navigation" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/learn/nepse/broker-commissions-sebon-fees-nepal</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/learn/nepse/broker-commissions-sebon-fees-nepal" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/learn/nepse/broker-commissions-sebon-fees-nepal" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/learn/nepse/broker-commissions-sebon-fees-nepal" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/learn/nepse/how-to-read-quarterly-report-nepal</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/learn/nepse/how-to-read-quarterly-report-nepal" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/learn/nepse/how-to-read-quarterly-report-nepal" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/learn/nepse/how-to-read-quarterly-report-nepal" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/learn/nepse/dividend-yield-vs-capital-gains-nepse</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/learn/nepse/dividend-yield-vs-capital-gains-nepse" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/learn/nepse/dividend-yield-vs-capital-gains-nepse" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/learn/nepse/dividend-yield-vs-capital-gains-nepse" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/learn/nepse/right-shares-nepal</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/learn/nepse/right-shares-nepal" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/learn/nepse/right-shares-nepal" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/learn/nepse/right-shares-nepal" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/learn/nepse/fundamental-analysis-nepse</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/learn/nepse/fundamental-analysis-nepse" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/learn/nepse/fundamental-analysis-nepse" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/learn/nepse/fundamental-analysis-nepse" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/learn/banking</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/learn/banking" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/learn/banking" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/learn/banking" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/learn/banking/bank-classes-nepal-nrb</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/learn/banking/bank-classes-nepal-nrb" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/learn/banking/bank-classes-nepal-nrb" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/learn/banking/bank-classes-nepal-nrb" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/learn/banking/deposit-types-fixed-deposit-nepal</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/learn/banking/deposit-types-fixed-deposit-nepal" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/learn/banking/deposit-types-fixed-deposit-nepal" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/learn/banking/deposit-types-fixed-deposit-nepal" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/learn/banking/base-rate-premium-nepal-banks</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/learn/banking/base-rate-premium-nepal-banks" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/learn/banking/base-rate-premium-nepal-banks" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/learn/banking/base-rate-premium-nepal-banks" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/learn/banking/deposit-guarantee-fund-nepal</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/learn/banking/deposit-guarantee-fund-nepal" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/learn/banking/deposit-guarantee-fund-nepal" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/learn/banking/deposit-guarantee-fund-nepal" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/learn/banking/credit-vs-debit-cards-nepal</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/learn/banking/credit-vs-debit-cards-nepal" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/learn/banking/credit-vs-debit-cards-nepal" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/learn/banking/credit-vs-debit-cards-nepal" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/learn/banking/cheque-bounce-banking-offence-nepal</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/learn/banking/cheque-bounce-banking-offence-nepal" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/learn/banking/cheque-bounce-banking-offence-nepal" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/learn/banking/cheque-bounce-banking-offence-nepal" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/learn/banking/dollar-card-nepal</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/learn/banking/dollar-card-nepal" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/learn/banking/dollar-card-nepal" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/learn/banking/dollar-card-nepal" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/learn/banking/cooperative-safety-rules-nepal</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/learn/banking/cooperative-safety-rules-nepal" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/learn/banking/cooperative-safety-rules-nepal" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/learn/banking/cooperative-safety-rules-nepal" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/learn/taxation</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/learn/taxation" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/learn/taxation" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/learn/taxation" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/learn/taxation/nepal-income-tax-slabs-salary</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/learn/taxation/nepal-income-tax-slabs-salary" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/learn/taxation/nepal-income-tax-slabs-salary" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/learn/taxation/nepal-income-tax-slabs-salary" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/learn/taxation/ssf-cit-insurance-tax-deductions</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/learn/taxation/ssf-cit-insurance-tax-deductions" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/learn/taxation/ssf-cit-insurance-tax-deductions" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/learn/taxation/ssf-cit-insurance-tax-deductions" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/learn/taxation/tds-rates-nepal-salaried-freelance</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/learn/taxation/tds-rates-nepal-salaried-freelance" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/learn/taxation/tds-rates-nepal-salaried-freelance" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/learn/taxation/tds-rates-nepal-salaried-freelance" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/learn/taxation/capital-gains-tax-shares-real-estate</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/learn/taxation/capital-gains-tax-shares-real-estate" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/learn/taxation/capital-gains-tax-shares-real-estate" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/learn/taxation/capital-gains-tax-shares-real-estate" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/learn/taxation/how-to-get-personal-pan-nepal</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/learn/taxation/how-to-get-personal-pan-nepal" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/learn/taxation/how-to-get-personal-pan-nepal" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/learn/taxation/how-to-get-personal-pan-nepal" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/learn/taxation/filing-annual-returns-tax-clearance</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/learn/taxation/filing-annual-returns-tax-clearance" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/learn/taxation/filing-annual-returns-tax-clearance" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/learn/taxation/filing-annual-returns-tax-clearance" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/learn/taxation/freelance-it-export-tax-nepal</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/learn/taxation/freelance-it-export-tax-nepal" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/learn/taxation/freelance-it-export-tax-nepal" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/learn/taxation/freelance-it-export-tax-nepal" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/learn/insurance</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/learn/insurance" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/learn/insurance" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/learn/insurance" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/learn/insurance/term-life-vs-endowment-nepal</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/learn/insurance/term-life-vs-endowment-nepal" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/learn/insurance/term-life-vs-endowment-nepal" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/learn/insurance/term-life-vs-endowment-nepal" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/learn/insurance/calculating-life-cover-sum-assured</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/learn/insurance/calculating-life-cover-sum-assured" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/learn/insurance/calculating-life-cover-sum-assured" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/learn/insurance/calculating-life-cover-sum-assured" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/learn/insurance/health-insurance-critical-illness-nepal</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/learn/insurance/health-insurance-critical-illness-nepal" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/learn/insurance/health-insurance-critical-illness-nepal" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/learn/insurance/health-insurance-critical-illness-nepal" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/learn/insurance/government-health-insurance-board-nepal</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/learn/insurance/government-health-insurance-board-nepal" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/learn/insurance/government-health-insurance-board-nepal" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/learn/insurance/government-health-insurance-board-nepal" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/learn/insurance/how-to-file-insurance-claim-nepal</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/learn/insurance/how-to-file-insurance-claim-nepal" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/learn/insurance/how-to-file-insurance-claim-nepal" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/learn/insurance/how-to-file-insurance-claim-nepal" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/learn/insurance/tax-rebate-life-insurance-nepal</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/learn/insurance/tax-rebate-life-insurance-nepal" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/learn/insurance/tax-rebate-life-insurance-nepal" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/learn/insurance/tax-rebate-life-insurance-nepal" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/learn/loans</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/learn/loans" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/learn/loans" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/learn/loans" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/learn/loans/good-debt-vs-bad-debt-nepal</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/learn/loans/good-debt-vs-bad-debt-nepal" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/learn/loans/good-debt-vs-bad-debt-nepal" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/learn/loans/good-debt-vs-bad-debt-nepal" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/learn/loans/flat-rate-vs-reducing-balance-emi</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/learn/loans/flat-rate-vs-reducing-balance-emi" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/learn/loans/flat-rate-vs-reducing-balance-emi" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/learn/loans/flat-rate-vs-reducing-balance-emi" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/learn/loans/home-loan-eligibility-debt-to-income</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/learn/loans/home-loan-eligibility-debt-to-income" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/learn/loans/home-loan-eligibility-debt-to-income" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/learn/loans/home-loan-eligibility-debt-to-income" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/learn/loans/property-valuation-mortgage-process</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/learn/loans/property-valuation-mortgage-process" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/learn/loans/property-valuation-mortgage-process" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/learn/loans/property-valuation-mortgage-process" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/learn/loans/loan-prepayment-math-savings</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/learn/loans/loan-prepayment-math-savings" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/learn/loans/loan-prepayment-math-savings" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/learn/loans/loan-prepayment-math-savings" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/learn/loans/prepayment-penalties-nrb-rules</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/learn/loans/prepayment-penalties-nrb-rules" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/learn/loans/prepayment-penalties-nrb-rules" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/learn/loans/prepayment-penalties-nrb-rules" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/learn/loans/education-abroad-loan-nepal</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/learn/loans/education-abroad-loan-nepal" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/learn/loans/education-abroad-loan-nepal" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/learn/loans/education-abroad-loan-nepal" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/learn/mutual-funds</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/learn/mutual-funds" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/learn/mutual-funds" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/learn/mutual-funds" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/learn/mutual-funds/what-is-mutual-fund-nepal</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/learn/mutual-funds/what-is-mutual-fund-nepal" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/learn/mutual-funds/what-is-mutual-fund-nepal" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/learn/mutual-funds/what-is-mutual-fund-nepal" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/learn/mutual-funds/open-ended-vs-close-ended-schemes-nepal</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/learn/mutual-funds/open-ended-vs-close-ended-schemes-nepal" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/learn/mutual-funds/open-ended-vs-close-ended-schemes-nepal" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/learn/mutual-funds/open-ended-vs-close-ended-schemes-nepal" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/learn/mutual-funds/how-nav-is-calculated-nepal</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/learn/mutual-funds/how-nav-is-calculated-nepal" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/learn/mutual-funds/how-nav-is-calculated-nepal" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/learn/mutual-funds/how-nav-is-calculated-nepal" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/learn/mutual-funds/starting-online-sip-connectips-nepal</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/learn/mutual-funds/starting-online-sip-connectips-nepal" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/learn/mutual-funds/starting-online-sip-connectips-nepal" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/learn/mutual-funds/starting-online-sip-connectips-nepal" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/learn/mutual-funds/dividend-reinvestment-plan-drep-nepal</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/learn/mutual-funds/dividend-reinvestment-plan-drep-nepal" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/learn/mutual-funds/dividend-reinvestment-plan-drep-nepal" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/learn/mutual-funds/dividend-reinvestment-plan-drep-nepal" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/learn/mutual-funds/systematic-withdrawal-plan-swp-pension</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/learn/mutual-funds/systematic-withdrawal-plan-swp-pension" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/learn/mutual-funds/systematic-withdrawal-plan-swp-pension" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/learn/mutual-funds/systematic-withdrawal-plan-swp-pension" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/learn/digital-payments</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/learn/digital-payments" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/learn/digital-payments" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/learn/digital-payments" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/learn/digital-payments/nepal-payment-rails-nchl-connectips</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/learn/digital-payments/nepal-payment-rails-nchl-connectips" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/learn/digital-payments/nepal-payment-rails-nchl-connectips" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/learn/digital-payments/nepal-payment-rails-nchl-connectips" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/learn/digital-payments/esewa-vs-khalti-vs-mobile-banking</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/learn/digital-payments/esewa-vs-khalti-vs-mobile-banking" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/learn/digital-payments/esewa-vs-khalti-vs-mobile-banking" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/learn/digital-payments/esewa-vs-khalti-vs-mobile-banking" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/learn/digital-payments/fonepay-nepalpay-qr-interoperability</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/learn/digital-payments/fonepay-nepalpay-qr-interoperability" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/learn/digital-payments/fonepay-nepalpay-qr-interoperability" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/learn/digital-payments/fonepay-nepalpay-qr-interoperability" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/learn/digital-payments/nrb-digital-transaction-limits-fees</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/learn/digital-payments/nrb-digital-transaction-limits-fees" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/learn/digital-payments/nrb-digital-transaction-limits-fees" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/learn/digital-payments/nrb-digital-transaction-limits-fees" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/learn/digital-payments/otp-scams-phishing-defense-nepal</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/learn/digital-payments/otp-scams-phishing-defense-nepal" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/learn/digital-payments/otp-scams-phishing-defense-nepal" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/learn/digital-payments/otp-scams-phishing-defense-nepal" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/learn/digital-payments/reporting-digital-financial-fraud-nepal-police</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/learn/digital-payments/reporting-digital-financial-fraud-nepal-police" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/learn/digital-payments/reporting-digital-financial-fraud-nepal-police" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/learn/digital-payments/reporting-digital-financial-fraud-nepal-police" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/learn/digital-payments/reversing-wrong-digital-transfer-nepal</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/learn/digital-payments/reversing-wrong-digital-transfer-nepal" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/learn/digital-payments/reversing-wrong-digital-transfer-nepal" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/learn/digital-payments/reversing-wrong-digital-transfer-nepal" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/learn/business</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/learn/business" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/learn/business" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/learn/business" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/learn/business/sole-proprietorship-vs-pvt-ltd-nepal</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/learn/business/sole-proprietorship-vs-pvt-ltd-nepal" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/learn/business/sole-proprietorship-vs-pvt-ltd-nepal" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/learn/business/sole-proprietorship-vs-pvt-ltd-nepal" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/learn/business/company-registration-ocr-step-by-step</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/learn/business/company-registration-ocr-step-by-step" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/learn/business/company-registration-ocr-step-by-step" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/learn/business/company-registration-ocr-step-by-step" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/learn/business/pan-vs-vat-thresholds-nepal</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/learn/business/pan-vs-vat-thresholds-nepal" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/learn/business/pan-vs-vat-thresholds-nepal" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/learn/business/pan-vs-vat-thresholds-nepal" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/learn/business/vendor-tds-withholding-audit-nepal</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/learn/business/vendor-tds-withholding-audit-nepal" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/learn/business/vendor-tds-withholding-audit-nepal" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/learn/business/vendor-tds-withholding-audit-nepal" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/learn/business/annual-roc-filing-agm-minutes-nepal</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/learn/business/annual-roc-filing-agm-minutes-nepal" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/learn/business/annual-roc-filing-agm-minutes-nepal" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/learn/business/annual-roc-filing-agm-minutes-nepal" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/learn/business/hiring-ssf-labor-act-nepal</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/learn/business/hiring-ssf-labor-act-nepal" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/learn/business/hiring-ssf-labor-act-nepal" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/learn/business/hiring-ssf-labor-act-nepal" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/learn/economics</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/learn/economics" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/learn/economics" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/learn/economics" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/learn/economics/nrb-monetary-policy-explained-nepal</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/learn/economics/nrb-monetary-policy-explained-nepal" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/learn/economics/nrb-monetary-policy-explained-nepal" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/learn/economics/nrb-monetary-policy-explained-nepal" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/learn/economics/cd-ratio-liquidity-crisis-nepal</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/learn/economics/cd-ratio-liquidity-crisis-nepal" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/learn/economics/cd-ratio-liquidity-crisis-nepal" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/learn/economics/cd-ratio-liquidity-crisis-nepal" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/learn/economics/remittance-nepal-economic-lifeline</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/learn/economics/remittance-nepal-economic-lifeline" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/learn/economics/remittance-nepal-economic-lifeline" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/learn/economics/remittance-nepal-economic-lifeline" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/learn/economics/inr-npr-currency-peg-inflation</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/learn/economics/inr-npr-currency-peg-inflation" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/learn/economics/inr-npr-currency-peg-inflation" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/learn/economics/inr-npr-currency-peg-inflation" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/learn/economics/decoding-nepal-federal-budget-jestha-15</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/learn/economics/decoding-nepal-federal-budget-jestha-15" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/learn/economics/decoding-nepal-federal-budget-jestha-15" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/learn/economics/decoding-nepal-federal-budget-jestha-15" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/learn/economics/internal-external-debt-nepal-gdp</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/learn/economics/internal-external-debt-nepal-gdp" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/learn/economics/internal-external-debt-nepal-gdp" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/learn/economics/internal-external-debt-nepal-gdp" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/learn/productivity</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/learn/productivity" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/learn/productivity" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/learn/productivity" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/learn/productivity/why-detailed-budgeting-fails</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/learn/productivity/why-detailed-budgeting-fails" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/learn/productivity/why-detailed-budgeting-fails" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/learn/productivity/why-detailed-budgeting-fails" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/learn/productivity/notion-spreadsheet-money-systems</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/learn/productivity/notion-spreadsheet-money-systems" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/learn/productivity/notion-spreadsheet-money-systems" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/learn/productivity/notion-spreadsheet-money-systems" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/learn/productivity/30-minute-monthly-financial-checkin</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/learn/productivity/30-minute-monthly-financial-checkin" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/learn/productivity/30-minute-monthly-financial-checkin" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/learn/productivity/30-minute-monthly-financial-checkin" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/learn/productivity/organizing-tax-receipts-banking-documents</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/learn/productivity/organizing-tax-receipts-banking-documents" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/learn/productivity/organizing-tax-receipts-banking-documents" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/learn/productivity/organizing-tax-receipts-banking-documents" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/learn/productivity/preventing-lifestyle-inflation-nepal</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/learn/productivity/preventing-lifestyle-inflation-nepal" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/learn/productivity/preventing-lifestyle-inflation-nepal" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/learn/productivity/preventing-lifestyle-inflation-nepal" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/learn/productivity/annual-net-worth-audit-goal-setting</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/learn/productivity/annual-net-worth-audit-goal-setting" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/learn/productivity/annual-net-worth-audit-goal-setting" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/learn/productivity/annual-net-worth-audit-goal-setting" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/learn/retirement-planning</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/learn/retirement-planning" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/learn/retirement-planning" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/learn/retirement-planning" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/learn/retirement-planning/cost-of-delay-retirement-nepal</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/learn/retirement-planning/cost-of-delay-retirement-nepal" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/learn/retirement-planning/cost-of-delay-retirement-nepal" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/learn/retirement-planning/cost-of-delay-retirement-nepal" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/learn/retirement-planning/calculating-retirement-corpus-nepal</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/learn/retirement-planning/calculating-retirement-corpus-nepal" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/learn/retirement-planning/calculating-retirement-corpus-nepal" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/learn/retirement-planning/calculating-retirement-corpus-nepal" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/learn/retirement-planning/social-security-fund-ssf-pension-model</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/learn/retirement-planning/social-security-fund-ssf-pension-model" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/learn/retirement-planning/social-security-fund-ssf-pension-model" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/learn/retirement-planning/social-security-fund-ssf-pension-model" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/learn/retirement-planning/citizen-investment-trust-cit-epf-nepal</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/learn/retirement-planning/citizen-investment-trust-cit-epf-nepal" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/learn/retirement-planning/citizen-investment-trust-cit-epf-nepal" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/learn/retirement-planning/citizen-investment-trust-cit-epf-nepal" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/learn/retirement-planning/4-percent-rule-adapted-for-nepal</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/learn/retirement-planning/4-percent-rule-adapted-for-nepal" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/learn/retirement-planning/4-percent-rule-adapted-for-nepal" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/learn/retirement-planning/4-percent-rule-adapted-for-nepal" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/learn/retirement-planning/swp-mutual-fund-retirement-income-nepal</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/learn/retirement-planning/swp-mutual-fund-retirement-income-nepal" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/learn/retirement-planning/swp-mutual-fund-retirement-income-nepal" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/learn/retirement-planning/swp-mutual-fund-retirement-income-nepal" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/learn/retirement-planning/healthcare-costs-in-retirement-nepal</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/learn/retirement-planning/healthcare-costs-in-retirement-nepal" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/learn/retirement-planning/healthcare-costs-in-retirement-nepal" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/learn/retirement-planning/healthcare-costs-in-retirement-nepal" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/learn/guides/complete-pan-guide</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/learn/guides/complete-pan-guide" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/learn/guides/complete-pan-guide" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/learn/guides/complete-pan-guide" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/learn/guides/complete-meroshare-guide</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/learn/guides/complete-meroshare-guide" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/learn/guides/complete-meroshare-guide" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/learn/guides/complete-meroshare-guide" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/learn/guides/complete-sip-guide</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/learn/guides/complete-sip-guide" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/learn/guides/complete-sip-guide" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/learn/guides/complete-sip-guide" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/learn/guides/complete-tms-guide</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/learn/guides/complete-tms-guide" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/learn/guides/complete-tms-guide" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/learn/guides/complete-tms-guide" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/learn/guides/complete-mutual-fund-guide</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/learn/guides/complete-mutual-fund-guide" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/learn/guides/complete-mutual-fund-guide" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/learn/guides/complete-mutual-fund-guide" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/learn/guides/complete-income-tax-guide</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/learn/guides/complete-income-tax-guide" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/learn/guides/complete-income-tax-guide" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/learn/guides/complete-income-tax-guide" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/learn/guides/complete-home-loan-guide</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/learn/guides/complete-home-loan-guide" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/learn/guides/complete-home-loan-guide" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/learn/guides/complete-home-loan-guide" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/learn/guides/complete-banking-guide</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/learn/guides/complete-banking-guide" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/learn/guides/complete-banking-guide" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/learn/guides/complete-banking-guide" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/learn/guides/complete-insurance-guide</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/learn/guides/complete-insurance-guide" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/learn/guides/complete-insurance-guide" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/learn/guides/complete-insurance-guide" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/learn/guides/complete-retirement-planning-guide</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/learn/guides/complete-retirement-planning-guide" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/learn/guides/complete-retirement-planning-guide" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/learn/guides/complete-retirement-planning-guide" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/learn/guides/complete-budgeting-guide</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/learn/guides/complete-budgeting-guide" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/learn/guides/complete-budgeting-guide" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/learn/guides/complete-budgeting-guide" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/learn/guides/complete-business-guide</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/learn/guides/complete-business-guide" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/learn/guides/complete-business-guide" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/learn/guides/complete-business-guide" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/learn/guides/complete-digital-payments-guide</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/learn/guides/complete-digital-payments-guide" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/learn/guides/complete-digital-payments-guide" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/learn/guides/complete-digital-payments-guide" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/learn/guides/complete-ipo-guide</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/learn/guides/complete-ipo-guide" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/learn/guides/complete-ipo-guide" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/learn/guides/complete-ipo-guide" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/learn/guides/complete-cdsc-guide</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/learn/guides/complete-cdsc-guide" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/learn/guides/complete-cdsc-guide" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/learn/guides/complete-cdsc-guide" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/learn/guides/complete-nepal-remittance-guide</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/learn/guides/complete-nepal-remittance-guide" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/learn/guides/complete-nepal-remittance-guide" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/learn/guides/complete-nepal-remittance-guide" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/learn/guides/complete-cibil-credit-score-guide</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/learn/guides/complete-cibil-credit-score-guide" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/learn/guides/complete-cibil-credit-score-guide" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/learn/guides/complete-cibil-credit-score-guide" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/learn/guides/complete-debenture-bonds-guide</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/learn/guides/complete-debenture-bonds-guide" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/learn/guides/complete-debenture-bonds-guide" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/learn/guides/complete-debenture-bonds-guide" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/learn/guides/complete-personal-net-worth-guide</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/learn/guides/complete-personal-net-worth-guide" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/learn/guides/complete-personal-net-worth-guide" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/learn/guides/complete-personal-net-worth-guide" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/learn/glossary/asset</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/learn/glossary/asset" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/learn/glossary/asset" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/learn/glossary/asset" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/learn/glossary/portfolio</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/learn/glossary/portfolio" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/learn/glossary/portfolio" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/learn/glossary/portfolio" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/learn/glossary/cagr</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/learn/glossary/cagr" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/learn/glossary/cagr" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/learn/glossary/cagr" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/learn/glossary/dividend</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/learn/glossary/dividend" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/learn/glossary/dividend" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/learn/glossary/dividend" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/learn/glossary/bonus-share</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/learn/glossary/bonus-share" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/learn/glossary/bonus-share" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/learn/glossary/bonus-share" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/learn/glossary/rights-share</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/learn/glossary/rights-share" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/learn/glossary/rights-share" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/learn/glossary/rights-share" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/learn/glossary/capital-gain</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/learn/glossary/capital-gain" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/learn/glossary/capital-gain" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/learn/glossary/capital-gain" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/learn/glossary/etf</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/learn/glossary/etf" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/learn/glossary/etf" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/learn/glossary/etf" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/learn/glossary/ipo</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/learn/glossary/ipo" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/learn/glossary/ipo" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/learn/glossary/ipo" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/learn/glossary/demat</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/learn/glossary/demat" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/learn/glossary/demat" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/learn/glossary/demat" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/learn/glossary/meroshare</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/learn/glossary/meroshare" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/learn/glossary/meroshare" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/learn/glossary/meroshare" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/learn/glossary/asba</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/learn/glossary/asba" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/learn/glossary/asba" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/learn/glossary/asba" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/learn/glossary/tms</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/learn/glossary/tms" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/learn/glossary/tms" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/learn/glossary/tms" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/learn/glossary/circuit-breaker</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/learn/glossary/circuit-breaker" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/learn/glossary/circuit-breaker" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/learn/glossary/circuit-breaker" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/learn/glossary/sip</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/learn/glossary/sip" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/learn/glossary/sip" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/learn/glossary/sip" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/learn/glossary/nav</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/learn/glossary/nav" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/learn/glossary/nav" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/learn/glossary/nav" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/learn/glossary/expense-ratio</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/learn/glossary/expense-ratio" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/learn/glossary/expense-ratio" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/learn/glossary/expense-ratio" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/learn/glossary/base-rate</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/learn/glossary/base-rate" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/learn/glossary/base-rate" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/learn/glossary/base-rate" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/learn/glossary/fixed-deposit</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/learn/glossary/fixed-deposit" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/learn/glossary/fixed-deposit" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/learn/glossary/fixed-deposit" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/learn/glossary/kyc</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/learn/glossary/kyc" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/learn/glossary/kyc" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/learn/glossary/kyc" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/learn/glossary/emi</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/learn/glossary/emi" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/learn/glossary/emi" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/learn/glossary/emi" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/learn/glossary/dsti</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/learn/glossary/dsti" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/learn/glossary/dsti" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/learn/glossary/dsti" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/learn/glossary/pan</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/learn/glossary/pan" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/learn/glossary/pan" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/learn/glossary/pan" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/learn/glossary/tds</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/learn/glossary/tds" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/learn/glossary/tds" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/learn/glossary/tds" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/learn/glossary/vat</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/learn/glossary/vat" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/learn/glossary/vat" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/learn/glossary/vat" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/learn/glossary/ssf</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/learn/glossary/ssf" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/learn/glossary/ssf" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/learn/glossary/ssf" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/learn/glossary/cit</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/learn/glossary/cit" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/learn/glossary/cit" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/learn/glossary/cit" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/learn/glossary/epf</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/learn/glossary/epf" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/learn/glossary/epf" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/learn/glossary/epf" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/learn/glossary/inflation</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/learn/glossary/inflation" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/learn/glossary/inflation" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/learn/glossary/inflation" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/learn/glossary/purchasing-power</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/learn/glossary/purchasing-power" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/learn/glossary/purchasing-power" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/learn/glossary/purchasing-power" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/learn/glossary/repo-rate</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/learn/glossary/repo-rate" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/learn/glossary/repo-rate" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/learn/glossary/repo-rate" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/learn/glossary/gdp</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/learn/glossary/gdp" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/learn/glossary/gdp" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/learn/glossary/gdp" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/learn/glossary/budget</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/learn/glossary/budget" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/learn/glossary/budget" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/learn/glossary/budget" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/learn/glossary/emergency-fund</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/learn/glossary/emergency-fund" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/learn/glossary/emergency-fund" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/learn/glossary/emergency-fund" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/learn/glossary/hlv</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/learn/glossary/hlv" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/learn/glossary/hlv" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/learn/glossary/hlv" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/learn/glossary/term-insurance</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/learn/glossary/term-insurance" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/learn/glossary/term-insurance" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/learn/glossary/term-insurance" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/learn/glossary/qr-payment</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/learn/glossary/qr-payment" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/learn/glossary/qr-payment" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/learn/glossary/qr-payment" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/calculators/sip</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/calculators/sip" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/calculators/sip" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/calculators/sip" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/calculators/emi</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/calculators/emi" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/calculators/emi" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/calculators/emi" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/calculators/swp</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/calculators/swp" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/calculators/swp" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/calculators/swp" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/calculators/home-loan</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/calculators/home-loan" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/calculators/home-loan" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/calculators/home-loan" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/calculators/personal-loan</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/calculators/personal-loan" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/calculators/personal-loan" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/calculators/personal-loan" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/calculators/vehicle-loan</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/calculators/vehicle-loan" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/calculators/vehicle-loan" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/calculators/vehicle-loan" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/calculators/fdrd</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/calculators/fdrd" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/calculators/fdrd" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/calculators/fdrd" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/calculators/tax</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/calculators/tax" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/calculators/tax" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/calculators/tax" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/calculators/share</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/calculators/share" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/calculators/share" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/calculators/share" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/calculators/cagr</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/calculators/cagr" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/calculators/cagr" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/calculators/cagr" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/calculators/inflation</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/calculators/inflation" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/calculators/inflation" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/calculators/inflation" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/calculators/retirement</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/calculators/retirement" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/calculators/retirement" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/calculators/retirement" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/courses/nepse-stock-market-basics</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/courses/nepse-stock-market-basics" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/courses/nepse-stock-market-basics" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/courses/nepse-stock-market-basics" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/courses/personal-finance-masterclass</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/courses/personal-finance-masterclass" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/courses/personal-finance-masterclass" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/courses/personal-finance-masterclass" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/resources/notion-finance-tracker</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/resources/notion-finance-tracker" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/resources/notion-finance-tracker" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/resources/notion-finance-tracker" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/resources/budget-planner-system</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/resources/budget-planner-system" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/resources/budget-planner-system" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/resources/budget-planner-system" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/blog/how-to-open-demat-account-nepal</loc>
+    <lastmod>2026-03-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/blog/how-to-open-demat-account-nepal" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/blog/how-to-open-demat-account-nepal" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/blog/how-to-open-demat-account-nepal" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/blog/budgeting-tips-nepali-salary</loc>
+    <lastmod>2026-03-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/blog/budgeting-tips-nepali-salary" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/blog/budgeting-tips-nepali-salary" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/blog/budgeting-tips-nepali-salary" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/blog/income-tax-nepal-explained</loc>
+    <lastmod>2026-03-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/blog/income-tax-nepal-explained" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/blog/income-tax-nepal-explained" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/blog/income-tax-nepal-explained" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/blog/esewa-vs-khalti-comparison</loc>
+    <lastmod>2026-02-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/blog/esewa-vs-khalti-comparison" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/blog/esewa-vs-khalti-comparison" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/blog/esewa-vs-khalti-comparison" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/blog/emergency-fund-guide-nepal</loc>
+    <lastmod>2026-02-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/blog/emergency-fund-guide-nepal" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/blog/emergency-fund-guide-nepal" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/blog/emergency-fund-guide-nepal" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/blog/ipo-investing-guide-nepal</loc>
+    <lastmod>2026-02-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/blog/ipo-investing-guide-nepal" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/blog/ipo-investing-guide-nepal" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/blog/ipo-investing-guide-nepal" />
+  </url>
+</urlset>
