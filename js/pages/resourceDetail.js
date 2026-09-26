@@ -53,8 +53,8 @@ export function renderResourceDetailPage(slug, preferredLang = null) {
         </div>
         <h1 class="cd-title">${resource.title}</h1>
         <div class="cd-instructor">
-          <div class="cd-avatar"><img src="assets/images/founder.png" alt="Aakash Das" loading="lazy" decoding="async" /></div>
-          <span>Creator: <strong>${resource.creator}</strong></span>
+          <div class="cd-avatar"><img src="assets/images/aakash-das-founder-risepaisa.jpg" alt="${resource.creator}, founder of RisePaisa" loading="lazy" decoding="async" width="40" height="40" style="width:40px;height:40px;border-radius:var(--radius-full);object-fit:cover" /></div>
+          <span>Creator: ${resource.creator === 'Aakash Das' ? `<a href="${ROUTES.AAKASH_DAS}" style="color:inherit;font-weight:600;text-decoration:underline;text-underline-offset:2px">Aakash Das</a>` : `<strong>${resource.creator}</strong>`} (Founder of RisePaisa)</span>
         </div>
         <span class="cd-category-tag">${resource.category}</span>
       </div>

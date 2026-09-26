@@ -162,6 +162,16 @@ const routes = [
     nav: ROUTES.ABOUT
   },
   {
+    pattern: /^\/aakash-das\/?$/,
+    load: () => import('./pages/aakashDas.js'),
+    render: (m, p, mod) => mod.renderAakashDasPage(),
+    init: (m, p, mod) => mod.initAakashDasPage(),
+    nav: ROUTES.ABOUT
+  },
+  // Legacy author/founder aliases -> safe direct redirects
+  { pattern: /^\/(?:author|team|about)\/aakash(?:-das)?\/?$/, redirect: () => ROUTES.AAKASH_DAS },
+  { pattern: /^\/aakash\/?$/, redirect: () => ROUTES.AAKASH_DAS },
+  {
     pattern: /^\/contact\/?$/,
     load: () => import('./pages/contact.js'),
     render: (m, p, mod) => mod.renderContactPage(),
@@ -175,6 +185,8 @@ const routes = [
   { pattern: /^\/refund-policy\/?$/, load: () => import('./pages/legal.js'), render: (m, p, mod) => mod.renderLegalPage('refund'), init: (m, p, mod) => mod.initLegalPage(), nav: null },
   { pattern: /^\/refund\/?$/, redirect: () => ROUTES.REFUND },
   { pattern: /^\/disclaimer\/?$/, load: () => import('./pages/legal.js'), render: (m, p, mod) => mod.renderLegalPage('disclaimer'), init: (m, p, mod) => mod.initLegalPage(), nav: null },
+  { pattern: /^\/editorial-policy\/?$/, load: () => import('./pages/editorialPolicy.js'), render: (m, p, mod) => mod.renderEditorialPolicyPage(), init: (m, p, mod) => mod.initEditorialPolicyPage(), nav: null },
+  { pattern: /^\/editorial\/?$/, redirect: () => ROUTES.EDITORIAL_POLICY },
   { pattern: /^\/faq\/?$/, load: () => import('./pages/legal.js'), render: (m, p, mod) => mod.renderLegalPage('faq'), init: (m, p, mod) => mod.initLegalPage(), nav: null },
 
   // 10. Retired Legacy Routes -> Safe Redirects

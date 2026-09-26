@@ -30,13 +30,16 @@ export function renderAboutPage() {
           <h2 class="about-section-heading">Our Story</h2>
           <div class="about-story-content">
             <p>
-              risePaisa was built on a simple reality: people in Nepal are trying to improve their financial life, but they lack clear, reliable direction.
+              <strong>RisePaisa is a Nepal-focused financial education platform founded by Aakash Das.</strong>
             </p>
             <p>
-              The problem is not effort, but confusion. Scattered information, unclear advice, and no structured path make it difficult to make the right financial decisions.
+              The platform was built on a simple reality: people across Nepal want to improve their financial lives, build wealth, and invest prudently, but lack clear, practical, and verified direction.
             </p>
             <p>
-              risePaisa brings clarity. We simplify how money works in Nepal and turn it into practical, step-by-step systems that help you earn better, manage smarter, and build real financial stability over time.
+              The challenge is not effort, but confusion. Scattered information, unverified social media tips, and complex jargon make it difficult to make the right financial choices.
+            </p>
+            <p>
+              RisePaisa brings clarity. We demystify how money works in Nepal—covering personal budgeting, NEPSE investing, income taxation, and digital banking—turning knowledge into practical, step-by-step systems that help Nepali learners earn better, manage smarter, and build lasting financial stability.
             </p>
           </div>
         </div>
@@ -173,11 +176,13 @@ export function renderAboutPage() {
             <div class="founder-photo-col">
               <div class="founder-photo-card">
                 <img
-                  src="assets/images/founder.png"
-                  alt="Aakash Das | Founder of risePaisa"
+                  src="assets/images/aakash-das-founder-risepaisa.jpg"
+                  alt="Aakash Das, founder of RisePaisa"
                   class="founder-photo-img"
                   loading="lazy"
                   decoding="async"
+                  width="1563"
+                  height="1563"
                 >
                 <div class="founder-photo-glow"></div>
               </div>
@@ -186,12 +191,14 @@ export function renderAboutPage() {
             <!-- Right Column: Founder Information, Bio, Stats, Actions -->
             <div class="founder-info-col">
               <div class="founder-header-block">
-                <span class="founder-badge">Founder & Lead Educator</span>
-                <h2 class="founder-name">Aakash Das</h2>
+                <span class="founder-badge">Founder of RisePaisa</span>
+                <h2 class="founder-name">
+                  <a href="${ROUTES.AAKASH_DAS}" style="color:inherit;text-decoration:none">Aakash Das</a>
+                </h2>
                 <div class="founder-titles-list">
-                  <span>Founder, risePaisa</span>
+                  <span>Founder of RisePaisa</span>
                   <span class="founder-title-dot">•</span>
-                  <span>Financial Educator</span>
+                  <span>Finance Educator</span>
                   <span class="founder-title-dot">•</span>
                   <span>Content Creator</span>
                 </div>
@@ -199,35 +206,21 @@ export function renderAboutPage() {
 
               <div class="founder-bio-block">
                 <p>
-                  Aakash Das is building a new standard for financial education in Nepal. He founded risePaisa to address a critical gap: the absence of clear, structured financial guidance tailored to Nepal.
+                  Aakash Das is the founder of RisePaisa and a finance educator and content creator focused on making financial concepts easier to understand for a Nepali audience.
                 </p>
                 <p>
-                  His approach is direct: remove confusion, focus on what works in Nepal, and teach in a way that leads to real execution rather than just knowledge.
+                  He founded RisePaisa to address a critical gap: the absence of clear, structured financial guidance tailored to Nepal's economic reality. His approach is direct: remove confusion, focus on what works in Nepal, and teach in a way that leads to disciplined execution and long-term financial stability.
                 </p>
-              </div>
-
-              <!-- 4 Clean Statistic Cards -->
-              <div class="founder-stats-grid">
-                <div class="founder-stat-card">
-                  <span class="founder-stat-number">500+</span>
-                  <span class="founder-stat-label">Students</span>
-                </div>
-                <div class="founder-stat-card">
-                  <span class="founder-stat-number">10K+</span>
-                  <span class="founder-stat-label">Content Views</span>
-                </div>
-                <div class="founder-stat-card">
-                  <span class="founder-stat-number">100%</span>
-                  <span class="founder-stat-label">Nepal Focused</span>
-                </div>
-                <div class="founder-stat-card">
-                  <span class="founder-stat-number">Growing</span>
-                  <span class="founder-stat-label">Learning Community</span>
-                </div>
               </div>
 
               <!-- Action Buttons -->
               <div class="founder-actions-row">
+                <a
+                  href="${ROUTES.AAKASH_DAS}"
+                  class="btn btn-secondary founder-btn-profile"
+                >
+                  View Profile & Authored Work ${ICONS.arrowRight}
+                </a>
                 <a
                   href="https://wa.me/${getWhatsApp()}?text=${encodeURIComponent('Hi Aakash, I would like to connect and learn more about risePaisa.')}"
                   target="_blank"
@@ -238,7 +231,7 @@ export function renderAboutPage() {
                 </a>
                 <a
                   href="${ROUTES.CONTACT}"
-                  class="btn btn-secondary founder-btn-secondary"
+                  class="btn btn-ghost founder-btn-secondary"
                 >
                   ${ICONS.mail} Contact risePaisa
                 </a>

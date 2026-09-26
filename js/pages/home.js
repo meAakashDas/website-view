@@ -186,17 +186,20 @@ export function renderHomePage() {
       <div class="container">
         <div class="about-teaser">
           <div class="about-teaser-img">
-            <img src="assets/images/founder.png" alt="Aakash Das | Founder of risePaisa" loading="lazy" decoding="async">
+            <img src="assets/images/aakash-das-founder-risepaisa.jpg" alt="Aakash Das, founder of RisePaisa" loading="lazy" decoding="async" width="500" height="500">
           </div>
           <div>
             <h2>Why risePaisa?</h2>
             <p style="font-size:var(--text-lg);margin-bottom:var(--space-4)">
-              Most financial advice doesn’t work in Nepal. Different rules, different systems, different reality.
+              Financial education built specifically for Nepal. Different rules, different systems, different reality.
             </p>
             <p>
-             risePaisa fixes that. Founded by Aakash Das, it gives Nepali youth clear, practical knowledge to earn, manage, and invest money the right way - based on how Nepal actually works.
+              risePaisa fixes that. Founded by <a href="${ROUTES.AAKASH_DAS}" style="color:var(--color-accent);font-weight:600;text-decoration:none">Aakash Das</a>, finance educator and content creator, it gives Nepali youth clear, practical knowledge to earn, manage, and invest money the right way — based on how Nepal actually works.
             </p>
-            <a href="${ROUTES.ABOUT}" class="btn btn-secondary" style="margin-top:var(--space-6)">Learn More About Us ${ICONS.arrowRight}</a>
+            <div style="display:flex;gap:var(--space-3);align-items:center;flex-wrap:wrap;margin-top:var(--space-6)">
+              <a href="${ROUTES.ABOUT}" class="btn btn-secondary">About RisePaisa ${ICONS.arrowRight}</a>
+              <a href="${ROUTES.AAKASH_DAS}" class="btn btn-ghost">Meet the Founder ${ICONS.arrowRight}</a>
+            </div>
           </div>
         </div>
       </div>

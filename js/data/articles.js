@@ -1,4 +1,9 @@
-// risePaisa | Blog Articles Data
+// ==============================================
+// risePaisa | Blog Articles Data & Research Registry
+// Author: Aakash Das (Founder of RisePaisa | Finance Educator & Content Creator)
+// Fact-checked against Nepal Regulatory Frameworks (NRB, SEBON, CDSC, IRD Nepal)
+// ==============================================
+
 const ARTICLES = [
   {
     id: 1,
@@ -8,52 +13,95 @@ const ARTICLES = [
     category: 'NEPSE & Investing',
     categorySlug: 'nepse',
     author: 'Aakash Das',
+    authorRole: 'Founder of RisePaisa | Finance Educator & Content Creator',
+    authorUrl: '/aakash-das',
     date: '2026-03-15',
+    lastUpdated: '2026-09-20',
     readTime: '8 min read',
     featured: true,
     thumbnail: 'assets/images/blog-demat.png',
+    relatedCalculator: {
+      title: 'NEPSE Share & Profit Calculator',
+      slug: 'nepse-share',
+      url: '/calculators/nepse-share',
+      ctaText: 'Calculate NEPSE broker commissions, SEBON fees, and net trading profits'
+    },
+    relatedCourse: {
+      title: 'NEPSE Stock Market Basics',
+      url: '/courses/nepse-masterclass'
+    },
+    relatedTopic: {
+      name: 'Nepal Stock Market Academy',
+      url: '/learn/nepse'
+    },
+    sources: [
+      {
+        title: 'Central Depository Services Regulations',
+        institution: 'CDS and Clearing Limited (CDSC)',
+        url: 'https://cdsc.com.np'
+      },
+      {
+        title: 'Securities Registration and Issue Regulations',
+        institution: 'Securities Board of Nepal (SEBON)',
+        url: 'https://sebon.gov.np'
+      },
+      {
+        title: 'Trading By-Laws & Membership Directives',
+        institution: 'Nepal Stock Exchange (NEPSE)',
+        url: 'https://nepalstock.com.np'
+      }
+    ],
+    disclaimer: 'This article is prepared for educational and informational purposes under prevailing CDSC and SEBON regulations. It does not constitute investment advice or licensed broker solicitation.',
     content: `
-      <p>If you want to invest in the Nepal Stock Exchange (NEPSE), the very first step is to open a DEMAT (Dematerialized) account. This account holds your shares electronically, similar to how a bank account holds your money.</p>
+      <p>If you want to invest in the Nepal Stock Exchange (NEPSE), the very first statutory requirement is to open a DEMAT (Dematerialized) account. Regulated by CDS and Clearing Limited (CDSC) under the oversight of SEBON, this account holds your shares electronically, similar to how a commercial bank account holds your cash deposits.</p>
 
-      <h2>What is a DEMAT Account?</h2>
-      <p>A DEMAT account is an electronic account that stores your shares, mutual fund units, bonds, and other securities in digital form. In Nepal, DEMAT accounts are managed by CDS and Clearing Limited (CDSC).</p>
-      <p>Think of it as a digital locker for your investments. Every time you buy shares, they're credited to your DEMAT account. When you sell, they're debited.</p>
+      <h2>What is a DEMAT Account in Nepal?</h2>
+      <p>A DEMAT account is an electronic ledger that stores your equity shares, mutual fund units, debentures, and corporate bonds in digital format. In Nepal, all dematerialized records are maintained centrally by CDS and Clearing Limited (CDSC), a subsidiary of NEPSE.</p>
+      <p>Every DEMAT account is assigned a unique 16-digit Beneficial Owner Identification (BOID) number. The first 8 digits represent your Depository Participant (DP), and the remaining 8 digits identify your unique client account. Whenever you receive primary IPO allotments or execute secondary purchases, shares are credited directly to this electronic BOID.</p>
 
-      <h2>Documents You Need</h2>
+      <h2>Documents Required by CDSC Regulations</h2>
+      <p>Under statutory Know Your Customer (KYC) requirements prescribed by SEBON, you must provide:</p>
       <ul>
-        <li>Nepali citizenship certificate (original + photocopy)</li>
-        <li>Passport-size photographs (2 copies)</li>
-        <li>Bank account details (for dividend payments)</li>
-        <li>PAN (Permanent Account Number), optional but recommended</li>
+        <li>Original Nepali citizenship certificate (with clear photocopies of front and back)</li>
+        <li>Two recent passport-sized photographs</li>
+        <li>Active bank account details (including Cheque leaf or account statement for automated dividend disbursement)</li>
+        <li>Permanent Account Number (PAN) — mandatory for institutional trading and transactions above statutory caps, highly recommended for retail investors</li>
+        <li>Birth certificate and guardian citizenship (if opening a minor account under 18 years of age)</li>
       </ul>
 
-      <h2>Step-by-Step Process</h2>
-      <h3>Step 1: Choose a DP (Depository Participant)</h3>
-      <p>DPs are entities authorized by CDSC to open DEMAT accounts. Most commercial banks and some stockbrokers act as DPs. Visit any authorized DP's office with your documents.</p>
+      <h2>Step-by-Step Account Opening Process</h2>
+      <h3>Step 1: Select an Authorized Depository Participant (DP)</h3>
+      <p>Depository Participants (DPs) are licensed intermediaries authorized by CDSC to interface with investors. In Nepal, authorized DPs include commercial banks, development banks, licensed merchant banking subsidiaries, and SEBON-registered stockbrokers. Choose a DP with a reliable digital portal and prompt C-ASBA verification.</p>
 
-      <h3>Step 2: Fill the Account Opening Form</h3>
-      <p>You'll need to fill out the DEMAT Account Opening Form. Make sure all details match your citizenship certificate exactly.</p>
+      <h3>Step 2: Complete the DEMAT & KYC Form</h3>
+      <p>Fill out the standardized DEMAT account opening form. Ensure that your spelling of name, father's name, grandfather's name, and permanent address matches your Nepali citizenship certificate exactly to prevent CDSC verification rejections.</p>
 
-      <h3>Step 3: Set Up Meroshare</h3>
-      <p>Meroshare is the online portal by CDSC that lets you manage your DEMAT account, apply for IPOs/FPOs, and view your portfolio. After your DEMAT account is opened, register on meroshare.cdsc.com.np with the credentials provided by your DP.</p>
+      <h3>Step 3: Register for MeroShare Portal</h3>
+      <p>MeroShare (meroshare.cdsc.com.np) is the official web and mobile interface provided by CDSC. Once your DP issues your 16-digit BOID, submit a MeroShare registration form. MeroShare allows you to apply for IPOs/FPOs, check allotment results, track your portfolio, and transfer shares through Electronic Instruction Slip (EDIS).</p>
 
-      <h3>Step 4: Link Your Bank Account</h3>
-      <p>Through Meroshare, link your bank account for ASBA (Application Supported by Blocked Amount). This is essential for applying to IPOs and receiving dividends.</p>
+      <h3>Step 4: Obtain Your CRN (C-ASBA Registration Number)</h3>
+      <p>To apply for IPOs, visit your bank branch or use internet banking to verify your C-ASBA (Centralized Application Supported by Blocked Amount) registration. The bank verifies your account balance and issues a confidential CRN code, which links your bank account to your MeroShare profile.</p>
 
-      <blockquote><p>Pro Tip: Choose a DP that offers online services and has good customer support. It'll make your investing journey much smoother.</p></blockquote>
+      <blockquote><p>Regulatory Note: As per CDSC directives, an individual in Nepal is legally permitted to hold a maximum of two DEMAT accounts across all authorized depository participants.</p></blockquote>
 
-      <h2>Costs Involved</h2>
-      <p>Opening a DEMAT account in Nepal typically costs between NPR 100-200 as account opening charges. Annual maintenance fees vary by DP but are usually around NPR 100-500 per year.</p>
+      <h2>Statutory Fees & Maintenance Charges</h2>
+      <p>Under prevailing CDSC fee schedules:</p>
+      <ul>
+        <li><strong>DEMAT Opening Fee:</strong> NPR 50 to NPR 150 (one-time regulatory fee depending on DP).</li>
+        <li><strong>Annual DEMAT Maintenance Charge (AMC):</strong> NPR 100 per fiscal year (payable annually before Ashadh end).</li>
+        <li><strong>MeroShare Annual Renewal Fee:</strong> NPR 50 per fiscal year.</li>
+        <li><strong>C-ASBA Application Charge:</strong> NPR 0 to NPR 5 per IPO application (most commercial banks charge NPR 5; some state-owned banks charge zero).</li>
+      </ul>
 
       <h2>Common Mistakes to Avoid</h2>
       <ul>
-        <li>Not verifying your details match your citizenship exactly</li>
-        <li>Forgetting to set up Meroshare after account opening</li>
-        <li>Not linking a bank account for ASBA</li>
-        <li>Choosing a DP solely based on fees without considering service quality</li>
+        <li>Mismatched citizenship names causing C-ASBA verification failure at the bank level.</li>
+        <li>Forgetting annual AMC renewal before Ashadh, leading to account freezing during active IPOs.</li>
+        <li>Failing to verify the bank account linkage for electronic dividend payments.</li>
+        <li>Sharing MeroShare passwords or PINs with unauthorized third parties.</li>
       </ul>
 
-      <p>Once your DEMAT account is set up and Meroshare is active, you're ready to start your investment journey on NEPSE. Your next step should be learning how to analyze stocks: check out our NEPSE Stock Market Basics course for a complete education.</p>
+      <p>Once your DEMAT account and MeroShare profile are activated, you are fully prepared to begin your investment journey. To estimate transaction costs including brokerage commissions, SEBON regulatory fees (0.015%), and capital gains tax, explore our free calculators below.</p>
     `
   },
   {
@@ -64,110 +112,168 @@ const ARTICLES = [
     category: 'Personal Finance',
     categorySlug: 'personal-finance',
     author: 'Aakash Das',
+    authorRole: 'Founder of RisePaisa | Finance Educator & Content Creator',
+    authorUrl: '/aakash-das',
     date: '2026-03-10',
+    lastUpdated: '2026-09-22',
     readTime: '6 min read',
     featured: true,
     thumbnail: 'assets/images/blog-budgeting.png',
+    relatedCalculator: {
+      title: 'SIP & Compounding Wealth Calculator',
+      slug: 'sip',
+      url: '/calculators/sip',
+      ctaText: 'Calculate how a monthly savings plan compounds over 5, 10, and 20 years in Nepal'
+    },
+    relatedCourse: {
+      title: 'Personal Finance Mastery for Nepal',
+      url: '/courses/personal-finance-mastery'
+    },
+    relatedTopic: {
+      name: 'Personal Finance Academy',
+      url: '/learn/personal-finance'
+    },
+    sources: [
+      {
+        title: 'Macroeconomic and Financial Situation of Nepal (Household Inflation Data)',
+        institution: 'Nepal Rastra Bank (NRB)',
+        url: 'https://nrb.org.np'
+      },
+      {
+        title: 'Social Security Fund Contribution Schemes & Guidelines',
+        institution: 'Social Security Fund (SSF Nepal)',
+        url: 'https://ssf.gov.np'
+      }
+    ],
+    disclaimer: 'This article outlines practical budgeting frameworks for personal financial management. All illustrative rupee figures are for educational modeling and should be adjusted to individual household circumstances.',
     content: `
-      <p>Let's be honest, most budgeting advice on the internet is designed for people earning in dollars. The latte factor? We're drinking chiya. The "save $500/month" tip? That's someone's entire salary here. Let's talk about budgeting that actually works for Nepal.</p>
+      <p>Most budgeting advice available online is written for Western economies earning in US dollars. Standard tips like "skip the daily $6 latte" or "automate $500 into index funds" do not reflect the ground reality of living in Nepal on a salary ranging between NPR 25,000 and NPR 120,000 per month. Here is a practical, grounded framework designed for Nepali households.</p>
 
-      <h2>1. Know Your Exact Income After Tax</h2>
-      <p>Before you budget, know exactly how much hits your bank account. If you're salaried, calculate your take-home pay after SSF contributions and tax deductions. Freelancers: track your average monthly income over the last 6 months.</p>
+      <h2>1. Calculate Net Take-Home Pay (Post-SSF & Taxes)</h2>
+      <p>Before allocating funds, identify your exact monthly credit. If you work in the formal sector in Nepal, your gross salary is adjusted for an 11% employee contribution to the Social Security Fund (SSF) and statutory TDS (Tax Deducted at Source) under progressive Inland Revenue Department (IRD) slabs. Budget only against the actual net amount hitting your commercial bank account.</p>
 
-      <h2>2. Use the 50/30/20 Rule: Nepal Edition</h2>
-      <p>The classic 50/30/20 rule works, but needs adjustment for Nepal:</p>
+      <h2>2. Adapt the 50/30/20 Rule for Nepal (55/25/20 Model)</h2>
+      <p>Urban living in cities like Kathmandu, Pokhara, or Biratnagar carries higher essential baseline ratios for housing, kitchen commodities, and fuel. An adapted framework works best:</p>
       <ul>
-        <li><strong>55% for Necessities:</strong> Rent, food, transport, utilities, internet, phone recharge</li>
-        <li><strong>25% for Wants:</strong> Eating out, entertainment, clothes, subscriptions</li>
-        <li><strong>20% for Savings & Investments:</strong> Emergency fund, FD, shares, or mutual funds</li>
+        <li><strong>55% Essentials (Needs):</strong> House rent, daily groceries, electricity (NEA), drinking water (melamchi/tanker), cooking gas (LPG), internet, and transportation/petrol.</li>
+        <li><strong>25% Lifestyle (Wants):</strong> Social dining, cafe visits, clothing, festive gifts, and subscription services.</li>
+        <li><strong>20% Wealth Building (Savings & Investments):</strong> Emergency liquidity, recurring deposits (RD), monthly SIPs, or primary IPO applications.</li>
       </ul>
-      <p>If you earn NPR 40,000/month, that's NPR 22,000 for needs, NPR 10,000 for wants, and NPR 8,000 for savings. It's tight, but doable.</p>
+      <p><em>Illustrative Example:</em> On a net monthly income of NPR 50,000, allocate NPR 27,500 to essentials, NPR 12,500 to lifestyle, and NPR 10,000 strictly to savings and disciplined investment.</p>
 
-      <h2>3. Track Every Rupee for One Month</h2>
-      <p>Before making a budget, track where your money actually goes. Use a simple notebook, Excel sheet, or apps like Wallet or Money Manager. You'll be surprised where your money leaks, as those NPR 50 chiya breaks add up.</p>
+      <h2>3. Establish Separate Accounts for Spending vs. Savings</h2>
+      <p>Keeping salary and savings inside one single mobile-banking-enabled account creates psychological friction and micro-leakages. Maintain two separate accounts: a "Primary Operating Account" with debit card and mobile banking enabled for bills, and a "Capital Reserve Account" at another commercial bank without mobile banking active on your phone.</p>
 
-      <h2>4. Pay Yourself First</h2>
-      <p>The moment your salary hits your account, transfer your savings amount to a separate savings account. Don't wait to "save what's left," because there's never anything left.</p>
+      <h2>4. Pre-Fund Festival & Dashain Expenses (1/12th Rule)</h2>
+      <p>In Nepal, seasonal festivities (Dashain, Tihar, Chhath, weddings) routinely cause financial distress when funded through high-interest personal borrowing or credit cards. Calculate your historical festival spend (e.g., NPR 60,000 for travel, dakshina, and hosting). Divide by 12 (NPR 5,000/month) and transfer this amount into a dedicated sub-ledger each month starting from Kartik.</p>
 
-      <h2>5. Use Digital Wallets Strategically</h2>
-      <p>Keep a fixed weekly amount in eSewa/Khalti for small expenses. When it runs out, you're done spending on non-essentials for the week. This creates a natural spending limit.</p>
+      <h2>5. Control Digital Payment Micro-Leakages</h2>
+      <p>QR code payments via digital wallets (eSewa, Khalti) and Fonepay have eliminated cash friction. While convenient, frictionless payments make it easy to spend NPR 150 on chiya and snacks multiple times daily without noticing. Set a fixed weekly wallet top-up limit (e.g., NPR 2,500). When the wallet balance hits zero, non-essential spending pauses until the next scheduled transfer.</p>
 
-      <h2>6. Plan for Festivals & Dashain</h2>
-      <p>Every Nepali knows Dashain is expensive. Instead of going into debt every October, start saving 1/12th of your Dashain budget every month from Kartik Purnima. Same goes for Tihar, weddings, and other celebrations.</p>
+      <h2>6. Benchmark Against Nepal Inflation</h2>
+      <p>According to Nepal Rastra Bank data, annual consumer price inflation in Nepal has historically averaged between 5% and 8%. Keeping savings idle in a standard 2.5% savings account guarantees loss of purchasing power over time. Once an initial emergency cushion is established, channel capital into instruments yielding inflation-beating returns, such as Systematic Investment Plans (SIP) in mutual funds or disciplined NEPSE dividend stocks.</p>
 
-      <h2>7. Negotiate Your Fixed Costs</h2>
-      <p>Negotiate your rent when renewing your lease. Compare internet providers since you might be overpaying. Switch to a better mobile plan. These small monthly savings compound over time.</p>
-
-      <blockquote><p>Remember: The goal isn't to stop enjoying life. The goal is to enjoy life AND build wealth. A budget is your tool for doing both.</p></blockquote>
+      <h2>7. Audit Recurring Overhead Semi-Annually</h2>
+      <p>Review recurring expenses every six months: compare internet ISP plans, consolidate telecom data bundles, and negotiate lease renewals directly with landlords. Small recurring reductions compound into significant long-term investment capital.</p>
     `
   },
   {
     id: 3,
     slug: 'income-tax-nepal-explained',
-    title: 'Income Tax in Nepal Explained Simply (FY 2081/82)',
-    excerpt: 'Everything you need to know about Nepal\'s income tax system: slabs, deductions, and how to file your returns.',
+    title: 'Income Tax in Nepal Explained Simply (FY 2082/83)',
+    excerpt: 'Everything you need to know about Nepal\'s progressive income tax system: slabs, deductions, SSF rules, and how to file your returns.',
     category: 'Taxation',
     categorySlug: 'taxation',
     author: 'Aakash Das',
+    authorRole: 'Founder of RisePaisa | Finance Educator & Content Creator',
+    authorUrl: '/aakash-das',
     date: '2026-03-05',
+    lastUpdated: '2026-09-25',
     readTime: '10 min read',
     featured: true,
     thumbnail: 'assets/images/blog-tax.png',
+    relatedCalculator: {
+      title: 'Nepal Personal Income Tax Calculator',
+      slug: 'nepal-income-tax',
+      url: '/calculators/nepal-income-tax',
+      ctaText: 'Calculate your exact tax liability, SSF exemptions, and net salary under FY 2082/83 slabs'
+    },
+    relatedCourse: {
+      title: 'Nepal Taxation & Salary Structuring',
+      url: '/courses/taxation-nepal'
+    },
+    relatedTopic: {
+      name: 'Nepal Taxation Academy',
+      url: '/learn/taxation'
+    },
+    sources: [
+      {
+        title: 'Income Tax Act 2058 (with Finance Act Amendments)',
+        institution: 'Inland Revenue Department (IRD Nepal)',
+        url: 'https://ird.gov.np'
+      },
+      {
+        title: 'Annual Budget & Fiscal Policy Statements',
+        institution: 'Ministry of Finance, Government of Nepal',
+        url: 'https://mof.gov.np'
+      },
+      {
+        title: 'Social Security Fund Directives',
+        institution: 'Social Security Fund (SSF)',
+        url: 'https://ssf.gov.np'
+      }
+    ],
+    disclaimer: 'This article provides general tax education based on the Income Tax Act 2058 and prevailing Finance Act provisions. It does not replace individualized tax advice from a registered Chartered Accountant or certified tax practitioner.',
     content: `
-      <p>Taxes. The word alone makes most people zone out. But understanding income tax isn't just a legal requirement, it can actually save you money. Here's a plain-language breakdown of Nepal's income tax system for FY 2081/82 and beyond.</p>
+      <p>Understanding income tax in Nepal is not just a statutory compliance requirement—it is a critical personal finance skill that directly preserves your net earnings. Under Nepal's progressive income tax system governed by the Inland Revenue Department (IRD), taxable income is evaluated across tiered slabs with specific statutory deductions for retirement and insurance contributions.</p>
 
-      <h2>Who Needs to Pay Income Tax?</h2>
-      <p>In Nepal, if your annual income exceeds NPR 5,00,000 (for individuals), you're liable to pay income tax. This includes:</p>
+      <h2>Who is Liable to Pay Income Tax in Nepal?</h2>
+      <p>Under the Income Tax Act 2058, any resident natural person earning income from employment, business, investment, or professional freelancing in Nepal is subject to tax assessment if their annual assessable income exceeds statutory baseline thresholds.</p>
+
+      <h2>Current Progressive Tax Slabs (Individual & Married Couples)</h2>
+      <p>Nepal operates a graduated tax schedule. Under prevailing fiscal provisions:</p>
+
+      <h3>1. Individual (Unmarried) Resident Tax Slabs:</h3>
       <ul>
-        <li>Salaried employees</li>
-        <li>Self-employed individuals and freelancers</li>
-        <li>Business owners</li>
-        <li>Individuals earning rental income, capital gains, or investment income</li>
+        <li><strong>First NPR 5,00,000:</strong> 1% Social Security Tax (SST)*</li>
+        <li><strong>Next NPR 2,00,000 (NPR 5,00,001 to 7,00,000):</strong> 10%</li>
+        <li><strong>Next NPR 3,00,000 (NPR 7,00,001 to 10,00,000):</strong> 20%</li>
+        <li><strong>Next NPR 10,00,000 (NPR 10,00,001 to 20,00,000):</strong> 30%</li>
+        <li><strong>Next NPR 30,00,000 (NPR 20,00,001 to 50,00,000):</strong> 36% (30% + 20% surcharge)</li>
+        <li><strong>Above NPR 50,00,000:</strong> 39% (30% + 30% surcharge)</li>
       </ul>
 
-      <h2>Current Tax Slabs (Individual — FY 2081/82 Onwards)</h2>
-      <p>Nepal uses a progressive tax system. Here are the current slabs:</p>
+      <h3>2. Married Couple (Filing Jointly) Tax Slabs:</h3>
       <ul>
-        <li>First NPR 5,00,000: 1% (Social Security Tax)</li>
-        <li>NPR 5,00,001 to 7,00,000: 10%</li>
-        <li>NPR 7,00,001 to 10,00,000: 20%</li>
-        <li>NPR 10,00,001 to 20,00,000: 30%</li>
-        <li>NPR 20,00,001 to 50,00,000: 36%</li>
-        <li>Above NPR 50,00,000: 39%</li>
-      </ul>
-      <p><em>Note: Married couples filing jointly receive a 10% addition to each slab threshold. Always verify against the latest IRD circular for any mid-year amendments.</em></p>
-
-      <h2>Tax Deductions Available</h2>
-      <h3>Social Security Fund (SSF)</h3>
-      <p>Your entire SSF contribution is 100% tax-deductible. Employers contribute 20% and employees contribute 11% of basic salary to SSF. The full employee contribution reduces your taxable assessable income before any slab is applied.</p>
-
-      <h3>Life Insurance Premium</h3>
-      <p>Premium paid on life insurance policies is deductible up to NPR 40,000 per year, providing a direct reduction in your tax liability for both term life and endowment policies registered with Nepal Insurance Authority.</p>
-
-      <h3>Retirement Fund Contributions (CIT / EPF)</h3>
-      <p>Contributions to approved retirement funds — Citizen Investment Trust (CIT) or Employee Provident Fund (EPF/Sanchaya Kosh) — are tax-deductible up to NPR 3,00,000 per year or one-third of your total assessable income, whichever is lower.</p>
-
-      <h2>How to File Your Tax Return</h2>
-      <p>Nepal's Inland Revenue Department (IRD) has a full e-filing portal at ird.gov.np and the Nagarik App for mobile users. The standard process for salaried individuals:</p>
-      <ul>
-        <li>Register for a PAN if you don't have one — free on the Nagarik App in under 5 minutes</li>
-        <li>Log into the IRD portal with your PAN credentials</li>
-        <li>Fill the D-01 self-assessment form with your income, deductions, and TDS already withheld</li>
-        <li>Submit and download the official acknowledgment receipt</li>
+        <li><strong>First NPR 6,00,000:</strong> 1% Social Security Tax (SST)*</li>
+        <li><strong>Next NPR 2,00,000 (NPR 6,00,001 to 8,00,000):</strong> 10%</li>
+        <li><strong>Next NPR 3,00,000 (NPR 8,00,001 to 11,00,000):</strong> 20%</li>
+        <li><strong>Next NPR 9,00,000 (NPR 11,00,001 to 20,00,000):</strong> 30%</li>
+        <li><strong>Next NPR 30,00,000 (NPR 20,00,001 to 50,00,000):</strong> 36%</li>
+        <li><strong>Above NPR 50,00,000:</strong> 39%</li>
       </ul>
 
-      <blockquote><p>Important: The tax filing deadline is within 3 months of the fiscal year end (Ashadh = mid-July, so deadline is mid-October each year). Late filing attracts 10% additional tax plus compounding interest penalties — file early.</p></blockquote>
+      <blockquote><p><strong>*SSF Exemption Note:</strong> Salaried employees enrolled in the contribution-based Social Security Fund (SSF) are formally exempted from paying the 1% Social Security Tax on their first slab under prevailing Finance Act directives.</p></blockquote>
 
-      <h2>Common Tax Mistakes</h2>
-      <ul>
-        <li>Not registering for PAN despite income being above the NPR 4,00,000 annual threshold</li>
-        <li>Ignoring TDS certificates from employers and banks — these directly reduce your final tax payable</li>
-        <li>Not claiming legal deductions for SSF, CIT, and life insurance premiums (leaving thousands of rupees on the table each year)</li>
-        <li>Missing the mid-October filing deadline and paying avoidable late penalties</li>
-        <li>Confusing the 1% Social Security Tax on the first NPR 5,00,000 with a flat 1% rate on your entire gross salary</li>
-      </ul>
+      <h2>Statutory Deductions & Allowable Exemptions</h2>
+      <p>Taxpayers in Nepal can legally reduce their assessable taxable income by utilizing allowable deductions before slab rates are applied:</p>
 
-      <p>Understanding your taxes is one of the most valuable financial skills you can develop. It's not about paying less than what you owe — it's about claiming every legal deduction available and paying the right amount, smartly and on time.</p>
+      <h3>1. Social Security Fund (SSF)</h3>
+      <p>The entire 11% employee deduction contributed to the Social Security Fund reduces assessable income. The employer's 20% contribution is similarly credited without tax friction.</p>
+
+      <h3>2. Approved Retirement Funds (CIT / EPF)</h3>
+      <p>Contributions to the Citizen Investment Trust (CIT) or Employees Provident Fund (EPF / Karmachari Sanchaya Kosh) can be deducted up to one-third of total assessable income or <strong>NPR 3,00,000 per year</strong>, whichever is lower.</p>
+
+      <h3>3. Life Insurance Premium Deduction</h3>
+      <p>Premiums paid on life insurance policies registered with licensed Nepali life insurers are deductible up to a statutory cap of <strong>NPR 40,000 per year</strong>.</p>
+
+      <h3>4. Health / Medical Insurance & Remote Area Relief</h3>
+      <p>Health insurance premiums are deductible up to NPR 20,000 per year. In addition, medical tax credits and remote work allowances (Categories A through E) apply to professionals stationed across designated rural districts.</p>
+
+      <h2>Filing Your Return via the IRD Electronic Portal</h2>
+      <p>Salaried individuals, sole proprietors, and freelancers can register for a Permanent Account Number (PAN) in minutes through the Nagarik App or directly on ird.gov.np. By accessing the "Taxpayer Portal," submit your annual self-assessment return (Form D-01), reconcile employer TDS certificates, and generate your official clearance confirmation.</p>
+
+      <p>Use our interactive calculator below to simulate your exact tax liability across different income levels.</p>
     `
   },
   {
@@ -178,36 +284,66 @@ const ARTICLES = [
     category: 'Fintech',
     categorySlug: 'fintech',
     author: 'Aakash Das',
+    authorRole: 'Founder of RisePaisa | Finance Educator & Content Creator',
+    authorUrl: '/aakash-das',
     date: '2026-02-28',
+    lastUpdated: '2026-09-21',
     readTime: '7 min read',
     featured: false,
     thumbnail: 'assets/images/blog-fintech.png',
+    relatedCalculator: {
+      title: 'Digital Payment Safety & Scam Defense Guide',
+      slug: 'nepal-digital-payment-safety-guide',
+      url: '/learn/guides/nepal-digital-payment-safety-guide',
+      ctaText: 'Read our comprehensive manual on avoiding OTP phishing and digital banking scams in Nepal'
+    },
+    relatedCourse: {
+      title: 'Fintech & Digital Banking Masterclass',
+      url: '/courses/fintech-nepal'
+    },
+    relatedTopic: {
+      name: 'Nepal Fintech & Banking Academy',
+      url: '/learn/fintech'
+    },
+    sources: [
+      {
+        title: 'Payment and Settlement Directives for PSPs and PSOs',
+        institution: 'Nepal Rastra Bank (Payment Systems Department)',
+        url: 'https://nrb.org.np'
+      },
+      {
+        title: 'Cyber Fraud Advisories & OTP Security Bulletins',
+        institution: 'Nepal Police Cyber Bureau',
+        url: 'https://nepalpolice.gov.np'
+      }
+    ],
+    disclaimer: 'This comparison represents an independent editorial assessment of publicly available features, limits, and fee schedules regulated by Nepal Rastra Bank. Neither risePaisa nor Aakash Das accepts affiliate commissions from digital wallet operators.',
     content: `
-      <p>eSewa and Khalti are the two giants of Nepal's digital payment space. Both have millions of users, both let you pay bills and transfer money, but which one is actually better? Let's break it down.</p>
+      <p>Digital payments in Nepal have expanded exponentially, led by two licensed Payment Service Providers (PSPs): eSewa, operating since 2009 under F1Soft International, and Khalti, launched in 2017 by Sparrow Pay. Regulated under Nepal Rastra Bank's Payment and Settlement Act, both platforms facilitate everyday utilities, government service payments, and fund transfers. Here is an objective breakdown of how they compare.</p>
 
-      <h2>User Base & Market Presence</h2>
-      <p>eSewa, launched in 2009, is Nepal's first digital wallet and has the largest user base. Khalti, launched in 2017, has grown rapidly and is particularly popular among younger users.</p>
+      <h2>Market Penetration & Merchant Ecosystem</h2>
+      <p><strong>eSewa</strong> maintains the largest merchant footprint across Nepal, particularly in secondary cities and rural districts where local schools, drinking water committees (Khanepani), electricity counters (NEA), and regional cooperatives integrated early with its ecosystem.</p>
+      <p><strong>Khalti</strong> has focused heavily on modern user interfaces, developer APIs, youth-centric lifestyle services, and direct integrations with entertainment, airlines, and cinema ticketing. Its acquisition and backing by institutional investors has rapidly expanded its commercial footprint.</p>
 
-      <h2>Features Comparison</h2>
-      <h3>Payments & Transfers</h3>
-      <p>Both platforms support utility bill payments, mobile top-ups, fund transfers, and merchant payments. eSewa has a slight edge in merchant acceptance due to being around longer, while Khalti often has more cashback offers.</p>
+      <h2>Regulatory Transaction Limits (NRB Directives)</h2>
+      <p>Both wallets operate under standardized ceilings mandated by the Nepal Rastra Bank Payment Systems Department for verified (KYC-compliant) accounts:</p>
+      <ul>
+        <li><strong>Wallet to Wallet Transfer:</strong> Up to NPR 25,000 per transaction; NPR 1,00,000 per day; NPR 5,00,000 per month.</li>
+        <li><strong>Wallet to Bank Transfer:</strong> Standard bank transfer limits aligned with national payment switch guidelines (up to NPR 1,00,000 per transaction).</li>
+        <li><strong>Non-KYC Accounts:</strong> Restricted from outgoing transfers, limited strictly to micro utility bill payments under statutory monitoring.</li>
+      </ul>
 
-      <h3>User Interface</h3>
-      <p>Khalti's app is generally considered more modern and user-friendly. eSewa has improved significantly but can feel cluttered with features.</p>
+      <h2>User Experience & App Interface</h2>
+      <p>Khalti features a clean, minimalist layout with fast-loading transactional pages, biometric authentication support, and streamlined split-bill utilities. eSewa offers comprehensive functionality across thousands of institutional services, but the interface can feel denser due to extensive feature modules and advertising banners.</p>
 
-      <h3>Integration</h3>
-      <p>Both wallets integrate with banking systems. eSewa offers eSewa Money Transfer for remittances, while Khalti has partnerships with various banks for seamless loading.</p>
+      <h2>Fee Schedules & Interoperability</h2>
+      <p>Both wallets offer free bill payments for electricity, water, telecom top-ups, and internet subscriptions. Nominal inter-bank transfer fees (typically NPR 10 to NPR 15) apply when moving funds from wallet to commercial bank accounts, governed by clearing house fee parameters.</p>
 
-      <h2>Fees & Charges</h2>
-      <p>Both platforms have similar fee structures for transfers. Always check current rates as they change frequently. Generally, bill payments are free, and fund transfers to bank accounts carry a small fee.</p>
+      <h2>Security Features & Best Practices</h2>
+      <p>Both providers deploy Two-Factor Authentication (2FA), device binding, transaction MPINs, and SMS/app notifications. However, security ultimately depends on user vigilance. According to Nepal Police Cyber Bureau data, social engineering and OTP phishing represent the overwhelming majority of digital payment fraud in Nepal. Remember: neither eSewa, Khalti, nor bank staff will ever ask for your MPIN or SMS verification code.</p>
 
-      <h2>Security</h2>
-      <p>Both use PIN-based authentication. Khalti has added biometric login on supported devices. Both are regulated by NRB and follow KYC requirements.</p>
-
-      <h2>The Verdict</h2>
-      <p>Honestly? Use both. Different merchants accept different wallets, and each has unique offers. Keep smaller amounts in both for flexibility. The real question isn't which is better, it's whether you're using digital payments at all.</p>
-
-      <blockquote><p>The future of money in Nepal is digital. Whether you choose eSewa, Khalti, or both, the important thing is to be part of the transition.</p></blockquote>
+      <h2>Summary Verdict</h2>
+      <p>For most Nepali consumers, maintaining both apps is practical. Use eSewa for universal institutional payments (governmental offices, localized utilities, schools) and Khalti for modern lifestyle transactions, air travel, and rewards.</p>
     `
   },
   {
@@ -218,43 +354,71 @@ const ARTICLES = [
     category: 'Personal Finance',
     categorySlug: 'personal-finance',
     author: 'Aakash Das',
+    authorRole: 'Founder of RisePaisa | Finance Educator & Content Creator',
+    authorUrl: '/aakash-das',
     date: '2026-02-20',
+    lastUpdated: '2026-09-22',
     readTime: '7 min read',
     featured: false,
     thumbnail: 'assets/images/blog-emergency.png',
+    relatedCalculator: {
+      title: 'Fixed Deposit (FD) & RD Calculator',
+      slug: 'fixed-deposit',
+      url: '/calculators/fixed-deposit',
+      ctaText: 'Model interest returns across Class A commercial bank term deposits in Nepal'
+    },
+    relatedCourse: {
+      title: 'Personal Finance Mastery for Nepal',
+      url: '/courses/personal-finance-mastery'
+    },
+    relatedTopic: {
+      name: 'Personal Finance Academy',
+      url: '/learn/personal-finance'
+    },
+    sources: [
+      {
+        title: 'Deposit Insurance Directives & Coverage Thresholds',
+        institution: 'Deposit and Credit Guarantee Fund (DCGF Nepal)',
+        url: 'https://dcgf.gov.np'
+      },
+      {
+        title: 'Commercial Banking Interest Rate Statistics & Guidelines',
+        institution: 'Nepal Rastra Bank (NRB)',
+        url: 'https://nrb.org.np'
+      }
+    ],
+    disclaimer: 'This guide discusses liquidity and capital preservation strategies for individual households. It is intended for educational purposes and does not constitute credit advice.',
     content: `
-      <p>An earthquake. A pandemic. A sudden job loss. Life is unpredictable, and Nepal has seen its share of crises. An emergency fund isn't just nice to have, it is essential for your financial survival.</p>
+      <p>Unexpected economic shocks—ranging from health emergencies and vehicular repairs to sudden unemployment or natural events—are an inevitable part of life. Without dedicated cash reserves, households in Nepal are often forced into distress sales of family gold, pledging assets, or taking informal loans from local lenders at predatory interest rates. An emergency fund is your fundamental financial safety cushion.</p>
 
-      <h2>What is an Emergency Fund?</h2>
-      <p>An emergency fund is money set aside specifically for unexpected expenses or financial emergencies. It's not for Dashain shopping or a new phone, but for genuine emergencies like medical bills, job loss, or urgent home repairs.</p>
+      <h2>What Exactly is an Emergency Fund?</h2>
+      <p>An emergency fund is a ring-fenced reserve of highly liquid cash designed strictly to cover unforeseen, essential financial obligations. It is not intended for planned festive expenditures, vacation travel, or speculative stock trading.</p>
 
-      <h2>How Much Do You Need?</h2>
-      <p>The standard advice is 3-6 months of essential expenses. In Nepal's context:</p>
+      <h2>How Much Should You Save in Nepal?</h2>
+      <p>While generic advice suggests 3 to 6 months of expenses, the appropriate quantum in Nepal depends on income predictability and family structure:</p>
       <ul>
-        <li><strong>If you have a stable job:</strong> 3 months of expenses</li>
-        <li><strong>If you freelance or have variable income:</strong> 6 months</li>
-        <li><strong>If you're the sole earner in your family:</strong> 6 months minimum</li>
+        <li><strong>Salaried Employees in Formal Sectors:</strong> 3 to 4 months of essential baseline expenditures.</li>
+        <li><strong>Freelancers, Commission Earners & Small Business Owners:</strong> 6 to 9 months of expenses, reflecting seasonal payment delays.</li>
+        <li><strong>Single-Earner Joint Families:</strong> 6 to 12 months, accounting for dependency ratios and higher medical contingencies.</li>
       </ul>
-      <p>Calculate your monthly essentials: rent, food, utilities, transport, loan EMIs. Multiply by your target months. That's your emergency fund goal.</p>
+      <p><em>Calculation Formula:</em> Sum your monthly essential expenses (Rent + Groceries + Utilities + EMIs + Insurance + Family Baseline). If your minimum baseline is NPR 35,000, a 6-month target equals NPR 2,10,000.</p>
 
-      <h2>Where to Keep It</h2>
-      <p>Your emergency fund needs to be:</p>
+      <h2>Where to Store Emergency Capital in Nepal</h2>
+      <p>Emergency funds prioritize capital safety and immediate liquidity over high returns. Effective storage vehicles include:</p>
       <ul>
-        <li><strong>Liquid:</strong> Accessible within 24-48 hours</li>
-        <li><strong>Safe:</strong> No risk of losing the principal</li>
-        <li><strong>Separate:</strong> Not mixed with your spending money</li>
-      </ul>
-      <p>Best options in Nepal: A separate savings account at a commercial bank, or a call deposit account. Avoid FDs for the full amount as they have lock-in periods.</p>
-
-      <h2>How to Build It</h2>
-      <ul>
-        <li>Start with a target of 1 month's expenses</li>
-        <li>Automate a fixed transfer on salary day</li>
-        <li>Put any bonus, Dashain money, or unexpected income into the fund</li>
-        <li>Reduce one unnecessary expense and redirect that money</li>
+        <li><strong>Commercial Bank Savings Accounts:</strong> 30% of the fund in an established Class A commercial bank with ATM access. Note that retail deposits up to <strong>NPR 5,00,000</strong> are protected under the Deposit and Credit Guarantee Fund (DCGF).</li>
+        <li><strong>Flexible Recurring Deposits (RD) or Short-Term FD:</strong> 70% in 3-month or 6-month fixed deposits that allow premature encashment or loan-against-deposit facilities (up to 90% loan value) within 24 hours.</li>
+        <li><strong>Open-Ended Mutual Funds:</strong> Systematic allocation into liquid schemes with fast T+1 redemption cycles.</li>
       </ul>
 
-      <blockquote><p>Remember: An emergency fund isn't an investment. It won't grow much. Its purpose is protection, not profit. The peace of mind it provides is worth more than any return.</p></blockquote>
+      <h2>Practical Steps to Build Your Fund on a Modest Income</h2>
+      <ol>
+        <li><strong>Establish a Starter Cushion:</strong> Begin with an initial milestone of NPR 25,000 to cover minor home or vehicular repairs.</li>
+        <li><strong>Automate Salary-Day Deductions:</strong> Transfer a fixed percentage (e.g., 10% to 15%) to your designated emergency account on the day salary is credited.</li>
+        <li><strong>Channel Windfall Inflows:</strong> Allocate 50% of annual bonuses, festival allowances, tax refunds, or freelance windfalls directly into your reserve until your target is achieved.</li>
+      </ol>
+
+      <p>Remember: an emergency fund is insurance, not an investment. Its measure of success is not how fast it grows, but the quiet peace of mind it provides when life presents the unexpected.</p>
     `
   },
   {
@@ -265,40 +429,80 @@ const ARTICLES = [
     category: 'NEPSE & Investing',
     categorySlug: 'nepse',
     author: 'Aakash Das',
+    authorRole: 'Founder of RisePaisa | Finance Educator & Content Creator',
+    authorUrl: '/aakash-das',
     date: '2026-02-15',
+    lastUpdated: '2026-09-24',
     readTime: '6 min read',
     featured: false,
     thumbnail: 'assets/images/blog-ipo.png',
+    relatedCalculator: {
+      title: 'NEPSE Share & Profit Calculator',
+      slug: 'nepse-share',
+      url: '/calculators/nepse-share',
+      ctaText: 'Simulate IPO allotment gains, secondary sale proceeds, and capital gains tax deductions'
+    },
+    relatedCourse: {
+      title: 'NEPSE Stock Market Basics',
+      url: '/courses/nepse-masterclass'
+    },
+    relatedTopic: {
+      name: 'Nepal Stock Market Academy',
+      url: '/learn/nepse'
+    },
+    sources: [
+      {
+        title: 'Securities Issue and Allotment Guidelines 2074',
+        institution: 'Securities Board of Nepal (SEBON)',
+        url: 'https://sebon.gov.np'
+      },
+      {
+        title: 'Centralized Application Supported by Blocked Amount (C-ASBA) Manual',
+        institution: 'CDS and Clearing Limited (CDSC)',
+        url: 'https://cdsc.com.np'
+      }
+    ],
+    disclaimer: 'This guide outlines regulatory procedures for applying to public issues in Nepal. IPO investments carry equity market risks, and applicants should review the official issuing company prospectus before applying.',
     content: `
-      <p>IPOs (Initial Public Offerings) are one of the most popular investment opportunities in Nepal. When a company goes public for the first time, it offers shares to the general public, and you can apply for them through Meroshare.</p>
+      <p>Initial Public Offerings (IPOs) represent the primary gateway for retail citizens in Nepal to participate in corporate capital formation. Regulated by the Securities Board of Nepal (SEBON) under the Securities Issue and Allotment Guidelines 2074, primary issues in Nepal have historically democratized stock ownership, enabling millions of retail applicants to acquire shares at face value.</p>
 
-      <h2>Prerequisites</h2>
+      <h2>Understanding Nepal's 10-Kitta Allotment Rule</h2>
+      <p>Under SEBON regulations, every retail public issue in Nepal operates under the mandatory 10-kitta allotment rule. If an issue is oversubscribed (which occurs for virtually all ordinary equity IPOs), CDSC conducts a cryptographic, computer-based lottery where selected applicants receive a baseline minimum allotment of 10 shares (typically NPR 1,000 at par value of NPR 100).</p>
+      <p>Consequently, applying for more than 10 or 20 kitta in an ordinary, heavily oversubscribed IPO ties up excess bank capital without improving your mathematical probability of allotment.</p>
+
+      <h2>Prerequisites for Applying via MeroShare</h2>
       <ul>
-        <li>An active DEMAT account</li>
-        <li>A registered Meroshare account</li>
-        <li>A bank account linked for ASBA (Application Supported by Blocked Amount)</li>
-        <li>Sufficient balance in your linked bank account</li>
+        <li>Active 16-digit DEMAT BOID account registered with an authorized DP.</li>
+        <li>Active MeroShare login credentials (username, password, and 4-digit transaction PIN).</li>
+        <li>Bank account with active C-ASBA authorization and verified CRN number.</li>
+        <li>Clear bank balance equal to the application value (NPR 1,000 for 10 units).</li>
       </ul>
 
-      <h2>Step-by-Step IPO Application</h2>
-      <h3>Step 1: Check for Open IPOs</h3>
-      <p>Log into your Meroshare account. Go to "My ASBA" section and you'll see a list of currently open IPOs/FPOs.</p>
+      <h2>Step-by-Step Application Walkthrough</h2>
+      <ol>
+        <li><strong>Log into MeroShare:</strong> Visit meroshare.cdsc.com.np or launch the MeroShare mobile application. Select your Depository Participant (DP) from the dropdown, enter your username and password.</li>
+        <li><strong>Navigate to 'My ASBA':</strong> From the navigation dashboard, click on the "My ASBA" tab and select "Apply for Issue".</li>
+        <li><strong>Select the Open Issue:</strong> Locate the public company currently issuing shares to the general public. Click "Apply".</li>
+        <li><strong>Fill the Application Form:</strong>
+          <ul>
+            <li>Select your verified bank account and depository branch.</li>
+            <li>Enter your registered C-ASBA Registration Number (CRN).</li>
+            <li>Specify applied quantity (typically 10 kitta for retail issues).</li>
+            <li>Agree to the regulatory declarations by checking the consent box.</li>
+          </ul>
+        </li>
+        <li><strong>Confirm with Transaction PIN:</strong> Enter your 4-digit transaction PIN to submit. The applied amount is immediately blocked (held) in your bank account via ASBA.</li>
+      </ol>
 
-      <h3>Step 2: Apply</h3>
-      <p>Select the IPO you want to apply for. Enter the number of units (kitta) you want. The minimum application is usually 10 units. Select your linked bank account for ASBA.</p>
-
-      <h3>Step 3: Wait for Allotment</h3>
-      <p>After the IPO closes, CDSC conducts a random allotment process. You can check your allotment result on Meroshare. If you get shares, the amount is debited from your blocked bank balance. If not, the block is released.</p>
-
-      <h2>Tips for IPO Investing</h2>
+      <h2>Checking Allotment Results</h2>
+      <p>Following issue closure and regulatory scrutiny, CDSC conducts the allotment ceremony. Results are publicly verifiable on:</p>
       <ul>
-        <li>Not every IPO is a good investment, so research the company carefully</li>
-        <li>Apply from multiple DEMAT accounts (family members) to increase chances</li>
-        <li>Don't invest money you'll need immediately because allotment takes time</li>
-        <li>Understand the difference between primary market (IPO price) and secondary market (trading price)</li>
+        <li>MeroShare portal under "Application Report"</li>
+        <li>Official CDSC allotment verification portal (iporesult.cdsc.com.np)</li>
+        <li>The issuing company's designated merchant banker portal</li>
       </ul>
 
-      <blockquote><p>IPOs can be profitable but they're not guaranteed money. Always do your due diligence before applying.</p></blockquote>
+      <p>If allotted, the blocked funds are transferred to the issuing company, and shares are credited to your DEMAT BOID within several working days. If unallotted, the blocked funds are automatically released back to your available bank balance without deduction.</p>
     `
   }
 ];

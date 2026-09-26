@@ -1841,3 +1841,37 @@
   opacity: 1 !important;
   transform: translateY(0) !important;
 }
+
+/* ── Author Box & Founder Profile Enhancements ── */
+.social-icon-btn:hover {
+  color: var(--color-accent) !important;
+  border-color: var(--color-accent) !important;
+  transform: translateY(-2px);
+  background: var(--color-surface-hover) !important;
+}
+
+.social-icon-btn svg {
+  width: 18px;
+  height: 18px;
+}
+
+.founder-btn-profile {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  color: var(--color-heading);
+}
+
+.founder-btn-profile:hover {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+  transform: translateY(-1px);
+}
+
+@media (max-width: 640px) {
+  .article-author-box {
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+  }
+}
+

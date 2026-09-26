@@ -105,8 +105,8 @@ export function renderCourseDetailPage(slug) {
         </div>
         <h1 class="cd-title">${course.title}</h1>
         <div class="cd-instructor">
-          <div class="cd-avatar"><img src="assets/images/founder.png" alt="Aakash Das" loading="lazy" decoding="async" /></div>
-          <span>Instructor: <strong>${course.instructor}</strong></span>
+          <div class="cd-avatar"><img src="assets/images/aakash-das-founder-risepaisa.jpg" alt="${course.instructor}, instructor at RisePaisa" loading="lazy" decoding="async" width="40" height="40" style="width:40px;height:40px;border-radius:var(--radius-full);object-fit:cover" /></div>
+          <span>Instructor: ${course.instructor === 'Aakash Das' ? `<a href="${ROUTES.AAKASH_DAS}" style="color:inherit;font-weight:600;text-decoration:underline;text-underline-offset:2px">Aakash Das</a>` : `<strong>${course.instructor}</strong>`} (Founder of RisePaisa)</span>
         </div>
         <span class="cd-category-tag">${course.category}</span>
       </div>
@@ -208,6 +208,11 @@ export function renderCourseDetailPage(slug) {
                   </li>
                 `).join('')}
               </ul>
+            </section>
+
+            <!-- Educational Disclaimer -->
+            <section class="cd-section" id="course-disclaimer" style="padding:var(--space-4) var(--space-5);border-radius:var(--radius-md);background:var(--color-surface-subtle);border-left:3px solid var(--color-border);font-size:var(--text-xs);color:var(--color-text-muted);line-height:1.6;margin-top:var(--space-6)">
+              <strong>Educational Disclaimer:</strong> This course is designed exclusively for educational and informational purposes. Neither RisePaisa nor instructor Aakash Das provides personalized investment advice, guaranteed financial returns, or regulated portfolio management. Consult licensed professionals for individualized decisions. Read our <a href="${ROUTES.DISCLAIMER}" style="color:inherit;text-decoration:underline">Full Disclaimer</a>.
             </section>
 
           </div>

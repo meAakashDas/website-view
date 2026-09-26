@@ -354,6 +354,24 @@ export function renderLearnGuideDetailPage(guideSlug) {
               </article>
             ` : ''}
 
+            <!-- Editorial Stewardship & Primary Regulatory Sourcing -->
+            <article class="guide-chapter-block" id="guide-chap-editorial-stewardship" style="margin-top:var(--space-8)">
+              <div class="guide-editorial-footer-bar" style="padding:var(--space-5);border-radius:var(--radius-lg);background:var(--color-surface);border:1px solid var(--color-border);display:flex;gap:var(--space-4);align-items:center">
+                <img src="assets/images/aakash-das-founder-risepaisa.jpg" alt="Aakash Das, founder of RisePaisa" style="width:56px;height:56px;border-radius:var(--radius-full);object-fit:cover;flex-shrink:0;border:2px solid var(--color-accent)" loading="lazy" decoding="async" width="56" height="56">
+                <div style="flex:1">
+                  <div style="font-size:var(--text-xs);color:var(--color-accent);font-weight:600;text-transform:uppercase;letter-spacing:0.05em">
+                    ${isEn ? 'Editorial Stewardship & Verification' : 'सम्पादकीय समीक्षा तथा प्रमाणीकरण'}
+                  </div>
+                  <div style="font-size:var(--text-sm);font-weight:600;color:var(--color-heading);margin:2px 0">
+                    ${isEn ? 'Curated by <a href="' + ROUTES.AAKASH_DAS + '" style="color:inherit;text-decoration:underline">Aakash Das</a> & RisePaisa Editorial Desk' : '<a href="' + ROUTES.AAKASH_DAS + '" style="color:inherit;text-decoration:underline">आकाश दास</a> तथा राइजपैसा सम्पादकीय समूह'}
+                  </div>
+                  <p style="margin:0;font-size:var(--text-xs);color:var(--color-text-secondary);line-height:1.5">
+                    ${isEn ? 'This guide is researched using primary regulatory notices from Nepal Rastra Bank, SEBON, CDSC, and IRD Nepal. Reviewed under our <a href="' + (ROUTES.EDITORIAL_POLICY || '/editorial-policy') + '" style="color:var(--color-accent);text-decoration:none">Editorial Policy & Research Standards</a>.' : 'यो निर्देशिका नेपाल राष्ट्र बैंक, धितोपत्र बोर्ड, सीडीएससी तथा आन्तरिक राजस्व विभागका आधिकारिक सूचनाका आधारमा तयार पारिएको हो। हाम्रो <a href="' + (ROUTES.EDITORIAL_POLICY || '/editorial-policy') + '" style="color:var(--color-accent);text-decoration:none">सम्पादकीय नीति</a> अन्तर्गत समीक्षा गरिएको।'}
+                  </p>
+                </div>
+              </div>
+            </article>
+
             <!-- WHERE SHOULD I GO NEXT? (Continuous Learning Knowledge Graph) -->
             <article class="guide-chapter-block" id="guide-chap-where-next">
               <div class="where-next-panel">

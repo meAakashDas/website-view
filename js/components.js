@@ -287,6 +287,9 @@ function renderFooter() {
               <div class="logo-text">rise<span>Paisa</span></div>
             </a>
             <p>Nepal's most practical financial education platform. Practical NEPSE, taxation, and personal finance strategies built for real income growth in Nepal.</p>
+            <p style="font-size:var(--text-xs);color:var(--color-text-muted);margin:var(--space-2) 0 var(--space-4)">
+              Founded by <a href="${ROUTES.AAKASH_DAS}" style="color:var(--color-text-secondary);text-decoration:underline;text-underline-offset:2px">Aakash Das</a>
+            </p>
             <div class="footer-social">
               <a href="https://www.youtube.com/@risePaisa" target="_blank" rel="noopener" aria-label="YouTube">${ICONS.youtube}</a>
               <a href="https://www.tiktok.com/@risepaisa" target="_blank" rel="noopener" aria-label="TikTok">${ICONS.tiktok}</a>
@@ -304,6 +307,7 @@ function renderFooter() {
             <a href="${ROUTES.RESOURCES}">Resources</a>
             <a href="${ROUTES.BLOG}">Articles</a>
             <a href="${ROUTES.ABOUT}">About Us</a>
+            <a href="${ROUTES.AAKASH_DAS}">Aakash Das (Founder)</a>
             <a href="${ROUTES.CONTACT}">Contact</a>
           </div>
           
@@ -316,11 +320,12 @@ function renderFooter() {
           </div>
           
           <div class="footer-section">
-            <h4>Legal</h4>
+            <h4>Trust & Legal</h4>
+            <a href="${ROUTES.EDITORIAL_POLICY || '/editorial-policy'}">Editorial Policy</a>
+            <a href="${ROUTES.DISCLAIMER}">Disclaimer</a>
             <a href="${ROUTES.PRIVACY}">Privacy Policy</a>
             <a href="${ROUTES.TERMS}">Terms & Conditions</a>
             <a href="${ROUTES.REFUND}">Refund Policy</a>
-            <a href="${ROUTES.DISCLAIMER}">Disclaimer</a>
             <a href="${ROUTES.FAQ}">FAQ</a>
           </div>
         </div>

@@ -32,11 +32,13 @@ import { getAllCourses, getCourseBySlug } from './data/courses.js';
 import { getResources, getResourceBySlug } from './data/resources.js';
 import { getArticles, getArticleBySlug } from './data/articles.js';
 import { CALCULATOR_SLUG_TO_ID } from './routes.js';
+import { ENTITY_RISEPAISA, ENTITY_AAKASH_DAS } from './data/entities.js';
 
 export const SITE_DOMAIN = 'https://risepaisa.com';
-export const SITE_NAME = 'risePaisa';
+export const SITE_NAME = ENTITY_RISEPAISA.name;
 export const DEFAULT_OG_IMAGE = `${SITE_DOMAIN}/assets/images/risepaisa_logo.png`;
 export const TWITTER_HANDLE = '@risepaisa';
+
 
 /**
  * Clean helper to strip HTML tags and normalize text whitespace
@@ -126,32 +128,29 @@ export function resolvePageSEO(pathname = '/', searchParams = null, lang = 'en',
   // ── Global Organization & WebSite Schemas ───────
   const organizationSchema = {
     '@type': 'Organization',
-    '@id': `${SITE_DOMAIN}/#organization`,
-    'name': SITE_NAME,
-    'legalName': SITE_NAME,
-    'url': SITE_DOMAIN,
+    '@id': ENTITY_RISEPAISA.organizationId,
+    'name': ENTITY_RISEPAISA.name,
+    'legalName': ENTITY_RISEPAISA.legalName,
+    'url': ENTITY_RISEPAISA.canonicalUrl,
     'logo': {
       '@type': 'ImageObject',
       'url': DEFAULT_OG_IMAGE,
       'width': 512,
       'height': 512,
-      'caption': `${SITE_NAME} Logo`
+      'caption': `${ENTITY_RISEPAISA.name} Logo`
     },
     'image': DEFAULT_OG_IMAGE,
     'founder': {
-      '@type': 'Person',
-      'name': 'Aakash Das',
-      'jobTitle': 'Founder & Lead Financial Educator',
-      'url': `${SITE_DOMAIN}/about`
+      '@id': ENTITY_AAKASH_DAS.personId
     },
     'address': {
       '@type': 'PostalAddress',
-      'addressLocality': 'Kathmandu',
-      'addressCountry': 'NP'
+      'addressLocality': ENTITY_RISEPAISA.address.locality,
+      'addressCountry': ENTITY_RISEPAISA.address.country
     },
     'areaServed': {
-      '@type': 'Country',
-      'name': 'Nepal'
+      '@type': ENTITY_RISEPAISA.areaServed.type,
+      'name': ENTITY_RISEPAISA.areaServed.name
     },
     'knowsAbout': [
       'Personal Finance Nepal',
@@ -161,15 +160,28 @@ export function resolvePageSEO(pathname = '/', searchParams = null, lang = 'en',
       'Demat & MeroShare',
       'Systematic Investment Plan (SIP)'
     ],
-    'sameAs': [
-      'https://facebook.com/risepaisa',
-      'https://instagram.com/risepaisa',
-      'https://twitter.com/risepaisa',
-      'https://linkedin.com/company/risepaisa',
-      'https://www.youtube.com/@risePaisa',
-      'https://www.tiktok.com/@risepaisa'
-    ],
-    'description': `Nepal's independent financial education and research platform.`
+    'sameAs': ENTITY_RISEPAISA.sameAs,
+    'description': ENTITY_RISEPAISA.description
+  };
+
+  const aakashDasPersonSchema = {
+    '@type': 'Person',
+    '@id': ENTITY_AAKASH_DAS.personId,
+    'name': ENTITY_AAKASH_DAS.name,
+    'url': ENTITY_AAKASH_DAS.canonicalProfile,
+    'image': ENTITY_AAKASH_DAS.imageUrl,
+    'jobTitle': ENTITY_AAKASH_DAS.fullTitle,
+    'worksFor': {
+      '@id': ENTITY_RISEPAISA.organizationId
+    },
+    'alumniOf': {
+      '@type': 'CollegeOrUniversity',
+      'name': ENTITY_AAKASH_DAS.alumniOf.name,
+      'url': ENTITY_AAKASH_DAS.alumniOf.url
+    },
+    'description': ENTITY_AAKASH_DAS.shortBio,
+    'knowsAbout': ENTITY_AAKASH_DAS.knowsAbout,
+    'sameAs': ENTITY_AAKASH_DAS.sameAs
   };
 
   const websiteSchema = {
@@ -264,9 +276,10 @@ export function resolvePageSEO(pathname = '/', searchParams = null, lang = 'en',
             'dateModified': '2026-09-01T00:00:00+05:45',
             'author': {
               '@type': 'Person',
+              '@id': `${SITE_DOMAIN}/aakash-das#person`,
               'name': 'Aakash Das',
-              'jobTitle': 'Founder & Financial Researcher',
-              'url': `${SITE_DOMAIN}/about`
+              'jobTitle': 'Founder and Finance Educator',
+              'url': `${SITE_DOMAIN}/aakash-das`
             },
             'publisher': { '@id': `${SITE_DOMAIN}/#organization` },
             'isAccessibleForFree': true,
@@ -382,9 +395,10 @@ export function resolvePageSEO(pathname = '/', searchParams = null, lang = 'en',
             'dateModified': '2026-09-01T00:00:00+05:45',
             'author': {
               '@type': 'Person',
+              '@id': `${SITE_DOMAIN}/aakash-das#person`,
               'name': 'Aakash Das',
-              'jobTitle': 'Financial Educator & Researcher',
-              'url': `${SITE_DOMAIN}/about`
+              'jobTitle': 'Founder and Finance Educator',
+              'url': `${SITE_DOMAIN}/aakash-das`
             },
             'publisher': { '@id': `${SITE_DOMAIN}/#organization` },
             'isAccessibleForFree': true,
@@ -520,9 +534,10 @@ export function resolvePageSEO(pathname = '/', searchParams = null, lang = 'en',
           'dateModified': '2026-09-01T00:00:00+05:45',
           'author': {
             '@type': 'Person',
+            '@id': `${SITE_DOMAIN}/aakash-das#person`,
             'name': 'Aakash Das',
-            'jobTitle': 'Financial Educator & Researcher',
-            'url': `${SITE_DOMAIN}/about`
+            'jobTitle': 'Founder and Finance Educator',
+            'url': `${SITE_DOMAIN}/aakash-das`
           },
           'publisher': { '@id': `${SITE_DOMAIN}/#organization` },
           'isPartOf': {
@@ -649,8 +664,10 @@ export function resolvePageSEO(pathname = '/', searchParams = null, lang = 'en',
           'provider': { '@id': `${SITE_DOMAIN}/#organization` },
           'instructor': {
             '@type': 'Person',
+            '@id': `${SITE_DOMAIN}/aakash-das#person`,
             'name': course.instructor || 'Aakash Das',
-            'jobTitle': 'Lead Financial Educator'
+            'jobTitle': 'Founder and Finance Educator',
+            'url': `${SITE_DOMAIN}/aakash-das`
           },
           'isAccessibleForFree': false,
           'offers': {
@@ -760,11 +777,15 @@ export function resolvePageSEO(pathname = '/', searchParams = null, lang = 'en',
           seo.image = article.thumbnail.startsWith('http') ? article.thumbnail : `${SITE_DOMAIN}/${article.thumbnail}`;
         }
         seo.datePublished = article.date ? `${article.date}T00:00:00+05:45` : '2026-01-01T00:00:00+05:45';
-        seo.dateModified = seo.datePublished;
+        seo.dateModified = article.lastUpdated ? `${article.lastUpdated}T00:00:00+05:45` : seo.datePublished;
         seo.articleSection = article.category || 'Finance';
 
+        const citations = Array.isArray(article.sources)
+          ? article.sources.map(s => (typeof s === 'string' ? s : s.url)).filter(Boolean)
+          : [];
+
         // BlogPosting Schema
-        seo.schemas.push({
+        const blogPostingSchema = {
           '@type': 'BlogPosting',
           '@id': `${canonicalUrl}#article`,
           'isPartOf': { '@id': `${SITE_DOMAIN}/#website` },
@@ -776,14 +797,22 @@ export function resolvePageSEO(pathname = '/', searchParams = null, lang = 'en',
           'dateModified': seo.dateModified,
           'author': {
             '@type': 'Person',
+            '@id': `${SITE_DOMAIN}/aakash-das#person`,
             'name': article.author || 'Aakash Das',
-            'jobTitle': 'Founder & Financial Researcher',
-            'url': `${SITE_DOMAIN}/about`
+            'jobTitle': article.authorRole || 'Founder of RisePaisa | Finance Educator & Content Creator',
+            'url': `${SITE_DOMAIN}/aakash-das`
           },
           'publisher': { '@id': `${SITE_DOMAIN}/#organization` },
           'articleSection': seo.articleSection,
-          'isAccessibleForFree': true
-        });
+          'isAccessibleForFree': true,
+          'publishingPrinciples': `${SITE_DOMAIN}/editorial-policy`
+        };
+
+        if (citations.length > 0) {
+          blogPostingSchema.citation = citations;
+        }
+
+        seo.schemas.push(blogPostingSchema);
       }
     }
   } else if (rootSection === 'search') {
@@ -807,6 +836,23 @@ export function resolvePageSEO(pathname = '/', searchParams = null, lang = 'en',
       'description': seo.description,
       'mainEntity': { '@id': `${SITE_DOMAIN}/#organization` }
     });
+  } else if (rootSection === 'aakash-das') {
+    // 18b. Aakash Das Profile Page
+    seo.title = `Aakash Das — Founder of RisePaisa | Finance Educator`;
+    seo.description = `Learn about Aakash Das, founder of RisePaisa and a finance educator and content creator focused on financial education in Nepal.`;
+    seo.type = 'profile';
+    seo.image = `${SITE_DOMAIN}/assets/images/aakash-das-founder-risepaisa.jpg`;
+    seo.breadcrumbs.push({ name: 'About', url: `${SITE_DOMAIN}/about` });
+    seo.breadcrumbs.push({ name: 'Aakash Das', url: canonicalUrl });
+
+    seo.schemas.push({
+      '@type': 'ProfilePage',
+      '@id': `${canonicalUrl}#profilepage`,
+      'url': canonicalUrl,
+      'name': seo.title,
+      'isPartOf': { '@id': `${SITE_DOMAIN}/#website` },
+      'mainEntity': { '@id': `${SITE_DOMAIN}/aakash-das#person` }
+    });
   } else if (rootSection === 'contact') {
     // 19. Contact Page
     seo.title = `Contact risePaisa | Reach Out for Financial Education`;
@@ -825,18 +871,21 @@ export function resolvePageSEO(pathname = '/', searchParams = null, lang = 'en',
         'availableLanguage': ['Nepali', 'English']
       }
     });
-  } else if (['privacy', 'terms', 'disclaimer', 'refund-policy', 'faq'].includes(rootSection)) {
-    // 20. Legal Pages
+  } else if (['privacy', 'terms', 'disclaimer', 'refund-policy', 'editorial-policy', 'faq'].includes(rootSection)) {
+    // 20. Legal & Policy Pages
     const legalTitles = {
       'privacy': 'Privacy Policy',
       'terms': 'Terms of Service',
       'disclaimer': 'Financial & Investment Disclaimer',
       'refund-policy': 'Refund Policy',
+      'editorial-policy': 'Editorial Policy & Fact-Checking Standards',
       'faq': 'Frequently Asked Questions'
     };
     const title = legalTitles[rootSection] || 'Legal';
     seo.title = `${title} | risePaisa`;
-    seo.description = `Read our official ${title.toLowerCase()} for risePaisa platform users, investors, and students in Nepal.`;
+    seo.description = rootSection === 'editorial-policy'
+      ? `Read RisePaisa's official editorial policy, primary regulatory sourcing standards, and fact-checking protocols for financial education in Nepal.`
+      : `Read our official ${title.toLowerCase()} for risePaisa platform users, investors, and students in Nepal.`;
     seo.breadcrumbs.push({ name: title, url: canonicalUrl });
 
     seo.schemas.push({
@@ -870,6 +919,7 @@ export function resolvePageSEO(pathname = '/', searchParams = null, lang = 'en',
     '@context': 'https://schema.org',
     '@graph': [
       organizationSchema,
+      aakashDasPersonSchema,
       websiteSchema,
       breadcrumbSchema,
       ...seo.schemas
@@ -911,7 +961,8 @@ export async function updatePageSEO(pathname = (typeof window !== 'undefined' ? 
   setMetaTag('name', 'robots', seo.robots);
   setMetaTag('name', 'googlebot', seo.robots);
   setMetaTag('name', 'bingbot', seo.robots);
-  setMetaTag('name', 'author', 'Aakash Das');
+  const pageAuthor = (rootSection === 'aakash-das' || seo.type === 'article') ? 'Aakash Das' : SITE_NAME;
+  setMetaTag('name', 'author', pageAuthor);
 
   // 4. Canonical & Hreflang Tags
   setLinkTag('canonical', seo.canonical);

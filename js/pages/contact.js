@@ -34,12 +34,12 @@ const RISEPAISA_DESCRIPTIONS = {
 };
 
 const AAKASH_DESCRIPTIONS = {
-  tiktok:    'Life beyond finance tips',
-  instagram: 'Daily life, travel & BTS',
-  facebook:  'Personal updates & community',
-  youtube:   'Vlogs, lifestyle & uncensored thoughts',
-  twitter:   'Unfiltered personal takes',
-  linkedin:  'Professional journey & milestones',
+  tiktok:    'Educational shorts & financial breakdowns',
+  instagram: 'Visual insights, economic notes & updates',
+  facebook:  'Community discussions & educational posts',
+  youtube:   'In-depth finance masterclasses & tutorials',
+  twitter:   'Macro perspectives & market commentary',
+  linkedin:  'Professional background, software & fintech',
 };
 
 // ── Build social array from stored links ─────────
@@ -98,12 +98,12 @@ function renderContactBlock(name, description, imgSrc, socials) {
 
 // ── Page render ──────────────────────────────────
 export function renderContactPage() {
-  setPageMeta('Contact Us', 'Connect with risePaisa for financial education or reach out to Aakash Das personally.');
+  setPageMeta('Contact Us', 'Connect with RisePaisa for financial education or reach out for professional inquiries.');
 
   const settings = getSettings();
   const cl = settings.contactLinks || {};
 
-  const risePaisaSocials = _buildSocials(cl.risepaisa, 'risePaisa', RISEPAISA_DESCRIPTIONS);
+  const risePaisaSocials = _buildSocials(cl.risepaisa, 'RisePaisa', RISEPAISA_DESCRIPTIONS);
   const aakashSocials    = _buildSocials(cl.aakash,    'Aakash Das', AAKASH_DESCRIPTIONS);
 
   return `
@@ -111,29 +111,37 @@ export function renderContactPage() {
       <div class="container">
         <span class="section-eyebrow">Get in Touch</span>
         <h1>Connect With Us</h1>
-        <p>Choose how you want to connect: brand insights or personal journey.</p>
+        <p>Official communication channels for RisePaisa and founder Aakash Das.</p>
       </div>
     </div>
     <section class="section" id="contact-section">
       <div class="container">
         <div class="contact-dual-grid">
           ${renderContactBlock(
-            'risePaisa',
-            'Daily finance education and deep insights for Nepal.',
+            'RisePaisa',
+            'Nepal-focused financial education: curriculum, calculators, guides, and platform resources.',
             'assets/images/risepaisa.jpg',
             risePaisaSocials
           )}
           ${renderContactBlock(
             'Aakash Das',
-            'Life, business, and behind-the-scenes beyond finance.',
-            'assets/images/founder.png',
+            'Founder of RisePaisa | Finance Educator & Content Creator.',
+            'assets/images/aakash-das-founder-risepaisa.jpg',
             aakashSocials
           )}
         </div>
+
+        <!-- Media & Institutional Inquiries Note -->
+        <div style="max-width:760px;margin:var(--space-10) auto 0;text-align:center;padding:var(--space-6);border-radius:var(--radius-lg);background:var(--color-surface);border:1px solid var(--color-border);font-size:var(--text-xs);color:var(--color-text-secondary);line-height:1.6">
+          <strong style="color:var(--color-heading);display:block;margin-bottom:var(--space-1)">Professional & Media Inquiries</strong>
+          <p style="margin:0">
+            For educational partnerships, speaking engagements, research collaborations, or press inquiries related to Aakash Das or RisePaisa, please email <a href="mailto:itsaakashdas@gmail.com" style="color:var(--color-accent);font-weight:600;text-decoration:none">itsaakashdas@gmail.com</a> or WhatsApp <a href="https://wa.me/9779740269317" style="color:var(--color-accent);font-weight:600;text-decoration:none">+977 9740269317</a>.
+          </p>
+        </div>
+
         ${risePaisaSocials.length === 0 && aakashSocials.length === 0 ? `
           <div style="text-align:center;padding:48px 0;color:var(--color-text-muted)">
             <p style="font-size:1.1rem;margin-bottom:8px">No contact links configured yet.</p>
-            <p style="font-size:0.9rem">Manage links from Admin Panel → Settings → Contact Links.</p>
           </div>
         ` : ''}
       </div>

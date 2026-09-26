@@ -59,11 +59,13 @@ export const ROUTES = {
   CALCULATORS: '/calculators',
   CONTACT: '/contact',
   ABOUT: '/about',
+  AAKASH_DAS: '/aakash-das',
   PRIVACY: '/privacy',
   TERMS: '/terms',
   REFUND: '/refund-policy',
   FAQ: '/faq',
   DISCLAIMER: '/disclaimer',
+  EDITORIAL_POLICY: '/editorial-policy',
   SEARCH: '/search',
 
   // Individual Calculator URLs
@@ -214,12 +216,14 @@ export function resolveLegacyHash(hash) {
     return basePath;
   }
   if (basePath === '/about') return ROUTES.ABOUT;
+  if (basePath === '/aakash-das' || basePath === '/author/aakash-das' || basePath === '/author/aakash' || basePath === '/team/aakash' || basePath === '/about/aakash' || basePath === '/aakash') return ROUTES.AAKASH_DAS;
   if (basePath === '/contact') return ROUTES.CONTACT;
   if (basePath === '/privacy') return ROUTES.PRIVACY;
   if (basePath === '/terms') return ROUTES.TERMS;
   if (basePath === '/refund' || basePath === '/refund-policy') return ROUTES.REFUND;
   if (basePath === '/faq') return ROUTES.FAQ;
   if (basePath === '/disclaimer') return ROUTES.DISCLAIMER;
+  if (basePath === '/editorial-policy' || basePath === '/editorial') return ROUTES.EDITORIAL_POLICY;
 
   if (basePath === '/learn') return ROUTES.LEARN;
   if (basePath.startsWith('/learn/')) {

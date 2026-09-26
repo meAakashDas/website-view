@@ -1,11 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+        xmlns:xhtml="http://www.w3.org/1999/xhtml"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>https://risepaisa.com/</loc>
-    <lastmod>2026-09-16</lastmod>
+    <lastmod>2026-09-26</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://risepaisa.com/assets/images/risepaisa_logo.png</image:loc>
+      <image:title>risePaisa — Nepal's Financial Education Platform</image:title>
+      <image:caption>risePaisa official brand logo</image:caption>
+    </image:image>
     <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/" />
     <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/" />
@@ -83,6 +89,20 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/about" />
   </url>
   <url>
+    <loc>https://risepaisa.com/aakash-das</loc>
+    <lastmod>2026-09-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://risepaisa.com/assets/images/aakash-das-founder-risepaisa.jpg</image:loc>
+      <image:title>Aakash Das — Founder of RisePaisa</image:title>
+      <image:caption>Aakash Das, founder of RisePaisa, finance educator and content creator in Nepal</image:caption>
+    </image:image>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/aakash-das" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/aakash-das" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/aakash-das" />
+  </url>
+  <url>
     <loc>https://risepaisa.com/contact</loc>
     <lastmod>2026-09-16</lastmod>
     <changefreq>monthly</changefreq>
@@ -117,6 +137,15 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/disclaimer" />
     <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/disclaimer" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/disclaimer" />
+  </url>
+  <url>
+    <loc>https://risepaisa.com/editorial-policy</loc>
+    <lastmod>2026-09-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://risepaisa.com/editorial-policy" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://risepaisa.com/editorial-policy" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://risepaisa.com/editorial-policy" />
   </url>
   <url>
     <loc>https://risepaisa.com/faq</loc>
