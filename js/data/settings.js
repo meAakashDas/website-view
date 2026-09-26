@@ -4,7 +4,7 @@
 // ==============================================
 
 export const SITE_SETTINGS = {
-  whatsapp: '+9779761145115',
+  whatsapp: '+9779740269317',
   siteName: 'risePaisa',
   tagline: "Nepal's Financial Education Platform",
   social: {

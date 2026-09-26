@@ -122,7 +122,7 @@ const LEGAL_CONTENT = {
   <h2>Contact Us</h2>
   <p>If you have any questions or requests, contact us at:</p>
   <p>Email: <a href="mailto:itsaakashdas@gmail.com">itsaakashdas@gmail.com</a></p>
-  <p>Phone: +977 9761145115</p>
+  <p>Phone: +977 9740269317</p>
   <p>Website: <a href="https://www.risepaisa.com">www.risepaisa.com</a></p>
 `
   },
@@ -226,7 +226,7 @@ const LEGAL_CONTENT = {
   <h2>Contact Information</h2>
   <p>For any questions regarding these Terms:</p>
   <p>Email: <a href="mailto:itsaakashdas@gmail.com">itsaakashdas@gmail.com</a></p>
-  <p>Phone: +977 9761145115</p>
+  <p>Phone: +977 9740269317</p>
   <p>Website: <a href="https://www.risepaisa.com">www.risepaisa.com</a></p>
 `
   },
@@ -294,7 +294,7 @@ const LEGAL_CONTENT = {
       <h2>How to Request Assistance</h2>
       <p>If you believe you qualify for a refund or need assistance with your purchase, please contact our support team with your payment transaction ID:</p>
       <p>Email: <a href="mailto:itsaakashdas@gmail.com">itsaakashdas@gmail.com</a></p>
-      <p>WhatsApp Support: +977 9761145115</p>
+      <p>WhatsApp Support: +977 9740269317</p>
     `
   },
 
@@ -318,7 +318,7 @@ const LEGAL_CONTENT = {
       <p>Enrolled students receive unlimited, lifetime access to course video modules and included resources, including future updates to course lessons.</p>
 
       <h2>Contact & Support</h2>
-      <p>Have another question? Reach out to us via WhatsApp at +977 9761145115 or email <a href="mailto:itsaakashdas@gmail.com">itsaakashdas@gmail.com</a>.</p>
+      <p>Have another question? Reach out to us via WhatsApp at +977 9740269317 or email <a href="mailto:itsaakashdas@gmail.com">itsaakashdas@gmail.com</a>.</p>
     `
   }
 };

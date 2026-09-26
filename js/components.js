@@ -4,7 +4,7 @@
 import { getSettings } from './data/settings.js';
 import { ROUTES, buildCanonicalUrl } from './routes.js';
 
-const WHATSAPP_NUMBER = '+9779761145115'; // legacy fallback
+const WHATSAPP_NUMBER = '+9779740269317'; // legacy fallback
 const SITE_NAME = 'risePaisa';
 
 // ── SVG Icons ────────────────────────────────────
