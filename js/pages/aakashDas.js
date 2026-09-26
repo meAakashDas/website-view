@@ -46,7 +46,6 @@ export function renderAakashDasPage() {
       <div class="container">
         <div class="founder-card-redesign" style="margin-top:0">
           <div class="founder-grid-layout">
-            <!-- Left: Canonical Portrait -->
             <div class="founder-photo-col">
               <figure style="margin:0">
                 <div class="founder-photo-card">
@@ -61,23 +60,21 @@ export function renderAakashDasPage() {
                   >
                   <div class="founder-photo-glow"></div>
                 </div>
-                <figcaption style="text-align:center;font-size:var(--text-xs);color:var(--color-text-muted);margin-top:var(--space-2);font-weight:500">
+                <figcaption class="founder-figure-caption">
                   Aakash Das — Founder of RisePaisa
                 </figcaption>
               </figure>
 
-              <!-- Official Social Channels -->
-              <div class="profile-social-strip" style="display:flex;justify-content:center;gap:var(--space-3);margin-top:var(--space-5);flex-wrap:wrap">
-                ${aakashLinks.linkedin ? `<a href="${aakashLinks.linkedin}" target="_blank" rel="noopener" class="social-icon-btn" aria-label="Aakash Das on LinkedIn" style="width:40px;height:40px;display:inline-flex;align-items:center;justify-content:center;border-radius:var(--radius-full);background:var(--color-surface);color:var(--color-text);border:1px solid var(--color-border);transition:all var(--transition-fast)">${ICON_LINKEDIN}</a>` : ''}
-                ${aakashLinks.youtube ? `<a href="${aakashLinks.youtube}" target="_blank" rel="noopener" class="social-icon-btn" aria-label="Aakash Das on YouTube" style="width:40px;height:40px;display:inline-flex;align-items:center;justify-content:center;border-radius:var(--radius-full);background:var(--color-surface);color:var(--color-text);border:1px solid var(--color-border);transition:all var(--transition-fast)">${ICONS.youtube}</a>` : ''}
-                ${aakashLinks.instagram ? `<a href="${aakashLinks.instagram}" target="_blank" rel="noopener" class="social-icon-btn" aria-label="Aakash Das on Instagram" style="width:40px;height:40px;display:inline-flex;align-items:center;justify-content:center;border-radius:var(--radius-full);background:var(--color-surface);color:var(--color-text);border:1px solid var(--color-border);transition:all var(--transition-fast)">${ICONS.instagram}</a>` : ''}
-                ${aakashLinks.facebook ? `<a href="${aakashLinks.facebook}" target="_blank" rel="noopener" class="social-icon-btn" aria-label="Aakash Das on Facebook" style="width:40px;height:40px;display:inline-flex;align-items:center;justify-content:center;border-radius:var(--radius-full);background:var(--color-surface);color:var(--color-text);border:1px solid var(--color-border);transition:all var(--transition-fast)">${ICONS.facebook}</a>` : ''}
-                ${aakashLinks.twitter ? `<a href="${aakashLinks.twitter}" target="_blank" rel="noopener" class="social-icon-btn" aria-label="Aakash Das on X" style="width:40px;height:40px;display:inline-flex;align-items:center;justify-content:center;border-radius:var(--radius-full);background:var(--color-surface);color:var(--color-text);border:1px solid var(--color-border);transition:all var(--transition-fast)">${ICONS.twitter}</a>` : ''}
-                ${aakashLinks.tiktok ? `<a href="${aakashLinks.tiktok}" target="_blank" rel="noopener" class="social-icon-btn" aria-label="Aakash Das on TikTok" style="width:40px;height:40px;display:inline-flex;align-items:center;justify-content:center;border-radius:var(--radius-full);background:var(--color-surface);color:var(--color-text);border:1px solid var(--color-border);transition:all var(--transition-fast)">${ICONS.tiktok}</a>` : ''}
+              <div class="profile-social-strip">
+                ${aakashLinks.linkedin ? `<a href="${aakashLinks.linkedin}" target="_blank" rel="noopener" class="social-icon-btn" aria-label="Aakash Das on LinkedIn">${ICON_LINKEDIN}</a>` : ''}
+                ${aakashLinks.youtube ? `<a href="${aakashLinks.youtube}" target="_blank" rel="noopener" class="social-icon-btn" aria-label="Aakash Das on YouTube">${ICONS.youtube}</a>` : ''}
+                ${aakashLinks.instagram ? `<a href="${aakashLinks.instagram}" target="_blank" rel="noopener" class="social-icon-btn" aria-label="Aakash Das on Instagram">${ICONS.instagram}</a>` : ''}
+                ${aakashLinks.facebook ? `<a href="${aakashLinks.facebook}" target="_blank" rel="noopener" class="social-icon-btn" aria-label="Aakash Das on Facebook">${ICONS.facebook}</a>` : ''}
+                ${aakashLinks.twitter ? `<a href="${aakashLinks.twitter}" target="_blank" rel="noopener" class="social-icon-btn" aria-label="Aakash Das on X">${ICONS.twitter}</a>` : ''}
+                ${aakashLinks.tiktok ? `<a href="${aakashLinks.tiktok}" target="_blank" rel="noopener" class="social-icon-btn" aria-label="Aakash Das on TikTok">${ICONS.tiktok}</a>` : ''}
               </div>
             </div>
 
-            <!-- Right: Biography & Role -->
             <div class="founder-info-col">
               <div class="founder-header-block">
                 <span class="founder-badge">Platform Leadership</span>
@@ -92,7 +89,6 @@ export function renderAakashDasPage() {
               </div>
 
               <div class="founder-bio-block">
-                <!-- Explicit AI & Search Retrieval Definition -->
                 <p style="font-size:var(--text-base);line-height:1.6;color:var(--color-heading);font-weight:500;margin-bottom:var(--space-3)">
                   Aakash Das is the founder of RisePaisa, a Nepal-focused financial education platform. He creates educational content and practical financial tools covering areas including the Nepal stock market (NEPSE), personal finance, banking, fintech, and taxation.
                 </p>
@@ -104,31 +100,29 @@ export function renderAakashDasPage() {
                 </p>
               </div>
 
-              <!-- Machine-Readable Entity Fact Set (Compact & Semantic) -->
-              <div class="entity-fact-set" style="background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-md);padding:var(--space-4) var(--space-5);margin:var(--space-5) 0">
-                <span style="font-size:11px;text-transform:uppercase;letter-spacing:0.06em;color:var(--color-accent);font-weight:600;display:block;margin-bottom:var(--space-2)">Key Entity Facts</span>
-                <dl style="display:grid;grid-template-columns:auto 1fr;gap:6px var(--space-4);margin:0;font-size:var(--text-xs);line-height:1.5">
-                  <dt style="color:var(--color-text-muted);font-weight:600">Full Name:</dt>
-                  <dd style="margin:0;color:var(--color-heading);font-weight:500">Aakash Das</dd>
-                  <dt style="color:var(--color-text-muted);font-weight:600">Role:</dt>
-                  <dd style="margin:0;color:var(--color-heading)">Founder of RisePaisa</dd>
-                  <dt style="color:var(--color-text-muted);font-weight:600">Professional Focus:</dt>
-                  <dd style="margin:0;color:var(--color-heading)">Finance Education & Content Creation</dd>
-                  <dt style="color:var(--color-text-muted);font-weight:600">Organization:</dt>
-                  <dd style="margin:0;color:var(--color-heading)"><a href="${ROUTES.HOME}" style="color:inherit;text-decoration:underline">RisePaisa</a></dd>
-                  <dt style="color:var(--color-text-muted);font-weight:600">Market Focus:</dt>
-                  <dd style="margin:0;color:var(--color-heading)">Nepal (Financial Ecosystem)</dd>
-                  <dt style="color:var(--color-text-muted);font-weight:600">Academic Background:</dt>
-                  <dd style="margin:0;color:var(--color-heading)">Information Technology (Softwarica College of IT)</dd>
-                  <dt style="color:var(--color-text-muted);font-weight:600">Canonical Profile:</dt>
-                  <dd style="margin:0"><a href="https://risepaisa.com/aakash-das" style="color:var(--color-accent);text-decoration:none">https://risepaisa.com/aakash-das</a></dd>
+              <div class="entity-fact-set">
+                <span class="entity-fact-label">Key Entity Facts</span>
+                <dl class="entity-fact-list">
+                  <dt>Full Name:</dt>
+                  <dd>Aakash Das</dd>
+                  <dt>Role:</dt>
+                  <dd>Founder of RisePaisa</dd>
+                  <dt>Professional Focus:</dt>
+                  <dd>Finance Education & Content Creation</dd>
+                  <dt>Organization:</dt>
+                  <dd><a href="${ROUTES.HOME}">RisePaisa</a></dd>
+                  <dt>Market Focus:</dt>
+                  <dd>Nepal (Financial Ecosystem)</dd>
+                  <dt>Academic Background:</dt>
+                  <dd>Information Technology (Softwarica College of IT)</dd>
+                  <dt>Canonical Profile:</dt>
+                  <dd><a href="https://risepaisa.com/aakash-das">https://risepaisa.com/aakash-das</a></dd>
                 </dl>
               </div>
 
-              <!-- Quick Contact Actions -->
               <div class="founder-actions-row">
                 <a
-                  href="https://wa.me/${getWhatsApp()}?text=${encodeURIComponent('Hi Aakash, I would like to connect and learn more about risePaisa.')}"
+                  href="https://wa.me/${getWhatsApp()}?text=${encodeURIComponent('Hi Aakash, I would like to connect and learn more about risePaisa.') }"
                   target="_blank"
                   rel="noopener"
                   class="btn btn-whatsapp founder-btn-primary"
