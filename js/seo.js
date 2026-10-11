@@ -838,7 +838,7 @@ export function resolvePageSEO(pathname = '/', searchParams = null, lang = 'en',
     });
   } else if (rootSection === 'aakash-das') {
     // 18b. Aakash Das Profile Page
-    seo.title = `Aakash Das — Founder of RisePaisa | Finance Educator`;
+    seo.title = `Aakash Das, Founder of RisePaisa | Finance Educator`;
     seo.description = `Learn about Aakash Das, founder of RisePaisa and a finance educator and content creator focused on financial education in Nepal.`;
     seo.type = 'profile';
     seo.image = `${SITE_DOMAIN}/assets/images/aakash-das-founder-risepaisa.jpg`;

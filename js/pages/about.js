@@ -39,7 +39,7 @@ export function renderAboutPage() {
               The challenge is not effort, but confusion. Scattered information, unverified social media tips, and complex jargon make it difficult to make the right financial choices.
             </p>
             <p>
-              RisePaisa brings clarity. We demystify how money works in Nepal—covering personal budgeting, NEPSE investing, income taxation, and digital banking—turning knowledge into practical, step-by-step systems that help Nepali learners earn better, manage smarter, and build lasting financial stability.
+              RisePaisa brings clarity. We demystify how money works in Nepal, covering personal budgeting, NEPSE investing, income taxation, and digital banking, turning knowledge into practical, step-by-step systems that help Nepali learners earn better, manage smarter, and build lasting financial stability.
             </p>
           </div>
         </div>

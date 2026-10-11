@@ -1,5 +1,5 @@
 # ==============================================================================
-# risePaisa — Robots.txt Policy
+# risePaisa: Robots.txt Policy
 # Modern Technical SEO & AI Search Engine Crawling Configuration
 # ==============================================================================
 

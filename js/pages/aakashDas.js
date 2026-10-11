@@ -15,7 +15,7 @@ const ICON_VERIFIED_BADGE = `<svg viewBox="0 0 22 22" fill="none" class="contact
 
 export function renderAakashDasPage() {
   setPageMeta(
-    'Aakash Das — Founder of RisePaisa | Finance Educator',
+    'Aakash Das, Founder of RisePaisa | Finance Educator',
     'Learn about Aakash Das, founder of RisePaisa and a finance educator and content creator focused on financial education in Nepal.',
     ROUTES.AAKASH_DAS
   );
@@ -61,7 +61,7 @@ export function renderAakashDasPage() {
                   <div class="founder-photo-glow"></div>
                 </div>
                 <figcaption class="founder-figure-caption">
-                  Aakash Das — Founder of RisePaisa
+                  Aakash Das, Founder of RisePaisa
                 </figcaption>
               </figure>
 
@@ -279,7 +279,7 @@ export function renderAakashDasPage() {
                 Softwarica College of IT & E-Commerce, Kathmandu, Nepal
               </div>
               <p style="margin:0;font-size:var(--text-xs);color:var(--color-text-secondary);line-height:1.6">
-                Pursuing formal studies in Information Technology, focusing on software architecture, web technologies, and computational systems—the technical foundation powering RisePaisa's interactive financial calculators and accessible digital learning infrastructure.
+                Pursuing formal studies in Information Technology, focusing on software architecture, web technologies, and computational systems, which form the technical foundation powering RisePaisa's interactive financial calculators and accessible digital learning infrastructure.
               </p>
             </div>
           </div>

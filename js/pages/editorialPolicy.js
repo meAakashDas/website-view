@@ -8,24 +8,38 @@ import { ROUTES } from '../routes.js';
 
 export function renderEditorialPolicyPage() {
   setPageMeta(
-    'Editorial Policy & Fact-Checking Standards — RisePaisa',
+    'Editorial Policy & Fact-Checking Standards | RisePaisa',
     'Learn how RisePaisa researches, verifies, and maintains unbiased financial education for Nepal, prioritizing primary sources from NRB, SEBON, CDSC, and IRD Nepal.',
     ROUTES.EDITORIAL_POLICY || '/editorial-policy'
   );
 
   return `
     <div class="legal-page" id="editorial-policy-page">
-      <div class="breadcrumb">
+      <nav class="breadcrumb" aria-label="Breadcrumb">
         <a href="${ROUTES.HOME}">Home</a><span class="separator">/</span>
         <span>Editorial Policy</span>
+      </nav>
+
+      <div class="legal-header-badge">
+        <span class="badge-pulse" style="width:6px;height:6px;border-radius:50%;background:var(--color-primary);display:inline-block"></span>
+        Editorial Integrity · Fact-Checking Standards
       </div>
 
-      <h1>Editorial Policy & Research Standards</h1>
-      <p class="last-updated">Last reviewed & updated: September 2026 · Editorial Desk</p>
+      <h1>Editorial Policy &amp; Research Standards</h1>
+      <p class="last-updated">Last verified &amp; updated: October 2026 · Editorial Desk</p>
+
+      <nav class="legal-nav-strip" aria-label="Legal Documentation Navigation">
+        <a href="${ROUTES.TERMS}" class="legal-nav-pill">Terms &amp; Conditions</a>
+        <a href="${ROUTES.PRIVACY}" class="legal-nav-pill">Privacy Policy</a>
+        <a href="${ROUTES.REFUND}" class="legal-nav-pill">Refund Policy</a>
+        <a href="${ROUTES.DISCLAIMER}" class="legal-nav-pill">Disclaimer</a>
+        <a href="${ROUTES.EDITORIAL_POLICY || '/editorial-policy'}" class="legal-nav-pill active">Editorial Policy</a>
+        <a href="${ROUTES.FAQ}" class="legal-nav-pill">FAQ</a>
+      </nav>
 
       <div style="background:var(--color-surface);border:1px solid var(--color-border);border-left:4px solid var(--color-accent);padding:var(--space-5) var(--space-6);border-radius:var(--radius-md);margin-bottom:var(--space-8)">
         <p style="margin:0;font-size:var(--text-sm);color:var(--color-text-secondary);line-height:1.6">
-          <strong style="color:var(--color-text)">Core Commitment:</strong> RisePaisa exists to build accurate, unbiased, and practical financial education tailored specifically to Nepal. We believe financial literacy must be founded on verifiable truth, statutory primary sources, and transparent authorship—never on speculative hype or sponsored stock promotion.
+          <strong style="color:var(--color-text)">Core Commitment:</strong> RisePaisa exists to build accurate, unbiased, and practical financial education tailored specifically to Nepal. We believe financial literacy must be founded on verifiable truth, statutory primary sources, and transparent authorship, never on speculative hype or sponsored stock promotion.
         </p>
       </div>
 
@@ -118,7 +132,7 @@ export function renderEditorialPolicyPage() {
         <li><a href="${ROUTES.DISCLAIMER}">Full Financial Disclaimer</a></li>
         <li><a href="${ROUTES.PRIVACY}">Privacy Policy</a></li>
         <li><a href="${ROUTES.TERMS}">Terms of Service</a></li>
-        <li><a href="${ROUTES.AAKASH_DAS}">Aakash Das — Author & Founder Profile</a></li>
+        <li><a href="${ROUTES.AAKASH_DAS}">Aakash Das, Author & Founder Profile</a></li>
       </ul>
     </div>
   `;

@@ -1,5 +1,5 @@
 // ==============================================
-// risePaisa — Master Entity Source of Truth
+// risePaisa: Master Entity Source of Truth
 // Canonical definitions for RisePaisa (Organization) and Aakash Das (Person)
 // ==============================================
 
@@ -57,7 +57,7 @@ export const ENTITY_AAKASH_DAS = {
   personId: 'https://risepaisa.com/aakash-das#person',
   imageUrl: 'https://risepaisa.com/assets/images/aakash-das-founder-risepaisa.jpg',
   imageAlt: 'Aakash Das, founder of RisePaisa',
-  imageCaption: 'Aakash Das — Founder of RisePaisa',
+  imageCaption: 'Aakash Das, Founder of RisePaisa',
   marketFocus: 'Nepal (Financial Ecosystem)',
   shortBio: 'Aakash Das is the founder of RisePaisa, a Nepal-focused financial education platform. He creates educational content covering areas including the Nepal stock market, personal finance, banking, fintech, and taxation.',
   alumniOf: {

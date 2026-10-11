@@ -112,7 +112,7 @@ export function renderBlogPostPage(slug) {
           <ul style="margin:0;padding-left:var(--space-4);font-size:var(--text-xs);color:var(--color-text-secondary);line-height:1.7">
             ${article.sources.map(s => `
               <li>
-                <strong>${s.title}</strong> — <span>${s.institution}</span>
+                <strong>${s.title}</strong>, <span>${s.institution}</span>
                 (<a href="${s.url}" target="_blank" rel="noopener nofollow" style="color:var(--color-accent);text-decoration:none">${new URL(s.url).hostname}${ICONS.externalLink}</a>)
               </li>
             `).join('')}

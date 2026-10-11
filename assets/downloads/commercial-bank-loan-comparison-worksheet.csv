@@ -14,7 +14,7 @@
 "EFFECTIVE ANNUAL LENDING RATE (%)","8.98%","9.60%","9.92%","9.30%","8.95%","Base Rate + Premium (floating rate updates quarterly)"
 "Fixed Rate Alternative Option","10.25% (Fixed 5 Yrs)","10.50% (Fixed 7 Yrs)","10.75% (Fixed 5 Yrs)","10.40% (Fixed 5 Yrs)","Not Offered (Floating Only)","Provides cash flow predictability if rates rise"
 "Benchmark Principal Loan Amount (NPR)","5000000","5000000","5000000","5000000","5000000","NPR 50 Lakhs (Standard retail loan benchmark)"
-"Requested Loan Tenure (Years)","15 Years (180 Mos)","15 Years (180 Mos)","15 Years (180 Mos)","15 Years (180 Mos)","15 Years (180 Mos)","Max 20–25 years based on borrower retirement age"
+"Requested Loan Tenure (Years)","15 Years (180 Mos)","15 Years (180 Mos)","15 Years (180 Mos)","15 Years (180 Mos)","15 Years (180 Mos)","Max 20 to 25 years based on borrower retirement age"
 "ESTIMATED MONTHLY EMI (NPR)","50672","52554","53540","51638","50582","Calculated on monthly reducing balance amortization"
 "TOTAL REPAYMENT OVER 15 YEARS (NPR)","9120960","9459720","9637200","9294840","9104760","Sum of 180 monthly EMI payments"
 "TOTAL LIFETIME INTEREST PAID (NPR)","4120960","4459720","4637200","4294840","4104760","Total interest cost paid to bank on 50 Lakhs"

@@ -27,8 +27,8 @@ const ARTICLES = [
       ctaText: 'Calculate NEPSE broker commissions, SEBON fees, and net trading profits'
     },
     relatedCourse: {
-      title: 'NEPSE Stock Market Basics',
-      url: '/courses/nepse-masterclass'
+      title: 'Share Market Full Course (NEPSE)',
+      url: '/courses/nepse-stock-market-basics'
     },
     relatedTopic: {
       name: 'Nepal Stock Market Academy',
@@ -65,7 +65,7 @@ const ARTICLES = [
         <li>Original Nepali citizenship certificate (with clear photocopies of front and back)</li>
         <li>Two recent passport-sized photographs</li>
         <li>Active bank account details (including Cheque leaf or account statement for automated dividend disbursement)</li>
-        <li>Permanent Account Number (PAN) — mandatory for institutional trading and transactions above statutory caps, highly recommended for retail investors</li>
+        <li>Permanent Account Number (PAN): mandatory for institutional trading and transactions above statutory caps, highly recommended for retail investors</li>
         <li>Birth certificate and guardian citizenship (if opening a minor account under 18 years of age)</li>
       </ul>
 
@@ -225,7 +225,7 @@ const ARTICLES = [
     ],
     disclaimer: 'This article provides general tax education based on the Income Tax Act 2058 and prevailing Finance Act provisions. It does not replace individualized tax advice from a registered Chartered Accountant or certified tax practitioner.',
     content: `
-      <p>Understanding income tax in Nepal is not just a statutory compliance requirement—it is a critical personal finance skill that directly preserves your net earnings. Under Nepal's progressive income tax system governed by the Inland Revenue Department (IRD), taxable income is evaluated across tiered slabs with specific statutory deductions for retirement and insurance contributions.</p>
+      <p>Understanding income tax in Nepal is not just a statutory compliance requirement, it is a critical personal finance skill that directly preserves your net earnings. Under Nepal's progressive income tax system governed by the Inland Revenue Department (IRD), taxable income is evaluated across tiered slabs with specific statutory deductions for retirement and insurance contributions.</p>
 
       <h2>Who is Liable to Pay Income Tax in Nepal?</h2>
       <p>Under the Income Tax Act 2058, any resident natural person earning income from employment, business, investment, or professional freelancing in Nepal is subject to tax assessment if their annual assessable income exceeds statutory baseline thresholds.</p>
@@ -389,7 +389,7 @@ const ARTICLES = [
     ],
     disclaimer: 'This guide discusses liquidity and capital preservation strategies for individual households. It is intended for educational purposes and does not constitute credit advice.',
     content: `
-      <p>Unexpected economic shocks—ranging from health emergencies and vehicular repairs to sudden unemployment or natural events—are an inevitable part of life. Without dedicated cash reserves, households in Nepal are often forced into distress sales of family gold, pledging assets, or taking informal loans from local lenders at predatory interest rates. An emergency fund is your fundamental financial safety cushion.</p>
+      <p>Unexpected economic shocks, ranging from health emergencies and vehicular repairs to sudden unemployment or natural events, are an inevitable part of life. Without dedicated cash reserves, households in Nepal are often forced into distress sales of family gold, pledging assets, or taking informal loans from local lenders at predatory interest rates. An emergency fund is your fundamental financial safety cushion.</p>
 
       <h2>What Exactly is an Emergency Fund?</h2>
       <p>An emergency fund is a ring-fenced reserve of highly liquid cash designed strictly to cover unforeseen, essential financial obligations. It is not intended for planned festive expenditures, vacation travel, or speculative stock trading.</p>
@@ -443,8 +443,8 @@ const ARTICLES = [
       ctaText: 'Simulate IPO allotment gains, secondary sale proceeds, and capital gains tax deductions'
     },
     relatedCourse: {
-      title: 'NEPSE Stock Market Basics',
-      url: '/courses/nepse-masterclass'
+      title: 'Share Market Full Course (NEPSE)',
+      url: '/courses/nepse-stock-market-basics'
     },
     relatedTopic: {
       name: 'Nepal Stock Market Academy',

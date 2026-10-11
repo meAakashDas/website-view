@@ -195,7 +195,7 @@ function renderNavbar(currentPath) {
           <div class="mobile-drawer-search-wrap">
             <button type="button" class="mobile-drawer-search-btn" id="mobile-drawer-search-btn" aria-label="Search finance topics and calculators">
               <span class="mobile-drawer-search-icon">${ICONS.search}</span>
-              <span class="mobile-drawer-search-text">Search topics, tools, lessons...</span>
+              <span class="mobile-drawer-search-text">Search topics, tools, lessons…</span>
               <kbd class="mobile-drawer-search-kbd">⌘K</kbd>
             </button>
           </div>
@@ -248,7 +248,7 @@ function renderNavbar(currentPath) {
             type="search"
             id="search-modal-input"
             class="search-modal-input"
-            placeholder="Search finance topics..."
+            placeholder="Search finance topics…"
             autocomplete="off"
             autocorrect="off"
             autocapitalize="off"

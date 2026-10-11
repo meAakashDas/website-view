@@ -4,42 +4,40 @@
 import { getCourses } from '../data/courses.js';
 import { getResources } from '../data/resources.js';
 import { getArticles } from '../data/articles.js';
-import { ICONS, renderCourseCard, renderResourceCard, renderArticleCard, setPageMeta, initStatCounters, getWhatsApp } from '../components.js';
+import { ICONS, renderResourceCard, renderArticleCard, setPageMeta, initStatCounters, getWhatsApp } from '../components.js';
 import { ROUTES } from '../routes.js';
 
 export function renderHomePage() {
-  setPageMeta(null, 'Learn personal finance, stock market investing, taxation, and fintech in Nepal. Join thousands of Nepali youth building financial literacy with risePaisa.', ROUTES.HOME);
+  setPageMeta(null, 'Learn personal finance, stock market investing with our flagship NEPSE course, taxation, and fintech in Nepal. Join thousands of Nepali youth building financial literacy with risePaisa.', ROUTES.HOME);
 
   const COURSES = getCourses();
+  const nepseCourse = COURSES.find(c => c.slug === 'nepse-stock-market-basics') || COURSES[0];
   const RESOURCES = getResources();
   const ARTICLES = getArticles();
 
-  const featuredCourses = COURSES.slice(0, 2);
   const featuredResources = RESOURCES.slice(0, 2);
   const latestArticles = ARTICLES.slice(0, 3);
 
   return `
     <!-- Hero Section -->
     <section class="hero" id="hero-section">
-      <div class="hero-bg"></div>
-      <div class="hero-grid-pattern"></div>
       <div class="container">
         <div class="hero-content">
-          <div class="hero-badge animate-fade-in" style="animation-delay:0ms">
+          <div class="hero-kicker">
             🇳🇵 नेपालमै आधारित वित्तीय शिक्षा
           </div>
-          <h1 class="animate-fade-in-up" style="animation-delay:100ms">
-            risePaisa - Hamro Nepal, Hamro Arthik Uday<br><span class="accent">Rise with risePaisa.</span>
+          <h1>
+            Hamro Nepal, Hamro Arthik Uday.<br><span class="hero-title-accent">Rise with risePaisa.</span>
           </h1>
-          <p class="hero-subtitle animate-fade-in-up" style="animation-delay:200ms">
-            Nepal's most practical financial education platform. Practical NEPSE, taxation, and personal finance strategies built for real income growth in Nepal.
+          <p class="hero-subtitle">
+            Nepal's most practical financial education platform. Master the NEPSE stock market, personal finance, taxation, and wealth building designed for Nepal.
           </p>
-          <div class="hero-actions animate-fade-in-up" style="animation-delay:300ms">
-            <a href="${ROUTES.LEARN}" class="btn btn-primary btn-lg">
-              Explore Academy ${ICONS.arrowRight}
+          <div class="hero-actions">
+            <a href="${ROUTES.COURSE_DETAIL('nepse-stock-market-basics')}" class="btn btn-primary btn-lg hero-btn-primary" id="hero-nepse-course-cta">
+              Explore Share Market Course ${ICONS.arrowRight}
             </a>
-            <a href="${ROUTES.COURSES}" class="btn btn-secondary btn-lg">
-              View Masterclasses
+            <a href="${ROUTES.LEARN}" class="btn btn-secondary btn-lg hero-btn-secondary" id="hero-free-resources-cta">
+              Explore Free Learning Resources
             </a>
           </div>
         </div>
@@ -52,38 +50,114 @@ export function renderHomePage() {
         <div class="trust-nepali">Real Finance for Nepal · Trusted by Nepali Youth 🇳🇵</div>
         <div class="stats-grid">
           <div class="stat-item">
-            <div class="stat-number" data-count="500" data-suffix="+">0</div>
-            <div class="stat-label">Active Learners</div>
-          </div>
-          <div class="stat-item">
-            <div class="stat-number" data-count="10000" data-suffix="+">0</div>
-            <div class="stat-label">Content Views</div>
+            <div class="stat-number" data-count="20" data-suffix="+">0</div>
+            <div class="stat-label">Hours of NEPSE Lessons</div>
           </div>
           <div class="stat-item">
             <div class="stat-number" data-count="25" data-suffix="+">0</div>
-            <div class="stat-label">Articles Published</div>
+            <div class="stat-label">Articles &amp; Guides</div>
           </div>
           <div class="stat-item">
-            <div class="stat-number" data-count="1" data-suffix="">0</div>
-            <div class="stat-label">Expert Courses</div>
+            <div class="stat-number" data-count="11" data-suffix="">0</div>
+            <div class="stat-label">Financial Calculators</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number" data-count="100" data-suffix="%">0</div>
+            <div class="stat-label">Nepal-Focused Curriculum</div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Featured Courses -->
-    <section class="section" id="featured-courses">
+    <!-- Dedicated Flagship Featured Course Section -->
+    <section class="section flagship-section" id="featured-course">
       <div class="container">
-        <div class="section-header">
-          <span class="section-eyebrow">Masterclasses</span>
-          <h2>Featured Courses</h2>
-          <p>Build financial control and wealth with step-by-step systems built for Nepal.</p>
+        <div class="flagship-header">
+          <span class="flagship-eyebrow">RISEPAISA FLAGSHIP COURSE</span>
+          <h2 class="flagship-section-title">Learn the Nepal Share Market. Invest with Confidence.</h2>
+          <p class="flagship-section-desc">Understand NEPSE from the fundamentals to technical analysis with practical lessons designed for Nepali investors.</p>
         </div>
-        <div class="grid-2 stagger-children" style="max-width:860px;margin:0 auto">
-          ${featuredCourses.map(c => renderCourseCard(c)).join('')}
-        </div>
-        <div style="text-align:center;margin-top:var(--space-8)">
-          <a href="${ROUTES.COURSES}" class="btn btn-secondary btn-lg">View All Courses ${ICONS.arrowRight}</a>
+
+        <div class="flagship-showcase-container">
+          <article class="flagship-showcase" id="flagship-nepse-showcase">
+            
+            <!-- Left Column: Original Course Cover Image -->
+            <div class="flagship-col-visual">
+              <a href="${ROUTES.COURSE_DETAIL('nepse-stock-market-basics')}" class="flagship-cover-link" aria-label="Explore Share Market Full Course (NEPSE)">
+                <img src="assets/images/course-nepse.png" alt="Share Market Full Course (NEPSE) by RisePaisa" class="flagship-cover-image" loading="lazy" decoding="async" width="1376" height="768">
+              </a>
+            </div>
+
+            <!-- Right Column: Course Info, Key Benefits, Price & CTAs -->
+            <div class="flagship-col-details">
+              <h3 class="flagship-course-heading">
+                <a href="${ROUTES.COURSE_DETAIL('nepse-stock-market-basics')}">Share Market Full Course (NEPSE)</a>
+              </h3>
+
+              <p class="flagship-course-desc">
+                A practical, structured program to understand Nepal&rsquo;s stock market from the ground up, covering technical analysis, balance sheet evaluation, stock selection, and disciplined risk management.
+              </p>
+
+              <!-- Essential Course Benefits -->
+              <ul class="flagship-benefits-grid">
+                <li class="flagship-benefit-item">
+                  <span class="flagship-benefit-icon" aria-hidden="true">${ICONS.clock}</span>
+                  <span class="flagship-benefit-text">20+ Hours of Recorded Lessons</span>
+                </li>
+                <li class="flagship-benefit-item">
+                  <span class="flagship-benefit-icon" aria-hidden="true">${ICONS.chartBar}</span>
+                  <span class="flagship-benefit-text">Fundamental Analysis</span>
+                </li>
+                <li class="flagship-benefit-item">
+                  <span class="flagship-benefit-icon" aria-hidden="true">${ICONS.trendingUp}</span>
+                  <span class="flagship-benefit-text">Technical Analysis</span>
+                </li>
+                <li class="flagship-benefit-item">
+                  <span class="flagship-benefit-icon" aria-hidden="true">${ICONS.building}</span>
+                  <span class="flagship-benefit-text">Practical Stock Analysis</span>
+                </li>
+                <li class="flagship-benefit-item">
+                  <span class="flagship-benefit-icon" aria-hidden="true">${ICONS.shield}</span>
+                  <span class="flagship-benefit-text">Risk Management</span>
+                </li>
+                <li class="flagship-benefit-item">
+                  <span class="flagship-benefit-icon" aria-hidden="true">${ICONS.layers}</span>
+                  <span class="flagship-benefit-text">PDF and Excel Learning Resources</span>
+                </li>
+                <li class="flagship-benefit-item">
+                  <span class="flagship-benefit-icon" aria-hidden="true">${ICONS.sparkles}</span>
+                  <span class="flagship-benefit-text">Weekly Course Updates</span>
+                </li>
+                <li class="flagship-benefit-item">
+                  <span class="flagship-benefit-icon" aria-hidden="true">${ICONS.users}</span>
+                  <span class="flagship-benefit-text">Weekly Live Q&amp;A Sessions</span>
+                </li>
+              </ul>
+
+              <!-- Pricing, Terms & Actions Bar -->
+              <div class="flagship-footer-bar">
+                <div class="flagship-price-cluster">
+                  <span class="flagship-price-kicker">Course Fee</span>
+                  <div class="flagship-price-display">
+                    <span class="flagship-price-currency">NPR</span>
+                    <span class="flagship-price-amount">2,999</span>
+                  </div>
+                  <span class="flagship-price-terms">One-time payment</span>
+                </div>
+
+                <div class="flagship-actions-cluster">
+                  <a href="${ROUTES.COURSE_DETAIL('nepse-stock-market-basics')}" class="flagship-btn-primary" id="flagship-explore-course-btn">
+                    <span>Explore Full Course</span>
+                    ${ICONS.arrowRight}
+                  </a>
+                  <a href="${ROUTES.LEARN}" class="flagship-btn-secondary" id="flagship-explore-free-btn">
+                    <span>Explore Free Resources</span>
+                  </a>
+                </div>
+              </div>
+
+            </div>
+          </article>
         </div>
       </div>
     </section>
@@ -194,7 +268,7 @@ export function renderHomePage() {
               Financial education built specifically for Nepal. Different rules, different systems, different reality.
             </p>
             <p>
-              risePaisa fixes that. Founded by <a href="${ROUTES.AAKASH_DAS}" style="color:var(--color-accent);font-weight:600;text-decoration:none">Aakash Das</a>, finance educator and content creator, it gives Nepali youth clear, practical knowledge to earn, manage, and invest money the right way — based on how Nepal actually works.
+              risePaisa fixes that. Founded by <a href="${ROUTES.AAKASH_DAS}" style="color:var(--color-accent);font-weight:600;text-decoration:none">Aakash Das</a>, finance educator and content creator, it gives Nepali youth clear, practical knowledge to earn, manage, and invest money the right way, based on how Nepal actually works.
             </p>
             <div style="display:flex;gap:var(--space-3);align-items:center;flex-wrap:wrap;margin-top:var(--space-6)">
               <a href="${ROUTES.ABOUT}" class="btn btn-secondary">About RisePaisa ${ICONS.arrowRight}</a>
