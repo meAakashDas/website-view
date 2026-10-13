@@ -293,11 +293,11 @@ export function renderTaxCalculator() {
             <div class="rp-stat-card maturity span-2">
               <div class="rp-maturity-header">
                 <span class="rp-stat-label">Total Annual Income Tax</span>
-                <span class="rp-badge rp-badge-pulse" style="background:rgba(245,158,11,0.15);color:#F59E0B;border:1px solid rgba(245,158,11,0.3)">
+                <span class="rp-badge rp-badge-pulse" style="background:rgba(245,158,11,0.15);color:var(--color-warning);border:1px solid rgba(245,158,11,0.3)">
                   Annual Tax Liability
                 </span>
               </div>
-              <div class="rp-stat-value maturity-large" style="color:#F59E0B" id="tax-res-total">
+              <div class="rp-stat-value maturity-large" style="color:var(--color-warning)" id="tax-res-total">
                 ${formatNPR(res.totalTax)}
               </div>
               <div class="rp-stat-caption">
@@ -313,7 +313,7 @@ export function renderTaxCalculator() {
 
             <div class="rp-stat-card">
               <span class="rp-stat-label">Monthly Tax Estimate</span>
-              <div class="rp-stat-value" style="color:#F59E0B" id="tax-res-monthly-tax">${formatNPR(res.monthlyTax)}</div>
+              <div class="rp-stat-value" style="color:var(--color-warning)" id="tax-res-monthly-tax">${formatNPR(res.monthlyTax)}</div>
               <span class="rp-stat-sub">Estimated TDS per month</span>
             </div>
 
@@ -325,7 +325,7 @@ export function renderTaxCalculator() {
 
             <div class="rp-stat-card">
               <span class="rp-stat-label">Annual Take-Home</span>
-              <div class="rp-stat-value" style="color:#10B981" id="tax-res-annual-home">${formatNPR(res.annualTakeHome)}</div>
+              <div class="rp-stat-value" style="color:var(--color-success)" id="tax-res-annual-home">${formatNPR(res.annualTakeHome)}</div>
               <span class="rp-stat-sub">Net disposable pay</span>
             </div>
           </div>
@@ -372,10 +372,10 @@ export function renderTaxCalculator() {
             </tbody>
             <tfoot>
               <tr class="rp-row-final">
-                <td style="font-weight:var(--weight-bold);color:var(--color-white)">Total Tax Liability</td>
+                <td style="font-weight:var(--weight-bold);color:var(--color-heading)">Total Tax Liability</td>
                 <td>-</td>
                 <td class="rp-num font-semibold">${formatNPR(res.netTaxableIncome)}</td>
-                <td class="rp-num font-semibold" style="color:#F59E0B">${formatNPR(res.totalTax)}</td>
+                <td class="rp-num font-semibold" style="color:var(--color-warning)">${formatNPR(res.totalTax)}</td>
               </tr>
             </tfoot>
           </table>
@@ -461,7 +461,7 @@ function renderTaxBreakdownRows(breakdown) {
         <span class="rp-tax-rate-pill ${s.isActive ? 'active' : ''}">${s.rateLabel}</span>
       </td>
       <td class="rp-num ${s.isActive ? 'font-semibold' : ''}">${formatNPR(s.taxableInSlab)}</td>
-      <td class="rp-num ${s.isActive && s.taxPaid > 0 ? 'font-semibold' : ''}" style="${s.taxPaid > 0 ? 'color:#F59E0B' : ''}">
+      <td class="rp-num ${s.isActive && s.taxPaid > 0 ? 'font-semibold' : ''}" style="${s.taxPaid > 0 ? 'color:var(--color-warning)' : ''}">
         ${formatNPR(s.taxPaid)}
       </td>
     </tr>

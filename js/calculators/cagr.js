@@ -343,7 +343,7 @@ export function renderCAGRCalculator() {
             <!-- Stat 2: Absolute Profit -->
             <div class="rp-stat-card">
               <span class="rp-stat-label">Absolute Profit / Gain</span>
-              <div class="rp-stat-value" style="color:${res.isGain ? '#10B981' : '#EF4444'}" id="cagr-res-profit">
+              <div class="rp-stat-value" style="color:${res.isGain ? 'var(--color-success)' : 'var(--color-error)'}" id="cagr-res-profit">
                 ${res.isGain ? '+' : ''}${formatNPR(res.absoluteProfit)}
               </div>
               <span class="rp-stat-sub">Ending Value − Beginning Value</span>
@@ -352,7 +352,7 @@ export function renderCAGRCalculator() {
             <!-- Stat 3: Total Return % -->
             <div class="rp-stat-card">
               <span class="rp-stat-label">Total Cumulative Return</span>
-              <div class="rp-stat-value" style="color:${res.isGain ? '#10B981' : '#EF4444'}" id="cagr-res-total-ret">
+              <div class="rp-stat-value" style="color:${res.isGain ? 'var(--color-success)' : 'var(--color-error)'}" id="cagr-res-total-ret">
                 ${res.isGain ? '+' : ''}${res.totalReturnPct}%
               </div>
               <span class="rp-stat-sub">Total capital appreciation</span>
@@ -525,7 +525,7 @@ function renderMilestoneCards(milestones) {
       <div class="rp-ms-year-badge">${m.years} Years</div>
       <div class="rp-ms-val">${formatNPR(m.estimatedValue)}</div>
       <div class="rp-ms-sub">
-        Gain: <span style="color:#10B981">+${formatNPR(m.estimatedProfit)}</span>
+        Gain: <span style="color:var(--color-success)">+${formatNPR(m.estimatedProfit)}</span>
       </div>
       <div class="rp-ms-multiple">${m.multiple}x Initial Capital (${m.totalReturnPct}% Gain)</div>
     </div>
@@ -566,7 +566,7 @@ function renderComparisonCards(investments) {
         </div>
         <div class="rp-comp-stat-row">
           <span>Total Gain:</span>
-          <span style="color:#10B981">+${formatNPR(inv.absoluteProfit)} (${inv.totalReturnPct}%)</span>
+          <span style="color:var(--color-success)">+${formatNPR(inv.absoluteProfit)} (${inv.totalReturnPct}%)</span>
         </div>
       </div>
     </div>
@@ -678,11 +678,11 @@ export function initCAGRCalculator() {
 
     if (resProfit) {
       resProfit.textContent = `${res.isGain ? '+' : ''}${formatNPR(res.absoluteProfit)}`;
-      resProfit.style.color = res.isGain ? '#10B981' : '#EF4444';
+      resProfit.style.color = res.isGain ? 'var(--color-success)' : 'var(--color-error)';
     }
     if (resTotalRet) {
       resTotalRet.textContent = `${res.isGain ? '+' : ''}${res.totalReturnPct}%`;
-      resTotalRet.style.color = res.isGain ? '#10B981' : '#EF4444';
+      resTotalRet.style.color = res.isGain ? 'var(--color-success)' : 'var(--color-error)';
     }
     if (resAvgAnnual) {
       resAvgAnnual.textContent = `${res.avgAnnualGrowth}% / yr`;
@@ -745,7 +745,7 @@ export function initCAGRCalculator() {
     tooltip.innerHTML = `
       <div class="rp-tt-title">Year ${time}</div>
       <div class="rp-tt-row"><span class="rp-tt-label">Portfolio Value:</span> <span class="rp-tt-val accent">${formatNPR(val)}</span></div>
-      <div class="rp-tt-row"><span class="rp-tt-label">Net Gain:</span> <span class="rp-tt-val" style="color:#10B981">+${formatNPR(profit)}</span></div>
+      <div class="rp-tt-row"><span class="rp-tt-label">Net Gain:</span> <span class="rp-tt-val" style="color:var(--color-success)">+${formatNPR(profit)}</span></div>
     `;
 
     positionChartTooltip(tooltip, pt, lineChartWrap, { desktopTop: '15px' });

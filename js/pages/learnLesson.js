@@ -138,6 +138,10 @@ export function renderLearnLessonPage(categorySlug, lessonSlug) {
   const prevLessonUrl = lesson.prevLesson ? `/learn/${category.slug}/${lesson.prevLesson.slug}` : null;
   const nextLessonUrl = lesson.nextLesson ? `/learn/${category.slug}/${lesson.nextLesson.slug}` : null;
 
+  // Dynamic Sequential Section Number Generator (eliminates missing or skipped TOC numbers)
+  let secCounter = 1;
+  const getSecNum = () => String(secCounter++).padStart(2, '0') + '.';
+
   return `
     <div class="learn-page-wrapper learn-lesson-view" data-lesson-id="${lesson.id}" data-category-slug="${category.slug}">
       
@@ -290,7 +294,7 @@ export function renderLearnLessonPage(categorySlug, lessonSlug) {
             <!-- Section 1: Introduction & Core Definition (What is this?) -->
             <article class="lesson-section-block" id="sec-what-is-this">
               <h2 class="lesson-heading-h2">
-                <span class="heading-num">01.</span>
+                <span class="heading-num">${getSecNum()}</span>
                 <span>${ui.whatIsThis}</span>
               </h2>
               <div class="lesson-prose">
@@ -302,7 +306,7 @@ export function renderLearnLessonPage(categorySlug, lessonSlug) {
             <!-- Section 2: Why It Matters & Hidden Costs of Inaction (Why does it matter?) -->
             <article class="lesson-section-block" id="sec-why-it-matters">
               <h2 class="lesson-heading-h2">
-                <span class="heading-num">02.</span>
+                <span class="heading-num">${getSecNum()}</span>
                 <span>${ui.whyItMatters}</span>
               </h2>
               <div class="lesson-prose">
@@ -314,7 +318,7 @@ export function renderLearnLessonPage(categorySlug, lessonSlug) {
             <!-- Section 3: How It Works Step-by-Step (How does it work?) -->
             <article class="lesson-section-block" id="sec-how-it-works">
               <h2 class="lesson-heading-h2">
-                <span class="heading-num">03.</span>
+                <span class="heading-num">${getSecNum()}</span>
                 <span>${ui.howItWorks}</span>
               </h2>
               
@@ -335,7 +339,7 @@ export function renderLearnLessonPage(categorySlug, lessonSlug) {
             ${lessonMeta.visualDiagram ? `
               <article class="lesson-section-block" id="sec-visual-diagram">
                 <h2 class="lesson-heading-h2">
-                  <span class="heading-num">04.</span>
+                  <span class="heading-num">${getSecNum()}</span>
                   <span>${ui.visualDiagram}</span>
                 </h2>
                 
@@ -366,7 +370,7 @@ export function renderLearnLessonPage(categorySlug, lessonSlug) {
                   <span class="flag-icon">${ICONS.nepalFlag}</span>
                   <span>${ui.nepalContext}</span>
                 </div>
-                <h2 class="nepal-context-title">${ui.howInNepalTitle}</h2>
+                <h2 class="nepal-context-title"><span class="heading-num">${getSecNum()}</span> <span>${ui.howInNepalTitle}</span></h2>
                 <div class="nepal-context-body">
                   <p>${lessonMeta.nepalContext}</p>
                 </div>
@@ -381,7 +385,7 @@ export function renderLearnLessonPage(categorySlug, lessonSlug) {
             ${lessonMeta.practicalScenario ? `
               <article class="lesson-section-block" id="sec-practical-example">
                 <h2 class="lesson-heading-h2">
-                  <span class="heading-num">06.</span>
+                  <span class="heading-num">${getSecNum()}</span>
                   <span>${ui.practicalExample}</span>
                 </h2>
 
@@ -448,7 +452,7 @@ export function renderLearnLessonPage(categorySlug, lessonSlug) {
             ${((lessonMeta.advantages && lessonMeta.advantages.length > 0) || (lessonMeta.limitations && lessonMeta.limitations.length > 0)) ? `
               <article class="lesson-section-block" id="sec-pros-cons">
                 <h2 class="lesson-heading-h2">
-                  <span class="heading-num">07.</span>
+                  <span class="heading-num">${getSecNum()}</span>
                   <span>${isEn ? 'Advantages & Limitations' : 'फाइदाहरू र सीमाहरू (जोखिम)'}</span>
                 </h2>
                 <div class="lesson-proscons-grid">
@@ -490,7 +494,7 @@ export function renderLearnLessonPage(categorySlug, lessonSlug) {
             ${lessonMeta.targetAudience ? `
               <article class="lesson-section-block" id="sec-target-audience">
                 <h2 class="lesson-heading-h2">
-                  <span class="heading-num">08.</span>
+                  <span class="heading-num">${getSecNum()}</span>
                   <span>${isEn ? 'Who Should Use This (And Who Should Avoid It)' : 'कसका लागि उपयुक्त (र कसले सचेत रहने)'}</span>
                 </h2>
                 <div class="lesson-target-audience-card">
@@ -530,7 +534,7 @@ export function renderLearnLessonPage(categorySlug, lessonSlug) {
             ${lessonMeta.formula ? `
               <article class="lesson-section-block" id="sec-financial-formula">
                 <h2 class="lesson-heading-h2">
-                  <span class="heading-num">09.</span>
+                  <span class="heading-num">${getSecNum()}</span>
                   <span>Financial Formula & Step-by-Step Calculation</span>
                 </h2>
 
@@ -579,7 +583,7 @@ export function renderLearnLessonPage(categorySlug, lessonSlug) {
             ${(lessonMeta.commonMistakes && lessonMeta.commonMistakes.length > 0) ? `
               <article class="lesson-section-block" id="sec-common-mistakes">
                 <h2 class="lesson-heading-h2">
-                  <span class="heading-num">10.</span>
+                  <span class="heading-num">${getSecNum()}</span>
                   <span>${ui.commonMistakes}</span>
                 </h2>
 
@@ -607,7 +611,7 @@ export function renderLearnLessonPage(categorySlug, lessonSlug) {
             ${(lesson.downloadableResources && lesson.downloadableResources.length > 0) ? `
               <article class="lesson-section-block" id="sec-resources">
                 <h2 class="lesson-heading-h2">
-                  <span class="heading-num">13.</span>
+                  <span class="heading-num">${getSecNum()}</span>
                   <span>${ui.downloadableResourcesTitle}</span>
                 </h2>
 
@@ -636,7 +640,7 @@ export function renderLearnLessonPage(categorySlug, lessonSlug) {
             ${(lessonMeta.faqs && lessonMeta.faqs.length > 0) ? `
               <article class="lesson-section-block" id="sec-faqs">
                 <h2 class="lesson-heading-h2">
-                  <span class="heading-num">14.</span>
+                  <span class="heading-num">${getSecNum()}</span>
                   <span>${ui.frequentlyAskedQuestions}</span>
                 </h2>
 

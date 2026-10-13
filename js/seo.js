@@ -31,7 +31,7 @@ import { CALCULATOR_REGISTRY } from './calculators/registry.js';
 import { getAllCourses, getCourseBySlug } from './data/courses.js';
 import { getResources, getResourceBySlug } from './data/resources.js';
 import { getArticles, getArticleBySlug } from './data/articles.js';
-import { CALCULATOR_SLUG_TO_ID } from './routes.js';
+import { CALCULATOR_SLUG_TO_ID, CALCULATOR_ROUTES } from './routes.js';
 import { ENTITY_RISEPAISA, ENTITY_AAKASH_DAS } from './data/entities.js';
 
 export const SITE_DOMAIN = 'https://risepaisa.com';
@@ -175,9 +175,8 @@ export function resolvePageSEO(pathname = '/', searchParams = null, lang = 'en',
       '@id': ENTITY_RISEPAISA.organizationId
     },
     'alumniOf': {
-      '@type': 'CollegeOrUniversity',
-      'name': ENTITY_AAKASH_DAS.alumniOf.name,
-      'url': ENTITY_AAKASH_DAS.alumniOf.url
+      '@type': 'EducationalOrganization',
+      'name': 'Sainik Awasiya Mahavidyalaya, Bhaktapur'
     },
     'description': ENTITY_AAKASH_DAS.shortBio,
     'knowsAbout': ENTITY_AAKASH_DAS.knowsAbout,
@@ -601,21 +600,97 @@ export function resolvePageSEO(pathname = '/', searchParams = null, lang = 'en',
       const calc = CALCULATOR_REGISTRY.find(c => c.id === resolvedId || c.id === rawCalcId);
 
       if (calc) {
-        seo.title = `${calc.title} for Nepal | Free Financial Tool | risePaisa`;
-        seo.description = `${calc.shortDesc} Interactive calculator with inflation adjustment and growth visualization for Nepal.`;
-        seo.breadcrumbs.push({ name: calc.title, url: canonicalUrl });
+        const preferredPath = (CALCULATOR_ROUTES && CALCULATOR_ROUTES[calc.id]) || `/calculators/${calc.id}`;
+        seo.canonical = `${SITE_DOMAIN}${preferredPath}`;
+
+        const calcCustomSEO = {
+          sip: {
+            title: `SIP Calculator Nepal — Estimate Investment Returns | RisePaisa`,
+            desc: `Estimate SIP maturity value, total investment, and projected returns using your monthly contribution, expected annual return, and duration in Nepal.`,
+            keywords: `SIP calculator Nepal, systematic investment plan Nepal, mutual fund SIP return, compounding calculator Kathmandu, SIP maturity calculator`
+          },
+          tax: {
+            title: `Nepal Income Tax Calculator — FY 2082/83 | RisePaisa`,
+            desc: `Estimate Nepal income tax using applicable FY 2082/83 Inland Revenue Department (IRD) progressive tax rules. Review taxable income, deductions, and take-home pay.`,
+            keywords: `Nepal income tax calculator, salary tax calculator Nepal, IRD tax slabs 2082/83, married tax Nepal, social security tax Nepal`
+          },
+          emi: {
+            title: `EMI & Loan Calculator Nepal — Monthly Installment & Schedule | RisePaisa`,
+            desc: `Calculate reducing-balance monthly loan EMI, total interest, and full repayment schedules for commercial bank loans in Nepal.`,
+            keywords: `EMI calculator Nepal, loan EMI calculator Kathmandu, reducing interest rate Nepal, bank loan installment, loan amortization schedule`
+          },
+          'home-loan': {
+            title: `Home Loan Calculator Nepal — Housing EMI & NRB LTV Ratio | RisePaisa`,
+            desc: `Calculate residential home loan installments, Loan-to-Value (LTV) health metrics under Nepal Rastra Bank guidelines, down payment, and total interest in Nepal.`,
+            keywords: `Home loan calculator Nepal, housing loan EMI Kathmandu, NRB LTV ratio home loan, mortgage calculator Nepal, property loan interest`
+          },
+          'personal-loan': {
+            title: `Personal Loan Calculator Nepal — Rates & Payment Schedule | RisePaisa`,
+            desc: `Calculate unsecured personal loan monthly EMIs, effective borrowing costs, and compare repayment tenures for bank loans in Nepal.`,
+            keywords: `Personal loan calculator Nepal, unsecured bank loan EMI, personal loan interest rates Kathmandu, tenure comparison`
+          },
+          'vehicle-loan': {
+            title: `Vehicle Loan & Auto EMI Calculator Nepal — Car, Bike & EV | RisePaisa`,
+            desc: `Calculate down payment, loan ratio, and monthly EMIs for two-wheelers, cars, SUVs, and electric vehicles (EV) in Nepal.`,
+            keywords: `Vehicle loan calculator Nepal, auto loan EMI Kathmandu, EV car loan Nepal, bike loan calculator, down payment auto loan`
+          },
+          swp: {
+            title: `SWP Calculator Nepal — Systematic Withdrawal Plan & Regular Income | RisePaisa`,
+            desc: `Simulate monthly regular income withdrawals, portfolio longevity, and project remaining corpus health over time for mutual funds in Nepal.`,
+            keywords: `SWP calculator Nepal, systematic withdrawal plan, retirement monthly income Nepal, mutual fund SWP, corpus longevity`
+          },
+          fdrd: {
+            title: `Nepal Fixed Deposit (FD) & RD Calculator with 5% TDS | RisePaisa`,
+            desc: `Calculate FD and RD returns with quarterly compounding, statutory 5% TDS withholding tax deduction, and net maturity value in Nepal.`,
+            keywords: `Fixed deposit calculator Nepal, FD interest calculator with TDS, RD calculator Nepal, recurring deposit return, bank FD rates`
+          },
+          share: {
+            title: `NEPSE Share Trading & Capital Gains Tax Calculator | RisePaisa`,
+            desc: `Calculate NEPSE stock trading costs, broker commissions (0.27%-0.40%), SEBON fees, DP charges, WACC average price, and capital gains tax (CGT).`,
+            keywords: `NEPSE share calculator, broker commission calculator Nepal, SEBON fee, WACC calculator Nepal, capital gains tax NEPSE, share profit calculator`
+          },
+          cagr: {
+            title: `CAGR Calculator Nepal — Compound Annual Growth Rate | RisePaisa`,
+            desc: `Measure the Compound Annual Growth Rate (CAGR) of your stock, mutual fund, real estate, or business investments in Nepal.`,
+            keywords: `CAGR calculator Nepal, compound annual growth rate, investment return annualized, portfolio growth rate, stock CAGR`
+          },
+          inflation: {
+            title: `Inflation Calculator Nepal — Purchasing Power & Future Cost | RisePaisa`,
+            desc: `Calculate the erosion of purchasing power over time and plan for future price escalation and living expenses in Nepal.`,
+            keywords: `Inflation calculator Nepal, purchasing power loss Kathmandu, future expense calculator, inflation adjustment Nepal`
+          },
+          retirement: {
+            title: `Retirement & Goal Planner Nepal — Corpus & SIP Target | RisePaisa`,
+            desc: `Plan long-term retirement corpus needs, inflation escalation, and required monthly SIPs for major life goals in Nepal.`,
+            keywords: `Retirement planner Nepal, goal calculator, pension corpus Nepal, retirement SIP target, financial freedom Kathmandu`
+          }
+        };
+
+        const custom = calcCustomSEO[calc.id] || {};
+        seo.title = custom.title || `${calc.title} for Nepal | Free Financial Tool | risePaisa`;
+        seo.description = custom.desc || `${calc.shortDesc} Interactive calculator with inflation adjustment and growth visualization for Nepal.`;
+        if (custom.keywords) seo.keywords = custom.keywords;
+
+        seo.breadcrumbs = [
+          { name: 'Home', url: SITE_DOMAIN },
+          { name: 'Calculators', url: `${SITE_DOMAIN}/calculators` },
+          { name: calc.title, url: seo.canonical }
+        ];
 
         seo.schemas.push({
           '@type': 'WebApplication',
-          '@id': `${canonicalUrl}#app`,
+          '@id': `${seo.canonical}#app`,
           'name': `${calc.title} - Nepal`,
           'applicationCategory': 'FinanceApplication',
           'operatingSystem': 'All',
+          'browserRequirements': 'Requires JavaScript',
           'description': seo.description,
+          'url': seo.canonical,
           'offers': {
             '@type': 'Offer',
             'price': '0',
-            'priceCurrency': 'NPR'
+            'priceCurrency': 'NPR',
+            'category': 'Free Financial Tool'
           },
           'provider': { '@id': `${SITE_DOMAIN}/#organization` }
         });
@@ -838,8 +913,8 @@ export function resolvePageSEO(pathname = '/', searchParams = null, lang = 'en',
     });
   } else if (rootSection === 'aakash-das') {
     // 18b. Aakash Das Profile Page
-    seo.title = `Aakash Das, Founder of RisePaisa | Finance Educator`;
-    seo.description = `Learn about Aakash Das, founder of RisePaisa and a finance educator and content creator focused on financial education in Nepal.`;
+    seo.title = `Aakash Das — Founder of RisePaisa | Finance Educator & Content Creator`;
+    seo.description = `Meet Aakash Das, founder of RisePaisa and a finance educator creating practical financial education and digital tools for Nepal.`;
     seo.type = 'profile';
     seo.image = `${SITE_DOMAIN}/assets/images/aakash-das-founder-risepaisa.jpg`;
     seo.breadcrumbs.push({ name: 'About', url: `${SITE_DOMAIN}/about` });

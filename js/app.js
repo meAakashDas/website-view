@@ -409,24 +409,35 @@ function initApp() {
   const body = document.body;
 
   // Navbar container
-  const navContainer = document.createElement('div');
-  navContainer.id = 'navbar-container';
-  body.prepend(navContainer);
+  let navContainer = document.getElementById('navbar-container');
+  if (!navContainer) {
+    navContainer = document.createElement('div');
+    navContainer.id = 'navbar-container';
+    body.prepend(navContainer);
+  }
 
   // Footer (always visible)
-  const footerContainer = document.createElement('div');
-  footerContainer.id = 'footer-container';
-  footerContainer.innerHTML = renderFooter();
+  let footerContainer = document.getElementById('footer-container');
+  const appDiv = document.getElementById('app');
+  if (!footerContainer) {
+    footerContainer = document.createElement('div');
+    footerContainer.id = 'footer-container';
+    footerContainer.innerHTML = renderFooter();
+    if (appDiv) {
+      appDiv.after(footerContainer);
+    } else {
+      body.appendChild(footerContainer);
+    }
+  }
 
   // WhatsApp float
-  const waContainer = document.createElement('div');
-  waContainer.id = 'whatsapp-container';
-  waContainer.innerHTML = renderWhatsAppFloat();
-
-  // Append after app div
-  const appDiv = document.getElementById('app');
-  appDiv.after(footerContainer);
-  body.appendChild(waContainer);
+  let waContainer = document.getElementById('whatsapp-container');
+  if (!waContainer) {
+    waContainer = document.createElement('div');
+    waContainer.id = 'whatsapp-container';
+    waContainer.innerHTML = renderWhatsAppFloat();
+    body.appendChild(waContainer);
+  }
 
   // Intercept internal link clicks for smooth client-side SPA transitions
   document.addEventListener('click', (e) => {

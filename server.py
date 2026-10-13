@@ -13,8 +13,13 @@ class SPAHandler(http.server.SimpleHTTPRequestHandler):
         super().end_headers()
 
     def translate_path(self, path):
-        real_path = super().translate_path(path)
-        if not os.path.exists(real_path) and '.' not in os.path.basename(path):
+        clean_path = path.split('?', 1)[0].split('#', 1)[0]
+        real_path = super().translate_path(clean_path)
+        if os.path.isdir(real_path):
+            index = os.path.join(real_path, "index.html")
+            if os.path.exists(index):
+                return index
+        if not os.path.exists(real_path) and '.' not in os.path.basename(clean_path):
             return super().translate_path('/index.html')
         return real_path
 

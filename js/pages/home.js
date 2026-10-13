@@ -50,19 +50,19 @@ export function renderHomePage() {
         <div class="trust-nepali">Real Finance for Nepal · Trusted by Nepali Youth 🇳🇵</div>
         <div class="stats-grid">
           <div class="stat-item">
-            <div class="stat-number" data-count="20" data-suffix="+">0</div>
+            <div class="stat-number" data-count="20" data-suffix="+">20+</div>
             <div class="stat-label">Hours of NEPSE Lessons</div>
           </div>
           <div class="stat-item">
-            <div class="stat-number" data-count="25" data-suffix="+">0</div>
+            <div class="stat-number" data-count="25" data-suffix="+">25+</div>
             <div class="stat-label">Articles &amp; Guides</div>
           </div>
           <div class="stat-item">
-            <div class="stat-number" data-count="11" data-suffix="">0</div>
+            <div class="stat-number" data-count="12" data-suffix="">12</div>
             <div class="stat-label">Financial Calculators</div>
           </div>
           <div class="stat-item">
-            <div class="stat-number" data-count="100" data-suffix="%">0</div>
+            <div class="stat-number" data-count="100" data-suffix="%">100%</div>
             <div class="stat-label">Nepal-Focused Curriculum</div>
           </div>
         </div>
@@ -216,7 +216,7 @@ export function renderHomePage() {
         </div>
 
         <div style="text-align:center;margin-top:var(--space-8)">
-          <a href="${ROUTES.CALCULATORS}" class="btn btn-secondary btn-lg">Explore All 11 Calculators ${ICONS.arrowRight}</a>
+          <a href="${ROUTES.CALCULATORS}" class="btn btn-secondary btn-lg">Explore All 12 Calculators ${ICONS.arrowRight}</a>
         </div>
       </div>
     </section>

@@ -292,7 +292,7 @@ export function renderSWPCalculator() {
 
             <div class="rp-stat-card">
               <span class="rp-stat-label">Total Interest Earned</span>
-              <div class="rp-stat-value" style="color:#10B981" id="swp-res-growth">+${formatNPR(res.totalInterestEarned)}</div>
+              <div class="rp-stat-value" style="color:var(--color-success)" id="swp-res-growth">+${formatNPR(res.totalInterestEarned)}</div>
               <span class="rp-stat-sub">Compounded return</span>
             </div>
 
@@ -406,7 +406,7 @@ export function renderSWPCalculator() {
 
           <!-- Card 2: Nepal Tax Efficiency vs Bank FD -->
           <div class="rp-edu-card">
-            <div class="rp-edu-icon-wrap" style="color:#10b981;font-size:24px;margin-bottom:8px">🇳🇵</div>
+            <div class="rp-edu-icon-wrap" style="color:var(--color-success);font-size:24px;margin-bottom:8px">🇳🇵</div>
             <h4>Tax Efficiency vs Bank Fixed Deposit</h4>
             <ul class="rp-edu-list" style="margin:0;padding-left:18px;font-size:0.875rem;color:var(--color-text-secondary);line-height:1.6">
               <li><strong>FD Interest Tax Drag:</strong> Commercial banks deduct 5% TDS upfront on 100% of the interest earned annually, eroding capital compound speed.</li>
@@ -417,7 +417,7 @@ export function renderSWPCalculator() {
 
           <!-- Card 3: Sequence of Returns & Sizing Guide -->
           <div class="rp-edu-card">
-            <div class="rp-edu-icon-wrap" style="color:#f59e0b;font-size:24px;margin-bottom:8px">⚖️</div>
+            <div class="rp-edu-icon-wrap" style="color:var(--color-warning);font-size:24px;margin-bottom:8px">⚖️</div>
             <h4>Sequence of Returns Risk & The 3.5% Rule</h4>
             <ul class="rp-edu-list" style="margin:0;padding-left:18px;font-size:0.875rem;color:var(--color-text-secondary);line-height:1.6">
               <li><strong>The Bear Market Trap:</strong> Withdrawing during an early NEPSE downturn forces selling more units at rock-bottom NAVs, causing permanent portfolio impairment.</li>
@@ -453,10 +453,10 @@ function renderSensitivityHTML(sens) {
   return `
     <!-- -10% Withdrawal -->
     <div class="rp-comp-card">
-      <div class="rp-comp-badge" style="background:rgba(16,185,129,0.15);color:#10B981">-10% Less Withdrawal</div>
+      <div class="rp-comp-badge" style="background:rgba(16,185,129,0.15);color:var(--color-success)">-10% Less Withdrawal</div>
       <div class="rp-comp-rate">${formatNPR(sens.minus10.monthlyWithdrawal)} / mo</div>
-      <div class="rp-comp-emi" style="color:#10B981">${formatNPR(sens.minus10.finalBalance)}</div>
-      <div class="rp-comp-diff" style="color:#10B981">
+      <div class="rp-comp-emi" style="color:var(--color-success)">${formatNPR(sens.minus10.finalBalance)}</div>
+      <div class="rp-comp-diff" style="color:var(--color-success)">
         ${sens.minus10.isExhausted ? `Exhausts in Yr ${sens.minus10.exhaustedYear}` : 'Corpus projected to survive'}
       </div>
       <div class="rp-comp-interest">
@@ -479,12 +479,12 @@ function renderSensitivityHTML(sens) {
 
     <!-- +10% Withdrawal -->
     <div class="rp-comp-card">
-      <div class="rp-comp-badge" style="background:rgba(239,68,68,0.15);color:#ef4444">+10% More Withdrawal</div>
+      <div class="rp-comp-badge" style="background:rgba(239,68,68,0.15);color:var(--color-error)">+10% More Withdrawal</div>
       <div class="rp-comp-rate">${formatNPR(sens.plus10.monthlyWithdrawal)} / mo</div>
-      <div class="rp-comp-emi" style="color:${sens.plus10.isExhausted ? '#ef4444' : 'var(--color-white)'}">
+      <div class="rp-comp-emi" style="color:${sens.plus10.isExhausted ? 'var(--color-error)' : 'var(--color-heading)'}">
         ${formatNPR(sens.plus10.finalBalance)}
       </div>
-      <div class="rp-comp-diff" style="color:${sens.plus10.isExhausted ? '#ef4444' : '#10B981'}">
+      <div class="rp-comp-diff" style="color:${sens.plus10.isExhausted ? 'var(--color-error)' : 'var(--color-success)'}">
         ${sens.plus10.isExhausted ? `Exhausts early in Yr ${sens.plus10.exhaustedYear}, Mo ${sens.plus10.exhaustedMonth}` : 'Corpus projected to survive'}
       </div>
       <div class="rp-comp-interest">
@@ -508,11 +508,11 @@ function renderYearlyRows(breakdown) {
     <tr class="${r.closingCorpus === 0 ? 'rp-row-exhausted' : ''}">
       <td>
         <span class="rp-year-badge">Year ${r.year}</span>
-        ${r.closingCorpus === 0 ? '<span class="rp-pill-final" style="background:#ef4444">Depleted</span>' : ''}
+        ${r.closingCorpus === 0 ? '<span class="rp-pill-final" style="background:var(--color-error)">Depleted</span>' : ''}
       </td>
       <td class="rp-num">${formatNPR(r.openingCorpus)}</td>
-      <td class="rp-num font-semibold" style="color:#10B981">+${formatNPR(r.investmentGrowth)}</td>
-      <td class="rp-num" style="color:#f59e0b">-${formatNPR(r.withdrawal)}</td>
+      <td class="rp-num font-semibold" style="color:var(--color-success)">+${formatNPR(r.investmentGrowth)}</td>
+      <td class="rp-num" style="color:var(--color-warning)">-${formatNPR(r.withdrawal)}</td>
       <td class="rp-num accent font-semibold">${formatNPR(r.closingCorpus)}</td>
     </tr>
   `).join('');
@@ -778,7 +778,7 @@ export function initSWPCalculator() {
       <div class="rp-tt-title">Year ${year} Milestone</div>
       <div class="rp-tt-row"><span class="rp-tt-label">Remaining Corpus:</span> <span class="rp-tt-val ${balance === 0 ? 'text-danger' : 'accent'}">${formatNPR(balance)}</span></div>
       <div class="rp-tt-row"><span class="rp-tt-label">Total Withdrawn:</span> <span class="rp-tt-val">${formatNPR(withdrawn)}</span></div>
-      <div class="rp-tt-row"><span class="rp-tt-label">Growth Earned:</span> <span class="rp-tt-val" style="color:#10B981">+${formatNPR(growth)}</span></div>
+      <div class="rp-tt-row"><span class="rp-tt-label">Growth Earned:</span> <span class="rp-tt-val" style="color:var(--color-success)">+${formatNPR(growth)}</span></div>
     `;
 
     positionChartTooltip(tooltip, pt, chartContainer);

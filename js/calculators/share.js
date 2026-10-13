@@ -364,7 +364,7 @@ export function renderShareCalculator() {
                 <div
                   class="rp-stat-value maturity-large"
                   id="share-sell-res-profit"
-                  style="color:${sellRes.isProfitable ? '#10B981' : (sellRes.actualProfitLoss < 0 ? '#EF4444' : '#ffffff')}"
+                  style="color:${sellRes.isProfitable ? 'var(--color-success)' : (sellRes.actualProfitLoss < 0 ? 'var(--color-error)' : 'var(--color-heading)')}"
                 >
                   ${sellRes.isProfitable ? `+${formatNPR(sellRes.actualProfitLoss)}` : formatNPR(sellRes.actualProfitLoss)}
                 </div>
@@ -387,13 +387,13 @@ export function renderShareCalculator() {
 
               <div class="rp-stat-card">
                 <span class="rp-stat-label">Total Trading Charges</span>
-                <div class="rp-stat-value" style="color:#F43F5E" id="share-sell-res-charges">${formatNPR(sellRes.totalAllCharges)}</div>
+                <div class="rp-stat-value" style="color:var(--color-error)" id="share-sell-res-charges">${formatNPR(sellRes.totalAllCharges)}</div>
                 <span class="rp-stat-sub">Buy + Sell Broker, SEBON & DP</span>
               </div>
 
               <div class="rp-stat-card">
                 <span class="rp-stat-label">Capital Gains Tax (CGT)</span>
-                <div class="rp-stat-value" style="color:#F59E0B" id="share-sell-res-cgt">${formatNPR(sellRes.cgtAmount)}</div>
+                <div class="rp-stat-value" style="color:var(--color-warning)" id="share-sell-res-cgt">${formatNPR(sellRes.cgtAmount)}</div>
                 <span class="rp-stat-sub" id="share-sell-res-cgt-rate">${sellRes.cgtRateLabel} on taxable gain</span>
               </div>
             </div>
@@ -476,7 +476,7 @@ export function renderShareCalculator() {
 
             <div class="rp-stat-card">
               <span class="rp-stat-label">Adjusted WACC (with Buy Fees)</span>
-              <div class="rp-stat-value" style="color:#10B981" id="share-wacc-res-adjusted">
+              <div class="rp-stat-value" style="color:var(--color-success)" id="share-wacc-res-adjusted">
                 ${formatNPR(waccRes.adjustedWACC)}
               </div>
               <span class="rp-stat-sub">Total Cost: ${formatNPR(waccRes.totalCostWithCharges)}</span>
@@ -552,7 +552,7 @@ export function renderShareCalculator() {
               <div class="rp-stat-card maturity span-2">
                 <div class="rp-maturity-header">
                   <span class="rp-stat-label">Minimum Selling Price (Break-Even)</span>
-                  <span class="rp-badge rp-badge-pulse" style="background:rgba(16,185,129,0.15);color:#10B981;border:1px solid rgba(16,185,129,0.3)">
+                  <span class="rp-badge rp-badge-pulse" style="background:rgba(16,185,129,0.15);color:var(--color-success);border:1px solid rgba(16,185,129,0.3)">
                     +${beRes.requiredIncrease}% Needed
                   </span>
                 </div>
@@ -584,7 +584,7 @@ export function renderShareCalculator() {
 
               <div class="rp-stat-card">
                 <span class="rp-stat-label">Total Round-Trip Charges</span>
-                <div class="rp-stat-value" style="color:#F43F5E" id="share-be-res-totalfees">${formatNPR(beRes.totalRoundTripCharges)}</div>
+                <div class="rp-stat-value" style="color:var(--color-error)" id="share-be-res-totalfees">${formatNPR(beRes.totalRoundTripCharges)}</div>
                 <span class="rp-stat-sub">Total fee burden to recover</span>
               </div>
             </div>
@@ -618,7 +618,7 @@ export function renderShareCalculator() {
 
           <!-- Card 2: WACC & Capital Gains Tax -->
           <div class="rp-edu-card">
-            <div class="rp-edu-icon-wrap" style="color:#10b981;font-size:24px;margin-bottom:8px">🇳🇵</div>
+            <div class="rp-edu-icon-wrap" style="color:var(--color-success);font-size:24px;margin-bottom:8px">🇳🇵</div>
             <h4>WACC & Capital Gains Tax (CGT)</h4>
             <ul class="rp-edu-list" style="margin:0;padding-left:18px;font-size:0.875rem;color:var(--color-text-secondary);line-height:1.6">
               <li><strong>WACC in MeroShare:</strong> Weighted Average Cost of Capital must be calculated and declared via MeroShare EDIS before transferring sold shares.</li>
@@ -630,7 +630,7 @@ export function renderShareCalculator() {
 
           <!-- Card 3: Break-Even Trading Friction & Pitfalls -->
           <div class="rp-edu-card">
-            <div class="rp-edu-icon-wrap" style="color:#f59e0b;font-size:24px;margin-bottom:8px">⚖️</div>
+            <div class="rp-edu-icon-wrap" style="color:var(--color-warning);font-size:24px;margin-bottom:8px">⚖️</div>
             <h4>Break-Even Friction & Over-Trading</h4>
             <ul class="rp-edu-list" style="margin:0;padding-left:18px;font-size:0.875rem;color:var(--color-text-secondary);line-height:1.6">
               <li><strong>Round-Trip Drag:</strong> Buying and selling incurs approximately 0.8% to 1.1% in cumulative friction fees. A stock must rise at least ~1.0% just for you to break even.</li>
@@ -698,7 +698,7 @@ function renderWACCRows(lots) {
       </td>
       <td>
         ${lots.length > 1 ? `
-          <button type="button" class="btn btn-ghost btn-sm rp-wacc-delete-btn" data-lot-id="${lot.id}" style="color:#ef4444;padding:2px 6px;font-size:11px">
+          <button type="button" class="btn btn-ghost btn-sm rp-wacc-delete-btn" data-lot-id="${lot.id}" style="color:var(--color-error);padding:2px 6px;font-size:11px">
             Delete
           </button>
         ` : '-'}
@@ -843,7 +843,7 @@ export function initShareCalculator() {
 
     if (sellResProfit) {
       sellResProfit.textContent = res.isProfitable ? `+${formatNPR(res.actualProfitLoss)}` : formatNPR(res.actualProfitLoss);
-      sellResProfit.style.color = res.isProfitable ? '#10B981' : (res.actualProfitLoss < 0 ? '#EF4444' : '#ffffff');
+      sellResProfit.style.color = res.isProfitable ? 'var(--color-success)' : (res.actualProfitLoss < 0 ? 'var(--color-error)' : 'var(--color-heading)');
     }
 
     if (sellResNetrec) sellResNetrec.textContent = formatNPR(res.netReceivable);

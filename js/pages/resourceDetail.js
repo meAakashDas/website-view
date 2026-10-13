@@ -144,7 +144,7 @@ export function renderResourceDetailPage(slug, preferredLang = null) {
               <div class="cd-learning-sequence" style="display:flex;flex-direction:column;gap:var(--space-3);">
                 ${resource.recommendedBeforeLesson ? `
                 <div style="display:flex;gap:var(--space-4);padding:var(--space-4);background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.06);border-radius:var(--radius-md);align-items:flex-start;">
-                  <div style="flex-shrink:0;background:rgba(0,102,204,0.12);color:var(--color-primary);border-radius:9999px;padding:4px 12px;font-size:var(--text-xs);font-weight:700;">
+                  <div style="flex-shrink:0;background:rgba(0,102,204,0.12);color:var(--color-primary-text);border-radius:9999px;padding:4px 12px;font-size:var(--text-xs);font-weight:700;">
                     ${isEn ? 'Step 1 · Study First' : 'चरण १ · पहिले अध्ययन गर्नुहोस्'}
                   </div>
                   <div style="flex:1;">
@@ -168,7 +168,7 @@ export function renderResourceDetailPage(slug, preferredLang = null) {
                     ${isEn ? 'Step 2 · Apply Here' : 'चरण २ · यहाँ लागू गर्नुहोस्'}
                   </div>
                   <div style="flex:1;">
-                    <div style="font-size:11px;text-transform:uppercase;letter-spacing:0.06em;color:var(--color-primary);margin-bottom:2px;font-weight:600;">
+                    <div style="font-size:11px;text-transform:uppercase;letter-spacing:0.06em;color:var(--color-primary-text);margin-bottom:2px;font-weight:600;">
                       ${isEn ? 'Hands-On Execution System' : 'व्यावहारिक कार्यान्वयन प्रणाली'}
                     </div>
                     <h3 style="font-size:var(--text-base);font-weight:600;margin:0 0 4px 0;color:var(--color-heading);">
@@ -184,7 +184,7 @@ export function renderResourceDetailPage(slug, preferredLang = null) {
 
                 ${resource.recommendedAfterLesson ? `
                 <div style="display:flex;gap:var(--space-4);padding:var(--space-4);background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.06);border-radius:var(--radius-md);align-items:flex-start;">
-                  <div style="flex-shrink:0;background:rgba(0,102,204,0.12);color:var(--color-primary);border-radius:9999px;padding:4px 12px;font-size:var(--text-xs);font-weight:700;">
+                  <div style="flex-shrink:0;background:rgba(0,102,204,0.12);color:var(--color-primary-text);border-radius:9999px;padding:4px 12px;font-size:var(--text-xs);font-weight:700;">
                     ${isEn ? 'Step 3 · Next Milestone' : 'चरण ३ · अर्को चरण'}
                   </div>
                   <div style="flex:1;">

@@ -46,11 +46,8 @@ export function renderAboutPage() {
       </div>
     </section>
 
-    <!-- Subtle divider -->
-    <div class="about-divider"><span></span></div>
-
     <!-- 3. Mission & Vision Section -->
-    <section class="section" id="about-mission" style="background:var(--color-bg-alt)">
+    <section class="section section-alt" id="about-mission">
       <div class="container">
         <div class="section-header" style="text-align:center;margin-bottom:var(--space-10)">
           <span class="section-eyebrow">Purpose</span>
@@ -114,9 +111,6 @@ export function renderAboutPage() {
       </div>
     </section>
 
-    <!-- Subtle divider -->
-    <div class="about-divider"><span></span></div>
-
     <!-- 4. Core Values Section -->
     <section class="section" id="about-values">
       <div class="container">
@@ -164,11 +158,8 @@ export function renderAboutPage() {
       </div>
     </section>
 
-    <!-- Subtle divider -->
-    <div class="about-divider"><span></span></div>
-
     <!-- 5. Founder Section -->
-    <section class="section founder-section-wrapper" id="about-founder" style="background:var(--color-bg-alt)">
+    <section class="section section-alt founder-section-wrapper" id="about-founder">
       <div class="container">
         <div class="founder-card-redesign">
           <div class="founder-grid-layout">

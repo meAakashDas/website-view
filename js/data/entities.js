@@ -53,27 +53,45 @@ export const ENTITY_AAKASH_DAS = {
   fullTitle: 'Founder of RisePaisa | Finance Educator & Content Creator',
   organization: 'RisePaisa',
   organizationId: 'https://risepaisa.com/#organization',
+  secondaryProject: 'RiseNepse',
+  location: 'Kathmandu, Nepal',
   canonicalProfile: 'https://risepaisa.com/aakash-das',
   personId: 'https://risepaisa.com/aakash-das#person',
   imageUrl: 'https://risepaisa.com/assets/images/aakash-das-founder-risepaisa.jpg',
   imageAlt: 'Aakash Das, founder of RisePaisa',
   imageCaption: 'Aakash Das, Founder of RisePaisa',
   marketFocus: 'Nepal (Financial Ecosystem)',
-  shortBio: 'Aakash Das is the founder of RisePaisa, a Nepal-focused financial education platform. He creates educational content covering areas including the Nepal stock market, personal finance, banking, fintech, and taxation.',
-  alumniOf: {
-    name: 'Softwarica College of IT & E-Commerce',
-    url: 'https://softwarica.edu.np',
-    location: 'Kathmandu, Nepal',
-    focus: 'Information Technology'
-  },
-  educationSummary: 'Currently studying Information Technology at Softwarica College of IT & E-Commerce; previously pursued foundational Chartered Accountancy preparatory coursework.',
+  shortBio: "I'm Aakash Das, founder of RisePaisa, a Nepal-focused financial education platform. I create practical educational content and digital tools that help people understand investing, banking, taxation, fintech, and personal finance.",
+  educationSummary: 'Pursuing BSc Information Technology at Coventry University (via Softwarica College of IT & E-Commerce); previously pursued foundational Chartered Accountancy studies at ICAI; completed +2 Science at Sainik Awasiya Mahavidyalaya.',
+  education: [
+    {
+      institution: 'Coventry University',
+      studyLocation: 'Softwarica College of IT & E-Commerce, Kathmandu',
+      degree: 'Bachelor of Science (BSc), Information Technology',
+      period: 'August 2025 – August 2028',
+      status: 'Currently Pursuing'
+    },
+    {
+      institution: 'The Institute of Chartered Accountants of India (ICAI)',
+      degree: 'Chartered Accountancy Studies (Accounting, Taxation, Auditing & Financial Management)',
+      period: 'May 2024 – June 2025',
+      status: 'Foundational Coursework (1 Year Studied)'
+    },
+    {
+      institution: 'Sainik Awasiya Mahavidyalaya, Bhaktapur',
+      degree: 'Higher Secondary Education (+2), Biology/Biological Sciences',
+      period: '2022 – 2024',
+      status: 'Completed'
+    }
+  ],
   knowsAbout: [
     'Financial education',
     'Personal finance',
-    'Nepal Stock Exchange',
-    'Banking',
-    'Fintech',
-    'Taxation'
+    'Nepal Stock Exchange (NEPSE)',
+    'Banking and interest rates',
+    'Fintech and digital payments',
+    'Nepal Income Tax',
+    'Information Technology and web platforms'
   ],
   social: {
     linkedin: 'https://www.linkedin.com/in/aakashdas',

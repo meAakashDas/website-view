@@ -318,13 +318,13 @@ export function renderFDRDCalculator() {
 
               <div class="rp-stat-card">
                 <span class="rp-stat-label">Interest Tax (TDS)</span>
-                <div class="rp-stat-value" style="color:#F59E0B" id="fd-res-tds">${formatNPR(fdRes.tdsAmount)}</div>
+                <div class="rp-stat-value" style="color:var(--color-warning)" id="fd-res-tds">${formatNPR(fdRes.tdsAmount)}</div>
                 <span class="rp-stat-sub" id="fd-res-tds-label">${state.fdTDS}% statutory TDS</span>
               </div>
 
               <div class="rp-stat-card">
                 <span class="rp-stat-label">Net Interest Earned</span>
-                <div class="rp-stat-value" style="color:#10B981" id="fd-res-net-interest">${formatNPR(fdRes.netInterest)}</div>
+                <div class="rp-stat-value" style="color:var(--color-success)" id="fd-res-net-interest">${formatNPR(fdRes.netInterest)}</div>
                 <span class="rp-stat-sub">In-hand interest</span>
               </div>
             </div>
@@ -350,7 +350,7 @@ export function renderFDRDCalculator() {
                 <div class="rp-compare-arrow">→</div>
                 <div class="rp-compare-stat">
                   <span class="rp-stat-label">Est. Value (@ 12% return)</span>
-                  <div class="rp-compare-val" style="color:#10B981" id="fd-sip-compare-val">
+                  <div class="rp-compare-val" style="color:var(--color-success)" id="fd-sip-compare-val">
                     ${formatNPR(fdRes.sipComparison.estimatedValue)}
                   </div>
                 </div>
@@ -605,13 +605,13 @@ export function renderFDRDCalculator() {
 
               <div class="rp-stat-card">
                 <span class="rp-stat-label">Interest Tax (TDS)</span>
-                <div class="rp-stat-value" style="color:#F59E0B" id="rd-res-tds">${formatNPR(rdRes.tdsAmount)}</div>
+                <div class="rp-stat-value" style="color:var(--color-warning)" id="rd-res-tds">${formatNPR(rdRes.tdsAmount)}</div>
                 <span class="rp-stat-sub">${state.rdTDS}% deduction</span>
               </div>
 
               <div class="rp-stat-card">
                 <span class="rp-stat-label">Net Interest Earned</span>
-                <div class="rp-stat-value" style="color:#10B981" id="rd-res-net-interest">${formatNPR(rdRes.netInterest)}</div>
+                <div class="rp-stat-value" style="color:var(--color-success)" id="rd-res-net-interest">${formatNPR(rdRes.netInterest)}</div>
                 <span class="rp-stat-sub">Take-home growth</span>
               </div>
             </div>

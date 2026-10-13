@@ -453,8 +453,8 @@ export function calculateEMI({ loanAmount, annualRate, tenureMonths, processingF
   }
 
   const roundedEMI = Math.round(monthlyEMI * 100) / 100;
-  const totalPayment = Math.round(roundedEMI * n * 100) / 100;
-  const totalInterest = Math.max(0, Math.round((totalPayment - P) * 100) / 100);
+  const totalPayment = r === 0 ? P : Math.round(roundedEMI * n * 100) / 100;
+  const totalInterest = r === 0 ? 0 : Math.max(0, Math.round((totalPayment - P) * 100) / 100);
 
   // Fee calculation
   const processingFeeAmount = Math.round((P * (feePct / 100)) * 100) / 100;

@@ -10,6 +10,7 @@ const rootDir = path.resolve(__dirname, '..');
 import { LEARN_CATEGORIES, DETAILED_GUIDES } from '../js/data/learn.js';
 import { GLOSSARY_DICTIONARY } from '../js/data/glossaryData.js';
 import { CALCULATOR_REGISTRY } from '../js/calculators/registry.js';
+import { CALCULATOR_ROUTES } from '../js/routes.js';
 import COURSES from '../js/data/courses.js';
 import RESOURCES from '../js/data/resources.js';
 import ARTICLES from '../js/data/articles.js';
@@ -27,6 +28,8 @@ const staticPages = [
   { path: 'courses', priority: '0.8', changefreq: 'weekly' },
   { path: 'blog', priority: '0.8', changefreq: 'weekly' },
   { path: 'about', priority: '0.7', changefreq: 'monthly' },
+  { path: 'aakash-das', priority: '0.85', changefreq: 'weekly' },
+  { path: 'editorial-policy', priority: '0.7', changefreq: 'monthly' },
   { path: 'contact', priority: '0.7', changefreq: 'monthly' },
   { path: 'privacy', priority: '0.5', changefreq: 'monthly' },
   { path: 'terms', priority: '0.5', changefreq: 'monthly' },
@@ -98,9 +101,10 @@ for (const term of GLOSSARY_DICTIONARY) {
 // 5. Calculators
 for (const calc of CALCULATOR_REGISTRY) {
   if (calc.status === 'active') {
+    const calcPath = CALCULATOR_ROUTES[calc.id] ? CALCULATOR_ROUTES[calc.id].replace(/^\//, '') : `calculators/${calc.id}`;
     entries.push({
-      loc: `${DOMAIN}/calculators/${calc.id}`,
-      priority: '0.8',
+      loc: `${DOMAIN}/${calcPath}`,
+      priority: '0.85',
       changefreq: 'monthly',
       lastmod: TODAY
     });

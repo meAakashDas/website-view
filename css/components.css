@@ -624,9 +624,10 @@ button:disabled {
   justify-content: center;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2), 0 1px 3px rgba(0, 0, 0, 0.1);
   transition: transform var(--duration-fast) var(--ease-out),
-              box-shadow var(--duration-fast) var(--ease-out);
+              box-shadow var(--duration-fast) var(--ease-out),
+              opacity var(--duration-fast) var(--ease-out);
   text-decoration: none;
-  will-change: transform;
+  will-change: transform, opacity;
 }
 
 .whatsapp-float:hover {
@@ -638,6 +639,15 @@ button:disabled {
   width: 26px;
   height: 26px;
   fill: #FFFFFF;
+}
+
+body:has(.search-modal.active) .whatsapp-float,
+body:has(.mobile-menu.open) .whatsapp-float,
+body:has(.rp-mobile-toc-drawer.open) .whatsapp-float,
+body:has(.lesson-mobile-toc-drawer.open) .whatsapp-float {
+  opacity: 0;
+  pointer-events: none;
+  transform: scale(0.8);
 }
 
 /* ── Breadcrumb Navigation ─────────────────────────────────── */

@@ -451,7 +451,7 @@ function renderHomeLoanMarkup() {
 
           <div class="rp-stat-card">
             <span class="rp-stat-label">Total Interest</span>
-            <div class="rp-stat-value" style="color:#f59e0b" id="hl-res-interest">${formatNPR(res.totalInterest)}</div>
+            <div class="rp-stat-value" style="color:var(--color-warning)" id="hl-res-interest">${formatNPR(res.totalInterest)}</div>
             <span class="rp-stat-sub" id="hl-res-interest-pct">${res.interestPct}% of total payment</span>
           </div>
 
@@ -463,7 +463,7 @@ function renderHomeLoanMarkup() {
 
           <div class="rp-stat-card">
             <span class="rp-stat-label">Total Borrowing Cost</span>
-            <div class="rp-stat-value" style="color:#38bdf8" id="hl-res-effective">${formatNPR(res.effectiveTotalCost)}</div>
+            <div class="rp-stat-value" style="color:var(--color-primary-text)" id="hl-res-effective">${formatNPR(res.effectiveTotalCost)}</div>
             <span class="rp-stat-sub" id="hl-res-fee-note">Including ${formatNPR(res.processingFeeAmount)} fee</span>
           </div>
 
@@ -769,7 +769,7 @@ function renderPersonalLoanMarkup() {
 
           <div class="rp-stat-card">
             <span class="rp-stat-label">Total Interest</span>
-            <div class="rp-stat-value" style="color:#f59e0b" id="pl-res-interest">${formatNPR(res.totalInterest)}</div>
+            <div class="rp-stat-value" style="color:var(--color-warning)" id="pl-res-interest">${formatNPR(res.totalInterest)}</div>
             <span class="rp-stat-sub" id="pl-res-interest-pct">${res.interestPct}% of total payment</span>
           </div>
 
@@ -787,7 +787,7 @@ function renderPersonalLoanMarkup() {
 
           <div class="rp-stat-card">
             <span class="rp-stat-label">Effective Borrowing Cost</span>
-            <div class="rp-stat-value" style="color:#38bdf8" id="pl-res-effective">${formatNPR(res.effectiveTotalCost)}</div>
+            <div class="rp-stat-value" style="color:var(--color-primary-text)" id="pl-res-effective">${formatNPR(res.effectiveTotalCost)}</div>
             <span class="rp-stat-sub" id="pl-res-fee-sub">Including ${formatNPR(res.processingFeeAmount)} fee</span>
           </div>
         </div>
@@ -1152,13 +1152,13 @@ function renderVehicleLoanMarkup() {
 
           <div class="rp-stat-card">
             <span class="rp-stat-label">Down Payment %</span>
-            <div class="rp-stat-value" style="color:#10b981" id="vl-res-down-pct">${downPaymentPct}%</div>
+            <div class="rp-stat-value" style="color:var(--color-success)" id="vl-res-down-pct">${downPaymentPct}%</div>
             <span class="rp-stat-sub" id="vl-res-down-amt">${formatNPR(s.downPayment)} upfront</span>
           </div>
 
           <div class="rp-stat-card">
             <span class="rp-stat-label">Total Interest</span>
-            <div class="rp-stat-value" style="color:#f59e0b" id="vl-res-interest">${formatNPR(res.totalInterest)}</div>
+            <div class="rp-stat-value" style="color:var(--color-warning)" id="vl-res-interest">${formatNPR(res.totalInterest)}</div>
             <span class="rp-stat-sub" id="vl-res-interest-pct">${res.interestPct}% of total payment</span>
           </div>
 
@@ -1254,7 +1254,7 @@ function renderSharedEducationalSection() {
 
         <!-- Educational Card 2: NRB Base Rate & Lending Caps -->
         <div class="rp-edu-card">
-          <div class="rp-edu-icon-wrap" style="color:#10b981;font-size:24px;margin-bottom:8px">🇳🇵</div>
+          <div class="rp-edu-icon-wrap" style="color:var(--color-success);font-size:24px;margin-bottom:8px">🇳🇵</div>
           <h4 style="color:var(--color-heading)">NRB Directives & Borrowing Limits</h4>
           <ul class="rp-edu-list" style="margin:0;padding-left:18px;font-size:0.875rem;color:var(--color-text-secondary);line-height:1.6">
             <li><strong>Base Rate + Premium:</strong> Interest rates equal the bank's published quarterly Base Rate plus a fixed premium spread (e.g. 8.0% Base + 2.5% Premium = 10.5%).</li>
@@ -1265,7 +1265,7 @@ function renderSharedEducationalSection() {
 
         <!-- Educational Card 3: Prepayment Savings & Pitfalls -->
         <div class="rp-edu-card">
-          <div class="rp-edu-icon-wrap" style="color:#f59e0b;font-size:24px;margin-bottom:8px">⚖️</div>
+          <div class="rp-edu-icon-wrap" style="color:var(--color-warning);font-size:24px;margin-bottom:8px">⚖️</div>
           <h4 style="color:var(--color-heading)">Prepayment Power & Common Traps</h4>
           <ul class="rp-edu-list" style="margin:0;padding-left:18px;font-size:0.875rem;color:var(--color-text-secondary);line-height:1.6">
             <li><strong>Zero Prepayment Penalty:</strong> Under NRB circulars, commercial banks cannot charge prepayment penalty fees on floating-rate individual home loans.</li>
@@ -1303,8 +1303,8 @@ function renderAmortizationRows(schedule, showFull) {
       <td class="rp-num">${r.month}</td>
       <td class="rp-num">${formatNPR(r.openingBalance)}</td>
       <td class="rp-num">${formatNPR(r.emi)}</td>
-      <td class="rp-num" style="color:#10B981">${formatNPR(r.principalPaid)}</td>
-      <td class="rp-num" style="color:#f59e0b">${formatNPR(r.interestPaid)}</td>
+      <td class="rp-num" style="color:var(--color-success)">${formatNPR(r.principalPaid)}</td>
+      <td class="rp-num" style="color:var(--color-warning)">${formatNPR(r.interestPaid)}</td>
       <td class="rp-num">${formatNPR(r.closingBalance)}</td>
     </tr>
   `).join('');
@@ -1330,7 +1330,7 @@ function renderTenureComparisonCards(compList, currentTenure, isMonths) {
         </div>
         <div class="rp-comp-metric">
           <span class="rp-comp-label">Total Interest:</span>
-          <span class="rp-comp-val" style="color:#f59e0b">${formatNPR(c.totalInterest)}</span>
+          <span class="rp-comp-val" style="color:var(--color-warning)">${formatNPR(c.totalInterest)}</span>
         </div>
         <div class="rp-comp-metric">
           <span class="rp-comp-label">Total Outflow:</span>
@@ -1424,7 +1424,7 @@ function initLoanChartTooltip(balanceWrap) {
       <div class="rp-tt-title">Year ${year} Milestone</div>
       <div class="rp-tt-row"><span class="rp-tt-label">Remaining Principal:</span> <span class="rp-tt-val accent">${formatNPR(balance)}</span></div>
       <div class="rp-tt-row"><span class="rp-tt-label">Principal Paid:</span> <span class="rp-tt-val">${formatNPR(principal)}</span></div>
-      <div class="rp-tt-row"><span class="rp-tt-label">Interest Paid:</span> <span class="rp-tt-val" style="color:#F59E0B">${formatNPR(interest)}</span></div>
+      <div class="rp-tt-row"><span class="rp-tt-label">Interest Paid:</span> <span class="rp-tt-val" style="color:var(--color-warning)">${formatNPR(interest)}</span></div>
     `;
 
     positionChartTooltip(tooltip, pt, balanceWrap);

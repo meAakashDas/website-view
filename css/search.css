@@ -217,7 +217,7 @@
 .search-suggestion-item:hover,
 .search-suggestion-item:focus-visible,
 .search-suggestion-item.selected {
-  background: var(--color-surface);
+  background: var(--color-surface-hover);
   outline: none;
 }
 

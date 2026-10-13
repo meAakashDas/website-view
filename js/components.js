@@ -485,6 +485,7 @@ function formatDate(dateStr) {
 
 // ── Utility: Update Page Meta ────────────────────
 function setPageMeta(title, description, path = (typeof window !== 'undefined' ? window.location?.pathname || '/' : '/')) {
+  if (typeof document === 'undefined') return;
   if (!title) {
     document.title = `${SITE_NAME} | Nepal's Financial Education Platform`;
   } else if (title.includes(SITE_NAME)) {
@@ -525,14 +526,25 @@ function getStoredTheme() {
 }
 
 function getCurrentTheme() {
-  return document.documentElement.getAttribute('data-theme') || 'dark';
+  return document.documentElement.getAttribute('data-theme') || 'light';
 }
 
 function setTheme(theme) {
   document.documentElement.setAttribute('data-theme', theme);
+  const themeColorMeta = document.querySelector('meta[name="theme-color"]');
+  if (themeColorMeta) {
+    themeColorMeta.setAttribute('content', theme === 'dark' ? '#0d1117' : '#ffffff');
+  }
   try {
     localStorage.setItem('rp_theme', theme);
   } catch (e) {}
+
+  // Update accessible labels on all theme buttons
+  const nextThemeLabel = theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode';
+  document.querySelectorAll('.theme-toggle-btn').forEach(btn => {
+    btn.setAttribute('aria-label', nextThemeLabel);
+    btn.setAttribute('title', nextThemeLabel);
+  });
 
   window.dispatchEvent(new CustomEvent('rp-theme-changed', { detail: { theme } }));
 }
@@ -545,15 +557,20 @@ function toggleTheme() {
 
 function initTheme() {
   const saved = getStoredTheme();
-  if (!saved) {
-    const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-    document.documentElement.setAttribute('data-theme', prefersDark ? 'dark' : 'light');
-  } else {
-    document.documentElement.setAttribute('data-theme', saved);
+  // Mandatory: White/light mode is the default for every first-time visitor.
+  // Explicitly saved choices ('dark' or 'light') are honored for returning visitors.
+  const theme = saved === 'dark' ? 'dark' : 'light';
+  document.documentElement.setAttribute('data-theme', theme);
+  const themeColorMeta = document.querySelector('meta[name="theme-color"]');
+  if (themeColorMeta) {
+    themeColorMeta.setAttribute('content', theme === 'dark' ? '#0d1117' : '#ffffff');
   }
 
-  // Bind click handlers to all theme buttons
+  // Bind click handlers and accessibility labels to all theme buttons
+  const nextThemeLabel = theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode';
   document.querySelectorAll('.theme-toggle-btn').forEach(btn => {
+    btn.setAttribute('aria-label', nextThemeLabel);
+    btn.setAttribute('title', nextThemeLabel);
     if (btn._hasThemeHandler) return;
     btn._hasThemeHandler = true;
     btn.addEventListener('click', (e) => {
@@ -562,18 +579,6 @@ function initTheme() {
       toggleTheme();
     });
   });
-
-  // Listen for system theme changes if user hasn't explicitly chosen
-  if (!window._rpSystemThemeListenerBound) {
-    window._rpSystemThemeListenerBound = true;
-    if (window.matchMedia) {
-      window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
-        if (!getStoredTheme()) {
-          setTheme(e.matches ? 'dark' : 'light');
-        }
-      });
-    }
-  }
 }
 
 let _navbarInitialized = false;
@@ -1026,29 +1031,42 @@ function initStatCounters() {
   const counters = document.querySelectorAll('[data-count]');
   if (!counters.length) return;
 
+  const prefersReduced = typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
         const el = entry.target;
-        const target = parseInt(el.dataset.count);
+        const target = parseInt(el.dataset.count, 10);
         const suffix = el.dataset.suffix || '';
-        const duration = 2000;
+
+        if (prefersReduced || isNaN(target)) {
+          el.textContent = target.toLocaleString() + suffix;
+          observer.unobserve(el);
+          return;
+        }
+
+        const duration = 1200;
         const start = performance.now();
 
         function update(now) {
           const elapsed = now - start;
           const progress = Math.min(elapsed / duration, 1);
-          // Ease out
+          // Ease out (cubic)
           const eased = 1 - Math.pow(1 - progress, 3);
           el.textContent = Math.floor(eased * target).toLocaleString() + suffix;
-          if (progress < 1) requestAnimationFrame(update);
+          if (progress < 1) {
+            requestAnimationFrame(update);
+          } else {
+            el.textContent = target.toLocaleString() + suffix;
+          }
         }
 
         requestAnimationFrame(update);
         observer.unobserve(el);
       }
     });
-  }, { threshold: 0.5 });
+  }, { threshold: 0.1 });
 
   counters.forEach(c => observer.observe(c));
 }

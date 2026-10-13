@@ -5,99 +5,8 @@
    ============================================================================== */
 
 :root,
-[data-theme="dark"] {
-  /* ── Dark Mode: Layered Charcoal Surfaces, Restrained Contrast ── */
-  --color-bg:                  #0D0E12;  /* Deep rich canvas, never harsh void */
-  --color-bg-alt:              #13141A;  /* Secondary section canvas */
-  --color-bg-subtle:           #171820;  /* Sub-canvas / table header */
-  
-  /* Layered Card & Interactive Surfaces */
-  --color-surface:             #181920;
-  --color-surface-hover:       #1F202B;
-  --color-surface-active:      #262835;
-  --color-surface-elevated:    #21222E;  /* Modals, popovers, dropdowns */
-  --color-surface-subtle:      rgba(255, 255, 255, 0.04);
-  
-  /* Legacy primary compatibility mapped to neutral surfaces */
-  --color-primary:             #14151B;
-  --color-primary-light:       #1C1D26;
-
-  /* ── RisePaisa Signature Financial Blue (#1DA1F2) ────────── */
-  --color-accent:              #1DA1F2;
-  --color-accent-hover:        #0D8FDE;
-  --color-accent-active:       #0B7EC4;
-  --color-accent-dark:         #0D8FDE;
-  --color-accent-subtle:       rgba(29, 161, 242, 0.12);
-  --color-accent-glow:         transparent;
-  --focus-ring:                rgba(29, 161, 242, 0.35);
-
-  /* ── Typography Hierarchy: Clean Tonal Contrast ──────────── */
-  --color-white:               #FFFFFF;
-  --color-heading:             #FFFFFF;  /* Confident crisp titles */
-  --color-text:                #E4E4E7;  /* Primary body read */
-  --color-text-secondary:      #A1A1AA;  /* Supporting copy, subtitles */
-  --color-text-muted:          #71717A;  /* Micro-labels, fine print */
-
-  /* ── Precision Hairline Borders & Dividers ───────────────── */
-  --color-border:              rgba(255, 255, 255, 0.08);
-  --color-border-light:        rgba(255, 255, 255, 0.12);
-  --color-border-hover:        rgba(255, 255, 255, 0.16);
-  --color-border-focus:        rgba(29, 161, 242, 0.6);
-  --color-divider:             rgba(255, 255, 255, 0.06);
-
-  /* ── Navbar Chrome: Frosted Glass ────────────────────────── */
-  --nav-bg:                    rgba(13, 14, 18, 0.85);
-  --nav-bg-scrolled:           rgba(13, 14, 18, 0.95);
-  --nav-link-color:            rgba(228, 228, 231, 0.72);
-  --nav-link-hover:            #FFFFFF;
-
-  /* ── Card System Defaults ────────────────────────────────── */
-  --card-bg:                   #181920;
-  --card-bg-hover:             #1F202B;
-  --card-border:               1px solid rgba(255, 255, 255, 0.08);
-  --card-border-hover:         1px solid rgba(255, 255, 255, 0.16);
-
-  /* ── Form Controls & Inputs ──────────────────────────────── */
-  --input-bg:                  rgba(255, 255, 255, 0.04);
-  --input-bg-focus:            rgba(255, 255, 255, 0.07);
-  --input-border:              rgba(255, 255, 255, 0.11);
-
-  /* ── Shadows: Soft Atmospheric Elevation ─────────────────── */
-  --shadow-xs:                 0 1px 2px rgba(0, 0, 0, 0.3);
-  --shadow-sm:                 0 1px 3px rgba(0, 0, 0, 0.35);
-  --shadow-md:                 0 4px 16px rgba(0, 0, 0, 0.4);
-  --shadow-lg:                 0 12px 32px rgba(0, 0, 0, 0.5);
-  --shadow-xl:                 0 20px 48px rgba(0, 0, 0, 0.6);
-  --shadow-card:               0 1px 3px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.08);
-  --shadow-card-hover:         0 8px 24px rgba(0, 0, 0, 0.45), 0 0 0 1px rgba(255, 255, 255, 0.16);
-
-  /* ── Semantic Financial Status ───────────────────────────── */
-  --color-success:             #30D158;
-  --color-warning:             #FF9F0A;
-  --color-error:               #FF453A;
-  --color-danger:              #FF453A;
-  --color-info:                #1DA1F2;
-
-  /* ── Domain Category Tags ────────────────────────────────── */
-  --color-cat-nepse:           #1DA1F2;
-  --color-cat-tax:             #FF9F0A;
-  --color-cat-saving:          #30D158;
-  --color-cat-fintech:         #BF5AF2;
-  --color-cat-personal:        #FF375F;
-
-  /* ── Controls & Scrollbars ───────────────────────────────── */
-  --color-scrollbar-thumb:     rgba(255, 255, 255, 0.18);
-  --color-scrollbar-thumb-hover: rgba(255, 255, 255, 0.32);
-  --slider-track-bg:           rgba(255, 255, 255, 0.12);
-
-  /* ── Frosted Glass System (Dark Mode) ────────────────────── */
-  --glass-bg:                  rgba(13, 14, 18, 0.82);
-  --glass-border:              rgba(255, 255, 255, 0.08);
-  --glass-blur:                blur(20px);
-}
-
 [data-theme="light"] {
-  /* ── Light Mode: Warm Apple Parchment & Ink Hierarchy ────── */
+  /* ── Light Mode (Default): Warm Apple Parchment & Ink Hierarchy ── */
   --color-bg:                  #F5F5F7;  /* Apple parchment canvas */
   --color-bg-alt:              #EDEDF0;  /* Alternating section canvas */
   --color-bg-subtle:           #E5E5EA;  /* Sub-canvas / table header */
@@ -109,18 +18,25 @@
   --color-surface-elevated:    #FFFFFF;  /* Modals, popovers, dropdowns */
   --color-surface-subtle:      rgba(0, 0, 0, 0.035);
 
-  /* Legacy primary compatibility mapped to neutral surfaces */
-  --color-primary:             #FFFFFF;
-  --color-primary-light:       #F0F0F2;
-
-  /* ── RisePaisa Signature Financial Blue (#1DA1F2) ────────── */
-  --color-accent:              #1DA1F2;
-  --color-accent-hover:        #0D8FDE;
-  --color-accent-active:       #0B7EC4;
-  --color-accent-dark:         #0D8FDE;
-  --color-accent-subtle:       rgba(29, 161, 242, 0.08);
+  /* ── RisePaisa Financial Blue & Action Tokens (Light Mode) ─── */
+  --color-primary:             #0071E3;  /* Apple Action Blue for buttons/actions */
+  --color-primary-light:       #EBF5FF;  /* Pale sky blue tint */
+  --color-primary-text:        #0055A5;  /* Deep Action Blue: 6.88:1 contrast on pale tint */
+  --color-primary-subtle:      rgba(0, 113, 227, 0.08);
+  --color-accent:              #0071E3;
+  --color-accent-hover:        #005BB5;
+  --color-accent-active:       #00478F;
+  --color-accent-dark:         #0055A5;
+  --color-accent-subtle:       rgba(0, 113, 227, 0.08);
   --color-accent-glow:         transparent;
-  --focus-ring:                rgba(29, 161, 242, 0.3);
+  --focus-ring:                rgba(0, 113, 227, 0.3);
+
+  /* ── Navigation, Outline & Table of Contents Tokens ─────── */
+  --nav-item-active-bg:        rgba(0, 113, 227, 0.08);
+  --nav-item-active-text:      #0055A5;
+  --nav-item-active-bullet:    #0071E3;
+  --nav-item-hover-bg:         rgba(0, 0, 0, 0.04);
+  --nav-item-hover-text:       #1D1D1F;
 
   /* ── Typography Hierarchy: Apple Near-Black Ink ──────────── */
   --color-white:               #FFFFFF;
@@ -184,6 +100,104 @@
   /* ── Frosted Glass System (Light Mode: Apple Translucent Pearl) ── */
   --glass-bg:                  rgba(255, 255, 255, 0.92);
   --glass-border:              rgba(0, 0, 0, 0.08);
+  --glass-blur:                blur(20px);
+}
+
+[data-theme="dark"] {
+  /* ── Dark Mode: Layered Charcoal Surfaces, Restrained Contrast ── */
+  --color-bg:                  #0D0E12;  /* Deep rich canvas, never harsh void */
+  --color-bg-alt:              #13141A;  /* Secondary section canvas */
+  --color-bg-subtle:           #171820;  /* Sub-canvas / table header */
+  
+  /* Layered Card & Interactive Surfaces */
+  --color-surface:             #181920;
+  --color-surface-hover:       #1F202B;
+  --color-surface-active:      #262835;
+  --color-surface-elevated:    #21222E;  /* Modals, popovers, dropdowns */
+  --color-surface-subtle:      rgba(255, 255, 255, 0.04);
+  
+  /* ── RisePaisa Financial Blue & Action Tokens (Dark Mode) ──── */
+  --color-primary:             #1DA1F2;
+  --color-primary-light:       #38BDF8;
+  --color-primary-text:        #38BDF8;
+  --color-primary-subtle:      rgba(29, 161, 242, 0.14);
+  --color-accent:              #1DA1F2;
+  --color-accent-hover:        #0D8FDE;
+  --color-accent-active:       #0B7EC4;
+  --color-accent-dark:         #0D8FDE;
+  --color-accent-subtle:       rgba(29, 161, 242, 0.14);
+  --color-accent-glow:         transparent;
+  --focus-ring:                rgba(29, 161, 242, 0.35);
+
+  /* ── Navigation, Outline & Table of Contents Tokens ─────── */
+  --nav-item-active-bg:        rgba(29, 161, 242, 0.16);
+  --nav-item-active-text:      #38BDF8;
+  --nav-item-active-bullet:    #38BDF8;
+  --nav-item-hover-bg:         rgba(255, 255, 255, 0.06);
+  --nav-item-hover-text:       #FFFFFF;
+
+  /* ── Typography Hierarchy: Clean Tonal Contrast ──────────── */
+  --color-white:               #FFFFFF;
+  --color-heading:             #FFFFFF;  /* Confident crisp titles */
+  --color-text:                #E4E4E7;  /* Primary body read */
+  --color-text-secondary:      #A1A1AA;  /* Supporting copy, subtitles */
+  --color-text-muted:          #71717A;  /* Micro-labels, fine print */
+
+  /* ── Precision Hairline Borders & Dividers ───────────────── */
+  --color-border:              rgba(255, 255, 255, 0.08);
+  --color-border-light:        rgba(255, 255, 255, 0.12);
+  --color-border-hover:        rgba(255, 255, 255, 0.16);
+  --color-border-focus:        rgba(29, 161, 242, 0.6);
+  --color-divider:             rgba(255, 255, 255, 0.06);
+
+  /* ── Navbar Chrome: Frosted Glass ────────────────────────── */
+  --nav-bg:                    rgba(13, 14, 18, 0.85);
+  --nav-bg-scrolled:           rgba(13, 14, 18, 0.95);
+  --nav-link-color:            rgba(228, 228, 231, 0.72);
+  --nav-link-hover:            #FFFFFF;
+
+  /* ── Card System Defaults ────────────────────────────────── */
+  --card-bg:                   #181920;
+  --card-bg-hover:             #1F202B;
+  --card-border:               1px solid rgba(255, 255, 255, 0.08);
+  --card-border-hover:         1px solid rgba(255, 255, 255, 0.16);
+
+  /* ── Form Controls & Inputs ──────────────────────────────── */
+  --input-bg:                  rgba(255, 255, 255, 0.04);
+  --input-bg-focus:            rgba(255, 255, 255, 0.07);
+  --input-border:              rgba(255, 255, 255, 0.11);
+
+  /* ── Shadows: Soft Atmospheric Elevation ─────────────────── */
+  --shadow-xs:                 0 1px 2px rgba(0, 0, 0, 0.3);
+  --shadow-sm:                 0 1px 3px rgba(0, 0, 0, 0.35);
+  --shadow-md:                 0 4px 16px rgba(0, 0, 0, 0.4);
+  --shadow-lg:                 0 12px 32px rgba(0, 0, 0, 0.5);
+  --shadow-xl:                 0 20px 48px rgba(0, 0, 0, 0.6);
+  --shadow-card:               0 1px 3px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.08);
+  --shadow-card-hover:         0 8px 24px rgba(0, 0, 0, 0.45), 0 0 0 1px rgba(255, 255, 255, 0.16);
+
+  /* ── Semantic Financial Status ───────────────────────────── */
+  --color-success:             #30D158;
+  --color-warning:             #FF9F0A;
+  --color-error:               #FF453A;
+  --color-danger:              #FF453A;
+  --color-info:                #1DA1F2;
+
+  /* ── Domain Category Tags ────────────────────────────────── */
+  --color-cat-nepse:           #1DA1F2;
+  --color-cat-tax:             #FF9F0A;
+  --color-cat-saving:          #30D158;
+  --color-cat-fintech:         #BF5AF2;
+  --color-cat-personal:        #FF375F;
+
+  /* ── Controls & Scrollbars ───────────────────────────────── */
+  --color-scrollbar-thumb:     rgba(255, 255, 255, 0.18);
+  --color-scrollbar-thumb-hover: rgba(255, 255, 255, 0.32);
+  --slider-track-bg:           rgba(255, 255, 255, 0.12);
+
+  /* ── Frosted Glass System (Dark Mode) ────────────────────── */
+  --glass-bg:                  rgba(13, 14, 18, 0.82);
+  --glass-border:              rgba(255, 255, 255, 0.08);
   --glass-blur:                blur(20px);
 }
 
@@ -288,7 +302,7 @@
   --z-modal:                   400;
   --z-sidebar:                 500;
   --z-toast:                   600;
-  --z-whatsapp:                700;
+  --z-whatsapp:                250;
 
   /* ── Safe Area Inset Support (Modern Notched & Island Devices) ─ */
   --sat:                       env(safe-area-inset-top, 0px);

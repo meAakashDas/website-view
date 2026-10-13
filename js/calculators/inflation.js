@@ -255,7 +255,7 @@ export function renderInflationCalculator() {
                 <span class="rp-stat-label" id="inf-primary-label">
                   ${isCostMode ? 'Estimated Future Purchasing Cost' : 'Real Future Purchasing Power'}
                 </span>
-                <span class="rp-badge rp-badge-pulse" id="inf-primary-badge" style="background:${isCostMode ? 'rgba(239,68,68,0.15)' : 'rgba(245,158,11,0.15)'};color:${isCostMode ? '#EF4444' : '#F59E0B'}">
+                <span class="rp-badge rp-badge-pulse" id="inf-primary-badge" style="background:${isCostMode ? 'rgba(215,0,21,0.1)' : 'rgba(178,80,0,0.1)'};color:${isCostMode ? 'var(--color-error)' : 'var(--color-warning)'}">
                   ${isCostMode ? 'Price Inflation' : 'Real Value Retention'}
                 </span>
               </div>
@@ -274,7 +274,7 @@ export function renderInflationCalculator() {
               <span class="rp-stat-label" id="inf-sec-label">
                 ${isCostMode ? 'Increase Due to Inflation' : 'Loss of Purchasing Power'}
               </span>
-              <div class="rp-stat-value" style="color:#EF4444" id="inf-res-sec">
+              <div class="rp-stat-value" style="color:var(--color-error)" id="inf-res-sec">
                 ${isCostMode ? `+${formatNPR(res.inflationIncrease)}` : `-${formatNPR(res.purchasingPowerLoss)}`}
               </div>
               <span class="rp-stat-sub" id="inf-sec-sub">
@@ -287,7 +287,7 @@ export function renderInflationCalculator() {
               <span class="rp-stat-label" id="inf-pct-label">
                 ${isCostMode ? 'Cumulative Price Surge' : 'Purchasing Power Loss'}
               </span>
-              <div class="rp-stat-value" style="color:#F59E0B" id="inf-res-pct">
+              <div class="rp-stat-value" style="color:var(--color-warning)" id="inf-res-pct">
                 ${isCostMode ? `+${res.percentageIncrease}%` : `-${res.purchasingPowerLossPct}%`}
               </div>
               <span class="rp-stat-sub">
@@ -300,7 +300,7 @@ export function renderInflationCalculator() {
               <span class="rp-stat-label">
                 ${isCostMode ? 'Real Purchasing Power' : 'Future Cost to Buy Same Basket'}
               </span>
-              <div class="rp-stat-value" id="inf-res-alt" style="color:${isCostMode ? '#38BDF8' : '#EF4444'}">
+              <div class="rp-stat-value" id="inf-res-alt" style="color:${isCostMode ? 'var(--color-primary-text)' : 'var(--color-error)'}">
                 ${isCostMode ? formatNPR(res.purchasingPower) : formatNPR(res.futureCost)}
               </div>
               <span class="rp-stat-sub">
@@ -391,7 +391,7 @@ export function renderInflationCalculator() {
           </div>
 
           <div class="rp-edu-card">
-            <div class="rp-edu-icon-wrap" style="color:#10b981;font-size:24px;margin-bottom:8px">🇳🇵</div>
+            <div class="rp-edu-icon-wrap" style="color:var(--color-success);font-size:24px;margin-bottom:8px">🇳🇵</div>
             <h4>Nepal Inflation Drivers & Currency Peg</h4>
             <ul class="rp-edu-list" style="margin:0;padding-left:18px;font-size:0.875rem;color:var(--color-text-secondary);line-height:1.6">
               <li><strong>INR-NPR Peg Transmission:</strong> Because Nepal pegs 100 Indian Rupees to 160 Nepali Rupees and imports over 65% of consumables from India, Indian inflation directly imports into Nepal within 60 days.</li>
@@ -401,7 +401,7 @@ export function renderInflationCalculator() {
           </div>
 
           <div class="rp-edu-card">
-            <div class="rp-edu-icon-wrap" style="color:#f59e0b;font-size:24px;margin-bottom:8px">⚖️</div>
+            <div class="rp-edu-icon-wrap" style="color:var(--color-warning);font-size:24px;margin-bottom:8px">⚖️</div>
             <h4>Asset Defense: Real vs Nominal Returns</h4>
             <ul class="rp-edu-list" style="margin:0;padding-left:18px;font-size:0.875rem;color:var(--color-text-secondary);line-height:1.6">
               <li><strong>The Savings Account Illusion:</strong> Bank savings accounts yielding 3% while inflation is 6.5% create a guaranteed 3.5% annual loss in real wealth.</li>
@@ -510,8 +510,8 @@ export function initInflationCalculator() {
     }
     if (primaryBadge) {
       primaryBadge.textContent = isCostMode ? 'Price Inflation' : 'Real Value Retention';
-      primaryBadge.style.color = isCostMode ? '#EF4444' : '#F59E0B';
-      primaryBadge.style.background = isCostMode ? 'rgba(239,68,68,0.15)' : 'rgba(245,158,11,0.15)';
+      primaryBadge.style.color = isCostMode ? 'var(--color-error)' : 'var(--color-warning)';
+      primaryBadge.style.background = isCostMode ? 'rgba(215,0,21,0.1)' : 'rgba(178,80,0,0.1)';
     }
     if (resCaption) {
       resCaption.textContent = isCostMode
@@ -597,8 +597,8 @@ export function initInflationCalculator() {
     const futureCost = Number(pt.dataset.futurecost);
     tooltip.innerHTML = `
       <div class="rp-tt-title">Year ${time}</div>
-      <div class="rp-tt-row"><span class="rp-tt-label">Real Purchasing Power:</span> <span class="rp-tt-val" style="color:#F59E0B">${formatNPR(power)} (${pct}%)</span></div>
-      <div class="rp-tt-row"><span class="rp-tt-label">Future Basket Cost:</span> <span class="rp-tt-val" style="color:#EF4444">${formatNPR(futureCost)}</span></div>
+      <div class="rp-tt-row"><span class="rp-tt-label">Real Purchasing Power:</span> <span class="rp-tt-val" style="color:var(--color-warning)">${formatNPR(power)} (${pct}%)</span></div>
+      <div class="rp-tt-row"><span class="rp-tt-label">Future Basket Cost:</span> <span class="rp-tt-val" style="color:var(--color-error)">${formatNPR(futureCost)}</span></div>
     `;
 
     positionChartTooltip(tooltip, pt, lineChartWrap, { desktopTop: '15px' });
