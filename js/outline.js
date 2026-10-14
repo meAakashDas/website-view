@@ -176,10 +176,12 @@ export class FloatingTOC {
     const rawHeadings = Array.from(this.contentEl.querySelectorAll(this.headingSelector));
     const usedIds = new Set();
 
-    // Collect pre-existing IDs across the entire document
-    document.querySelectorAll('[id]').forEach(el => {
-      if (el.id) usedIds.add(el.id);
-    });
+    // Collect pre-existing IDs within the active content container
+    if (this.contentEl) {
+      this.contentEl.querySelectorAll('[id]').forEach(el => {
+        if (el.id) usedIds.add(el.id);
+      });
+    }
 
     // Find the minimum heading level present (e.g. h2 -> level 1, h3 -> level 2, h4 -> level 3)
     const minLevel = rawHeadings.reduce((min, h) => {

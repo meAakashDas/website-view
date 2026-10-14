@@ -7,7 +7,8 @@ const __dirname = path.dirname(__filename);
 const rootDir = path.resolve(__dirname, '..');
 
 // Import application data layers
-import { LEARN_CATEGORIES, DETAILED_GUIDES } from '../js/data/learn.js';
+import { LEARN_CATEGORIES } from '../js/data/learn.js';
+import { DETAILED_GUIDES } from '../js/data/detailedGuides.js';
 import { GLOSSARY_DICTIONARY } from '../js/data/glossaryData.js';
 import { CALCULATOR_REGISTRY } from '../js/calculators/registry.js';
 import { CALCULATOR_ROUTES } from '../js/routes.js';

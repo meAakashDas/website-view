@@ -428,33 +428,45 @@
   <!-- App Content -->
   <main id="app">
     <!-- Hero -->
-    <div class="cd-hero" id="resource-hero">
+    <header class="cd-hero" id="resource-hero">
       <div class="container">
-        <div class="cd-breadcrumb">
+        <nav class="cd-breadcrumb" aria-label="Breadcrumb">
           <a href="/">Home</a><span class="cd-sep">/</span>
           <a href="/resources">Resources</a><span class="cd-sep">/</span>
-          <span>Notion Finance Tracker</span>
+          <span class="cd-current">Notion Finance Tracker</span>
+        </nav>
+        <div class="cd-hero-badge-wrap">
+          <span class="cd-category-tag">Notion</span>
+          <span class="cd-hero-rating">
+            <span class="cd-star-icon">★</span> 4.9 · Verified Finance System
+          </span>
         </div>
-        <h1 class="cd-title">Notion Finance Tracker</h1>
-        <div class="cd-instructor">
-          <div class="cd-avatar"><img src="assets/images/aakash-das-founder-risepaisa.jpg" alt="Aakash Das, founder of RisePaisa" loading="lazy" decoding="async" width="40" height="40" style="width:40px;height:40px;border-radius:var(--radius-full);object-fit:cover" /></div>
-          <span>Creator: <a href="/aakash-das" style="color:inherit;font-weight:600;text-decoration:underline;text-underline-offset:2px">Aakash Das</a> (Founder of RisePaisa)</span>
+        <h1 class="cd-hero-title cd-title">Notion Finance Tracker</h1>
+        <p class="cd-hero-subtitle">A complete Notion operating system to track Nepali income, room rent, festival sinking funds, eSewa/Khalti balances, and NEPSE portfolio growth.</p>
+        <div class="cd-hero-instructor cd-instructor">
+          <div class="cd-avatar-ring cd-avatar"><img src="assets/images/aakash-das-founder-risepaisa.jpg" alt="Aakash Das, founder of RisePaisa" loading="lazy" decoding="async" width="40" height="40" style="width:40px;height:40px;border-radius:var(--radius-full);object-fit:cover" /></div>
+          <div class="cd-instructor-text">
+            <span class="cd-inst-label">Created by</span>
+            <div class="cd-instructor-primary">
+              <a href="/aakash-das" class="cd-instructor-link">Aakash Das</a>
+              <span class="cd-inst-role">· Founder of RisePaisa</span>
+            </div>
+          </div>
         </div>
-        <span class="cd-category-tag">Notion</span>
       </div>
-    </div>
+    </header>
 
     <!-- Body -->
     <div class="cd-body">
       <div class="container">
-        <div class="cd-grid">
+        <div class="cd-layout-grid cd-grid">
           <!-- LEFT: Main Content -->
-          <div class="cd-main">
+          <div class="cd-main-column cd-main">
 
             <!-- Preview -->
             <section class="cd-section" id="resource-preview">
-              <h2 class="cd-section-title">Preview</h2>
-                <div class="cd-video-wrap">
+              <h2 class="cd-section-title cd-section-heading">Preview</h2>
+                <div class="cd-video-player-frame cd-video-wrap">
                        <iframe
                          src="https://www.youtube-nocookie.com/embed/dbWxH9C5cBE?rel=0&modestbranding=1&controls=1&showinfo=0"
                          title="Notion Finance Tracker Preview"
@@ -462,6 +474,7 @@
                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                          allowfullscreen
                          loading="lazy"
+                         class="cd-video-iframe"
                          style="border:0"></iframe>
                      </div>
               
@@ -471,16 +484,16 @@
               
               <div class="cd-meta-bar">
                 <div class="cd-meta-item">
-                  <span class="cd-meta-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg></span>
+                  <span class="cd-meta-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg></span>
                   <span>8 items included</span>
                 </div>
                 <div class="cd-meta-item">
-                  <span class="cd-meta-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span>
+                  <span class="cd-meta-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span>
                   <span>Beginner</span>
                 </div>
                 
                 <div class="cd-meta-item">
-                  <span class="cd-meta-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></span>
+                  <span class="cd-meta-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></span>
                   <span>15-min initial setup · 5 min/week maintenance</span>
                 </div>
                 
@@ -489,7 +502,7 @@
 
             <!-- About -->
             <section class="cd-section" id="resource-description">
-              <h2 class="cd-section-title">About This Resource</h2>
+              <h2 class="cd-section-title cd-section-heading">About This Resource</h2>
               <div class="cd-about-text">
                 <p>Take full control of your personal finances with this beautifully engineered Notion template designed for real life in Nepal. Track every rupee coming in and going out, manage multiple bank accounts and digital wallets, allocate dedicated sinking funds for major Nepali festivals like Dashain and Tihar, and visualize your true net worth in real time.</p><p>Designed specifically for Nepali professionals, freelancers, and students managing cash across Class-A commercial banks, eSewa, Khalti, and physical cash. Whether you earn NPR 25,000 or NPR 250,000, this tracker adapts to your financial realities, eliminates unrecorded cash leaks, and helps you compound wealth systematically.</p>
               </div>
@@ -498,64 +511,64 @@
             <!-- Recommended Learning Sequence & Practical Framework -->
             
             <section class="cd-section" id="resource-learning-sequence">
-              <h2 class="cd-section-title">Recommended Learning Sequence</h2>
-              <p style="color:var(--color-text-secondary);font-size:var(--text-sm);margin-bottom:var(--space-4);line-height:1.5;">
+              <h2 class="cd-section-title cd-section-heading">Recommended Learning Sequence</h2>
+              <p class="cd-section-lead" style="margin-bottom:var(--space-4);">
                 To maximize the practical value of this resource, follow this curated 3-step learning pathway:
               </p>
-              <div class="cd-learning-sequence" style="display:flex;flex-direction:column;gap:var(--space-3);">
+              <div class="cd-learning-sequence">
                 
-                <div style="display:flex;gap:var(--space-4);padding:var(--space-4);background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.06);border-radius:var(--radius-md);align-items:flex-start;">
-                  <div style="flex-shrink:0;background:rgba(0,102,204,0.12);color:var(--color-primary-text);border-radius:9999px;padding:4px 12px;font-size:var(--text-xs);font-weight:700;">
+                <div class="cd-seq-step">
+                  <div class="cd-seq-badge cd-seq-badge-study">
                     Step 1 · Study First
                   </div>
-                  <div style="flex:1;">
-                    <div style="font-size:11px;text-transform:uppercase;letter-spacing:0.06em;color:var(--color-text-tertiary);margin-bottom:2px;">
+                  <div class="cd-seq-content">
+                    <div class="cd-seq-eyebrow">
                       Prerequisite Curriculum Lesson
                     </div>
-                    <h3 style="font-size:var(--text-base);font-weight:600;margin:0 0 4px 0;">
-                      <a href="/learn/personal-finance/budgeting-50-30-20-nepal" style="color:var(--color-heading);text-decoration:none;">
+                    <h3 class="cd-seq-title">
+                      <a href="/learn/personal-finance/budgeting-50-30-20-nepal">
                         50/30/20 Budgeting Rule for Nepal &rarr;
                       </a>
                     </h3>
-                    <p style="font-size:var(--text-sm);color:var(--color-text-secondary);margin:0;line-height:1.5;">
+                    <p class="cd-seq-desc">
                       Understand how to divide income into Needs (50%), Wants (30%), and Savings (20%) before setting up your Notion tracking database.
                     </p>
                   </div>
                 </div>
                 
 
-                <div style="display:flex;gap:var(--space-4);padding:var(--space-4);background:rgba(0,102,204,0.04);border:1px solid rgba(0,102,204,0.25);border-radius:var(--radius-md);align-items:flex-start;">
-                  <div style="flex-shrink:0;background:var(--color-primary);color:#fff;border-radius:9999px;padding:4px 12px;font-size:var(--text-xs);font-weight:700;">
+                <div class="cd-seq-step cd-seq-step-active">
+                  <div class="cd-seq-badge cd-seq-badge-active">
                     Step 2 · Apply Here
                   </div>
-                  <div style="flex:1;">
-                    <div style="font-size:11px;text-transform:uppercase;letter-spacing:0.06em;color:var(--color-primary-text);margin-bottom:2px;font-weight:600;">
+                  <div class="cd-seq-content">
+                    <div class="cd-seq-eyebrow" style="color:var(--color-accent);font-weight:600;">
                       Hands-On Execution System
                     </div>
-                    <h3 style="font-size:var(--text-base);font-weight:600;margin:0 0 4px 0;color:var(--color-heading);">
+                    <h3 class="cd-seq-title" style="color:var(--color-heading);">
                       Notion Finance Tracker (Notion)
                     </h3>
-                    <p style="font-size:var(--text-sm);color:var(--color-text-secondary);margin:0;line-height:1.5;">
+                    <p class="cd-seq-desc">
                       Deploy this structured template to record real income, track expense leakages, and automate month-end financial audits.
                     </p>
                   </div>
                 </div>
 
                 
-                <div style="display:flex;gap:var(--space-4);padding:var(--space-4);background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.06);border-radius:var(--radius-md);align-items:flex-start;">
-                  <div style="flex-shrink:0;background:rgba(0,102,204,0.12);color:var(--color-primary-text);border-radius:9999px;padding:4px 12px;font-size:var(--text-xs);font-weight:700;">
+                <div class="cd-seq-step">
+                  <div class="cd-seq-badge cd-seq-badge-study">
                     Step 3 · Next Milestone
                   </div>
-                  <div style="flex:1;">
-                    <div style="font-size:11px;text-transform:uppercase;letter-spacing:0.06em;color:var(--color-text-tertiary);margin-bottom:2px;">
+                  <div class="cd-seq-content">
+                    <div class="cd-seq-eyebrow">
                       Next Skill to Master
                     </div>
-                    <h3 style="font-size:var(--text-base);font-weight:600;margin:0 0 4px 0;">
-                      <a href="/learn/investing/how-to-start-monthly-sip-nepal" style="color:var(--color-heading);text-decoration:none;">
+                    <h3 class="cd-seq-title">
+                      <a href="/learn/investing/how-to-start-monthly-sip-nepal">
                         How to Start a Monthly SIP via ConnectIPS &rarr;
                       </a>
                     </h3>
-                    <p style="font-size:var(--text-sm);color:var(--color-text-secondary);margin:0;line-height:1.5;">
+                    <p class="cd-seq-desc">
                       Now that you track your monthly cash surplus, automate long-term wealth compounding into open-ended mutual funds.
                     </p>
                   </div>
@@ -567,46 +580,46 @@
 
             <!-- What You'll Learn -->
             <section class="cd-section" id="resource-outcomes">
-              <h2 class="cd-section-title">What You'll Learn</h2>
+              <h2 class="cd-section-title cd-section-heading">What You'll Learn</h2>
               <div class="cd-learn-grid">
                 
                   <div class="cd-learn-item">
-                    <span class="cd-bullet-dot"></span>
+                    <span class="cd-bullet-dot" aria-hidden="true"></span>
                     <span>Centralize multi-channel income (salary, remittances, freelance, cash dividends)</span>
                   </div>
                 
                   <div class="cd-learn-item">
-                    <span class="cd-bullet-dot"></span>
+                    <span class="cd-bullet-dot" aria-hidden="true"></span>
                     <span>Categorize daily living costs adapted for Nepal (room rent, groceries, transport, utility bills)</span>
                   </div>
                 
                   <div class="cd-learn-item">
-                    <span class="cd-bullet-dot"></span>
+                    <span class="cd-bullet-dot" aria-hidden="true"></span>
                     <span>Establish automated sinking funds for Dashain, Tihar, and annual insurance premiums</span>
                   </div>
                 
                   <div class="cd-learn-item">
-                    <span class="cd-bullet-dot"></span>
+                    <span class="cd-bullet-dot" aria-hidden="true"></span>
                     <span>Track digital wallet balances across eSewa, Khalti, IME Pay, and bank accounts</span>
                   </div>
                 
                   <div class="cd-learn-item">
-                    <span class="cd-bullet-dot"></span>
+                    <span class="cd-bullet-dot" aria-hidden="true"></span>
                     <span>Monitor NEPSE stock portfolio allotments, mutual fund SIPs, and WACC cost bases</span>
                   </div>
                 
                   <div class="cd-learn-item">
-                    <span class="cd-bullet-dot"></span>
+                    <span class="cd-bullet-dot" aria-hidden="true"></span>
                     <span>Automate month-end cash flow reconciliation and visualize savings ratios</span>
                   </div>
                 
                   <div class="cd-learn-item">
-                    <span class="cd-bullet-dot"></span>
+                    <span class="cd-bullet-dot" aria-hidden="true"></span>
                     <span>Calculate true personal net worth (Liquid Assets + Investments - Outstanding Debts)</span>
                   </div>
                 
                   <div class="cd-learn-item">
-                    <span class="cd-bullet-dot"></span>
+                    <span class="cd-bullet-dot" aria-hidden="true"></span>
                     <span>Prevent lifestyle inflation with visual spending threshold alerts</span>
                   </div>
                 
@@ -615,21 +628,61 @@
 
             <!-- What's Included (single section, no modules) -->
             <section class="cd-section" id="resource-content">
-              <h2 class="cd-section-title">What's Included</h2>
+              <h2 class="cd-section-title cd-section-heading">What's Included</h2>
               <p class="cd-curriculum-summary">8 items · Instant digital delivery</p>
               <div class="cd-accordion">
                 <div class="accordion-item active">
-                  <button class="accordion-header">
+                  <button class="accordion-header" type="button" aria-expanded="true">
                     <div class="cd-acc-left">
                       <span class="cd-acc-title">Included in this resource</span>
                       <span class="cd-acc-meta">8 items</span>
                     </div>
-                    <span class="chevron"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+                    <span class="chevron" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
                   </button>
                   <div class="accordion-content">
                     <div class="accordion-body">
-                      <ul>
-                        <li>Comprehensive Monthly Budget & Cash Flow Dashboard</li><li>Multi-Account Balance Ledger (Commercial Banks, Digital Wallets, Cash in Hand)</li><li>Nepali Festival & Annual Expense Sinking Fund Tracker</li><li>NEPSE Stock & Open-Ended Mutual Fund Portfolio Ledger</li><li>Emergency Fund Milestone Tracker (3 to 6 Months Living Costs)</li><li>Automated Net Worth Calculator with Historical Growth Chart</li><li>Mobile-Optimized Quick-Entry Widget for Daily On-The-Go Expenses</li><li>Step-by-Step Setup Video Guide & Lifetime Notion Workspace Updates</li>
+                      <ul class="cd-included-items-list">
+                        
+                          <li class="cd-included-item">
+                            <span class="cd-check-bullet" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+                            <span>Comprehensive Monthly Budget & Cash Flow Dashboard</span>
+                          </li>
+                        
+                          <li class="cd-included-item">
+                            <span class="cd-check-bullet" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+                            <span>Multi-Account Balance Ledger (Commercial Banks, Digital Wallets, Cash in Hand)</span>
+                          </li>
+                        
+                          <li class="cd-included-item">
+                            <span class="cd-check-bullet" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+                            <span>Nepali Festival & Annual Expense Sinking Fund Tracker</span>
+                          </li>
+                        
+                          <li class="cd-included-item">
+                            <span class="cd-check-bullet" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+                            <span>NEPSE Stock & Open-Ended Mutual Fund Portfolio Ledger</span>
+                          </li>
+                        
+                          <li class="cd-included-item">
+                            <span class="cd-check-bullet" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+                            <span>Emergency Fund Milestone Tracker (3 to 6 Months Living Costs)</span>
+                          </li>
+                        
+                          <li class="cd-included-item">
+                            <span class="cd-check-bullet" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+                            <span>Automated Net Worth Calculator with Historical Growth Chart</span>
+                          </li>
+                        
+                          <li class="cd-included-item">
+                            <span class="cd-check-bullet" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+                            <span>Mobile-Optimized Quick-Entry Widget for Daily On-The-Go Expenses</span>
+                          </li>
+                        
+                          <li class="cd-included-item">
+                            <span class="cd-check-bullet" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+                            <span>Step-by-Step Setup Video Guide & Lifetime Notion Workspace Updates</span>
+                          </li>
+                        
                       </ul>
                     </div>
                   </div>
@@ -640,30 +693,30 @@
             <!-- How to Use / Setup Workflow -->
             
             <section class="cd-section" id="resource-how-to-use">
-              <h2 class="cd-section-title">How to Use This Resource</h2>
-              <div class="cd-learn-grid" style="grid-template-columns:1fr;gap:var(--space-3);">
+              <h2 class="cd-section-title cd-section-heading">How to Use This Resource</h2>
+              <div class="cd-how-grid">
                 
-                  <div class="cd-learn-item" style="align-items:flex-start;padding:var(--space-4);background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.06);border-radius:var(--radius-md);">
-                    <span style="background:var(--color-primary);color:#fff;font-size:11px;font-weight:700;border-radius:999px;padding:3px 10px;margin-right:var(--space-3);flex-shrink:0;letter-spacing:0.02em;">Step 1</span>
-                    <div>
-                      <strong style="color:var(--color-heading);display:block;margin-bottom:4px;font-size:var(--text-base);">1. One-Click Workspace Duplicate</strong>
-                      <span style="color:var(--color-text-secondary);font-size:var(--text-sm);line-height:1.5;">Click the private duplicate link provided upon checkout to clone the entire template directly into your free or paid Notion workspace in seconds.</span>
+                  <div class="cd-how-item">
+                    <span class="cd-how-step-badge">Step 1</span>
+                    <div class="cd-how-body">
+                      <strong class="cd-how-step-title">1. One-Click Workspace Duplicate</strong>
+                      <span class="cd-how-step-desc">Click the private duplicate link provided upon checkout to clone the entire template directly into your free or paid Notion workspace in seconds.</span>
                     </div>
                   </div>
                 
-                  <div class="cd-learn-item" style="align-items:flex-start;padding:var(--space-4);background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.06);border-radius:var(--radius-md);">
-                    <span style="background:var(--color-primary);color:#fff;font-size:11px;font-weight:700;border-radius:999px;padding:3px 10px;margin-right:var(--space-3);flex-shrink:0;letter-spacing:0.02em;">Step 2</span>
-                    <div>
-                      <strong style="color:var(--color-heading);display:block;margin-bottom:4px;font-size:var(--text-base);">2. Baseline Accounts & Fixed Expenses Setup</strong>
-                      <span style="color:var(--color-text-secondary);font-size:var(--text-sm);line-height:1.5;">Input your opening bank balances (e.g. Nabil, NIC Asia), eSewa/Khalti balances, cash on hand, and monthly fixed commitments (room rent, Wi-Fi, insurance).</span>
+                  <div class="cd-how-item">
+                    <span class="cd-how-step-badge">Step 2</span>
+                    <div class="cd-how-body">
+                      <strong class="cd-how-step-title">2. Baseline Accounts & Fixed Expenses Setup</strong>
+                      <span class="cd-how-step-desc">Input your opening bank balances (e.g. Nabil, NIC Asia), eSewa/Khalti balances, cash on hand, and monthly fixed commitments (room rent, Wi-Fi, insurance).</span>
                     </div>
                   </div>
                 
-                  <div class="cd-learn-item" style="align-items:flex-start;padding:var(--space-4);background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.06);border-radius:var(--radius-md);">
-                    <span style="background:var(--color-primary);color:#fff;font-size:11px;font-weight:700;border-radius:999px;padding:3px 10px;margin-right:var(--space-3);flex-shrink:0;letter-spacing:0.02em;">Step 3</span>
-                    <div>
-                      <strong style="color:var(--color-heading);display:block;margin-bottom:4px;font-size:var(--text-base);">3. Daily Mobile Logging & Monthly Review</strong>
-                      <span style="color:var(--color-text-secondary);font-size:var(--text-sm);line-height:1.5;">Use the pinned mobile quick-entry button to log daily expenses in 10 seconds. At month-end, review the automated net worth chart and adjust next month’s budget.</span>
+                  <div class="cd-how-item">
+                    <span class="cd-how-step-badge">Step 3</span>
+                    <div class="cd-how-body">
+                      <strong class="cd-how-step-title">3. Daily Mobile Logging & Monthly Review</strong>
+                      <span class="cd-how-step-desc">Use the pinned mobile quick-entry button to log daily expenses in 10 seconds. At month-end, review the automated net worth chart and adjust next month’s budget.</span>
                     </div>
                   </div>
                 
@@ -673,36 +726,52 @@
 
             <!-- Who Is This For -->
             <section class="cd-section" id="resource-audience">
-              <h2 class="cd-section-title">Who Is This For?</h2>
-              <ul class="cd-audience-list">
+              <h2 class="cd-section-title cd-section-heading">Who Is This For?</h2>
+              <div class="cd-audience-grid">
                 
-                  <li class="cd-audience-item">
-                    <span class="cd-bullet-dot"></span>
-                    <span>Salaried professionals seeking structured money management</span>
-                  </li>
+                  <div class="cd-audience-card">
+                    <div class="cd-audience-icon-wrap" aria-hidden="true">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                    </div>
+                    <div class="cd-audience-body">
+                      <p class="cd-audience-desc">Salaried professionals seeking structured money management</p>
+                    </div>
+                  </div>
                 
-                  <li class="cd-audience-item">
-                    <span class="cd-bullet-dot"></span>
-                    <span>Freelancers balancing irregular income across multiple digital wallets</span>
-                  </li>
+                  <div class="cd-audience-card">
+                    <div class="cd-audience-icon-wrap" aria-hidden="true">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                    </div>
+                    <div class="cd-audience-body">
+                      <p class="cd-audience-desc">Freelancers balancing irregular income across multiple digital wallets</p>
+                    </div>
+                  </div>
                 
-                  <li class="cd-audience-item">
-                    <span class="cd-bullet-dot"></span>
-                    <span>Students learning disciplined budgeting</span>
-                  </li>
+                  <div class="cd-audience-card">
+                    <div class="cd-audience-icon-wrap" aria-hidden="true">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                    </div>
+                    <div class="cd-audience-body">
+                      <p class="cd-audience-desc">Students learning disciplined budgeting</p>
+                    </div>
+                  </div>
                 
-                  <li class="cd-audience-item">
-                    <span class="cd-bullet-dot"></span>
-                    <span>Retail NEPSE investors wanting a consolidated net worth view.</span>
-                  </li>
+                  <div class="cd-audience-card">
+                    <div class="cd-audience-icon-wrap" aria-hidden="true">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                    </div>
+                    <div class="cd-audience-body">
+                      <p class="cd-audience-desc">Retail NEPSE investors wanting a consolidated net worth view.</p>
+                    </div>
+                  </div>
                 
-              </ul>
+              </div>
             </section>
 
             <!-- Recommended Companion Tools -->
             
             <section class="cd-section" id="resource-companion-tools">
-              <h2 class="cd-section-title">Recommended Companion Tools</h2>
+              <h2 class="cd-section-title cd-section-heading">Recommended Companion Tools</h2>
               <div class="companion-tools-grid">
                 
                   <a href="/learn/personal-finance/budgeting-50-30-20-nepal" class="companion-tool-card">
@@ -748,14 +817,20 @@
           </div>
 
           <!-- RIGHT: Sticky Pricing Card -->
-          <div class="cd-sidebar">
-            <div class="cd-pricing-card" id="resource-pricing-card">
-              <img src="assets/images/resource-notion.png" alt="Notion Finance Tracker" class="cd-pricing-thumb" loading="lazy" decoding="async">
+          <aside class="cd-sidebar-column cd-sidebar">
+            <div class="cd-purchase-card cd-pricing-card" id="resource-pricing-card">
+              <div class="cd-card-thumb-container">
+                <img src="assets/images/resource-notion.png" alt="Notion Finance Tracker" class="cd-card-thumb-img cd-pricing-thumb" loading="lazy" decoding="async">
+              </div>
 
-              <div class="cd-price-block">
-                <span class="cd-price-anchor">NPR 598</span>
-                <span class="cd-price-current"><span class="cd-price-currency">NPR </span>299</span>
-                <span class="cd-discount-badge">50% OFF</span>
+              <div class="cd-card-price-section cd-price-block">
+                <div class="cd-card-price-label">Lifetime Resource Access</div>
+                <div class="cd-card-price-row cd-price-row">
+                  <span class="cd-price-anchor">NPR 598</span>
+                  <span class="cd-card-price-number cd-price-current"><span class="cd-card-currency cd-price-currency">NPR </span>299</span>
+                  <span class="cd-discount-badge">50% OFF</span>
+                </div>
+                <div class="cd-card-price-sub">One-time payment · Instant digital delivery</div>
               </div>
 
               <div class="cd-price-labels">
@@ -765,21 +840,23 @@
                 <span class="cd-label-item">Free updates</span>
               </div>
 
-              <a href="https://wa.me/+9779740269317?text=I%20want%20to%20buy%20the%20Notion%20Finance%20Tracker." target="_blank" rel="noopener" class="btn btn-whatsapp btn-lg cd-cta-primary" id="buy-whatsapp-btn">
-                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg> Buy Now via WhatsApp
+              <a href="https://wa.me/+9779740269317?text=I%20want%20to%20buy%20the%20Notion%20Finance%20Tracker." target="_blank" rel="noopener" class="btn btn-whatsapp cd-primary-buy-cta cd-cta-primary" id="buy-whatsapp-btn">
+                <span class="cd-cta-whatsapp-icon"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></span>
+                <span class="cd-cta-whatsapp-text">Buy Now via WhatsApp</span>
               </a>
-              <a href="https://wa.me/+9779740269317?text=I%20want%20to%20ask%20about%20the%20Notion%20Finance%20Tracker." target="_blank" rel="noopener" class="btn btn-ghost btn-lg cd-cta-secondary">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg> Ask a Question
+              <a href="https://wa.me/+9779740269317?text=I%20want%20to%20ask%20about%20the%20Notion%20Finance%20Tracker." target="_blank" rel="noopener" class="btn btn-ghost cd-secondary-ask-cta cd-cta-secondary" id="ask-question-btn">
+                <span class="cd-cta-ask-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></span>
+                <span>Ask a Question</span>
               </a>
 
               <div class="cd-trust-signals">
                 <div class="cd-trust-item">
                   <span class="cd-trust-dot"></span>
-                  <span>One-time payment</span>
+                  <span>One-time payment · No subscription</span>
                 </div>
                 <div class="cd-trust-item">
                   <span class="cd-trust-dot"></span>
-                  <span>Instant access</span>
+                  <span>Instant access via private link</span>
                 </div>
                 <div class="cd-trust-item">
                   <span class="cd-trust-dot"></span>
@@ -806,20 +883,20 @@
                 </div>
               </div>
             </div>
-          </div>
+          </aside>
         </div>
       </div>
     </div>
 
     <!-- Mobile Sticky CTA -->
-    <div class="cd-mobile-cta" id="resource-mobile-cta">
-      <div class="cd-mobile-cta-inner">
-        <div class="cd-mobile-price">
-          <span class="cd-mobile-anchor">NPR 598</span>
-          <span class="cd-mobile-current">NPR 299</span>
+    <div class="cd-mobile-sticky-bar cd-mobile-cta" id="resource-mobile-cta" aria-label="Mobile Resource Purchase Bar">
+      <div class="cd-mobile-sticky-inner cd-mobile-cta-inner">
+        <div class="cd-mobile-sticky-price cd-mobile-price">
+          <span class="cd-sticky-price-label cd-mobile-anchor">NPR 598</span>
+          <span class="cd-sticky-price-val cd-mobile-current">NPR 299</span>
         </div>
-        <a href="https://wa.me/+9779740269317?text=I%20want%20to%20buy%20the%20Notion%20Finance%20Tracker." target="_blank" rel="noopener" class="btn btn-whatsapp cd-mobile-buy">
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg> Buy Now
+        <a href="https://wa.me/+9779740269317?text=I%20want%20to%20buy%20the%20Notion%20Finance%20Tracker." target="_blank" rel="noopener" class="btn btn-whatsapp cd-sticky-buy-btn cd-mobile-buy" id="mobile-bar-whatsapp-btn">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg> Buy via WhatsApp
         </a>
       </div>
     </div>

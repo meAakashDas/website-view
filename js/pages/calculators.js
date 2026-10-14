@@ -6,7 +6,6 @@ import { setPageMeta } from '../components.js';
 import { CALCULATOR_REGISTRY } from '../calculators/registry.js';
 import { renderSIPCalculator, initSIPCalculator } from '../calculators/sip.js';
 import { renderLoanCalculators, initLoanCalculators } from '../calculators/loans.js';
-import { renderEMICalculator, initEMICalculator } from '../calculators/emi.js';
 import { renderSWPCalculator, initSWPCalculator } from '../calculators/swp.js';
 import { renderTaxCalculator, initTaxCalculator } from '../calculators/tax.js';
 import { renderShareCalculator, initShareCalculator } from '../calculators/share.js';
@@ -15,6 +14,29 @@ import { renderRetirementGoalCalculator, initRetirementGoalCalculator } from '..
 import { renderCAGRCalculator, initCAGRCalculator } from '../calculators/cagr.js';
 import { renderInflationCalculator, initInflationCalculator } from '../calculators/inflation.js';
 import { ROUTES, CALCULATOR_ROUTES, CALCULATOR_SLUG_TO_ID, getAppPathname, toBrowserPath } from '../routes.js';
+
+function renderPaneContent(key, initialLoanSubtab = 'home') {
+  switch (key) {
+    case 'sip': return renderSIPCalculator();
+    case 'emi': return renderLoanCalculators(initialLoanSubtab);
+    case 'swp': return renderSWPCalculator();
+    case 'tax': return renderTaxCalculator();
+    case 'share': return renderShareCalculator();
+    case 'fdrd': return renderFDRDCalculator();
+    case 'retirement': return renderRetirementGoalCalculator();
+    case 'cagr': return renderCAGRCalculator();
+    case 'inflation': return renderInflationCalculator();
+    default: return '';
+  }
+}
+
+export async function preloadCalculator(calcSlug = '') {
+  return true;
+}
+
+export async function preloadAllCalculators() {
+  return true;
+}
 
 export const CALC_METAS = {
   sip: {
@@ -290,7 +312,7 @@ export function renderCalculatorsPage(calcSlug = '') {
             </a>
           </div>
 
-          ${renderSIPCalculator()}
+          ${renderPaneContent('sip')}
         </div>
 
         <!-- PANE 2: Loan Calculators -->
@@ -315,7 +337,7 @@ export function renderCalculatorsPage(calcSlug = '') {
             </a>
           </div>
 
-          ${renderLoanCalculators(initialLoanSubtab)}
+          ${renderPaneContent('emi', initialLoanSubtab)}
         </div>
 
         <!-- PANE 3: SWP Calculator -->
@@ -340,7 +362,7 @@ export function renderCalculatorsPage(calcSlug = '') {
             </a>
           </div>
 
-          ${renderSWPCalculator()}
+          ${renderPaneContent('swp')}
         </div>
 
         <!-- PANE 4: Nepal Income Tax Calculator -->
@@ -365,7 +387,7 @@ export function renderCalculatorsPage(calcSlug = '') {
             </a>
           </div>
 
-          ${renderTaxCalculator()}
+          ${renderPaneContent('tax')}
         </div>
 
         <!-- PANE 5: NEPSE Share Calculator -->
@@ -390,7 +412,7 @@ export function renderCalculatorsPage(calcSlug = '') {
             </a>
           </div>
 
-          ${renderShareCalculator()}
+          ${renderPaneContent('share')}
         </div>
 
         <!-- PANE 6: Fixed Deposit & RD Calculator -->
@@ -415,7 +437,7 @@ export function renderCalculatorsPage(calcSlug = '') {
             </a>
           </div>
 
-          ${renderFDRDCalculator()}
+          ${renderPaneContent('fdrd')}
         </div>
 
         <!-- PANE 7: Retirement & Goal Planner -->
@@ -440,7 +462,7 @@ export function renderCalculatorsPage(calcSlug = '') {
             </a>
           </div>
 
-          ${renderRetirementGoalCalculator()}
+          ${renderPaneContent('retirement')}
         </div>
 
         <!-- PANE 8: CAGR Calculator -->
@@ -465,7 +487,7 @@ export function renderCalculatorsPage(calcSlug = '') {
             </a>
           </div>
 
-          ${renderCAGRCalculator()}
+          ${renderPaneContent('cagr')}
         </div>
 
         <!-- PANE 9: Inflation Calculator -->
@@ -490,7 +512,7 @@ export function renderCalculatorsPage(calcSlug = '') {
             </a>
           </div>
 
-          ${renderInflationCalculator()}
+          ${renderPaneContent('inflation')}
         </div>
 
       </div>
@@ -572,7 +594,9 @@ export function initCalculatorsPage(calcSlug = '') {
     else if (p.includes('/vehicle-loan')) initialLoanSubtab = 'vehicle';
   }
 
-  // Map of lazy calculator initializers
+  // Cleanup any lingering loading elements
+  document.querySelectorAll('.rp-calc-loading-container').forEach(el => el.remove());
+
   const calcInitializers = {
     sip: () => initSIPCalculator(),
     emi: () => initLoanCalculators(initialLoanSubtab),
@@ -587,9 +611,35 @@ export function initCalculatorsPage(calcSlug = '') {
 
   const initialized = new Set();
   function ensureInit(tabKey) {
-    if (!initialized.has(tabKey) && calcInitializers[tabKey]) {
-      calcInitializers[tabKey]();
-      initialized.add(tabKey);
+    if (initialized.has(tabKey)) return;
+    initialized.add(tabKey);
+
+    const initFn = calcInitializers[tabKey];
+    if (typeof initFn === 'function') {
+      try {
+        initFn();
+      } catch (err) {
+        console.error(`[risePaisa] Error initializing calculator ${tabKey}:`, err);
+        const pane = panes[tabKey];
+        if (pane) {
+          const existingErr = pane.querySelector('.rp-calc-error-container');
+          if (!existingErr) {
+            const errDiv = document.createElement('div');
+            errDiv.className = 'rp-calc-error-container';
+            errDiv.style.cssText = 'padding:var(--space-6);margin:var(--space-4) 0;background:var(--color-bg-alt);border:1px solid var(--color-border);border-radius:var(--radius-lg);text-align:center;';
+            errDiv.innerHTML = `
+              <p style="color:var(--color-text-secondary);margin-bottom:var(--space-3);font-size:var(--text-sm);">There was an issue initializing this calculator.</p>
+              <button type="button" class="btn btn-secondary btn-sm" id="retry-init-${tabKey}">Retry</button>
+            `;
+            pane.prepend(errDiv);
+            errDiv.querySelector(`#retry-init-${tabKey}`)?.addEventListener('click', () => {
+              errDiv.remove();
+              initialized.delete(tabKey);
+              ensureInit(tabKey);
+            });
+          }
+        }
+      }
     }
   }
 
@@ -763,11 +813,15 @@ export function initCalculatorsPage(calcSlug = '') {
 
   switchTab(initialTab, false);
 
-  // Idle warmup of remaining calculators in background
+  // Idle warmup of remaining calculator tabs in background
   if (typeof window !== 'undefined') {
-    const idleFn = window.requestIdleCallback || ((cb) => setTimeout(cb, 350));
+    const idleFn = window.requestIdleCallback || ((cb) => setTimeout(cb, 600));
     idleFn(() => {
-      Object.keys(calcInitializers).forEach(k => ensureInit(k));
+      Object.keys(calcInitializers).forEach(k => {
+        if (!initialized.has(k)) {
+          ensureInit(k);
+        }
+      });
     });
   }
 }

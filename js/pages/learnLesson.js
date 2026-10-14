@@ -4,10 +4,14 @@
 // Answers: What is this? Why does it matter? How does it work? How in Nepal? What next?
 // ==============================================
 
-import { getLessonBySlug, getLearnLanguage, setLearnLanguage, LEARN_UI, getRelatedContent } from '../data/learn.js';
+import { getLessonBySlug, loadLesson, getLearnLanguage, setLearnLanguage, LEARN_UI, getRelatedContent } from '../data/learn.js';
 import { ROUTES } from '../routes.js';
 import { initGlossaryTooltips } from '../enhancements.js';
 import { initNotionOutline } from '../outline.js';
+
+export async function preloadLesson(categorySlug, lessonSlug) {
+  return await loadLesson(categorySlug, lessonSlug);
+}
 
 // SVG Icons cache for lesson page
 const ICONS = {

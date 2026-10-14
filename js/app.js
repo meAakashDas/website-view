@@ -110,7 +110,13 @@ const routes = [
   },
   {
     pattern: /^\/learn\/guides\/([a-z0-9-]+)\/?$/,
-    load: () => import('./pages/learnGuideDetail.js'),
+    load: async (m) => {
+      const mod = await import('./pages/learnGuideDetail.js');
+      if (m && m[1] && mod.preloadGuide) {
+        await mod.preloadGuide(m[1]);
+      }
+      return mod;
+    },
     render: (m, p, mod) => mod.renderLearnGuideDetailPage(m[1]),
     init: (m, p, mod) => mod.initLearnGuideDetailPage(m ? m[1] : ''),
     nav: ROUTES.LEARN
@@ -131,7 +137,13 @@ const routes = [
   },
   {
     pattern: /^\/learn\/([a-z0-9-]+)\/([a-z0-9-]+)\/?$/,
-    load: () => import('./pages/learnLesson.js'),
+    load: async (m) => {
+      const mod = await import('./pages/learnLesson.js');
+      if (m && m[1] && m[2] && mod.preloadLesson) {
+        await mod.preloadLesson(m[1], m[2]);
+      }
+      return mod;
+    },
     render: (m, p, mod) => mod.renderLearnLessonPage(m[1], m[2]),
     init: (m, p, mod) => mod.initLearnLessonPage(m ? m[1] : '', m ? m[2] : ''),
     nav: ROUTES.LEARN
@@ -233,8 +245,43 @@ if (typeof window !== 'undefined') {
 // ── Router Core ──────────────────────────────────
 let currentPageCleanup = null;
 let currentNavRendered = false;
+let currentNavRequestId = 0;
+let topProgressBar = null;
+let progressTimer = null;
+
+function showTopProgress() {
+  if (typeof document === 'undefined') return;
+  if (!topProgressBar) {
+    topProgressBar = document.createElement('div');
+    topProgressBar.className = 'rp-top-progress';
+    topProgressBar.setAttribute('aria-hidden', 'true');
+    document.body.appendChild(topProgressBar);
+  }
+  clearTimeout(progressTimer);
+  progressTimer = setTimeout(() => {
+    if (topProgressBar) {
+      topProgressBar.classList.remove('done');
+      topProgressBar.classList.add('active');
+    }
+  }, 50);
+}
+
+function hideTopProgress() {
+  clearTimeout(progressTimer);
+  if (topProgressBar && topProgressBar.classList.contains('active')) {
+    topProgressBar.classList.remove('active');
+    topProgressBar.classList.add('done');
+    setTimeout(() => {
+      if (topProgressBar) {
+        topProgressBar.classList.remove('done');
+      }
+    }, 350);
+  }
+}
 
 async function router() {
+  const navRequestId = ++currentNavRequestId;
+
   // Check for legacy hash link (e.g. #/courses or #/calculators)
   const rawHash = window.location.hash;
   if (rawHash && (rawHash.startsWith('#/') || rawHash === '#')) {
@@ -331,23 +378,52 @@ async function router() {
       currentNavRendered = true;
     } else {
       updateNavbarActive(navPath);
-      initNavbar();
     }
   }
 
+  // Show navigation progress indicator
+  showTopProgress();
+
   // Dynamically load page module code chunk on-demand
   let pageModule = null;
-  if (typeof matchedRoute.load === 'function') {
-    pageModule = await matchedRoute.load();
+  try {
+    if (typeof matchedRoute.load === 'function') {
+      pageModule = await matchedRoute.load(match, searchParams);
+    }
+  } catch (loadErr) {
+    console.error('[risePaisa] Page module load failed:', loadErr);
+    if (navRequestId === currentNavRequestId) {
+      hideTopProgress();
+      const appEl = document.getElementById('app');
+      if (appEl) {
+        appEl.innerHTML = `
+          <div class="section not-found-section" style="min-height:60vh;display:flex;align-items:center;justify-content:center;padding:var(--space-12) 0">
+            <div class="container" style="max-width:540px;text-align:center">
+              <h2 style="font-size:var(--text-3xl);color:var(--color-heading);margin-bottom:var(--space-3)">Unable to Load Page</h2>
+              <p style="color:var(--color-text-secondary);margin-bottom:var(--space-6);line-height:1.6">There was a network issue loading this section. Please check your connection and retry.</p>
+              <button type="button" class="btn btn-primary" onclick="window.location.reload()">Retry Loading</button>
+            </div>
+          </div>
+        `;
+      }
+      return;
+    }
+  } finally {
+    if (navRequestId === currentNavRequestId) {
+      hideTopProgress();
+    }
   }
 
-  // Render page content with smooth fade transition
+  // Guard against race conditions from rapid consecutive clicks
+  if (navRequestId !== currentNavRequestId) {
+    return;
+  }
+
+  // Render page content
   const content = matchedRoute.render(match, searchParams, pageModule);
   const appEl = document.getElementById('app');
   if (appEl) {
-    appEl.classList.remove('page-enter');
     appEl.innerHTML = content;
-    void appEl.offsetWidth; // Restart CSS transition smoothly
     appEl.classList.add('page-enter');
   }
 

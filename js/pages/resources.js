@@ -1,8 +1,7 @@
 import { getResources } from '../data/resources.js';
-import { FREE_RESOURCES } from '../data/learn.js';
+import { FREE_RESOURCES } from '../data/freeResources.js';
 import { renderResourceCard, setPageMeta } from '../components.js';
 import { ROUTES } from '../routes.js';
-import { openResourcePreviewModal } from './learn.js';
 
 export function renderResourcesPage() {
   setPageMeta('Resources', 'Browse premium templates, tools, and free educational systems for financial growth including Notion trackers, budget planners, and spreadsheets designed for Nepal.', ROUTES.RESOURCES);
@@ -135,9 +134,16 @@ export function initResourcesPage() {
 
   // Free resources quick preview modal
   document.querySelectorAll('.free-res-preview-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
+    btn.addEventListener('click', async () => {
       const resId = btn.getAttribute('data-res-id');
-      if (resId) openResourcePreviewModal(resId, 'en');
+      if (resId) {
+        try {
+          const { openResourcePreviewModal } = await import('./learn.js');
+          openResourcePreviewModal(resId, 'en');
+        } catch (err) {
+          console.error('Failed to load resource preview modal:', err);
+        }
+      }
     });
   });
 }

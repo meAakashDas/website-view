@@ -9,6 +9,7 @@ const rootDir = path.resolve(__dirname, '..');
 // Import SEO and data layers
 import { resolvePageSEO } from '../js/seo.js';
 import * as learnData from '../js/data/learn.js';
+import { DETAILED_GUIDES } from '../js/data/detailedGuides.js';
 import { GLOSSARY_DICTIONARY } from '../js/data/glossaryData.js';
 import { CALCULATOR_REGISTRY } from '../js/calculators/registry.js';
 import { CALCULATOR_ROUTES, CALCULATOR_SLUG_TO_ID, ROUTES } from '../js/routes.js';
@@ -26,7 +27,7 @@ import { renderContactPage } from '../js/pages/contact.js';
 import { renderAakashDasPage } from '../js/pages/aakashDas.js';
 import { renderEditorialPolicyPage } from '../js/pages/editorialPolicy.js';
 import { renderLegalPage } from '../js/pages/legal.js';
-import { renderCalculatorsPage } from '../js/pages/calculators.js';
+import { renderCalculatorsPage, preloadAllCalculators } from '../js/pages/calculators.js';
 import { renderCoursesPage } from '../js/pages/courses.js';
 import { renderCourseDetailPage } from '../js/pages/courseDetail.js';
 import { renderResourcesPage } from '../js/pages/resources.js';
@@ -200,6 +201,9 @@ function writeStaticFile(routePath, html) {
 // ── Master Build Orchestration ────────────────────
 async function generateAllPages() {
   console.log('Generating pre-rendered static HTML pages for RisePaisa...');
+  await learnData.preloadAllLessons();
+  await learnData.preloadAllGuides();
+  await preloadAllCalculators();
   let count = 0;
 
   // 1. Root Homepage
@@ -328,7 +332,7 @@ async function generateAllPages() {
   }
 
   // 8. Cornerstone Guides
-  const guideSlugs = Object.keys(learnData.DETAILED_GUIDES);
+  const guideSlugs = Object.keys(DETAILED_GUIDES);
   for (const slug of guideSlugs) {
     const guideRoute = `/learn/guides/${slug}`;
     const html = buildHtml(guideRoute, ROUTES.LEARN, renderLearnGuideDetailPage(slug));

@@ -76,7 +76,7 @@
   --shadow-lg:                 0 10px 28px rgba(0, 0, 0, 0.07);
   --shadow-xl:                 0 20px 48px rgba(0, 0, 0, 0.09);
   --shadow-card:               0 1px 3px rgba(0, 0, 0, 0.04), 0 0 0 1px rgba(0, 0, 0, 0.06);
-  --shadow-card-hover:         0 8px 24px rgba(0, 0, 0, 0.08), 0 0 0 1px rgba(0, 0, 0, 0.11);
+  --shadow-card-hover:         0 4px 16px rgba(0, 0, 0, 0.06), 0 0 0 1px rgba(0, 0, 0, 0.09);
 
   /* ── Semantic Financial Status ───────────────────────────── */
   --color-success:             #248A3D;
@@ -174,7 +174,7 @@
   --shadow-lg:                 0 12px 32px rgba(0, 0, 0, 0.5);
   --shadow-xl:                 0 20px 48px rgba(0, 0, 0, 0.6);
   --shadow-card:               0 1px 3px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.08);
-  --shadow-card-hover:         0 8px 24px rgba(0, 0, 0, 0.45), 0 0 0 1px rgba(255, 255, 255, 0.16);
+  --shadow-card-hover:         0 4px 20px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.14);
 
   /* ── Semantic Financial Status ───────────────────────────── */
   --color-success:             #30D158;
@@ -203,8 +203,8 @@
 
 :root {
   /* ── Typography Scale & Metrics (SF Pro + Inter Stack) ──── */
-  --font-body:                 'Inter', -apple-system, BlinkMacSystemFont, 'SF Pro Text', system-ui, sans-serif;
-  --font-display:              'Inter', -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Outfit', system-ui, sans-serif;
+  --font-body:                 -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Inter', system-ui, sans-serif;
+  --font-display:              -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Inter', system-ui, sans-serif;
   --font-mono:                 'SF Mono', 'JetBrains Mono', 'Fira Code', Menlo, monospace;
   
   --text-xs:                   0.75rem;    /* 12px */
@@ -219,8 +219,8 @@
   --text-6xl:                  3.5rem;     /* 56px */
   
   /* Standardized Hierarchy Tokens */
-  --text-hero:                 clamp(2rem, 3.8vw, 2.85rem);
-  --text-section:              clamp(1.65rem, 2.5vw, 2.15rem);
+  --text-hero:                 clamp(2.1rem, 3.8vw, 3rem);
+  --text-section:              clamp(1.65rem, 2.5vw, 2.2rem);
   --text-card-title:           1.125rem;   /* 18px */
   --text-card-body:            0.9375rem;  /* 15px */
   --text-meta:                 0.8125rem;  /* 13px */
@@ -259,8 +259,8 @@
   --container-lg:              1024px;
   --container-xl:              1200px;
   --container-2xl:             1360px;
-  --nav-height:                76px;
-  --nav-height-mobile:         72px;
+  --nav-height:                60px;
+  --nav-height-mobile:         56px;
   --section-padding-y:         64px;
   --section-padding-y-mobile:  44px;
 
@@ -317,6 +317,6 @@
 
 @media (max-width: 767px) {
   :root {
-    --nav-height: var(--nav-height-mobile, 72px);
+    --nav-height: var(--nav-height-mobile, 56px);
   }
 }

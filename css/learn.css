@@ -17,8 +17,8 @@
 /* ── Tab Bar ─────────────────────────────────── */
 .learn-tabs-bar {
   position: sticky;
-  top: 0;
-  z-index: 100;
+  top: var(--nav-height, 60px);
+  z-index: 90;
   background: var(--color-bg);
   border-bottom: 1px solid var(--color-border);
   transition: background 0.2s ease, box-shadow 0.2s ease;
@@ -814,7 +814,7 @@
 /* Sticky Side Nav */
 .learn-side-nav {
   position: sticky;
-  top: 112px;
+  top: calc(var(--nav-height, 60px) + 24px);
   background: var(--color-surface);
   border: 1px solid var(--color-border);
   border-radius: 14px;
@@ -2858,7 +2858,7 @@
 
 .learn-page-v2 .learn-filter-bar {
   position: sticky;
-  top: 53px;
+  top: calc(var(--nav-height, 60px) + 52px);
   z-index: 10;
   padding: 12px 0;
   margin-bottom: 28px;

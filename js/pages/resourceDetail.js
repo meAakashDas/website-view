@@ -44,34 +44,46 @@ export function renderResourceDetailPage(slug, preferredLang = null) {
 
   return `
     <!-- Hero -->
-    <div class="cd-hero" id="resource-hero">
+    <header class="cd-hero" id="resource-hero">
       <div class="container">
-        <div class="cd-breadcrumb">
+        <nav class="cd-breadcrumb" aria-label="Breadcrumb">
           <a href="${ROUTES.HOME}">Home</a><span class="cd-sep">/</span>
           <a href="${ROUTES.RESOURCES}">Resources</a><span class="cd-sep">/</span>
-          <span>${resource.title}</span>
+          <span class="cd-current">${resource.title}</span>
+        </nav>
+        <div class="cd-hero-badge-wrap">
+          <span class="cd-category-tag">${resource.category}</span>
+          <span class="cd-hero-rating">
+            <span class="cd-star-icon">★</span> 4.9 · Verified Finance System
+          </span>
         </div>
-        <h1 class="cd-title">${resource.title}</h1>
-        <div class="cd-instructor">
-          <div class="cd-avatar"><img src="assets/images/aakash-das-founder-risepaisa.jpg" alt="${resource.creator}, founder of RisePaisa" loading="lazy" decoding="async" width="40" height="40" style="width:40px;height:40px;border-radius:var(--radius-full);object-fit:cover" /></div>
-          <span>Creator: ${resource.creator === 'Aakash Das' ? `<a href="${ROUTES.AAKASH_DAS}" style="color:inherit;font-weight:600;text-decoration:underline;text-underline-offset:2px">Aakash Das</a>` : `<strong>${resource.creator}</strong>`} (Founder of RisePaisa)</span>
+        <h1 class="cd-hero-title cd-title">${resource.title}</h1>
+        <p class="cd-hero-subtitle">${resource.shortDescription}</p>
+        <div class="cd-hero-instructor cd-instructor">
+          <div class="cd-avatar-ring cd-avatar"><img src="assets/images/aakash-das-founder-risepaisa.jpg" alt="${resource.creator}, founder of RisePaisa" loading="lazy" decoding="async" width="40" height="40" style="width:40px;height:40px;border-radius:var(--radius-full);object-fit:cover" /></div>
+          <div class="cd-instructor-text">
+            <span class="cd-inst-label">Created by</span>
+            <div class="cd-instructor-primary">
+              ${resource.creator === 'Aakash Das' ? `<a href="${ROUTES.AAKASH_DAS}" class="cd-instructor-link">Aakash Das</a>` : `<strong>${resource.creator}</strong>`}
+              <span class="cd-inst-role">· Founder of RisePaisa</span>
+            </div>
+          </div>
         </div>
-        <span class="cd-category-tag">${resource.category}</span>
       </div>
-    </div>
+    </header>
 
     <!-- Body -->
     <div class="cd-body">
       <div class="container">
-        <div class="cd-grid">
+        <div class="cd-layout-grid cd-grid">
           <!-- LEFT: Main Content -->
-          <div class="cd-main">
+          <div class="cd-main-column cd-main">
 
             <!-- Preview -->
             <section class="cd-section" id="resource-preview">
-              <h2 class="cd-section-title">Preview</h2>
+              <h2 class="cd-section-title cd-section-heading">Preview</h2>
                 ${resource.previewVideoUrl
-                  ? `<div class="cd-video-wrap">
+                  ? `<div class="cd-video-player-frame cd-video-wrap">
                        <iframe
                          src="${resource.previewVideoUrl}"
                          title="${resource.title} Preview"
@@ -79,6 +91,7 @@ export function renderResourceDetailPage(slug, preferredLang = null) {
                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                          allowfullscreen
                          loading="lazy"
+                         class="cd-video-iframe"
                          style="border:0"></iframe>
                      </div>`
                   : `<div class="cd-resource-preview-banner" style="background:linear-gradient(135deg, var(--color-surface) 0%, var(--color-surface-secondary, #f8fafc) 100%);border:1px solid var(--color-border);border-radius:var(--radius-lg);padding:var(--space-8);text-align:center;position:relative;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,0.04);margin-bottom:var(--space-6);">
@@ -108,16 +121,16 @@ export function renderResourceDetailPage(slug, preferredLang = null) {
               ` : ''}
               <div class="cd-meta-bar">
                 <div class="cd-meta-item">
-                  <span class="cd-meta-icon">${ICONS.bookOpen}</span>
+                  <span class="cd-meta-icon" aria-hidden="true">${ICONS.bookOpen}</span>
                   <span>${totalItems} items included</span>
                 </div>
                 <div class="cd-meta-item">
-                  <span class="cd-meta-icon">${ICONS.users}</span>
+                  <span class="cd-meta-icon" aria-hidden="true">${ICONS.users}</span>
                   <span>Beginner</span>
                 </div>
                 ${resource.setupTime ? `
                 <div class="cd-meta-item">
-                  <span class="cd-meta-icon">${ICONS.clock}</span>
+                  <span class="cd-meta-icon" aria-hidden="true">${ICONS.clock}</span>
                   <span>${resource.setupTime}</span>
                 </div>
                 ` : ''}
@@ -126,7 +139,7 @@ export function renderResourceDetailPage(slug, preferredLang = null) {
 
             <!-- About -->
             <section class="cd-section" id="resource-description">
-              <h2 class="cd-section-title">About This Resource</h2>
+              <h2 class="cd-section-title cd-section-heading">About This Resource</h2>
               <div class="cd-about-text">
                 ${descParagraphs.map(p => `<p>${p.trim()}</p>`).join('')}
               </div>
@@ -135,46 +148,46 @@ export function renderResourceDetailPage(slug, preferredLang = null) {
             <!-- Recommended Learning Sequence & Practical Framework -->
             ${(resource.recommendedBeforeLesson || resource.recommendedAfterLesson) ? `
             <section class="cd-section" id="resource-learning-sequence">
-              <h2 class="cd-section-title">${isEn ? 'Recommended Learning Sequence' : 'सिफारिस गरिएको सिकाइ क्रम'}</h2>
-              <p style="color:var(--color-text-secondary);font-size:var(--text-sm);margin-bottom:var(--space-4);line-height:1.5;">
+              <h2 class="cd-section-title cd-section-heading">${isEn ? 'Recommended Learning Sequence' : 'सिफारिस गरिएको सिकाइ क्रम'}</h2>
+              <p class="cd-section-lead" style="margin-bottom:var(--space-4);">
                 ${isEn 
                   ? 'To maximize the practical value of this resource, follow this curated 3-step learning pathway:' 
                   : 'यो स्रोतको अधिकतम व्यावहारिक फाइदा लिन, तल दिइएको ३-चरणको सिकाइ मार्ग पछ्याउनुहोस्:'}
               </p>
-              <div class="cd-learning-sequence" style="display:flex;flex-direction:column;gap:var(--space-3);">
+              <div class="cd-learning-sequence">
                 ${resource.recommendedBeforeLesson ? `
-                <div style="display:flex;gap:var(--space-4);padding:var(--space-4);background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.06);border-radius:var(--radius-md);align-items:flex-start;">
-                  <div style="flex-shrink:0;background:rgba(0,102,204,0.12);color:var(--color-primary-text);border-radius:9999px;padding:4px 12px;font-size:var(--text-xs);font-weight:700;">
+                <div class="cd-seq-step">
+                  <div class="cd-seq-badge cd-seq-badge-study">
                     ${isEn ? 'Step 1 · Study First' : 'चरण १ · पहिले अध्ययन गर्नुहोस्'}
                   </div>
-                  <div style="flex:1;">
-                    <div style="font-size:11px;text-transform:uppercase;letter-spacing:0.06em;color:var(--color-text-tertiary);margin-bottom:2px;">
+                  <div class="cd-seq-content">
+                    <div class="cd-seq-eyebrow">
                       ${isEn ? 'Prerequisite Curriculum Lesson' : 'पूर्वशर्त पाठ्यक्रम पाठ'}
                     </div>
-                    <h3 style="font-size:var(--text-base);font-weight:600;margin:0 0 4px 0;">
-                      <a href="${ROUTES.LEARN_LESSON(resource.recommendedBeforeLesson.categorySlug, resource.recommendedBeforeLesson.slug)}" style="color:var(--color-heading);text-decoration:none;">
+                    <h3 class="cd-seq-title">
+                      <a href="${ROUTES.LEARN_LESSON(resource.recommendedBeforeLesson.categorySlug, resource.recommendedBeforeLesson.slug)}">
                         ${resource.recommendedBeforeLesson.title[lang] || resource.recommendedBeforeLesson.title.en} &rarr;
                       </a>
                     </h3>
-                    <p style="font-size:var(--text-sm);color:var(--color-text-secondary);margin:0;line-height:1.5;">
+                    <p class="cd-seq-desc">
                       ${resource.recommendedBeforeLesson.why[lang] || resource.recommendedBeforeLesson.why.en}
                     </p>
                   </div>
                 </div>
                 ` : ''}
 
-                <div style="display:flex;gap:var(--space-4);padding:var(--space-4);background:rgba(0,102,204,0.04);border:1px solid rgba(0,102,204,0.25);border-radius:var(--radius-md);align-items:flex-start;">
-                  <div style="flex-shrink:0;background:var(--color-primary);color:#fff;border-radius:9999px;padding:4px 12px;font-size:var(--text-xs);font-weight:700;">
+                <div class="cd-seq-step cd-seq-step-active">
+                  <div class="cd-seq-badge cd-seq-badge-active">
                     ${isEn ? 'Step 2 · Apply Here' : 'चरण २ · यहाँ लागू गर्नुहोस्'}
                   </div>
-                  <div style="flex:1;">
-                    <div style="font-size:11px;text-transform:uppercase;letter-spacing:0.06em;color:var(--color-primary-text);margin-bottom:2px;font-weight:600;">
+                  <div class="cd-seq-content">
+                    <div class="cd-seq-eyebrow" style="color:var(--color-accent);font-weight:600;">
                       ${isEn ? 'Hands-On Execution System' : 'व्यावहारिक कार्यान्वयन प्रणाली'}
                     </div>
-                    <h3 style="font-size:var(--text-base);font-weight:600;margin:0 0 4px 0;color:var(--color-heading);">
+                    <h3 class="cd-seq-title" style="color:var(--color-heading);">
                       ${resource.title} (${resource.category})
                     </h3>
-                    <p style="font-size:var(--text-sm);color:var(--color-text-secondary);margin:0;line-height:1.5;">
+                    <p class="cd-seq-desc">
                       ${isEn
                         ? `Deploy this structured template to record real income, track expense leakages, and automate month-end financial audits.`
                         : `आम्दानी, खर्च चुहावट र महिनाको अन्त्यमा कुल सम्पत्ति अडिट गर्न यो स्वचालित प्रणाली प्रयोग गर्नुहोस्।`}
@@ -183,20 +196,20 @@ export function renderResourceDetailPage(slug, preferredLang = null) {
                 </div>
 
                 ${resource.recommendedAfterLesson ? `
-                <div style="display:flex;gap:var(--space-4);padding:var(--space-4);background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.06);border-radius:var(--radius-md);align-items:flex-start;">
-                  <div style="flex-shrink:0;background:rgba(0,102,204,0.12);color:var(--color-primary-text);border-radius:9999px;padding:4px 12px;font-size:var(--text-xs);font-weight:700;">
+                <div class="cd-seq-step">
+                  <div class="cd-seq-badge cd-seq-badge-study">
                     ${isEn ? 'Step 3 · Next Milestone' : 'चरण ३ · अर्को चरण'}
                   </div>
-                  <div style="flex:1;">
-                    <div style="font-size:11px;text-transform:uppercase;letter-spacing:0.06em;color:var(--color-text-tertiary);margin-bottom:2px;">
+                  <div class="cd-seq-content">
+                    <div class="cd-seq-eyebrow">
                       ${isEn ? 'Next Skill to Master' : 'सिक्नुपर्ने अर्को सीप'}
                     </div>
-                    <h3 style="font-size:var(--text-base);font-weight:600;margin:0 0 4px 0;">
-                      <a href="${ROUTES.LEARN_LESSON(resource.recommendedAfterLesson.categorySlug, resource.recommendedAfterLesson.slug)}" style="color:var(--color-heading);text-decoration:none;">
+                    <h3 class="cd-seq-title">
+                      <a href="${ROUTES.LEARN_LESSON(resource.recommendedAfterLesson.categorySlug, resource.recommendedAfterLesson.slug)}">
                         ${resource.recommendedAfterLesson.title[lang] || resource.recommendedAfterLesson.title.en} &rarr;
                       </a>
                     </h3>
-                    <p style="font-size:var(--text-sm);color:var(--color-text-secondary);margin:0;line-height:1.5;">
+                    <p class="cd-seq-desc">
                       ${resource.recommendedAfterLesson.why[lang] || resource.recommendedAfterLesson.why.en}
                     </p>
                   </div>
@@ -208,11 +221,11 @@ export function renderResourceDetailPage(slug, preferredLang = null) {
 
             <!-- What You'll Learn -->
             <section class="cd-section" id="resource-outcomes">
-              <h2 class="cd-section-title">What You'll Learn</h2>
+              <h2 class="cd-section-title cd-section-heading">What You'll Learn</h2>
               <div class="cd-learn-grid">
                 ${resource.whatYouLearn.map(item => `
                   <div class="cd-learn-item">
-                    <span class="cd-bullet-dot"></span>
+                    <span class="cd-bullet-dot" aria-hidden="true"></span>
                     <span>${item}</span>
                   </div>
                 `).join('')}
@@ -221,21 +234,26 @@ export function renderResourceDetailPage(slug, preferredLang = null) {
 
             <!-- What's Included (single section, no modules) -->
             <section class="cd-section" id="resource-content">
-              <h2 class="cd-section-title">What's Included</h2>
+              <h2 class="cd-section-title cd-section-heading">What's Included</h2>
               <p class="cd-curriculum-summary">${totalItems} items · Instant digital delivery</p>
               <div class="cd-accordion">
                 <div class="accordion-item active">
-                  <button class="accordion-header">
+                  <button class="accordion-header" type="button" aria-expanded="true">
                     <div class="cd-acc-left">
                       <span class="cd-acc-title">Included in this resource</span>
                       <span class="cd-acc-meta">${totalItems} items</span>
                     </div>
-                    <span class="chevron">${ICONS.chevronDown}</span>
+                    <span class="chevron" aria-hidden="true">${ICONS.chevronDown}</span>
                   </button>
                   <div class="accordion-content">
                     <div class="accordion-body">
-                      <ul>
-                        ${resource.whatsIncluded.map(item => `<li>${item}</li>`).join('')}
+                      <ul class="cd-included-items-list">
+                        ${resource.whatsIncluded.map(item => `
+                          <li class="cd-included-item">
+                            <span class="cd-check-bullet" aria-hidden="true">${ICONS.check || `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>`}</span>
+                            <span>${item}</span>
+                          </li>
+                        `).join('')}
                       </ul>
                     </div>
                   </div>
@@ -246,14 +264,14 @@ export function renderResourceDetailPage(slug, preferredLang = null) {
             <!-- How to Use / Setup Workflow -->
             ${resource.howToUse && resource.howToUse.length > 0 ? `
             <section class="cd-section" id="resource-how-to-use">
-              <h2 class="cd-section-title">How to Use This Resource</h2>
-              <div class="cd-learn-grid" style="grid-template-columns:1fr;gap:var(--space-3);">
+              <h2 class="cd-section-title cd-section-heading">How to Use This Resource</h2>
+              <div class="cd-how-grid">
                 ${resource.howToUse.map((step, idx) => `
-                  <div class="cd-learn-item" style="align-items:flex-start;padding:var(--space-4);background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.06);border-radius:var(--radius-md);">
-                    <span style="background:var(--color-primary);color:#fff;font-size:11px;font-weight:700;border-radius:999px;padding:3px 10px;margin-right:var(--space-3);flex-shrink:0;letter-spacing:0.02em;">Step ${idx + 1}</span>
-                    <div>
-                      <strong style="color:var(--color-heading);display:block;margin-bottom:4px;font-size:var(--text-base);">${step.stepTitle}</strong>
-                      <span style="color:var(--color-text-secondary);font-size:var(--text-sm);line-height:1.5;">${step.stepDesc}</span>
+                  <div class="cd-how-item">
+                    <span class="cd-how-step-badge">Step ${idx + 1}</span>
+                    <div class="cd-how-body">
+                      <strong class="cd-how-step-title">${step.stepTitle}</strong>
+                      <span class="cd-how-step-desc">${step.stepDesc}</span>
                     </div>
                   </div>
                 `).join('')}
@@ -263,21 +281,25 @@ export function renderResourceDetailPage(slug, preferredLang = null) {
 
             <!-- Who Is This For -->
             <section class="cd-section" id="resource-audience">
-              <h2 class="cd-section-title">Who Is This For?</h2>
-              <ul class="cd-audience-list">
+              <h2 class="cd-section-title cd-section-heading">Who Is This For?</h2>
+              <div class="cd-audience-grid">
                 ${audiencePoints.map(point => `
-                  <li class="cd-audience-item">
-                    <span class="cd-bullet-dot"></span>
-                    <span>${point.charAt(0).toUpperCase() + point.slice(1)}</span>
-                  </li>
+                  <div class="cd-audience-card">
+                    <div class="cd-audience-icon-wrap" aria-hidden="true">
+                      ${ICONS.users}
+                    </div>
+                    <div class="cd-audience-body">
+                      <p class="cd-audience-desc">${point.charAt(0).toUpperCase() + point.slice(1)}</p>
+                    </div>
+                  </div>
                 `).join('')}
-              </ul>
+              </div>
             </section>
 
             <!-- Recommended Companion Tools -->
             ${resource.companionTools && resource.companionTools.length > 0 ? `
             <section class="cd-section" id="resource-companion-tools">
-              <h2 class="cd-section-title">Recommended Companion Tools</h2>
+              <h2 class="cd-section-title cd-section-heading">Recommended Companion Tools</h2>
               <div class="companion-tools-grid">
                 ${resource.companionTools.map(tool => `
                   <a href="${tool.url}" class="companion-tool-card">
@@ -299,14 +321,20 @@ export function renderResourceDetailPage(slug, preferredLang = null) {
           </div>
 
           <!-- RIGHT: Sticky Pricing Card -->
-          <div class="cd-sidebar">
-            <div class="cd-pricing-card" id="resource-pricing-card">
-              <img src="${thumbMap[resource.id] || thumbMap[1]}" alt="${resource.title}" class="cd-pricing-thumb" loading="lazy" decoding="async">
+          <aside class="cd-sidebar-column cd-sidebar">
+            <div class="cd-purchase-card cd-pricing-card" id="resource-pricing-card">
+              <div class="cd-card-thumb-container">
+                <img src="${thumbMap[resource.id] || thumbMap[1]}" alt="${resource.title}" class="cd-card-thumb-img cd-pricing-thumb" loading="lazy" decoding="async">
+              </div>
 
-              <div class="cd-price-block">
-                <span class="cd-price-anchor">NPR ${anchorPrice.toLocaleString()}</span>
-                <span class="cd-price-current"><span class="cd-price-currency">NPR </span>${resource.price.toLocaleString()}</span>
-                <span class="cd-discount-badge">50% OFF</span>
+              <div class="cd-card-price-section cd-price-block">
+                <div class="cd-card-price-label">Lifetime Resource Access</div>
+                <div class="cd-card-price-row cd-price-row">
+                  <span class="cd-price-anchor">NPR ${anchorPrice.toLocaleString()}</span>
+                  <span class="cd-card-price-number cd-price-current"><span class="cd-card-currency cd-price-currency">NPR </span>${resource.price.toLocaleString()}</span>
+                  <span class="cd-discount-badge">50% OFF</span>
+                </div>
+                <div class="cd-card-price-sub">One-time payment · Instant digital delivery</div>
               </div>
 
               <div class="cd-price-labels">
@@ -316,21 +344,23 @@ export function renderResourceDetailPage(slug, preferredLang = null) {
                 <span class="cd-label-item">Free updates</span>
               </div>
 
-              <a href="${waLink}" target="_blank" rel="noopener" class="btn btn-whatsapp btn-lg cd-cta-primary" id="buy-whatsapp-btn">
-                ${ICONS.whatsapp} Buy Now via WhatsApp
+              <a href="${waLink}" target="_blank" rel="noopener" class="btn btn-whatsapp cd-primary-buy-cta cd-cta-primary" id="buy-whatsapp-btn">
+                <span class="cd-cta-whatsapp-icon">${ICONS.whatsapp}</span>
+                <span class="cd-cta-whatsapp-text">Buy Now via WhatsApp</span>
               </a>
-              <a href="${waAskLink}" target="_blank" rel="noopener" class="btn btn-ghost btn-lg cd-cta-secondary">
-                ${ICONS.mail} Ask a Question
+              <a href="${waAskLink}" target="_blank" rel="noopener" class="btn btn-ghost cd-secondary-ask-cta cd-cta-secondary" id="ask-question-btn">
+                <span class="cd-cta-ask-icon">${ICONS.mail}</span>
+                <span>Ask a Question</span>
               </a>
 
               <div class="cd-trust-signals">
                 <div class="cd-trust-item">
                   <span class="cd-trust-dot"></span>
-                  <span>One-time payment</span>
+                  <span>One-time payment · No subscription</span>
                 </div>
                 <div class="cd-trust-item">
                   <span class="cd-trust-dot"></span>
-                  <span>Instant access</span>
+                  <span>Instant access via private link</span>
                 </div>
                 <div class="cd-trust-item">
                   <span class="cd-trust-dot"></span>
@@ -357,20 +387,20 @@ export function renderResourceDetailPage(slug, preferredLang = null) {
                 </div>
               </div>
             </div>
-          </div>
+          </aside>
         </div>
       </div>
     </div>
 
     <!-- Mobile Sticky CTA -->
-    <div class="cd-mobile-cta" id="resource-mobile-cta">
-      <div class="cd-mobile-cta-inner">
-        <div class="cd-mobile-price">
-          <span class="cd-mobile-anchor">NPR ${anchorPrice.toLocaleString()}</span>
-          <span class="cd-mobile-current">NPR ${resource.price.toLocaleString()}</span>
+    <div class="cd-mobile-sticky-bar cd-mobile-cta" id="resource-mobile-cta" aria-label="Mobile Resource Purchase Bar">
+      <div class="cd-mobile-sticky-inner cd-mobile-cta-inner">
+        <div class="cd-mobile-sticky-price cd-mobile-price">
+          <span class="cd-sticky-price-label cd-mobile-anchor">NPR ${anchorPrice.toLocaleString()}</span>
+          <span class="cd-sticky-price-val cd-mobile-current">NPR ${resource.price.toLocaleString()}</span>
         </div>
-        <a href="${waLink}" target="_blank" rel="noopener" class="btn btn-whatsapp cd-mobile-buy">
-          ${ICONS.whatsapp} Buy Now
+        <a href="${waLink}" target="_blank" rel="noopener" class="btn btn-whatsapp cd-sticky-buy-btn cd-mobile-buy" id="mobile-bar-whatsapp-btn">
+          ${ICONS.whatsapp} Buy via WhatsApp
         </a>
       </div>
     </div>
@@ -380,18 +410,26 @@ export function renderResourceDetailPage(slug, preferredLang = null) {
 export function initResourceDetailPage() {
   initAccordions();
 
-  // Mobile sticky CTA: show/hide based on scroll
-  const mobileCta = document.getElementById('resource-mobile-cta');
-  const pricingCard = document.getElementById('resource-pricing-card');
-  if (mobileCta && pricingCard) {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        const isVisible = !entry.isIntersecting;
-        mobileCta.classList.toggle('visible', isVisible);
-        document.body.classList.toggle('has-mobile-cta', isVisible);
-      },
-      { threshold: 0 }
-    );
-    observer.observe(pricingCard);
+  // Mobile sticky CTA bar: Appear on mobile (< 1024px) when scrolled past purchase card
+  const mobileBar = document.getElementById('resource-mobile-cta');
+  const purchaseCard = document.getElementById('resource-pricing-card');
+
+  if (mobileBar && purchaseCard) {
+    const updateMobileBar = () => {
+      if (window.innerWidth >= 1024) {
+        mobileBar.classList.remove('visible');
+        document.body.classList.remove('has-mobile-cta');
+        return;
+      }
+      const rect = purchaseCard.getBoundingClientRect();
+      const hasPassed = rect.bottom < 40;
+      mobileBar.classList.toggle('visible', hasPassed);
+      document.body.classList.toggle('has-mobile-cta', hasPassed);
+    };
+
+    window.addEventListener('scroll', updateMobileBar, { passive: true });
+    window.addEventListener('resize', updateMobileBar, { passive: true });
+    updateMobileBar();
   }
 }
+

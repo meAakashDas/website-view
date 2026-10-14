@@ -401,7 +401,6 @@ function renderResourceCard(resource) {
       <div class="card-body">
         <div class="card-badges">
           <span class="badge badge-primary">${formatIcon} ${resource.category || 'Template'}</span>
-          <span class="badge badge-outline">Ready to Use</span>
         </div>
         <h3>${resource.title}</h3>
         <p>${resource.shortDescription}</p>
@@ -613,13 +612,24 @@ function updateNavbarActive(currentPath) {
       link.removeAttribute('aria-current');
     }
   });
+  // Close mobile drawer on navigation if open
+  const mobileMenu = document.getElementById('mobile-menu');
+  const overlay = document.getElementById('mobile-menu-overlay');
+  const toggle = document.getElementById('nav-toggle');
+  if (mobileMenu && (mobileMenu.classList.contains('open') || overlay?.classList.contains('open'))) {
+    toggle?.classList.remove('open');
+    toggle?.setAttribute('aria-expanded', 'false');
+    mobileMenu.classList.remove('open');
+    overlay?.classList.remove('open');
+    document.body.style.position = '';
+    document.body.style.top = '';
+    document.body.style.width = '';
+    document.body.style.overflow = '';
+  }
 }
 
 // ── Navbar Interactivity ─────────────────────────
 function initNavbar() {
-  // Ensure theme engine is active and buttons are bound
-  initTheme();
-
   const toggle = document.getElementById('nav-toggle');
   const mobileMenu = document.getElementById('mobile-menu');
   const overlay = document.getElementById('mobile-menu-overlay');
@@ -670,6 +680,9 @@ function initNavbar() {
     return;
   }
   _navbarInitialized = true;
+
+  // Initialize theme controls once with navbar
+  initTheme();
 
   if (toggle && mobileMenu) {
     toggle.addEventListener('click', (e) => {
