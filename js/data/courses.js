@@ -306,7 +306,7 @@ The goal is to help you build a strong understanding of the Nepalese share marke
     ],
     disclaimerText: "This course is provided solely for educational and informational purposes. It is intended to help learners understand Nepal's share market, investment concepts, fundamental analysis, technical analysis, and risk management. Neither RisePaisa nor its instructors provide personalized investment advice, guaranteed financial returns, or portfolio management services through this course. The content should not be treated as a recommendation to buy, sell, or hold any particular security. All investment decisions are your own responsibility, and investing in the stock market involves financial risk, including the possible loss of capital. Past performance does not guarantee future results. RisePaisa and its instructors are not acting as your personal investment advisers or as SEBON-licensed investment advisers through this educational course. Consult an appropriately qualified and authorized professional where necessary.",
     targetAudience: 'Beginners and first-time investors who want to understand NEPSE; College students and young professionals seeking structured financial education; Intermediate investors looking to master chart reading and stock evaluation; Anyone who wants to analyze companies before making investment decisions in Nepal',
-    previewVideoUrl: 'https://www.youtube.com/watch?v=ziVeMxMF4e8',
+    previewVideoUrl: 'https://youtu.be/ziVeMxMF4e8',
     previewVideoDuration: '45 Minutes',
     featured: true,
     isPublished: true
