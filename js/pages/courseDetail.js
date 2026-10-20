@@ -7,12 +7,22 @@ import { getCourseBySlug } from '../data/courses.js';
 import { getSettings } from '../data/settings.js';
 import { ICONS, setPageMeta } from '../components.js';
 import { ROUTES } from '../routes.js';
-import { toSafeYouTubeEmbedUrl } from '../firebase/courses.js';
-import { createBrandedVideoPlayer, initBrandedVideoPlayer } from '../components/videoPlayer.js';
+import { extractYouTubeVideoId, sanitizeText, toSafeYouTubeEmbedUrl } from '../firebase/courses.js';
 
 // ── YouTube URL → Safe Embed URL converter ────────
 function _toYouTubeEmbed(url) {
   return toSafeYouTubeEmbedUrl(url);
+}
+
+function _toYouTubeDemoEmbed(url) {
+  const safeEmbed = _toYouTubeEmbed(url);
+  if (!safeEmbed) return null;
+  const embedUrl = new URL(safeEmbed);
+  embedUrl.hostname = 'www.youtube.com';
+  embedUrl.searchParams.set('controls', '1');
+  embedUrl.searchParams.set('playsinline', '1');
+  embedUrl.searchParams.set('fs', '1');
+  return embedUrl.toString();
 }
 
 // ── Helper: Calculate module duration from lessons ──
@@ -224,7 +234,7 @@ export function renderCourseDetailPage(slug) {
   const totalModules = course.curriculum ? course.curriculum.length : 0;
   const totalLessons = course.curriculum ? course.curriculum.reduce((sum, m) => sum + (Array.isArray(m.lessons) ? m.lessons.length : 0), 0) : 0;
   const displayDuration = course.duration || '20+ Hours';
-  const embedUrl = _toYouTubeEmbed(course.previewVideoUrl);
+  const embedUrl = _toYouTubeDemoEmbed(course.previewVideoUrl);
 
   return `
     <!-- ── 1. Premium Course Hero ───────────────────────────────────── -->
@@ -311,7 +321,7 @@ export function renderCourseDetailPage(slug) {
     <main class="cd-body">
       <div class="container">
         <div class="cd-layout-grid">
-          
+
           <!-- LEFT / MAIN CONTENT STREAM -->
           <div class="cd-main-column">
 
@@ -328,20 +338,26 @@ export function renderCourseDetailPage(slug) {
               </div>
 
               <!-- 16:9 Responsive Player Container -->
-              ${embedUrl ? createBrandedVideoPlayer({
-                embedUrl,
-                title: `${course.title} Free Demo Video`,
-                iframeId: 'cd-demo-iframe',
-                containerId: 'cd-demo-video-container',
-                extraClass: 'cd-video-player-frame'
-              }) : `
+${embedUrl ? `
+                <div class="cd-video-player-frame" id="cd-demo-video-container">
+                  <iframe
+                    id="cd-demo-iframe"
+                    src="${embedUrl}"
+                    title="${sanitizeText(`${course.title} Free Demo Video`)}"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    referrerpolicy="strict-origin-when-cross-origin"
+                    allowfullscreen
+                    loading="eager">
+                  </iframe>
+                </div>
+` : `
                 <div class="cd-video-player-frame">
                   <div class="cd-video-placeholder" style="background-image:url(${course.thumbnail || thumbMap[course.id] || thumbMap[1]})">
                     <div class="cd-play-btn">${ICONS.play}</div>
                     <span class="cd-preview-label">Free Demo Video</span>
                   </div>
                 </div>
-              `}
+`}
             </section>
 
             <!-- B. What You Will Learn Section -->
@@ -633,11 +649,7 @@ export function initCourseDetailPage(slugOverride = null) {
   }
   _bindDemoLink();
 
-  // ── 3. Branded Video Player Controller ──
-  const demoPlayerEl = document.querySelector('.cd-demo-section [data-rp-player]');
-  const demoPlayerController = demoPlayerEl ? initBrandedVideoPlayer(demoPlayerEl) : null;
-
-  // ── 4. Mobile Sticky CTA Bar: Appear when scrolled past purchase card ──
+  // ── 3. Mobile Sticky CTA Bar: Appear when scrolled past purchase card ──
   const mobileBar = document.getElementById('mobile-sticky-bar');
   const purchaseCard = document.getElementById('purchase-card');
   let updateMobileBar = null;
@@ -682,11 +694,12 @@ export function initCourseDetailPage(slugOverride = null) {
         if (bcEl && liveCourse.title) bcEl.textContent = liveCourse.title;
 
         // 2. Preview Video
-        if (liveCourse.previewVideoUrl) {
+        if (liveCourse.previewVideoUrl && effectiveSlug !== 'nepse-stock-market-basics') {
           const newEmbed = toSafeYouTubeEmbedUrl(liveCourse.previewVideoUrl);
           const iframe = document.querySelector('.cd-demo-section iframe');
-          if (iframe && newEmbed && iframe.src !== newEmbed) {
-            iframe.src = newEmbed;
+          const videoId = extractYouTubeVideoId(newEmbed);
+          if (videoId && iframe && extractYouTubeVideoId(iframe.src) !== videoId) {
+            iframe.src = _toYouTubeDemoEmbed(newEmbed);
           }
         }
 
@@ -725,9 +738,6 @@ export function initCourseDetailPage(slugOverride = null) {
   }
 
   return () => {
-    if (demoPlayerController) {
-      demoPlayerController.destroy();
-    }
     if (updateMobileBar) {
       window.removeEventListener('scroll', updateMobileBar);
       window.removeEventListener('resize', updateMobileBar);
@@ -765,4 +775,3 @@ function _updateEnrolledUi(card, mobileBar) {
     }
   }
 }
-

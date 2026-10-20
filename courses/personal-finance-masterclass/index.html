@@ -530,7 +530,7 @@
     <main class="cd-body">
       <div class="container">
         <div class="cd-layout-grid">
-          
+
           <!-- LEFT / MAIN CONTENT STREAM -->
           <div class="cd-main-column">
 
@@ -547,161 +547,19 @@
               </div>
 
               <!-- 16:9 Responsive Player Container -->
-              
-    <div class="rp-video-player-frame cs-player-frame relative w-full aspect-video bg-black rounded-2xl overflow-hidden shadow-2xl border border-slate-200 dark:border-white/10 group select-none cd-video-player-frame" id="cd-demo-video-container" data-rp-player="true" tabindex="0" role="region" aria-label="Video Player: Personal Finance Masterclass Free Demo Video">
-      <!-- 1. RisePaisa Player Top Chrome (Conceals YouTube channel name, title, and copy-link button) -->
-      <div class="rp-player-header" aria-hidden="true">
-        <div class="rp-player-header-left">
-          <span class="rp-player-course-label">RisePaisa Course</span>
-          <span class="rp-player-header-title">Personal Finance Masterclass Free Demo Video</span>
-        </div>
-        <div class="rp-player-badge">
-          <span class="rp-player-badge-dot"></span>
-          <span class="rp-player-badge-text">RisePaisa Secure Video Player</span>
-        </div>
-      </div>
 
-      <!-- 2. Video Stage & Underlying Media Element -->
-      <div class="rp-player-stage csPlayer-container">
-        
-        <iframe
-          id="cd-demo-iframe"
-          class="cl-video-iframe cd-video-iframe rp-player-iframe csPlayer-iframe"
-          src="https://www.youtube-nocookie.com/embed/vqKypJh0xxo?rel=0&modestbranding=1&enablejsapi=1&controls=0&disablekb=1&fs=0&playsinline=1&iv_load_policy=3&cc_load_policy=3&showinfo=0&autohide=1&vq=hd1080"
-          title="Personal Finance Masterclass Free Demo Video"
-          width="100%"
-          height="100%"
-          frameborder="0"
-          tabindex="-1"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-          referrerpolicy="strict-origin-when-cross-origin"
-          allowfullscreen
-          loading="eager">
-        </iframe>
-  
-        <!-- Seamless Click Surface for Single Unified Interaction -->
-        <div class="rp-player-click-surface" aria-hidden="true"></div>
-        
-        <!-- Clean Poster Cover for Unstarted State (Prevents YouTube red button & watermarks from showing) -->
-        <div class="rp-player-poster" aria-hidden="true">
-          <img
-            class="rp-poster-img"
-            src="https://i.ytimg.com/vi/vqKypJh0xxo/hqdefault.jpg"
-            srcset="https://i.ytimg.com/vi/vqKypJh0xxo/maxresdefault.jpg 1280w, https://i.ytimg.com/vi/vqKypJh0xxo/hqdefault.jpg 480w"
-            sizes="(max-width: 1280px) 100vw, 1280px"
-            alt="Personal Finance Masterclass Free Demo Video"
-            loading="eager"
-            onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/vqKypJh0xxo/hqdefault.jpg';"
-          />
-        </div>
-  
-      </div>
-
-      <!-- Buffering Loading Indicator -->
-      <div class="rp-player-buffering-indicator" aria-hidden="true">
-        <div class="rp-player-spinner-ring"></div>
-      </div>
-
-      <!-- 3. Center Controls Overlay (Rewind 10, Big Center Play/Pause, Forward 10) -->
-      <main class="rp-player-center-controls csPlayer-controls-center" aria-label="Center playback controls">
-        <button type="button" class="rp-center-btn rp-center-rewind" aria-label="Seek backward 10 seconds" title="Rewind 10s (j / ←)">
-          <span class="rp-center-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 2a9 9 0 1 0 9 9"/><polyline points="11 6 11 2 7 2"/><text x="12" y="14" font-size="7" font-weight="700" fill="currentColor" stroke="none" text-anchor="middle">10</text></svg></span>
-        </button>
-
-        <button type="button" class="rp-player-center-play csPlayer-play-pause-btn" aria-label="Play Personal Finance Masterclass Free Demo Video">
-          <span class="rp-center-play-icon"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>
-          <span class="rp-center-pause-icon"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg></span>
-        </button>
-
-        <button type="button" class="rp-center-btn rp-center-forward" aria-label="Seek forward 10 seconds" title="Forward 10s (l / →)">
-          <span class="rp-center-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2a9 9 0 1 1-9 9"/><polyline points="13 6 13 2 17 2"/><text x="12" y="14" font-size="7" font-weight="700" fill="currentColor" stroke="none" text-anchor="middle">10</text></svg></span>
-        </button>
-      </main>
-
-      <!-- 4. Cinema-Dark Bottom Controls Bar -->
-      <div class="rp-player-controls csPlayer-controls-box" role="toolbar" aria-label="Video Controls">
-        <!-- Scrubbable Timeline Progress Bar -->
-        <div class="rp-player-timeline-wrap csPlayer-prog-wrap" role="slider" aria-label="Video Timeline" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" tabindex="0">
-          <div class="rp-player-timeline-track">
-            <span class="rp-player-timeline-buffer csPlayer-buf-bar"></span>
-            <div class="rp-player-timeline-progress"></div>
-          </div>
-          <div class="rp-player-timeline-thumb"></div>
-          <div class="rp-player-timeline-tooltip">00:00</div>
-        </div>
-
-        <!-- Controls Row -->
-        <div class="rp-player-controls-row csPlayer-controls">
-          <!-- Left Controls: Play, Replay 10, Forward 10, Volume, Time -->
-          <div class="rp-player-controls-left">
-            <button type="button" class="rp-ctrl-btn rp-btn-play bottom-play-btn" aria-label="Play" title="Play (k / Space)">
-              <span class="rp-icon-play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>
-              <span class="rp-icon-pause"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg></span>
-            </button>
-
-            <button type="button" class="rp-ctrl-btn rp-btn-rewind" aria-label="Seek backward 10 seconds" title="Rewind 10s (j / ←)">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 2a9 9 0 1 0 9 9"/><polyline points="11 6 11 2 7 2"/><text x="12" y="14" font-size="7" font-weight="700" fill="currentColor" stroke="none" text-anchor="middle">10</text></svg>
-            </button>
-
-            <button type="button" class="rp-ctrl-btn rp-btn-forward" aria-label="Seek forward 10 seconds" title="Forward 10s (l / →)">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2a9 9 0 1 1-9 9"/><polyline points="13 6 13 2 17 2"/><text x="12" y="14" font-size="7" font-weight="700" fill="currentColor" stroke="none" text-anchor="middle">10</text></svg>
-            </button>
-
-            <!-- Volume Controls -->
-            <div class="rp-player-volume-group csPlayer-vol-wrap">
-              <button type="button" class="rp-ctrl-btn rp-btn-volume bottom-volume-btn" aria-label="Mute" title="Mute (m)">
-                <span class="rp-icon-vol-high"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg></span>
-                <span class="rp-icon-vol-low"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.5 12c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM5 9v6h4l5 5V4L9 9H5z"/></svg></span>
-                <span class="rp-icon-vol-muted"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/></svg></span>
-              </button>
-              <div class="rp-volume-slider-wrap csPlayer-vol-slider-wrap">
-                <input type="range" class="rp-volume-slider csPlayer-vol-slider" min="0" max="100" value="100" aria-label="Volume slider" />
-              </div>
-            </div>
-
-            <!-- Time Display -->
-            <div class="rp-player-time">
-              <span class="rp-time-current csPlayer-time-cur">00:00</span>
-              <span class="rp-time-divider">/</span>
-              <span class="rp-time-duration csPlayer-time-dur">00:00</span>
-            </div>
-          </div>
-
-          <!-- Right Controls: Settings (Speed & Quality), Fullscreen -->
-          <div class="rp-player-controls-right">
-            <!-- Settings Group & Menu (Speed & Quality) -->
-            <div class="rp-player-settings-group rp-player-speed-group">
-              <button type="button" class="rp-ctrl-btn rp-btn-settings rp-btn-speed settingsBtn" aria-label="Settings" title="Settings" aria-haspopup="true" aria-expanded="false">
-                <span class="rp-icon-settings"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg></span>
-              </button>
-
-              <div class="rp-settings-box rp-speed-menu csPlayer-settings-box" role="menu" hidden>
-                <div class="rp-settings-header csPlayer-settings-label">
-                  <span class="rp-settings-title">Playback Speed</span>
-                  <b class="rp-speed-val rp-speed-label">1×</b>
+                <div class="cd-video-player-frame" id="cd-demo-video-container">
+                  <iframe
+                    id="cd-demo-iframe"
+                    src="https://www.youtube.com/embed/vqKypJh0xxo?rel=0&modestbranding=1&controls=1&playsinline=1&fs=1"
+                    title="Personal Finance Masterclass Free Demo Video"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    referrerpolicy="strict-origin-when-cross-origin"
+                    allowfullscreen
+                    loading="eager">
+                  </iframe>
                 </div>
-                <div class="rp-settings-items rp-speed-items csPlayer-settings-items">
-                  <label class="rp-speed-opt" data-speed="0.5"><input type="radio" name="rp_spd_cd-demo-video-container_vqKypJh0xxo" value="0.5">0.5×</label>
-                  <label class="rp-speed-opt" data-speed="0.75"><input type="radio" name="rp_spd_cd-demo-video-container_vqKypJh0xxo" value="0.75">0.75×</label>
-                  <label class="rp-speed-opt active" data-speed="1"><input type="radio" name="rp_spd_cd-demo-video-container_vqKypJh0xxo" value="1" checked>1×</label>
-                  <label class="rp-speed-opt" data-speed="1.25"><input type="radio" name="rp_spd_cd-demo-video-container_vqKypJh0xxo" value="1.25">1.25×</label>
-                  <label class="rp-speed-opt" data-speed="1.5"><input type="radio" name="rp_spd_cd-demo-video-container_vqKypJh0xxo" value="1.5">1.5×</label>
-                  <label class="rp-speed-opt" data-speed="1.75"><input type="radio" name="rp_spd_cd-demo-video-container_vqKypJh0xxo" value="1.75">1.75×</label>
-                  <label class="rp-speed-opt" data-speed="2"><input type="radio" name="rp_spd_cd-demo-video-container_vqKypJh0xxo" value="2">2×</label>
-                </div>
-              </div>
-            </div>
 
-            <!-- Fullscreen -->
-            <button type="button" class="rp-ctrl-btn rp-btn-fullscreen fsBtn" aria-label="Fullscreen" title="Fullscreen (f)">
-              <span class="rp-icon-fs-enter"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg></span>
-              <span class="rp-icon-fs-exit"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M5 16h3v3h2v-5H5v2zm3-8H5v2h5V5H8v3zm6 11h2v-3h3v-2h-5v5zm2-11V5h-2v5h5V8h-3z"/></svg></span>
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-  
             </section>
 
             <!-- B. What You Will Learn Section -->
