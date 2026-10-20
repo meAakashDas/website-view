@@ -230,6 +230,7 @@ export function createBrandedVideoPlayer(options = {}) {
           frameborder="0"
           tabindex="-1"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          referrerpolicy="strict-origin-when-cross-origin"
           allowfullscreen
           loading="eager">
         </iframe>
@@ -1145,6 +1146,9 @@ export function initBrandedVideoPlayer(target, options = {}) {
     try {
       const videoId = extractYouTubeVideoId(iframe.src);
       const origin = (typeof window !== 'undefined' && window.location) ? window.location.origin : undefined;
+      const widgetReferrer = (typeof window !== 'undefined' && window.location)
+        ? `${window.location.origin}${window.location.pathname}`
+        : undefined;
 
       ytPlayer = new YT.Player(iframe, {
         videoId: videoId || undefined,
@@ -1162,7 +1166,7 @@ export function initBrandedVideoPlayer(target, options = {}) {
           enablejsapi: 1,
           vq: 'hd1080',
           origin: origin,
-          widget_referrer: origin
+          widget_referrer: widgetReferrer
         },
         events: {
           onReady: (event) => {
@@ -1247,7 +1251,9 @@ export function initBrandedVideoPlayer(target, options = {}) {
             if (isDestroyed) return;
             const errCode = (typeof err === 'object' && err && err.data !== undefined) ? err.data : err;
             console.warn('[RisePaisa Player] YouTube Player notice code:', errCode);
-            if (errCode === 101 || errCode === 150 || errCode === 100) {
+            if (errCode === 101 || errCode === 150 || errCode === 100 || errCode === 153) {
+              container.classList.remove('is-starting', 'is-buffering');
+              setPlayingState(false);
               showEmbedErrorOverlay(container, activeVideoId);
             }
           }

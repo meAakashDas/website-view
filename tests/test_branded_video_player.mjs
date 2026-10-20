@@ -95,6 +95,7 @@ assert(playerHtml.includes('rp-btn-fullscreen'), 'Renders fullscreen toggle butt
 assert(playerHtml.includes('rp-player-click-surface'), 'Renders click surface for unified interaction');
 assert(playerHtml.includes('rp-player-poster'), 'Renders clean poster cover for unstarted state');
 assert(playerHtml.includes('rp-poster-img'), 'Renders poster image element');
+assert(playerHtml.includes('referrerpolicy="strict-origin-when-cross-origin"'), 'Provides YouTube with a safe origin referrer for playback');
 assert(!playerHtml.includes('rp-player-top-guard'), 'Eliminated artificial top black stripe guard');
 assert(!playerHtml.includes('rp-player-bottom-guard'), 'Eliminated artificial bottom black stripe guard');
 assert(playerHtml.includes('rp-player-buffering-indicator'), 'Renders buffering loading indicator');
@@ -118,6 +119,8 @@ assert(extractYouTubeVideoId('https://youtu.be/dbWxH9C5cBE') === 'dbWxH9C5cBE', 
 const vpSrc = fs.readFileSync(path.join(rootDir, 'js', 'components', 'videoPlayer.js'), 'utf8');
 assert(vpSrc.includes('controls: 0'), 'videoPlayer.js configures playerVars controls: 0');
 assert(vpSrc.includes('playsinline: 1'), 'videoPlayer.js configures playerVars playsinline: 1');
+assert(vpSrc.includes('widget_referrer: widgetReferrer'), 'videoPlayer.js identifies the embedding page to YouTube');
+assert(vpSrc.includes('errCode === 153'), 'videoPlayer.js handles YouTube missing-referrer playback errors');
 assert(vpSrc.includes('isDestroyed'), 'videoPlayer.js guards async API resolution against zombie players');
 assert(vpSrc.includes('handleOutsideSpeedMenuClick'), 'videoPlayer.js cleans up document click listener on destroy');
 
@@ -183,6 +186,7 @@ console.log('\n--- 5. Testing Pre-Rendered Static Files ---');
 const staticCourseLearn = fs.readFileSync(path.join(rootDir, 'courses', 'nepse-stock-market-basics', 'learn', 'index.html'), 'utf8');
 assert(staticCourseLearn.includes('rp-video-player-frame'), 'Static NEPSE learn page contains rp-video-player-frame');
 assert(staticCourseLearn.includes('RisePaisa Secure Video Player'), 'Static NEPSE learn page contains branded badge');
+assert(staticCourseLearn.includes('referrerpolicy="strict-origin-when-cross-origin"'), 'Static NEPSE learn page sends the required safe referrer');
 
 const staticCourseDetail = fs.readFileSync(path.join(rootDir, 'courses', 'nepse-stock-market-basics', 'index.html'), 'utf8');
 assert(staticCourseDetail.includes('rp-video-player-frame'), 'Static NEPSE course detail contains rp-video-player-frame');
