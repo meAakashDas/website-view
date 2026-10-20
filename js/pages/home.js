@@ -83,19 +83,19 @@ export function renderHomePage() {
             
             <!-- Left Column: Original Course Cover Image -->
             <div class="flagship-col-visual">
-              <a href="${ROUTES.COURSE_DETAIL('nepse-stock-market-basics')}" class="flagship-cover-link" aria-label="Explore Share Market Full Course (NEPSE)">
-                <img src="assets/images/course-nepse.png" alt="Share Market Full Course (NEPSE) by RisePaisa" class="flagship-cover-image" loading="lazy" decoding="async" width="1376" height="768">
+              <a href="${ROUTES.COURSE_DETAIL(nepseCourse.slug)}" class="flagship-cover-link" aria-label="Explore ${nepseCourse.title}">
+                <img src="${nepseCourse.thumbnail || 'assets/images/course-nepse.png'}" alt="${nepseCourse.title} by RisePaisa" class="flagship-cover-image" loading="lazy" decoding="async" width="1376" height="768">
               </a>
             </div>
 
             <!-- Right Column: Course Info, Key Benefits, Price & CTAs -->
             <div class="flagship-col-details">
               <h3 class="flagship-course-heading">
-                <a href="${ROUTES.COURSE_DETAIL('nepse-stock-market-basics')}">Share Market Full Course (NEPSE)</a>
+                <a href="${ROUTES.COURSE_DETAIL(nepseCourse.slug)}">${nepseCourse.title}</a>
               </h3>
 
               <p class="flagship-course-desc">
-                A practical, structured program to understand Nepal&rsquo;s stock market from the ground up, covering technical analysis, balance sheet evaluation, stock selection, and disciplined risk management.
+                ${nepseCourse.shortDescription || nepseCourse.description || "A practical, structured program to understand Nepal's stock market from the ground up, covering technical analysis, balance sheet evaluation, stock selection, and disciplined risk management."}
               </p>
 
               <!-- Essential Course Benefits -->
@@ -139,14 +139,14 @@ export function renderHomePage() {
                 <div class="flagship-price-cluster">
                   <span class="flagship-price-kicker">Course Fee</span>
                   <div class="flagship-price-display">
-                    <span class="flagship-price-currency">NPR</span>
-                    <span class="flagship-price-amount">2,999</span>
+                    <span class="flagship-price-currency">${nepseCourse.currency || 'NPR'}</span>
+                    <span class="flagship-price-amount">${(nepseCourse.price || 2999).toLocaleString()}</span>
                   </div>
                   <span class="flagship-price-terms">One-time payment</span>
                 </div>
 
                 <div class="flagship-actions-cluster">
-                  <a href="${ROUTES.COURSE_DETAIL('nepse-stock-market-basics')}" class="flagship-btn-primary" id="flagship-explore-course-btn">
+                  <a href="${ROUTES.COURSE_DETAIL(nepseCourse.slug)}" class="flagship-btn-primary" id="flagship-explore-course-btn">
                     <span>Explore Full Course</span>
                     ${ICONS.arrowRight}
                   </a>
@@ -299,4 +299,45 @@ export function renderHomePage() {
 
 export function initHomePage() {
   initStatCounters();
+
+  if (typeof window !== 'undefined') {
+    import('../firebase/courses.js').then(({ fetchCourseData }) => {
+      fetchCourseData('nepse-stock-market-basics').then((liveCourse) => {
+        if (!liveCourse) return;
+        const showcase = document.getElementById('flagship-nepse-showcase');
+        if (!showcase) return;
+
+        const headingLink = showcase.querySelector('.flagship-course-heading a');
+        if (headingLink && liveCourse.title) {
+          headingLink.textContent = liveCourse.title;
+          headingLink.href = ROUTES.COURSE_DETAIL(liveCourse.slug);
+        }
+
+        const desc = showcase.querySelector('.flagship-course-desc');
+        if (desc && (liveCourse.shortDescription || liveCourse.description)) {
+          desc.textContent = liveCourse.shortDescription || liveCourse.description;
+        }
+
+        const img = showcase.querySelector('.flagship-cover-image');
+        if (img && liveCourse.thumbnail) {
+          img.src = liveCourse.thumbnail;
+        }
+
+        const coverLink = showcase.querySelector('.flagship-cover-link');
+        if (coverLink) {
+          coverLink.href = ROUTES.COURSE_DETAIL(liveCourse.slug);
+        }
+
+        const exploreBtn = document.getElementById('flagship-explore-course-btn');
+        if (exploreBtn) {
+          exploreBtn.href = ROUTES.COURSE_DETAIL(liveCourse.slug);
+        }
+
+        const priceEl = showcase.querySelector('.flagship-price-amount');
+        if (priceEl && liveCourse.price) {
+          priceEl.textContent = liveCourse.price.toLocaleString();
+        }
+      }).catch(() => {});
+    }).catch(() => {});
+  }
 }

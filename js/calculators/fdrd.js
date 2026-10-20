@@ -672,7 +672,7 @@ export function renderFDRDCalculator() {
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
         </div>
         <div class="rp-edu-text">
-          <strong>Recommended Learning Path:</strong> Master bank classification and deposit optimization in our lesson on <a href="/learn/banking/fixed-deposit" style="color:var(--color-accent);text-decoration:underline">Fixed Deposit Mechanics & TDS in Nepal</a> or review the comprehensive <a href="/learn/guides/complete-banking-guide" style="color:var(--color-accent);text-decoration:underline">Complete Nepal Banking & Deposit Guide</a>.
+          <strong>Recommended Learning Path:</strong> Master bank classification and deposit optimization in our lesson on <a href="/learn/banking/deposit-types-fixed-deposit-nepal" style="color:var(--color-accent);text-decoration:underline">Fixed Deposit Mechanics &amp; TDS in Nepal</a> or review the comprehensive <a href="/learn/guides/complete-banking-guide" style="color:var(--color-accent);text-decoration:underline">Complete Nepal Banking &amp; Deposit Guide</a>.
         </div>
       </div>
 

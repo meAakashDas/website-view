@@ -30,6 +30,10 @@ import { renderLegalPage } from '../js/pages/legal.js';
 import { renderCalculatorsPage, preloadAllCalculators } from '../js/pages/calculators.js';
 import { renderCoursesPage } from '../js/pages/courses.js';
 import { renderCourseDetailPage } from '../js/pages/courseDetail.js';
+import { renderCourseLearnPage } from '../js/pages/courseLearn.js';
+import { renderMyCoursesPage } from '../js/pages/myCourses.js';
+import { renderAdminCoursesPage } from '../js/pages/adminCourses.js';
+import { renderAdminEnrollmentsPage } from '../js/pages/adminEnrollments.js';
 import { renderResourcesPage } from '../js/pages/resources.js';
 import { renderResourceDetailPage } from '../js/pages/resourceDetail.js';
 import { renderBlogPage } from '../js/pages/blog.js';
@@ -54,6 +58,9 @@ function buildHtml(routePath, navPath, contentHtml) {
   const seo = resolvePageSEO(routePath, null, 'en', learnData);
   const pageAuthor = (routePath === '/aakash-das' || seo.type === 'article') ? 'Aakash Das' : 'risePaisa';
   const ogImage = seo.image || 'https://risepaisa.com/assets/images/risepaisa_logo.png';
+  const ogImageWidth = seo.imageWidth || (seo.type === 'article' ? 960 : 512);
+  const ogImageHeight = seo.imageHeight || (seo.type === 'article' ? 640 : 512);
+  const ogImageAlt = seo.imageAlt || seo.title;
 
   let articleMetaTags = '';
   if (seo.type === 'article' && seo.datePublished) {
@@ -114,16 +121,16 @@ function buildHtml(routePath, navPath, contentHtml) {
   <meta property="og:locale" content="en_US">
   <meta property="og:locale:alternate" content="ne_NP">
   <meta property="og:image" content="${ogImage}">
-  <meta property="og:image:width" content="512">
-  <meta property="og:image:height" content="512">
-  <meta property="og:image:alt" content="${escapeAttr(seo.title)}">${articleMetaTags}
+  <meta property="og:image:width" content="${ogImageWidth}">
+  <meta property="og:image:height" content="${ogImageHeight}">
+  <meta property="og:image:alt" content="${escapeAttr(ogImageAlt)}">${articleMetaTags}
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="${escapeAttr(seo.title)}">
   <meta name="twitter:description" content="${escapeAttr(seo.description)}">
   <meta name="twitter:image" content="${ogImage}">
-  <meta name="twitter:image:alt" content="${escapeAttr(seo.title)}">
+  <meta name="twitter:image:alt" content="${escapeAttr(ogImageAlt)}">
   <meta name="twitter:creator" content="@risepaisa">
   <meta name="twitter:site" content="@risepaisa">
 
@@ -166,6 +173,7 @@ ${ldJsonString}
   <link rel="stylesheet" href="css/calculators.css">
   <link rel="stylesheet" href="css/learn.css">
   <link rel="stylesheet" href="css/search.css">
+  <link rel="stylesheet" href="css/auth.css">
 </head>
 <body>
   <div id="navbar-container">${navbarHtml}</div>
@@ -219,6 +227,9 @@ async function generateAllPages() {
     { route: '/editorial-policy', nav: null, render: () => renderEditorialPolicyPage() },
     { route: '/calculators', nav: ROUTES.CALCULATORS, render: () => renderCalculatorsPage('') },
     { route: '/courses', nav: ROUTES.COURSES, render: () => renderCoursesPage() },
+    { route: '/my-courses', nav: ROUTES.MY_COURSES, render: () => renderMyCoursesPage() },
+    { route: '/admin/courses', nav: null, render: () => renderAdminCoursesPage() },
+    { route: '/admin/enrollments', nav: null, render: () => renderAdminEnrollmentsPage() },
     { route: '/resources', nav: ROUTES.RESOURCES, render: () => renderResourcesPage() },
     { route: '/blog', nav: ROUTES.BLOG, render: () => renderBlogPage() },
     { route: '/learn', nav: ROUTES.LEARN, render: () => renderLearnPage() },
@@ -285,6 +296,12 @@ async function generateAllPages() {
       const courseRoute = `/courses/${course.slug}`;
       const html = buildHtml(courseRoute, ROUTES.COURSES, renderCourseDetailPage(course.slug));
       writeStaticFile(courseRoute, html);
+      count++;
+
+      const learnRoute = `/courses/${course.slug}/learn`;
+      const learnNav = ROUTES.COURSE_LEARN ? ROUTES.COURSE_LEARN(course.slug) : learnRoute;
+      const learnHtml = buildHtml(learnRoute, learnNav, renderCourseLearnPage(course.slug));
+      writeStaticFile(learnRoute, learnHtml);
       count++;
     }
   }

@@ -88,12 +88,43 @@ const ICONS = {
   download: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>`,
 };
 
+export function isNavLinkActive(linkPath, currentPath) {
+  if (!currentPath || !linkPath) return false;
+
+  const currentClean = currentPath.split('?')[0].replace(/\/+$/, '') || '/';
+  const linkClean = linkPath.split('?')[0].replace(/\/+$/, '') || '/';
+
+  // 1. My Courses destination active check:
+  // Active when on any course learning interface or on /my-courses
+  if (linkPath === ROUTES.MY_COURSES || linkClean === '/my-courses' || linkClean === '/courses/nepse-stock-market-basics/learn') {
+    return currentClean.includes('/learn') || currentClean === '/my-courses';
+  }
+
+  // 2. Public Courses catalog active check:
+  // Active on /courses or /courses/:slug BUT NOT when on learning page or /my-courses
+  if (linkClean === '/courses') {
+    if (currentClean.includes('/learn') || currentClean === '/my-courses') {
+      return false;
+    }
+    return currentClean === '/courses' || currentClean.startsWith('/courses/');
+  }
+
+  // 3. Home active check:
+  if (linkClean === '/') {
+    return currentClean === '/' || currentClean === '';
+  }
+
+  // 4. Other routes:
+  return currentClean === linkClean || currentClean.startsWith(linkClean + '/');
+}
+
 // ── Navbar Component ─────────────────────────────
 function renderNavbar(currentPath) {
   const desktopLinks = [
     { path: ROUTES.HOME, label: 'Home' },
     { path: ROUTES.LEARN, label: 'Learn' },
     { path: ROUTES.COURSES, label: 'Courses' },
+    { path: ROUTES.MY_COURSES, label: 'My Courses' },
     { path: ROUTES.CALCULATORS, label: 'Calculators' },
     { path: ROUTES.RESOURCES, label: 'Resources', isTertiary: true },
     { path: ROUTES.BLOG, label: 'Blog', isTertiary: true },
@@ -104,6 +135,7 @@ function renderNavbar(currentPath) {
   const mobileDrawerLinks = [
     { path: ROUTES.HOME, label: 'Home', icon: ICONS.compass },
     { path: ROUTES.COURSES, label: 'Courses', icon: ICONS.graduationCap },
+    { path: ROUTES.MY_COURSES, label: 'My Courses', icon: ICONS.play },
     { path: ROUTES.LEARN, label: 'Learn Academy', icon: ICONS.bookOpen },
     { path: ROUTES.CALCULATORS, label: 'Calculators', icon: ICONS.calculator },
     { path: ROUTES.RESOURCES, label: 'Resources', icon: ICONS.layers },
@@ -112,7 +144,9 @@ function renderNavbar(currentPath) {
     { path: ROUTES.CONTACT, label: 'Contact', icon: ICONS.mail },
   ];
 
-  const isCoursesActive = currentPath === ROUTES.COURSES || currentPath.startsWith('/courses');
+  const isLearnPage = currentPath && (currentPath.includes('/learn') || currentPath.split('?')[0].replace(/\/+$/, '') === '/my-courses');
+  const isCoursesActive = currentPath && (currentPath === ROUTES.COURSES || currentPath.startsWith('/courses')) && !isLearnPage;
+  const isMyCoursesActive = isNavLinkActive(ROUTES.MY_COURSES, currentPath);
   const isLearnActive = currentPath === ROUTES.LEARN || currentPath.startsWith('/learn');
   const isCalcsActive = currentPath === ROUTES.CALCULATORS || currentPath.startsWith('/calculators');
 
@@ -129,7 +163,7 @@ function renderNavbar(currentPath) {
         <!-- Desktop Nav Links (Center Desktop) -->
         <div class="nav-links">
           ${desktopLinks.map(l => {
-            const isActive = currentPath === l.path || (l.path !== ROUTES.HOME && currentPath.startsWith(l.path));
+            const isActive = isNavLinkActive(l.path, currentPath);
             const classes = ['nav-link'];
             if (l.isSecondary) classes.push('nav-link-secondary');
             if (l.isTertiary) classes.push('nav-link-tertiary');
@@ -140,8 +174,8 @@ function renderNavbar(currentPath) {
 
         <!-- Mobile Center Quick Action Buttons (Center Mobile) -->
         <div class="mobile-quick-actions" role="navigation" aria-label="Quick Navigation">
-          <a href="${ROUTES.COURSES}" class="mobile-quick-btn ${isCoursesActive ? 'active' : ''}">
-            <span>Courses</span>
+          <a href="${ROUTES.MY_COURSES}" class="mobile-quick-btn ${isMyCoursesActive ? 'active' : ''}">
+            <span>My Courses</span>
           </a>
           <a href="${ROUTES.LEARN}" class="mobile-quick-btn ${isLearnActive ? 'active' : ''}">
             <span>Learn</span>
@@ -153,13 +187,11 @@ function renderNavbar(currentPath) {
 
         <!-- Desktop Action Cluster (Right Desktop) -->
         <div class="nav-auth-area">
-          <button class="nav-search-btn" id="nav-search-btn" aria-label="Search (⌘K)" title="Search (⌘K)" type="button">
-            ${ICONS.search}
-          </button>
           <button class="theme-toggle-btn desktop-theme-toggle" id="theme-toggle-btn-desktop" aria-label="Toggle light and dark mode" title="Switch appearance" type="button">
             <span class="theme-icon theme-icon-sun" aria-hidden="true">${ICONS.sun}</span>
             <span class="theme-icon theme-icon-moon" aria-hidden="true">${ICONS.moon}</span>
           </button>
+          <div id="desktop-auth-container" class="nav-auth-slot"></div>
           <a href="${waLink}" target="_blank" rel="noopener" class="btn btn-primary nav-cta">
             ${ICONS.whatsapp} Contact Us
           </a>
@@ -200,10 +232,13 @@ function renderNavbar(currentPath) {
             </button>
           </div>
 
+          <!-- Account / Auth Drawer Slot -->
+          <div id="mobile-auth-container" class="mobile-drawer-auth-slot"></div>
+
           <!-- Navigation Links List -->
           <nav class="mobile-nav-links" aria-label="Mobile Navigation Links">
             ${mobileDrawerLinks.map(l => {
-              const isActive = currentPath === l.path || (l.path !== ROUTES.HOME && currentPath.startsWith(l.path));
+              const isActive = isNavLinkActive(l.path, currentPath);
               return `
                 <a href="${l.path}" class="mobile-link ${isActive ? 'active' : ''}">
                   <span class="mobile-link-icon-wrap" aria-hidden="true">${l.icon}</span>
@@ -317,6 +352,10 @@ function renderFooter() {
             <a href="${ROUTES.LEARN_CATEGORY('nepse')}">NEPSE</a>
             <a href="${ROUTES.LEARN_CATEGORY('personal-finance')}">Personal Finance</a>
             <a href="${ROUTES.LEARN_CATEGORY('taxation')}">Taxation Nepal</a>
+            <a href="${ROUTES.LEARN_CATEGORY('mutual-funds')}">Mutual Funds</a>
+            <a href="${ROUTES.LEARN_CATEGORY('loans')}">Loans &amp; Banking</a>
+            <a href="${ROUTES.LEARN_CATEGORY('insurance')}">Insurance</a>
+            <a href="${ROUTES.LEARN_CATEGORY('retirement-planning')}">Retirement Planning</a>
           </div>
           
           <div class="footer-section">
@@ -359,7 +398,7 @@ function renderCourseCard(course) {
     4: 'assets/images/course-mutual.png',
     5: 'assets/images/course-fintech.png',
   };
-  const thumb = thumbMap[course.id] || 'assets/images/course-nepse.png';
+  const thumb = course.thumbnail || thumbMap[course.id] || 'assets/images/course-nepse.png';
 
   return `
     <article class="card course-card" id="course-card-${course.id}">
@@ -440,7 +479,7 @@ function renderArticleCard(article) {
   };
 
   const thumbHtml = article.thumbnail
-    ? `<img src="${article.thumbnail}" alt="${article.title}" class="article-card-thumb" loading="lazy" decoding="async">`
+    ? `<img src="${article.thumbnail}" alt="${article.imageAlt || article.title}" class="article-card-thumb" width="960" height="640" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='assets/images/risepaisa.jpg';">`
     : `<div class="article-card-thumb article-card-thumb--placeholder"></div>`;
 
   return `
@@ -483,11 +522,17 @@ function formatDate(dateStr) {
 }
 
 // ── Utility: Update Page Meta ────────────────────
-function setPageMeta(title, description, path = (typeof window !== 'undefined' ? window.location?.pathname || '/' : '/')) {
+function setPageMeta(titleOrOptions, description, path = (typeof window !== 'undefined' ? window.location?.pathname || '/' : '/')) {
   if (typeof document === 'undefined') return;
+  let title = titleOrOptions;
+  if (titleOrOptions && typeof titleOrOptions === 'object') {
+    title = titleOrOptions.title || '';
+    description = titleOrOptions.description || description || '';
+    path = titleOrOptions.path || path || (typeof window !== 'undefined' ? window.location?.pathname || '/' : '/');
+  }
   if (!title) {
     document.title = `${SITE_NAME} | Nepal's Financial Education Platform`;
-  } else if (title.includes(SITE_NAME)) {
+  } else if (typeof title === 'string' && title.includes(SITE_NAME)) {
     document.title = title;
   } else {
     document.title = `${title} | ${SITE_NAME}`;
@@ -592,7 +637,7 @@ function updateNavbarActive(currentPath) {
   // Update desktop navbar links
   document.querySelectorAll('.navbar .nav-link').forEach(link => {
     const href = link.getAttribute('href');
-    const isActive = currentPath === href || (href !== '/' && currentPath.startsWith(href));
+    const isActive = isNavLinkActive(href, currentPath);
     link.classList.toggle('active', isActive);
     if (isActive) {
       link.setAttribute('aria-current', 'page');
@@ -604,7 +649,7 @@ function updateNavbarActive(currentPath) {
   // Update mobile drawer links
   document.querySelectorAll('.mobile-menu .mobile-link').forEach(link => {
     const href = link.getAttribute('href');
-    const isActive = currentPath === href || (href !== '/' && currentPath.startsWith(href));
+    const isActive = isNavLinkActive(href, currentPath);
     link.classList.toggle('active', isActive);
     if (isActive) {
       link.setAttribute('aria-current', 'page');
@@ -612,6 +657,14 @@ function updateNavbarActive(currentPath) {
       link.removeAttribute('aria-current');
     }
   });
+
+  // Update mobile quick buttons
+  document.querySelectorAll('.mobile-quick-actions .mobile-quick-btn').forEach(btn => {
+    const href = btn.getAttribute('href');
+    const isActive = isNavLinkActive(href, currentPath);
+    btn.classList.toggle('active', isActive);
+  });
+
   // Close mobile drawer on navigation if open
   const mobileMenu = document.getElementById('mobile-menu');
   const overlay = document.getElementById('mobile-menu-overlay');
@@ -621,6 +674,7 @@ function updateNavbarActive(currentPath) {
     toggle?.setAttribute('aria-expanded', 'false');
     mobileMenu.classList.remove('open');
     overlay?.classList.remove('open');
+    document.getElementById('navbar')?.classList.remove('has-mobile-open');
     document.body.style.position = '';
     document.body.style.top = '';
     document.body.style.width = '';
@@ -655,17 +709,24 @@ function initNavbar() {
     window.scrollTo(0, isNaN(y) || y === 0 ? _savedScrollY : y);
   }
 
-  function openMobileMenu() {
+  function openMobileMenu(isKeyboard = false) {
     if (!mobileMenu) return;
+    navbar?.classList.add('has-mobile-open');
     toggle?.classList.add('open');
     toggle?.setAttribute('aria-expanded', 'true');
     mobileMenu.classList.add('open');
     overlay?.classList.add('open');
     lockScroll();
+    if (isKeyboard) {
+      setTimeout(() => {
+        closeBtn?.focus();
+      }, 50);
+    }
   }
 
   function closeMobileMenu() {
     if (mobileMenu && (mobileMenu.classList.contains('open') || overlay?.classList.contains('open'))) {
+      navbar?.classList.remove('has-mobile-open');
       toggle?.classList.remove('open');
       toggle?.setAttribute('aria-expanded', 'false');
       mobileMenu.classList.remove('open');
@@ -684,13 +745,23 @@ function initNavbar() {
   // Initialize theme controls once with navbar
   initTheme();
 
+  // Initialize modular Firebase Auth UI
+  if (typeof window !== 'undefined') {
+    import('./firebase/ui.js').then((mod) => {
+      mod.initAuthUI();
+    }).catch((err) => {
+      console.warn('[risePaisa:Auth] Auth UI initialization deferred:', err);
+    });
+  }
+
   if (toggle && mobileMenu) {
     toggle.addEventListener('click', (e) => {
       e.stopPropagation();
+      const isKeyboard = e.detail === 0;
       if (mobileMenu.classList.contains('open')) {
         closeMobileMenu();
       } else {
-        openMobileMenu();
+        openMobileMenu(isKeyboard);
       }
     });
 
@@ -835,6 +906,7 @@ function renderModalPopular() {
 
 const TYPE_COLORS = {
   lesson: 'var(--color-accent)',
+  article: '#0284c7',
   guide: '#10b981',
   calculator: '#f59e0b',
   glossary: '#8b5cf6',
@@ -844,6 +916,7 @@ const TYPE_COLORS = {
 
 const TYPE_ICONS_INLINE = {
   lesson: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="15" height="15"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>',
+  article: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="15" height="15"><path d="M19 20H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v1m2 13a2 2 0 0 1-2-2V7m2 13a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"/></svg>',
   guide: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="15" height="15"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>',
   calculator: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="15" height="15"><rect width="16" height="20" x="4" y="2" rx="2"/><line x1="8" x2="16" y1="6" y2="6"/><path d="M8 10h.01"/><path d="M12 10h.01"/><path d="M16 10h.01"/><path d="M8 14h.01"/><path d="M12 14h.01"/><path d="M16 14h.01"/></svg>',
   glossary: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="15" height="15"><path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"/></svg>',

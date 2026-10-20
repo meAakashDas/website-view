@@ -437,6 +437,7 @@
   <link rel="stylesheet" href="css/calculators.css">
   <link rel="stylesheet" href="css/learn.css">
   <link rel="stylesheet" href="css/search.css">
+  <link rel="stylesheet" href="css/auth.css">
 </head>
 <body>
   <div id="navbar-container">
@@ -449,13 +450,13 @@
         
         <!-- Desktop Nav Links (Center Desktop) -->
         <div class="nav-links">
-          <a href="/" class="nav-link">Home</a><a href="/learn" class="nav-link active">Learn</a><a href="/courses" class="nav-link">Courses</a><a href="/calculators" class="nav-link">Calculators</a><a href="/resources" class="nav-link nav-link-tertiary">Resources</a><a href="/blog" class="nav-link nav-link-tertiary">Blog</a><a href="/about" class="nav-link nav-link-secondary">About</a><a href="/contact" class="nav-link nav-link-secondary">Contact</a>
+          <a href="/" class="nav-link">Home</a><a href="/learn" class="nav-link active">Learn</a><a href="/courses" class="nav-link">Courses</a><a href="/courses/nepse-stock-market-basics/learn?lesson=lesson-1" class="nav-link active">My Courses</a><a href="/calculators" class="nav-link">Calculators</a><a href="/resources" class="nav-link nav-link-tertiary">Resources</a><a href="/blog" class="nav-link nav-link-tertiary">Blog</a><a href="/about" class="nav-link nav-link-secondary">About</a><a href="/contact" class="nav-link nav-link-secondary">Contact</a>
         </div>
 
         <!-- Mobile Center Quick Action Buttons (Center Mobile) -->
         <div class="mobile-quick-actions" role="navigation" aria-label="Quick Navigation">
-          <a href="/courses" class="mobile-quick-btn ">
-            <span>Courses</span>
+          <a href="/courses/nepse-stock-market-basics/learn?lesson=lesson-1" class="mobile-quick-btn active">
+            <span>My Courses</span>
           </a>
           <a href="/learn" class="mobile-quick-btn active">
             <span>Learn</span>
@@ -467,13 +468,11 @@
 
         <!-- Desktop Action Cluster (Right Desktop) -->
         <div class="nav-auth-area">
-          <button class="nav-search-btn" id="nav-search-btn" aria-label="Search (⌘K)" title="Search (⌘K)" type="button">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-          </button>
           <button class="theme-toggle-btn desktop-theme-toggle" id="theme-toggle-btn-desktop" aria-label="Toggle light and dark mode" title="Switch appearance" type="button">
             <span class="theme-icon theme-icon-sun" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg></span>
             <span class="theme-icon theme-icon-moon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></span>
           </button>
+          <div id="desktop-auth-container" class="nav-auth-slot"></div>
           <a href="https://wa.me/+9779740269317?text=I%20want%20to%20contact%20you." target="_blank" rel="noopener" class="btn btn-primary nav-cta">
             <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg> Contact Us
           </a>
@@ -514,6 +513,9 @@
             </button>
           </div>
 
+          <!-- Account / Auth Drawer Slot -->
+          <div id="mobile-auth-container" class="mobile-drawer-auth-slot"></div>
+
           <!-- Navigation Links List -->
           <nav class="mobile-nav-links" aria-label="Mobile Navigation Links">
             
@@ -526,6 +528,12 @@
                 <a href="/courses" class="mobile-link ">
                   <span class="mobile-link-icon-wrap" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg></span>
                   <span class="mobile-link-text">Courses</span>
+                  <span class="mobile-link-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
+                </a>
+              
+                <a href="/courses/nepse-stock-market-basics/learn?lesson=lesson-1" class="mobile-link active">
+                  <span class="mobile-link-icon-wrap" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg></span>
+                  <span class="mobile-link-text">My Courses</span>
                   <span class="mobile-link-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
                 </a>
               
@@ -651,7 +659,7 @@
           <div class="glossary-hero-content">
             <div class="glossary-hero-badge">
               <span class="badge-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg></span>
-              <span>Nepal Financial Dictionary · 37 Terms</span>
+              <span>Nepal Financial Dictionary · 59 Terms</span>
             </div>
             <h1 class="glossary-hero-title">Finance Glossary</h1>
             <p class="glossary-hero-subtitle">
@@ -731,20 +739,20 @@
                 type="button" 
                 class="alpha-letter-btn " 
                 data-letter="B"
-                title="3 terms"
+                title="5 terms"
               >
                 <span>B</span>
-                <span class="alpha-letter-count">3</span>
+                <span class="alpha-letter-count">5</span>
               </button>
             
               <button 
                 type="button" 
                 class="alpha-letter-btn " 
                 data-letter="C"
-                title="4 terms"
+                title="9 terms"
               >
                 <span>C</span>
-                <span class="alpha-letter-count">4</span>
+                <span class="alpha-letter-count">9</span>
               </button>
             
               <button 
@@ -761,10 +769,10 @@
                 type="button" 
                 class="alpha-letter-btn " 
                 data-letter="E"
-                title="5 terms"
+                title="6 terms"
               >
                 <span>E</span>
-                <span class="alpha-letter-count">5</span>
+                <span class="alpha-letter-count">6</span>
               </button>
             
               <button 
@@ -841,20 +849,20 @@
                 type="button" 
                 class="alpha-letter-btn " 
                 data-letter="M"
-                title="1 terms"
+                title="3 terms"
               >
                 <span>M</span>
-                <span class="alpha-letter-count">1</span>
+                <span class="alpha-letter-count">3</span>
               </button>
             
               <button 
                 type="button" 
                 class="alpha-letter-btn " 
                 data-letter="N"
-                title="1 terms"
+                title="3 terms"
               >
                 <span>N</span>
-                <span class="alpha-letter-count">1</span>
+                <span class="alpha-letter-count">3</span>
               </button>
             
               <button 
@@ -871,10 +879,10 @@
                 type="button" 
                 class="alpha-letter-btn " 
                 data-letter="P"
-                title="3 terms"
+                title="5 terms"
               >
                 <span>P</span>
-                <span class="alpha-letter-count">3</span>
+                <span class="alpha-letter-count">5</span>
               </button>
             
               <button 
@@ -891,20 +899,20 @@
                 type="button" 
                 class="alpha-letter-btn " 
                 data-letter="R"
-                title="2 terms"
+                title="5 terms"
               >
                 <span>R</span>
-                <span class="alpha-letter-count">2</span>
+                <span class="alpha-letter-count">5</span>
               </button>
             
               <button 
                 type="button" 
                 class="alpha-letter-btn " 
                 data-letter="S"
-                title="2 terms"
+                title="6 terms"
               >
                 <span>S</span>
-                <span class="alpha-letter-count">2</span>
+                <span class="alpha-letter-count">6</span>
               </button>
             
               <button 
@@ -939,12 +947,12 @@
             
               <button 
                 type="button" 
-                class="alpha-letter-btn disabled" 
+                class="alpha-letter-btn " 
                 data-letter="W"
-                disabled aria-disabled="true"
+                title="1 terms"
               >
                 <span>W</span>
-                
+                <span class="alpha-letter-count">1</span>
               </button>
             
               <button 
@@ -1339,7 +1347,7 @@
     <div class="glossary-letter-group" id="letter-B">
       <div class="letter-group-anchor">
         <span class="letter-char">B</span>
-        <span class="letter-term-count">3 entries</span>
+        <span class="letter-term-count">5 entries</span>
       </div>
       <div class="letter-group-cards">
         
@@ -1421,13 +1429,65 @@
               </div>
             </article>
           
+            <article class="glossary-entry-card" data-slug="book-closure">
+              <div class="entry-card-header">
+                <div class="entry-title-wrap">
+                  <h3 class="entry-title">
+                    <a href="/learn/glossary/book-closure">Book Closure Date</a>
+                  </h3>
+                  <span class="entry-title-np">दर्ता किताब बन्द हुने मिति (Book Closure)</span>
+                </div>
+                <div class="entry-badges-wrap">
+                  <span class="entry-cat-badge">NEPSE & Stocks</span>
+                  <span class="entry-diff-badge">Intermediate</span>
+                </div>
+              </div>
+              <p class="entry-one-line-def">The Book Closure Date is the official cutoff day when a listed company freezes its shareholder registry to determine eligibility for dividends, bonus shares, and AGM attendance.</p>
+              <div class="entry-card-footer">
+                <div class="entry-nepal-preview">
+                  <span class="nepal-flag-icon">🇳🇵</span>
+                  <span class="nepal-tagline">NEPSE adjusts stock prices for all bonus shares and rights shares. Cash dividends are adjusted only if the cash payout exceeds 10% of the market price under prevailing bylaws.</span>
+                </div>
+                <a href="/learn/glossary/book-closure" class="entry-read-link">
+                  <span>Read Explanation</span>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                </a>
+              </div>
+            </article>
+          
+            <article class="glossary-entry-card" data-slug="bull-and-bear-market">
+              <div class="entry-card-header">
+                <div class="entry-title-wrap">
+                  <h3 class="entry-title">
+                    <a href="/learn/glossary/bull-and-bear-market">Bull Market and Bear Market</a>
+                  </h3>
+                  <span class="entry-title-np">बुलिस र बेयरिस बजार (Bull & Bear Market)</span>
+                </div>
+                <div class="entry-badges-wrap">
+                  <span class="entry-cat-badge">NEPSE & Stocks</span>
+                  <span class="entry-diff-badge">Beginner</span>
+                </div>
+              </div>
+              <p class="entry-one-line-def">A Bull Market is a sustained financial period of rising stock prices and investor optimism; a Bear Market is a prolonged period of declining asset prices by 20% or more.</p>
+              <div class="entry-card-footer">
+                <div class="entry-nepal-preview">
+                  <span class="nepal-flag-icon">🇳🇵</span>
+                  <span class="nepal-tagline">Historically, NEPSE cycles are intensely tied to commercial bank liquidity and Nepal Rastra Bank monetary policies. Major historical bull runs peaked at 1,175 (2008), 1,881 (2016), and 3,198 (2021).</span>
+                </div>
+                <a href="/learn/glossary/bull-and-bear-market" class="entry-read-link">
+                  <span>Read Explanation</span>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                </a>
+              </div>
+            </article>
+          
       </div>
     </div>
   
     <div class="glossary-letter-group" id="letter-C">
       <div class="letter-group-anchor">
         <span class="letter-char">C</span>
-        <span class="letter-term-count">4 entries</span>
+        <span class="letter-term-count">9 entries</span>
       </div>
       <div class="letter-group-cards">
         
@@ -1535,6 +1595,136 @@
               </div>
             </article>
           
+            <article class="glossary-entry-card" data-slug="cdsc">
+              <div class="entry-card-header">
+                <div class="entry-title-wrap">
+                  <h3 class="entry-title">
+                    <a href="/learn/glossary/cdsc">CDSC (CDS and Clearing Limited)</a>
+                  </h3>
+                  <span class="entry-title-np">सिडिएस एण्ड क्लियरिङ लिमिटेड (CDSC)</span>
+                </div>
+                <div class="entry-badges-wrap">
+                  <span class="entry-cat-badge">NEPSE & Stocks</span>
+                  <span class="entry-diff-badge">Beginner</span>
+                </div>
+              </div>
+              <p class="entry-one-line-def">CDS and Clearing Limited (CDSC) is the central depository and clearing house of Nepal, maintaining digital records of all shares and operating MeroShare.</p>
+              <div class="entry-card-footer">
+                <div class="entry-nepal-preview">
+                  <span class="nepal-flag-icon">🇳🇵</span>
+                  <span class="nepal-tagline">CDSC charges a statutory flat fee of NPR 25 per executed script trade and an annual DEMAT maintenance fee of NPR 100 plus NPR 50 for MeroShare renewal.</span>
+                </div>
+                <a href="/learn/glossary/cdsc" class="entry-read-link">
+                  <span>Read Explanation</span>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                </a>
+              </div>
+            </article>
+          
+            <article class="glossary-entry-card" data-slug="crn">
+              <div class="entry-card-header">
+                <div class="entry-title-wrap">
+                  <h3 class="entry-title">
+                    <a href="/learn/glossary/crn">CRN (C-ASBA Registration Number)</a>
+                  </h3>
+                  <span class="entry-title-np">सि-आस्वा रजिस्ट्रेसन नम्बर (CRN)</span>
+                </div>
+                <div class="entry-badges-wrap">
+                  <span class="entry-cat-badge">NEPSE & Stocks</span>
+                  <span class="entry-diff-badge">Beginner</span>
+                </div>
+              </div>
+              <p class="entry-one-line-def">A CRN (C-ASBA Registration Number) is a confidential security code issued by your bank verifying your account details and authorizing balance holds for IPO applications.</p>
+              <div class="entry-card-footer">
+                <div class="entry-nepal-preview">
+                  <span class="nepal-flag-icon">🇳🇵</span>
+                  <span class="nepal-tagline">Most commercial banks issue CRNs free of charge via mobile banking apps. Under SEBON directives, banks charge between NPR 0 and NPR 5 per IPO application for C-ASBA verification.</span>
+                </div>
+                <a href="/learn/glossary/crn" class="entry-read-link">
+                  <span>Read Explanation</span>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                </a>
+              </div>
+            </article>
+          
+            <article class="glossary-entry-card" data-slug="candlestick">
+              <div class="entry-card-header">
+                <div class="entry-title-wrap">
+                  <h3 class="entry-title">
+                    <a href="/learn/glossary/candlestick">Candlestick Chart</a>
+                  </h3>
+                  <span class="entry-title-np">क्यान्डलस्टिक चार्ट (Candlestick Chart)</span>
+                </div>
+                <div class="entry-badges-wrap">
+                  <span class="entry-cat-badge">NEPSE & Stocks</span>
+                  <span class="entry-diff-badge">Beginner</span>
+                </div>
+              </div>
+              <p class="entry-one-line-def">A Candlestick Chart is a financial charting method displaying the Open, High, Low, and Close (OHLC) prices of an asset over a specific timeframe.</p>
+              <div class="entry-card-footer">
+                <div class="entry-nepal-preview">
+                  <span class="nepal-flag-icon">🇳🇵</span>
+                  <span class="nepal-tagline">NEPSE charts are analyzed primarily on Daily (1D) and Weekly (1W) candle intervals. Intraday 15-minute or 1-hour candles are heavily used by active TMS momentum traders.</span>
+                </div>
+                <a href="/learn/glossary/candlestick" class="entry-read-link">
+                  <span>Read Explanation</span>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                </a>
+              </div>
+            </article>
+          
+            <article class="glossary-entry-card" data-slug="car">
+              <div class="entry-card-header">
+                <div class="entry-title-wrap">
+                  <h3 class="entry-title">
+                    <a href="/learn/glossary/car">CAR (Capital Adequacy Ratio)</a>
+                  </h3>
+                  <span class="entry-title-np">पुँजी पर्याप्तता अनुपात (Capital Adequacy Ratio)</span>
+                </div>
+                <div class="entry-badges-wrap">
+                  <span class="entry-cat-badge">Banking</span>
+                  <span class="entry-diff-badge">Advanced</span>
+                </div>
+              </div>
+              <p class="entry-one-line-def">The Capital Adequacy Ratio (CAR) measures a bank's available capital as a percentage of its risk-weighted credit exposure, ensuring solvency against catastrophic losses.</p>
+              <div class="entry-card-footer">
+                <div class="entry-nepal-preview">
+                  <span class="nepal-flag-icon">🇳🇵</span>
+                  <span class="nepal-tagline">NRB mandates a minimum Tier 1 ratio of 8.5% and a Total CAR of 11.0%. Banks struggling near 11.0% frequently issue multi-billion rupee subordinated debentures on NEPSE to bolster Tier 2 capital.</span>
+                </div>
+                <a href="/learn/glossary/car" class="entry-read-link">
+                  <span>Read Explanation</span>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                </a>
+              </div>
+            </article>
+          
+            <article class="glossary-entry-card" data-slug="connectips">
+              <div class="entry-card-header">
+                <div class="entry-title-wrap">
+                  <h3 class="entry-title">
+                    <a href="/learn/glossary/connectips">ConnectIPS (NCHL)</a>
+                  </h3>
+                  <span class="entry-title-np">कनेक्टआईपीएस (ConnectIPS)</span>
+                </div>
+                <div class="entry-badges-wrap">
+                  <span class="entry-cat-badge">Digital Payments</span>
+                  <span class="entry-diff-badge">Beginner</span>
+                </div>
+              </div>
+              <p class="entry-one-line-def">ConnectIPS is Nepal's national real-time interbank payment system operated by Nepal Clearing House Limited (NCHL), enabling direct account-to-account digital fund transfers.</p>
+              <div class="entry-card-footer">
+                <div class="entry-nepal-preview">
+                  <span class="nepal-flag-icon">🇳🇵</span>
+                  <span class="nepal-tagline">Regulated under NRB Payment Systems Department directives. Transaction fees are capped by NRB: NPR 2 for up to NPR 500, NPR 4 up to NPR 5,000, and NPR 8 above NPR 5,000.</span>
+                </div>
+                <a href="/learn/glossary/connectips" class="entry-read-link">
+                  <span>Read Explanation</span>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                </a>
+              </div>
+            </article>
+          
       </div>
     </div>
   
@@ -1629,7 +1819,7 @@
     <div class="glossary-letter-group" id="letter-E">
       <div class="letter-group-anchor">
         <span class="letter-char">E</span>
-        <span class="letter-term-count">5 entries</span>
+        <span class="letter-term-count">6 entries</span>
       </div>
       <div class="letter-group-cards">
         
@@ -1757,6 +1947,32 @@
                   <span class="nepal-tagline">The NRB Deposit Guarantee, Cooperative Risks, and Where to Park Emergency Funds in Nepal</span>
                 </div>
                 <a href="/learn/glossary/emergency-fund" class="entry-read-link">
+                  <span>Read Explanation</span>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                </a>
+              </div>
+            </article>
+          
+            <article class="glossary-entry-card" data-slug="eps">
+              <div class="entry-card-header">
+                <div class="entry-title-wrap">
+                  <h3 class="entry-title">
+                    <a href="/learn/glossary/eps">EPS (Earnings Per Share)</a>
+                  </h3>
+                  <span class="entry-title-np">प्रति सेयर आम्दानी (EPS)</span>
+                </div>
+                <div class="entry-badges-wrap">
+                  <span class="entry-cat-badge">Investing</span>
+                  <span class="entry-diff-badge">Beginner</span>
+                </div>
+              </div>
+              <p class="entry-one-line-def">Earnings Per Share (EPS) measures the net profit generated by a company divided by its total number of outstanding common shares.</p>
+              <div class="entry-card-footer">
+                <div class="entry-nepal-preview">
+                  <span class="nepal-flag-icon">🇳🇵</span>
+                  <span class="nepal-tagline">In Nepal, Class 'A' commercial banks typically maintain annualized EPS between NPR 15 and NPR 30. High-margin manufacturing firms (e.g., Unilever Nepal) can achieve EPS exceeding NPR 500+.</span>
+                </div>
+                <a href="/learn/glossary/eps" class="entry-read-link">
                   <span>Read Explanation</span>
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
                 </a>
@@ -1975,7 +2191,7 @@
     <div class="glossary-letter-group" id="letter-M">
       <div class="letter-group-anchor">
         <span class="letter-char">M</span>
-        <span class="letter-term-count">1 entries</span>
+        <span class="letter-term-count">3 entries</span>
       </div>
       <div class="letter-group-cards">
         
@@ -2005,13 +2221,65 @@
               </div>
             </article>
           
+            <article class="glossary-entry-card" data-slug="market-capitalization">
+              <div class="entry-card-header">
+                <div class="entry-title-wrap">
+                  <h3 class="entry-title">
+                    <a href="/learn/glossary/market-capitalization">Market Capitalization (Market Cap)</a>
+                  </h3>
+                  <span class="entry-title-np">बजार पुँजीकरण (Market Cap)</span>
+                </div>
+                <div class="entry-badges-wrap">
+                  <span class="entry-cat-badge">NEPSE & Stocks</span>
+                  <span class="entry-diff-badge">Beginner</span>
+                </div>
+              </div>
+              <p class="entry-one-line-def">Market Capitalization is the total aggregate market value of a company's listed shares (or the entire NEPSE exchange), calculated by multiplying total shares by current price.</p>
+              <div class="entry-card-footer">
+                <div class="entry-nepal-preview">
+                  <span class="nepal-flag-icon">🇳🇵</span>
+                  <span class="nepal-tagline">In Nepal, total NEPSE market capitalization frequently hovers between 70% and 100%+ of the country's Gross Domestic Product (GDP), making the stock market central to national wealth.</span>
+                </div>
+                <a href="/learn/glossary/market-capitalization" class="entry-read-link">
+                  <span>Read Explanation</span>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                </a>
+              </div>
+            </article>
+          
+            <article class="glossary-entry-card" data-slug="moving-average">
+              <div class="entry-card-header">
+                <div class="entry-title-wrap">
+                  <h3 class="entry-title">
+                    <a href="/learn/glossary/moving-average">Moving Average (SMA & EMA)</a>
+                  </h3>
+                  <span class="entry-title-np">मुभिङ एभरेज (Moving Average)</span>
+                </div>
+                <div class="entry-badges-wrap">
+                  <span class="entry-cat-badge">NEPSE & Stocks</span>
+                  <span class="entry-diff-badge">Beginner</span>
+                </div>
+              </div>
+              <p class="entry-one-line-def">A Moving Average is a technical indicator that calculates average historical closing prices over a specific period, smoothing out short-term price noise to reveal trends.</p>
+              <div class="entry-card-footer">
+                <div class="entry-nepal-preview">
+                  <span class="nepal-flag-icon">🇳🇵</span>
+                  <span class="nepal-tagline">A "Golden Cross" on the NEPSE Index occurs when the 50-day moving average crosses above the 200-day moving average, signaling the initiation of a major multi-year bull cycle.</span>
+                </div>
+                <a href="/learn/glossary/moving-average" class="entry-read-link">
+                  <span>Read Explanation</span>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                </a>
+              </div>
+            </article>
+          
       </div>
     </div>
   
     <div class="glossary-letter-group" id="letter-N">
       <div class="letter-group-anchor">
         <span class="letter-char">N</span>
-        <span class="letter-term-count">1 entries</span>
+        <span class="letter-term-count">3 entries</span>
       </div>
       <div class="letter-group-cards">
         
@@ -2041,13 +2309,65 @@
               </div>
             </article>
           
+            <article class="glossary-entry-card" data-slug="nepse">
+              <div class="entry-card-header">
+                <div class="entry-title-wrap">
+                  <h3 class="entry-title">
+                    <a href="/learn/glossary/nepse">NEPSE (Nepal Stock Exchange)</a>
+                  </h3>
+                  <span class="entry-title-np">नेपाल स्टक एक्सचेन्ज (नेप्से)</span>
+                </div>
+                <div class="entry-badges-wrap">
+                  <span class="entry-cat-badge">NEPSE & Stocks</span>
+                  <span class="entry-diff-badge">Beginner</span>
+                </div>
+              </div>
+              <p class="entry-one-line-def">The Nepal Stock Exchange (NEPSE) is the sole organized securities exchange in Nepal, facilitating electronic secondary trading, price discovery, and capital formation.</p>
+              <div class="entry-card-footer">
+                <div class="entry-nepal-preview">
+                  <span class="nepal-flag-icon">🇳🇵</span>
+                  <span class="nepal-tagline">Under SEBON supervision, NEPSE enforces daily price circuit limits of +/- 10% on individual stocks and market-wide circuit pauses at 4%, 5%, and 6% index movement.</span>
+                </div>
+                <a href="/learn/glossary/nepse" class="entry-read-link">
+                  <span>Read Explanation</span>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                </a>
+              </div>
+            </article>
+          
+            <article class="glossary-entry-card" data-slug="npl">
+              <div class="entry-card-header">
+                <div class="entry-title-wrap">
+                  <h3 class="entry-title">
+                    <a href="/learn/glossary/npl">NPL (Non-Performing Loan)</a>
+                  </h3>
+                  <span class="entry-title-np">निष्प्रभावी कर्जा (NPL / खराब कर्जा)</span>
+                </div>
+                <div class="entry-badges-wrap">
+                  <span class="entry-cat-badge">Banking</span>
+                  <span class="entry-diff-badge">Intermediate</span>
+                </div>
+              </div>
+              <p class="entry-one-line-def">A Non-Performing Loan (NPL) is a bank loan where the borrower has failed to pay scheduled principal or interest payments for 90 days or longer.</p>
+              <div class="entry-card-footer">
+                <div class="entry-nepal-preview">
+                  <span class="nepal-flag-icon">🇳🇵</span>
+                  <span class="nepal-tagline">Under NRB directives, if a commercial bank's gross NPL exceeds 5.0%, it is placed under prompt supervisory scrutiny and legally prohibited from distributing cash dividends or bonus shares.</span>
+                </div>
+                <a href="/learn/glossary/npl" class="entry-read-link">
+                  <span>Read Explanation</span>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                </a>
+              </div>
+            </article>
+          
       </div>
     </div>
   
     <div class="glossary-letter-group" id="letter-P">
       <div class="letter-group-anchor">
         <span class="letter-char">P</span>
-        <span class="letter-term-count">3 entries</span>
+        <span class="letter-term-count">5 entries</span>
       </div>
       <div class="letter-group-cards">
         
@@ -2129,6 +2449,58 @@
               </div>
             </article>
           
+            <article class="glossary-entry-card" data-slug="pe-ratio">
+              <div class="entry-card-header">
+                <div class="entry-title-wrap">
+                  <h3 class="entry-title">
+                    <a href="/learn/glossary/pe-ratio">P/E Ratio (Price-to-Earnings Ratio)</a>
+                  </h3>
+                  <span class="entry-title-np">मूल्य आम्दानी अनुपात (P/E Ratio)</span>
+                </div>
+                <div class="entry-badges-wrap">
+                  <span class="entry-cat-badge">Investing</span>
+                  <span class="entry-diff-badge">Beginner</span>
+                </div>
+              </div>
+              <p class="entry-one-line-def">The Price-to-Earnings (P/E) ratio compares a company's current market share price to its annual Earnings Per Share, showing how much investors pay per rupee of profit.</p>
+              <div class="entry-card-footer">
+                <div class="entry-nepal-preview">
+                  <span class="nepal-flag-icon">🇳🇵</span>
+                  <span class="nepal-tagline">NEPSE publishes official sector-wise P/E ratios in its daily market summaries. Historically, commercial banking P/E ranges between 12x and 22x across bull and bear cycles.</span>
+                </div>
+                <a href="/learn/glossary/pe-ratio" class="entry-read-link">
+                  <span>Read Explanation</span>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                </a>
+              </div>
+            </article>
+          
+            <article class="glossary-entry-card" data-slug="pb-ratio">
+              <div class="entry-card-header">
+                <div class="entry-title-wrap">
+                  <h3 class="entry-title">
+                    <a href="/learn/glossary/pb-ratio">P/B Ratio (Price-to-Book Ratio)</a>
+                  </h3>
+                  <span class="entry-title-np">मूल्य र किताबी मूल्य अनुपात (P/B Ratio)</span>
+                </div>
+                <div class="entry-badges-wrap">
+                  <span class="entry-cat-badge">Investing</span>
+                  <span class="entry-diff-badge">Intermediate</span>
+                </div>
+              </div>
+              <p class="entry-one-line-def">The Price-to-Book (P/B) ratio compares a company's market trading price to its Book Value Per Share (net worth per share), reflecting asset-backing safety.</p>
+              <div class="entry-card-footer">
+                <div class="entry-nepal-preview">
+                  <span class="nepal-flag-icon">🇳🇵</span>
+                  <span class="nepal-tagline">In Nepal, every public company lists its Net Worth Per Share in mandatory quarterly press disclosures. Under SEBON rules, opening listing prices for newly listed IPOs are capped at a maximum of 3x book value.</span>
+                </div>
+                <a href="/learn/glossary/pb-ratio" class="entry-read-link">
+                  <span>Read Explanation</span>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                </a>
+              </div>
+            </article>
+          
       </div>
     </div>
   
@@ -2171,7 +2543,7 @@
     <div class="glossary-letter-group" id="letter-R">
       <div class="letter-group-anchor">
         <span class="letter-char">R</span>
-        <span class="letter-term-count">2 entries</span>
+        <span class="letter-term-count">5 entries</span>
       </div>
       <div class="letter-group-cards">
         
@@ -2227,13 +2599,91 @@
               </div>
             </article>
           
+            <article class="glossary-entry-card" data-slug="roe">
+              <div class="entry-card-header">
+                <div class="entry-title-wrap">
+                  <h3 class="entry-title">
+                    <a href="/learn/glossary/roe">ROE (Return on Equity)</a>
+                  </h3>
+                  <span class="entry-title-np">स्वपुँजी प्रतिफल (Return on Equity)</span>
+                </div>
+                <div class="entry-badges-wrap">
+                  <span class="entry-cat-badge">Investing</span>
+                  <span class="entry-diff-badge">Intermediate</span>
+                </div>
+              </div>
+              <p class="entry-one-line-def">Return on Equity (ROE) measures how efficiently a company’s management utilizes shareholder capital to generate net profits.</p>
+              <div class="entry-card-footer">
+                <div class="entry-nepal-preview">
+                  <span class="nepal-flag-icon">🇳🇵</span>
+                  <span class="nepal-tagline">Nepal Rastra Bank mandates that commercial banks publish their Return on Equity in quarterly financial summaries under the Key Financial Indicators section.</span>
+                </div>
+                <a href="/learn/glossary/roe" class="entry-read-link">
+                  <span>Read Explanation</span>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                </a>
+              </div>
+            </article>
+          
+            <article class="glossary-entry-card" data-slug="rsi">
+              <div class="entry-card-header">
+                <div class="entry-title-wrap">
+                  <h3 class="entry-title">
+                    <a href="/learn/glossary/rsi">RSI (Relative Strength Index)</a>
+                  </h3>
+                  <span class="entry-title-np">रिलेटिभ स्ट्रेन्थ इन्डेक्स (RSI)</span>
+                </div>
+                <div class="entry-badges-wrap">
+                  <span class="entry-cat-badge">NEPSE & Stocks</span>
+                  <span class="entry-diff-badge">Intermediate</span>
+                </div>
+              </div>
+              <p class="entry-one-line-def">The Relative Strength Index (RSI) is a momentum oscillator measuring the speed and change of price movements on a scale of 0 to 100 to identify overbought and oversold conditions.</p>
+              <div class="entry-card-footer">
+                <div class="entry-nepal-preview">
+                  <span class="nepal-flag-icon">🇳🇵</span>
+                  <span class="nepal-tagline">During intense NEPSE bull runs, momentum can keep individual speculative stocks in overbought territory (RSI 75-85) for weeks. In strong trends, traders use 40 as dynamic bull support.</span>
+                </div>
+                <a href="/learn/glossary/rsi" class="entry-read-link">
+                  <span>Read Explanation</span>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                </a>
+              </div>
+            </article>
+          
+            <article class="glossary-entry-card" data-slug="reducing-balance-interest">
+              <div class="entry-card-header">
+                <div class="entry-title-wrap">
+                  <h3 class="entry-title">
+                    <a href="/learn/glossary/reducing-balance-interest">Reducing-Balance Interest Rate</a>
+                  </h3>
+                  <span class="entry-title-np">घट्दो बाँकी ब्याजदर (Reducing Balance Interest)</span>
+                </div>
+                <div class="entry-badges-wrap">
+                  <span class="entry-cat-badge">Loans & Credit</span>
+                  <span class="entry-diff-badge">Beginner</span>
+                </div>
+              </div>
+              <p class="entry-one-line-def">A Reducing-Balance Interest Rate calculates interest solely on the remaining outstanding principal debt each month, shrinking interest charges as you repay.</p>
+              <div class="entry-card-footer">
+                <div class="entry-nepal-preview">
+                  <span class="nepal-flag-icon">🇳🇵</span>
+                  <span class="nepal-tagline">NRB Consumer Protection Directives strictly prohibit licensed banks from advertising flat rates without disclosing the internal rate of return (IRR). Home loans are legally tied to Base Rate + Premium on a reducing basis.</span>
+                </div>
+                <a href="/learn/glossary/reducing-balance-interest" class="entry-read-link">
+                  <span>Read Explanation</span>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                </a>
+              </div>
+            </article>
+          
       </div>
     </div>
   
     <div class="glossary-letter-group" id="letter-S">
       <div class="letter-group-anchor">
         <span class="letter-char">S</span>
-        <span class="letter-term-count">2 entries</span>
+        <span class="letter-term-count">6 entries</span>
       </div>
       <div class="letter-group-cards">
         
@@ -2283,6 +2733,110 @@
                   <span class="nepal-tagline">The 31% Split, Foreign Employment Extension, and Tax Exemptions in Nepal</span>
                 </div>
                 <a href="/learn/glossary/ssf" class="entry-read-link">
+                  <span>Read Explanation</span>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                </a>
+              </div>
+            </article>
+          
+            <article class="glossary-entry-card" data-slug="sebon">
+              <div class="entry-card-header">
+                <div class="entry-title-wrap">
+                  <h3 class="entry-title">
+                    <a href="/learn/glossary/sebon">SEBON (Securities Board of Nepal)</a>
+                  </h3>
+                  <span class="entry-title-np">नेपाल धितोपत्र बोर्ड (SEBON)</span>
+                </div>
+                <div class="entry-badges-wrap">
+                  <span class="entry-cat-badge">NEPSE & Stocks</span>
+                  <span class="entry-diff-badge">Beginner</span>
+                </div>
+              </div>
+              <p class="entry-one-line-def">The Securities Board of Nepal (SEBON) is the apex regulatory body governing the capital market, protecting investor interests and supervising stock market participants.</p>
+              <div class="entry-card-footer">
+                <div class="entry-nepal-preview">
+                  <span class="nepal-flag-icon">🇳🇵</span>
+                  <span class="nepal-tagline">SEBON reports directly to the Ministry of Finance. It enacted the historic 10-Kitta Allotment Policy in 2074 B.S. and introduced mandatory C-ASBA digital application rails.</span>
+                </div>
+                <a href="/learn/glossary/sebon" class="entry-read-link">
+                  <span>Read Explanation</span>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                </a>
+              </div>
+            </article>
+          
+            <article class="glossary-entry-card" data-slug="support-and-resistance">
+              <div class="entry-card-header">
+                <div class="entry-title-wrap">
+                  <h3 class="entry-title">
+                    <a href="/learn/glossary/support-and-resistance">Support and Resistance</a>
+                  </h3>
+                  <span class="entry-title-np">टेवा र अवरोध बिन्दु (Support & Resistance)</span>
+                </div>
+                <div class="entry-badges-wrap">
+                  <span class="entry-cat-badge">NEPSE & Stocks</span>
+                  <span class="entry-diff-badge">Beginner</span>
+                </div>
+              </div>
+              <p class="entry-one-line-def">Support is a price level where buying demand halts a downward trend; Resistance is a price ceiling where selling pressure halts an upward advance.</p>
+              <div class="entry-card-footer">
+                <div class="entry-nepal-preview">
+                  <span class="nepal-flag-icon">🇳🇵</span>
+                  <span class="nepal-tagline">NEPSE index support zones often align with psychological century marks (e.g., 1,800, 2,000, 2,200 points) and 200-day simple moving average levels.</span>
+                </div>
+                <a href="/learn/glossary/support-and-resistance" class="entry-read-link">
+                  <span>Read Explanation</span>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                </a>
+              </div>
+            </article>
+          
+            <article class="glossary-entry-card" data-slug="stop-loss">
+              <div class="entry-card-header">
+                <div class="entry-title-wrap">
+                  <h3 class="entry-title">
+                    <a href="/learn/glossary/stop-loss">Stop-Loss Order & Risk Management</a>
+                  </h3>
+                  <span class="entry-title-np">स्टप-लस (Stop-Loss)</span>
+                </div>
+                <div class="entry-badges-wrap">
+                  <span class="entry-cat-badge">NEPSE & Stocks</span>
+                  <span class="entry-diff-badge">Beginner</span>
+                </div>
+              </div>
+              <p class="entry-one-line-def">A Stop-Loss is an advance risk-management order or decision that automatically sells an asset if its price declines to a predetermined threshold, capping potential loss.</p>
+              <div class="entry-card-footer">
+                <div class="entry-nepal-preview">
+                  <span class="nepal-flag-icon">🇳🇵</span>
+                  <span class="nepal-tagline">While some advanced international trading terminals feature automated trailing stops, NEPSE TMS users typically execute manual stop-loss sell orders or use TMS trigger order options during live hours.</span>
+                </div>
+                <a href="/learn/glossary/stop-loss" class="entry-read-link">
+                  <span>Read Explanation</span>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                </a>
+              </div>
+            </article>
+          
+            <article class="glossary-entry-card" data-slug="spread-rate">
+              <div class="entry-card-header">
+                <div class="entry-title-wrap">
+                  <h3 class="entry-title">
+                    <a href="/learn/glossary/spread-rate">Interest Rate Spread</a>
+                  </h3>
+                  <span class="entry-title-np">ब्याजदर स्प्रेड (Interest Rate Spread)</span>
+                </div>
+                <div class="entry-badges-wrap">
+                  <span class="entry-cat-badge">Banking</span>
+                  <span class="entry-diff-badge">Intermediate</span>
+                </div>
+              </div>
+              <p class="entry-one-line-def">The Interest Rate Spread is the mathematical difference between the average weighted interest rate a bank charges on loans and the average rate it pays on customer deposits.</p>
+              <div class="entry-card-footer">
+                <div class="entry-nepal-preview">
+                  <span class="nepal-flag-icon">🇳🇵</span>
+                  <span class="nepal-tagline">NRB gradually lowered the commercial banking spread cap from 4.40% to 4.00% to stimulate private sector borrowing and economic industrialization in Nepal.</span>
+                </div>
+                <a href="/learn/glossary/spread-rate" class="entry-read-link">
                   <span>Read Explanation</span>
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
                 </a>
@@ -2416,6 +2970,42 @@
       </div>
     </div>
   
+    <div class="glossary-letter-group" id="letter-W">
+      <div class="letter-group-anchor">
+        <span class="letter-char">W</span>
+        <span class="letter-term-count">1 entries</span>
+      </div>
+      <div class="letter-group-cards">
+        
+            <article class="glossary-entry-card" data-slug="wacc">
+              <div class="entry-card-header">
+                <div class="entry-title-wrap">
+                  <h3 class="entry-title">
+                    <a href="/learn/glossary/wacc">WACC (Weighted Average Cost of Capital)</a>
+                  </h3>
+                  <span class="entry-title-np">भारित औसत लागत (WACC)</span>
+                </div>
+                <div class="entry-badges-wrap">
+                  <span class="entry-cat-badge">Taxation & TDS</span>
+                  <span class="entry-diff-badge">Intermediate</span>
+                </div>
+              </div>
+              <p class="entry-one-line-def">WACC is the standardized weighted average purchase cost of your shares calculated in MeroShare to determine net capital gains and applicable tax when selling on NEPSE.</p>
+              <div class="entry-card-footer">
+                <div class="entry-nepal-preview">
+                  <span class="nepal-flag-icon">🇳🇵</span>
+                  <span class="nepal-tagline">Under prevailing CDSC rules, bonus shares and rights shares are entered at the statutory face value of NPR 100 per unit for WACC calculation purposes.</span>
+                </div>
+                <a href="/learn/glossary/wacc" class="entry-read-link">
+                  <span>Read Explanation</span>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                </a>
+              </div>
+            </article>
+          
+      </div>
+    </div>
+  
           </div>
         </section>
 
@@ -2435,7 +3025,7 @@
                   <div class="domain-card-body">
                     <div class="domain-card-header">
                       <h3 class="domain-card-title">Investing</h3>
-                      <span class="domain-terms-badge">8 terms</span>
+                      <span class="domain-terms-badge">12 terms</span>
                     </div>
                     <p class="domain-card-desc">Asset growth, compounding, portfolio management, and long-term wealth building.</p>
                     <button type="button" class="domain-filter-btn" data-filter-cat="investing">
@@ -2450,7 +3040,7 @@
                   <div class="domain-card-body">
                     <div class="domain-card-header">
                       <h3 class="domain-card-title">NEPSE & Stocks</h3>
-                      <span class="domain-terms-badge">6 terms</span>
+                      <span class="domain-terms-badge">18 terms</span>
                     </div>
                     <p class="domain-card-desc">Secondary market trading, IPO allotments, broker TMS, Demat, and dividends.</p>
                     <button type="button" class="domain-filter-btn" data-filter-cat="nepse">
@@ -2480,7 +3070,7 @@
                   <div class="domain-card-body">
                     <div class="domain-card-header">
                       <h3 class="domain-card-title">Taxation & TDS</h3>
-                      <span class="domain-terms-badge">3 terms</span>
+                      <span class="domain-terms-badge">4 terms</span>
                     </div>
                     <p class="domain-card-desc">Inland Revenue Department rules, income tax slabs, PAN, TDS, and VAT.</p>
                     <button type="button" class="domain-filter-btn" data-filter-cat="taxation">
@@ -2495,7 +3085,7 @@
                   <div class="domain-card-body">
                     <div class="domain-card-header">
                       <h3 class="domain-card-title">Banking</h3>
-                      <span class="domain-terms-badge">3 terms</span>
+                      <span class="domain-terms-badge">6 terms</span>
                     </div>
                     <p class="domain-card-desc">Commercial banks, fixed deposits, Base Rate, KYC, and NRB deposit insurance.</p>
                     <button type="button" class="domain-filter-btn" data-filter-cat="banking">
@@ -2510,7 +3100,7 @@
                   <div class="domain-card-body">
                     <div class="domain-card-header">
                       <h3 class="domain-card-title">Loans & Credit</h3>
-                      <span class="domain-terms-badge">2 terms</span>
+                      <span class="domain-terms-badge">3 terms</span>
                     </div>
                     <p class="domain-card-desc">Home loans, EMI calculation, Debt-to-Income (DSTI) limits, and collateral.</p>
                     <button type="button" class="domain-filter-btn" data-filter-cat="loans">
@@ -2570,7 +3160,7 @@
                   <div class="domain-card-body">
                     <div class="domain-card-header">
                       <h3 class="domain-card-title">Retirement & Funds</h3>
-                      <span class="domain-terms-badge">3 terms</span>
+                      <span class="domain-terms-badge">2 terms</span>
                     </div>
                     <p class="domain-card-desc">Social Security Fund (SSF), CIT, EPF, and post-retirement pension planning.</p>
                     <button type="button" class="domain-filter-btn" data-filter-cat="retirement">
@@ -2585,7 +3175,7 @@
                   <div class="domain-card-body">
                     <div class="domain-card-header">
                       <h3 class="domain-card-title">Digital Payments</h3>
-                      <span class="domain-terms-badge">1 terms</span>
+                      <span class="domain-terms-badge">2 terms</span>
                     </div>
                     <p class="domain-card-desc">Fonepay, NepalPay QR protocols, ConnectIPS interbank transfers, and digital wallets.</p>
                     <button type="button" class="domain-filter-btn" data-filter-cat="digital-payments">
@@ -2682,6 +3272,10 @@
             <a href="/learn/nepse">NEPSE</a>
             <a href="/learn/personal-finance">Personal Finance</a>
             <a href="/learn/taxation">Taxation Nepal</a>
+            <a href="/learn/mutual-funds">Mutual Funds</a>
+            <a href="/learn/loans">Loans &amp; Banking</a>
+            <a href="/learn/insurance">Insurance</a>
+            <a href="/learn/retirement-planning">Retirement Planning</a>
           </div>
           
           <div class="footer-section">

@@ -124,16 +124,15 @@ export function renderLearnLessonPage(categorySlug, lessonSlug) {
   const isEn = lang === 'en';
   const relatedContent = getRelatedContent('lesson', lessonSlug, categorySlug);
 
-  // Read saved completion and bookmarks
-  let completedArr = [];
+  // Read saved bookmarks only for authenticated sessions
   let bookmarkedArr = [];
-  let isCompleted = false;
   let isBookmarked = false;
   try {
-    completedArr = JSON.parse(localStorage.getItem('rp_learn_completed_lessons') || '[]');
-    isCompleted = completedArr.includes(lesson.id);
-    bookmarkedArr = JSON.parse(localStorage.getItem('rp_learn_bookmarks') || '[]');
-    isBookmarked = bookmarkedArr.includes(lesson.id);
+    const activeUid = localStorage.getItem('rp_active_uid');
+    if (activeUid) {
+      bookmarkedArr = JSON.parse(localStorage.getItem('rp_learn_bookmarks') || '[]');
+      isBookmarked = bookmarkedArr.includes(lesson.id) || (lesson.slug && bookmarkedArr.includes(lesson.slug));
+    }
   } catch (e) {
     // Ignore storage issues
   }
@@ -236,12 +235,6 @@ export function renderLearnLessonPage(categorySlug, lessonSlug) {
               <button type="button" class="btn btn-secondary btn-sm lesson-action-pill" id="hero-share-btn">
                 <span class="btn-icon">${ICONS.share}</span>
                 <span class="btn-text">${ui.shareLesson}</span>
-              </button>
-
-              <!-- Mark Completed Button -->
-              <button type="button" class="btn ${isCompleted ? 'btn-success' : 'btn-outline'} btn-sm lesson-action-pill ${isCompleted ? 'completed' : ''}" id="hero-complete-btn">
-                <span class="btn-icon">${isCompleted ? ICONS.checkCircle : ICONS.check}</span>
-                <span class="btn-text">${isCompleted ? ui.markLessonIncomplete : ui.markLessonComplete}</span>
               </button>
 
               <div class="learn-lang-switch">
@@ -806,80 +799,102 @@ export function initLearnLessonPage(categorySlug, lessonSlug) {
     document.getElementById('sticky-bookmark-btn')
   ].filter(Boolean);
 
-  bookmarkButtons.forEach(btn => {
-    btn.addEventListener('click', () => {
-      let bookmarkedArr = [];
-      try {
-        bookmarkedArr = JSON.parse(localStorage.getItem('rp_learn_bookmarks') || '[]');
-      } catch (e) {}
-
-      const idx = bookmarkedArr.indexOf(lesson.id);
-      let isNowBookmarked = false;
-      if (idx > -1) {
-        bookmarkedArr.splice(idx, 1);
-        isNowBookmarked = false;
-      } else {
-        bookmarkedArr.push(lesson.id);
-        isNowBookmarked = true;
-      }
-
-      localStorage.setItem('rp_learn_bookmarks', JSON.stringify(bookmarkedArr));
-
-      // Update all bookmark buttons
-      bookmarkButtons.forEach(b => {
-        b.classList.toggle('bookmarked', isNowBookmarked);
-        b.classList.toggle('active', isNowBookmarked);
-        const iconSpan = b.querySelector('.btn-icon');
-        if (iconSpan) iconSpan.innerHTML = isNowBookmarked ? ICONS.bookmarkFilled : ICONS.bookmark;
-        const textSpan = b.querySelector('.btn-text');
-        if (textSpan) textSpan.textContent = isNowBookmarked ? ui.bookmarked : ui.bookmark;
-      });
+  const updateButtonStates = (state) => {
+    bookmarkButtons.forEach(b => {
+      b.classList.toggle('bookmarked', state);
+      b.classList.toggle('active', state);
+      const iconSpan = b.querySelector('.btn-icon');
+      if (iconSpan) iconSpan.innerHTML = state ? ICONS.bookmarkFilled : ICONS.bookmark;
+      const textSpan = b.querySelector('.btn-text');
+      if (textSpan) textSpan.textContent = state ? ui.bookmarked : ui.bookmark;
     });
-  });
+  };
 
-  // 5. Interactive Mark as Completed Toggle
-  const completeButtons = [
-    document.getElementById('hero-complete-btn')
-  ].filter(Boolean);
-
-  completeButtons.forEach(btn => {
-    btn.addEventListener('click', () => {
-      let completedArr = [];
+  bookmarkButtons.forEach(btn => {
+    btn.addEventListener('click', async () => {
+      // 1. Strict Authentication Check
+      let user = null;
       try {
-        completedArr = JSON.parse(localStorage.getItem('rp_learn_completed_lessons') || '[]');
-      } catch (e) {}
+        const { getCurrentUser } = await import('../firebase/auth.js');
+        user = getCurrentUser();
+      } catch (_) {}
 
-      const idx = completedArr.indexOf(lesson.id);
-      let isNowComplete = false;
-      if (idx > -1) {
-        completedArr.splice(idx, 1);
-        isNowComplete = false;
-      } else {
-        completedArr.push(lesson.id);
-        isNowComplete = true;
+      if (!user || !user.uid) {
+        // Logged-out visitor: strictly prevent bookmark operation and prompt sign in
+        try {
+          const { promptSignInForBookmark } = await import('../firebase/ui.js');
+          promptSignInForBookmark({ contentType: 'lesson' });
+        } catch (_) {
+          alert('Sign in to save this lesson and access your bookmarks later.');
+        }
+        return;
       }
 
-      localStorage.setItem('rp_learn_completed_lessons', JSON.stringify(completedArr));
+      // 2. Authenticated user: Proceed with bookmark toggle
+      try {
+        const { isBookmarkSaved, syncBookmarkToggle } = await import('../firebase/db.js');
+        const isCurrentlySaved = isBookmarkSaved('lesson', lesson.id) || (lesson.slug && isBookmarkSaved('lesson', lesson.slug));
+        const isNowBookmarked = !isCurrentlySaved;
 
-      // Update UI across all complete buttons
-      completeButtons.forEach(b => {
-        b.classList.toggle('completed', isNowComplete);
-        b.classList.toggle('btn-success', isNowComplete);
-        if (!isNowComplete) {
-          b.classList.add('btn-outline');
-        } else {
-          b.classList.remove('btn-primary', 'btn-outline', 'btn-secondary');
+        updateButtonStates(isNowBookmarked);
+
+        const res = await syncBookmarkToggle('lesson', lesson.id, isNowBookmarked, {
+          type: 'lesson',
+          slug: lesson.id,
+          title: lessonMeta.title || lesson.id,
+          url: window.location.pathname
+        });
+
+        if (res && res.requiresAuth) {
+          updateButtonStates(false);
+          const { promptSignInForBookmark } = await import('../firebase/ui.js');
+          promptSignInForBookmark({ contentType: 'lesson' });
+          return;
         }
 
-        const iconSpan = b.querySelector('.btn-icon');
-        if (iconSpan) iconSpan.innerHTML = isNowComplete ? ICONS.checkCircle : ICONS.check;
-        const textSpan = b.querySelector('.btn-text') || b.querySelector('span:not(.btn-icon)');
-        if (textSpan) textSpan.textContent = isNowComplete ? ui.markLessonIncomplete : ui.markLessonComplete;
-      });
+        if (res && res.success === false) {
+          updateButtonStates(!isNowBookmarked);
+          alert('Could not update bookmark. Please check your internet connection.');
+        }
+      } catch (err) {
+        console.warn('[LearnLesson] Bookmark sync error:', err);
+      }
     });
   });
 
-  // 7. Interactive Share Button (Web Share API or Clipboard Toast)
+  // Listen for auth state changes to synchronize bookmark state
+  if (typeof window !== 'undefined') {
+    import('../firebase/auth.js').then(({ subscribeToAuth }) => {
+      import('../firebase/db.js').then(({ isBookmarkSaved }) => {
+        subscribeToAuth((user) => {
+          if (user) {
+            const isSaved = isBookmarkSaved('lesson', lesson.id) || (lesson.slug && isBookmarkSaved('lesson', lesson.slug));
+            updateButtonStates(isSaved);
+          } else {
+            updateButtonStates(false);
+          }
+        });
+      }).catch(() => {});
+    }).catch(() => {});
+
+    // Listen for background cloud bookmark sync events to update buttons
+    const handleBookmarkSync = () => {
+      import('../firebase/auth.js').then(({ getCurrentUser }) => {
+        const user = getCurrentUser();
+        if (!user) {
+          updateButtonStates(false);
+          return;
+        }
+        import('../firebase/db.js').then(({ isBookmarkSaved }) => {
+          const isSaved = isBookmarkSaved('lesson', lesson.id) || (lesson.slug && isBookmarkSaved('lesson', lesson.slug));
+          updateButtonStates(isSaved);
+        }).catch(() => {});
+      }).catch(() => {});
+    };
+    window.addEventListener('rp:bookmarks-synced', handleBookmarkSync);
+  }
+
+  // 5. Interactive Share Button (Web Share API or Clipboard Toast)
   const shareButtons = [
     document.getElementById('hero-share-btn'),
     document.getElementById('sticky-share-btn')

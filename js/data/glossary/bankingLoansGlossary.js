@@ -205,7 +205,7 @@ export const BANKING_LOANS_GLOSSARY = [
       { slug: 'fixed-deposit', name: 'Fixed Deposit', type: 'glossary' }
     ],
     relatedLessons: [
-      { title: 'The World of Loans: Good Debt vs Bad Debt in Nepal', categorySlug: 'loans', slug: 'what-is-investing' }
+      { title: 'The World of Loans: Good Debt vs Bad Debt in Nepal', categorySlug: 'loans', slug: 'good-debt-vs-bad-debt-nepal' }
     ],
     relatedGuides: [
       { title: 'Home Loan & Mortgage Guide in Nepal', slug: 'complete-budgeting-guide' }
@@ -258,7 +258,7 @@ export const BANKING_LOANS_GLOSSARY = [
       ]
     },
     whereSeen: [
-      { title: 'The World of Loans', type: 'Lesson', url: '/learn/loans/what-is-investing' },
+      { title: 'The World of Loans', type: 'Lesson', url: '/learn/loans/good-debt-vs-bad-debt-nepal' },
       { title: 'EMI Calculator', type: 'Calculator', url: '/calculators/emi' }
     ],
     meta: {
@@ -470,7 +470,7 @@ export const BANKING_LOANS_GLOSSARY = [
       { slug: 'emergency-fund', name: 'Emergency Fund', type: 'glossary' }
     ],
     relatedLessons: [
-      { title: 'The World of Banking: Accounts, Rates & Safety', categorySlug: 'banking', slug: 'what-is-investing' }
+      { title: 'The World of Banking: Accounts, Rates & Safety', categorySlug: 'banking', slug: 'deposit-types-fixed-deposit-nepal' }
     ],
     relatedGuides: [
       { title: 'Complete Guide to Personal Finance & Budgeting', slug: 'complete-budgeting-guide' }
@@ -523,7 +523,7 @@ export const BANKING_LOANS_GLOSSARY = [
       ]
     },
     whereSeen: [
-      { title: 'The World of Banking', type: 'Lesson', url: '/learn/banking/what-is-investing' },
+      { title: 'The World of Banking', type: 'Lesson', url: '/learn/banking/deposit-types-fixed-deposit-nepal' },
       { title: 'Fixed Deposit Calculator', type: 'Calculator', url: '/calculators/fixed-deposit' }
     ],
     meta: {
@@ -709,7 +709,7 @@ export const BANKING_LOANS_GLOSSARY = [
       { slug: 'asba', name: 'ASBA', type: 'glossary' }
     ],
     relatedLessons: [
-      { title: 'The World of Banking: Accounts, Rates & Safety', categorySlug: 'banking', slug: 'what-is-investing' }
+      { title: 'The World of Banking: Accounts, Rates & Safety', categorySlug: 'banking', slug: 'deposit-types-fixed-deposit-nepal' }
     ],
     relatedGuides: [
       { title: 'Beginner Guide to NEPSE Share Market', slug: 'complete-nepse-investing-guide' }
@@ -762,7 +762,7 @@ export const BANKING_LOANS_GLOSSARY = [
       ]
     },
     whereSeen: [
-      { title: 'The World of Banking', type: 'Lesson', url: '/learn/banking/what-is-investing' },
+      { title: 'The World of Banking', type: 'Lesson', url: '/learn/banking/deposit-types-fixed-deposit-nepal' },
       { title: 'NEPSE Trading Guide', type: 'Guide', url: '/learn/guides/complete-nepse-investing-guide' }
     ],
     meta: {
@@ -973,7 +973,7 @@ export const BANKING_LOANS_GLOSSARY = [
       { slug: 'budget', name: 'Budget', type: 'glossary' }
     ],
     relatedLessons: [
-      { title: 'The World of Loans: Good Debt vs Bad Debt in Nepal', categorySlug: 'loans', slug: 'what-is-investing' }
+      { title: 'The World of Loans: Good Debt vs Bad Debt in Nepal', categorySlug: 'loans', slug: 'good-debt-vs-bad-debt-nepal' }
     ],
     relatedGuides: [
       { title: 'Home Loan & Mortgage Guide in Nepal', slug: 'complete-budgeting-guide' }
@@ -1026,7 +1026,7 @@ export const BANKING_LOANS_GLOSSARY = [
       ]
     },
     whereSeen: [
-      { title: 'The World of Loans', type: 'Lesson', url: '/learn/loans/what-is-investing' },
+      { title: 'The World of Loans', type: 'Lesson', url: '/learn/loans/good-debt-vs-bad-debt-nepal' },
       { title: 'EMI Calculator', type: 'Calculator', url: '/calculators/emi' }
     ],
     meta: {
@@ -1236,7 +1236,7 @@ export const BANKING_LOANS_GLOSSARY = [
       { slug: 'budget', name: 'Budget', type: 'glossary' }
     ],
     relatedLessons: [
-      { title: 'The World of Loans: Good Debt vs Bad Debt in Nepal', categorySlug: 'loans', slug: 'what-is-investing' }
+      { title: 'The World of Loans: Good Debt vs Bad Debt in Nepal', categorySlug: 'loans', slug: 'good-debt-vs-bad-debt-nepal' }
     ],
     relatedGuides: [
       { title: 'Home Loan & Mortgage Guide in Nepal', slug: 'complete-budgeting-guide' }
@@ -1289,7 +1289,7 @@ export const BANKING_LOANS_GLOSSARY = [
       ]
     },
     whereSeen: [
-      { title: 'The World of Loans', type: 'Lesson', url: '/learn/loans/what-is-investing' },
+      { title: 'The World of Loans', type: 'Lesson', url: '/learn/loans/good-debt-vs-bad-debt-nepal' },
       { title: 'EMI Calculator', type: 'Calculator', url: '/calculators/emi' }
     ],
     meta: {

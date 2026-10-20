@@ -9696,31 +9696,12 @@ export function getRelatedContent(type, slug, categorySlug = '') {
 }
 
 
-export function recordRecentView(type, slug, title, categorySlug = '') {
-  if (typeof window === 'undefined') return;
-  try {
-    const views = JSON.parse(localStorage.getItem(RECENT_VIEWS_KEY) || '[]');
-    const filtered = views.filter(v => !(v.type === type && v.slug === slug));
-    filtered.unshift({
-      type,
-      slug,
-      title,
-      categorySlug,
-      timestamp: Date.now()
-    });
-    localStorage.setItem(RECENT_VIEWS_KEY, JSON.stringify(filtered.slice(0, 10)));
-  } catch (e) {
-    // Ignore localStorage errors
-  }
+export function recordRecentView() {
+  // Obsolete reading history / page view tracking removed per optimization policy
 }
 
 export function getRecentViews() {
-  if (typeof window === 'undefined') return [];
-  try {
-    return JSON.parse(localStorage.getItem(RECENT_VIEWS_KEY) || '[]');
-  } catch (e) {
-    return [];
-  }
+  return [];
 }
 
 export function clearRecentViews() {
@@ -9729,9 +9710,16 @@ export function clearRecentViews() {
 }
 
 export function toggleSavedGuide(guideSlug) {
-  if (typeof window === 'undefined') return false;
+  if (typeof window === 'undefined' || !guideSlug) return false;
+  const uid = localStorage.getItem('rp_active_uid');
+  if (!uid) return false;
   try {
-    const saved = JSON.parse(localStorage.getItem(SAVED_GUIDES_KEY) || '[]');
+    const key = `${SAVED_GUIDES_KEY}_${uid}`;
+    let saved = JSON.parse(localStorage.getItem(key) || 'null');
+    if (!saved) {
+      saved = JSON.parse(localStorage.getItem(SAVED_GUIDES_KEY) || '[]');
+      localStorage.removeItem(SAVED_GUIDES_KEY);
+    }
     const idx = saved.indexOf(guideSlug);
     let isSaved = false;
     if (idx >= 0) {
@@ -9741,7 +9729,7 @@ export function toggleSavedGuide(guideSlug) {
       saved.push(guideSlug);
       isSaved = true;
     }
-    localStorage.setItem(SAVED_GUIDES_KEY, JSON.stringify(saved));
+    localStorage.setItem(key, JSON.stringify(saved));
     return isSaved;
   } catch (e) {
     return false;
@@ -9749,9 +9737,12 @@ export function toggleSavedGuide(guideSlug) {
 }
 
 export function isGuideSaved(guideSlug) {
-  if (typeof window === 'undefined') return false;
+  if (typeof window === 'undefined' || !guideSlug) return false;
+  const uid = localStorage.getItem('rp_active_uid');
+  if (!uid) return false;
   try {
-    const saved = JSON.parse(localStorage.getItem(SAVED_GUIDES_KEY) || '[]');
+    const key = `${SAVED_GUIDES_KEY}_${uid}`;
+    const saved = JSON.parse(localStorage.getItem(key) || localStorage.getItem(SAVED_GUIDES_KEY) || '[]');
     return saved.includes(guideSlug);
   } catch (e) {
     return false;
@@ -9760,8 +9751,11 @@ export function isGuideSaved(guideSlug) {
 
 export function getSavedGuides() {
   if (typeof window === 'undefined') return [];
+  const uid = localStorage.getItem('rp_active_uid');
+  if (!uid) return [];
   try {
-    return JSON.parse(localStorage.getItem(SAVED_GUIDES_KEY) || '[]');
+    const key = `${SAVED_GUIDES_KEY}_${uid}`;
+    return JSON.parse(localStorage.getItem(key) || localStorage.getItem(SAVED_GUIDES_KEY) || '[]');
   } catch (e) {
     return [];
   }

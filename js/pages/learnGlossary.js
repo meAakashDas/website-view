@@ -325,7 +325,7 @@ function renderAlphabeticalDirectory(termsList, lang) {
               <div class="entry-card-footer">
                 <div class="entry-nepal-preview">
                   <span class="nepal-flag-icon">🇳🇵</span>
-                  <span class="nepal-tagline">${term.nepalContext.headline[lang] || term.nepalContext.headline.en}</span>
+                  <span class="nepal-tagline">${term.nepalContext?.headline ? (term.nepalContext.headline[lang] || term.nepalContext.headline.en) : (term.nepalContext?.[lang] || term.nepalContext?.en || (isEn ? 'Nepal Financial Context' : 'नेपालको वित्तीय सन्दर्भ'))}</span>
                 </div>
                 <a href="/learn/glossary/${term.slug}" class="entry-read-link">
                   <span>${isEn ? 'Read Explanation' : 'विस्तृत हेर्नुहोस्'}</span>

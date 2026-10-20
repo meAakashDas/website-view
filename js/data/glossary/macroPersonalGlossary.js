@@ -191,7 +191,7 @@ export const MACRO_PERSONAL_GLOSSARY = [
       { slug: 'fixed-deposit', name: 'Fixed Deposit', type: 'glossary' }
     ],
     relatedLessons: [
-      { title: 'The Silent Wealth Destroyer: Inflation in Nepal', categorySlug: 'economics', slug: 'what-is-investing' }
+      { title: 'The Silent Wealth Destroyer: Inflation in Nepal', categorySlug: 'economics', slug: 'inr-npr-currency-peg-inflation' }
     ],
     relatedGuides: [
       { title: 'How to Beat Inflation in Nepal: Asset Allocation Guide', slug: 'complete-budgeting-guide' }
@@ -244,7 +244,7 @@ export const MACRO_PERSONAL_GLOSSARY = [
       ]
     },
     whereSeen: [
-      { title: 'The Silent Wealth Destroyer: Inflation in Nepal', type: 'Lesson', url: '/learn/economics/what-is-investing' },
+      { title: 'The Silent Wealth Destroyer: Inflation in Nepal', type: 'Lesson', url: '/learn/mutual-funds/starting-online-sip-connectips-nepal' },
       { title: 'SIP Growth Calculator', type: 'Calculator', url: '/calculators/sip' }
     ],
     meta: {
@@ -441,7 +441,7 @@ export const MACRO_PERSONAL_GLOSSARY = [
       { slug: 'fixed-deposit', name: 'Fixed Deposit', type: 'glossary' }
     ],
     relatedLessons: [
-      { title: 'The Silent Wealth Destroyer: Inflation in Nepal', categorySlug: 'economics', slug: 'what-is-investing' }
+      { title: 'The Silent Wealth Destroyer: Inflation in Nepal', categorySlug: 'economics', slug: 'inr-npr-currency-peg-inflation' }
     ],
     relatedGuides: [
       { title: 'How to Protect Your Savings from Rupee Depreciation', slug: 'complete-budgeting-guide' }
@@ -494,7 +494,7 @@ export const MACRO_PERSONAL_GLOSSARY = [
       ]
     },
     whereSeen: [
-      { title: 'The Silent Wealth Destroyer: Inflation in Nepal', type: 'Lesson', url: '/learn/economics/what-is-investing' },
+      { title: 'The Silent Wealth Destroyer: Inflation in Nepal', type: 'Lesson', url: '/learn/economics/inr-npr-currency-peg-inflation' },
       { title: 'Goal-Based SIP Calculator', type: 'Calculator', url: '/calculators/sip' }
     ],
     meta: {
@@ -690,7 +690,7 @@ export const MACRO_PERSONAL_GLOSSARY = [
       { slug: 'emi', name: 'EMI', type: 'glossary' }
     ],
     relatedLessons: [
-      { title: 'Understanding Bank Interest Rates & Base Rates', categorySlug: 'banking', slug: 'what-is-investing' }
+      { title: 'Understanding Bank Interest Rates & Base Rates', categorySlug: 'banking', slug: 'deposit-types-fixed-deposit-nepal' }
     ],
     relatedGuides: [
       { title: 'Nepal Rastra Bank Monetary Policy Demystified', slug: 'complete-budgeting-guide' }
@@ -743,7 +743,7 @@ export const MACRO_PERSONAL_GLOSSARY = [
       ]
     },
     whereSeen: [
-      { title: 'Understanding Bank Interest Rates & Base Rates', type: 'Lesson', url: '/learn/banking/what-is-investing' },
+      { title: 'Understanding Bank Interest Rates & Base Rates', type: 'Lesson', url: '/learn/banking/deposit-types-fixed-deposit-nepal' },
       { title: 'EMI Loan Calculator', type: 'Calculator', url: '/calculators/emi' }
     ],
     meta: {
@@ -941,7 +941,7 @@ export const MACRO_PERSONAL_GLOSSARY = [
       { slug: 'repo-rate', name: 'Repo Rate', type: 'glossary' }
     ],
     relatedLessons: [
-      { title: 'The Macro Economy: GDP, Monetary Policy & Growth', categorySlug: 'economics', slug: 'what-is-investing' }
+      { title: 'The Macro Economy: GDP, Monetary Policy & Growth', categorySlug: 'economics', slug: 'inr-npr-currency-peg-inflation' }
     ],
     relatedGuides: [
       { title: 'Understanding Nepal\'s Economic Fundamentals', slug: 'complete-budgeting-guide' }
@@ -994,7 +994,7 @@ export const MACRO_PERSONAL_GLOSSARY = [
       ]
     },
     whereSeen: [
-      { title: 'The Macro Economy: GDP, Monetary Policy & Growth', type: 'Lesson', url: '/learn/economics/what-is-investing' },
+      { title: 'The Macro Economy: GDP, Monetary Policy & Growth', type: 'Lesson', url: '/learn/economics/inr-npr-currency-peg-inflation' },
       { title: 'CAGR Growth Calculator', type: 'Calculator', url: '/calculators/cagr' }
     ],
     meta: {
@@ -1191,7 +1191,7 @@ export const MACRO_PERSONAL_GLOSSARY = [
       { slug: 'inflation', name: 'Inflation', type: 'glossary' }
     ],
     relatedLessons: [
-      { title: 'Budgeting Fundamentals: The 50/30/20 Rule for Nepal', categorySlug: 'personal-finance', slug: 'what-is-investing' }
+      { title: 'Budgeting Fundamentals: The 50/30/20 Rule for Nepal', categorySlug: 'personal-finance', slug: 'emergency-fund-building' }
     ],
     relatedGuides: [
       { title: 'The Complete Nepali Personal Budgeting Masterclass', slug: 'complete-budgeting-guide' }
@@ -1244,7 +1244,7 @@ export const MACRO_PERSONAL_GLOSSARY = [
       ]
     },
     whereSeen: [
-      { title: 'Budgeting Fundamentals: The 50/30/20 Rule for Nepal', type: 'Lesson', url: '/learn/personal-finance/what-is-investing' },
+      { title: 'Budgeting Fundamentals: The 50/30/20 Rule for Nepal', type: 'Lesson', url: '/learn/personal-finance/emergency-fund-building' },
       { title: '50/30/20 Budget Calculator', type: 'Calculator', url: '/calculators/budget' }
     ],
     meta: {
@@ -1440,7 +1440,7 @@ export const MACRO_PERSONAL_GLOSSARY = [
       { slug: 'sip', name: 'SIP', type: 'glossary' }
     ],
     relatedLessons: [
-      { title: 'Emergency Fund: Building Your Financial Fortress', categorySlug: 'personal-finance', slug: 'what-is-investing' }
+      { title: 'Emergency Fund: Building Your Financial Fortress', categorySlug: 'personal-finance', slug: 'emergency-fund-building' }
     ],
     relatedGuides: [
       { title: 'The Complete Nepali Emergency Fund Blueprint', slug: 'complete-budgeting-guide' }
@@ -1493,8 +1493,8 @@ export const MACRO_PERSONAL_GLOSSARY = [
       ]
     },
     whereSeen: [
-      { title: 'Emergency Fund: Building Your Financial Fortress', type: 'Lesson', url: '/learn/personal-finance/what-is-investing' },
-      { title: 'Emergency Fund Calculator', type: 'Calculator', url: '/calculators/emergency-fund' }
+      { title: 'Emergency Fund: Building Your Financial Fortress', type: 'Lesson', url: '/learn/personal-finance/emergency-fund-building' },
+      { title: 'Emergency Fund Calculator', type: 'Calculator', url: '/calculators/retirement' }
     ],
     meta: {
       title: 'What is an Emergency Fund in Nepal? 3-6 Month Safety Net Guide | risePaisa',
@@ -1691,7 +1691,7 @@ export const MACRO_PERSONAL_GLOSSARY = [
       { slug: 'budget', name: 'Budget', type: 'glossary' }
     ],
     relatedLessons: [
-      { title: 'Insurance Fundamentals: Protecting Your Human Life Value', categorySlug: 'insurance', slug: 'what-is-investing' }
+      { title: 'Insurance Fundamentals: Protecting Your Human Life Value', categorySlug: 'insurance', slug: 'term-life-vs-endowment-nepal' }
     ],
     relatedGuides: [
       { title: 'How to Calculate Your True HLV and Buy Term Insurance in Nepal', slug: 'complete-budgeting-guide' }
@@ -1744,7 +1744,7 @@ export const MACRO_PERSONAL_GLOSSARY = [
       ]
     },
     whereSeen: [
-      { title: 'Insurance Fundamentals: Protecting Your Human Life Value', type: 'Lesson', url: '/learn/insurance/what-is-investing' },
+      { title: 'Insurance Fundamentals: Protecting Your Human Life Value', type: 'Lesson', url: '/learn/insurance/term-life-vs-endowment-nepal' },
       { title: 'HLV Insurance Calculator', type: 'Calculator', url: '/calculators/hlv' }
     ],
     meta: {
@@ -1945,7 +1945,7 @@ export const MACRO_PERSONAL_GLOSSARY = [
       { slug: 'sip', name: 'SIP', type: 'glossary' }
     ],
     relatedLessons: [
-      { title: 'Insurance Fundamentals: Protecting Your Human Life Value', categorySlug: 'insurance', slug: 'what-is-investing' }
+      { title: 'Insurance Fundamentals: Protecting Your Human Life Value', categorySlug: 'insurance', slug: 'term-life-vs-endowment-nepal' }
     ],
     relatedGuides: [
       { title: 'How to Buy Pure Term Life Insurance in Nepal Without Getting Tricked', slug: 'complete-budgeting-guide' }
@@ -1998,7 +1998,7 @@ export const MACRO_PERSONAL_GLOSSARY = [
       ]
     },
     whereSeen: [
-      { title: 'Insurance Fundamentals: Protecting Your Human Life Value', type: 'Lesson', url: '/learn/insurance/what-is-investing' },
+      { title: 'Insurance Fundamentals: Protecting Your Human Life Value', type: 'Lesson', url: '/learn/insurance/term-life-vs-endowment-nepal' },
       { title: 'Term Insurance & HLV Calculator', type: 'Calculator', url: '/calculators/hlv' }
     ],
     meta: {
@@ -2184,7 +2184,7 @@ export const MACRO_PERSONAL_GLOSSARY = [
       { slug: 'pan', name: 'PAN', type: 'glossary' }
     ],
     relatedLessons: [
-      { title: 'Digital Finance in Nepal: Wallets, QR & Interbank Payments', categorySlug: 'digital-payments', slug: 'what-is-investing' }
+      { title: 'Digital Finance in Nepal: Wallets, QR & Interbank Payments', categorySlug: 'digital-payments', slug: 'esewa-vs-khalti-vs-mobile-banking' }
     ],
     relatedGuides: [
       { title: 'The Complete Guide to Digital Payments and QR Security in Nepal', slug: 'complete-budgeting-guide' }
@@ -2237,7 +2237,7 @@ export const MACRO_PERSONAL_GLOSSARY = [
       ]
     },
     whereSeen: [
-      { title: 'Digital Finance in Nepal: Wallets, QR & Interbank Payments', type: 'Lesson', url: '/learn/digital-payments/what-is-investing' },
+      { title: 'Digital Finance in Nepal: Wallets, QR & Interbank Payments', type: 'Lesson', url: '/learn/digital-payments/esewa-vs-khalti-vs-mobile-banking' },
       { title: '50/30/20 Budget Calculator', type: 'Calculator', url: '/calculators/budget' }
     ],
     meta: {

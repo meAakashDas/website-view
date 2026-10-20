@@ -171,7 +171,8 @@ export function initPremiumStatCounters() {
 
 // ── Button Press Micro-interaction ───────────
 export function initButtonMicroInteractions() {
-  document.querySelectorAll('.btn').forEach(btn => {
+  document.querySelectorAll('.btn:not([data-btn-micro="1"])').forEach(btn => {
+    btn.setAttribute('data-btn-micro', '1');
     btn.addEventListener('mousedown', () => {
       btn.style.transition = 'transform 80ms ease, opacity 80ms ease';
     });
@@ -183,6 +184,7 @@ export function initButtonMicroInteractions() {
     });
   });
 }
+
 
 // ── Card Micro-Interactions (Stable Pure CSS) ─
 export function initCardTilt() {

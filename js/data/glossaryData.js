@@ -9,6 +9,10 @@ import { MUTUAL_FUNDS_GLOSSARY } from './glossary/mutualFundsGlossary.js';
 import { BANKING_LOANS_GLOSSARY } from './glossary/bankingLoansGlossary.js';
 import { TAXATION_RETIREMENT_GLOSSARY } from './glossary/taxationRetirementGlossary.js';
 import { MACRO_PERSONAL_GLOSSARY } from './glossary/macroPersonalGlossary.js';
+import { EXPANDED_NEPSE_GLOSSARY } from './glossary/expandedNepseGlossary.js';
+import { FUNDAMENTAL_GLOSSARY } from './glossary/fundamentalGlossary.js';
+import { TECHNICAL_GLOSSARY } from './glossary/technicalGlossary.js';
+import { EXPANDED_BANKING_GLOSSARY } from './glossary/expandedBankingGlossary.js';
 
 export const GLOSSARY_CATEGORIES = [
   {
@@ -91,14 +95,18 @@ export const GLOSSARY_CATEGORIES = [
   }
 ];
 
-// Unified, production-grade 37-term encyclopedia dictionary
+// Unified, comprehensive encyclopedia dictionary
 export const GLOSSARY_DICTIONARY = [
   ...INVESTING_GLOSSARY,
   ...NEPSE_GLOSSARY,
   ...MUTUAL_FUNDS_GLOSSARY,
   ...BANKING_LOANS_GLOSSARY,
   ...TAXATION_RETIREMENT_GLOSSARY,
-  ...MACRO_PERSONAL_GLOSSARY
+  ...MACRO_PERSONAL_GLOSSARY,
+  ...EXPANDED_NEPSE_GLOSSARY,
+  ...FUNDAMENTAL_GLOSSARY,
+  ...TECHNICAL_GLOSSARY,
+  ...EXPANDED_BANKING_GLOSSARY
 ];
 
 // ── Search & Filter Functions ────────────────────────────────
@@ -119,7 +127,6 @@ export function getGlossaryTermBySlug(slug) {
     'loan': 'emi',
     'kista': 'emi',
     'cpi': 'inflation',
-    'crn': 'asba',
     'casba': 'asba',
     'boid': 'demat',
     'open-ended': 'sip',
@@ -133,7 +140,16 @@ export function getGlossaryTermBySlug(slug) {
     'human-life-value': 'hlv',
     'value-added-tax': 'vat',
     'tax-deducted-at-source': 'tds',
-    'permanent-account-number': 'pan'
+    'permanent-account-number': 'pan',
+    'pe': 'pe-ratio',
+    'pb': 'pb-ratio',
+    'crar': 'car',
+    's&r': 'support-and-resistance',
+    'sma': 'moving-average',
+    'ema': 'moving-average',
+    'sl': 'stop-loss',
+    'npa': 'npl',
+    'connect-ips': 'connectips'
   };
 
   const aliasSlug = ALIAS_MAP[cleanSlug];

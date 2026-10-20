@@ -181,7 +181,7 @@ export const INVESTING_GLOSSARY = [
       { slug: 'cagr', name: 'CAGR', type: 'glossary' }
     ],
     relatedLessons: [
-      { title: 'What is Investing? Growing Wealth in Nepal', categorySlug: 'investing', slug: 'what-is-investing' },
+      { title: 'What is Investing? Growing Wealth in Nepal', categorySlug: 'investing', slug: 'how-to-start-monthly-sip-nepal' },
       { title: 'Compound Interest: The 8th Wonder of the World', categorySlug: 'investing', slug: 'compound-interest' }
     ],
     relatedGuides: [
@@ -235,7 +235,7 @@ export const INVESTING_GLOSSARY = [
       ]
     },
     whereSeen: [
-      { title: 'What is Investing?', type: 'Lesson', url: '/learn/investing/what-is-investing' },
+      { title: 'What is Investing?', type: 'Lesson', url: '/learn/investing/how-to-start-monthly-sip-nepal' },
       { title: 'Net Worth Calculator', type: 'Calculator', url: '/calculators/net-worth' }
     ],
     meta: {
@@ -421,7 +421,7 @@ export const INVESTING_GLOSSARY = [
       { slug: 'sip', name: 'SIP', type: 'glossary' }
     ],
     relatedLessons: [
-      { title: 'Asset Allocation Strategies in Nepal', categorySlug: 'investing', slug: 'what-is-investing' }
+      { title: 'Asset Allocation Strategies in Nepal', categorySlug: 'investing', slug: 'how-to-start-monthly-sip-nepal' }
     ],
     relatedGuides: [
       { title: 'Beginner Guide to NEPSE Share Market', slug: 'complete-nepse-investing-guide' }
@@ -474,7 +474,7 @@ export const INVESTING_GLOSSARY = [
       ]
     },
     whereSeen: [
-      { title: 'Asset Allocation Strategies', type: 'Lesson', url: '/learn/investing/what-is-investing' },
+      { title: 'Asset Allocation Strategies', type: 'Lesson', url: '/learn/investing/how-to-start-monthly-sip-nepal' },
       { title: 'Net Worth Calculator', type: 'Calculator', url: '/calculators/net-worth' }
     ],
     meta: {
@@ -950,7 +950,7 @@ export const INVESTING_GLOSSARY = [
       { slug: 'asset', name: 'Asset', type: 'glossary' }
     ],
     relatedLessons: [
-      { title: 'Understanding Stock Dividends & Bonus Shares', categorySlug: 'nepse', slug: 'what-is-investing' }
+      { title: 'Understanding Stock Dividends & Bonus Shares', categorySlug: 'nepse', slug: 'demat-meroshare-crn-setup' }
     ],
     relatedGuides: [
       { title: 'Beginner Guide to NEPSE Share Market', slug: 'complete-nepse-investing-guide' }
@@ -1004,7 +1004,7 @@ export const INVESTING_GLOSSARY = [
     },
     whereSeen: [
       { title: 'Dividend Yield Calculator', type: 'Calculator', url: '/calculators/dividend-yield' },
-      { title: 'Stock Dividends Lesson', type: 'Lesson', url: '/learn/nepse/what-is-investing' }
+      { title: 'Stock Dividends Lesson', type: 'Lesson', url: '/learn/nepse/demat-meroshare-crn-setup' }
     ],
     meta: {
       title: 'What is a Dividend in Nepal? Cash vs Bonus Shares Guide | risePaisa',
@@ -1213,7 +1213,7 @@ export const INVESTING_GLOSSARY = [
       { slug: 'capital-gain', name: 'Capital Gain', type: 'glossary' }
     ],
     relatedLessons: [
-      { title: 'Understanding Stock Dividends & Bonus Shares', categorySlug: 'nepse', slug: 'what-is-investing' }
+      { title: 'Understanding Stock Dividends & Bonus Shares', categorySlug: 'nepse', slug: 'demat-meroshare-crn-setup' }
     ],
     relatedGuides: [
       { title: 'Beginner Guide to NEPSE Share Market', slug: 'complete-nepse-investing-guide' }
@@ -1267,7 +1267,7 @@ export const INVESTING_GLOSSARY = [
     },
     whereSeen: [
       { title: 'Bonus Share Adjustment Calculator', type: 'Calculator', url: '/calculators/bonus-share-adjustment' },
-      { title: 'Stock Dividends Lesson', type: 'Lesson', url: '/learn/nepse/what-is-investing' }
+      { title: 'Stock Dividends Lesson', type: 'Lesson', url: '/learn/nepse/demat-meroshare-crn-setup' }
     ],
     meta: {
       title: 'What is a Bonus Share in Nepal? Price Adjustment & Rules | risePaisa',
@@ -1477,7 +1477,7 @@ export const INVESTING_GLOSSARY = [
       { slug: 'asba', name: 'ASBA', type: 'glossary' }
     ],
     relatedLessons: [
-      { title: 'Understanding Stock Dividends & Bonus Shares', categorySlug: 'nepse', slug: 'what-is-investing' }
+      { title: 'Understanding Stock Dividends & Bonus Shares', categorySlug: 'nepse', slug: 'demat-meroshare-crn-setup' }
     ],
     relatedGuides: [
       { title: 'Beginner Guide to NEPSE Share Market', slug: 'complete-nepse-investing-guide' }
@@ -1741,7 +1741,7 @@ export const INVESTING_GLOSSARY = [
       { slug: 'asset', name: 'Asset', type: 'glossary' }
     ],
     relatedLessons: [
-      { title: 'Understanding Stock Dividends & Bonus Shares', categorySlug: 'nepse', slug: 'what-is-investing' }
+      { title: 'Understanding Stock Dividends & Bonus Shares', categorySlug: 'nepse', slug: 'demat-meroshare-crn-setup' }
     ],
     relatedGuides: [
       { title: 'Beginner Guide to NEPSE Share Market', slug: 'complete-nepse-investing-guide' }
@@ -1795,7 +1795,7 @@ export const INVESTING_GLOSSARY = [
     },
     whereSeen: [
       { title: 'NEPSE Trading Guide', type: 'Guide', url: '/learn/guides/complete-nepse-investing-guide' },
-      { title: 'Understanding Stock Dividends', type: 'Lesson', url: '/learn/nepse/what-is-investing' }
+      { title: 'Understanding Stock Dividends', type: 'Lesson', url: '/learn/nepse/demat-meroshare-crn-setup' }
     ],
     meta: {
       title: 'Capital Gains Tax (CGT) in Nepal: Rates & WACC Guide | risePaisa',

@@ -52,6 +52,11 @@ export const ROUTES = {
   LEARN_GLOSSARY_TERM: (slug) => `/learn/glossary/${slug}`,
   COURSES: '/courses',
   COURSE_DETAIL: (slug) => `/courses/${slug}`,
+  COURSE_LEARN: (slug, lessonId) => lessonId ? `/courses/${slug}/learn?lesson=${encodeURIComponent(lessonId)}` : `/courses/${slug}/learn`,
+  MY_COURSES: '/courses/nepse-stock-market-basics/learn?lesson=lesson-1',
+  MY_COURSES_PAGE: '/my-courses',
+  ADMIN_COURSES: '/admin/courses',
+  ADMIN_ENROLLMENTS: '/admin/enrollments',
   RESOURCES: '/resources',
   RESOURCE_DETAIL: (slug) => `/resources/${slug}`,
   BLOG: '/blog',
@@ -255,8 +260,11 @@ export function resolveLegacyHash(hash) {
     return basePath;
   }
 
+  if (basePath === '/my-courses') {
+    return ROUTES.MY_COURSES;
+  }
   // Retired legacy routes -> redirect to public equivalents
-  if (basePath === '/login' || basePath === '/register' || basePath === '/forgot-password' || basePath === '/reset-password' || basePath === '/profile' || basePath === '/my-courses') {
+  if (basePath === '/login' || basePath === '/register' || basePath === '/forgot-password' || basePath === '/reset-password' || basePath === '/profile') {
     return ROUTES.COURSES;
   }
   if (basePath.startsWith('/admin')) {

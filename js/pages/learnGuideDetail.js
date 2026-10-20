@@ -9,7 +9,6 @@ import {
   getLearnLanguage,
   setLearnLanguage,
   LEARN_UI,
-  recordRecentView,
   toggleSavedGuide,
   isGuideSaved,
   getRelatedContent
@@ -17,6 +16,8 @@ import {
 import { ROUTES } from '../routes.js';
 import { initGlossaryTooltips } from '../enhancements.js';
 import { initNotionOutline } from '../outline.js';
+import { getCurrentUser, subscribeToAuth } from '../firebase/auth.js';
+import { promptSignInForBookmark } from '../firebase/ui.js';
 
 export async function preloadGuide(guideSlug) {
   const slug = typeof guideSlug === 'object' && guideSlug !== null ? (guideSlug.slug || guideSlug[1] || '') : (guideSlug || '');
@@ -451,9 +452,6 @@ export function initLearnGuideDetailPage(guideSlug) {
   const lang = getLearnLanguage();
   const ui = LEARN_UI[lang] || LEARN_UI.en;
 
-  // Record recent view in history
-  recordRecentView('guide', guide.slug, guide.title.en, guide.categorySlug);
-
   // Initialize interactive glossary tooltips
   initGlossaryTooltips();
 
@@ -520,22 +518,42 @@ export function initLearnGuideDetailPage(guideSlug) {
     document.getElementById('sticky-guide-bookmark-btn')
   ].filter(Boolean);
 
+  const updateGuideBookmarkUI = (saved) => {
+    bookmarkButtons.forEach(b => {
+      b.classList.toggle('bookmarked', saved);
+      const span = b.querySelector('.btn-text') || b.querySelector('span');
+      const iconSvg = saved ? ICONS.bookmarkFilled : ICONS.bookmark;
+      if (!span) {
+        b.innerHTML = iconSvg;
+        b.setAttribute('title', saved ? ui.guideSaved : ui.saveGuide);
+      } else {
+        b.innerHTML = `<span class="btn-icon">${iconSvg}</span><span class="btn-text">${saved ? ui.guideSaved : ui.saveGuide}</span>`;
+      }
+    });
+  };
+
   bookmarkButtons.forEach(btn => {
     btn.addEventListener('click', () => {
+      const user = getCurrentUser();
+      if (!user) {
+        promptSignInForBookmark({ contentType: 'guide' });
+        return;
+      }
       const nowSaved = toggleSavedGuide(guide.slug);
-      bookmarkButtons.forEach(b => {
-        b.classList.toggle('bookmarked', nowSaved);
-        const span = b.querySelector('span');
-        if (span) span.textContent = nowSaved ? ui.guideSaved : ui.saveGuide;
-        const iconSvg = nowSaved ? ICONS.bookmarkFilled : ICONS.bookmark;
-        if (!span) {
-          b.innerHTML = iconSvg;
-        } else {
-          b.innerHTML = `${iconSvg} <span>${nowSaved ? ui.guideSaved : ui.saveGuide}</span>`;
-        }
-      });
+      updateGuideBookmarkUI(nowSaved);
     });
   });
+
+  try {
+    subscribeToAuth((user) => {
+      if (user) {
+        const saved = isGuideSaved(guide.slug);
+        updateGuideBookmarkUI(saved);
+      } else {
+        updateGuideBookmarkUI(false);
+      }
+    });
+  } catch (e) {}
 
   // 5. Share Button with Toast
   const shareButtons = [

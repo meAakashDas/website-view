@@ -7,11 +7,12 @@ import {
   getGlossaryTermBySlug,
   getLearnLanguage,
   setLearnLanguage,
-  LEARN_UI,
-  recordRecentView
+  LEARN_UI
 } from '../data/learn.js';
 import { ROUTES, buildCanonicalUrl } from '../routes.js';
 import { initGlossaryTooltips } from '../enhancements.js';
+import { getCurrentUser, subscribeToAuth } from '../firebase/auth.js';
+import { promptSignInForBookmark } from '../firebase/ui.js';
 
 const ICONS = {
   book: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>`,
@@ -32,8 +33,12 @@ const ICONS = {
 const SAVED_TERMS_KEY = 'risepaisa_saved_glossary_terms';
 
 function getSavedGlossaryTerms() {
+  if (typeof window === 'undefined') return [];
+  const uid = localStorage.getItem('rp_active_uid');
+  if (!uid) return [];
   try {
-    const raw = localStorage.getItem(SAVED_TERMS_KEY);
+    const key = `${SAVED_TERMS_KEY}_${uid}`;
+    const raw = localStorage.getItem(key) || localStorage.getItem(SAVED_TERMS_KEY);
     return raw ? JSON.parse(raw) : [];
   } catch (e) {
     return [];
@@ -41,20 +46,31 @@ function getSavedGlossaryTerms() {
 }
 
 function isGlossaryTermSaved(slug) {
+  if (typeof window === 'undefined' || !slug) return false;
+  const uid = localStorage.getItem('rp_active_uid');
+  if (!uid) return false;
   const saved = getSavedGlossaryTerms();
   return saved.includes(slug);
 }
 
 function toggleSavedGlossaryTerm(slug) {
+  if (typeof window === 'undefined' || !slug) return false;
+  const uid = localStorage.getItem('rp_active_uid');
+  if (!uid) return false;
   try {
-    let saved = getSavedGlossaryTerms();
+    const key = `${SAVED_TERMS_KEY}_${uid}`;
+    let saved = JSON.parse(localStorage.getItem(key) || 'null');
+    if (!saved) {
+      saved = JSON.parse(localStorage.getItem(SAVED_TERMS_KEY) || '[]');
+      localStorage.removeItem(SAVED_TERMS_KEY);
+    }
     const index = saved.indexOf(slug);
     if (index > -1) {
       saved.splice(index, 1);
     } else {
       saved.push(slug);
     }
-    localStorage.setItem(SAVED_TERMS_KEY, JSON.stringify(saved));
+    localStorage.setItem(key, JSON.stringify(saved));
     return index === -1; // true if now saved
   } catch (e) {
     return false;
@@ -99,22 +115,26 @@ export function renderLearnGlossaryDetailPage(termSlug) {
   const howItWorks = term.howItWorks ? (term.howItWorks[lang] || term.howItWorks.en) : null;
   const formulaObj = term.formula || null;
   const whereUsed = term.whereUsed ? (term.whereUsed[lang] || term.whereUsed.en) : [];
-  const advantages = term.advantages ? (term.advantages[lang] || term.advantages.en || term.advantages) : [];
-  const limitations = term.limitations ? (term.limitations[lang] || term.limitations.en || term.limitations) : [];
-  const misconceptions = Array.isArray(term.misconceptions) ? term.misconceptions : [];
+  const advantages = term.advantages ? (term.advantages[lang] || term.advantages.en || term.advantages) : (term.prosAndCons?.pros ? (term.prosAndCons.pros[lang] || term.prosAndCons.pros.en || term.prosAndCons.pros) : []);
+  const limitations = term.limitations ? (term.limitations[lang] || term.limitations.en || term.limitations) : (term.prosAndCons?.cons ? (term.prosAndCons.cons[lang] || term.prosAndCons.cons.en || term.prosAndCons.cons) : []);
+  const misconceptions = Array.isArray(term.misconceptions) ? term.misconceptions : (Array.isArray(term.commonMisconceptions) ? term.commonMisconceptions : []);
   const comparison = term.comparison || null;
   const summaryPoints = term.summary ? (term.summary[lang] || term.summary.en || term.summary) : [];
 
   const nepalHeadline = term.nepalContext && term.nepalContext.headline ? (term.nepalContext.headline[lang] || term.nepalContext.headline.en) : (isEn ? 'Nepal Financial & Regulatory Context' : 'नेपालको वित्तीय तथा कानुनी सन्दर्भ');
-  const nepalBody = term.nepalContext && term.nepalContext.body ? (term.nepalContext.body[lang] || term.nepalContext.body.en) : '';
+  const nepalBody = term.nepalContext && term.nepalContext.body ? (term.nepalContext.body[lang] || term.nepalContext.body.en) : (term.nepalContext ? (term.nepalContext[lang] || term.nepalContext.en || '') : '');
   const nepalKeyPoints = term.nepalContext && term.nepalContext.keyPoints 
     ? (Array.isArray(term.nepalContext.keyPoints) 
         ? term.nepalContext.keyPoints 
         : (term.nepalContext.keyPoints[lang] || term.nepalContext.keyPoints.en || []))
     : [];
   
-  const practicalScenario = term.practicalExample && term.practicalExample.scenario ? (term.practicalExample.scenario[lang] || term.practicalExample.scenario.en) : '';
-  const practicalTakeaway = term.practicalExample && term.practicalExample.takeaway ? (term.practicalExample.takeaway[lang] || term.practicalExample.takeaway.en) : '';
+  const practicalScenario = term.practicalExample && term.practicalExample.scenario
+    ? (term.practicalExample.scenario[lang] || term.practicalExample.scenario.en)
+    : (term.example?.scenario ? `${term.example.scenario}${term.example.calculations ? '. ' + term.example.calculations.join('. ') : ''}` : '');
+  const practicalTakeaway = term.practicalExample && term.practicalExample.takeaway
+    ? (term.practicalExample.takeaway[lang] || term.practicalExample.takeaway.en)
+    : (term.example?.outcome || '');
   
   const relatedConcepts = Array.isArray(term.relatedConcepts) ? term.relatedConcepts : [];
   const relatedLessons = Array.isArray(term.relatedLessons) ? term.relatedLessons : [];
@@ -261,7 +281,7 @@ export function renderLearnGlossaryDetailPage(termSlug) {
               <h2 class="glossary-section-heading">Formula & Calculation</h2>
               <div class="glossary-formula-card">
                 <div class="formula-equation-box">
-                  <code>${formulaObj.equation || formulaObj.formula}</code>
+                  <code>${formulaObj.equation || formulaObj.formula || formulaObj.expression || ''}</code>
                 </div>
                 ${formulaObj.explanation ? `
                   <p class="formula-explanation-text">${formulaObj.explanation[lang] || formulaObj.explanation.en || formulaObj.explanation}</p>
@@ -272,16 +292,16 @@ export function renderLearnGlossaryDetailPage(termSlug) {
                     <ul class="formula-vars-list">
                       ${formulaObj.variables.map(v => {
                         const sym = v.symbol || v.name || '';
-                        const desc = v.label ? (v.label[lang] || v.label.en || v.label) : (v.desc ? (v.desc[lang] || v.desc.en || v.desc) : '');
+                        const desc = v.label ? (v.label[lang] || v.label.en || v.label) : (v.desc ? (v.desc[lang] || v.desc.en || v.desc) : (v.meaning ? (v.meaning[lang] || v.meaning.en || v.meaning) : ''));
                         return `<li><strong>${sym}</strong> = ${desc}</li>`;
                       }).join('')}
                     </ul>
                   </div>
                 ` : ''}
-                ${formulaObj.exampleCalc ? `
+                ${(formulaObj.exampleCalc || formulaObj.exampleCalculation) ? `
                   <div class="formula-example-box">
                     <span class="formula-example-title">Practical Calculation Example:</span>
-                    <p class="formula-example-scenario">${typeof formulaObj.exampleCalc === 'object' ? (formulaObj.exampleCalc[lang] || formulaObj.exampleCalc.en || '') : formulaObj.exampleCalc}</p>
+                    <p class="formula-example-scenario">${typeof (formulaObj.exampleCalc || formulaObj.exampleCalculation) === 'object' ? ((formulaObj.exampleCalc || formulaObj.exampleCalculation)[lang] || (formulaObj.exampleCalc || formulaObj.exampleCalculation).en || '') : (formulaObj.exampleCalc || formulaObj.exampleCalculation)}</p>
                   </div>
                 ` : (formulaObj.example ? `
                   <div class="formula-example-box">
@@ -353,7 +373,7 @@ export function renderLearnGlossaryDetailPage(termSlug) {
               <h2 class="glossary-section-heading">${isEn ? 'Common Misconceptions & Beginner Traps' : 'सुरुवाती लगानीकर्ताका भ्रम र यथार्थ'}</h2>
               <div class="glossary-misconceptions-grid">
                 ${misconceptions.map(m => {
-                  const myth = m.myth ? (m.myth[lang] || m.myth.en || m.myth) : '';
+                  const myth = m.myth ? (m.myth[lang] || m.myth.en || m.myth) : (m.misconception ? (m.misconception[lang] || m.misconception.en || m.misconception) : '');
                   const reality = m.reality ? (m.reality[lang] || m.reality.en || m.reality) : '';
                   return `
                     <div class="misconception-card">
@@ -628,21 +648,7 @@ export function initLearnGlossaryDetailPage(termSlug) {
   const lang = getLearnLanguage();
   const isEn = lang === 'en';
 
-  // 1. Record Recent View in Learn tracking
-  try {
-    recordRecentView({
-      id: `glossary-${term.slug}`,
-      type: 'glossary',
-      slug: term.slug,
-      title: term.term,
-      categorySlug: term.categorySlug,
-      timestamp: Date.now()
-    });
-  } catch (e) {
-    // Ignore storage issues
-  }
-
-  // 2. SEO Title, Description, Canonical & JSON-LD DefinedTerm Schema
+  // 1. SEO Title, Description, Canonical & JSON-LD DefinedTerm Schema
   const canonicalUrl = buildCanonicalUrl(ROUTES.LEARN_GLOSSARY_TERM(term.slug));
   document.title = `${term.term} - Meaning, Practical Example & Nepal Context | RisePaisa Glossary`;
 
@@ -674,6 +680,11 @@ export function initLearnGlossaryDetailPage(termSlug) {
   const bookmarkBtn = document.getElementById('glossary-bookmark-btn');
   if (bookmarkBtn) {
     bookmarkBtn.addEventListener('click', () => {
+      const user = getCurrentUser();
+      if (!user) {
+        promptSignInForBookmark({ contentType: 'term' });
+        return;
+      }
       const nowSaved = toggleSavedGlossaryTerm(term.slug);
       bookmarkBtn.classList.toggle('bookmarked', nowSaved);
       bookmarkBtn.innerHTML = nowSaved ? ICONS.bookmarkFilled : ICONS.bookmark;
@@ -683,6 +694,14 @@ export function initLearnGlossaryDetailPage(termSlug) {
           : (isEn ? 'Term removed from saved' : 'शब्द हटाइयो')
       );
     });
+
+    try {
+      subscribeToAuth((user) => {
+        const saved = user ? isGlossaryTermSaved(term.slug) : false;
+        bookmarkBtn.classList.toggle('bookmarked', saved);
+        bookmarkBtn.innerHTML = saved ? ICONS.bookmarkFilled : ICONS.bookmark;
+      });
+    } catch (e) {}
   }
 
   // 5. Share Term

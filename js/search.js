@@ -7,6 +7,7 @@
 
 import { LEARN_CATEGORIES, POPULAR_GUIDES } from './data/learn.js';
 import { GLOSSARY_DICTIONARY } from './data/glossaryData.js';
+import ARTICLES from './data/articles.js';
 import { ROUTES } from './routes.js';
 
 // ── Synonym & Acronym Map ────────────────────────────────────────────
@@ -38,6 +39,24 @@ const SYNONYMS = {
   'remittance': ['bipreshan', 'hundi', 'foreign employment', 'remit', 'fcy'],
   'debenture': ['bank debenture', 'bonds', 'fixed income', 'rinpatra'],
   'dollar card': ['prepaid usd card', 'forex card', 'usd 500 card'],
+  'eps': ['earnings per share', 'eps formula', 'diluted eps', 'prati seyar aamdani', 'financial ratio'],
+  'pe': ['pe ratio', 'price to earnings', 'p/e', 'valuation ratio', 'mulya aamdani anupat'],
+  'pe ratio': ['price to earnings', 'pe', 'p/e', 'valuation ratio', 'mulya aamdani anupat'],
+  'pb': ['pb ratio', 'price to book', 'p/b', 'book value', 'net worth'],
+  'pb ratio': ['price to book', 'pb', 'p/b', 'book value', 'net worth'],
+  'roe': ['return on equity', 'profitability ratio', 'equity return'],
+  'npl': ['non performing loan', 'bad loans', 'npa', 'kharab karja', 'nrb asset classification'],
+  'car': ['capital adequacy ratio', 'basel iii', 'capital fund', 'tier 1 capital'],
+  'spread rate': ['interest rate spread', 'lending deposit spread', 'nrb 4 percent spread'],
+  'wacc': ['weighted average cost of capital', 'purchase source', 'meroshare wacc', 'cgt calculation'],
+  'rsi': ['relative strength index', 'momentum indicator', 'overbought oversold', 'technical analysis'],
+  'candlestick': ['candlestick pattern', 'bullish candle', 'bearish candle', 'hammer', 'doji', 'marubozu'],
+  'support and resistance': ['support', 'resistance', 'price floor', 'price ceiling', 'breakout'],
+  'stop loss': ['stop-loss', 'risk management', 'exit trade', 'cut loss'],
+  'moving average': ['sma', 'ema', 'golden cross', 'death cross', 'trend line'],
+  'connectips': ['connect ips', 'nchl', 'national payments interface', 'fund transfer', 'broker payment'],
+  'book closure': ['book close', 'record date', 'dividend eligibility', 'bonus share eligibility', 'dapl'],
+  'bonus share': ['stock dividend', 'rights share', 'share dividend', 'book closure', 'bonus share tax'],
 
   // Synonyms → alternate terms
   'shares': ['stocks', 'equity', 'seyar', 'sher', 'securities', 'nepse shares'],
@@ -222,16 +241,26 @@ function levenshtein(a, b) {
   if (a.length === 0) return b.length;
   if (b.length === 0) return a.length;
   const m = a.length, n = b.length;
-  const dp = Array.from({ length: m + 1 }, (_, i) => [i]);
-  for (let j = 1; j <= n; j++) dp[0][j] = j;
+  let prevRow = new Uint16Array(n + 1);
+  let currRow = new Uint16Array(n + 1);
+  for (let j = 0; j <= n; j++) prevRow[j] = j;
+
   for (let i = 1; i <= m; i++) {
+    currRow[0] = i;
+    const aChar = a.charCodeAt(i - 1);
     for (let j = 1; j <= n; j++) {
-      dp[i][j] = a[i - 1] === b[j - 1]
-        ? dp[i - 1][j - 1]
-        : 1 + Math.min(dp[i - 1][j], dp[i][j - 1], dp[i - 1][j - 1]);
+      const cost = aChar === b.charCodeAt(j - 1) ? 0 : 1;
+      currRow[j] = Math.min(
+        prevRow[j] + 1,
+        currRow[j - 1] + 1,
+        prevRow[j - 1] + cost
+      );
     }
+    const temp = prevRow;
+    prevRow = currRow;
+    currRow = temp;
   }
-  return dp[m][n];
+  return prevRow[n];
 }
 
 function fuzzyMatch(token, target) {
@@ -239,7 +268,10 @@ function fuzzyMatch(token, target) {
   const a = token.toLowerCase().trim();
   const b = target.toLowerCase().trim();
   if (b.includes(a)) return true;
-  if (a.length >= 4) return levenshtein(a, b) <= 2;
+  if (a.length >= 4) {
+    if (Math.abs(a.length - b.length) > 2) return false;
+    return levenshtein(a, b) <= 2;
+  }
   return a === b;
 }
 
@@ -302,7 +334,7 @@ function scoreItem(item, queryTerms, rawQuery) {
 
   // Content type priority bonus
   const typePriority = {
-    lesson: 10, guide: 9, calculator: 8, glossary: 7,
+    lesson: 10, article: 9, guide: 9, calculator: 8, glossary: 7,
     resource: 5, category: 4, faq: 3,
   };
   score += (typePriority[item.type] || 0);
@@ -467,7 +499,43 @@ export function buildSearchIndex() {
     }
   }
 
-  // 5. Resources are added lazily via registerSearchItems()
+  // 5. Articles from ARTICLES
+  if (Array.isArray(ARTICLES)) {
+    for (const art of ARTICLES) {
+      const artTitle = art.title || '';
+      const artDesc = art.excerpt || art.metaDescription || '';
+      const artSlug = art.slug || '';
+      items.push({
+        id: `article-${artSlug}`,
+        type: 'article',
+        title: artTitle,
+        titleNp: '',
+        description: artDesc,
+        category: art.category || 'Blog',
+        categorySlug: 'blog',
+        difficulty: 'All Levels',
+        readingTime: art.readTime || '',
+        updatedDate: art.date || '',
+        lang: ['en'],
+        url: ROUTES.BLOG_POST(artSlug),
+        breadcrumb: `Blog › ${art.category || 'Articles'}`,
+        tags: [
+          'blog',
+          'article',
+          (art.category || '').toLowerCase(),
+          ...(art.tags || []).map(t => t.toLowerCase()),
+        ].filter(Boolean),
+        keywords: [
+          artTitle.toLowerCase(),
+          artSlug.replace(/-/g, ' '),
+          (art.category || '').toLowerCase(),
+          ...(art.tags || []).map(t => t.toLowerCase()),
+        ].filter(Boolean),
+      });
+    }
+  }
+
+  // 6. Resources are added lazily via registerSearchItems()
 
   _index = items;
   return _index;

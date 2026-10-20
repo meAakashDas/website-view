@@ -41,8 +41,8 @@
   <meta property="og:locale" content="en_US">
   <meta property="og:locale:alternate" content="ne_NP">
   <meta property="og:image" content="https://risepaisa.com/assets/images/risepaisa_logo.png">
-  <meta property="og:image:width" content="512">
-  <meta property="og:image:height" content="512">
+  <meta property="og:image:width" content="960">
+  <meta property="og:image:height" content="640">
   <meta property="og:image:alt" content="C-ASBA &amp; CRN Number Meaning &amp; Definition in Nepal | risePaisa Glossary">
 
   <!-- Twitter Card -->
@@ -229,46 +229,34 @@
       "mainEntity": [
         {
           "@type": "Question",
-          "name": {
-            "en": "How do I obtain my CRN number from my bank?",
-            "np": "आफ्नो बैंकबाट सीआरएन (CRN) नम्बर कसरी लिने?"
-          },
+          "name": "How do I obtain my CRN number from my bank?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "[object Object]"
+            "text": "You can obtain your CRN by visiting your bank branch with your Demat confirmation slip, or instantly online through your bank’s mobile banking app or internet banking portal under the C-ASBA / Demat services tab."
           }
         },
         {
           "@type": "Question",
-          "name": {
-            "en": "What should I do if MeroShare says \"CRN Verification Failed\"?",
-            "np": "मेरोसेयरमा \"CRN Verification Failed\" भन्यो भने के गर्ने?"
-          },
+          "name": "What should I do if MeroShare says \"CRN Verification Failed\"?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "[object Object]"
+            "text": "This error occurs if your name, date of birth, or citizenship number in your bank account does not exactly match your Demat account, or if you entered an incorrect CRN. Contact your bank's C-ASBA desk to reconcile your KYC information."
           }
         },
         {
           "@type": "Question",
-          "name": {
-            "en": "Can I apply for an IPO using a joint bank account under C-ASBA?",
-            "np": "के सी-आस्बामार्फत संयुक्त (Joint) बैंक खाताबाट आइपिओ भर्न मिल्छ?"
-          },
+          "name": "Can I apply for an IPO using a joint bank account under C-ASBA?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "[object Object]"
+            "text": "Under SEBON rules, an IPO application requires a 1:1 match between the Demat owner and the bank account holder. If applying from a joint account, only the primary account holder whose name appears first can link their Demat account."
           }
         },
         {
           "@type": "Question",
-          "name": {
-            "en": "Does the bank charge me every time I apply for an IPO?",
-            "np": "के आइपिओ भरेपिच्छे बैंकले शुल्क काट्छ?"
-          },
+          "name": "Does the bank charge me every time I apply for an IPO?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "[object Object]"
+            "text": "Most major commercial banks in Nepal charge NPR 0. Some development banks or select commercial banks charge between NPR 2 to NPR 5 per application as permitted by SEBON guidelines."
           }
         }
       ]
@@ -311,6 +299,7 @@
   <link rel="stylesheet" href="css/calculators.css">
   <link rel="stylesheet" href="css/learn.css">
   <link rel="stylesheet" href="css/search.css">
+  <link rel="stylesheet" href="css/auth.css">
 </head>
 <body>
   <div id="navbar-container">
@@ -323,13 +312,13 @@
         
         <!-- Desktop Nav Links (Center Desktop) -->
         <div class="nav-links">
-          <a href="/" class="nav-link">Home</a><a href="/learn" class="nav-link active">Learn</a><a href="/courses" class="nav-link">Courses</a><a href="/calculators" class="nav-link">Calculators</a><a href="/resources" class="nav-link nav-link-tertiary">Resources</a><a href="/blog" class="nav-link nav-link-tertiary">Blog</a><a href="/about" class="nav-link nav-link-secondary">About</a><a href="/contact" class="nav-link nav-link-secondary">Contact</a>
+          <a href="/" class="nav-link">Home</a><a href="/learn" class="nav-link active">Learn</a><a href="/courses" class="nav-link">Courses</a><a href="/courses/nepse-stock-market-basics/learn?lesson=lesson-1" class="nav-link active">My Courses</a><a href="/calculators" class="nav-link">Calculators</a><a href="/resources" class="nav-link nav-link-tertiary">Resources</a><a href="/blog" class="nav-link nav-link-tertiary">Blog</a><a href="/about" class="nav-link nav-link-secondary">About</a><a href="/contact" class="nav-link nav-link-secondary">Contact</a>
         </div>
 
         <!-- Mobile Center Quick Action Buttons (Center Mobile) -->
         <div class="mobile-quick-actions" role="navigation" aria-label="Quick Navigation">
-          <a href="/courses" class="mobile-quick-btn ">
-            <span>Courses</span>
+          <a href="/courses/nepse-stock-market-basics/learn?lesson=lesson-1" class="mobile-quick-btn active">
+            <span>My Courses</span>
           </a>
           <a href="/learn" class="mobile-quick-btn active">
             <span>Learn</span>
@@ -341,13 +330,11 @@
 
         <!-- Desktop Action Cluster (Right Desktop) -->
         <div class="nav-auth-area">
-          <button class="nav-search-btn" id="nav-search-btn" aria-label="Search (⌘K)" title="Search (⌘K)" type="button">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-          </button>
           <button class="theme-toggle-btn desktop-theme-toggle" id="theme-toggle-btn-desktop" aria-label="Toggle light and dark mode" title="Switch appearance" type="button">
             <span class="theme-icon theme-icon-sun" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg></span>
             <span class="theme-icon theme-icon-moon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></span>
           </button>
+          <div id="desktop-auth-container" class="nav-auth-slot"></div>
           <a href="https://wa.me/+9779740269317?text=I%20want%20to%20contact%20you." target="_blank" rel="noopener" class="btn btn-primary nav-cta">
             <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg> Contact Us
           </a>
@@ -388,6 +375,9 @@
             </button>
           </div>
 
+          <!-- Account / Auth Drawer Slot -->
+          <div id="mobile-auth-container" class="mobile-drawer-auth-slot"></div>
+
           <!-- Navigation Links List -->
           <nav class="mobile-nav-links" aria-label="Mobile Navigation Links">
             
@@ -400,6 +390,12 @@
                 <a href="/courses" class="mobile-link ">
                   <span class="mobile-link-icon-wrap" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg></span>
                   <span class="mobile-link-text">Courses</span>
+                  <span class="mobile-link-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
+                </a>
+              
+                <a href="/courses/nepse-stock-market-basics/learn?lesson=lesson-1" class="mobile-link active">
+                  <span class="mobile-link-icon-wrap" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg></span>
+                  <span class="mobile-link-text">My Courses</span>
                   <span class="mobile-link-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
                 </a>
               
@@ -861,7 +857,7 @@
               </p>
               <div class="whereseen-grid">
                 
-                  <a href="/learn/nepse/what-is-investing" class="whereseen-card">
+                  <a href="/learn/nepse/demat-meroshare-crn-setup" class="whereseen-card">
                     <span class="whereseen-type-badge Lesson">LESSON</span>
                     <span class="whereseen-title">The Modern Toolkit</span>
                     <span class="whereseen-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
@@ -918,7 +914,7 @@
                   </div>
                   <div class="ecosystem-items-list">
                     
-                      <a href="/learn/nepse/what-is-investing" class="ecosystem-link-card">
+                      <a href="/learn/nepse/demat-meroshare-crn-setup" class="ecosystem-link-card">
                         <span class="eco-card-title">The Modern Toolkit: Demat, MeroShare & TMS</span>
                         <span class="eco-card-action">Start Lesson →</span>
                       </a>
@@ -1119,6 +1115,10 @@
             <a href="/learn/nepse">NEPSE</a>
             <a href="/learn/personal-finance">Personal Finance</a>
             <a href="/learn/taxation">Taxation Nepal</a>
+            <a href="/learn/mutual-funds">Mutual Funds</a>
+            <a href="/learn/loans">Loans &amp; Banking</a>
+            <a href="/learn/insurance">Insurance</a>
+            <a href="/learn/retirement-planning">Retirement Planning</a>
           </div>
           
           <div class="footer-section">

@@ -1,0 +1,1120 @@
+/* ==============================================================================
+   risePaisa - Authentication & Account Styles
+   Inspired by Apple & RisePaisa Design System
+   Restrained micro-elevation, pure typography, seamless light & dark modes
+   ============================================================================== */
+
+/* ── 1. Navbar Auth Trigger Slot ───────────────────────── */
+.nav-auth-slot {
+  display: inline-flex;
+  align-items: center;
+  position: relative;
+}
+
+.nav-auth-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 36px;
+  padding: 0 14px;
+  border-radius: var(--radius-full, 9999px);
+  font-family: var(--font-body, system-ui, -apple-system, sans-serif);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--color-heading, #1D1D1F);
+  background: var(--color-surface, #FFFFFF);
+  border: 1px solid var(--color-border, rgba(0, 0, 0, 0.08));
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+  cursor: pointer;
+  transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+  white-space: nowrap;
+  user-select: none;
+}
+
+.nav-auth-btn:hover {
+  background: var(--color-surface-hover, #FAFAFC);
+  border-color: var(--color-border-hover, rgba(0, 0, 0, 0.16));
+  transform: translateY(-1px);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+}
+
+.nav-auth-btn:active {
+  transform: scale(0.98);
+}
+
+.nav-auth-btn svg {
+  width: 15px;
+  height: 15px;
+  color: var(--color-text-secondary, #56565C);
+}
+
+/* ── 2. Authenticated User Badge & Dropdown ──────────────── */
+.nav-user-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  height: 36px;
+  padding: 0 10px 0 4px;
+  border-radius: var(--radius-full, 9999px);
+  background: var(--color-surface, #FFFFFF);
+  border: 1px solid var(--color-border, rgba(0, 0, 0, 0.08));
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+  cursor: pointer;
+  font-family: var(--font-body, system-ui, -apple-system, sans-serif);
+  font-size: 13px;
+  color: var(--color-heading, #1D1D1F);
+  transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+}
+
+.nav-user-badge:hover,
+.nav-user-badge.open {
+  background: var(--color-surface-hover, #FAFAFC);
+  border-color: var(--color-border-hover, rgba(0, 0, 0, 0.16));
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.nav-user-avatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--color-primary, #0071E3);
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.nav-user-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.nav-user-name {
+  max-width: 110px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-weight: 500;
+}
+
+.nav-user-chevron {
+  width: 12px;
+  height: 12px;
+  color: var(--color-text-muted, #86868B);
+  transition: transform 0.2s ease;
+}
+
+.nav-user-badge.open .nav-user-chevron {
+  transform: rotate(180deg);
+}
+
+/* User Menu Dropdown */
+.nav-user-menu {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  width: 240px;
+  background: var(--color-surface-elevated, #FFFFFF);
+  border: 1px solid var(--color-border-light, rgba(0, 0, 0, 0.1));
+  border-radius: 14px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12), 0 1px 3px rgba(0, 0, 0, 0.05);
+  padding: 8px;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-6px) scale(0.98);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 1050;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+.nav-user-menu.open {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0) scale(1);
+}
+
+.nav-user-menu-header {
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--color-divider, rgba(0, 0, 0, 0.06));
+  margin-bottom: 4px;
+}
+
+.nav-user-menu-name {
+  font-weight: 600;
+  font-size: 13.5px;
+  color: var(--color-heading, #1D1D1F);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.nav-user-menu-email {
+  font-size: 11.5px;
+  color: var(--color-text-secondary, #56565C);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  margin-top: 2px;
+}
+
+.nav-user-menu-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 9px 12px;
+  font-size: 13px;
+  color: var(--color-heading, #1D1D1F);
+  background: transparent;
+  border: none;
+  border-radius: 8px;
+  text-align: left;
+  cursor: pointer;
+  transition: background 0.12s ease;
+  font-family: inherit;
+}
+
+.nav-user-menu-item:hover {
+  background: var(--color-surface-subtle, rgba(0, 0, 0, 0.04));
+}
+
+.nav-user-menu-item svg {
+  width: 16px;
+  height: 16px;
+  color: var(--color-text-secondary, #56565C);
+}
+
+.nav-user-menu-item.logout-item {
+  color: #D32F2F;
+}
+
+.nav-user-menu-item.logout-item svg {
+  color: #D32F2F;
+}
+
+.nav-user-menu-item.logout-item:hover {
+  background: rgba(211, 47, 47, 0.08);
+}
+
+/* ── 3. Mobile Drawer Auth Section ─────────────────────── */
+.mobile-drawer-auth-slot {
+  padding: 14px 18px;
+  border-bottom: 1px solid var(--color-divider, rgba(0, 0, 0, 0.06));
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* ── Mobile Drawer Auth Card & Account Actions ──── */
+.mobile-auth-guest-card,
+.mobile-auth-guest {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  width: 100%;
+  padding: 12px 14px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg, 16px);
+  box-sizing: border-box;
+}
+
+.mobile-auth-guest-info {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.mobile-auth-guest-title,
+.mobile-auth-guest-text {
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--color-heading);
+  line-height: 1.3;
+}
+
+.mobile-auth-guest-subtitle {
+  font-size: 11.5px;
+  color: var(--color-text-secondary);
+  line-height: 1.35;
+  margin-top: 2px;
+}
+
+.mobile-auth-signin-btn {
+  flex-shrink: 0;
+  min-height: 36px;
+  padding: 0 16px;
+  font-size: 13px;
+  font-weight: 600;
+  border-radius: var(--radius-full);
+}
+
+/* Logged-In User Card */
+.mobile-auth-user-card {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+  padding: 12px 14px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg, 16px);
+  box-sizing: border-box;
+}
+
+.mobile-auth-profile-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+.mobile-auth-avatar-wrap {
+  flex-shrink: 0;
+}
+
+.mobile-auth-avatar-wrap .nav-user-avatar {
+  width: 36px;
+  height: 36px;
+  font-size: 14px;
+}
+
+.mobile-auth-details {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  flex: 1;
+}
+
+.mobile-auth-user-name {
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--color-heading);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.3;
+}
+
+.mobile-auth-user-email {
+  font-size: 11.5px;
+  color: var(--color-text-secondary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.35;
+  margin-top: 2px;
+}
+
+/* Account Actions Grid */
+.mobile-auth-actions-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+  width: 100%;
+}
+
+.mobile-auth-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  height: 36px;
+  min-height: 36px;
+  padding: 0 10px;
+  font-size: 12.5px;
+  font-weight: 500;
+  font-family: var(--font-body);
+  color: var(--color-text-secondary);
+  background: var(--color-surface-subtle);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm, 8px);
+  text-decoration: none;
+  cursor: pointer;
+  transition: all var(--duration-fast) var(--ease-out);
+  -webkit-tap-highlight-color: transparent;
+  box-sizing: border-box;
+}
+
+.mobile-auth-btn:hover {
+  background: var(--color-surface-hover);
+  border-color: var(--color-border-hover);
+  color: var(--color-heading);
+}
+
+.mobile-auth-btn:active {
+  transform: scale(0.98);
+}
+
+.mobile-auth-btn-icon {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+  color: var(--color-text-muted);
+  transition: color var(--duration-fast) var(--ease-out);
+}
+
+.mobile-auth-btn:hover .mobile-auth-btn-icon {
+  color: var(--color-heading);
+}
+
+.mobile-auth-btn.mobile-auth-admin-btn {
+  color: var(--color-accent);
+  font-weight: 600;
+}
+
+.mobile-auth-btn.mobile-auth-admin-btn .mobile-auth-btn-icon {
+  color: var(--color-accent);
+}
+
+.mobile-auth-btn.mobile-auth-logout-btn {
+  color: #E53935;
+}
+
+.mobile-auth-btn.mobile-auth-logout-btn .mobile-auth-btn-icon {
+  color: #E53935;
+}
+
+.mobile-auth-btn.mobile-auth-logout-btn:hover {
+  background: rgba(229, 57, 53, 0.08);
+  border-color: rgba(229, 57, 53, 0.25);
+  color: #D32F2F;
+}
+
+/* ── 4. Apple-Inspired Authentication Modal ────────────── */
+.rp-auth-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  z-index: 2000;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.22s cubic-bezier(0.16, 1, 0.3, 1),
+              visibility 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.rp-auth-modal-overlay.open {
+  opacity: 1;
+  visibility: visible;
+}
+
+.rp-auth-modal-card {
+  width: 100%;
+  max-width: 420px;
+  background: var(--color-surface, #FFFFFF);
+  border: 1px solid var(--color-border-light, rgba(0, 0, 0, 0.1));
+  border-radius: 20px;
+  box-shadow: 0 20px 48px rgba(0, 0, 0, 0.14), 0 4px 12px rgba(0, 0, 0, 0.06);
+  padding: 28px 26px;
+  position: relative;
+  transform: scale(0.96) translateY(8px);
+  transition: transform 0.24s cubic-bezier(0.16, 1, 0.3, 1);
+  overflow: hidden;
+}
+
+.rp-auth-modal-overlay.open .rp-auth-modal-card {
+  transform: scale(1) translateY(0);
+}
+
+.rp-auth-close-btn {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--color-surface-subtle, rgba(0, 0, 0, 0.05));
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--color-text-secondary, #56565C);
+  transition: background 0.15s ease, transform 0.15s ease;
+}
+
+.rp-auth-close-btn:hover {
+  background: var(--color-surface-hover, rgba(0, 0, 0, 0.1));
+  color: var(--color-heading, #1D1D1F);
+}
+
+.rp-auth-header {
+  text-align: center;
+  margin-bottom: 22px;
+}
+
+.rp-auth-brand-logo {
+  font-family: var(--font-display, 'Outfit', -apple-system, sans-serif);
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--color-heading, #1D1D1F);
+  letter-spacing: -0.02em;
+  margin-bottom: 6px;
+}
+
+.rp-auth-brand-logo span {
+  color: var(--color-primary, #0071E3);
+}
+
+.rp-auth-title {
+  font-size: 19px;
+  font-weight: 600;
+  color: var(--color-heading, #1D1D1F);
+  letter-spacing: -0.01em;
+  margin: 0 0 4px 0;
+}
+
+.rp-auth-subtitle {
+  font-size: 13px;
+  color: var(--color-text-secondary, #56565C);
+  margin: 0;
+  line-height: 1.4;
+}
+
+/* Tabs */
+.rp-auth-tabs {
+  display: flex;
+  background: var(--color-surface-subtle, rgba(0, 0, 0, 0.05));
+  border-radius: 10px;
+  padding: 3px;
+  margin-bottom: 20px;
+}
+
+.rp-auth-tab {
+  flex: 1;
+  padding: 7px 0;
+  border: none;
+  background: transparent;
+  font-size: 12.5px;
+  font-weight: 500;
+  color: var(--color-text-secondary, #56565C);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.16s ease;
+  font-family: inherit;
+}
+
+.rp-auth-tab.active {
+  background: var(--color-surface, #FFFFFF);
+  color: var(--color-heading, #1D1D1F);
+  font-weight: 600;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+/* Forms & Inputs */
+.rp-auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.rp-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  text-align: left;
+}
+
+.rp-form-label {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--color-heading, #1D1D1F);
+}
+
+.rp-input-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.rp-input {
+  width: 100%;
+  height: 42px;
+  padding: 0 14px 0 38px;
+  border-radius: 10px;
+  border: 1px solid var(--color-border-light, rgba(0, 0, 0, 0.14));
+  background: var(--input-bg, #FFFFFF);
+  font-size: 14px;
+  color: var(--color-heading, #1D1D1F);
+  font-family: inherit;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.rp-input:focus {
+  outline: none;
+  border-color: var(--color-primary, #0071E3);
+  box-shadow: 0 0 0 3px var(--focus-ring, rgba(0, 113, 227, 0.2));
+}
+
+.rp-input-icon {
+  position: absolute;
+  left: 12px;
+  width: 16px;
+  height: 16px;
+  color: var(--color-text-muted, #86868B);
+  pointer-events: none;
+}
+
+.rp-input-toggle-pwd {
+  position: absolute;
+  right: 12px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: var(--color-text-muted, #86868B);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+
+.rp-input-toggle-pwd:hover {
+  color: var(--color-heading, #1D1D1F);
+}
+
+/* Error and Alert Messages */
+.rp-auth-alert {
+  padding: 10px 12px;
+  border-radius: 8px;
+  font-size: 12.5px;
+  line-height: 1.4;
+  margin-bottom: 12px;
+  display: none;
+}
+
+.rp-auth-alert.show {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.rp-auth-alert-error {
+  background: rgba(220, 38, 38, 0.08);
+  color: #DC2626;
+  border: 1px solid rgba(220, 38, 38, 0.2);
+}
+
+.rp-auth-alert-success {
+  background: rgba(16, 185, 129, 0.08);
+  color: #059669;
+  border: 1px solid rgba(16, 185, 129, 0.2);
+}
+
+.rp-auth-submit-btn {
+  width: 100%;
+  height: 42px;
+  border-radius: 10px;
+  background: var(--color-primary, #0071E3);
+  color: #FFFFFF;
+  border: none;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.18s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-family: inherit;
+  margin-top: 4px;
+}
+
+.rp-auth-submit-btn:hover {
+  background: var(--color-accent-hover, #005BB5);
+  box-shadow: 0 4px 12px rgba(0, 113, 227, 0.25);
+  transform: translateY(-1px);
+}
+
+.rp-auth-submit-btn:active {
+  transform: scale(0.985);
+}
+
+.rp-auth-submit-btn[disabled] {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Divider & Alternative Providers */
+.rp-auth-divider {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  margin: 16px 0;
+  color: var(--color-text-muted, #86868B);
+  font-size: 11.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.rp-auth-divider::before,
+.rp-auth-divider::after {
+  content: '';
+  flex: 1;
+  border-bottom: 1px solid var(--color-divider, rgba(0, 0, 0, 0.08));
+}
+
+.rp-auth-divider span {
+  padding: 0 10px;
+}
+
+.rp-auth-google-btn {
+  width: 100%;
+  height: 42px;
+  border-radius: 10px;
+  background: var(--color-surface, #FFFFFF);
+  border: 1px solid var(--color-border-light, rgba(0, 0, 0, 0.15));
+  color: var(--color-heading, #1D1D1F);
+  font-size: 13.5px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  cursor: pointer;
+  transition: all 0.18s ease;
+  font-family: inherit;
+}
+
+.rp-auth-google-btn:hover {
+  background: var(--color-surface-hover, #FAFAFC);
+  border-color: var(--color-border-hover, rgba(0, 0, 0, 0.25));
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+}
+
+.rp-auth-google-btn svg {
+  width: 18px;
+  height: 18px;
+}
+
+.rp-auth-footer-link {
+  font-size: 12.5px;
+  color: var(--color-primary, #0071E3);
+  text-align: center;
+  cursor: pointer;
+  border: none;
+  background: transparent;
+  padding: 4px;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  margin-top: 8px;
+  font-family: inherit;
+}
+
+.rp-auth-footer-link:hover {
+  color: var(--color-accent-hover, #005BB5);
+}
+
+/* ── 5. Dark Mode Adaptations ──────────────────────────── */
+[data-theme="dark"] .nav-auth-btn {
+  background: var(--color-surface, #1C1C1E);
+  border-color: var(--color-border, rgba(255, 255, 255, 0.1));
+  color: var(--color-heading, #F5F5F7);
+}
+
+[data-theme="dark"] .nav-auth-btn:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+[data-theme="dark"] .nav-user-badge {
+  background: var(--color-surface, #1C1C1E);
+  border-color: var(--color-border, rgba(255, 255, 255, 0.1));
+  color: var(--color-heading, #F5F5F7);
+}
+
+[data-theme="dark"] .nav-user-menu {
+  background: rgba(30, 30, 32, 0.95);
+  border-color: rgba(255, 255, 255, 0.12);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+[data-theme="dark"] .rp-auth-modal-card {
+  background: var(--color-surface, #1C1C1E);
+  border-color: rgba(255, 255, 255, 0.12);
+  box-shadow: 0 20px 48px rgba(0, 0, 0, 0.6);
+}
+
+[data-theme="dark"] .rp-auth-tabs {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+[data-theme="dark"] .rp-auth-tab.active {
+  background: #2C2C2E;
+  color: #FFFFFF;
+}
+
+[data-theme="dark"] .rp-input {
+  background: #2C2C2E;
+  border-color: rgba(255, 255, 255, 0.14);
+  color: #FFFFFF;
+}
+
+[data-theme="dark"] .rp-auth-google-btn {
+  background: #2C2C2E;
+  border-color: rgba(255, 255, 255, 0.16);
+  color: #FFFFFF;
+}
+
+[data-theme="dark"] .rp-auth-google-btn:hover {
+  background: #3A3A3C;
+}
+
+/* Spinner */
+.rp-spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top-color: #FFFFFF;
+  border-radius: 50%;
+  animation: rpSpin 0.6s linear infinite;
+}
+
+@keyframes rpSpin {
+  to { transform: rotate(360deg); }
+}
+
+/* ── 6. Account & Security Settings Modal ─────────────────── */
+.rp-settings-card {
+  max-width: 460px;
+}
+
+.rp-user-info-card {
+  background: var(--color-surface-subtle, rgba(0, 0, 0, 0.04));
+  border: 1px solid var(--color-border-light, rgba(0, 0, 0, 0.08));
+  border-radius: 14px;
+  padding: 14px 16px;
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  text-align: left;
+}
+
+.rp-user-info-top {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.rp-user-info-meta {
+  flex: 1;
+  min-width: 0;
+}
+
+.rp-user-info-name {
+  font-weight: 600;
+  font-size: 14.5px;
+  color: var(--color-heading, #1D1D1F);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.rp-user-info-email {
+  font-size: 12px;
+  color: var(--color-text-secondary, #56565C);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  margin-top: 1px;
+}
+
+.rp-user-info-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  flex-wrap: wrap;
+  padding-top: 8px;
+  border-top: 1px solid var(--color-divider, rgba(0, 0, 0, 0.06));
+}
+
+.rp-role-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 3px 9px;
+  border-radius: 9999px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.rp-role-badge.rp-role-admin {
+  background: rgba(0, 113, 227, 0.12);
+  color: #0071E3;
+}
+
+.rp-role-badge.rp-role-member {
+  background: rgba(0, 0, 0, 0.06);
+  color: var(--color-text-secondary, #56565C);
+}
+
+.rp-provider-tags {
+  display: inline-flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.rp-provider-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+  color: var(--color-text-secondary, #56565C);
+  background: var(--color-surface, #FFFFFF);
+  border: 1px solid var(--color-border-light, rgba(0, 0, 0, 0.1));
+  padding: 2px 7px;
+  border-radius: 6px;
+}
+
+.rp-provider-chip svg {
+  width: 12px;
+  height: 12px;
+}
+
+.rp-uid-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  color: var(--color-text-muted, #86868B);
+  font-family: monospace;
+  background: var(--color-surface, #FFFFFF);
+  padding: 4px 8px;
+  border-radius: 6px;
+  border: 1px solid var(--color-border-light, rgba(0, 0, 0, 0.08));
+}
+
+.rp-uid-chip {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-family: monospace;
+}
+
+.rp-btn-copy-uid {
+  background: transparent;
+  border: none;
+  font-size: 10px;
+  color: var(--color-primary, #0071E3);
+  cursor: pointer;
+  padding: 2px 4px;
+  margin-left: auto;
+  font-family: var(--font-body, system-ui, sans-serif);
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.rp-btn-copy-uid:hover {
+  text-decoration: underline;
+}
+
+.rp-settings-section-title {
+  font-size: 14.5px;
+  font-weight: 600;
+  color: var(--color-heading, #1D1D1F);
+  margin: 0 0 4px 0;
+  text-align: left;
+}
+
+.rp-settings-section-desc {
+  font-size: 12.5px;
+  color: var(--color-text-secondary, #56565C);
+  margin: 0 0 14px 0;
+  line-height: 1.4;
+  text-align: left;
+}
+
+.nav-user-menu-item.admin-item {
+  color: var(--color-primary, #0071E3);
+  font-weight: 600;
+}
+
+.nav-user-menu-item.admin-item svg {
+  color: var(--color-primary, #0071E3);
+}
+
+[data-theme="dark"] .rp-user-info-card {
+  background: #252528;
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+[data-theme="dark"] .rp-role-badge.rp-role-admin {
+  background: rgba(41, 151, 255, 0.16);
+  color: #4DB7F5;
+}
+
+[data-theme="dark"] .rp-role-badge.rp-role-member {
+  background: rgba(255, 255, 255, 0.08);
+  color: #A1A1A6;
+}
+
+[data-theme="dark"] .rp-provider-chip {
+  background: #2C2C2E;
+  border-color: rgba(255, 255, 255, 0.12);
+  color: #D2D2D7;
+}
+
+[data-theme="dark"] .rp-uid-row {
+  background: #1C1C1E;
+  border-color: rgba(255, 255, 255, 0.1);
+  color: #A1A1A6;
+}
+
+/* ── 9. Student First-Login Onboarding Modal ──────────────── */
+.rp-onboarding-modal-card {
+  max-width: 480px;
+}
+
+.rp-onboard-student-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(0, 102, 204, 0.08);
+  color: var(--color-primary, #0066cc);
+  padding: 5px 12px;
+  border-radius: var(--radius-full, 9999px);
+  font-size: 12px;
+  font-weight: 600;
+  margin-bottom: 12px;
+  font-family: monospace;
+  border: 1px solid rgba(0, 102, 204, 0.16);
+}
+
+.rp-onboard-student-badge code {
+  color: inherit;
+  font-weight: 700;
+}
+
+.rp-checkbox-label {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  cursor: pointer;
+  font-size: 13px;
+  color: var(--color-heading, #1D1D1F);
+  line-height: 1.4;
+  user-select: none;
+}
+
+.rp-checkbox {
+  width: 16px;
+  height: 16px;
+  margin-top: 2px;
+  flex-shrink: 0;
+  accent-color: var(--color-primary, #0066cc);
+  cursor: pointer;
+}
+
+[data-theme="dark"] .rp-onboard-student-badge {
+  background: rgba(41, 151, 255, 0.12);
+  color: #4DB7F5;
+  border-color: rgba(41, 151, 255, 0.24);
+}
+
+/* ── 10. Responsive Adaptations (Mobile & Small Viewports) ─────── */
+@media (max-width: 480px) {
+  .rp-auth-modal-overlay {
+    padding: 12px;
+  }
+  .rp-auth-modal-card,
+  .rp-settings-modal-card,
+  .rp-onboarding-modal-card {
+    padding: 22px 16px;
+    border-radius: 16px;
+    max-width: 100%;
+  }
+  .rp-auth-title {
+    font-size: 18px;
+  }
+  .rp-auth-btn-row {
+    flex-direction: column;
+    gap: 8px;
+  }
+}
+
+/* ── 11. Bookmark Authentication Prompt Dialog ─────────────── */
+.rp-bookmark-prompt-card {
+  max-width: 420px;
+  padding: 34px 28px 26px;
+  text-align: center;
+  position: relative;
+}
+
+.rp-prompt-icon-badge {
+  width: 52px;
+  height: 52px;
+  border-radius: var(--radius-full, 9999px);
+  background: rgba(0, 113, 227, 0.08);
+  border: 1px solid rgba(0, 113, 227, 0.2);
+  color: var(--color-accent, #0071E3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 16px;
+}
+
+.rp-prompt-icon-badge svg {
+  width: 24px;
+  height: 24px;
+}
+
+[data-theme="dark"] .rp-prompt-icon-badge {
+  background: rgba(29, 161, 242, 0.14);
+  border-color: rgba(77, 183, 245, 0.32);
+  color: #4DB7F5;
+}
+
+.rp-prompt-title {
+  font-family: var(--font-display, var(--font-heading));
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--color-heading);
+  margin: 0 0 8px;
+}
+
+.rp-prompt-message {
+  font-family: var(--font-body);
+  font-size: 14px;
+  line-height: 1.45;
+  color: var(--color-text-secondary);
+  margin: 0 0 24px;
+}
+
+.rp-prompt-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+}
+
+.rp-prompt-actions .btn {
+  width: 100%;
+  height: 42px;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: var(--radius-full);
+}
+
+
+

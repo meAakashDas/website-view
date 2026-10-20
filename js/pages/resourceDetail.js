@@ -6,6 +6,7 @@ import { getSettings } from '../data/settings.js';
 import { ICONS, setPageMeta, initAccordions } from '../components.js';
 import { ROUTES } from '../routes.js';
 import { getLearnLanguage } from '../data/learn.js';
+import { createBrandedVideoPlayer, initBrandedVideoPlayer } from '../components/videoPlayer.js';
 
 export function renderResourceDetailPage(slug, preferredLang = null) {
   const resource = getResourceBySlug(slug);
@@ -83,17 +84,12 @@ export function renderResourceDetailPage(slug, preferredLang = null) {
             <section class="cd-section" id="resource-preview">
               <h2 class="cd-section-title cd-section-heading">Preview</h2>
                 ${resource.previewVideoUrl
-                  ? `<div class="cd-video-player-frame cd-video-wrap">
-                       <iframe
-                         src="${resource.previewVideoUrl}"
-                         title="${resource.title} Preview"
-                         frameborder="0"
-                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                         allowfullscreen
-                         loading="lazy"
-                         class="cd-video-iframe"
-                         style="border:0"></iframe>
-                     </div>`
+                  ? createBrandedVideoPlayer({
+                      embedUrl: resource.previewVideoUrl,
+                      title: `${resource.title} Preview`,
+                      iframeId: 'resource-preview-iframe',
+                      extraClass: 'cd-video-wrap'
+                    })
                   : `<div class="cd-resource-preview-banner" style="background:linear-gradient(135deg, var(--color-surface) 0%, var(--color-surface-secondary, #f8fafc) 100%);border:1px solid var(--color-border);border-radius:var(--radius-lg);padding:var(--space-8);text-align:center;position:relative;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,0.04);margin-bottom:var(--space-6);">
                       <div style="font-size:36px;margin-bottom:var(--space-3);">${resource.format === 'Notion' ? '📝' : '📊'}</div>
                       <div style="font-weight:700;font-size:var(--text-lg);color:var(--color-heading);margin-bottom:var(--space-2);">${resource.title} - Digital Architecture</div>
@@ -410,12 +406,16 @@ export function renderResourceDetailPage(slug, preferredLang = null) {
 export function initResourceDetailPage() {
   initAccordions();
 
+  const previewPlayerEl = document.querySelector('#resource-preview [data-rp-player]');
+  const previewPlayerController = previewPlayerEl ? initBrandedVideoPlayer(previewPlayerEl) : null;
+
   // Mobile sticky CTA bar: Appear on mobile (< 1024px) when scrolled past purchase card
   const mobileBar = document.getElementById('resource-mobile-cta');
   const purchaseCard = document.getElementById('resource-pricing-card');
+  let updateMobileBar = null;
 
   if (mobileBar && purchaseCard) {
-    const updateMobileBar = () => {
+    updateMobileBar = () => {
       if (window.innerWidth >= 1024) {
         mobileBar.classList.remove('visible');
         document.body.classList.remove('has-mobile-cta');
@@ -431,5 +431,17 @@ export function initResourceDetailPage() {
     window.addEventListener('resize', updateMobileBar, { passive: true });
     updateMobileBar();
   }
+
+  return () => {
+    if (previewPlayerController) {
+      previewPlayerController.destroy();
+    }
+    if (updateMobileBar) {
+      window.removeEventListener('scroll', updateMobileBar);
+      window.removeEventListener('resize', updateMobileBar);
+    }
+    document.body.classList.remove('has-mobile-cta');
+  };
 }
+
 

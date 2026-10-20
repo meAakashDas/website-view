@@ -37,25 +37,39 @@ export function renderCoursesPage() {
 }
 
 export function initCoursesPage() {
-  const COURSES = getCourses();
+  let activeCourses = getCourses();
   const filters = document.querySelectorAll('#course-filters .filter-tab');
   const grid = document.getElementById('courses-grid');
   if (!grid) return;
+
+  function renderGridWithFilter(category) {
+    const filtered = category === 'All' ? activeCourses : activeCourses.filter(c => c.category === category);
+    grid.innerHTML = filtered.map(c => renderCourseCard(c)).join('');
+    grid.querySelectorAll('.card').forEach((card, i) => {
+      card.style.opacity = '0';
+      card.style.animation = `fadeInUp 0.4s ease forwards ${i * 80}ms`;
+    });
+  }
 
   filters.forEach(btn => {
     btn.addEventListener('click', () => {
       filters.forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
-
-      const cat = btn.dataset.category;
-      const filtered = cat === 'All' ? COURSES : COURSES.filter(c => c.category === cat);
-
-      grid.innerHTML = filtered.map(c => renderCourseCard(c)).join('');
-      // Re-animate
-      grid.querySelectorAll('.card').forEach((card, i) => {
-        card.style.opacity = '0';
-        card.style.animation = `fadeInUp 0.4s ease forwards ${i * 80}ms`;
-      });
+      renderGridWithFilter(btn.dataset.category);
     });
   });
+
+  // Revalidate with live published courses from Firestore
+  if (typeof window !== 'undefined') {
+    import('../firebase/courses.js').then(({ fetchPublishedCourses }) => {
+      fetchPublishedCourses().then(liveCourses => {
+        if (Array.isArray(liveCourses) && liveCourses.length > 0) {
+          activeCourses = liveCourses;
+          const activeFilter = document.querySelector('#course-filters .filter-tab.active');
+          const currentCat = activeFilter ? activeFilter.dataset.category : 'All';
+          renderGridWithFilter(currentCat);
+        }
+      }).catch(() => {});
+    }).catch(() => {});
+  }
 }

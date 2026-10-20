@@ -18,6 +18,10 @@ const TYPE_META = {
     label: 'Lesson', icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>',
     color: 'var(--color-accent)',
   },
+  article: {
+    label: 'Article', icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 20H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v1m2 13a2 2 0 0 1-2-2V7m2 13a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"/></svg>',
+    color: '#0284c7',
+  },
   guide: {
     label: 'Guide', icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>',
     color: '#10b981',
@@ -115,6 +119,7 @@ function renderFilterPills(activeFilter) {
   const filters = [
     { id: 'all', label: 'All' },
     { id: 'lesson', label: 'Lessons' },
+    { id: 'article', label: 'Articles' },
     { id: 'guide', label: 'Guides' },
     { id: 'calculator', label: 'Calculators' },
     { id: 'glossary', label: 'Glossary' },

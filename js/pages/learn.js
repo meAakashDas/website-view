@@ -19,6 +19,8 @@ import {
 import { getResources } from '../data/resources.js';
 import { ROUTES } from '../routes.js';
 import { ICONS, setPageMeta } from '../components.js';
+import { getCurrentUser, subscribeToAuth } from '../firebase/auth.js';
+import { openAuthModal, promptSignInForBookmark } from '../firebase/ui.js';
 
 // ── SVG Helpers ─────────────────────────────────
 const BOOKMARK_ICON = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>`;
@@ -585,178 +587,156 @@ function renderGlossaryTab(lang, ui) {
 }
 
 // ═══════════════════════════════════════════════
-// TAB 5 - PROGRESS DASHBOARD
+// TAB 5 - SAVED FOR LATER (BOOKMARKED LESSONS ONLY)
 // ═══════════════════════════════════════════════
-function renderProgressTab(lang, ui) {
-  // Read progress from localStorage
-  let savedProgress = null;
-  if (typeof window !== 'undefined') {
-    try {
-      const stored = localStorage.getItem('rp_learn_progress');
-      if (stored) savedProgress = JSON.parse(stored);
-    } catch (_) {}
-  }
-
-  const rawProgressPercent = Number(savedProgress?.percent ?? 35);
-  const progressPercent = Number.isFinite(rawProgressPercent)
-    ? Math.min(100, Math.max(0, rawProgressPercent))
-    : 0;
-  const lessonsCompleted = savedProgress?.lessonsCompleted ?? (savedProgress ? 8 : 4);
-  const totalLessons = 64;
-  const guidesRead = savedProgress?.guidesRead ?? (savedProgress ? 3 : 2);
-  const totalGuides = 12;
-  const calcsUsed = savedProgress?.calcsUsed ?? (savedProgress ? 4 : 3);
-  const totalCalcs = 9;
-  const resourcesDownloaded = savedProgress?.resourcesDownloaded ?? (savedProgress ? 2 : 1);
-  const totalResources = 6;
-
+export function renderBookmarksTab(lang, ui) {
   const readSavedList = (key) => {
-    if (typeof window === 'undefined') return [];
     try {
-      const value = JSON.parse(localStorage.getItem(key) || '[]');
+      const storage = (typeof window !== 'undefined' && window.localStorage)
+        ? window.localStorage
+        : (typeof localStorage !== 'undefined' ? localStorage : null);
+      if (!storage) return [];
+      const value = JSON.parse(storage.getItem(key) || '[]');
       return Array.isArray(value) ? value : [];
     } catch (error) {
       return [];
     }
   };
 
-  const savedLessonIds = readSavedList('rp_learn_bookmarks');
-  const savedGuideSlugs = readSavedList('rp_learn_saved_guides');
-  const savedResourceIds = readSavedList('rp_learn_saved_resources');
+  const storage = (typeof window !== 'undefined' && window.localStorage)
+    ? window.localStorage
+    : (typeof localStorage !== 'undefined' ? localStorage : null);
+  const isLoggedIn = Boolean(storage && storage.getItem('rp_active_uid'));
+  const savedLessonIds = isLoggedIn ? readSavedList('rp_learn_bookmarks') : [];
   const savedLessons = [];
+  const matchedSlugs = new Set();
+
   (LEARN_CATEGORIES || []).forEach(category => {
     (category.roadmap || []).forEach(module => {
       (module.lessons || []).forEach(lesson => {
-        if (!savedLessonIds.includes(lesson.id)) return;
+        const isSaved = savedLessonIds.includes(lesson.id) || (lesson.slug && savedLessonIds.includes(lesson.slug));
+        if (!isSaved) return;
         const lessonData = lesson[lang] || lesson.en || {};
+        const catMeta = category[lang] || category.en || {};
         savedLessons.push({
+          id: lesson.id,
+          slug: lesson.slug,
           type: lang === 'np' ? 'पाठ' : 'Lesson',
           title: lessonData.title || lesson.id,
+          summary: lessonData.summary || lesson.en?.summary || '',
+          duration: lesson.duration || '',
+          categoryName: catMeta.name || category.slug,
+          categorySlug: category.slug,
           href: ROUTES.LEARN_LESSON ? ROUTES.LEARN_LESSON(category.slug, lesson.slug) : `/learn/${category.slug}/${lesson.slug}`
         });
+        if (lesson.id) matchedSlugs.add(lesson.id);
+        if (lesson.slug) matchedSlugs.add(lesson.slug);
       });
     });
   });
-  const savedGuides = (POPULAR_GUIDES || [])
-    .filter(guide => savedGuideSlugs.includes(guide.slug))
-    .map(guide => ({
-      type: lang === 'np' ? 'गाइड' : 'Guide',
-      title: guide.title[lang] || guide.title.en,
-      href: guide.href || `/learn/guides/${guide.slug}`
-    }));
-  const savedResources = (FREE_RESOURCES || [])
-    .filter(resource => savedResourceIds.includes(resource.id))
-    .map(resource => ({
-      type: lang === 'np' ? 'स्रोत' : 'Resource',
-      title: resource.title[lang] || resource.title.en,
-      href: resource.downloadUrl
-    }));
-  const savedItems = [...savedLessons, ...savedGuides, ...savedResources];
+
+  // Gracefully handle unindexed / external lessons or missing metadata (Test J)
+  savedLessonIds.forEach(idOrSlug => {
+    if (!idOrSlug || matchedSlugs.has(idOrSlug)) return;
+    const cleanTitle = idOrSlug.replace(/[-_]/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
+    savedLessons.push({
+      id: idOrSlug,
+      slug: idOrSlug,
+      type: lang === 'np' ? 'पाठ' : 'Lesson',
+      title: cleanTitle,
+      summary: lang === 'np' ? 'यो पाठ पछिको अध्ययनका लागि सुरक्षित गरिएको छ।' : 'Saved lesson for focused study and reference.',
+      duration: '',
+      categoryName: lang === 'np' ? 'RisePaisa अध्ययन' : 'RisePaisa Learn',
+      categorySlug: 'nepse',
+      href: `/learn/nepse/${idOrSlug}`
+    });
+    matchedSlugs.add(idOrSlug);
+  });
+
+  const count = savedLessons.length;
+  const countLabel = lang === 'np'
+    ? `${count} सुरक्षित पाठ`
+    : `${count} Saved Lesson${count === 1 ? '' : 's'}`;
+
+  const isAuthPending = (typeof window !== 'undefined' && !window._rpAuthReady && Boolean(localStorage.getItem('rp_active_uid')));
 
   return `
-    <div class="learn-tab-panel" id="tab-progress" role="tabpanel" aria-labelledby="tab-btn-progress">
-
-      <!-- Progress Dashboard -->
-      <div class="learn-progress-dashboard">
-        <div class="learn-progress-header">
-          <div class="learn-progress-ring-box">
-            <div class="rp-progress-ring-wrap">
-              <svg class="rp-progress-ring" width="88" height="88" viewBox="0 0 88 88" aria-hidden="true">
-                <circle class="rp-progress-ring-track" cx="44" cy="44" r="36" stroke-width="7" fill="none" />
-                <circle class="rp-progress-ring-fill" cx="44" cy="44" r="36" stroke-width="7" fill="none"
-                  stroke-dasharray="226.19"
-                  stroke-dashoffset="${(226.19 - (progressPercent / 100) * 226.19).toFixed(1)}" />
-              </svg>
-              <div class="rp-progress-ring-text">
-                <span class="rp-progress-ring-val">${progressPercent}%</span>
-              </div>
-            </div>
-            <div class="learn-progress-hero-text">
-              <div class="learn-continue-label">
-                <span class="dot" aria-hidden="true"></span>
-                ${savedProgress ? ui.continuePrompt : (lang === 'np' ? 'तपाईंको सिकाइ ड्यासबोर्ड' : 'Your Learning Dashboard')}
-              </div>
-              <h2 class="learn-continue-title">
-                ${savedProgress ? savedProgress.title : (CONTINUE_LEARNING_DEFAULT.title[lang] || CONTINUE_LEARNING_DEFAULT.title.en)}
-              </h2>
-              <p class="learn-continue-desc">
-                ${savedProgress ? (savedProgress.desc || '') : (CONTINUE_LEARNING_DEFAULT.desc[lang] || CONTINUE_LEARNING_DEFAULT.desc.en)}
-              </p>
-              <div class="rp-progress-pill-row">
-                <div class="rp-progress-pill-track" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${progressPercent}" aria-label="${lang === 'np' ? 'समग्र सिकाइ प्रगति' : 'Overall learning progress'}">
-                  <div class="rp-progress-pill-fill" style="width: ${progressPercent}%;"></div>
-                </div>
-                <span class="rp-progress-pill-badge">${progressPercent}% ${lang === 'np' ? 'सम्पन्न' : 'Complete'}</span>
-              </div>
-            </div>
+    <div class="learn-tab-panel" id="tab-bookmarks" role="tabpanel" aria-labelledby="tab-btn-bookmarks">
+      
+      <!-- Clean Saved for Later Header -->
+      <div class="learn-saved-header">
+        <div class="learn-saved-header-content">
+          <div class="learn-saved-header-badge">
+            <span class="learn-saved-badge-icon" aria-hidden="true">${BOOKMARK_FILLED_ICON}</span>
+            <span class="learn-saved-count-badge" id="saved-lessons-count-badge">${countLabel}</span>
           </div>
-
-          <div class="learn-progress-cta-wrap">
-            <a href="${savedProgress ? savedProgress.href : CONTINUE_LEARNING_DEFAULT.href}" class="btn btn-primary btn-lg">
-              ${savedProgress ? (lang === 'np' ? 'पाठ पुनः सुरु गर्नुहोस्' : 'Resume Lesson') : (lang === 'np' ? 'मोड्युल १ सुरु गर्नुहोस्' : 'Start Module 1')}
-              ${ICONS.arrowRight}
-            </a>
-          </div>
-        </div>
-
-        <!-- Stats Grid -->
-        <div class="learn-progress-stats-grid">
-          <div class="learn-progress-stat-card">
-            <div class="learn-stat-icon" aria-hidden="true">${ICONS.bookOpen}</div>
-            <div class="learn-stat-content">
-              <div class="learn-stat-val">${lessonsCompleted} <span class="learn-stat-max">/ ${totalLessons}</span></div>
-              <div class="learn-stat-label">${lang === 'np' ? 'सकिएका पाठहरू' : 'Lessons Completed'}</div>
-            </div>
-          </div>
-
-          <div class="learn-progress-stat-card">
-            <div class="learn-stat-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>
-            </div>
-            <div class="learn-stat-content">
-              <div class="learn-stat-val">${guidesRead} <span class="learn-stat-max">/ ${totalGuides}</span></div>
-              <div class="learn-stat-label">${lang === 'np' ? 'पढिएका गाइडहरू' : 'Guides Read'}</div>
-            </div>
-          </div>
-
-          <div class="learn-progress-stat-card">
-            <div class="learn-stat-icon" aria-hidden="true">${CALC_ICON}</div>
-            <div class="learn-stat-content">
-              <div class="learn-stat-val">${calcsUsed} <span class="learn-stat-max">/ ${totalCalcs}</span></div>
-              <div class="learn-stat-label">${lang === 'np' ? 'प्रयोग गरिएका Calculator' : 'Calculators Used'}</div>
-            </div>
-          </div>
-
-          <div class="learn-progress-stat-card">
-            <div class="learn-stat-icon" aria-hidden="true">${DOWNLOAD_ICON}</div>
-            <div class="learn-stat-content">
-              <div class="learn-stat-val">${resourcesDownloaded} <span class="learn-stat-max">/ ${totalResources}</span></div>
-              <div class="learn-stat-label">${lang === 'np' ? 'डाउनलोड गरिएका सामग्री' : 'Resources Downloaded'}</div>
-            </div>
-          </div>
+          <h2 class="learn-saved-heading">${lang === 'np' ? 'पछिका लागि सुरक्षित पाठहरू' : 'Saved for Later'}</h2>
+          <p class="learn-saved-subheading">
+            ${lang === 'np'
+              ? 'तपाईंले सुरक्षित गर्नुभएका पाठहरू यहाँ राखिएका छन्। जुनसुकै बेला अध्ययन गर्न वा हटाउन सक्नुहुन्छ।'
+              : 'Lessons you have bookmarked for focused study and quick reference. Accessible anytime across your sessions.'}
+          </p>
         </div>
       </div>
 
-      <!-- Saved Items -->
-      <section class="learn-saved-section" aria-labelledby="learn-saved-title">
-        <div class="learn-section-header-sm">
-          <h3 class="learn-section-label" id="learn-saved-title">${lang === 'np' ? 'सुरक्षित सामग्री' : 'Saved for Later'}</h3>
-          <p class="learn-section-sublabel">${lang === 'np' ? 'तपाईंले Bookmark गरेका पाठ र गाइडहरू।' : 'Lessons and guides you have bookmarked for later.'}</p>
-        </div>
-        ${savedItems.length ? `
-          <div class="learn-saved-grid" role="list">
-            ${savedItems.map(item => `
-              <a href="${item.href}" class="learn-saved-card" role="listitem">
-                <span class="learn-saved-type">${item.type}</span>
-                <span class="learn-saved-title">${item.title}</span>
-                <span class="learn-saved-arrow" aria-hidden="true">${ICONS.arrowRight}</span>
-              </a>
+      <!-- Bookmarked Lessons Grid or Empty State -->
+      <section class="learn-saved-section" aria-label="${lang === 'np' ? 'सुरक्षित पाठहरूको सूची' : 'Bookmarked Lessons List'}">
+        ${savedLessons.length ? `
+          <div class="learn-saved-grid" id="saved-lessons-grid" role="list">
+            ${savedLessons.map(lesson => `
+              <article class="learn-saved-card" id="saved-card-${lesson.id}" data-lesson-id="${lesson.id}" data-lesson-slug="${lesson.slug || ''}" role="listitem">
+                <a href="${lesson.href}" class="learn-saved-card-body">
+                  <div class="learn-saved-card-top">
+                    <span class="learn-saved-type">${lesson.type}</span>
+                    <span class="learn-saved-cat">${lesson.categoryName}</span>
+                    ${lesson.duration ? `<span class="learn-saved-dur">${lesson.duration}</span>` : ''}
+                  </div>
+                  <h3 class="learn-saved-title">${lesson.title}</h3>
+                  ${lesson.summary ? `<p class="learn-saved-desc">${lesson.summary}</p>` : ''}
+                </a>
+                <div class="learn-saved-card-actions">
+                  <button type="button"
+                          class="learn-saved-remove-btn"
+                          data-lesson-id="${lesson.id}"
+                          data-lesson-slug="${lesson.slug || ''}"
+                          data-lesson-title="${lesson.title.replace(/"/g, '&quot;')}"
+                          aria-label="${lang === 'np' ? 'Bookmark हटाउनुहोस्' : 'Remove bookmark'}"
+                          title="${lang === 'np' ? 'Bookmark हटाउनुहोस्' : 'Remove bookmark'}">
+                    ${ICONS.x || '✕'}
+                    <span class="learn-saved-btn-text">${lang === 'np' ? 'हटाउनुहोस्' : 'Remove'}</span>
+                  </button>
+                  <a href="${lesson.href}" class="learn-saved-open-btn" aria-label="${lang === 'np' ? 'पाठ खोल्नुहोस्' : 'Open lesson'}">
+                    <span>${lang === 'np' ? 'पाठ सुरु गर्नुहोस्' : 'Open Lesson'}</span>
+                    ${ICONS.arrowRight}
+                  </a>
+                </div>
+              </article>
             `).join('')}
           </div>
+        ` : isAuthPending ? `
+          <div class="learn-saved-loading" id="saved-lessons-loading">
+            <div class="learn-saved-loading-spinner" aria-hidden="true"></div>
+            <h3 class="learn-saved-loading-title">${lang === 'np' ? 'सुरक्षित पाठहरू लोड हुँदैछ...' : 'Loading Saved Lessons...'}</h3>
+            <p class="learn-saved-loading-desc">${lang === 'np' ? 'कृपया एकछिन पर्खनुहोस्...' : 'Syncing your private bookmarks across sessions...'}</p>
+          </div>
+        ` : !isLoggedIn ? `
+          <div class="learn-saved-empty" id="saved-lessons-empty">
+            <div class="learn-saved-empty-icon" aria-hidden="true">${BOOKMARK_ICON}</div>
+            <h3 class="learn-saved-empty-title">${lang === 'np' ? 'सुरक्षित पाठहरू हेर्न साइन इन गर्नुहोस्' : 'Sign in to access your bookmarks'}</h3>
+            <p class="learn-saved-empty-desc">${lang === 'np' ? 'तपाईंले सुरक्षित गर्नुभएका पाठहरू हेर्न र व्यवस्थापन गर्न कृपया आफ्नो खातामा साइन इन गर्नुहोस्।' : 'Sign in to save lessons and access your bookmarks across all your devices.'}</p>
+            <button type="button" class="btn btn-primary btn-sm" id="bookmarks-tab-signin-btn">
+              ${lang === 'np' ? 'साइन इन गर्नुहोस्' : 'Sign In'}
+            </button>
+          </div>
         ` : `
-          <div class="learn-saved-empty">
-            <span>${lang === 'np' ? 'अहिलेसम्म कुनै सामग्री सुरक्षित गरिएको छैन।' : 'No saved items yet.'}</span>
-            <a href="#tab-browse" class="learn-saved-empty-link">${lang === 'np' ? 'पाठहरू हेर्नुहोस्' : 'Browse lessons'}</a>
+          <div class="learn-saved-empty" id="saved-lessons-empty">
+            <div class="learn-saved-empty-icon" aria-hidden="true">${BOOKMARK_ICON}</div>
+            <h3 class="learn-saved-empty-title">${lang === 'np' ? 'अहिलेसम्म कुनै पाठ सुरक्षित गरिएको छैन' : 'No Bookmarked Lessons Yet'}</h3>
+            <p class="learn-saved-empty-desc">${lang === 'np' ? 'पाठहरू अध्ययन गर्दा Bookmark बटन थिचेर यहाँ सुरक्षित गर्न सक्नुहुन्छ।' : 'Browse lessons and click the Bookmark button to save them here for easy access.'}</p>
+            <button type="button" class="btn btn-primary btn-sm learn-saved-browse-btn" data-target-tab="browse">
+              ${lang === 'np' ? 'पाठहरू हेर्नुहोस्' : 'Browse Lessons'}
+              ${ICONS.arrowRight}
+            </button>
           </div>
         `}
       </section>
@@ -787,7 +767,7 @@ export function renderLearnPage() {
     { id: 'browse', icon: BOOK_ICON, label: lang === 'np' ? 'विषयहरू' : 'Browse Topics' },
     { id: 'resources', icon: RESOURCE_ICON, label: lang === 'np' ? 'स्रोतहरू' : 'Resources' },
     { id: 'glossary', icon: GLOSSARY_ICON, label: lang === 'np' ? 'शब्दावली' : 'Glossary' },
-    { id: 'progress', icon: PROGRESS_ICON, label: lang === 'np' ? 'प्रगति' : 'Progress' },
+    { id: 'bookmarks', icon: BOOKMARK_ICON, label: lang === 'np' ? 'सुरक्षित पाठहरू' : 'Saved for Later' },
   ];
 
   return `
@@ -851,7 +831,7 @@ export function renderLearnPage() {
           ${renderBrowseTab(lang, ui)}
           ${renderResourcesTab(lang, ui)}
           ${renderGlossaryTab(lang, ui)}
-          ${renderProgressTab(lang, ui)}
+          ${renderBookmarksTab(lang, ui)}
         </div>
       </div>
 
@@ -864,6 +844,7 @@ export function renderLearnPage() {
 // ═══════════════════════════════════════════════
 export function initLearnPage() {
   const lang = getLearnLanguage();
+  const ui = LEARN_UI[lang] || LEARN_UI.en;
   const activeTabStorageKey = 'rp_learn_active_tab';
 
   // ── 1. Language Toggle ──────────────────────
@@ -914,12 +895,32 @@ export function initLearnPage() {
       panel.hidden = !isActive;
     });
     localStorage.setItem(activeTabStorageKey, tabId);
+
+    // Refresh bookmarks panel on tab selection
+    if (tabId === 'bookmarks') {
+      const currentPanel = document.getElementById('tab-bookmarks');
+      if (currentPanel) {
+        const tempDiv = document.createElement('div');
+        tempDiv.innerHTML = renderBookmarksTab(lang, ui);
+        const newPanel = tempDiv.firstElementChild;
+        if (newPanel) {
+          newPanel.classList.add('active');
+          newPanel.hidden = false;
+          newPanel.setAttribute('aria-hidden', 'false');
+          currentPanel.replaceWith(newPanel);
+          attachSavedCardListeners();
+        }
+      }
+    }
   }
 
-  // Initialize: restore the last section, defaulting to Start Here.
-  const savedTab = localStorage.getItem(activeTabStorageKey);
+  // Initialize: restore the last section, defaulting to Start Here (or hash if #bookmarks/#progress/#saved)
+  const hash = (typeof window !== 'undefined' && window.location.hash) ? window.location.hash.toLowerCase() : '';
+  const hashTab = (hash === '#bookmarks' || hash === '#progress' || hash === '#saved') ? 'bookmarks' : null;
+  const rawSavedTab = hashTab || localStorage.getItem(activeTabStorageKey);
+  const savedTab = rawSavedTab === 'progress' ? 'bookmarks' : rawSavedTab;
   const initialTab = Array.from(tabBtns).some(btn => btn.dataset.tab === savedTab) ? savedTab : 'roadmap';
-  tabPanels.forEach((panel, idx) => {
+  tabPanels.forEach((panel) => {
     const isActive = panel.id === `tab-${initialTab}`;
     panel.classList.toggle('active', isActive);
     panel.hidden = !isActive;
@@ -930,6 +931,133 @@ export function initLearnPage() {
     btn.classList.toggle('active', isActive);
     btn.setAttribute('aria-selected', isActive);
   });
+
+  // ── 2b. Saved Lessons Direct Removal & Navigation ──
+  function attachSavedCardListeners() {
+    const removeBtns = document.querySelectorAll('.learn-saved-remove-btn');
+    removeBtns.forEach(btn => {
+      btn.addEventListener('click', async (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        const lessonId = btn.dataset.lessonId;
+        const lessonSlug = btn.dataset.lessonSlug;
+        if (!lessonId && !lessonSlug) return;
+
+        const card = (lessonId ? document.getElementById(`saved-card-${lessonId}`) : null)
+          || (lessonSlug ? document.getElementById(`saved-card-${lessonSlug}`) : null);
+        let removeSuccess = true;
+        try {
+          const { syncBookmarkToggle } = await import('../firebase/db.js');
+          let res = null;
+          if (lessonId) res = await syncBookmarkToggle('lesson', lessonId, false);
+          if (lessonSlug && lessonSlug !== lessonId) {
+            const res2 = await syncBookmarkToggle('lesson', lessonSlug, false);
+            if (res2 && res2.success === false) removeSuccess = false;
+          }
+          if (res && res.success === false) removeSuccess = false;
+        } catch (err) {
+          console.warn('[Learn] Bookmark remove error:', err);
+          removeSuccess = false;
+        }
+
+        if (!removeSuccess) {
+          if (card) {
+            card.style.opacity = '1';
+            card.style.pointerEvents = '';
+          }
+          alert('Could not remove bookmark. Please check your connection.');
+          return;
+        }
+
+        if (card) {
+          card.style.transition = 'all 0.25s ease';
+          card.style.transform = 'scale(0.95)';
+          card.style.opacity = '0';
+          setTimeout(() => {
+            card.remove();
+            const grid = document.getElementById('saved-lessons-grid');
+            const remaining = grid ? grid.querySelectorAll('.learn-saved-card').length : 0;
+            const badge = document.getElementById('saved-lessons-count-badge');
+            if (badge) {
+              badge.textContent = lang === 'np'
+                ? `${remaining} सुरक्षित पाठ`
+                : `${remaining} Saved Lesson${remaining === 1 ? '' : 's'}`;
+            }
+            if (remaining === 0) {
+              const section = document.querySelector('.learn-saved-section');
+              if (section) {
+                section.innerHTML = `
+                  <div class="learn-saved-empty" id="saved-lessons-empty">
+                    <div class="learn-saved-empty-icon" aria-hidden="true">${BOOKMARK_ICON}</div>
+                    <h3 class="learn-saved-empty-title">${lang === 'np' ? 'अहिलेसम्म कुनै पाठ सुरक्षित गरिएको छैन' : 'No Bookmarked Lessons Yet'}</h3>
+                    <p class="learn-saved-empty-desc">${lang === 'np' ? 'पाठहरू अध्ययन गर्दा Bookmark बटन थिचेर यहाँ सुरक्षित गर्न सक्नुहुन्छ।' : 'Browse lessons and click the Bookmark button to save them here for easy access.'}</p>
+                    <button type="button" class="btn btn-primary btn-sm learn-saved-browse-btn" data-target-tab="browse">
+                      ${lang === 'np' ? 'पाठहरू हेर्नुहोस्' : 'Browse Lessons'}
+                      ${ICONS.arrowRight || '→'}
+                    </button>
+                  </div>
+                `;
+                attachSavedCardListeners();
+              }
+            }
+          }, 260);
+        }
+      });
+    });
+
+    const browseBtns = document.querySelectorAll('.learn-saved-browse-btn');
+    browseBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        activateTab('browse');
+        const tabsBar = document.getElementById('learn-tabs-bar');
+        if (tabsBar) tabsBar.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    });
+
+    const signInBtn = document.getElementById('bookmarks-tab-signin-btn');
+    if (signInBtn) {
+      signInBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        openAuthModal('signin');
+      });
+    }
+  }
+
+  attachSavedCardListeners();
+
+  // Listen for background cloud bookmark sync events to refresh saved items
+  if (typeof window !== 'undefined') {
+    const handleBookmarksSynced = () => {
+      const currentPanel = document.getElementById('tab-bookmarks');
+      if (currentPanel) {
+        const isActive = currentPanel.classList.contains('active');
+        const tempDiv = document.createElement('div');
+        tempDiv.innerHTML = renderBookmarksTab(lang, ui);
+        const newPanel = tempDiv.firstElementChild;
+        if (newPanel) {
+          newPanel.classList.toggle('active', isActive);
+          newPanel.hidden = !isActive;
+          newPanel.setAttribute('aria-hidden', !isActive);
+          currentPanel.replaceWith(newPanel);
+          attachSavedCardListeners();
+        }
+      }
+    };
+    window.addEventListener('rp:bookmarks-synced', handleBookmarksSynced);
+
+    try {
+      subscribeToAuth(() => {
+        handleBookmarksSynced();
+      });
+    } catch (e) {}
+
+    window.addEventListener('hashchange', () => {
+      const currentHash = window.location.hash.toLowerCase();
+      if (currentHash === '#bookmarks' || currentHash === '#progress' || currentHash === '#saved') {
+        activateTab('bookmarks');
+      }
+    });
+  }
 
   tabBtns.forEach(btn => {
     btn.addEventListener('click', () => {
@@ -1176,6 +1304,11 @@ export function initLearnPage() {
     btn.addEventListener('click', (e) => {
       e.preventDefault();
       e.stopPropagation();
+      const user = getCurrentUser();
+      if (!user) {
+        promptSignInForBookmark({ contentType: 'lesson' });
+        return;
+      }
       const isSaved = btn.getAttribute('data-saved') === 'true';
       if (isSaved) {
         btn.setAttribute('data-saved', 'false');

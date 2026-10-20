@@ -181,7 +181,7 @@ export const TAXATION_RETIREMENT_GLOSSARY = [
       { slug: 'demat', name: 'Demat', type: 'glossary' }
     ],
     relatedLessons: [
-      { title: 'Tax Basics in Nepal: Income Tax, PAN & TDS', categorySlug: 'taxation', slug: 'what-is-investing' }
+      { title: 'Tax Basics in Nepal: Income Tax, PAN & TDS', categorySlug: 'taxation', slug: 'how-to-get-personal-pan-nepal' }
     ],
     relatedGuides: [
       { title: 'Nepal Income Tax Slabs & TDS Guide', slug: 'complete-budgeting-guide' }
@@ -234,7 +234,7 @@ export const TAXATION_RETIREMENT_GLOSSARY = [
       ]
     },
     whereSeen: [
-      { title: 'Tax Basics in Nepal', type: 'Lesson', url: '/learn/taxation/what-is-investing' },
+      { title: 'Tax Basics in Nepal', type: 'Lesson', url: '/learn/taxation/how-to-get-personal-pan-nepal' },
       { title: 'Income Tax Calculator', type: 'Calculator', url: '/calculators/income-tax' }
     ],
     meta: {
@@ -444,7 +444,7 @@ export const TAXATION_RETIREMENT_GLOSSARY = [
       { slug: 'dividend', name: 'Dividend', type: 'glossary' }
     ],
     relatedLessons: [
-      { title: 'Tax Basics in Nepal: Income Tax, PAN & TDS', categorySlug: 'taxation', slug: 'what-is-investing' }
+      { title: 'Tax Basics in Nepal: Income Tax, PAN & TDS', categorySlug: 'taxation', slug: 'how-to-get-personal-pan-nepal' }
     ],
     relatedGuides: [
       { title: 'Nepal Income Tax Slabs & TDS Guide', slug: 'complete-budgeting-guide' }
@@ -497,7 +497,7 @@ export const TAXATION_RETIREMENT_GLOSSARY = [
       ]
     },
     whereSeen: [
-      { title: 'Tax Basics in Nepal', type: 'Lesson', url: '/learn/taxation/what-is-investing' },
+      { title: 'Tax Basics in Nepal', type: 'Lesson', url: '/learn/taxation/how-to-get-personal-pan-nepal' },
       { title: 'Income Tax Calculator', type: 'Calculator', url: '/calculators/income-tax' }
     ],
     meta: {
@@ -707,7 +707,7 @@ export const TAXATION_RETIREMENT_GLOSSARY = [
       { slug: 'inflation', name: 'Inflation', type: 'glossary' }
     ],
     relatedLessons: [
-      { title: 'Tax Basics in Nepal: Income Tax, PAN & TDS', categorySlug: 'taxation', slug: 'what-is-investing' }
+      { title: 'Tax Basics in Nepal: Income Tax, PAN & TDS', categorySlug: 'taxation', slug: 'how-to-get-personal-pan-nepal' }
     ],
     relatedGuides: [
       { title: 'Nepal Income Tax Slabs & TDS Guide', slug: 'complete-budgeting-guide' }
@@ -760,7 +760,7 @@ export const TAXATION_RETIREMENT_GLOSSARY = [
       ]
     },
     whereSeen: [
-      { title: 'Tax Basics in Nepal', type: 'Lesson', url: '/learn/taxation/what-is-investing' },
+      { title: 'Tax Basics in Nepal', type: 'Lesson', url: '/learn/taxation/how-to-get-personal-pan-nepal' },
       { title: 'Income Tax Calculator', type: 'Calculator', url: '/calculators/income-tax' }
     ],
     meta: {
@@ -774,7 +774,7 @@ export const TAXATION_RETIREMENT_GLOSSARY = [
     slug: 'ssf',
     term: 'SSF (Social Security Fund)',
     termNp: 'सामाजिक सुरक्षा कोष (SSF)',
-    categorySlug: 'retirement',
+    categorySlug: 'retirement-planning',
     categoryName: { en: 'Retirement & Pension', np: 'अवकाश र पेन्सन' },
     letter: 'S',
     abbreviation: 'SSF',
@@ -971,7 +971,7 @@ export const TAXATION_RETIREMENT_GLOSSARY = [
       { slug: 'pan', name: 'PAN', type: 'glossary' }
     ],
     relatedLessons: [
-      { title: 'Retirement Systems in Nepal: EPF, CIT & SSF', categorySlug: 'retirement', slug: 'what-is-investing' }
+      { title: 'Retirement Systems in Nepal: EPF, CIT & SSF', categorySlug: 'retirement-planning', slug: 'citizen-investment-trust-cit-epf-nepal' }
     ],
     relatedGuides: [
       { title: 'Complete Guide to Personal Finance & Budgeting', slug: 'complete-budgeting-guide' }
@@ -1024,7 +1024,7 @@ export const TAXATION_RETIREMENT_GLOSSARY = [
       ]
     },
     whereSeen: [
-      { title: 'Retirement Systems in Nepal', type: 'Lesson', url: '/learn/retirement/what-is-investing' },
+      { title: 'Retirement Systems in Nepal', type: 'Lesson', url: '/learn/retirement-planning/citizen-investment-trust-cit-epf-nepal' },
       { title: 'Income Tax Calculator', type: 'Calculator', url: '/calculators/income-tax' }
     ],
     meta: {
@@ -1234,7 +1234,7 @@ export const TAXATION_RETIREMENT_GLOSSARY = [
       { slug: 'pan', name: 'PAN', type: 'glossary' }
     ],
     relatedLessons: [
-      { title: 'Retirement Systems in Nepal: EPF, CIT & SSF', categorySlug: 'retirement', slug: 'what-is-investing' }
+      { title: 'Retirement Systems in Nepal: EPF, CIT & SSF', categorySlug: 'retirement-planning', slug: 'citizen-investment-trust-cit-epf-nepal' }
     ],
     relatedGuides: [
       { title: 'Complete Guide to Personal Finance & Budgeting', slug: 'complete-budgeting-guide' }
@@ -1287,7 +1287,7 @@ export const TAXATION_RETIREMENT_GLOSSARY = [
       ]
     },
     whereSeen: [
-      { title: 'Retirement Systems in Nepal', type: 'Lesson', url: '/learn/retirement/what-is-investing' },
+      { title: 'Retirement Systems in Nepal', type: 'Lesson', url: '/learn/retirement-planning/citizen-investment-trust-cit-epf-nepal' },
       { title: 'Income Tax Calculator', type: 'Calculator', url: '/calculators/income-tax' }
     ],
     meta: {
@@ -1498,7 +1498,7 @@ export const TAXATION_RETIREMENT_GLOSSARY = [
       { slug: 'pan', name: 'PAN', type: 'glossary' }
     ],
     relatedLessons: [
-      { title: 'Retirement Systems in Nepal: EPF, CIT & SSF', categorySlug: 'retirement', slug: 'what-is-investing' }
+      { title: 'Retirement Systems in Nepal: EPF, CIT & SSF', categorySlug: 'retirement-planning', slug: 'citizen-investment-trust-cit-epf-nepal' }
     ],
     relatedGuides: [
       { title: 'Complete Guide to Personal Finance & Budgeting', slug: 'complete-budgeting-guide' }
@@ -1551,7 +1551,7 @@ export const TAXATION_RETIREMENT_GLOSSARY = [
       ]
     },
     whereSeen: [
-      { title: 'Retirement Systems in Nepal', type: 'Lesson', url: '/learn/retirement/what-is-investing' },
+      { title: 'Retirement Systems in Nepal', type: 'Lesson', url: '/learn/retirement-planning/citizen-investment-trust-cit-epf-nepal' },
       { title: 'Income Tax Calculator', type: 'Calculator', url: '/calculators/income-tax' }
     ],
     meta: {

@@ -75,7 +75,7 @@ export function renderBlogPostPage(slug) {
     ${article.thumbnail
       ? `<div class="blog-post-featured" id="post-featured">
           <div class="container container-narrow" style="max-width:760px;margin:0 auto;padding:0 var(--space-5)">
-            <img src="${article.thumbnail}" alt="${article.title}" class="blog-post-featured-img" loading="lazy" decoding="async">
+            <img src="${article.thumbnail}" alt="${article.imageAlt || article.title}" class="blog-post-featured-img" width="960" height="640" fetchpriority="high" decoding="async" onerror="this.onerror=null;this.src='assets/images/risepaisa.jpg';">
           </div>
         </div>`
       : ''

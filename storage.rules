@@ -1,0 +1,37 @@
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+    // Helper function: verifies administrative authorization via Cloud Firestore
+    function isAdmin() {
+      return request.auth != null &&
+        firestore.exists(/databases/(default)/documents/admins/$(request.auth.uid));
+    }
+
+    // Course learning resources: only administrators can upload, overwrite, or delete
+    match /courses/{courseSlug}/resources/{fileName} {
+      // Authenticated users can read learning resources
+      allow read: if request.auth != null;
+
+      // Only authorized administrators can upload or delete files
+      allow write: if isAdmin()
+                   && request.resource.size <= 25 * 1024 * 1024
+                   && (
+                     request.resource.contentType.matches('application/pdf') ||
+                     request.resource.contentType.matches('text/csv') ||
+                     request.resource.contentType.matches('application/vnd.openxmlformats-officedocument.*') ||
+                     request.resource.contentType.matches('application/vnd.ms-excel') ||
+                     request.resource.contentType.matches('application/msword') ||
+                     request.resource.contentType.matches('application/zip') ||
+                     request.resource.contentType.matches('text/html') ||
+                     request.resource.contentType.matches('text/plain')
+                   );
+
+      allow delete: if isAdmin();
+    }
+
+    // Default deny catch-all
+    match /{allPaths=**} {
+      allow read, write: if false;
+    }
+  }
+}

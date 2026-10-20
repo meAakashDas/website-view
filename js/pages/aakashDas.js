@@ -442,7 +442,7 @@ export function renderAakashDasPage() {
           ${articles.map(a => `
             <article class="card article-card" id="aakash-pub-${a.id}" style="display:flex;flex-direction:column;justify-content:space-between">
               <div>
-                ${a.thumbnail ? `<img src="${a.thumbnail}" alt="${a.title}" class="article-card-thumb" loading="lazy" decoding="async">` : ''}
+                ${a.thumbnail ? `<img src="${a.thumbnail}" alt="${a.imageAlt || a.title}" class="article-card-thumb" width="960" height="640" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='assets/images/risepaisa.jpg';">` : ''}
                 <div class="card-body">
                   <div class="card-badges" style="display:flex;align-items:center;gap:6px;margin-bottom:var(--space-2)">
                     <span class="badge badge-outline">${a.category}</span>

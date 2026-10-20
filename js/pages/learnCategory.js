@@ -19,37 +19,16 @@ import {
 import { ROUTES, CALCULATOR_ROUTES } from '../routes.js';
 import { ICONS, setPageMeta } from '../components.js';
 import { renderLanguageToggle } from './learn.js';
+import { getCurrentUser, subscribeToAuth } from '../firebase/auth.js';
+import { promptSignInForBookmark } from '../firebase/ui.js';
 
-// ── Local Storage Keys for Future-Ready Progress Architecture ───
-const STORAGE_COMPLETED_KEY = 'rp_learn_completed_lessons';
+// ── Local Storage Key for Bookmarks ───
 const STORAGE_BOOKMARKS_KEY = 'rp_learn_bookmarks';
-
-export function getCompletedLessons() {
-  if (typeof window === 'undefined') return [];
-  try {
-    return JSON.parse(localStorage.getItem(STORAGE_COMPLETED_KEY) || '[]');
-  } catch (e) {
-    return [];
-  }
-}
-
-export function toggleLessonCompleted(lessonId) {
-  if (typeof window === 'undefined' || !lessonId) return false;
-  const list = getCompletedLessons();
-  const idx = list.indexOf(lessonId);
-  let isCompleted = false;
-  if (idx > -1) {
-    list.splice(idx, 1);
-  } else {
-    list.push(lessonId);
-    isCompleted = true;
-  }
-  localStorage.setItem(STORAGE_COMPLETED_KEY, JSON.stringify(list));
-  return isCompleted;
-}
 
 export function getBookmarkedLessons() {
   if (typeof window === 'undefined') return [];
+  const uid = localStorage.getItem('rp_active_uid');
+  if (!uid) return [];
   try {
     return JSON.parse(localStorage.getItem(STORAGE_BOOKMARKS_KEY) || '[]');
   } catch (e) {
@@ -57,19 +36,43 @@ export function getBookmarkedLessons() {
   }
 }
 
-export function toggleLessonBookmark(lessonId) {
+export function toggleLessonBookmark(lessonId, lessonSlug = null) {
   if (typeof window === 'undefined' || !lessonId) return false;
+  const uid = localStorage.getItem('rp_active_uid');
+  if (!uid) return false;
   const list = getBookmarkedLessons();
-  const idx = list.indexOf(lessonId);
-  let isBookmarked = false;
-  if (idx > -1) {
-    list.splice(idx, 1);
+  const isCurrentlySaved = list.includes(lessonId) || (lessonSlug && list.includes(lessonSlug));
+  const isNowBookmarked = !isCurrentlySaved;
+
+  if (isNowBookmarked) {
+    if (!list.includes(lessonId)) list.push(lessonId);
   } else {
-    list.push(lessonId);
-    isBookmarked = true;
+    const nextList = list.filter(item => item !== lessonId && item !== lessonSlug);
+    list.length = 0;
+    list.push(...nextList);
   }
   localStorage.setItem(STORAGE_BOOKMARKS_KEY, JSON.stringify(list));
-  return isBookmarked;
+
+  // Sync with Cloud Firestore if user is authenticated (lazy, zero-overhead for guests)
+  import('../firebase/db.js').then(({ syncBookmarkToggle }) => {
+    syncBookmarkToggle('lesson', lessonId, isNowBookmarked).then(res => {
+      if (res && res.success === false) {
+        // Rollback on failure
+        const rollbackList = getBookmarkedLessons();
+        if (isNowBookmarked) {
+          const reverted = rollbackList.filter(item => item !== lessonId && item !== lessonSlug);
+          localStorage.setItem(STORAGE_BOOKMARKS_KEY, JSON.stringify(reverted));
+        } else {
+          if (!rollbackList.includes(lessonId)) rollbackList.push(lessonId);
+          localStorage.setItem(STORAGE_BOOKMARKS_KEY, JSON.stringify(rollbackList));
+        }
+        window.dispatchEvent(new CustomEvent('rp:bookmarks-synced', { detail: { lessonId, isBookmarked: !isNowBookmarked } }));
+        alert('Could not update bookmark. Please check your internet connection.');
+      }
+    }).catch(() => {});
+  }).catch(() => {});
+
+  return isNowBookmarked;
 }
 
 /**
@@ -214,9 +217,6 @@ export function renderLearnCategoryPage(slug) {
   });
 
   const totalLessonsCount = allLessons.length || category.lessonCount;
-  const completedList = getCompletedLessons();
-  const completedInCat = allLessons.filter(l => completedList.includes(l.id)).length;
-  const initialProgressPct = totalLessonsCount > 0 ? Math.round((completedInCat / totalLessonsCount) * 100) : 0;
   const bookmarkedList = getBookmarkedLessons();
 
   // First lesson as initial current lesson
@@ -331,16 +331,6 @@ export function renderLearnCategoryPage(slug) {
               ${ICONS.calculator}
               <span>${ui.calculators}:</span>
               <strong class="learn-cat-metric-val">${category.calcCount || (category.relatedCalculators?.length || 2)}</strong>
-            </div>
-
-            <div class="learn-cat-metric-div" aria-hidden="true"></div>
-
-            <!-- Progress Tracker Capsule -->
-            <div class="learn-cat-metric learn-hero-progress-metric">
-              <div class="hero-progress-pill" title="${ui.progressTracker}">
-                <div class="hero-progress-fill" style="width: ${initialProgressPct}%;"></div>
-              </div>
-              <strong class="learn-cat-metric-val hero-progress-text">${initialProgressPct}% ${ui.completed}</strong>
             </div>
           </div>
         </div>
@@ -519,23 +509,14 @@ export function renderLearnCategoryPage(slug) {
                         <div class="learn-lessons-grid">
                           ${lessonsList.map(lesson => {
                             const lessonMeta = lesson[lang] || lesson.en;
-                            const isDone = completedList.includes(lesson.id);
-                            const isBookmarked = bookmarkedList.includes(lesson.id);
+                            const isBookmarked = bookmarkedList.includes(lesson.id) || (lesson.slug && bookmarkedList.includes(lesson.slug));
                             const lessonType = lesson.type || 'Lesson';
                             const lessonTypeLabel = (ui.lessonTypes && ui.lessonTypes[lessonType.toLowerCase()]) || lessonType;
 
                             return `
-                              <article class="learn-lesson-card ${isDone ? 'lesson-completed' : ''}" id="lesson-${lesson.id}" data-lesson-id="${lesson.id}" data-lesson-url="/learn/${category.slug}/${lesson.slug}">
+                              <article class="learn-lesson-card" id="lesson-${lesson.id}" data-lesson-id="${lesson.id}" data-lesson-url="/learn/${category.slug}/${lesson.slug}">
                                 <div class="lesson-card-lead-row">
                                   <div class="lesson-card-left-meta">
-                                    <!-- Interactive Completion Toggle Checkbox -->
-                                    <button type="button" 
-                                      class="lesson-checkbox-btn ${isDone ? 'checked' : ''}" 
-                                      data-lesson-id="${lesson.id}" 
-                                      aria-label="${isDone ? ui.markIncomplete : ui.markCompleted}"
-                                      title="${isDone ? ui.markIncomplete : ui.markCompleted}">
-                                      ${isDone ? ICONS.checkSquare : ICONS.square}
-                                    </button>
                                     <span class="lesson-order-num">0${lesson.number}</span>
                                   </div>
 
@@ -572,6 +553,7 @@ export function renderLearnCategoryPage(slug) {
                                     <button type="button" 
                                       class="lesson-action-icon-btn ${isBookmarked ? 'bookmarked' : ''}" 
                                       data-bookmark-id="${lesson.id}" 
+                                      data-bookmark-slug="${lesson.slug || ''}" 
                                       aria-label="${ui.bookmarkLesson}"
                                       title="${ui.bookmarkLesson}">
                                       ${isBookmarked ? ICONS.bookmarkFilled : ICONS.bookmark}
@@ -880,13 +862,9 @@ export function renderLearnCategoryPage(slug) {
       <!-- 5. Notion-Style Collapsible Navigation Rail for Category -->
       <nav class="lesson-nav-rail" id="cat-nav-rail" aria-label="Quick Category Navigation">
         <div class="rail-inner">
-          <button type="button" class="rail-btn" id="rail-cat-progress-btn" aria-label="${ui.progressTracker}" title="${ui.progressTracker}">
-            <span class="rail-icon">${ICONS.checkCircle}</span>
-            <span class="rail-mini-badge" id="rail-cat-progress-badge">${initialProgressPct}%</span>
-            <span class="rail-tooltip">${ui.progressTracker}</span>
-          </button>
           <button type="button" class="rail-btn" id="rail-cat-modules-btn" aria-label="${ui.courseContents}" title="${ui.courseContents}">
             <span class="rail-icon">${ICONS.list}</span>
+            <span class="rail-mini-badge" id="rail-cat-progress-badge">${totalLessonsCount}</span>
             <span class="rail-tooltip">${ui.courseContents}</span>
           </button>
           <button type="button" class="rail-btn" id="rail-cat-tools-btn" aria-label="${ui.calculators}" title="${ui.calculators}">
@@ -918,18 +896,16 @@ export function renderLearnCategoryPage(slug) {
         </div>
 
         <div class="flyout-panel-body">
-          <!-- Progress Widget -->
-          <div class="sidebar-widget sidebar-progress-widget" id="cat-flyout-progress">
+          <!-- Curriculum Summary Widget -->
+          <div class="sidebar-widget sidebar-curriculum-widget" id="cat-flyout-overview">
             <div class="sidebar-widget-header">
-              <h4>${ui.progressTracker}</h4>
-              <span class="sidebar-pct-text">${initialProgressPct}%</span>
+              <h4>${isEn ? 'Curriculum' : 'पाठ्यक्रम'}</h4>
+              <span class="sidebar-curriculum-badge">${totalLessonsCount} ${isEn ? 'Lessons' : 'पाठहरू'}</span>
             </div>
-            <div class="sidebar-progress-track">
-              <div class="sidebar-progress-bar" style="width: ${initialProgressPct}%;"></div>
-            </div>
-            <div class="sidebar-progress-sub">
-              <span class="sidebar-completed-count">${completedInCat}</span> ${ui.completed} • 
-              <span class="sidebar-remaining-count">${totalLessonsCount - completedInCat}</span> ${lang === 'np' ? 'बाँकी' : 'remaining'}
+            <div class="sidebar-curriculum-meta" style="margin-top: 6px; font-size: 13px; color: var(--color-text-secondary);">
+              <span>${category.roadmap?.length || 4} ${isEn ? 'Modules' : 'मोड्युलहरू'}</span>
+              <span> • </span>
+              <span>${durationLabel}</span>
             </div>
           </div>
 
@@ -1005,7 +981,7 @@ export function renderLearnCategoryPage(slug) {
         <button type="button" class="mobile-contents-trigger-btn" id="mobile-contents-open-btn" aria-haspopup="dialog">
           ${ICONS.list}
           <span>${ui.courseContents}</span>
-          <span class="mobile-progress-badge">${initialProgressPct}%</span>
+          <span class="mobile-progress-badge">${totalLessonsCount} ${isEn ? 'Lessons' : 'पाठहरू'}</span>
         </button>
       </div>
 
@@ -1024,14 +1000,11 @@ export function renderLearnCategoryPage(slug) {
           </div>
 
           <div class="mobile-drawer-body">
-            <!-- Progress Summary -->
+            <!-- Curriculum Summary -->
             <div class="mobile-drawer-progress-box">
               <div class="mobile-drawer-progress-top">
-                <span>${ui.progressTracker}</span>
-                <strong class="mobile-drawer-pct">${initialProgressPct}%</strong>
-              </div>
-              <div class="sidebar-progress-track">
-                <div class="sidebar-progress-bar" style="width: ${initialProgressPct}%;"></div>
+                <span>${isEn ? 'Total Lessons' : 'कुल पाठहरू'}</span>
+                <strong class="mobile-drawer-pct">${totalLessonsCount}</strong>
               </div>
             </div>
 
@@ -1052,12 +1025,11 @@ export function renderLearnCategoryPage(slug) {
                     <ul class="mobile-drawer-lesson-items">
                       ${lessons.map(ls => {
                         const lMeta = ls[lang] || ls.en;
-                        const isDone = completedList.includes(ls.id);
                         return `
                           <li>
-                            <a href="#lesson-${ls.id}" class="mobile-drawer-lesson-link ${isDone ? 'completed' : ''}">
-                              <span class="status-icon">${isDone ? ICONS.checkSquare : ICONS.square}</span>
-                              <span class="lesson-text">0${ls.number}. ${lMeta.title}</span>
+                            <a href="#lesson-${ls.id}" class="mobile-drawer-lesson-link">
+                              <span class="lesson-num-badge" style="font-weight:700; color:var(--color-accent); margin-right:8px;">0${ls.number}</span>
+                              <span class="lesson-text">${lMeta.title}</span>
                             </a>
                           </li>
                         `;
@@ -1165,96 +1137,60 @@ export function initLearnCategoryPage(slug) {
     });
   });
 
-  // 4. Update UI Progress Counters
-  function updateProgressUI() {
-    const completedList = getCompletedLessons();
-    // Count how many completed lessons belong to this category
-    const catLessonElements = document.querySelectorAll('.learn-lesson-card[data-lesson-id]');
-    let catCompletedCount = 0;
-    catLessonElements.forEach(card => {
-      const id = card.dataset.lessonId;
-      if (completedList.includes(id)) {
-        catCompletedCount++;
-        card.classList.add('lesson-completed');
-      } else {
-        card.classList.remove('lesson-completed');
-      }
-    });
-
-    const pct = totalLessons > 0 ? Math.round((catCompletedCount / totalLessons) * 100) : 0;
-
-    // Update Hero progress pill
-    const heroProgressFill = document.querySelector('.hero-progress-fill');
-    const heroProgressText = document.querySelector('.hero-progress-text');
-    if (heroProgressFill) heroProgressFill.style.width = `${pct}%`;
-    if (heroProgressText) {
-      const lang = getLearnLanguage();
-      heroProgressText.textContent = `${pct}% ${lang === 'np' ? 'सम्पन्न' : 'Completed'}`;
-    }
-
-    // Update Sidebar progress widget
-    const sidebarBar = document.querySelector('.sidebar-progress-bar');
-    const sidebarPct = document.querySelector('.sidebar-pct-text');
-    const sidebarComp = document.querySelector('.sidebar-completed-count');
-    const sidebarRem = document.querySelector('.sidebar-remaining-count');
-    if (sidebarBar) sidebarBar.style.width = `${pct}%`;
-    if (sidebarPct) sidebarPct.textContent = `${pct}%`;
-    if (sidebarComp) sidebarComp.textContent = `${catCompletedCount}`;
-    if (sidebarRem) sidebarRem.textContent = `${Math.max(0, totalLessons - catCompletedCount)}`;
-
-    // Update Mobile Drawer progress
-    const mobileBadge = document.querySelector('.mobile-progress-badge');
-    const mobilePct = document.querySelector('.mobile-drawer-pct');
-    if (mobileBadge) mobileBadge.textContent = `${pct}%`;
-    if (mobilePct) mobilePct.textContent = `${pct}%`;
-  }
-
-  // 5. Completion Toggle Checkbox Handlers
-  const checkButtons = document.querySelectorAll('.lesson-checkbox-btn');
-  checkButtons.forEach(btn => {
-    btn.addEventListener('click', (e) => {
-      e.stopPropagation();
-      const lessonId = btn.dataset.lessonId;
-      if (!lessonId) return;
-
-      const isCompleted = toggleLessonCompleted(lessonId);
-      if (isCompleted) {
-        btn.classList.add('checked');
-        btn.innerHTML = ICONS.checkSquare;
-      } else {
-        btn.classList.remove('checked');
-        btn.innerHTML = ICONS.square;
-      }
-
-      updateProgressUI();
-    });
-  });
-
-  // 6. Bookmark Toggle Handlers
+  // 4. Bookmark Toggle Handlers
   const bookmarkButtons = document.querySelectorAll('[data-bookmark-id]');
   bookmarkButtons.forEach(btn => {
     btn.addEventListener('click', (e) => {
       e.stopPropagation();
+      const user = getCurrentUser();
+      if (!user) {
+        promptSignInForBookmark({ contentType: 'lesson' });
+        return;
+      }
       const lessonId = btn.dataset.bookmarkId;
+      const lessonSlug = btn.dataset.bookmarkSlug || null;
       if (!lessonId) return;
 
-      const isBookmarked = toggleLessonBookmark(lessonId);
-      if (isBookmarked) {
-        btn.classList.add('bookmarked');
-        btn.innerHTML = ICONS.bookmarkFilled;
-      } else {
-        btn.classList.remove('bookmarked');
-        btn.innerHTML = ICONS.bookmark;
-      }
+      const isBookmarked = toggleLessonBookmark(lessonId, lessonSlug);
+      btn.classList.toggle('bookmarked', isBookmarked);
+      btn.innerHTML = isBookmarked ? ICONS.bookmarkFilled : ICONS.bookmark;
     });
   });
+
+  try {
+    subscribeToAuth((user) => {
+      const list = user ? getBookmarkedLessons() : [];
+      document.querySelectorAll('[data-bookmark-id]').forEach(btn => {
+        const id = btn.dataset.bookmarkId;
+        const slug = btn.dataset.bookmarkSlug || null;
+        const isSaved = list.includes(id) || (slug && list.includes(slug));
+        btn.classList.toggle('bookmarked', isSaved);
+        btn.innerHTML = isSaved ? ICONS.bookmarkFilled : ICONS.bookmark;
+      });
+    });
+  } catch (e) {}
+
+  // Listen for bookmark sync events from other tabs / components
+  if (typeof window !== 'undefined') {
+    const handleBookmarkSync = () => {
+      const list = getBookmarkedLessons();
+      document.querySelectorAll('[data-bookmark-id]').forEach(btn => {
+        const id = btn.dataset.bookmarkId;
+        const slug = btn.dataset.bookmarkSlug || null;
+        const isSaved = list.includes(id) || (slug && list.includes(slug));
+        btn.classList.toggle('bookmarked', isSaved);
+        btn.innerHTML = isSaved ? ICONS.bookmarkFilled : ICONS.bookmark;
+      });
+    };
+    window.addEventListener('rp:bookmarks-synced', handleBookmarkSync);
+  }
 
   // 7. Lesson Start Button Click / Sequence Updates
   const allLessonCards = Array.from(document.querySelectorAll('.learn-lesson-card'));
   allLessonCards.forEach((card, idx) => {
     card.addEventListener('click', (e) => {
-      // Don't trigger if clicked on checkbox or bookmark button
-      if (e.target.closest('.lesson-checkbox-btn') || e.target.closest('[data-bookmark-id]')) return;
+      // Don't trigger if clicked on bookmark button
+      if (e.target.closest('[data-bookmark-id]')) return;
 
       const lessonUrl = card.getAttribute('data-lesson-url');
       if (lessonUrl) {
@@ -1364,7 +1300,6 @@ export function initLearnCategoryPage(slug) {
   const catFlyoutBackdrop = document.getElementById('cat-panel-backdrop');
   const catFlyoutCloseBtn = document.getElementById('cat-flyout-close-btn');
   const railCatExpandBtn = document.getElementById('rail-cat-expand-btn');
-  const railCatProgressBtn = document.getElementById('rail-cat-progress-btn');
   const railCatModulesBtn = document.getElementById('rail-cat-modules-btn');
   const railCatToolsBtn = document.getElementById('rail-cat-tools-btn');
   const railCatGuidesBtn = document.getElementById('rail-cat-guides-btn');

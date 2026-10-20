@@ -206,7 +206,7 @@ export const MUTUAL_FUNDS_GLOSSARY = [
       { slug: 'cagr', name: 'CAGR', type: 'glossary' }
     ],
     relatedLessons: [
-      { title: 'The Power of Systematic Investment Plans (SIP)', categorySlug: 'mutual-funds', slug: 'what-is-investing' }
+      { title: 'The Power of Systematic Investment Plans (SIP)', categorySlug: 'mutual-funds', slug: 'what-is-mutual-fund-nepal' }
     ],
     relatedGuides: [
       { title: 'Complete Mutual Funds & SIP Guide', slug: 'complete-mutual-funds-guide' }
@@ -259,7 +259,7 @@ export const MUTUAL_FUNDS_GLOSSARY = [
       ]
     },
     whereSeen: [
-      { title: 'The Power of Systematic Investment Plans', type: 'Lesson', url: '/learn/mutual-funds/what-is-investing' },
+      { title: 'The Power of Systematic Investment Plans', type: 'Lesson', url: '/learn/mutual-funds/what-is-mutual-fund-nepal' },
       { title: 'Mutual Funds Guide', type: 'Guide', url: '/learn/guides/complete-mutual-funds-guide' }
     ],
     meta: {

@@ -95,25 +95,36 @@ The goal is to help you build a strong understanding of the Nepalese share marke
             rank: 1,
             title: 'What Is the Share Market?',
             videoTitle: 'What is Share Market?',
-            duration: '7:41'
+            duration: '7:41',
+            shortDescription: "Introduction to Nepal's financial architecture, understanding how corporate capital formation works through NEPSE, the role of public equity ownership, and realistic financial expectations for beginners.",
+            resources: [
+              {
+                title: 'NEPSE First-Time Investor Checklist',
+                url: '/assets/downloads/nepse-first-time-investor-checklist.html',
+                fileType: 'checklist'
+              }
+            ]
           },
           {
             rank: 2,
             title: 'Understanding the Key Participants in the Share Market',
             videoTitle: 'Important Parts of Share Market: Investor, CDSC, Broker, SEBON',
-            duration: '7:10'
+            duration: '7:10',
+            shortDescription: "Deep-dive into the four regulatory and structural pillars of Nepal's capital market: SEBON (market regulator), NEPSE (exchange operator), CDSC (clearing and central depository), and licensed stockbrokers."
           },
           {
             rank: 3,
             title: 'Primary Market vs. Secondary Market',
             videoTitle: 'Primary Market Vs Secondary Market',
-            duration: '8:22'
+            duration: '8:22',
+            shortDescription: "Understanding the operational mechanics dividing the primary market (IPOs/FPOs at fixed par value via C-ASBA) and the secondary market (continuous matching price discovery on NEPSE)."
           },
           {
             rank: 4,
             title: 'How Companies Divide Ownership into Shares',
             videoTitle: 'What is Dilution? How Company Divides into Share',
-            duration: '3:59'
+            duration: '3:59',
+            shortDescription: "How corporate enterprises divide equity ownership into authorized, issued, and paid-up capital, how equity dilution works when issuing new shares, and calculating percentage ownership."
           }
         ]
       },
@@ -126,13 +137,15 @@ The goal is to help you build a strong understanding of the Nepalese share marke
             rank: 5,
             title: 'Understanding DEMAT, MeroShare and Trading Accounts',
             videoTitle: 'What are Demat Account, Mero Share and Trading Account?',
-            duration: '1:51'
+            duration: '1:51',
+            shortDescription: "Essential infrastructure requirements for every Nepali investor: 16-digit DEMAT BOID numbers, MeroShare portal navigation, CRN verification at commercial banks, and broker TMS accounts."
           },
           {
             rank: 6,
             title: 'How to Open Share Market Accounts in Nepal',
             videoTitle: 'How to Open Share Market Accounts',
-            duration: '10:17'
+            duration: '10:17',
+            shortDescription: "Step-by-step account opening walkthrough across depository participants (DPs) and stockbrokers, KYC documentation standards, avoiding name-mismatch rejections, and C-ASBA activation."
           }
         ]
       },
@@ -145,13 +158,15 @@ The goal is to help you build a strong understanding of the Nepalese share marke
             rank: 7,
             title: 'Technical Analysis: The Complete Introduction',
             videoTitle: 'Technical Analysis Part 1',
-            duration: '48:10'
+            duration: '48:10',
+            shortDescription: "Foundation of technical analysis: understanding auction market theory, price action reflecting aggregate supply and demand, Dow Theory principles, and why charts visualize crowd psychology."
           },
           {
             rank: 8,
             title: 'Understanding Market Trends and Trend Analysis',
             videoTitle: 'Types of Trend and Trend Analysis',
-            duration: '42:50'
+            duration: '42:50',
+            shortDescription: "Market structure and trend identification: defining uptrends (higher highs & higher lows), downtrends (lower highs & lower lows), consolidation channels, and drawing multi-touch trendlines."
           }
         ]
       },
@@ -164,25 +179,29 @@ The goal is to help you build a strong understanding of the Nepalese share marke
             rank: 9,
             title: 'Understanding the Relationship Between Price and Volume',
             videoTitle: 'Relation Between Price And Volume',
-            duration: '22:06'
+            duration: '22:06',
+            shortDescription: "Interpreting volume as the fuel of price action: analyzing volume expansion on breakouts, recognizing divergence between price and trading turnover, and detecting institutional accumulation vs distribution."
           },
           {
             rank: 10,
             title: 'Understanding Chart Patterns: Part 1',
             videoTitle: 'Types of Chart Patterns: Part 1',
-            duration: '33:12'
+            duration: '33:12',
+            shortDescription: "Comprehensive study of classical reversal chart patterns in NEPSE: Head & Shoulders, Inverse Head & Shoulders, Double Tops, Double Bottoms, and identifying neckline breakout confirmation."
           },
           {
             rank: 11,
             title: 'Understanding Chart Patterns: Part 2',
             videoTitle: 'Types of Chart Pattern: Part 2',
-            duration: '37:04'
+            duration: '37:04',
+            shortDescription: "Continuation and bilateral chart patterns: Bullish and Bearish Flags, Pennants, Symmetrical Triangles, Ascending Triangles, and measuring minimum price projection targets."
           },
           {
             rank: 12,
             title: 'Price Action Trading Strategy',
             videoTitle: 'Price Action Trading Strategy',
-            duration: '55:57'
+            duration: '55:57',
+            shortDescription: "End-to-end price action trading methodology: multi-timeframe analysis (Daily and Weekly), identifying liquidity pools, entry trigger candlestick signals, and trading with the prevailing market trend."
           }
         ]
       },
@@ -195,25 +214,29 @@ The goal is to help you build a strong understanding of the Nepalese share marke
             rank: 13,
             title: 'Moving Averages and Supertrend',
             videoTitle: 'Indicator Part 1: Simple Moving Average, Super Trend',
-            duration: '22:57'
+            duration: '22:57',
+            shortDescription: "Trend-following indicators: Simple Moving Averages (20, 50, 200 SMA) and Exponential Moving Averages (EMA), Golden Cross and Death Cross signals, and dynamic support/resistance using Supertrend."
           },
           {
             rank: 14,
             title: 'Volume Indicator and Volume Analysis',
             videoTitle: 'Indicator Part 2: Volume',
-            duration: '9:21'
+            duration: '9:21',
+            shortDescription: "Advanced volume analysis on NEPSE: On-Balance Volume (OBV), Volume Moving Averages, spotting climactic volume at market tops and capitulation volume at market bottoms."
           },
           {
             rank: 15,
             title: 'MACD Indicator: Understanding Momentum',
             videoTitle: 'Indicator Part 3: MACD',
-            duration: '23:21'
+            duration: '23:21',
+            shortDescription: "Momentum analysis with the MACD (Moving Average Convergence Divergence): MACD line, Signal line, zero-line crossovers, histogram momentum shifts, and identifying regular and hidden divergence."
           },
           {
             rank: 16,
             title: 'Fibonacci Retracement: Identifying Potential Price Levels',
             videoTitle: 'Indicator Part 4: Fibonacci Retracement',
-            duration: '17:40'
+            duration: '17:40',
+            shortDescription: "Fibonacci Retracement and Extension analysis: identifying golden ratio pullbacks (38.2%, 50%, 61.8%) during healthy NEPSE corrections, and projecting take-profit expansion levels."
           }
         ]
       },
@@ -226,13 +249,15 @@ The goal is to help you build a strong understanding of the Nepalese share marke
             rank: 17,
             title: 'Complete Guide to Risk Management in the Share Market',
             videoTitle: 'Everything About Risk Management in the Share Market',
-            duration: '1:11:27'
+            duration: '1:11:27',
+            shortDescription: "The mathematical foundation of capital preservation: why survival precedes profits, calculating the risk-to-reward ratio (minimum 1:2), and enforcing the 1-2% maximum portfolio risk rule."
           },
           {
             rank: 18,
             title: 'Stop-Loss: Everything You Need to Know',
             videoTitle: 'Everything You Need to Learn about the StopLoss',
-            duration: '1:08:30'
+            duration: '1:08:30',
+            shortDescription: "Complete stop-loss masterclass: volatility-based stops (ATR), structural swing-point stops, trailing stops to lock in gains, and conquering emotional biases like loss aversion and revenge trading."
           }
         ]
       },
@@ -245,13 +270,15 @@ The goal is to help you build a strong understanding of the Nepalese share marke
             rank: 19,
             title: 'How to Select Stocks Using Fundamental Analysis',
             videoTitle: 'How to Select Stock By Fundamental Analysis',
-            duration: '38:00'
+            duration: '38:00',
+            shortDescription: "Fundamental analysis framework for Nepali companies: evaluating the Income Statement, Balance Sheet, and Cash Flow Statement; interpreting revenue growth, operating profit margins, and net profits."
           },
           {
             rank: 20,
             title: 'The Complete Stock Selection Process',
             videoTitle: 'Stock Selection Full Process',
-            duration: '1:11:17'
+            duration: '1:11:17',
+            shortDescription: "Comprehensive stock selection methodology: combining valuation ratios (P/E, P/B, EPS, ROE) with banking credit quality metrics (NPL, Capital Adequacy Ratio, Net Interest Margin) to identify high-quality long-term compounders."
           }
         ]
       },
@@ -264,13 +291,15 @@ The goal is to help you build a strong understanding of the Nepalese share marke
             rank: 21,
             title: 'Fundamental Stock Analysis: Laxmi Bank',
             videoTitle: 'Complete Analysis of Laxmi Bank Stock (Past 5 Years)',
-            duration: '45:53'
+            duration: '45:53',
+            shortDescription: "Case study walkthrough: historical 5-year fundamental analysis of Laxmi Bank (LBL), analyzing loan book expansion, deposit growth, non-performing loan management, and merger valuation implications."
           },
           {
             rank: 22,
             title: 'Fundamental Stock Analysis: Nabil Bank',
             videoTitle: 'Complete Analysis of Nabil Bank Stock (Past 5 Years)',
-            duration: '1:08:35'
+            duration: '1:08:35',
+            shortDescription: "Case study walkthrough: historical 5-year fundamental analysis of Nabil Bank (NABIL), dissecting cost of funds, return on equity (ROE), capital adequacy, dividend track record, and competitive moats."
           }
         ]
       }
@@ -359,16 +388,220 @@ The goal is to help you build a strong understanding of the Nepalese share marke
   }
 ];
 
-export function getCourses() {
-  return COURSES.filter(c => c.isPublished !== false);
+// Runtime cache for authoritative course data saved in the admin portal or fetched via API
+const _runtimeCourseCache = new Map();
+
+/**
+ * Clean course normalization helper to ensure both topics and curriculum are always mirrored
+ */
+function _harmonizeCourse(c) {
+  if (!c || typeof c !== 'object') return null;
+  const course = { ...c };
+
+  // Harmonize description
+  course.description = course.description || course.fullDescription || course.shortDescription || '';
+  course.fullDescription = course.fullDescription || course.description || course.shortDescription || '';
+  course.published = course.published !== undefined ? Boolean(course.published) : (course.isPublished !== false);
+  course.isPublished = course.published;
+
+  // Harmonize topics and curriculum
+  if (Array.isArray(course.topics) && course.topics.length > 0) {
+    if (!Array.isArray(course.curriculum) || course.curriculum.length === 0) {
+      course.curriculum = course.topics.map(t => ({
+        moduleNumber: t.displayOrder || 1,
+        title: t.title || '',
+        goal: t.shortDescription || '',
+        published: t.published !== false,
+        lessons: (t.lessons || []).map(l => ({
+          rank: l.displayOrder || 1,
+          title: l.title || '',
+          duration: l.duration || '',
+          shortDescription: l.shortDescription || '',
+          youtubeUrl: l.youtubeUrl || null,
+          isFree: Boolean(l.isFree),
+          published: l.published !== false,
+          resources: l.resources || []
+        }))
+      }));
+    }
+  } else if (Array.isArray(course.curriculum) && course.curriculum.length > 0) {
+    if (!Array.isArray(course.topics) || course.topics.length === 0) {
+      course.topics = course.curriculum.map((m, mIdx) => ({
+        id: m.id || `topic-${m.moduleNumber || mIdx + 1}`,
+        title: m.title || `Module ${m.moduleNumber || mIdx + 1}`,
+        displayOrder: m.moduleNumber || mIdx + 1,
+        shortDescription: m.goal || '',
+        published: m.published !== false,
+        lessons: (m.lessons || []).map((l, lIdx) => {
+          if (typeof l === 'string') {
+            return {
+              id: `lesson-${m.moduleNumber || mIdx + 1}-${lIdx + 1}`,
+              title: l,
+              displayOrder: lIdx + 1,
+              published: true,
+              isFree: mIdx === 0 && lIdx === 0,
+              resources: []
+            };
+          }
+          return {
+            id: l.id || `lesson-${l.rank || lIdx + 1}`,
+            title: l.title || `Lesson ${l.rank || lIdx + 1}`,
+            duration: l.duration || '',
+            shortDescription: l.shortDescription || '',
+            youtubeUrl: l.youtubeUrl || null,
+            displayOrder: l.rank || lIdx + 1,
+            published: l.published !== false,
+            isFree: l.isFree !== undefined ? Boolean(l.isFree) : (mIdx === 0 && lIdx === 0),
+            resources: l.resources || []
+          };
+        })
+      }));
+    }
+  }
+
+  // Derive previewVideoUrl from first lesson if set
+  if (Array.isArray(course.topics) && course.topics[0]?.lessons?.[0]?.youtubeUrl) {
+    course.previewVideoUrl = course.topics[0].lessons[0].youtubeUrl;
+  }
+
+  return course;
+}
+
+/**
+ * Register or update a course in the active runtime cache.
+ */
+export function updateCourseInCache(course) {
+  if (!course || typeof course !== 'object') return;
+  const harmonized = _harmonizeCourse(course);
+  if (!harmonized) return;
+
+  if (harmonized.slug) {
+    _runtimeCourseCache.set(harmonized.slug.toLowerCase(), harmonized);
+  }
+  if (harmonized.id) {
+    _runtimeCourseCache.set(String(harmonized.id).toLowerCase(), harmonized);
+  }
+  if (Array.isArray(harmonized.aliases)) {
+    for (const a of harmonized.aliases) {
+      if (a) _runtimeCourseCache.set(String(a).toLowerCase(), harmonized);
+    }
+  }
+}
+
+/**
+ * Remove a course from the active runtime cache.
+ */
+export function removeCourseFromCache(slugOrId) {
+  if (!slugOrId) return;
+  const clean = String(slugOrId).trim().toLowerCase();
+  _runtimeCourseCache.delete(clean);
 }
 
 export function getAllCourses() {
-  return COURSES;
+  const coursesMap = new Map();
+
+  // 1. Static baseline
+  for (const c of COURSES) {
+    const harmonized = _harmonizeCourse(c);
+    coursesMap.set(harmonized.slug.toLowerCase(), harmonized);
+  }
+
+  // 2. Overlay localStorage in browser environment
+  if (typeof window !== 'undefined' && window.localStorage) {
+    try {
+      const knownSlugs = new Set(Array.from(coursesMap.keys()));
+
+      // Read from rp_courses_index if saved
+      const indexStr = window.localStorage.getItem('rp_courses_index');
+      if (indexStr) {
+        const parsedIdx = JSON.parse(indexStr);
+        if (Array.isArray(parsedIdx)) {
+          parsedIdx.forEach(s => s && knownSlugs.add(String(s).trim().toLowerCase()));
+        }
+      }
+
+      // Also scan any localStorage keys starting with rp_course_cache_
+      for (let i = 0; i < window.localStorage.length; i++) {
+        const key = window.localStorage.key(i);
+        if (key && key.startsWith('rp_course_cache_')) {
+          const slugPart = key.slice('rp_course_cache_'.length).trim().toLowerCase();
+          if (slugPart) knownSlugs.add(slugPart);
+        }
+      }
+
+      for (const slug of knownSlugs) {
+        try {
+          const raw = window.localStorage.getItem(`rp_course_cache_${slug}`);
+          if (raw) {
+            const parsed = JSON.parse(raw);
+            if (parsed && typeof parsed === 'object') {
+              const harmonized = _harmonizeCourse(parsed);
+              if (harmonized && harmonized.slug) {
+                coursesMap.set(harmonized.slug.toLowerCase(), harmonized);
+              }
+            }
+          }
+        } catch {}
+      }
+    } catch {}
+  }
+
+  // 3. Overlay in-memory runtime cache
+  for (const [key, course] of _runtimeCourseCache.entries()) {
+    if (course && course.slug && key === course.slug.toLowerCase()) {
+      coursesMap.set(course.slug.toLowerCase(), course);
+    }
+  }
+
+  const result = Array.from(coursesMap.values());
+  result.sort((a, b) => (Number(a.displayOrder) || 0) - (Number(b.displayOrder) || 0));
+  return result;
+}
+
+export function getCourses() {
+  return getAllCourses().filter(c => c.published !== false && c.isPublished !== false);
 }
 
 export function getCourseBySlug(slug) {
-  return COURSES.find(c => c.slug === slug || (c.aliases && c.aliases.includes(slug))) || null;
+  if (!slug) return null;
+  const clean = String(slug).trim().toLowerCase();
+
+  // 1. Check in-memory runtime cache
+  if (_runtimeCourseCache.has(clean)) {
+    return _runtimeCourseCache.get(clean);
+  }
+
+  // 2. Check localStorage in browser
+  if (typeof window !== 'undefined' && window.localStorage) {
+    try {
+      const raw = window.localStorage.getItem(`rp_course_cache_${clean}`);
+      if (raw) {
+        const parsed = JSON.parse(raw);
+        if (parsed && typeof parsed === 'object') {
+          const harmonized = _harmonizeCourse(parsed);
+          if (harmonized) {
+            updateCourseInCache(harmonized);
+            return harmonized;
+          }
+        }
+      }
+    } catch {}
+  }
+
+  // 3. Fallback to getAllCourses() (which checks aliases and IDs)
+  const all = getAllCourses();
+  const match = all.find(c =>
+    (c.slug && c.slug.toLowerCase() === clean) ||
+    (String(c.id).toLowerCase() === clean) ||
+    (Array.isArray(c.aliases) && c.aliases.map(a => String(a).toLowerCase()).includes(clean))
+  );
+
+  if (match) {
+    updateCourseInCache(match);
+    return match;
+  }
+
+  return null;
 }
 
 export default COURSES;

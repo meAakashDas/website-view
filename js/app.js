@@ -29,11 +29,25 @@ const routes = [
     nav: ROUTES.COURSES
   },
   {
+    pattern: /^\/courses\/([a-z0-9-]+)\/learn(?:\/([a-z0-9-]+))?\/?$/,
+    load: () => import('./pages/courseLearn.js'),
+    render: (m, p, mod) => mod.renderCourseLearnPage(m[1], m[2] || (p ? p.get('lesson') : null)),
+    init: (m, p, mod) => mod.initCourseLearnPage(m[1], m[2] || (p ? p.get('lesson') : null)),
+    nav: ROUTES.MY_COURSES
+  },
+  {
     pattern: /^\/courses\/([a-z0-9-]+)\/?$/,
     load: () => import('./pages/courseDetail.js'),
     render: (m, p, mod) => mod.renderCourseDetailPage(m[1]),
-    init: (m, p, mod) => mod.initCourseDetailPage(),
+    init: (m, p, mod) => mod.initCourseDetailPage(m ? m[1] : null),
     nav: ROUTES.COURSES
+  },
+  {
+    pattern: /^\/my-courses\/?$/,
+    load: () => import('./pages/myCourses.js'),
+    render: (m, p, mod) => mod.renderMyCoursesPage(),
+    init: (m, p, mod) => mod.initMyCoursesPage(),
+    nav: ROUTES.MY_COURSES
   },
   // Legacy /course/:slug redirect
   { pattern: /^\/course\/([a-z0-9-]+)\/?$/, redirect: (m) => ROUTES.COURSE_DETAIL(m[1]) },
@@ -201,9 +215,24 @@ const routes = [
   { pattern: /^\/editorial\/?$/, redirect: () => ROUTES.EDITORIAL_POLICY },
   { pattern: /^\/faq\/?$/, load: () => import('./pages/legal.js'), render: (m, p, mod) => mod.renderLegalPage('faq'), init: (m, p, mod) => mod.initLegalPage(), nav: null },
 
-  // 10. Retired Legacy Routes -> Safe Redirects
-  { pattern: /^\/(?:login|register|forgot-password|reset-password|profile|my-courses)\/?$/, redirect: () => ROUTES.COURSES },
-  { pattern: /^\/admin(?:\/.*)?$/, redirect: () => ROUTES.HOME },
+  // 10. Admin Console
+  {
+    pattern: /^\/admin\/enrollments\/?$/,
+    load: () => import('./pages/adminEnrollments.js'),
+    render: (m, p, mod) => mod.renderAdminEnrollmentsPage(),
+    init: (m, p, mod) => mod.initAdminEnrollmentsPage(),
+    nav: null
+  },
+  {
+    pattern: /^\/admin(?:\/courses)?\/?$/,
+    load: () => import('./pages/adminCourses.js'),
+    render: (m, p, mod) => mod.renderAdminCoursesPage(),
+    init: (m, p, mod) => mod.initAdminCoursesPage(),
+    nav: null
+  },
+
+  // 11. Retired Legacy Routes -> Safe Redirects
+  { pattern: /^\/(?:login|register|forgot-password|reset-password|profile)\/?$/, redirect: () => ROUTES.COURSES },
 ];
 
 // ── Programmatic Navigation ──────────────────────

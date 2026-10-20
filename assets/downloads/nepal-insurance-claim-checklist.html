@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,6 +16,7 @@
       --blue: #1DA1F2;
       --blue-hover: #0c85d0;
     }
+
     @media (prefers-color-scheme: dark) {
       :root {
         --ink: #F5F5F7;
@@ -24,7 +26,13 @@
         --white: #1C1C1E;
       }
     }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
     body {
       font-family: var(--font);
       background: var(--bg);
@@ -32,6 +40,7 @@
       line-height: 1.5;
       padding: 40px 20px;
     }
+
     .sheet-card {
       max-width: 800px;
       margin: 0 auto;
@@ -41,6 +50,7 @@
       padding: 48px;
       box-shadow: 0 4px 24px rgba(0, 0, 0, 0.04);
     }
+
     .header {
       border-bottom: 1px solid var(--border);
       padding-bottom: 24px;
@@ -50,6 +60,7 @@
       align-items: flex-start;
       gap: 20px;
     }
+
     .brand {
       font-size: 14px;
       font-weight: 700;
@@ -58,14 +69,24 @@
       text-transform: uppercase;
       margin-bottom: 8px;
     }
+
     h1 {
       font-size: 28px;
       font-weight: 700;
       letter-spacing: -0.5px;
       margin-bottom: 8px;
     }
-    p.lead { color: var(--muted); font-size: 15px; }
-    .actions { display: flex; gap: 12px; }
+
+    p.lead {
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    .actions {
+      display: flex;
+      gap: 12px;
+    }
+
     .btn {
       display: inline-flex;
       align-items: center;
@@ -79,9 +100,20 @@
       transition: all 0.2s ease;
       text-decoration: none;
     }
-    .btn-primary { background: var(--blue); color: #fff; }
-    .btn-primary:hover { background: var(--blue-hover); }
-    .checklist-section { margin-bottom: 36px; }
+
+    .btn-primary {
+      background: var(--blue);
+      color: #fff;
+    }
+
+    .btn-primary:hover {
+      background: var(--blue-hover);
+    }
+
+    .checklist-section {
+      margin-bottom: 36px;
+    }
+
     .section-title {
       font-size: 18px;
       font-weight: 600;
@@ -91,6 +123,7 @@
       align-items: center;
       gap: 8px;
     }
+
     .step-badge {
       display: inline-flex;
       align-items: center;
@@ -103,7 +136,13 @@
       font-size: 12px;
       font-weight: 700;
     }
-    .item-list { display: flex; flex-direction: column; gap: 12px; }
+
+    .item-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
     .check-item {
       display: flex;
       align-items: flex-start;
@@ -115,7 +154,11 @@
       user-select: none;
       transition: background 0.15s ease;
     }
-    .check-item:hover { background: rgba(29, 161, 242, 0.06); }
+
+    .check-item:hover {
+      background: rgba(29, 161, 242, 0.06);
+    }
+
     .check-item input[type="checkbox"] {
       appearance: none;
       width: 20px;
@@ -130,10 +173,12 @@
       transition: all 0.2s;
       background: var(--white);
     }
+
     .check-item input[type="checkbox"]:checked {
       background: var(--blue);
       border-color: var(--blue);
     }
+
     .check-item input[type="checkbox"]:checked::before {
       content: "";
       width: 10px;
@@ -142,8 +187,19 @@
       border-bottom: 2px solid white;
       transform: rotate(-45deg) translate(1px, -1px);
     }
-    .item-content h4 { font-size: 15px; font-weight: 600; margin-bottom: 4px; }
-    .item-content p { font-size: 13px; color: var(--muted); line-height: 1.4; }
+
+    .item-content h4 {
+      font-size: 15px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .item-content p {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.4;
+    }
+
     .note-box {
       background: rgba(29, 161, 242, 0.08);
       border-left: 4px solid var(--blue);
@@ -152,6 +208,7 @@
       margin: 24px 0;
       font-size: 14px;
     }
+
     .footer {
       border-top: 1px solid var(--border);
       padding-top: 24px;
@@ -159,14 +216,32 @@
       font-size: 12px;
       color: var(--muted);
     }
+
     @media print {
-      body { background: #fff; padding: 0; }
-      .sheet-card { border: none; box-shadow: none; padding: 0; }
-      .actions { display: none; }
-      .check-item { background: #fff; border: 1px solid #ddd; page-break-inside: avoid; }
+      body {
+        background: #fff;
+        padding: 0;
+      }
+
+      .sheet-card {
+        border: none;
+        box-shadow: none;
+        padding: 0;
+      }
+
+      .actions {
+        display: none;
+      }
+
+      .check-item {
+        background: #fff;
+        border: 1px solid #ddd;
+        page-break-inside: avoid;
+      }
     }
   </style>
 </head>
+
 <body>
   <div class="sheet-card">
     <div class="header">
@@ -177,14 +252,19 @@
       </div>
       <div class="actions">
         <button class="btn btn-primary" onclick="window.print()">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9V2h12v7M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2"/><path d="M6 14h12v8H6z"/></svg>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M6 9V2h12v7M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2" />
+            <path d="M6 14h12v8H6z" />
+          </svg>
           Print / Save PDF
         </button>
       </div>
     </div>
 
     <div class="note-box">
-      <strong>Crucial 24-Hour Rule:</strong> Most insurers in Nepal (licensed by Nepal Insurance Authority / Beema Samiti) mandate written or telephonic intimation within 24 to 48 hours of hospital admission. Delay in notice is the #1 cause of claim processing rejection.
+      <strong>Crucial 24-Hour Rule:</strong> Most insurers in Nepal (licensed by Nepal Insurance Authority / Beema
+      Samiti) mandate written or telephonic intimation within 24 to 48 hours of hospital admission. Delay in notice is
+      the #1 cause of claim processing rejection.
     </div>
 
     <!-- Phase 1 -->
@@ -198,14 +278,16 @@
           <input type="checkbox">
           <div class="item-content">
             <h4>Original Discharge Summary (डिस्चार्ज सारांश)</h4>
-            <p>Signed and stamped by attending physician and Medical Superintendent, detailing chief complaints, diagnosis, and treatment procedure.</p>
+            <p>Signed and stamped by attending physician and Medical Superintendent, detailing chief complaints,
+              diagnosis, and treatment procedure.</p>
           </div>
         </label>
         <label class="check-item">
           <input type="checkbox">
           <div class="item-content">
             <h4>Itemized Hospital Final Bill with Tax Invoice</h4>
-            <p>Detailed breakdown of bed charges, ICU, surgery, nursing fees, and doctor consultation along with VAT/PAN invoice receipt.</p>
+            <p>Detailed breakdown of bed charges, ICU, surgery, nursing fees, and doctor consultation along with VAT/PAN
+              invoice receipt.</p>
           </div>
         </label>
         <label class="check-item">
@@ -229,14 +311,16 @@
           <input type="checkbox">
           <div class="item-content">
             <h4>Doctor's Prescription for All Medicines</h4>
-            <p>Insurers reject medicine bills if not explicitly prescribed in the doctor's handwriting or printed prescription pad.</p>
+            <p>Insurers reject medicine bills if not explicitly prescribed in the doctor's handwriting or printed
+              prescription pad.</p>
           </div>
         </label>
         <label class="check-item">
           <input type="checkbox">
           <div class="item-content">
             <h4>Original Pharmacy VAT Invoices</h4>
-            <p>Cash memos or computerized tax receipts matching exact medicine names, batch numbers, and dosage dates.</p>
+            <p>Cash memos or computerized tax receipts matching exact medicine names, batch numbers, and dosage dates.
+            </p>
           </div>
         </label>
       </div>
@@ -253,14 +337,16 @@
           <input type="checkbox">
           <div class="item-content">
             <h4>Insurance Claim Form Fully Completed</h4>
-            <p>Filled with accurate Policy Number, Insured's Name, Bank Account Details (for direct NEFT/ConnectIPS payout), and signed declaration.</p>
+            <p>Filled with accurate Policy Number, Insured's Name, Bank Account Details (for direct NEFT/ConnectIPS
+              payout), and signed declaration.</p>
           </div>
         </label>
         <label class="check-item">
           <input type="checkbox">
           <div class="item-content">
             <h4>Citizenship Copy & Canceled Cheque</h4>
-            <p>Clear copy of Nepali citizenship card and bank account proof showing account holder name and account number.</p>
+            <p>Clear copy of Nepali citizenship card and bank account proof showing account holder name and account
+              number.</p>
           </div>
         </label>
       </div>
@@ -271,4 +357,5 @@
     </div>
   </div>
 </body>
+
 </html>

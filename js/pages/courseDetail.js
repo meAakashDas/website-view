@@ -7,37 +7,12 @@ import { getCourseBySlug } from '../data/courses.js';
 import { getSettings } from '../data/settings.js';
 import { ICONS, setPageMeta } from '../components.js';
 import { ROUTES } from '../routes.js';
+import { toSafeYouTubeEmbedUrl } from '../firebase/courses.js';
+import { createBrandedVideoPlayer, initBrandedVideoPlayer } from '../components/videoPlayer.js';
 
-// ── YouTube URL → Embed URL converter ────────────
+// ── YouTube URL → Safe Embed URL converter ────────
 function _toYouTubeEmbed(url) {
-  if (!url || typeof url !== 'string') return null;
-  url = url.trim();
-  if (!url) return null;
-
-  let videoId = null;
-
-  // Format: https://www.youtube.com/embed/VIDEO_ID or youtube-nocookie.com
-  const embedMatch = url.match(/youtube(?:-nocookie)?\.com\/embed\/([a-zA-Z0-9_-]{11})/);
-  if (embedMatch) return `https://www.youtube-nocookie.com/embed/${embedMatch[1]}`;
-
-  // Format: https://www.youtube.com/watch?v=VIDEO_ID
-  const watchMatch = url.match(/[?&]v=([a-zA-Z0-9_-]{11})/);
-  if (watchMatch) videoId = watchMatch[1];
-
-  // Format: https://youtu.be/VIDEO_ID
-  if (!videoId) {
-    const shortMatch = url.match(/youtu\.be\/([a-zA-Z0-9_-]{11})/);
-    if (shortMatch) videoId = shortMatch[1];
-  }
-
-  // Format: https://www.youtube.com/v/VIDEO_ID
-  if (!videoId) {
-    const vMatch = url.match(/youtube\.com\/v\/([a-zA-Z0-9_-]{11})/);
-    if (vMatch) videoId = vMatch[1];
-  }
-
-  if (videoId) return `https://www.youtube-nocookie.com/embed/${videoId}`;
-  return null;
+  return toSafeYouTubeEmbedUrl(url);
 }
 
 // ── Helper: Calculate module duration from lessons ──
@@ -75,6 +50,86 @@ function _formatModuleTitle(rawTitle) {
       .join(' ');
   }
   return cleaned;
+}
+
+// ── Reusable Curriculum Accordion Renderer ───────────
+export function renderCurriculumAccordion(curriculumOrTopics, courseSlug) {
+  if (!Array.isArray(curriculumOrTopics)) return '';
+
+  return curriculumOrTopics.map((module, i) => {
+    if (module.published === false) return '';
+    const modNumber = module.moduleNumber || module.displayOrder || (i + 1);
+    const modLessons = (module.lessons || []).filter(l => l.published !== false);
+    if (modLessons.length === 0) return '';
+    const modDuration = _calcModuleDuration(modLessons);
+    const cleanTitle = _formatModuleTitle(module.title);
+    const lessonCount = modLessons.length;
+    const isFirst = i === 0;
+
+    return `
+      <div class="cd-module-item ${isFirst ? 'active' : ''}" data-module-index="${i}">
+        <button class="cd-module-header" type="button" aria-expanded="${isFirst ? 'true' : 'false'}">
+          <div class="cd-module-meta-left">
+            <span class="cd-module-badge">Module 0${modNumber}</span>
+            <span class="cd-module-name">${cleanTitle}</span>
+          </div>
+          <div class="cd-module-meta-right">
+            <span class="cd-module-duration">${lessonCount} lessons${modDuration ? ` · ${modDuration}` : ''}</span>
+            <span class="cd-module-chevron" aria-hidden="true">${ICONS.chevronDown}</span>
+          </div>
+        </button>
+
+        <div class="cd-module-collapse">
+          <div class="cd-module-body">
+            ${(module.goal || module.shortDescription) ? `
+              <div class="cd-module-goal">
+                <span class="cd-goal-tag">Objective</span>
+                <p class="cd-goal-text">${module.goal || module.shortDescription}</p>
+              </div>
+            ` : ''}
+
+            <div class="cd-lessons-stack">
+              ${modLessons.map((lesson, lesIdx) => {
+                if (typeof lesson === 'string') {
+                  return `
+                    <div class="cd-lesson-row">
+                      <div class="cd-lesson-left">
+                        <span class="cd-lesson-play-icon">${ICONS.play}</span>
+                        <span class="cd-lesson-title">${lesson}</span>
+                      </div>
+                    </div>
+                  `;
+                }
+
+                const rank = lesson.rank || lesson.displayOrder || (lesIdx + 1);
+                const isFreeDemo = lesson.isFree !== undefined ? Boolean(lesson.isFree) : (i === 0 && lesIdx === 0);
+                const lessonId = lesson.id || ('lesson-' + rank);
+                const learnUrl = ROUTES.COURSE_LEARN ? ROUTES.COURSE_LEARN(courseSlug, lessonId) : `/courses/${courseSlug}/learn?lesson=${encodeURIComponent(lessonId)}`;
+
+                return `
+                  <div class="cd-lesson-row ${isFreeDemo ? 'cd-lesson-free-demo' : ''}" ${isFreeDemo ? 'id="lesson-free-demo-row"' : ''}>
+                    <div class="cd-lesson-left">
+                      <span class="cd-lesson-number">${String(rank).padStart(2, '0')}</span>
+                      <span class="cd-lesson-play-icon">${ICONS.play}</span>
+                      <a href="${learnUrl}" class="cd-lesson-title-link">
+                        <span class="cd-lesson-title">${lesson.title}</span>
+                      </a>
+                      ${isFreeDemo ? `
+                        <a href="${learnUrl}" class="cd-free-demo-pill" title="Watch free demo in learning player">
+                          Free Demo
+                        </a>
+                      ` : ''}
+                    </div>
+                    <span class="cd-lesson-duration">${lesson.duration || ''}</span>
+                  </div>
+                `;
+              }).join('')}
+            </div>
+          </div>
+        </div>
+      </div>
+    `;
+  }).join('');
 }
 
 // ── Curated Outcomes for NEPSE Course ──────────────
@@ -265,29 +320,28 @@ export function renderCourseDetailPage(slug) {
               <div class="cd-demo-header">
                 <div class="cd-demo-label-block">
                   <h2 class="cd-demo-title">Free Demo Video</h2>
+                  <a href="${ROUTES.COURSE_LEARN ? ROUTES.COURSE_LEARN(course.slug) : `/courses/${course.slug}/learn`}" class="cd-demo-classroom-link">
+                    Open in Learning Player &rarr;
+                  </a>
                 </div>
                 <span class="cd-demo-runtime">Full Preview · 45 Minutes</span>
               </div>
 
               <!-- 16:9 Responsive Player Container -->
-              <div class="cd-video-player-frame">
-                ${embedUrl ? `
-                  <iframe
-                    src="${embedUrl}?rel=0&amp;modestbranding=1&amp;controls=1&amp;playsinline=1"
-                    title="${course.title} Free Demo Video"
-                    frameborder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                    allowfullscreen
-                    loading="lazy"
-                    class="cd-video-iframe">
-                  </iframe>
-                ` : `
-                  <div class="cd-video-placeholder" style="background-image:url(${thumbMap[course.id] || thumbMap[1]})">
+              ${embedUrl ? createBrandedVideoPlayer({
+                embedUrl,
+                title: `${course.title} Free Demo Video`,
+                iframeId: 'cd-demo-iframe',
+                containerId: 'cd-demo-video-container',
+                extraClass: 'cd-video-player-frame'
+              }) : `
+                <div class="cd-video-player-frame">
+                  <div class="cd-video-placeholder" style="background-image:url(${course.thumbnail || thumbMap[course.id] || thumbMap[1]})">
                     <div class="cd-play-btn">${ICONS.play}</div>
                     <span class="cd-preview-label">Free Demo Video</span>
                   </div>
-                `}
-              </div>
+                </div>
+              `}
             </section>
 
             <!-- B. What You Will Learn Section -->
@@ -333,71 +387,7 @@ export function renderCourseDetailPage(slug) {
               </div>
 
               <div class="cd-curriculum-accordion" id="curriculum-accordion">
-                ${(course.curriculum || []).map((module, i) => {
-                  const modDuration = _calcModuleDuration(module.lessons);
-                  const cleanTitle = _formatModuleTitle(module.title);
-                  const lessonCount = Array.isArray(module.lessons) ? module.lessons.length : 0;
-                  const isFirst = i === 0;
-
-                  return `
-                    <div class="cd-module-item ${isFirst ? 'active' : ''}" data-module-index="${i}">
-                      <button class="cd-module-header" type="button" aria-expanded="${isFirst ? 'true' : 'false'}">
-                        <div class="cd-module-meta-left">
-                          <span class="cd-module-badge">Module 0${module.moduleNumber || (i + 1)}</span>
-                          <span class="cd-module-name">${cleanTitle}</span>
-                        </div>
-                        <div class="cd-module-meta-right">
-                          <span class="cd-module-duration">${lessonCount} lessons${modDuration ? ` · ${modDuration}` : ''}</span>
-                          <span class="cd-module-chevron" aria-hidden="true">${ICONS.chevronDown}</span>
-                        </div>
-                      </button>
-
-                      <div class="cd-module-collapse">
-                        <div class="cd-module-body">
-                          ${module.goal ? `
-                            <div class="cd-module-goal">
-                              <span class="cd-goal-tag">Objective</span>
-                              <p class="cd-goal-text">${module.goal}</p>
-                            </div>
-                          ` : ''}
-
-                          <div class="cd-lessons-stack">
-                            ${(module.lessons || []).map(lesson => {
-                              if (typeof lesson === 'string') {
-                                return `
-                                  <div class="cd-lesson-row">
-                                    <div class="cd-lesson-left">
-                                      <span class="cd-lesson-play-icon">${ICONS.play}</span>
-                                      <span class="cd-lesson-title">${lesson}</span>
-                                    </div>
-                                  </div>
-                                `;
-                              }
-
-                              const isFreeDemo = lesson.rank === 1;
-
-                              return `
-                                <div class="cd-lesson-row ${isFreeDemo ? 'cd-lesson-free-demo' : ''}" ${isFreeDemo ? 'id="lesson-free-demo-row"' : ''}>
-                                  <div class="cd-lesson-left">
-                                    <span class="cd-lesson-number">${String(lesson.rank).padStart(2, '0')}</span>
-                                    <span class="cd-lesson-play-icon">${ICONS.play}</span>
-                                    <span class="cd-lesson-title">${lesson.title}</span>
-                                    ${isFreeDemo ? `
-                                      <a href="#course-demo" class="cd-free-demo-pill" title="Watch free demo video above">
-                                        Free Demo
-                                      </a>
-                                    ` : ''}
-                                  </div>
-                                  <span class="cd-lesson-duration">${lesson.duration || ''}</span>
-                                </div>
-                              `;
-                            }).join('')}
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  `;
-                }).join('')}
+                ${renderCurriculumAccordion(course.curriculum || course.topics, course.slug)}
               </div>
             </section>
 
@@ -492,7 +482,7 @@ export function renderCourseDetailPage(slug) {
               <!-- Course Visual Banner -->
               <div class="cd-card-thumb-container">
                 <img
-                  src="${thumbMap[course.id] || thumbMap[1]}"
+                  src="${course.thumbnail || thumbMap[course.id] || thumbMap[1]}"
                   alt="${course.title}"
                   class="cd-card-thumb-img"
                   width="688"
@@ -580,25 +570,26 @@ export function renderCourseDetailPage(slug) {
   `;
 }
 
-export function initCourseDetailPage() {
+export function initCourseDetailPage(slugOverride = null) {
   // ── 1. Accordion Interactivity with Expand / Collapse All ──
   const accordionContainer = document.getElementById('curriculum-accordion');
   const toggleBtn = document.getElementById('cd-expand-all-btn');
 
-  if (accordionContainer) {
+  function _setupAccordion() {
+    if (!accordionContainer) return;
     const items = accordionContainer.querySelectorAll('.cd-module-item');
 
     items.forEach(item => {
       const header = item.querySelector('.cd-module-header');
       if (!header) return;
 
-      header.addEventListener('click', (e) => {
+      header.onclick = (e) => {
         e.preventDefault();
         const isOpen = item.classList.contains('active');
         item.classList.toggle('active', !isOpen);
         header.setAttribute('aria-expanded', !isOpen ? 'true' : 'false');
         _updateToggleBtnState();
-      });
+      };
     });
 
     function _updateToggleBtnState() {
@@ -608,7 +599,7 @@ export function initCourseDetailPage() {
     }
 
     if (toggleBtn) {
-      toggleBtn.addEventListener('click', () => {
+      toggleBtn.onclick = () => {
         const anyClosed = Array.from(items).some(i => !i.classList.contains('active'));
         items.forEach(item => {
           item.classList.toggle('active', anyClosed);
@@ -618,31 +609,41 @@ export function initCourseDetailPage() {
           }
         });
         _updateToggleBtnState();
-      });
+      };
     }
   }
+
+  _setupAccordion();
 
   // ── 2. Free Demo Lesson Scroll Link ──
-  const freeDemoRow = document.getElementById('lesson-free-demo-row');
-  if (freeDemoRow) {
-    const demoLink = freeDemoRow.querySelector('.cd-free-demo-pill');
-    if (demoLink) {
-      demoLink.addEventListener('click', (e) => {
-        e.preventDefault();
-        const target = document.getElementById('course-demo');
-        if (target) {
-          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
-      });
+  function _bindDemoLink() {
+    const freeDemoRow = document.getElementById('lesson-free-demo-row');
+    if (freeDemoRow) {
+      const demoLink = freeDemoRow.querySelector('.cd-free-demo-pill');
+      if (demoLink) {
+        demoLink.onclick = (e) => {
+          e.preventDefault();
+          const target = document.getElementById('course-demo');
+          if (target) {
+            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        };
+      }
     }
   }
+  _bindDemoLink();
 
-  // ── 3. Mobile Sticky CTA Bar: Appear when scrolled past purchase card ──
+  // ── 3. Branded Video Player Controller ──
+  const demoPlayerEl = document.querySelector('.cd-demo-section [data-rp-player]');
+  const demoPlayerController = demoPlayerEl ? initBrandedVideoPlayer(demoPlayerEl) : null;
+
+  // ── 4. Mobile Sticky CTA Bar: Appear when scrolled past purchase card ──
   const mobileBar = document.getElementById('mobile-sticky-bar');
   const purchaseCard = document.getElementById('purchase-card');
+  let updateMobileBar = null;
 
   if (mobileBar && purchaseCard) {
-    const updateMobileBar = () => {
+    updateMobileBar = () => {
       if (window.innerWidth >= 1024) {
         mobileBar.classList.remove('visible');
         document.body.classList.remove('has-mobile-cta');
@@ -659,4 +660,109 @@ export function initCourseDetailPage() {
     window.addEventListener('resize', updateMobileBar, { passive: true });
     updateMobileBar();
   }
+
+  // ── 5. Async Course Live Sync & Enrollment ──
+  const effectiveSlug = slugOverride || (typeof window !== 'undefined' ? window.location.pathname.replace(/^\/courses\//, '').split('/')[0] : null);
+  if (effectiveSlug) {
+    import('../firebase/courses.js').then(({ fetchCourseData, toSafeYouTubeEmbedUrl, checkUserEnrollment }) => {
+      // Sync live course data
+      fetchCourseData(effectiveSlug).then(liveCourse => {
+        if (!liveCourse) return;
+
+        // 1. Title, subtitle, and breadcrumbs
+        const titleEl = document.querySelector('.cd-hero-title');
+        if (titleEl && liveCourse.title) titleEl.textContent = liveCourse.title;
+
+        const descEl = document.querySelector('.cd-hero-subtitle');
+        if (descEl && (liveCourse.shortDescription || liveCourse.description)) {
+          descEl.textContent = liveCourse.shortDescription || liveCourse.description;
+        }
+
+        const bcEl = document.querySelector('.cd-breadcrumb .cd-current');
+        if (bcEl && liveCourse.title) bcEl.textContent = liveCourse.title;
+
+        // 2. Preview Video
+        if (liveCourse.previewVideoUrl) {
+          const newEmbed = toSafeYouTubeEmbedUrl(liveCourse.previewVideoUrl);
+          const iframe = document.querySelector('.cd-demo-section iframe');
+          if (iframe && newEmbed && iframe.src !== newEmbed) {
+            iframe.src = newEmbed;
+          }
+        }
+
+        // 3. Curriculum
+        const curriculumList = liveCourse.curriculum || liveCourse.topics;
+        if (Array.isArray(curriculumList) && curriculumList.length > 0) {
+          const totalMods = curriculumList.length;
+          const totalLes = curriculumList.reduce((sum, m) => sum + (Array.isArray(m.lessons) ? m.lessons.length : 0), 0);
+          const leadEl = document.querySelector('#course-curriculum .cd-section-lead');
+          if (leadEl) {
+            leadEl.textContent = `${totalMods} in-depth modules · ${totalLes} structured lessons · ${liveCourse.duration || '20+ Hours'} of content`;
+          }
+
+          if (accordionContainer) {
+            accordionContainer.innerHTML = renderCurriculumAccordion(curriculumList, liveCourse.slug);
+            _setupAccordion();
+            _bindDemoLink();
+          }
+        }
+      }).catch(() => {});
+
+      // Check enrollment for logged-in user
+      import('../firebase/auth.js').then(({ getCurrentUser }) => {
+        const currentUser = getCurrentUser();
+        if (!currentUser || !currentUser.uid) return;
+        const course = getCourseBySlug(effectiveSlug);
+        const courseId = course ? (course.slug || String(course.id)) : effectiveSlug;
+
+        checkUserEnrollment(currentUser.uid, courseId).then(res => {
+          if (res && res.enrolled) {
+            _updateEnrolledUi(purchaseCard, mobileBar);
+          }
+        }).catch(() => {});
+      }).catch(() => {});
+    }).catch(() => {});
+  }
+
+  return () => {
+    if (demoPlayerController) {
+      demoPlayerController.destroy();
+    }
+    if (updateMobileBar) {
+      window.removeEventListener('scroll', updateMobileBar);
+      window.removeEventListener('resize', updateMobileBar);
+    }
+    document.body.classList.remove('has-mobile-cta');
+  };
 }
+
+
+function _updateEnrolledUi(card, mobileBar) {
+  if (card) {
+    const priceLabel = card.querySelector('.cd-card-price-label');
+    if (priceLabel) {
+      priceLabel.innerHTML = '<span style="color:var(--color-primary);font-weight:600;display:inline-flex;align-items:center;gap:4px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Enrolled · Active Access</span>';
+    }
+    const buyBtn = card.querySelector('#buy-course-whatsapp-btn');
+    if (buyBtn) {
+      buyBtn.innerHTML = '<span>✓ Enrolled in Course</span>';
+      buyBtn.classList.remove('btn-whatsapp');
+      buyBtn.classList.add('btn-primary');
+      buyBtn.removeAttribute('href');
+      buyBtn.setAttribute('role', 'status');
+      buyBtn.style.cursor = 'default';
+    }
+  }
+  if (mobileBar) {
+    const mobileBuyBtn = mobileBar.querySelector('#mobile-bar-whatsapp-btn');
+    if (mobileBuyBtn) {
+      mobileBuyBtn.innerHTML = '<span>✓ Enrolled</span>';
+      mobileBuyBtn.classList.remove('btn-whatsapp');
+      mobileBuyBtn.classList.add('btn-primary');
+      mobileBuyBtn.removeAttribute('href');
+      mobileBuyBtn.setAttribute('role', 'status');
+      mobileBuyBtn.style.cursor = 'default';
+    }
+  }
+}
+

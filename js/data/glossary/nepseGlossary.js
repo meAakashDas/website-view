@@ -181,7 +181,7 @@ export const NEPSE_GLOSSARY = [
       { slug: 'meroshare', name: 'MeroShare', type: 'glossary' }
     ],
     relatedLessons: [
-      { title: 'The Lifecycle of an IPO: From Prospectus to Allotment', categorySlug: 'nepse', slug: 'what-is-investing' }
+      { title: 'The Lifecycle of an IPO: From Prospectus to Allotment', categorySlug: 'nepse', slug: 'demat-meroshare-crn-setup' }
     ],
     relatedGuides: [
       { title: 'Beginner Guide to NEPSE Share Market', slug: 'complete-nepse-investing-guide' }
@@ -234,7 +234,7 @@ export const NEPSE_GLOSSARY = [
       ]
     },
     whereSeen: [
-      { title: 'The Lifecycle of an IPO', type: 'Lesson', url: '/learn/nepse/what-is-investing' },
+      { title: 'The Lifecycle of an IPO', type: 'Lesson', url: '/learn/investing/compounding-engine-wealth' },
       { title: 'NEPSE Trading Guide', type: 'Guide', url: '/learn/guides/complete-nepse-investing-guide' }
     ],
     meta: {
@@ -420,7 +420,7 @@ export const NEPSE_GLOSSARY = [
       { slug: 'tms', name: 'TMS', type: 'glossary' }
     ],
     relatedLessons: [
-      { title: 'The Modern Toolkit: Demat, MeroShare & TMS', categorySlug: 'nepse', slug: 'what-is-investing' }
+      { title: 'The Modern Toolkit: Demat, MeroShare & TMS', categorySlug: 'nepse', slug: 'demat-meroshare-crn-setup' }
     ],
     relatedGuides: [
       { title: 'Beginner Guide to NEPSE Share Market', slug: 'complete-nepse-investing-guide' }
@@ -473,7 +473,7 @@ export const NEPSE_GLOSSARY = [
       ]
     },
     whereSeen: [
-      { title: 'The Modern Toolkit', type: 'Lesson', url: '/learn/nepse/what-is-investing' },
+      { title: 'The Modern Toolkit', type: 'Lesson', url: '/learn/nepse/demat-meroshare-crn-setup' },
       { title: 'NEPSE Trading Guide', type: 'Guide', url: '/learn/guides/complete-nepse-investing-guide' }
     ],
     meta: {
@@ -659,7 +659,7 @@ export const NEPSE_GLOSSARY = [
       { slug: 'tms', name: 'TMS', type: 'glossary' }
     ],
     relatedLessons: [
-      { title: 'The Modern Toolkit: Demat, MeroShare & TMS', categorySlug: 'nepse', slug: 'what-is-investing' }
+      { title: 'The Modern Toolkit: Demat, MeroShare & TMS', categorySlug: 'nepse', slug: 'demat-meroshare-crn-setup' }
     ],
     relatedGuides: [
       { title: 'Beginner Guide to NEPSE Share Market', slug: 'complete-nepse-investing-guide' }
@@ -712,7 +712,7 @@ export const NEPSE_GLOSSARY = [
       ]
     },
     whereSeen: [
-      { title: 'The Modern Toolkit', type: 'Lesson', url: '/learn/nepse/what-is-investing' },
+      { title: 'The Modern Toolkit', type: 'Lesson', url: '/learn/nepse/demat-meroshare-crn-setup' },
       { title: 'NEPSE Trading Guide', type: 'Guide', url: '/learn/guides/complete-nepse-investing-guide' }
     ],
     meta: {
@@ -898,7 +898,7 @@ export const NEPSE_GLOSSARY = [
       { slug: 'demat', name: 'Demat', type: 'glossary' }
     ],
     relatedLessons: [
-      { title: 'The Modern Toolkit: Demat, MeroShare & TMS', categorySlug: 'nepse', slug: 'what-is-investing' }
+      { title: 'The Modern Toolkit: Demat, MeroShare & TMS', categorySlug: 'nepse', slug: 'demat-meroshare-crn-setup' }
     ],
     relatedGuides: [
       { title: 'Beginner Guide to NEPSE Share Market', slug: 'complete-nepse-investing-guide' }
@@ -951,7 +951,7 @@ export const NEPSE_GLOSSARY = [
       ]
     },
     whereSeen: [
-      { title: 'The Modern Toolkit', type: 'Lesson', url: '/learn/nepse/what-is-investing' },
+      { title: 'The Modern Toolkit', type: 'Lesson', url: '/learn/nepse/demat-meroshare-crn-setup' },
       { title: 'NEPSE Trading Guide', type: 'Guide', url: '/learn/guides/complete-nepse-investing-guide' }
     ],
     meta: {
@@ -1137,7 +1137,7 @@ export const NEPSE_GLOSSARY = [
       { slug: 'demat', name: 'Demat', type: 'glossary' }
     ],
     relatedLessons: [
-      { title: 'The Modern Toolkit: Demat, MeroShare & TMS', categorySlug: 'nepse', slug: 'what-is-investing' }
+      { title: 'The Modern Toolkit: Demat, MeroShare & TMS', categorySlug: 'nepse', slug: 'demat-meroshare-crn-setup' }
     ],
     relatedGuides: [
       { title: 'Beginner Guide to NEPSE Share Market', slug: 'complete-nepse-investing-guide' }
@@ -1190,7 +1190,7 @@ export const NEPSE_GLOSSARY = [
       ]
     },
     whereSeen: [
-      { title: 'The Modern Toolkit', type: 'Lesson', url: '/learn/nepse/what-is-investing' },
+      { title: 'The Modern Toolkit', type: 'Lesson', url: '/learn/nepse/demat-meroshare-crn-setup' },
       { title: 'NEPSE Trading Guide', type: 'Guide', url: '/learn/guides/complete-nepse-investing-guide' }
     ],
     meta: {
@@ -1376,7 +1376,7 @@ export const NEPSE_GLOSSARY = [
       { slug: 'cagr', name: 'CAGR', type: 'glossary' }
     ],
     relatedLessons: [
-      { title: 'The Modern Toolkit: Demat, MeroShare & TMS', categorySlug: 'nepse', slug: 'what-is-investing' }
+      { title: 'The Modern Toolkit: Demat, MeroShare & TMS', categorySlug: 'nepse', slug: 'demat-meroshare-crn-setup' }
     ],
     relatedGuides: [
       { title: 'Beginner Guide to NEPSE Share Market', slug: 'complete-nepse-investing-guide' }
@@ -1429,7 +1429,7 @@ export const NEPSE_GLOSSARY = [
       ]
     },
     whereSeen: [
-      { title: 'The Modern Toolkit', type: 'Lesson', url: '/learn/nepse/what-is-investing' },
+      { title: 'The Modern Toolkit', type: 'Lesson', url: '/learn/nepse/demat-meroshare-crn-setup' },
       { title: 'NEPSE Trading Guide', type: 'Guide', url: '/learn/guides/complete-nepse-investing-guide' }
     ],
     meta: {

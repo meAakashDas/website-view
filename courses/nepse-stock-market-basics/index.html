@@ -249,6 +249,7 @@
   <link rel="stylesheet" href="css/calculators.css">
   <link rel="stylesheet" href="css/learn.css">
   <link rel="stylesheet" href="css/search.css">
+  <link rel="stylesheet" href="css/auth.css">
 </head>
 <body>
   <div id="navbar-container">
@@ -261,13 +262,13 @@
         
         <!-- Desktop Nav Links (Center Desktop) -->
         <div class="nav-links">
-          <a href="/" class="nav-link">Home</a><a href="/learn" class="nav-link">Learn</a><a href="/courses" class="nav-link active">Courses</a><a href="/calculators" class="nav-link">Calculators</a><a href="/resources" class="nav-link nav-link-tertiary">Resources</a><a href="/blog" class="nav-link nav-link-tertiary">Blog</a><a href="/about" class="nav-link nav-link-secondary">About</a><a href="/contact" class="nav-link nav-link-secondary">Contact</a>
+          <a href="/" class="nav-link">Home</a><a href="/learn" class="nav-link">Learn</a><a href="/courses" class="nav-link active">Courses</a><a href="/courses/nepse-stock-market-basics/learn?lesson=lesson-1" class="nav-link">My Courses</a><a href="/calculators" class="nav-link">Calculators</a><a href="/resources" class="nav-link nav-link-tertiary">Resources</a><a href="/blog" class="nav-link nav-link-tertiary">Blog</a><a href="/about" class="nav-link nav-link-secondary">About</a><a href="/contact" class="nav-link nav-link-secondary">Contact</a>
         </div>
 
         <!-- Mobile Center Quick Action Buttons (Center Mobile) -->
         <div class="mobile-quick-actions" role="navigation" aria-label="Quick Navigation">
-          <a href="/courses" class="mobile-quick-btn active">
-            <span>Courses</span>
+          <a href="/courses/nepse-stock-market-basics/learn?lesson=lesson-1" class="mobile-quick-btn ">
+            <span>My Courses</span>
           </a>
           <a href="/learn" class="mobile-quick-btn ">
             <span>Learn</span>
@@ -279,13 +280,11 @@
 
         <!-- Desktop Action Cluster (Right Desktop) -->
         <div class="nav-auth-area">
-          <button class="nav-search-btn" id="nav-search-btn" aria-label="Search (⌘K)" title="Search (⌘K)" type="button">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-          </button>
           <button class="theme-toggle-btn desktop-theme-toggle" id="theme-toggle-btn-desktop" aria-label="Toggle light and dark mode" title="Switch appearance" type="button">
             <span class="theme-icon theme-icon-sun" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg></span>
             <span class="theme-icon theme-icon-moon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></span>
           </button>
+          <div id="desktop-auth-container" class="nav-auth-slot"></div>
           <a href="https://wa.me/+9779740269317?text=I%20want%20to%20contact%20you." target="_blank" rel="noopener" class="btn btn-primary nav-cta">
             <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg> Contact Us
           </a>
@@ -326,6 +325,9 @@
             </button>
           </div>
 
+          <!-- Account / Auth Drawer Slot -->
+          <div id="mobile-auth-container" class="mobile-drawer-auth-slot"></div>
+
           <!-- Navigation Links List -->
           <nav class="mobile-nav-links" aria-label="Mobile Navigation Links">
             
@@ -338,6 +340,12 @@
                 <a href="/courses" class="mobile-link active">
                   <span class="mobile-link-icon-wrap" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg></span>
                   <span class="mobile-link-text">Courses</span>
+                  <span class="mobile-link-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
+                </a>
+              
+                <a href="/courses/nepse-stock-market-basics/learn?lesson=lesson-1" class="mobile-link ">
+                  <span class="mobile-link-icon-wrap" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg></span>
+                  <span class="mobile-link-text">My Courses</span>
                   <span class="mobile-link-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
                 </a>
               
@@ -531,24 +539,168 @@
               <div class="cd-demo-header">
                 <div class="cd-demo-label-block">
                   <h2 class="cd-demo-title">Free Demo Video</h2>
+                  <a href="/courses/nepse-stock-market-basics/learn" class="cd-demo-classroom-link">
+                    Open in Learning Player &rarr;
+                  </a>
                 </div>
                 <span class="cd-demo-runtime">Full Preview · 45 Minutes</span>
               </div>
 
               <!-- 16:9 Responsive Player Container -->
-              <div class="cd-video-player-frame">
-                
-                  <iframe
-                    src="https://www.youtube-nocookie.com/embed/ziVeMxMF4e8?rel=0&amp;modestbranding=1&amp;controls=1&amp;playsinline=1"
-                    title="Share Market Full Course (NEPSE) Free Demo Video"
-                    frameborder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                    allowfullscreen
-                    loading="lazy"
-                    class="cd-video-iframe">
-                  </iframe>
-                
+              
+    <div class="rp-video-player-frame cs-player-frame relative w-full aspect-video bg-black rounded-2xl overflow-hidden shadow-2xl border border-slate-200 dark:border-white/10 group select-none cd-video-player-frame" id="cd-demo-video-container" data-rp-player="true" tabindex="0" role="region" aria-label="Video Player: Share Market Full Course (NEPSE) Free Demo Video">
+      <!-- 1. RisePaisa Player Top Chrome (Conceals YouTube channel name, title, and copy-link button) -->
+      <div class="rp-player-header" aria-hidden="true">
+        <div class="rp-player-header-left">
+          <span class="rp-player-course-label">RisePaisa Course</span>
+          <span class="rp-player-header-title">Share Market Full Course (NEPSE) Free Demo Video</span>
+        </div>
+        <div class="rp-player-badge">
+          <span class="rp-player-badge-dot"></span>
+          <span class="rp-player-badge-text">RisePaisa Secure Video Player</span>
+        </div>
+      </div>
+
+      <!-- 2. Video Stage & Underlying Media Element -->
+      <div class="rp-player-stage csPlayer-container">
+        
+        <iframe
+          id="cd-demo-iframe"
+          class="cl-video-iframe cd-video-iframe rp-player-iframe csPlayer-iframe"
+          src="https://www.youtube-nocookie.com/embed/ziVeMxMF4e8?rel=0&modestbranding=1&enablejsapi=1&controls=0&disablekb=1&fs=0&playsinline=1&iv_load_policy=3&cc_load_policy=3&showinfo=0&autohide=1&vq=hd1080"
+          title="Share Market Full Course (NEPSE) Free Demo Video"
+          width="100%"
+          height="100%"
+          frameborder="0"
+          tabindex="-1"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowfullscreen
+          loading="eager">
+        </iframe>
+  
+        <!-- Seamless Click Surface for Single Unified Interaction -->
+        <div class="rp-player-click-surface" aria-hidden="true"></div>
+        
+        <!-- Clean Poster Cover for Unstarted State (Prevents YouTube red button & watermarks from showing) -->
+        <div class="rp-player-poster" aria-hidden="true">
+          <img
+            class="rp-poster-img"
+            src="https://i.ytimg.com/vi/ziVeMxMF4e8/hqdefault.jpg"
+            srcset="https://i.ytimg.com/vi/ziVeMxMF4e8/maxresdefault.jpg 1280w, https://i.ytimg.com/vi/ziVeMxMF4e8/hqdefault.jpg 480w"
+            sizes="(max-width: 1280px) 100vw, 1280px"
+            alt="Share Market Full Course (NEPSE) Free Demo Video"
+            loading="eager"
+            onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/ziVeMxMF4e8/hqdefault.jpg';"
+          />
+        </div>
+  
+      </div>
+
+      <!-- Buffering Loading Indicator -->
+      <div class="rp-player-buffering-indicator" aria-hidden="true">
+        <div class="rp-player-spinner-ring"></div>
+      </div>
+
+      <!-- 3. Center Controls Overlay (Rewind 10, Big Center Play/Pause, Forward 10) -->
+      <main class="rp-player-center-controls csPlayer-controls-center" aria-label="Center playback controls">
+        <button type="button" class="rp-center-btn rp-center-rewind" aria-label="Seek backward 10 seconds" title="Rewind 10s (j / ←)">
+          <span class="rp-center-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 2a9 9 0 1 0 9 9"/><polyline points="11 6 11 2 7 2"/><text x="12" y="14" font-size="7" font-weight="700" fill="currentColor" stroke="none" text-anchor="middle">10</text></svg></span>
+        </button>
+
+        <button type="button" class="rp-player-center-play csPlayer-play-pause-btn" aria-label="Play Share Market Full Course (NEPSE) Free Demo Video">
+          <span class="rp-center-play-icon"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>
+          <span class="rp-center-pause-icon"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg></span>
+        </button>
+
+        <button type="button" class="rp-center-btn rp-center-forward" aria-label="Seek forward 10 seconds" title="Forward 10s (l / →)">
+          <span class="rp-center-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2a9 9 0 1 1-9 9"/><polyline points="13 6 13 2 17 2"/><text x="12" y="14" font-size="7" font-weight="700" fill="currentColor" stroke="none" text-anchor="middle">10</text></svg></span>
+        </button>
+      </main>
+
+      <!-- 4. Cinema-Dark Bottom Controls Bar -->
+      <div class="rp-player-controls csPlayer-controls-box" role="toolbar" aria-label="Video Controls">
+        <!-- Scrubbable Timeline Progress Bar -->
+        <div class="rp-player-timeline-wrap csPlayer-prog-wrap" role="slider" aria-label="Video Timeline" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" tabindex="0">
+          <div class="rp-player-timeline-track">
+            <span class="rp-player-timeline-buffer csPlayer-buf-bar"></span>
+            <div class="rp-player-timeline-progress"></div>
+          </div>
+          <div class="rp-player-timeline-thumb"></div>
+          <div class="rp-player-timeline-tooltip">00:00</div>
+        </div>
+
+        <!-- Controls Row -->
+        <div class="rp-player-controls-row csPlayer-controls">
+          <!-- Left Controls: Play, Replay 10, Forward 10, Volume, Time -->
+          <div class="rp-player-controls-left">
+            <button type="button" class="rp-ctrl-btn rp-btn-play bottom-play-btn" aria-label="Play" title="Play (k / Space)">
+              <span class="rp-icon-play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>
+              <span class="rp-icon-pause"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg></span>
+            </button>
+
+            <button type="button" class="rp-ctrl-btn rp-btn-rewind" aria-label="Seek backward 10 seconds" title="Rewind 10s (j / ←)">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 2a9 9 0 1 0 9 9"/><polyline points="11 6 11 2 7 2"/><text x="12" y="14" font-size="7" font-weight="700" fill="currentColor" stroke="none" text-anchor="middle">10</text></svg>
+            </button>
+
+            <button type="button" class="rp-ctrl-btn rp-btn-forward" aria-label="Seek forward 10 seconds" title="Forward 10s (l / →)">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2a9 9 0 1 1-9 9"/><polyline points="13 6 13 2 17 2"/><text x="12" y="14" font-size="7" font-weight="700" fill="currentColor" stroke="none" text-anchor="middle">10</text></svg>
+            </button>
+
+            <!-- Volume Controls -->
+            <div class="rp-player-volume-group csPlayer-vol-wrap">
+              <button type="button" class="rp-ctrl-btn rp-btn-volume bottom-volume-btn" aria-label="Mute" title="Mute (m)">
+                <span class="rp-icon-vol-high"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg></span>
+                <span class="rp-icon-vol-low"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.5 12c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM5 9v6h4l5 5V4L9 9H5z"/></svg></span>
+                <span class="rp-icon-vol-muted"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/></svg></span>
+              </button>
+              <div class="rp-volume-slider-wrap csPlayer-vol-slider-wrap">
+                <input type="range" class="rp-volume-slider csPlayer-vol-slider" min="0" max="100" value="100" aria-label="Volume slider" />
               </div>
+            </div>
+
+            <!-- Time Display -->
+            <div class="rp-player-time">
+              <span class="rp-time-current csPlayer-time-cur">00:00</span>
+              <span class="rp-time-divider">/</span>
+              <span class="rp-time-duration csPlayer-time-dur">00:00</span>
+            </div>
+          </div>
+
+          <!-- Right Controls: Settings (Speed & Quality), Fullscreen -->
+          <div class="rp-player-controls-right">
+            <!-- Settings Group & Menu (Speed & Quality) -->
+            <div class="rp-player-settings-group rp-player-speed-group">
+              <button type="button" class="rp-ctrl-btn rp-btn-settings rp-btn-speed settingsBtn" aria-label="Settings" title="Settings" aria-haspopup="true" aria-expanded="false">
+                <span class="rp-icon-settings"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg></span>
+              </button>
+
+              <div class="rp-settings-box rp-speed-menu csPlayer-settings-box" role="menu" hidden>
+                <div class="rp-settings-header csPlayer-settings-label">
+                  <span class="rp-settings-title">Playback Speed</span>
+                  <b class="rp-speed-val rp-speed-label">1×</b>
+                </div>
+                <div class="rp-settings-items rp-speed-items csPlayer-settings-items">
+                  <label class="rp-speed-opt" data-speed="0.5"><input type="radio" name="rp_spd_cd-demo-video-container_ziVeMxMF4e8" value="0.5">0.5×</label>
+                  <label class="rp-speed-opt" data-speed="0.75"><input type="radio" name="rp_spd_cd-demo-video-container_ziVeMxMF4e8" value="0.75">0.75×</label>
+                  <label class="rp-speed-opt active" data-speed="1"><input type="radio" name="rp_spd_cd-demo-video-container_ziVeMxMF4e8" value="1" checked>1×</label>
+                  <label class="rp-speed-opt" data-speed="1.25"><input type="radio" name="rp_spd_cd-demo-video-container_ziVeMxMF4e8" value="1.25">1.25×</label>
+                  <label class="rp-speed-opt" data-speed="1.5"><input type="radio" name="rp_spd_cd-demo-video-container_ziVeMxMF4e8" value="1.5">1.5×</label>
+                  <label class="rp-speed-opt" data-speed="1.75"><input type="radio" name="rp_spd_cd-demo-video-container_ziVeMxMF4e8" value="1.75">1.75×</label>
+                  <label class="rp-speed-opt" data-speed="2"><input type="radio" name="rp_spd_cd-demo-video-container_ziVeMxMF4e8" value="2">2×</label>
+                </div>
+              </div>
+            </div>
+
+            <!-- Fullscreen -->
+            <button type="button" class="rp-ctrl-btn rp-btn-fullscreen fsBtn" aria-label="Fullscreen" title="Fullscreen (f)">
+              <span class="rp-icon-fs-enter"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg></span>
+              <span class="rp-icon-fs-exit"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M5 16h3v3h2v-5H5v2zm3-8H5v2h5V5H8v3zm6 11h2v-3h3v-2h-5v5zm2-11V5h-2v5h5V8h-3z"/></svg></span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  
             </section>
 
             <!-- B. What You Will Learn Section -->
@@ -631,454 +783,498 @@
 
               <div class="cd-curriculum-accordion" id="curriculum-accordion">
                 
-                    <div class="cd-module-item active" data-module-index="0">
-                      <button class="cd-module-header" type="button" aria-expanded="true">
-                        <div class="cd-module-meta-left">
-                          <span class="cd-module-badge">Module 01</span>
-                          <span class="cd-module-name">Introduction To The Share Market</span>
-                        </div>
-                        <div class="cd-module-meta-right">
-                          <span class="cd-module-duration">4 lessons · 27m</span>
-                          <span class="cd-module-chevron" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
-                        </div>
-                      </button>
+      <div class="cd-module-item active" data-module-index="0">
+        <button class="cd-module-header" type="button" aria-expanded="true">
+          <div class="cd-module-meta-left">
+            <span class="cd-module-badge">Module 01</span>
+            <span class="cd-module-name">Introduction To The Share Market</span>
+          </div>
+          <div class="cd-module-meta-right">
+            <span class="cd-module-duration">4 lessons · 27m</span>
+            <span class="cd-module-chevron" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+          </div>
+        </button>
 
-                      <div class="cd-module-collapse">
-                        <div class="cd-module-body">
-                          
-                            <div class="cd-module-goal">
-                              <span class="cd-goal-tag">Objective</span>
-                              <p class="cd-goal-text">Understand the basic concepts of Nepal's share market before investing.</p>
-                            </div>
-                          
+        <div class="cd-module-collapse">
+          <div class="cd-module-body">
+            
+              <div class="cd-module-goal">
+                <span class="cd-goal-tag">Objective</span>
+                <p class="cd-goal-text">Understand the basic concepts of Nepal's share market before investing.</p>
+              </div>
+            
 
-                          <div class="cd-lessons-stack">
-                            
-                                <div class="cd-lesson-row cd-lesson-free-demo" id="lesson-free-demo-row">
-                                  <div class="cd-lesson-left">
-                                    <span class="cd-lesson-number">01</span>
-                                    <span class="cd-lesson-play-icon"><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg></span>
-                                    <span class="cd-lesson-title">What Is the Share Market?</span>
-                                    
-                                      <a href="#course-demo" class="cd-free-demo-pill" title="Watch free demo video above">
-                                        Free Demo
-                                      </a>
-                                    
-                                  </div>
-                                  <span class="cd-lesson-duration">7:41</span>
-                                </div>
-                              
-                                <div class="cd-lesson-row " >
-                                  <div class="cd-lesson-left">
-                                    <span class="cd-lesson-number">02</span>
-                                    <span class="cd-lesson-play-icon"><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg></span>
-                                    <span class="cd-lesson-title">Understanding the Key Participants in the Share Market</span>
-                                    
-                                  </div>
-                                  <span class="cd-lesson-duration">7:10</span>
-                                </div>
-                              
-                                <div class="cd-lesson-row " >
-                                  <div class="cd-lesson-left">
-                                    <span class="cd-lesson-number">03</span>
-                                    <span class="cd-lesson-play-icon"><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg></span>
-                                    <span class="cd-lesson-title">Primary Market vs. Secondary Market</span>
-                                    
-                                  </div>
-                                  <span class="cd-lesson-duration">8:22</span>
-                                </div>
-                              
-                                <div class="cd-lesson-row " >
-                                  <div class="cd-lesson-left">
-                                    <span class="cd-lesson-number">04</span>
-                                    <span class="cd-lesson-play-icon"><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg></span>
-                                    <span class="cd-lesson-title">How Companies Divide Ownership into Shares</span>
-                                    
-                                  </div>
-                                  <span class="cd-lesson-duration">3:59</span>
-                                </div>
-                              
-                          </div>
-                        </div>
-                      </div>
+            <div class="cd-lessons-stack">
+              
+                  <div class="cd-lesson-row cd-lesson-free-demo" id="lesson-free-demo-row">
+                    <div class="cd-lesson-left">
+                      <span class="cd-lesson-number">01</span>
+                      <span class="cd-lesson-play-icon"><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg></span>
+                      <a href="/courses/nepse-stock-market-basics/learn?lesson=lesson-1" class="cd-lesson-title-link">
+                        <span class="cd-lesson-title">What Is the Share Market?</span>
+                      </a>
+                      
+                        <a href="/courses/nepse-stock-market-basics/learn?lesson=lesson-1" class="cd-free-demo-pill" title="Watch free demo in learning player">
+                          Free Demo
+                        </a>
+                      
                     </div>
-                  
-                    <div class="cd-module-item " data-module-index="1">
-                      <button class="cd-module-header" type="button" aria-expanded="false">
-                        <div class="cd-module-meta-left">
-                          <span class="cd-module-badge">Module 02</span>
-                          <span class="cd-module-name">Share Market Accounts And Getting Started</span>
-                        </div>
-                        <div class="cd-module-meta-right">
-                          <span class="cd-module-duration">2 lessons · 12m</span>
-                          <span class="cd-module-chevron" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
-                        </div>
-                      </button>
-
-                      <div class="cd-module-collapse">
-                        <div class="cd-module-body">
-                          
-                            <div class="cd-module-goal">
-                              <span class="cd-goal-tag">Objective</span>
-                              <p class="cd-goal-text">Understand the accounts and infrastructure required to participate in NEPSE.</p>
-                            </div>
-                          
-
-                          <div class="cd-lessons-stack">
-                            
-                                <div class="cd-lesson-row " >
-                                  <div class="cd-lesson-left">
-                                    <span class="cd-lesson-number">05</span>
-                                    <span class="cd-lesson-play-icon"><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg></span>
-                                    <span class="cd-lesson-title">Understanding DEMAT, MeroShare and Trading Accounts</span>
-                                    
-                                  </div>
-                                  <span class="cd-lesson-duration">1:51</span>
-                                </div>
-                              
-                                <div class="cd-lesson-row " >
-                                  <div class="cd-lesson-left">
-                                    <span class="cd-lesson-number">06</span>
-                                    <span class="cd-lesson-play-icon"><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg></span>
-                                    <span class="cd-lesson-title">How to Open Share Market Accounts in Nepal</span>
-                                    
-                                  </div>
-                                  <span class="cd-lesson-duration">10:17</span>
-                                </div>
-                              
-                          </div>
-                        </div>
-                      </div>
+                    <span class="cd-lesson-duration">7:41</span>
+                  </div>
+                
+                  <div class="cd-lesson-row " >
+                    <div class="cd-lesson-left">
+                      <span class="cd-lesson-number">02</span>
+                      <span class="cd-lesson-play-icon"><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg></span>
+                      <a href="/courses/nepse-stock-market-basics/learn?lesson=lesson-2" class="cd-lesson-title-link">
+                        <span class="cd-lesson-title">Understanding the Key Participants in the Share Market</span>
+                      </a>
+                      
                     </div>
-                  
-                    <div class="cd-module-item " data-module-index="2">
-                      <button class="cd-module-header" type="button" aria-expanded="false">
-                        <div class="cd-module-meta-left">
-                          <span class="cd-module-badge">Module 03</span>
-                          <span class="cd-module-name">Introduction To Technical Analysis</span>
-                        </div>
-                        <div class="cd-module-meta-right">
-                          <span class="cd-module-duration">2 lessons · 1h 31m</span>
-                          <span class="cd-module-chevron" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
-                        </div>
-                      </button>
-
-                      <div class="cd-module-collapse">
-                        <div class="cd-module-body">
-                          
-                            <div class="cd-module-goal">
-                              <span class="cd-goal-tag">Objective</span>
-                              <p class="cd-goal-text">Learn how to read stock charts and understand price movements.</p>
-                            </div>
-                          
-
-                          <div class="cd-lessons-stack">
-                            
-                                <div class="cd-lesson-row " >
-                                  <div class="cd-lesson-left">
-                                    <span class="cd-lesson-number">07</span>
-                                    <span class="cd-lesson-play-icon"><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg></span>
-                                    <span class="cd-lesson-title">Technical Analysis: The Complete Introduction</span>
-                                    
-                                  </div>
-                                  <span class="cd-lesson-duration">48:10</span>
-                                </div>
-                              
-                                <div class="cd-lesson-row " >
-                                  <div class="cd-lesson-left">
-                                    <span class="cd-lesson-number">08</span>
-                                    <span class="cd-lesson-play-icon"><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg></span>
-                                    <span class="cd-lesson-title">Understanding Market Trends and Trend Analysis</span>
-                                    
-                                  </div>
-                                  <span class="cd-lesson-duration">42:50</span>
-                                </div>
-                              
-                          </div>
-                        </div>
-                      </div>
+                    <span class="cd-lesson-duration">7:10</span>
+                  </div>
+                
+                  <div class="cd-lesson-row " >
+                    <div class="cd-lesson-left">
+                      <span class="cd-lesson-number">03</span>
+                      <span class="cd-lesson-play-icon"><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg></span>
+                      <a href="/courses/nepse-stock-market-basics/learn?lesson=lesson-3" class="cd-lesson-title-link">
+                        <span class="cd-lesson-title">Primary Market vs. Secondary Market</span>
+                      </a>
+                      
                     </div>
-                  
-                    <div class="cd-module-item " data-module-index="3">
-                      <button class="cd-module-header" type="button" aria-expanded="false">
-                        <div class="cd-module-meta-left">
-                          <span class="cd-module-badge">Module 04</span>
-                          <span class="cd-module-name">Chart Reading And Price Action</span>
-                        </div>
-                        <div class="cd-module-meta-right">
-                          <span class="cd-module-duration">4 lessons · 2h 28m</span>
-                          <span class="cd-module-chevron" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
-                        </div>
-                      </button>
-
-                      <div class="cd-module-collapse">
-                        <div class="cd-module-body">
-                          
-                            <div class="cd-module-goal">
-                              <span class="cd-goal-tag">Objective</span>
-                              <p class="cd-goal-text">Learn to interpret price movements, chart formations, and market behaviour.</p>
-                            </div>
-                          
-
-                          <div class="cd-lessons-stack">
-                            
-                                <div class="cd-lesson-row " >
-                                  <div class="cd-lesson-left">
-                                    <span class="cd-lesson-number">09</span>
-                                    <span class="cd-lesson-play-icon"><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg></span>
-                                    <span class="cd-lesson-title">Understanding the Relationship Between Price and Volume</span>
-                                    
-                                  </div>
-                                  <span class="cd-lesson-duration">22:06</span>
-                                </div>
-                              
-                                <div class="cd-lesson-row " >
-                                  <div class="cd-lesson-left">
-                                    <span class="cd-lesson-number">10</span>
-                                    <span class="cd-lesson-play-icon"><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg></span>
-                                    <span class="cd-lesson-title">Understanding Chart Patterns: Part 1</span>
-                                    
-                                  </div>
-                                  <span class="cd-lesson-duration">33:12</span>
-                                </div>
-                              
-                                <div class="cd-lesson-row " >
-                                  <div class="cd-lesson-left">
-                                    <span class="cd-lesson-number">11</span>
-                                    <span class="cd-lesson-play-icon"><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg></span>
-                                    <span class="cd-lesson-title">Understanding Chart Patterns: Part 2</span>
-                                    
-                                  </div>
-                                  <span class="cd-lesson-duration">37:04</span>
-                                </div>
-                              
-                                <div class="cd-lesson-row " >
-                                  <div class="cd-lesson-left">
-                                    <span class="cd-lesson-number">12</span>
-                                    <span class="cd-lesson-play-icon"><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg></span>
-                                    <span class="cd-lesson-title">Price Action Trading Strategy</span>
-                                    
-                                  </div>
-                                  <span class="cd-lesson-duration">55:57</span>
-                                </div>
-                              
-                          </div>
-                        </div>
-                      </div>
+                    <span class="cd-lesson-duration">8:22</span>
+                  </div>
+                
+                  <div class="cd-lesson-row " >
+                    <div class="cd-lesson-left">
+                      <span class="cd-lesson-number">04</span>
+                      <span class="cd-lesson-play-icon"><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg></span>
+                      <a href="/courses/nepse-stock-market-basics/learn?lesson=lesson-4" class="cd-lesson-title-link">
+                        <span class="cd-lesson-title">How Companies Divide Ownership into Shares</span>
+                      </a>
+                      
                     </div>
-                  
-                    <div class="cd-module-item " data-module-index="4">
-                      <button class="cd-module-header" type="button" aria-expanded="false">
-                        <div class="cd-module-meta-left">
-                          <span class="cd-module-badge">Module 05</span>
-                          <span class="cd-module-name">Technical Indicators And Trading Tools</span>
-                        </div>
-                        <div class="cd-module-meta-right">
-                          <span class="cd-module-duration">4 lessons · 1h 13m</span>
-                          <span class="cd-module-chevron" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
-                        </div>
-                      </button>
+                    <span class="cd-lesson-duration">3:59</span>
+                  </div>
+                
+            </div>
+          </div>
+        </div>
+      </div>
+    
+      <div class="cd-module-item " data-module-index="1">
+        <button class="cd-module-header" type="button" aria-expanded="false">
+          <div class="cd-module-meta-left">
+            <span class="cd-module-badge">Module 02</span>
+            <span class="cd-module-name">Share Market Accounts And Getting Started</span>
+          </div>
+          <div class="cd-module-meta-right">
+            <span class="cd-module-duration">2 lessons · 12m</span>
+            <span class="cd-module-chevron" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+          </div>
+        </button>
 
-                      <div class="cd-module-collapse">
-                        <div class="cd-module-body">
-                          
-                            <div class="cd-module-goal">
-                              <span class="cd-goal-tag">Objective</span>
-                              <p class="cd-goal-text">Understand technical indicators and how they can support chart analysis.</p>
-                            </div>
-                          
+        <div class="cd-module-collapse">
+          <div class="cd-module-body">
+            
+              <div class="cd-module-goal">
+                <span class="cd-goal-tag">Objective</span>
+                <p class="cd-goal-text">Understand the accounts and infrastructure required to participate in NEPSE.</p>
+              </div>
+            
 
-                          <div class="cd-lessons-stack">
-                            
-                                <div class="cd-lesson-row " >
-                                  <div class="cd-lesson-left">
-                                    <span class="cd-lesson-number">13</span>
-                                    <span class="cd-lesson-play-icon"><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg></span>
-                                    <span class="cd-lesson-title">Moving Averages and Supertrend</span>
-                                    
-                                  </div>
-                                  <span class="cd-lesson-duration">22:57</span>
-                                </div>
-                              
-                                <div class="cd-lesson-row " >
-                                  <div class="cd-lesson-left">
-                                    <span class="cd-lesson-number">14</span>
-                                    <span class="cd-lesson-play-icon"><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg></span>
-                                    <span class="cd-lesson-title">Volume Indicator and Volume Analysis</span>
-                                    
-                                  </div>
-                                  <span class="cd-lesson-duration">9:21</span>
-                                </div>
-                              
-                                <div class="cd-lesson-row " >
-                                  <div class="cd-lesson-left">
-                                    <span class="cd-lesson-number">15</span>
-                                    <span class="cd-lesson-play-icon"><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg></span>
-                                    <span class="cd-lesson-title">MACD Indicator: Understanding Momentum</span>
-                                    
-                                  </div>
-                                  <span class="cd-lesson-duration">23:21</span>
-                                </div>
-                              
-                                <div class="cd-lesson-row " >
-                                  <div class="cd-lesson-left">
-                                    <span class="cd-lesson-number">16</span>
-                                    <span class="cd-lesson-play-icon"><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg></span>
-                                    <span class="cd-lesson-title">Fibonacci Retracement: Identifying Potential Price Levels</span>
-                                    
-                                  </div>
-                                  <span class="cd-lesson-duration">17:40</span>
-                                </div>
-                              
-                          </div>
-                        </div>
-                      </div>
+            <div class="cd-lessons-stack">
+              
+                  <div class="cd-lesson-row " >
+                    <div class="cd-lesson-left">
+                      <span class="cd-lesson-number">05</span>
+                      <span class="cd-lesson-play-icon"><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg></span>
+                      <a href="/courses/nepse-stock-market-basics/learn?lesson=lesson-5" class="cd-lesson-title-link">
+                        <span class="cd-lesson-title">Understanding DEMAT, MeroShare and Trading Accounts</span>
+                      </a>
+                      
                     </div>
-                  
-                    <div class="cd-module-item " data-module-index="5">
-                      <button class="cd-module-header" type="button" aria-expanded="false">
-                        <div class="cd-module-meta-left">
-                          <span class="cd-module-badge">Module 06</span>
-                          <span class="cd-module-name">Risk Management And Trading Discipline</span>
-                        </div>
-                        <div class="cd-module-meta-right">
-                          <span class="cd-module-duration">2 lessons · 2h 20m</span>
-                          <span class="cd-module-chevron" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
-                        </div>
-                      </button>
-
-                      <div class="cd-module-collapse">
-                        <div class="cd-module-body">
-                          
-                            <div class="cd-module-goal">
-                              <span class="cd-goal-tag">Objective</span>
-                              <p class="cd-goal-text">Learn how to manage risk before applying trading strategies.</p>
-                            </div>
-                          
-
-                          <div class="cd-lessons-stack">
-                            
-                                <div class="cd-lesson-row " >
-                                  <div class="cd-lesson-left">
-                                    <span class="cd-lesson-number">17</span>
-                                    <span class="cd-lesson-play-icon"><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg></span>
-                                    <span class="cd-lesson-title">Complete Guide to Risk Management in the Share Market</span>
-                                    
-                                  </div>
-                                  <span class="cd-lesson-duration">1:11:27</span>
-                                </div>
-                              
-                                <div class="cd-lesson-row " >
-                                  <div class="cd-lesson-left">
-                                    <span class="cd-lesson-number">18</span>
-                                    <span class="cd-lesson-play-icon"><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg></span>
-                                    <span class="cd-lesson-title">Stop-Loss: Everything You Need to Know</span>
-                                    
-                                  </div>
-                                  <span class="cd-lesson-duration">1:08:30</span>
-                                </div>
-                              
-                          </div>
-                        </div>
-                      </div>
+                    <span class="cd-lesson-duration">1:51</span>
+                  </div>
+                
+                  <div class="cd-lesson-row " >
+                    <div class="cd-lesson-left">
+                      <span class="cd-lesson-number">06</span>
+                      <span class="cd-lesson-play-icon"><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg></span>
+                      <a href="/courses/nepse-stock-market-basics/learn?lesson=lesson-6" class="cd-lesson-title-link">
+                        <span class="cd-lesson-title">How to Open Share Market Accounts in Nepal</span>
+                      </a>
+                      
                     </div>
-                  
-                    <div class="cd-module-item " data-module-index="6">
-                      <button class="cd-module-header" type="button" aria-expanded="false">
-                        <div class="cd-module-meta-left">
-                          <span class="cd-module-badge">Module 07</span>
-                          <span class="cd-module-name">Fundamental Analysis And Stock Selection</span>
-                        </div>
-                        <div class="cd-module-meta-right">
-                          <span class="cd-module-duration">2 lessons · 1h 49m</span>
-                          <span class="cd-module-chevron" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
-                        </div>
-                      </button>
+                    <span class="cd-lesson-duration">10:17</span>
+                  </div>
+                
+            </div>
+          </div>
+        </div>
+      </div>
+    
+      <div class="cd-module-item " data-module-index="2">
+        <button class="cd-module-header" type="button" aria-expanded="false">
+          <div class="cd-module-meta-left">
+            <span class="cd-module-badge">Module 03</span>
+            <span class="cd-module-name">Introduction To Technical Analysis</span>
+          </div>
+          <div class="cd-module-meta-right">
+            <span class="cd-module-duration">2 lessons · 1h 31m</span>
+            <span class="cd-module-chevron" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+          </div>
+        </button>
 
-                      <div class="cd-module-collapse">
-                        <div class="cd-module-body">
-                          
-                            <div class="cd-module-goal">
-                              <span class="cd-goal-tag">Objective</span>
-                              <p class="cd-goal-text">Learn how to evaluate companies and select stocks using fundamental analysis.</p>
-                            </div>
-                          
+        <div class="cd-module-collapse">
+          <div class="cd-module-body">
+            
+              <div class="cd-module-goal">
+                <span class="cd-goal-tag">Objective</span>
+                <p class="cd-goal-text">Learn how to read stock charts and understand price movements.</p>
+              </div>
+            
 
-                          <div class="cd-lessons-stack">
-                            
-                                <div class="cd-lesson-row " >
-                                  <div class="cd-lesson-left">
-                                    <span class="cd-lesson-number">19</span>
-                                    <span class="cd-lesson-play-icon"><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg></span>
-                                    <span class="cd-lesson-title">How to Select Stocks Using Fundamental Analysis</span>
-                                    
-                                  </div>
-                                  <span class="cd-lesson-duration">38:00</span>
-                                </div>
-                              
-                                <div class="cd-lesson-row " >
-                                  <div class="cd-lesson-left">
-                                    <span class="cd-lesson-number">20</span>
-                                    <span class="cd-lesson-play-icon"><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg></span>
-                                    <span class="cd-lesson-title">The Complete Stock Selection Process</span>
-                                    
-                                  </div>
-                                  <span class="cd-lesson-duration">1:11:17</span>
-                                </div>
-                              
-                          </div>
-                        </div>
-                      </div>
+            <div class="cd-lessons-stack">
+              
+                  <div class="cd-lesson-row " >
+                    <div class="cd-lesson-left">
+                      <span class="cd-lesson-number">07</span>
+                      <span class="cd-lesson-play-icon"><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg></span>
+                      <a href="/courses/nepse-stock-market-basics/learn?lesson=lesson-7" class="cd-lesson-title-link">
+                        <span class="cd-lesson-title">Technical Analysis: The Complete Introduction</span>
+                      </a>
+                      
                     </div>
-                  
-                    <div class="cd-module-item " data-module-index="7">
-                      <button class="cd-module-header" type="button" aria-expanded="false">
-                        <div class="cd-module-meta-left">
-                          <span class="cd-module-badge">Module 08</span>
-                          <span class="cd-module-name">Practical Stock Analysis</span>
-                        </div>
-                        <div class="cd-module-meta-right">
-                          <span class="cd-module-duration">2 lessons · 1h 54m</span>
-                          <span class="cd-module-chevron" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
-                        </div>
-                      </button>
-
-                      <div class="cd-module-collapse">
-                        <div class="cd-module-body">
-                          
-                            <div class="cd-module-goal">
-                              <span class="cd-goal-tag">Objective</span>
-                              <p class="cd-goal-text">Apply stock analysis concepts to real companies listed on NEPSE.</p>
-                            </div>
-                          
-
-                          <div class="cd-lessons-stack">
-                            
-                                <div class="cd-lesson-row " >
-                                  <div class="cd-lesson-left">
-                                    <span class="cd-lesson-number">21</span>
-                                    <span class="cd-lesson-play-icon"><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg></span>
-                                    <span class="cd-lesson-title">Fundamental Stock Analysis: Laxmi Bank</span>
-                                    
-                                  </div>
-                                  <span class="cd-lesson-duration">45:53</span>
-                                </div>
-                              
-                                <div class="cd-lesson-row " >
-                                  <div class="cd-lesson-left">
-                                    <span class="cd-lesson-number">22</span>
-                                    <span class="cd-lesson-play-icon"><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg></span>
-                                    <span class="cd-lesson-title">Fundamental Stock Analysis: Nabil Bank</span>
-                                    
-                                  </div>
-                                  <span class="cd-lesson-duration">1:08:35</span>
-                                </div>
-                              
-                          </div>
-                        </div>
-                      </div>
+                    <span class="cd-lesson-duration">48:10</span>
+                  </div>
+                
+                  <div class="cd-lesson-row " >
+                    <div class="cd-lesson-left">
+                      <span class="cd-lesson-number">08</span>
+                      <span class="cd-lesson-play-icon"><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg></span>
+                      <a href="/courses/nepse-stock-market-basics/learn?lesson=lesson-8" class="cd-lesson-title-link">
+                        <span class="cd-lesson-title">Understanding Market Trends and Trend Analysis</span>
+                      </a>
+                      
                     </div>
-                  
+                    <span class="cd-lesson-duration">42:50</span>
+                  </div>
+                
+            </div>
+          </div>
+        </div>
+      </div>
+    
+      <div class="cd-module-item " data-module-index="3">
+        <button class="cd-module-header" type="button" aria-expanded="false">
+          <div class="cd-module-meta-left">
+            <span class="cd-module-badge">Module 04</span>
+            <span class="cd-module-name">Chart Reading And Price Action</span>
+          </div>
+          <div class="cd-module-meta-right">
+            <span class="cd-module-duration">4 lessons · 2h 28m</span>
+            <span class="cd-module-chevron" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+          </div>
+        </button>
+
+        <div class="cd-module-collapse">
+          <div class="cd-module-body">
+            
+              <div class="cd-module-goal">
+                <span class="cd-goal-tag">Objective</span>
+                <p class="cd-goal-text">Learn to interpret price movements, chart formations, and market behaviour.</p>
+              </div>
+            
+
+            <div class="cd-lessons-stack">
+              
+                  <div class="cd-lesson-row " >
+                    <div class="cd-lesson-left">
+                      <span class="cd-lesson-number">09</span>
+                      <span class="cd-lesson-play-icon"><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg></span>
+                      <a href="/courses/nepse-stock-market-basics/learn?lesson=lesson-9" class="cd-lesson-title-link">
+                        <span class="cd-lesson-title">Understanding the Relationship Between Price and Volume</span>
+                      </a>
+                      
+                    </div>
+                    <span class="cd-lesson-duration">22:06</span>
+                  </div>
+                
+                  <div class="cd-lesson-row " >
+                    <div class="cd-lesson-left">
+                      <span class="cd-lesson-number">10</span>
+                      <span class="cd-lesson-play-icon"><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg></span>
+                      <a href="/courses/nepse-stock-market-basics/learn?lesson=lesson-10" class="cd-lesson-title-link">
+                        <span class="cd-lesson-title">Understanding Chart Patterns: Part 1</span>
+                      </a>
+                      
+                    </div>
+                    <span class="cd-lesson-duration">33:12</span>
+                  </div>
+                
+                  <div class="cd-lesson-row " >
+                    <div class="cd-lesson-left">
+                      <span class="cd-lesson-number">11</span>
+                      <span class="cd-lesson-play-icon"><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg></span>
+                      <a href="/courses/nepse-stock-market-basics/learn?lesson=lesson-11" class="cd-lesson-title-link">
+                        <span class="cd-lesson-title">Understanding Chart Patterns: Part 2</span>
+                      </a>
+                      
+                    </div>
+                    <span class="cd-lesson-duration">37:04</span>
+                  </div>
+                
+                  <div class="cd-lesson-row " >
+                    <div class="cd-lesson-left">
+                      <span class="cd-lesson-number">12</span>
+                      <span class="cd-lesson-play-icon"><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg></span>
+                      <a href="/courses/nepse-stock-market-basics/learn?lesson=lesson-12" class="cd-lesson-title-link">
+                        <span class="cd-lesson-title">Price Action Trading Strategy</span>
+                      </a>
+                      
+                    </div>
+                    <span class="cd-lesson-duration">55:57</span>
+                  </div>
+                
+            </div>
+          </div>
+        </div>
+      </div>
+    
+      <div class="cd-module-item " data-module-index="4">
+        <button class="cd-module-header" type="button" aria-expanded="false">
+          <div class="cd-module-meta-left">
+            <span class="cd-module-badge">Module 05</span>
+            <span class="cd-module-name">Technical Indicators And Trading Tools</span>
+          </div>
+          <div class="cd-module-meta-right">
+            <span class="cd-module-duration">4 lessons · 1h 13m</span>
+            <span class="cd-module-chevron" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+          </div>
+        </button>
+
+        <div class="cd-module-collapse">
+          <div class="cd-module-body">
+            
+              <div class="cd-module-goal">
+                <span class="cd-goal-tag">Objective</span>
+                <p class="cd-goal-text">Understand technical indicators and how they can support chart analysis.</p>
+              </div>
+            
+
+            <div class="cd-lessons-stack">
+              
+                  <div class="cd-lesson-row " >
+                    <div class="cd-lesson-left">
+                      <span class="cd-lesson-number">13</span>
+                      <span class="cd-lesson-play-icon"><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg></span>
+                      <a href="/courses/nepse-stock-market-basics/learn?lesson=lesson-13" class="cd-lesson-title-link">
+                        <span class="cd-lesson-title">Moving Averages and Supertrend</span>
+                      </a>
+                      
+                    </div>
+                    <span class="cd-lesson-duration">22:57</span>
+                  </div>
+                
+                  <div class="cd-lesson-row " >
+                    <div class="cd-lesson-left">
+                      <span class="cd-lesson-number">14</span>
+                      <span class="cd-lesson-play-icon"><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg></span>
+                      <a href="/courses/nepse-stock-market-basics/learn?lesson=lesson-14" class="cd-lesson-title-link">
+                        <span class="cd-lesson-title">Volume Indicator and Volume Analysis</span>
+                      </a>
+                      
+                    </div>
+                    <span class="cd-lesson-duration">9:21</span>
+                  </div>
+                
+                  <div class="cd-lesson-row " >
+                    <div class="cd-lesson-left">
+                      <span class="cd-lesson-number">15</span>
+                      <span class="cd-lesson-play-icon"><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg></span>
+                      <a href="/courses/nepse-stock-market-basics/learn?lesson=lesson-15" class="cd-lesson-title-link">
+                        <span class="cd-lesson-title">MACD Indicator: Understanding Momentum</span>
+                      </a>
+                      
+                    </div>
+                    <span class="cd-lesson-duration">23:21</span>
+                  </div>
+                
+                  <div class="cd-lesson-row " >
+                    <div class="cd-lesson-left">
+                      <span class="cd-lesson-number">16</span>
+                      <span class="cd-lesson-play-icon"><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg></span>
+                      <a href="/courses/nepse-stock-market-basics/learn?lesson=lesson-16" class="cd-lesson-title-link">
+                        <span class="cd-lesson-title">Fibonacci Retracement: Identifying Potential Price Levels</span>
+                      </a>
+                      
+                    </div>
+                    <span class="cd-lesson-duration">17:40</span>
+                  </div>
+                
+            </div>
+          </div>
+        </div>
+      </div>
+    
+      <div class="cd-module-item " data-module-index="5">
+        <button class="cd-module-header" type="button" aria-expanded="false">
+          <div class="cd-module-meta-left">
+            <span class="cd-module-badge">Module 06</span>
+            <span class="cd-module-name">Risk Management And Trading Discipline</span>
+          </div>
+          <div class="cd-module-meta-right">
+            <span class="cd-module-duration">2 lessons · 2h 20m</span>
+            <span class="cd-module-chevron" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+          </div>
+        </button>
+
+        <div class="cd-module-collapse">
+          <div class="cd-module-body">
+            
+              <div class="cd-module-goal">
+                <span class="cd-goal-tag">Objective</span>
+                <p class="cd-goal-text">Learn how to manage risk before applying trading strategies.</p>
+              </div>
+            
+
+            <div class="cd-lessons-stack">
+              
+                  <div class="cd-lesson-row " >
+                    <div class="cd-lesson-left">
+                      <span class="cd-lesson-number">17</span>
+                      <span class="cd-lesson-play-icon"><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg></span>
+                      <a href="/courses/nepse-stock-market-basics/learn?lesson=lesson-17" class="cd-lesson-title-link">
+                        <span class="cd-lesson-title">Complete Guide to Risk Management in the Share Market</span>
+                      </a>
+                      
+                    </div>
+                    <span class="cd-lesson-duration">1:11:27</span>
+                  </div>
+                
+                  <div class="cd-lesson-row " >
+                    <div class="cd-lesson-left">
+                      <span class="cd-lesson-number">18</span>
+                      <span class="cd-lesson-play-icon"><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg></span>
+                      <a href="/courses/nepse-stock-market-basics/learn?lesson=lesson-18" class="cd-lesson-title-link">
+                        <span class="cd-lesson-title">Stop-Loss: Everything You Need to Know</span>
+                      </a>
+                      
+                    </div>
+                    <span class="cd-lesson-duration">1:08:30</span>
+                  </div>
+                
+            </div>
+          </div>
+        </div>
+      </div>
+    
+      <div class="cd-module-item " data-module-index="6">
+        <button class="cd-module-header" type="button" aria-expanded="false">
+          <div class="cd-module-meta-left">
+            <span class="cd-module-badge">Module 07</span>
+            <span class="cd-module-name">Fundamental Analysis And Stock Selection</span>
+          </div>
+          <div class="cd-module-meta-right">
+            <span class="cd-module-duration">2 lessons · 1h 49m</span>
+            <span class="cd-module-chevron" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+          </div>
+        </button>
+
+        <div class="cd-module-collapse">
+          <div class="cd-module-body">
+            
+              <div class="cd-module-goal">
+                <span class="cd-goal-tag">Objective</span>
+                <p class="cd-goal-text">Learn how to evaluate companies and select stocks using fundamental analysis.</p>
+              </div>
+            
+
+            <div class="cd-lessons-stack">
+              
+                  <div class="cd-lesson-row " >
+                    <div class="cd-lesson-left">
+                      <span class="cd-lesson-number">19</span>
+                      <span class="cd-lesson-play-icon"><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg></span>
+                      <a href="/courses/nepse-stock-market-basics/learn?lesson=lesson-19" class="cd-lesson-title-link">
+                        <span class="cd-lesson-title">How to Select Stocks Using Fundamental Analysis</span>
+                      </a>
+                      
+                    </div>
+                    <span class="cd-lesson-duration">38:00</span>
+                  </div>
+                
+                  <div class="cd-lesson-row " >
+                    <div class="cd-lesson-left">
+                      <span class="cd-lesson-number">20</span>
+                      <span class="cd-lesson-play-icon"><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg></span>
+                      <a href="/courses/nepse-stock-market-basics/learn?lesson=lesson-20" class="cd-lesson-title-link">
+                        <span class="cd-lesson-title">The Complete Stock Selection Process</span>
+                      </a>
+                      
+                    </div>
+                    <span class="cd-lesson-duration">1:11:17</span>
+                  </div>
+                
+            </div>
+          </div>
+        </div>
+      </div>
+    
+      <div class="cd-module-item " data-module-index="7">
+        <button class="cd-module-header" type="button" aria-expanded="false">
+          <div class="cd-module-meta-left">
+            <span class="cd-module-badge">Module 08</span>
+            <span class="cd-module-name">Practical Stock Analysis</span>
+          </div>
+          <div class="cd-module-meta-right">
+            <span class="cd-module-duration">2 lessons · 1h 54m</span>
+            <span class="cd-module-chevron" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+          </div>
+        </button>
+
+        <div class="cd-module-collapse">
+          <div class="cd-module-body">
+            
+              <div class="cd-module-goal">
+                <span class="cd-goal-tag">Objective</span>
+                <p class="cd-goal-text">Apply stock analysis concepts to real companies listed on NEPSE.</p>
+              </div>
+            
+
+            <div class="cd-lessons-stack">
+              
+                  <div class="cd-lesson-row " >
+                    <div class="cd-lesson-left">
+                      <span class="cd-lesson-number">21</span>
+                      <span class="cd-lesson-play-icon"><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg></span>
+                      <a href="/courses/nepse-stock-market-basics/learn?lesson=lesson-21" class="cd-lesson-title-link">
+                        <span class="cd-lesson-title">Fundamental Stock Analysis: Laxmi Bank</span>
+                      </a>
+                      
+                    </div>
+                    <span class="cd-lesson-duration">45:53</span>
+                  </div>
+                
+                  <div class="cd-lesson-row " >
+                    <div class="cd-lesson-left">
+                      <span class="cd-lesson-number">22</span>
+                      <span class="cd-lesson-play-icon"><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg></span>
+                      <a href="/courses/nepse-stock-market-basics/learn?lesson=lesson-22" class="cd-lesson-title-link">
+                        <span class="cd-lesson-title">Fundamental Stock Analysis: Nabil Bank</span>
+                      </a>
+                      
+                    </div>
+                    <span class="cd-lesson-duration">1:08:35</span>
+                  </div>
+                
+            </div>
+          </div>
+        </div>
+      </div>
+    
               </div>
             </section>
 
@@ -1323,6 +1519,10 @@
             <a href="/learn/nepse">NEPSE</a>
             <a href="/learn/personal-finance">Personal Finance</a>
             <a href="/learn/taxation">Taxation Nepal</a>
+            <a href="/learn/mutual-funds">Mutual Funds</a>
+            <a href="/learn/loans">Loans &amp; Banking</a>
+            <a href="/learn/insurance">Insurance</a>
+            <a href="/learn/retirement-planning">Retirement Planning</a>
           </div>
           
           <div class="footer-section">

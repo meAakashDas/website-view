@@ -1,0 +1,333 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // =========================================================================
+    // risePaisa Cloud Firestore Security Rules
+    // Project: risepaisa-77278
+    // Architecture: Least-privilege, default-deny, strict field validation
+    // =========================================================================
+
+    // -------------------------------------------------------------------------
+    // Helper Functions
+    // -------------------------------------------------------------------------
+    function isAuthenticated() {
+      return request.auth != null && request.auth.uid != null;
+    }
+
+    function isOwner(userId) {
+      return isAuthenticated() && request.auth.uid == userId;
+    }
+
+    function isAdmin() {
+      return isAuthenticated() && exists(/databases/$(database)/documents/admins/$(request.auth.uid));
+    }
+
+    // Default Deny Rule across any unspecified collection or document path
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // -------------------------------------------------------------------------
+    // User Profiles: /users/{userId}
+    // -------------------------------------------------------------------------
+    match /users/{userId} {
+      // Profile owners may view their own document; authorized admins may view student profiles
+      allow read: if isOwner(userId) || isAdmin();
+
+      // Whitelist permitted user profile fields
+      // Prevents arbitrary field injection (e.g. isAdmin, role, paid, access, tier)
+      function hasOnlyAllowedUserFields() {
+        return request.resource.data.keys().hasOnly([
+          'displayName',
+          'email',
+          'photoURL',
+          'createdAt',
+          'updatedAt'
+        ]);
+      }
+
+      // Validate data types and bounded string sizes
+      function isValidUserFields() {
+        let d = request.resource.data;
+        return (d.displayName == null || (d.displayName is string && d.displayName.size() <= 100))
+            && (d.email == null || (d.email is string && d.email.size() <= 150))
+            && (d.photoURL == null || (d.photoURL is string && d.photoURL.size() <= 500))
+            && d.createdAt is timestamp
+            && d.updatedAt is timestamp;
+      }
+
+      // Create: Owner only, strict schema, no self-granting of privileges; or Administrator
+      allow create: if (isOwner(userId)
+                        && hasOnlyAllowedUserFields()
+                        && isValidUserFields()
+                        && request.resource.data.createdAt <= request.time)
+                    || isAdmin();
+
+      // Update: Owner (with immutable createdAt and no privilege escalation) or Administrator
+      allow update: if (isOwner(userId)
+                        && (
+                          (hasOnlyAllowedUserFields()
+                           && isValidUserFields()
+                           && request.resource.data.createdAt == resource.data.createdAt
+                           && request.resource.data.updatedAt <= request.time)
+                          ||
+                          (request.resource.data.keys().hasOnly([
+                            'displayName',
+                            'email',
+                            'phoneNumber',
+                            'termsAccepted',
+                            'termsAcceptedAt',
+                            'onboardingCompleted',
+                            'updatedAt',
+                            'createdAt',
+                            'studentId',
+                            "role",
+                            'accountStatus',
+                            'mustChangePassword',
+                            'internalEmail',
+                            'createdBy',
+                            'adminNote',
+                            'photoURL'
+                          ])
+                          && (!('studentId' in resource.data) || request.resource.data.studentId == resource.data.studentId)
+                          && (!('accountStatus' in resource.data) || request.resource.data.accountStatus == resource.data.accountStatus)
+                          && (!("role" in resource.data) || request.resource.data["role"] == resource.data["role"])
+                          && request.resource.data.createdAt == resource.data.createdAt
+                          && request.resource.data.updatedAt <= request.time)
+                        ))
+                    || isAdmin();
+
+      // Client deletion of user document is forbidden (handled via administrative lifecycle)
+      allow delete: if false;
+
+      // -----------------------------------------------------------------------
+      // Bookmarks Subcollection: /users/{userId}/bookmarks/{bookmarkId}
+      // -----------------------------------------------------------------------
+      match /bookmarks/{bookmarkId} {
+        // Only the owning user may read their bookmarks
+        allow read: if isOwner(userId);
+
+        // Whitelist permitted bookmark fields
+        function hasOnlyAllowedBookmarkFields() {
+          return request.resource.data.keys().hasAll(['type', 'slug', 'title', 'url', 'savedAt'])
+              && request.resource.data.keys().hasOnly(['type', 'slug', 'title', 'url', 'savedAt']);
+        }
+
+        // Validate allowed content types and string lengths based on website content
+        function isValidBookmarkFields() {
+          let d = request.resource.data;
+          return d.type in ['lesson', 'guide', 'resource', 'calculator', 'article']
+              && d.slug is string && d.slug.size() > 0 && d.slug.size() <= 100
+              && d.title is string && d.title.size() > 0 && d.title.size() <= 200
+              && d.url is string && d.url.size() > 0 && d.url.size() <= 300
+              && d.savedAt is timestamp;
+        }
+
+        // Create: Owner only, strictly bounded, timestamp within valid range
+        allow create: if isOwner(userId)
+                      && hasOnlyAllowedBookmarkFields()
+                      && isValidBookmarkFields()
+                      && request.resource.data.savedAt <= request.time;
+
+        // Update: Owner only, strictly bounded
+        allow update: if isOwner(userId)
+                      && hasOnlyAllowedBookmarkFields()
+                      && isValidBookmarkFields()
+                      && request.resource.data.savedAt <= request.time;
+
+        // Delete: Owner only
+        allow delete: if isOwner(userId);
+      }
+
+      // -----------------------------------------------------------------------
+      // Course Enrollments Subcollection: /users/{userId}/courses/{courseId}
+      // CRITICAL SECURITY ENFORCEMENT:
+      // Students can only read their own enrollment records.
+      // Verified administrators can read and provision/revoke/renew enrollments.
+      // Ordinary client-side users cannot create, modify, or extend enrollments.
+      // -----------------------------------------------------------------------
+      match /courses/{courseId} {
+        allow read: if isOwner(userId) || isAdmin();
+
+        // Whitelist permitted enrollment fields
+        function hasOnlyAllowedEnrollmentFields() {
+          return request.resource.data.keys().hasOnly([
+            'courseId',
+            'courseSlug',
+            'status',
+            'grantedAt',
+            'grantedBy',
+            'startsAt',
+            'expiresAt',
+            'updatedAt',
+            'updatedBy',
+            'revokedAt',
+            'revokedBy',
+            'source',
+            'enrolledAt'
+          ]);
+        }
+
+        // Validate types and bound values
+        function isValidEnrollmentFields() {
+          let d = request.resource.data;
+          return d.courseId is string && d.courseId.size() > 0 && d.courseId.size() <= 100
+              && d.status in ['active', 'revoked', 'expired']
+              && (d.courseSlug == null || (d.courseSlug is string && d.courseSlug.size() <= 100))
+              && (d.source == null || (d.source is string && d.source.size() <= 50))
+              && (d.grantedBy == null || (d.grantedBy is string && d.grantedBy.size() <= 128))
+              && (d.updatedBy == null || (d.updatedBy is string && d.updatedBy.size() <= 128))
+              && (d.revokedBy == null || (d.revokedBy is string && d.revokedBy.size() <= 128))
+              && (d.startsAt == null || d.startsAt is timestamp)
+              && (d.expiresAt == null || d.expiresAt is timestamp)
+              && (d.grantedAt == null || d.grantedAt is timestamp)
+              && (d.updatedAt == null || d.updatedAt is timestamp)
+              && (d.revokedAt == null || d.revokedAt is timestamp)
+              && (d.enrolledAt == null || d.enrolledAt is timestamp);
+        }
+
+        // Only authorized administrators can grant, revoke, or renew enrollments
+        allow create, update: if isAdmin()
+                              && hasOnlyAllowedEnrollmentFields()
+                              && isValidEnrollmentFields();
+
+        allow delete: if isAdmin();
+
+        // ---------------------------------------------------------------------
+        // Course Lesson Progress: /users/{userId}/courses/{courseId}/lessons/{lessonId}
+        // Allows the user to store their completed status and timestamp.
+        // Strictly decoupled from enrollment; does not confer course authorization.
+        // ---------------------------------------------------------------------
+        match /lessons/{lessonId} {
+          allow read: if isOwner(userId);
+
+          function hasOnlyAllowedProgressFields() {
+            return request.resource.data.keys().hasAll(['completed', 'updatedAt'])
+                && request.resource.data.keys().hasOnly(['completed', 'lastPositionSeconds', 'updatedAt']);
+          }
+
+          function isValidProgressFields() {
+            let d = request.resource.data;
+            return d.completed is bool
+                && (!('lastPositionSeconds' in d) || (d.lastPositionSeconds is number && d.lastPositionSeconds >= 0))
+                && d.updatedAt is timestamp;
+          }
+
+          allow create, update: if isOwner(userId)
+                                && hasOnlyAllowedProgressFields()
+                                && isValidProgressFields()
+                                && request.resource.data.updatedAt <= request.time;
+
+          allow delete: if isOwner(userId);
+        }
+      }
+    }
+
+    // -------------------------------------------------------------------------
+    // Administrator Allowlist & Permissions
+    // Strict server-side verification: documents in /admins can ONLY be provisioned
+    // via Firebase Console or trusted server Admin SDK (client write is forbidden).
+    // -------------------------------------------------------------------------
+    match /admins/{adminUid} {
+      // Only the authenticated user may check their own administrator record
+      allow read: if isAuthenticated() && request.auth.uid == adminUid;
+
+      // Client writes are strictly FORBIDDEN to prevent privilege escalation
+      allow write: if false;
+    }
+
+    // -------------------------------------------------------------------------
+    // Course Catalog & Lesson Management: /courses/{courseId}
+    // -------------------------------------------------------------------------
+    match /courses/{courseId} {
+      // Published courses can be read by any visitor or student;
+      // Unpublished courses can only be read by authorized administrators
+      allow read: if (resource != null && resource.data.published == true) || isAdmin();
+
+      // Only authorized administrators can create, update, or delete courses
+      allow create, update: if isAdmin()
+                            && request.resource.data.slug is string
+                            && request.resource.data.title is string
+                            && request.resource.data.published is bool;
+
+      allow delete: if isAdmin();
+
+      match /{subcollection=**} {
+        allow read: if (resource != null && resource.data.published == true) || isAdmin();
+        allow write: if isAdmin();
+      }
+    }
+
+    // -------------------------------------------------------------------------
+    // Administrative Enrollment Audit Logs: /enrollment_audits/{auditId}
+    // Only authorized administrators can read or append audit entries.
+    // Ordinary students and unauthenticated users cannot read or write.
+    // -------------------------------------------------------------------------
+    match /enrollment_audits/{auditId} {
+      allow read: if isAdmin();
+
+      function hasOnlyAllowedAuditFields() {
+        return request.resource.data.keys().hasOnly([
+          'eventType',
+          'courseId',
+          'studentUid',
+          'studentId',
+          'targetUid',
+          'targetStudentId',
+          'adminUid',
+          'timestamp',
+          'previousStatus',
+          'newStatus',
+          'previousExpiresAt',
+          'newExpiresAt',
+          'note'
+        ]);
+      }
+
+      function isValidAuditFields() {
+        let d = request.resource.data;
+        return d.eventType in [
+              'access_granted',
+              'access_renewed',
+              'access_revoked',
+              'expiration_updated',
+              'student_account_created',
+              'student_account_suspended',
+              'student_account_reactivated',
+              'student_password_reset',
+              'student_profile_updated'
+            ]
+            && (d.courseId == null || d.courseId is string)
+            && (d.studentUid == null || d.studentUid is string)
+            && d.adminUid == request.auth.uid
+            && d.timestamp is timestamp;
+      }
+
+      allow create: if isAdmin()
+                    && hasOnlyAllowedAuditFields()
+                    && isValidAuditFields();
+      allow update, delete: if false; // Tamper-proof append-only audit trail
+    }
+
+    // -------------------------------------------------------------------------
+    // Student ID Mappings: /studentIdMappings/{studentId}
+    // Protected mapping between Student IDs and Firebase Auth UIDs.
+    // Restricted exclusively to verified administrators to prevent enumeration.
+    // -------------------------------------------------------------------------
+    match /studentIdMappings/{studentId} {
+      allow read, write: if isAdmin();
+    }
+
+    // -------------------------------------------------------------------------
+    // Locked Future Collections
+    // -------------------------------------------------------------------------
+    match /admin/{adminDoc} {
+      allow read, write: if false;
+
+      match /{subcollection=**} {
+        allow read, write: if false;
+      }
+    }
+  }
+}

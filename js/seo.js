@@ -41,10 +41,25 @@ export const TWITTER_HANDLE = '@risepaisa';
 
 
 /**
+ * Helper to extract localized string from string or bilingual object
+ */
+function extractLocalizedText(val, isNp = false) {
+  if (!val) return '';
+  if (typeof val === 'string') return val;
+  if (typeof val === 'object') {
+    return isNp ? (val.np || val.en || val.text || '') : (val.en || val.np || val.text || '');
+  }
+  return String(val);
+}
+
+/**
  * Clean helper to strip HTML tags and normalize text whitespace
  */
 function cleanText(text = '', maxLength = 160) {
   if (!text) return '';
+  if (typeof text === 'object') {
+    text = text.en || text.np || text.text || '';
+  }
   const cleaned = String(text)
     .replace(/<[^>]*>/g, ' ')
     .replace(/\s+/g, ' ')
@@ -320,10 +335,10 @@ export function resolvePageSEO(pathname = '/', searchParams = null, lang = 'en',
               '@id': `${canonicalUrl}#faq`,
               'mainEntity': faqs.map(faq => ({
                 '@type': 'Question',
-                'name': faq.q || faq.question,
+                'name': cleanText(extractLocalizedText(faq.q || faq.question, isNp), 250),
                 'acceptedAnswer': {
                   '@type': 'Answer',
-                  'text': cleanText(faq.a || faq.answer, 300)
+                  'text': cleanText(extractLocalizedText(faq.a || faq.answer, isNp), 500)
                 }
               }))
             });
@@ -414,10 +429,10 @@ export function resolvePageSEO(pathname = '/', searchParams = null, lang = 'en',
               '@id': `${canonicalUrl}#faq`,
               'mainEntity': term.faqs.map(f => ({
                 '@type': 'Question',
-                'name': f.q || f.question,
+                'name': cleanText(extractLocalizedText(f.q || f.question, isNp), 250),
                 'acceptedAnswer': {
                   '@type': 'Answer',
-                  'text': cleanText(f.a || f.answer, 300)
+                  'text': cleanText(extractLocalizedText(f.a || f.answer, isNp), 500)
                 }
               }))
             });
@@ -468,10 +483,10 @@ export function resolvePageSEO(pathname = '/', searchParams = null, lang = 'en',
             '@id': `${canonicalUrl}#faq`,
             'mainEntity': category.faqs.map(faq => ({
               '@type': 'Question',
-              'name': faq.q || faq.question,
+              'name': cleanText(extractLocalizedText(faq.q || faq.question, isNp), 250),
               'acceptedAnswer': {
                 '@type': 'Answer',
-                'text': cleanText(faq.a || faq.answer, 300)
+                'text': cleanText(extractLocalizedText(faq.a || faq.answer, isNp), 500)
               }
             }))
           });
@@ -561,10 +576,10 @@ export function resolvePageSEO(pathname = '/', searchParams = null, lang = 'en',
             '@id': `${canonicalUrl}#faq`,
             'mainEntity': lessonFaqs.map(f => ({
               '@type': 'Question',
-              'name': f.q || f.question,
+              'name': cleanText(extractLocalizedText(f.q || f.question, isNp), 250),
               'acceptedAnswer': {
                 '@type': 'Answer',
-                'text': cleanText(f.a || f.answer, 300)
+                'text': cleanText(extractLocalizedText(f.a || f.answer, isNp), 500)
               }
             }))
           });
@@ -720,11 +735,20 @@ export function resolvePageSEO(pathname = '/', searchParams = null, lang = 'en',
         }))
       });
     } else {
-      // 12. Course Detail Page
       const courseSlug = pathParts[1];
       const course = getCourseBySlug ? getCourseBySlug(courseSlug) : null;
+      const isLearnMode = pathParts.length > 2 && pathParts[2] === 'learn';
 
-      if (course) {
+      if (course && isLearnMode) {
+        // Course Learning Interface (Private / Interactive - Unindexed & Canonicalized)
+        seo.title = `${course.title} - Learning Interface | risePaisa`;
+        seo.description = `Watch structured lessons and explore learning resources for ${course.title}.`;
+        seo.robots = 'noindex, nofollow';
+        seo.canonical = `${SITE_DOMAIN}/courses/${course.slug}`;
+        seo.breadcrumbs.push({ name: course.title, url: `${SITE_DOMAIN}/courses/${course.slug}` });
+        seo.breadcrumbs.push({ name: 'Learn', url: canonicalUrl });
+      } else if (course) {
+        // 12. Course Detail Page
         seo.title = `${course.title} | Nepal Financial Course | risePaisa`;
         seo.description = cleanText(course.shortDescription || course.fullDescription, 160) || `Master ${course.title} in Nepal with comprehensive modules from risePaisa.`;
         seo.keywords = `${course.title}, ${course.category || 'finance Nepal'}, stock course Nepal, risePaisa academy`;
@@ -760,6 +784,24 @@ export function resolvePageSEO(pathname = '/', searchParams = null, lang = 'en',
           'educationalCredentialAwarded': 'risePaisa Financial Literacy Certificate'
         });
       }
+    }
+  } else if (rootSection === 'my-courses') {
+    seo.title = `My Enrolled Courses | risePaisa`;
+    seo.description = `Access your enrolled video masterclasses, progress tracking, and downloadable learning resources on risePaisa.`;
+    seo.robots = 'noindex, nofollow';
+    seo.canonical = `${SITE_DOMAIN}/my-courses`;
+    seo.breadcrumbs.push({ name: 'My Courses', url: `${SITE_DOMAIN}/my-courses` });
+  } else if (rootSection === 'admin') {
+    if (pathParts[1] === 'enrollments') {
+      seo.title = `Student Enrollment Management | risePaisa Admin`;
+      seo.description = `RisePaisa internal administrative enrollment management console for student access provisioning and expirations.`;
+      seo.robots = 'noindex, nofollow';
+      seo.canonical = `${SITE_DOMAIN}/admin/enrollments`;
+    } else {
+      seo.title = `Course Management Console | risePaisa Admin`;
+      seo.description = `RisePaisa internal administrative management console for curriculum, video lessons, and educational assets.`;
+      seo.robots = 'noindex, nofollow';
+      seo.canonical = `${SITE_DOMAIN}/admin/courses`;
     }
   } else if (rootSection === 'resources') {
     seo.breadcrumbs.push({ name: 'Resources', url: `${SITE_DOMAIN}/resources` });
@@ -849,7 +891,11 @@ export function resolvePageSEO(pathname = '/', searchParams = null, lang = 'en',
         seo.type = 'article';
         seo.breadcrumbs.push({ name: article.title, url: canonicalUrl });
         if (article.thumbnail) {
-          seo.image = article.thumbnail.startsWith('http') ? article.thumbnail : `${SITE_DOMAIN}/${article.thumbnail}`;
+          const cleanThumb = article.thumbnail.replace(/^\/+/, '');
+          seo.image = article.thumbnail.startsWith('http') ? article.thumbnail : `${SITE_DOMAIN}/${cleanThumb}`;
+          seo.imageAlt = article.imageAlt || article.title;
+          seo.imageWidth = 960;
+          seo.imageHeight = 640;
         }
         seo.datePublished = article.date ? `${article.date}T00:00:00+05:45` : '2026-01-01T00:00:00+05:45';
         seo.dateModified = article.lastUpdated ? `${article.lastUpdated}T00:00:00+05:45` : seo.datePublished;

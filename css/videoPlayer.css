@@ -1,0 +1,1071 @@
+/* ========================================================
+   risePaisa — Branded Video Player Stylesheet
+   Strictly scoped under .rp-video-player-frame and player tokens.
+   Zero bleed into global layout, typography, or spacing.
+   ======================================================== */
+
+.rp-video-player-frame {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: #000000;
+  border-radius: var(--radius-lg, 16px);
+  overflow: hidden;
+  box-shadow: 0 10px 32px rgba(0, 0, 0, 0.45);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  user-select: none;
+  -webkit-user-select: none;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui, sans-serif;
+  outline: none;
+  /* Safari/WebKit hardware acceleration & anti-aliased subpixel clipping */
+  -webkit-mask-image: -webkit-radial-gradient(white, black);
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+  isolation: isolate;
+  contain: paint;
+}
+
+.rp-video-player-frame:focus-visible {
+  outline: 2px solid #0284c7;
+  outline-offset: 2px;
+}
+
+@supports not (aspect-ratio: 16 / 9) {
+  .rp-video-player-frame {
+    padding-bottom: 56.25%;
+    height: 0;
+  }
+}
+
+/* 1. Floating RisePaisa Branding Badge */
+.rp-player-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  background: rgba(10, 12, 16, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 9999px;
+  padding: 4px 11px;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+  pointer-events: none;
+  transition: opacity 0.35s ease, transform 0.35s ease;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
+  flex-shrink: 0;
+}
+
+/* Standalone fallback if rendered without .rp-player-header */
+.rp-video-player-frame > .rp-player-badge {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 25;
+}
+
+.rp-player-badge-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #10b981;
+  box-shadow: 0 0 8px rgba(16, 185, 129, 0.8);
+  animation: rpPulseDot 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes rpPulseDot {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.55;
+    transform: scale(0.85);
+  }
+}
+
+.rp-player-badge-text {
+  line-height: 1;
+}
+
+/* 1b. RisePaisa Player Top Chrome (Lesson title & brand indicator) */
+.rp-player-header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 48px;
+  z-index: 25;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0.2) 60%, transparent 100%);
+  pointer-events: none;
+  transition: opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1), transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.rp-player-header-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+  margin-right: 12px;
+}
+
+.rp-player-course-label {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 8px;
+  background: rgba(2, 132, 199, 0.22);
+  border: 1px solid rgba(2, 132, 199, 0.4);
+  border-radius: 4px;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #38bdf8;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.rp-player-header-title {
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 420px;
+  letter-spacing: -0.1px;
+}
+
+/* 2. Video Stage & Underlying Iframe (Oversized Clipping Technique to Conceal YouTube UI) */
+.rp-player-stage,
+.csPlayer-container {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  background: #000000;
+  overflow: hidden;
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+/* YouTube Iframe Oversized Clipping:
+   The iframe is scaled to 300% width and offset -100% to the left.
+   Because YouTube embeds center the 16:9 video in an ultrawide canvas,
+   the 16:9 video stream is centered 1:1 inside the container, while the outer
+   edges containing the YouTube logo watermark, channel avatar/title, and "Copy Link"
+   button are pushed outside the container and clipped by overflow: hidden. */
+.rp-player-stage iframe,
+.rp-video-player-frame iframe,
+.rp-player-iframe,
+.csPlayer-iframe,
+.rp-video-player-frame .cl-video-iframe:not(video),
+.rp-video-player-frame .cd-video-iframe:not(video) {
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 300%;
+  height: 100%;
+  border: none;
+  outline: none;
+  background: #000000;
+  pointer-events: none !important;
+  user-select: none;
+  -webkit-user-select: none;
+  object-fit: contain;
+  image-rendering: -webkit-optimize-contrast;
+}
+
+/* Native Video Element (unclipped 100% natural fit) */
+.rp-player-stage video,
+.rp-video-player-frame video,
+.rp-player-native-video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+  outline: none;
+  background: #000000;
+  pointer-events: none !important;
+  user-select: none;
+  -webkit-user-select: none;
+  object-fit: contain;
+}
+
+
+/* Seamless click surface to toggle play/pause & fullscreen without YouTube overlay conflict.
+   Ensures copy-link, YouTube logo, and channel links are completely non-clickable by intercepting all pointer events. */
+.rp-player-click-surface {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 15;
+  cursor: pointer;
+  background: transparent;
+  pointer-events: auto !important;
+}
+
+/* Clean Poster Cover for Unstarted State (prevents YouTube unstarted overlays & red button) */
+.rp-player-poster {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 12;
+  cursor: pointer;
+  background-color: #000000;
+  overflow: hidden;
+  transition: opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.45s ease;
+  opacity: 1;
+  visibility: visible;
+}
+
+.rp-poster-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.rp-video-player-frame.has-started .rp-player-poster {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+/* 3. Center Controls Overlay (Rewind 10, Big Center Play/Pause, Forward 10) */
+.rp-player-center-controls,
+.csPlayer-controls-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  z-index: 21;
+  transition: opacity 0.28s cubic-bezier(0.16, 1, 0.3, 1), transform 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: auto;
+}
+
+.rp-center-btn {
+  background: rgba(15, 23, 42, 0.68);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  color: #ffffff;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+  transition: transform 0.18s cubic-bezier(0.16, 1, 0.3, 1), background 0.18s ease, opacity 0.2s ease;
+  opacity: 0.88;
+  outline: none;
+  padding: 0;
+}
+
+.rp-center-btn:hover {
+  transform: scale(1.1);
+  background: rgba(15, 23, 42, 0.92);
+  opacity: 1;
+}
+
+.rp-center-btn svg {
+  width: 20px;
+  height: 20px;
+  display: block;
+}
+
+.rp-player-center-play,
+.csPlayer-play-pause-btn {
+  width: 66px;
+  height: 66px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 20;
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.5);
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), background 0.2s ease, opacity 0.28s ease;
+  color: #0f172a;
+  padding: 0;
+  outline: none;
+}
+
+.rp-player-center-play:hover,
+.csPlayer-play-pause-btn:hover {
+  transform: scale(1.08);
+  background: #ffffff;
+}
+
+.rp-center-pause-icon {
+  display: none;
+}
+.rp-center-play-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.rp-center-play-icon svg {
+  width: 26px;
+  height: 26px;
+  margin-left: 3px;
+  display: block;
+}
+
+.rp-center-pause-icon svg {
+  width: 26px;
+  height: 26px;
+  display: block;
+}
+
+.rp-video-player-frame.is-playing .rp-center-pause-icon {
+  display: flex;
+}
+.rp-video-player-frame.is-playing .rp-center-play-icon {
+  display: none;
+}
+
+/* Visibility states of center controls */
+.rp-video-player-frame.is-playing .rp-player-center-controls {
+  opacity: 0;
+  pointer-events: none;
+  transform: translate(-50%, -50%) scale(0.92);
+}
+
+.rp-video-player-frame.is-paused .rp-player-center-controls,
+.rp-video-player-frame:not(.has-started) .rp-player-center-controls {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+/* Buffering loading spinner */
+.rp-player-buffering-indicator {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 48px;
+  height: 48px;
+  z-index: 22;
+  pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.25s ease, visibility 0.25s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.rp-video-player-frame.is-starting .rp-player-buffering-indicator,
+.rp-video-player-frame.is-buffering .rp-player-buffering-indicator {
+  opacity: 1;
+  visibility: visible;
+}
+
+.rp-player-spinner-ring {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: 3px solid rgba(255, 255, 255, 0.25);
+  border-top-color: #0284c7;
+  animation: rpSpinRing 0.8s linear infinite;
+}
+
+@keyframes rpSpinRing {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.rp-video-player-frame.is-starting .rp-player-center-play,
+.rp-video-player-frame.is-buffering .rp-player-center-play {
+  opacity: 0 !important;
+  transform: scale(0.85);
+  pointer-events: none;
+}
+
+.rp-video-player-frame.is-starting .rp-center-btn,
+.rp-video-player-frame:not(.has-started) .rp-center-btn {
+  opacity: 0 !important;
+  pointer-events: none;
+}
+
+/* 4. Cinema Bottom Controls Bar */
+.rp-player-controls {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 24;
+  background: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.35) 40%, rgba(0, 0, 0, 0.8) 100%);
+  padding: 16px 16px 10px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1), transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.rp-video-player-frame.rp-controls-hidden .rp-player-controls {
+  opacity: 0;
+  transform: translateY(8px);
+  pointer-events: none;
+}
+
+.rp-video-player-frame.rp-controls-hidden .rp-player-badge,
+.rp-video-player-frame.rp-controls-hidden .rp-player-header {
+  opacity: 0;
+  transform: translateY(-8px);
+}
+
+/* Always keep controls & badge/header visible when paused, unstarted, hovering, or settings open */
+.rp-video-player-frame:not(.is-playing) .rp-player-controls,
+.rp-video-player-frame.is-paused .rp-player-controls,
+.rp-video-player-frame.is-scrubbing .rp-player-controls,
+.rp-video-player-frame.rp-settings-open .rp-player-controls,
+.rp-video-player-frame:hover .rp-player-controls {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+  pointer-events: auto !important;
+}
+
+.rp-video-player-frame:not(.is-playing):not(.rp-settings-open) .rp-player-badge,
+.rp-video-player-frame.is-paused:not(.rp-settings-open) .rp-player-badge,
+.rp-video-player-frame:hover:not(.rp-settings-open) .rp-player-badge,
+.rp-video-player-frame:not(.is-playing):not(.rp-settings-open) .rp-player-header,
+.rp-video-player-frame.is-paused:not(.rp-settings-open) .rp-player-header,
+.rp-video-player-frame:hover:not(.rp-settings-open) .rp-player-header {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+}
+
+.rp-video-player-frame.rp-settings-open .rp-player-badge,
+.rp-video-player-frame.rp-settings-open .rp-player-header {
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+/* 5. Scrubbable Timeline Progress Bar */
+.rp-player-timeline-wrap {
+  position: relative;
+  width: 100%;
+  height: 16px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  touch-action: none;
+  outline: none;
+}
+
+.rp-player-timeline-track {
+  position: relative;
+  width: 100%;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.22);
+  border-radius: 9999px;
+  overflow: hidden;
+  transition: height 0.15s ease;
+}
+
+.rp-player-timeline-wrap:hover .rp-player-timeline-track,
+.rp-video-player-frame.is-scrubbing .rp-player-timeline-track {
+  height: 6px;
+}
+
+.rp-player-timeline-buffer {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 0%;
+  background: rgba(255, 255, 255, 0.38);
+  border-radius: 9999px;
+  transition: width 0.2s linear;
+}
+
+.rp-player-timeline-progress {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 0%;
+  background: #10b981;
+  border-radius: 9999px;
+  box-shadow: 0 0 8px rgba(16, 185, 129, 0.6);
+}
+
+.rp-player-timeline-thumb {
+  position: absolute;
+  top: 50%;
+  left: 0%;
+  transform: translate(-50%, -50%) scale(0);
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  background: #ffffff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+  transition: transform 0.15s ease;
+  pointer-events: none;
+}
+
+.rp-player-timeline-wrap:hover .rp-player-timeline-thumb,
+.rp-video-player-frame.is-scrubbing .rp-player-timeline-thumb {
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.rp-player-timeline-tooltip {
+  position: absolute;
+  bottom: 22px;
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  color: #ffffff;
+  font-size: 11px;
+  font-weight: 500;
+  padding: 3px 6px;
+  border-radius: 4px;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.15s ease;
+  white-space: nowrap;
+}
+
+.rp-player-timeline-wrap:hover .rp-player-timeline-tooltip {
+  opacity: 1;
+}
+
+/* 6. Controls Row */
+.rp-player-controls-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  width: 100%;
+}
+
+.rp-player-controls-left,
+.rp-player-controls-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.rp-ctrl-btn {
+  background: transparent;
+  border: none;
+  color: #ffffff;
+  opacity: 0.88;
+  cursor: pointer;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  transition: opacity 0.2s ease, transform 0.15s ease, background 0.15s ease;
+  outline: none;
+}
+
+.rp-ctrl-btn:hover {
+  opacity: 1;
+  transform: scale(1.08);
+  background: rgba(255, 255, 255, 0.14);
+}
+
+.rp-ctrl-btn svg,
+.rp-ctrl-btn svg * {
+  width: 18px;
+  height: 18px;
+  display: block;
+  pointer-events: none;
+}
+
+/* Play / Pause Toggle */
+.rp-icon-pause {
+  display: none;
+}
+.rp-icon-play {
+  display: block;
+}
+
+.rp-video-player-frame.is-playing .rp-icon-pause {
+  display: block;
+}
+.rp-video-player-frame.is-playing .rp-icon-play {
+  display: none;
+}
+
+/* Volume Group */
+.rp-player-volume-group {
+  display: flex;
+  align-items: center;
+}
+
+.rp-icon-vol-high,
+.rp-icon-vol-low,
+.rp-icon-vol-muted {
+  display: none;
+}
+
+.rp-video-player-frame.is-vol-high .rp-icon-vol-high {
+  display: block;
+}
+.rp-video-player-frame.is-vol-low .rp-icon-vol-low {
+  display: block;
+}
+.rp-video-player-frame.is-muted .rp-icon-vol-muted {
+  display: block;
+}
+/* Default fallback */
+.rp-video-player-frame:not(.is-vol-low):not(.is-muted) .rp-icon-vol-high {
+  display: block;
+}
+
+.rp-volume-slider-wrap {
+  width: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: width 0.25s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease;
+  display: flex;
+  align-items: center;
+}
+
+.rp-player-volume-group:hover .rp-volume-slider-wrap,
+.rp-player-volume-group:focus-within .rp-volume-slider-wrap {
+  width: 60px;
+  opacity: 1;
+  margin-left: 2px;
+}
+
+.rp-volume-slider {
+  width: 60px;
+  height: 4px;
+  accent-color: #10b981;
+  cursor: pointer;
+  background: rgba(255, 255, 255, 0.25);
+  border-radius: 9999px;
+  outline: none;
+}
+
+/* Time Readout */
+.rp-player-time {
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 13px;
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-left: 4px;
+  white-space: nowrap;
+}
+
+.rp-time-divider {
+  color: rgba(255, 255, 255, 0.4);
+}
+
+/* Settings Group & Box (Speed & Quality) */
+.rp-player-settings-group,
+.rp-player-speed-group {
+  position: relative;
+}
+
+.rp-btn-settings svg {
+  width: 18px;
+  height: 18px;
+  display: block;
+}
+
+.rp-speed-val,
+.rp-speed-label {
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.rp-settings-box,
+.rp-speed-menu,
+.csPlayer-settings-box {
+  display: none;
+  position: absolute;
+  bottom: calc(100% + 8px);
+  right: 0;
+  width: 160px;
+  max-height: 240px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.25) transparent;
+  background: rgba(18, 18, 20, 0.97);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 12px;
+  padding: 4px 0;
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.7);
+  z-index: 35;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.rp-settings-box.is-open,
+.rp-video-player-frame.rp-settings-open .rp-settings-box {
+  display: block !important;
+}
+
+.rp-settings-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 12px 6px 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+  color: rgba(255, 255, 255, 0.7);
+  user-select: none;
+}
+
+.rp-settings-title {
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.rp-settings-label,
+.csPlayer-settings-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 8px 12px 6px 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+  user-select: none;
+}
+
+.rp-settings-label b,
+.rp-speed-val {
+  margin-left: auto;
+  font-weight: 600;
+  opacity: 0.95;
+  font-size: 12px;
+  padding-left: 8px;
+  color: #38bdf8;
+  white-space: nowrap;
+}
+
+.rp-settings-items,
+.csPlayer-settings-items {
+  max-height: 190px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  padding: 4px 6px;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
+}
+
+.rp-settings-items::-webkit-scrollbar,
+.csPlayer-settings-items::-webkit-scrollbar {
+  width: 4px;
+}
+.rp-settings-items::-webkit-scrollbar-thumb,
+.csPlayer-settings-items::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+}
+
+.rp-settings-items label,
+.csPlayer-settings-items label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 12px;
+  color: #cbd5e1;
+  padding: 7px 6px;
+  border-radius: 6px;
+  cursor: pointer;
+  opacity: 0.85;
+  transition: opacity 0.15s ease, color 0.15s ease, background 0.15s ease;
+}
+
+.rp-settings-items label:hover,
+.csPlayer-settings-items label:hover {
+  opacity: 1;
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.rp-settings-items label.active,
+.csPlayer-settings-items label.active {
+  opacity: 1;
+  color: #ffffff;
+  font-weight: 600;
+  background: rgba(16, 185, 129, 0.14);
+}
+
+.rp-settings-items label input[type="radio"],
+.csPlayer-settings-items label input[type="radio"] {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #2a2a2e;
+  border: 1.5px solid rgba(255, 255, 255, 0.28);
+  flex-shrink: 0;
+  cursor: pointer;
+  transition: border-color 0.15s ease, background-color 0.15s ease;
+  margin: 0;
+  padding: 0;
+}
+
+.rp-settings-items label input[type="radio"]:checked,
+.csPlayer-settings-items label input[type="radio"]:checked {
+  border: 4px solid #10b981;
+  background: #ffffff;
+}
+
+.rp-speed-opt {
+  cursor: pointer;
+}
+
+/* Fullscreen Toggle */
+.rp-icon-fs-exit {
+  display: none;
+}
+.rp-icon-fs-enter {
+  display: block;
+}
+
+.rp-video-player-frame.is-fullscreen {
+  border-radius: 0;
+  border: none;
+  width: 100vw;
+  height: 100vh;
+  max-width: 100vw;
+  max-height: 100vh;
+}
+
+.rp-video-player-frame.is-fullscreen .rp-icon-fs-enter {
+  display: none;
+}
+.rp-video-player-frame.is-fullscreen .rp-icon-fs-exit {
+  display: block;
+}
+
+/* Fullscreen stage geometry: locks 16:9 aspect box centered on screen
+   so that oversized clipping calculations remain exact regardless of display ratio */
+.rp-video-player-frame.is-fullscreen .rp-player-stage,
+.rp-video-player-frame:fullscreen .rp-player-stage,
+.rp-video-player-frame.is-fullscreen .csPlayer-container,
+.rp-video-player-frame:fullscreen .csPlayer-container {
+  max-width: 177.78vh; /* (16 / 9) * 100vh */
+  max-height: 56.25vw; /* (9 / 16) * 100vw */
+  margin: auto;
+}
+
+.rp-video-player-frame.is-fullscreen .rp-player-iframe,
+.rp-video-player-frame.is-fullscreen iframe,
+.rp-video-player-frame:fullscreen .rp-player-iframe,
+.rp-video-player-frame:fullscreen iframe {
+  top: 0 !important;
+  left: -100% !important;
+  width: 300% !important;
+  height: 100% !important;
+}
+
+/* Native Fallback Mode (e.g. adblocker blocks YT iframe API) */
+.rp-video-player-frame.yt-fallback-mode .rp-player-iframe {
+  width: 100% !important;
+  height: 100% !important;
+  top: 0 !important;
+  left: 0 !important;
+  pointer-events: auto !important;
+}
+.rp-video-player-frame.yt-fallback-mode .rp-player-click-surface,
+.rp-video-player-frame.yt-fallback-mode .rp-player-poster {
+  display: none;
+  pointer-events: none;
+}
+.rp-video-player-frame.yt-fallback-mode .rp-player-center-play {
+  display: none;
+}
+.rp-video-player-frame.yt-fallback-mode .rp-player-controls {
+  pointer-events: none;
+  opacity: 0.4;
+}
+
+/* Mobile & Small Screens (< 640px) */
+@media (max-width: 640px) {
+  .rp-player-badge {
+    top: 8px;
+    right: 8px;
+    left: auto;
+    padding: 3px 8px;
+    font-size: 10px;
+    gap: 5px;
+  }
+  .rp-player-badge-dot {
+    width: 6px;
+    height: 6px;
+  }
+  .rp-player-center-controls {
+    gap: 12px;
+  }
+  .rp-center-btn {
+    width: 36px;
+    height: 36px;
+  }
+  .rp-center-btn svg {
+    width: 16px;
+    height: 16px;
+  }
+  .rp-player-center-play,
+  .csPlayer-play-pause-btn {
+    width: 52px;
+    height: 52px;
+  }
+  .rp-center-play-icon svg,
+  .rp-center-pause-icon svg {
+    width: 22px;
+    height: 22px;
+  }
+  .rp-player-controls {
+    padding: 10px 10px 6px 10px;
+    gap: 4px;
+  }
+  .rp-volume-slider-wrap {
+    display: none !important;
+  }
+  .rp-player-time {
+    font-size: 11px;
+    margin-left: 2px;
+  }
+  .rp-ctrl-btn {
+    width: 28px;
+    height: 28px;
+  }
+  .rp-ctrl-btn svg {
+    width: 16px;
+    height: 16px;
+  }
+  .rp-player-controls-left,
+  .rp-player-controls-right {
+    gap: 4px;
+  }
+  .rp-settings-box,
+  .csPlayer-settings-box {
+    width: 150px !important;
+    right: 0 !important;
+    bottom: calc(100% + 8px) !important;
+    max-height: 160px !important;
+  }
+  .rp-player-header {
+    height: 44px;
+    padding: 0 10px;
+  }
+  .rp-player-header-title {
+    max-width: 150px;
+    font-size: 11px;
+  }
+  .rp-player-course-label {
+    display: none;
+  }
+  .rp-player-badge {
+    padding: 3px 8px;
+    font-size: 10px;
+  }
+  .rp-player-stage iframe,
+  .rp-video-player-frame iframe,
+  .rp-player-iframe,
+  .rp-video-player-frame .cl-video-iframe,
+  .rp-video-player-frame .cd-video-iframe {
+    left: -100%;
+    width: 300%;
+    height: 100%;
+    top: 0;
+  }
+}
+
+/* Video Error & Embed Notice Overlay */
+.rp-player-error-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 28;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 24px;
+  background: rgba(10, 12, 16, 0.94);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  color: #ffffff;
+}
+
+.rp-player-error-title {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: #f87171;
+}
+
+.rp-player-error-desc {
+  font-size: 13px;
+  color: #cbd5e1;
+  max-width: 420px;
+  line-height: 1.45;
+  margin-bottom: 16px;
+}
+
+.rp-player-error-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  background: #0284c7;
+  color: #ffffff;
+  border-radius: 9999px;
+  font-size: 13px;
+  font-weight: 500;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.rp-player-error-btn:hover {
+  background: #0369a1;
+}
