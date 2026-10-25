@@ -404,13 +404,15 @@ function renderCourseCard(course) {
 
   return `
     <article class="card course-card" id="course-card-${course.id}">
-      <img src="${thumb}" alt="${course.title}" class="card-image" loading="lazy" decoding="async">
+      <a href="${ROUTES.COURSE_DETAIL(course.slug)}" class="card-image-link" aria-label="${course.title}">
+        <img src="${thumb}" alt="${course.title}" class="card-image" loading="lazy" decoding="async">
+      </a>
       <div class="card-body">
         <div class="card-badges">
           <span class="badge badge-primary">${course.category}</span>
           <span class="badge badge-outline">Curriculum</span>
         </div>
-        <h3>${course.title}</h3>
+        <h3><a href="${ROUTES.COURSE_DETAIL(course.slug)}" style="color:inherit;text-decoration:none">${course.title}</a></h3>
         <p>${course.shortDescription}</p>
         <div class="card-meta">
           <div class="course-price"><span class="currency">NPR</span>${course.price.toLocaleString()}</div>
@@ -438,12 +440,14 @@ function renderResourceCard(resource) {
 
   return `
     <article class="resource-card" id="resource-card-${resource.id}">
-      <img src="${thumb}" alt="${resource.title}" class="card-image" loading="lazy" decoding="async">
+      <a href="${ROUTES.RESOURCE_DETAIL(resource.slug)}" class="card-image-link" aria-label="${resource.title}">
+        <img src="${thumb}" alt="${resource.title}" class="card-image" loading="lazy" decoding="async">
+      </a>
       <div class="card-body">
         <div class="card-badges">
           <span class="badge badge-primary">${formatIcon} ${resource.category || 'Template'}</span>
         </div>
-        <h3>${resource.title}</h3>
+        <h3><a href="${ROUTES.RESOURCE_DETAIL(resource.slug)}" style="color:inherit;text-decoration:none">${resource.title}</a></h3>
         <p>${resource.shortDescription}</p>
 
         <div class="resource-meta-strip">
