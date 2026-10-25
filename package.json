@@ -5,7 +5,10 @@
     "test": "node tests/test_calculators.mjs && node tests/test_calculator_rendering.mjs && node tests/test_theme_and_rules.mjs && node tests/test_seo_and_indexability.mjs"
   },
   "devDependencies": {
-    "eslint": "^10.12.0",
+    "@eslint/js": "^9.39.5",
+    "@playwright/test": "^1.64.1",
+    "eslint": "^9.39.5",
+    "globals": "^17.13.0",
     "prettier": "^3.9.10"
   }
 }
