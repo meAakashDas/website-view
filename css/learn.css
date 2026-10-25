@@ -1545,7 +1545,7 @@
 /* Resources Grid */
 .learn-resources-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr));
   gap: 22px;
 }
 
@@ -9725,9 +9725,9 @@
 .rp-mobile-toc-backdrop {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.45);
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
+  background: rgba(0, 0, 0, 0.40);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   z-index: 1050;
   opacity: 0;
   pointer-events: none;
@@ -9746,20 +9746,24 @@
   right: 0;
   bottom: 0;
   width: min(340px, 86vw);
+  height: 100vh;
+  height: 100dvh;
   z-index: 1055;
-  background: var(--color-surface, #ffffff);
-  box-shadow: -8px 0 32px rgba(0, 0, 0, 0.18);
+  background: var(--liquid-glass-bg-scrolled);
+  backdrop-filter: var(--liquid-glass-blur);
+  -webkit-backdrop-filter: var(--liquid-glass-blur);
+  border-left: 1px solid var(--liquid-glass-border);
+  box-shadow: var(--liquid-glass-highlight), -12px 0 36px rgba(0, 0, 0, 0.35);
   display: flex;
   flex-direction: column;
   overflow: hidden;
   transform: translateX(100%);
-  transition: transform 0.32s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 [data-theme="dark"] .rp-mobile-toc-drawer {
-  background: #1c1c1e;
-  box-shadow: -8px 0 36px rgba(0, 0, 0, 0.5);
-  border-left: 1px solid rgba(255, 255, 255, 0.08);
+  background: var(--liquid-glass-bg-scrolled);
+  border-left-color: var(--liquid-glass-border);
 }
 
 .rp-mobile-toc-drawer.open {
@@ -13000,7 +13004,7 @@
 
 .glossary-entries-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr));
   gap: 16px;
 }
 

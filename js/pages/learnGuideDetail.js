@@ -18,6 +18,15 @@ import { initGlossaryTooltips } from '../enhancements.js';
 import { initNotionOutline } from '../outline.js';
 import { getCurrentUser, subscribeToAuth } from '../firebase/auth.js';
 import { promptSignInForBookmark } from '../firebase/ui.js';
+import { showToast, shareContent } from '../components.js';
+import {
+  initFloatingSystem,
+  renderLearningDockHtml,
+  bindLearningDock,
+  updateLearningDockProgress,
+  updateLearningDockBookmark,
+  unmountLearningDock
+} from '../floatingControls.js';
 
 export async function preloadGuide(guideSlug) {
   const slug = typeof guideSlug === 'object' && guideSlug !== null ? (guideSlug.slug || guideSlug[1] || '') : (guideSlug || '');
@@ -438,8 +447,10 @@ export function renderLearnGuideDetailPage(guideSlug) {
               </div>
             </article>
           </main>
-        </div>
       </section>
+
+      <!-- Smart Floating Liquid Glass Learning Dock (Mobile & Tablet) -->
+      ${renderLearningDockHtml({ isBookmarked: isSaved, isEn: lang === 'en', title })}
     </div>
   `;
 }
@@ -479,6 +490,7 @@ export function initLearnGuideDetailPage(guideSlug) {
       lastProgress = progress;
       if (progressBar) progressBar.style.width = `${progress}%`;
       if (stickyProgressPct) stickyProgressPct.textContent = `${progress}%`;
+      updateLearningDockProgress(progress);
     }
 
     if (stickyBar) {
@@ -512,7 +524,42 @@ export function initLearnGuideDetailPage(guideSlug) {
     title: ui.tableOfContents || (lang === 'np' ? 'विषयसूची' : 'Outline')
   });
 
-  // 3. Bookmark Toggle
+  // 3. Initialize Smart Floating Liquid Glass Learning Dock & System
+  initFloatingSystem();
+  bindLearningDock({
+    onToggleTOC: () => {
+      const drawer = document.getElementById('rp-mobile-toc-drawer');
+      const backdrop = document.getElementById('rp-mobile-toc-backdrop');
+      if (drawer && backdrop) {
+        const isOpen = drawer.classList.contains('open');
+        drawer.classList.toggle('open', !isOpen);
+        drawer.setAttribute('aria-hidden', isOpen ? 'true' : 'false');
+        backdrop.classList.toggle('active', !isOpen);
+        document.body.style.overflow = isOpen ? '' : 'hidden';
+      }
+    },
+    onLangChange: (targetLang) => {
+      const scrollPos = window.scrollY;
+      setLearnLanguage(targetLang);
+      const appEl = document.getElementById('app');
+      if (appEl) {
+        appEl.innerHTML = renderLearnGuideDetailPage(slug);
+        initLearnGuideDetailPage(slug);
+        window.scrollTo({ top: scrollPos, behavior: 'instant' });
+      }
+    },
+    onToggleBookmark: () => {
+      const bBtn = document.getElementById('hero-guide-bookmark-btn') || document.getElementById('sticky-guide-bookmark-btn');
+      if (bBtn) bBtn.click();
+    },
+    shareData: {
+      title: guide.title[lang] || guide.title.en,
+      text: guide.oneLineSummary[lang] || guide.oneLineSummary.en,
+      url: window.location.href
+    }
+  });
+
+  // 4. Bookmark Toggle
   const bookmarkButtons = [
     document.getElementById('hero-guide-bookmark-btn'),
     document.getElementById('sticky-guide-bookmark-btn')
@@ -530,6 +577,7 @@ export function initLearnGuideDetailPage(guideSlug) {
         b.innerHTML = `<span class="btn-icon">${iconSvg}</span><span class="btn-text">${saved ? ui.guideSaved : ui.saveGuide}</span>`;
       }
     });
+    updateLearningDockBookmark(saved);
   };
 
   bookmarkButtons.forEach(btn => {
@@ -541,6 +589,7 @@ export function initLearnGuideDetailPage(guideSlug) {
       }
       const nowSaved = toggleSavedGuide(guide.slug);
       updateGuideBookmarkUI(nowSaved);
+      showToast(nowSaved ? (lang === 'en' ? '🔖 Guide saved to your library' : '🔖 गाइड सुरक्षित गरियो') : (lang === 'en' ? 'Guide removed from saved' : 'सुरक्षितबाट हटाइयो'));
     });
   });
 
@@ -555,43 +604,41 @@ export function initLearnGuideDetailPage(guideSlug) {
     });
   } catch (e) {}
 
-  // 5. Share Button with Toast
+  // 5. Share Button with Universal Web Share
   const shareButtons = [
     document.getElementById('hero-guide-share-btn'),
     document.getElementById('sticky-guide-share-btn')
   ].filter(Boolean);
 
-  const showToast = (message) => {
-    const existing = document.getElementById('lesson-toast');
-    if (existing) existing.remove();
-
-    const toast = document.createElement('div');
-    toast.id = 'lesson-toast';
-    toast.className = 'lesson-toast';
-    toast.innerHTML = `<span>${ICONS.checkCircle}</span> <span>${message}</span>`;
-    document.body.appendChild(toast);
-
-    setTimeout(() => toast.classList.add('visible'), 10);
-    setTimeout(() => {
-      toast.classList.remove('visible');
-      setTimeout(() => toast.remove(), 300);
-    }, 2800);
-  };
-
   shareButtons.forEach(btn => {
-    btn.addEventListener('click', () => {
-      const url = window.location.href;
-      if (navigator.share) {
-        navigator.share({ title: guide.title.en, url }).catch(() => {});
-      } else if (navigator.clipboard) {
-        navigator.clipboard.writeText(url).then(() => {
-          showToast(ui.guideLinkCopied);
-        }).catch(() => {});
+    btn.addEventListener('click', async (e) => {
+      e.preventDefault();
+      await shareContent({
+        title: guide.title[lang] || guide.title.en,
+        text: guide.oneLineSummary[lang] || guide.oneLineSummary.en,
+        url: window.location.href
+      });
+    });
+  });
+
+  // 6. Language Switcher Buttons Listener ([data-set-lang])
+  const langBtns = document.querySelectorAll('[data-set-lang]');
+  langBtns.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const targetLang = btn.getAttribute('data-set-lang');
+      const scrollPos = window.scrollY;
+      setLearnLanguage(targetLang);
+      const appEl = document.getElementById('app');
+      if (appEl) {
+        appEl.innerHTML = renderLearnGuideDetailPage(slug);
+        initLearnGuideDetailPage(slug);
+        window.scrollTo({ top: scrollPos, behavior: 'instant' });
       }
     });
   });
 
-  // 6. FAQ Accordion Expand/Collapse
+  // 7. FAQ Accordion Expand/Collapse
   const faqItems = document.querySelectorAll('.lesson-faq-item');
   faqItems.forEach(item => {
     const questionBtn = item.querySelector('.lesson-faq-question');
@@ -606,7 +653,7 @@ export function initLearnGuideDetailPage(guideSlug) {
     }
   });
 
-  // 7. Download Button Toast Feedback
+  // 8. Download Button Toast Feedback
   const isEn = (guide?.lang || 'en') === 'en';
   document.querySelectorAll('.res-download-btn').forEach(btn => {
     btn.addEventListener('click', () => {
@@ -619,6 +666,7 @@ export function initLearnGuideDetailPage(guideSlug) {
   return () => {
     window.removeEventListener('scroll', onScroll);
     window.removeEventListener('resize', updateDocHeight);
+    unmountLearningDock();
   };
 }
 

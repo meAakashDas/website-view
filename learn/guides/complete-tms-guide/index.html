@@ -1043,8 +1043,46 @@
               </div>
             </article>
           </main>
-        </div>
       </section>
+
+      <!-- Smart Floating Liquid Glass Learning Dock (Mobile & Tablet) -->
+      
+    <aside class="rp-learning-dock glass-control" id="rp-learning-dock" role="toolbar" aria-label="Lesson Quick Actions">
+      <!-- TOC Outline Trigger Button -->
+      <button type="button" class="rp-dock-btn rp-dock-toc" id="dock-toc-trigger" aria-label="Open Table of Contents outline" title="Table of Contents">
+        <svg class="rp-dock-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <line x1="8" y1="6" x2="21" y2="6"></line>
+          <line x1="8" y1="12" x2="21" y2="12"></line>
+          <line x1="8" y1="18" x2="21" y2="18"></line>
+          <line x1="3" y1="6" x2="3.01" y2="6"></line>
+          <line x1="3" y1="12" x2="3.01" y2="12"></line>
+          <line x1="3" y1="18" x2="3.01" y2="18"></line>
+        </svg>
+        <span class="rp-dock-label">TOC</span>
+        <span class="rp-dock-pill-badge" id="dock-progress-readout">0%</span>
+      </button>
+
+      <span class="rp-dock-separator" aria-hidden="true"></span>
+
+      <!-- Nepali / English Segmented Switch -->
+      <div class="rp-dock-segmented-switch" role="group" aria-label="Language selection">
+        <button type="button" class="rp-dock-seg-btn active" data-dock-lang="en" aria-pressed="true">EN</button>
+        <button type="button" class="rp-dock-seg-btn " data-dock-lang="np" aria-pressed="false">नेपाली</button>
+      </div>
+
+      <span class="rp-dock-separator" aria-hidden="true"></span>
+
+      <!-- Save / Bookmark Button -->
+      <button type="button" class="rp-dock-btn rp-dock-bookmark " id="dock-bookmark-trigger" aria-label="Save lesson" title="Save lesson">
+        <span class="rp-dock-icon rp-dock-bookmark-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"/></svg></span>
+      </button>
+
+      <!-- Native Share Button -->
+      <button type="button" class="rp-dock-btn rp-dock-share" id="dock-share-trigger" aria-label="Share lesson link" title="Share lesson link">
+        <span class="rp-dock-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg></span>
+      </button>
+    </aside>
+  
     </div>
   </main>
   <div id="footer-container">

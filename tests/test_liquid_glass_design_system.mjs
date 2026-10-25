@@ -80,6 +80,33 @@ assert(componentsCss.includes('.card {') && componentsCss.includes('background-c
 assert(variablesCss.includes('--card-bg:                   #FFFFFF;'), 'Light mode card surface is 100% opaque pure white');
 assert(variablesCss.includes('--card-bg:                   #1C1C1E;'), 'Dark mode card surface is 100% opaque system dark');
 
+// 6. Floating Control System & Mobile Learning Dock
+console.log('\n--- 6. Testing Floating Liquid Glass Learning Dock & Controls Coordinator ---');
+const floatingControlsJs = fs.readFileSync(path.join(repoRoot, 'js/floatingControls.js'), 'utf-8');
+const componentsJs = fs.readFileSync(path.join(repoRoot, 'js/components.js'), 'utf-8');
+
+assert(floatingControlsJs.includes('export function initFloatingSystem'), 'Exports initFloatingSystem coordinator');
+assert(floatingControlsJs.includes('export function renderLearningDockHtml'), 'Exports renderLearningDockHtml component');
+assert(floatingControlsJs.includes('export function bindLearningDock'), 'Exports bindLearningDock event listener handler');
+assert(floatingControlsJs.includes('export function updateLearningDockProgress'), 'Exports updateLearningDockProgress handler');
+assert(floatingControlsJs.includes('export function updateLearningDockBookmark'), 'Exports updateLearningDockBookmark handler');
+assert(floatingControlsJs.includes('export function unmountLearningDock'), 'Exports unmountLearningDock cleanup handler');
+
+assert(componentsJs.includes('export function showToast('), 'Exports universal Liquid Glass showToast in components.js');
+assert(componentsJs.includes('export async function shareContent('), 'Exports universal shareContent helper in components.js');
+
+// Verify collision suppression rules in components.css
+assert(componentsCss.includes('body.has-learning-dock .whatsapp-float'), 'Suppresses WhatsApp float when learning dock is active');
+assert(componentsCss.includes('body.has-mobile-cta .whatsapp-float'), 'Suppresses WhatsApp float when mobile course detail CTA is active');
+assert(componentsCss.includes('body.keyboard-open .rp-learning-dock'), 'Hides learning dock when mobile virtual keyboard opens');
+assert(componentsCss.includes('body.is-fullscreen .rp-learning-dock'), 'Hides floating controls during fullscreen video playback');
+assert(componentsCss.includes('body.near-footer .rp-learning-dock'), 'Tucks learning dock away near footer boundary');
+assert(componentsCss.includes('body.page-course-learn .whatsapp-float'), 'Suppresses WhatsApp float on course video learn pages');
+
+// Verify mobile drawer and responsive grid fixes
+assert(learnCss.includes('.rp-mobile-toc-drawer'), 'Defines authentic Liquid Glass mobile TOC drawer');
+assert(learnCss.includes('minmax(min(100%, 280px), 1fr)'), 'Prevents 320px/360px grid horizontal overflow');
+
 console.log('\n======================================================');
 console.log(`LIQUID GLASS TEST RESULTS: ${passed} passed, ${failed} failed`);
 console.log('======================================================\n');

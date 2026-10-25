@@ -8,6 +8,15 @@ import { getLessonBySlug, loadLesson, getLearnLanguage, setLearnLanguage, LEARN_
 import { ROUTES } from '../routes.js';
 import { initGlossaryTooltips } from '../enhancements.js';
 import { initNotionOutline } from '../outline.js';
+import { showToast, shareContent } from '../components.js';
+import {
+  initFloatingSystem,
+  renderLearningDockHtml,
+  bindLearningDock,
+  updateLearningDockProgress,
+  updateLearningDockBookmark,
+  unmountLearningDock
+} from '../floatingControls.js';
 
 export async function preloadLesson(categorySlug, lessonSlug) {
   return await loadLesson(categorySlug, lessonSlug);
@@ -688,7 +697,8 @@ export function renderLearnLessonPage(categorySlug, lessonSlug) {
           </main>
 
         </div>
-      </section>
+      <!-- 5. Smart Floating Liquid Glass Learning Dock (Mobile & Tablet) -->
+      ${renderLearningDockHtml({ isBookmarked, isEn, title: lessonMeta.title })}
 
     </div>
   `;
@@ -767,6 +777,7 @@ export function initLearnLessonPage(categorySlug, lessonSlug) {
         if (railBadge) {
           railBadge.textContent = `${pct}%`;
         }
+        updateLearningDockProgress(pct);
       }
     }
   };
@@ -793,7 +804,42 @@ export function initLearnLessonPage(categorySlug, lessonSlug) {
     title: ui.tableOfContents || (lang === 'np' ? 'विषयसूची' : 'Outline')
   });
 
-  // 4. Interactive Bookmark Toggle
+  // 4. Initialize Smart Floating Liquid Glass Learning Dock & System
+  initFloatingSystem();
+  bindLearningDock({
+    onToggleTOC: () => {
+      const drawer = document.getElementById('rp-mobile-toc-drawer');
+      const backdrop = document.getElementById('rp-mobile-toc-backdrop');
+      if (drawer && backdrop) {
+        const isOpen = drawer.classList.contains('open');
+        drawer.classList.toggle('open', !isOpen);
+        drawer.setAttribute('aria-hidden', isOpen ? 'true' : 'false');
+        backdrop.classList.toggle('active', !isOpen);
+        document.body.style.overflow = isOpen ? '' : 'hidden';
+      }
+    },
+    onLangChange: (targetLang) => {
+      const scrollPos = window.scrollY;
+      setLearnLanguage(targetLang);
+      const appEl = document.getElementById('app');
+      if (appEl) {
+        appEl.innerHTML = renderLearnLessonPage(categorySlug, lessonSlug);
+        initLearnLessonPage(categorySlug, lessonSlug);
+        window.scrollTo({ top: scrollPos, behavior: 'instant' });
+      }
+    },
+    onToggleBookmark: () => {
+      const heroBtn = document.getElementById('hero-bookmark-btn') || document.getElementById('sticky-bookmark-btn');
+      if (heroBtn) heroBtn.click();
+    },
+    shareData: {
+      title: pageTitle,
+      text: lessonMeta.oneLineSummary || `${lessonMeta.title} - RisePaisa Nepal`,
+      url: window.location.href
+    }
+  });
+
+  // 5. Interactive Bookmark Toggle
   const bookmarkButtons = [
     document.getElementById('hero-bookmark-btn'),
     document.getElementById('sticky-bookmark-btn')
@@ -808,6 +854,7 @@ export function initLearnLessonPage(categorySlug, lessonSlug) {
       const textSpan = b.querySelector('.btn-text');
       if (textSpan) textSpan.textContent = state ? ui.bookmarked : ui.bookmark;
     });
+    updateLearningDockBookmark(state);
   };
 
   bookmarkButtons.forEach(btn => {
@@ -952,12 +999,14 @@ export function initLearnLessonPage(categorySlug, lessonSlug) {
     btn.addEventListener('click', (e) => {
       e.stopPropagation();
       const targetLang = btn.getAttribute('data-lang');
+      const scrollPos = window.scrollY;
       setLearnLanguage(targetLang);
       // Re-render lesson page seamlessly in current place
       const appEl = document.getElementById('app');
       if (appEl) {
         appEl.innerHTML = renderLearnLessonPage(categorySlug, lessonSlug);
         initLearnLessonPage(categorySlug, lessonSlug);
+        window.scrollTo({ top: scrollPos, behavior: 'instant' });
       }
     });
   });
@@ -975,6 +1024,7 @@ export function initLearnLessonPage(categorySlug, lessonSlug) {
   return () => {
     window.removeEventListener('scroll', onScroll);
     window.removeEventListener('resize', updateGeometry);
+    unmountLearningDock();
   };
 }
 
@@ -1040,23 +1090,4 @@ function resolveDownloadableResource(res, categorySlug = '') {
     targetAttr: isHtml ? 'target="_blank" rel="noopener noreferrer"' : '',
     title: res.title
   };
-}
-
-// ── Toast Notification Helper ──────────────────────────────
-function showToast(message) {
-  let toast = document.getElementById('rp-lesson-toast');
-  if (!toast) {
-    toast = document.createElement('div');
-    toast.id = 'rp-lesson-toast';
-    toast.className = 'lesson-toast-notification';
-    document.body.appendChild(toast);
-  }
-
-  toast.textContent = message;
-  toast.classList.add('show');
-
-  clearTimeout(window.__lessonToastTimer);
-  window.__lessonToastTimer = setTimeout(() => {
-    toast.classList.remove('show');
-  }, 3500);
 }

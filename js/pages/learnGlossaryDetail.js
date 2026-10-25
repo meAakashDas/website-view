@@ -13,6 +13,7 @@ import { ROUTES, buildCanonicalUrl } from '../routes.js';
 import { initGlossaryTooltips } from '../enhancements.js';
 import { getCurrentUser, subscribeToAuth } from '../firebase/auth.js';
 import { promptSignInForBookmark } from '../firebase/ui.js';
+import { showToast, shareContent } from '../components.js';
 
 const ICONS = {
   book: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>`,
@@ -671,7 +672,7 @@ export function initLearnGlossaryDetailPage(termSlug) {
         utterance.lang = 'en-US';
         window.speechSynthesis.speak(utterance);
       } else {
-        showMicroToast(isEn ? `Pronunciation: "${term.term}"` : `उच्चारण: "${term.term}"`);
+        showToast(isEn ? `Pronunciation: "${term.term}"` : `उच्चारण: "${term.term}"`);
       }
     });
   }
@@ -688,7 +689,7 @@ export function initLearnGlossaryDetailPage(termSlug) {
       const nowSaved = toggleSavedGlossaryTerm(term.slug);
       bookmarkBtn.classList.toggle('bookmarked', nowSaved);
       bookmarkBtn.innerHTML = nowSaved ? ICONS.bookmarkFilled : ICONS.bookmark;
-      showMicroToast(
+      showToast(
         nowSaved 
           ? (isEn ? 'Term saved to your library' : 'शब्द तपाईंको लाइब्रेरीमा सुरक्षित गरियो')
           : (isEn ? 'Term removed from saved' : 'शब्द हटाइयो')
@@ -708,26 +709,11 @@ export function initLearnGlossaryDetailPage(termSlug) {
   const shareBtn = document.getElementById('glossary-share-btn');
   if (shareBtn) {
     shareBtn.addEventListener('click', async () => {
-      const shareData = {
+      await shareContent({
         title: `${term.term} - RisePaisa Finance Glossary`,
         text: term.oneLineDef[lang] || term.oneLineDef.en,
         url: window.location.href
-      };
-
-      if (navigator.share) {
-        try {
-          await navigator.share(shareData);
-        } catch (e) {
-          // User cancelled
-        }
-      } else {
-        try {
-          await navigator.clipboard.writeText(window.location.href);
-          showMicroToast(isEn ? 'Link copied to clipboard!' : 'लिङ्क कपी गरियो!');
-        } catch (e) {
-          showMicroToast(window.location.href);
-        }
-      }
+      });
     });
   }
 
@@ -736,12 +722,14 @@ export function initLearnGlossaryDetailPage(termSlug) {
   langBtns.forEach(btn => {
     btn.addEventListener('click', () => {
       const targetLang = btn.getAttribute('data-glossary-lang');
+      const scrollPos = window.scrollY;
       setLearnLanguage(targetLang);
       // Re-render and re-init detail page smoothly
       const appEl = document.getElementById('app');
       if (appEl) {
         appEl.innerHTML = renderLearnGlossaryDetailPage(slug);
         initLearnGlossaryDetailPage(slug);
+        window.scrollTo({ top: scrollPos, behavior: 'instant' });
       }
     });
   });
@@ -785,20 +773,4 @@ export function initLearnGlossaryDetailPage(termSlug) {
   } catch (e) {
     // Ignore
   }
-}
-
-function showMicroToast(message) {
-  let toast = document.getElementById('glossary-toast');
-  if (!toast) {
-    toast = document.createElement('div');
-    toast.id = 'glossary-toast';
-    toast.className = 'glossary-micro-toast';
-    document.body.appendChild(toast);
-  }
-  toast.textContent = message;
-  toast.classList.add('visible');
-  clearTimeout(window.__glossaryToastTimer);
-  window.__glossaryToastTimer = setTimeout(() => {
-    toast.classList.remove('visible');
-  }, 2400);
 }

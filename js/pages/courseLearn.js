@@ -514,6 +514,8 @@ export function initCourseLearnPage(slug, initialLessonId = null) {
   const allLessons = getPublishedLessonsSequence(course);
   if (allLessons.length === 0) return () => {};
 
+  document.body.classList.add('page-course-learn');
+
   // Resolve initial selected lesson:
   // 1. Explicit initialLessonId parameter always takes highest precedence
   // 2. Otherwise default to the designated free preview lesson for non-enrolled or guest visitors
@@ -1096,6 +1098,7 @@ export function initCourseLearnPage(slug, initialLessonId = null) {
     drawerBackdrop?.removeEventListener('click', closeMobileDrawer);
     window.removeEventListener('keydown', onKeydown);
     document.body.classList.remove('cl-drawer-open');
+    document.body.classList.remove('page-course-learn');
     destroyBrandedVideoPlayer(document.getElementById('cl-player-wrapper')?.querySelector('[data-rp-player]'));
   };
 }

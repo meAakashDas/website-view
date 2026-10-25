@@ -1173,6 +1173,65 @@ function initStatCounters() {
 // ── getWhatsApp helper (for pages that need dynamic WA number) ──
 export function getWhatsApp() { return getSettings().whatsapp; }
 
+// ── Universal Toast Notification (Liquid Glass Capsule) ──────
+export function showToast(message, duration = 3000) {
+  if (typeof document === 'undefined') return;
+  let toast = document.getElementById('rp-global-toast');
+  if (!toast) {
+    toast = document.createElement('div');
+    toast.id = 'rp-global-toast';
+    toast.className = 'rp-global-toast-notification';
+    toast.setAttribute('role', 'status');
+    toast.setAttribute('aria-live', 'polite');
+    document.body.appendChild(toast);
+  }
+
+  toast.innerHTML = `<span class="rp-toast-content">${message}</span>`;
+  toast.classList.add('show');
+
+  clearTimeout(window.__rpToastTimer);
+  window.__rpToastTimer = setTimeout(() => {
+    toast.classList.remove('show');
+  }, duration);
+}
+
+// ── Universal Web Share with Clipboard Fallback ────────────
+export async function shareContent({ title, text, url } = {}) {
+  const shareUrl = url || (typeof window !== 'undefined' ? window.location.href : '');
+  const shareTitle = title || (typeof document !== 'undefined' ? document.title : 'RisePaisa');
+  const shareData = { title: shareTitle, text: text || shareTitle, url: shareUrl };
+
+  if (typeof navigator !== 'undefined' && navigator.share && navigator.canShare && navigator.canShare(shareData)) {
+    try {
+      await navigator.share(shareData);
+      return { success: true, method: 'native' };
+    } catch (err) {
+      if (err.name === 'AbortError') {
+        return { success: false, aborted: true };
+      }
+    }
+  }
+
+  // Fallback to Clipboard API
+  if (typeof navigator !== 'undefined' && navigator.clipboard && navigator.clipboard.writeText) {
+    try {
+      await navigator.clipboard.writeText(shareUrl);
+      showToast('🔗 Link copied to clipboard!');
+      return { success: true, method: 'clipboard' };
+    } catch {
+      // Fall through to prompt fallback
+    }
+  }
+
+  // Ultimate fallback prompt
+  if (typeof window !== 'undefined') {
+    window.prompt('Copy this link:', shareUrl);
+    return { success: true, method: 'prompt' };
+  }
+
+  return { success: false };
+}
+
 // Export for use in other modules
 export {
   WHATSAPP_NUMBER, SITE_NAME, ICONS,
