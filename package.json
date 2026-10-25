@@ -2,7 +2,8 @@
   "type": "module",
   "scripts": {
     "build:static": "node scripts/generate_static_pages.mjs && node scripts/generate_sitemap.mjs",
-    "test": "node tests/test_calculators.mjs && node tests/test_calculator_rendering.mjs && node tests/test_theme_and_rules.mjs && node tests/test_seo_and_indexability.mjs"
+    "test": "node tests/run_all_tests.mjs",
+    "test:quick": "node tests/test_calculators.mjs && node tests/test_calculator_rendering.mjs && node tests/test_theme_and_rules.mjs && node tests/test_seo_and_indexability.mjs"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.5",

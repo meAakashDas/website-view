@@ -560,7 +560,7 @@ function initApp() {
         if (targetEl) {
           targetEl.scrollIntoView({ behavior: 'smooth' });
         }
-      } catch (err) {
+      } catch {
         // Ignore invalid selectors
       }
       return;

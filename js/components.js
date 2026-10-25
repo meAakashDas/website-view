@@ -152,6 +152,10 @@ function renderNavbar(currentPath) {
 
   const waLink = `https://wa.me/${getSettings().whatsapp}?text=${encodeURIComponent('Hello RisePaisa team, I would like to get in touch.')}`;
 
+  const isMyCoursesActive = isNavLinkActive(ROUTES.MY_COURSES, currentPath);
+  const isLearnActive = currentPath === ROUTES.LEARN || (currentPath && currentPath.startsWith('/learn'));
+  const isCalcsActive = currentPath === ROUTES.CALCULATORS || (currentPath && currentPath.startsWith('/calculators'));
+
   return `
     <nav class="navbar" id="navbar" role="navigation" aria-label="Main Navigation">
       <div class="navbar-inner">
@@ -172,13 +176,21 @@ function renderNavbar(currentPath) {
           }).join('')}
         </div>
 
+        <!-- Mobile Center Quick Action Buttons (Center Mobile) -->
+        <div class="mobile-quick-actions" role="navigation" aria-label="Quick Navigation">
+          <a href="${ROUTES.MY_COURSES}" class="mobile-quick-btn ${isMyCoursesActive ? 'active' : ''}">
+            <span>My Courses</span>
+          </a>
+          <a href="${ROUTES.LEARN}" class="mobile-quick-btn ${isLearnActive ? 'active' : ''}">
+            <span>Learn</span>
+          </a>
+          <a href="${ROUTES.CALCULATORS}" class="mobile-quick-btn ${isCalcsActive ? 'active' : ''}">
+            <span>Calculators</span>
+          </a>
+        </div>
+
         <!-- Desktop Action Cluster (Right Desktop) -->
         <div class="nav-auth-area">
-          <button class="nav-search-btn" id="nav-search-btn" aria-label="Search RisePaisa (⌘K)" title="Search topics, tools, lessons (⌘K)" type="button">
-            <span class="nav-search-icon" aria-hidden="true">${ICONS.search}</span>
-            <span class="nav-search-label">Search</span>
-            <kbd class="nav-search-kbd">⌘K</kbd>
-          </button>
           <button class="theme-toggle-btn desktop-theme-toggle" id="theme-toggle-btn-desktop" aria-label="Toggle light and dark mode" title="Switch appearance" type="button">
             <span class="theme-icon theme-icon-sun" aria-hidden="true">${ICONS.sun}</span>
             <span class="theme-icon theme-icon-moon" aria-hidden="true">${ICONS.moon}</span>
@@ -191,9 +203,6 @@ function renderNavbar(currentPath) {
 
         <!-- Mobile Right Controls (Mobile & Tablet) -->
         <div class="mobile-nav-cluster">
-          <button class="mobile-cluster-btn" id="mobile-search-btn" aria-label="Search RisePaisa" type="button">
-            ${ICONS.search}
-          </button>
           <button class="theme-toggle-btn mobile-cluster-btn" id="theme-toggle-btn-mobile" aria-label="Toggle appearance" type="button">
             <span class="theme-icon theme-icon-sun" aria-hidden="true">${ICONS.sun}</span>
             <span class="theme-icon theme-icon-moon" aria-hidden="true">${ICONS.moon}</span>
@@ -493,7 +502,7 @@ function renderArticleCard(article) {
       ${thumbHtml}
       <div class="card-body">
         <div class="card-badges">
-          <span class="badge badge-outline">${article.category}</span>
+          <span class="badge badge-outline ${catClass[article.category] || ''}">${article.category}</span>
         </div>
         <h3><a href="${ROUTES.BLOG_POST(article.slug)}" style="color:inherit;text-decoration:none">${article.title}</a></h3>
         <p>${article.excerpt}</p>
@@ -570,7 +579,7 @@ function setPageMeta(titleOrOptions, description, path = (typeof window !== 'und
 function getStoredTheme() {
   try {
     return localStorage.getItem('rp_theme');
-  } catch (e) {
+  } catch {
     return null;
   }
 }
@@ -587,7 +596,9 @@ function setTheme(theme) {
   }
   try {
     localStorage.setItem('rp_theme', theme);
-  } catch (e) {}
+  } catch {
+    // Ignore storage write errors (e.g. private browsing quota)
+  }
 
   // Update accessible labels on all theme buttons
   const nextThemeLabel = theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode';
@@ -862,7 +873,6 @@ function initNavbar() {
 let _searchModalOpen = false;
 let _searchDebounce = null;
 let _selectedIndex = -1;
-let _suggestionCount = 0;
 
 function openSearchModal() {
   const overlay = document.getElementById('search-modal-overlay');
@@ -907,7 +917,6 @@ function renderModalPopular() {
       </div>
     </div>
   `;
-  _suggestionCount = 0;
 }
 
 const TYPE_COLORS = {
@@ -954,11 +963,9 @@ function renderModalResults(results, query) {
         </div>
       </div>
     `;
-    _suggestionCount = 0;
     return;
   }
 
-  _suggestionCount = results.length;
   el.innerHTML = `
     <div class="search-modal-suggestions" role="listbox">
       ${results.map((item, i) => `
