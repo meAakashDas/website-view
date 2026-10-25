@@ -26,6 +26,7 @@ class SPAHandler(http.server.SimpleHTTPRequestHandler):
 class ThreadingTCPServer(socketserver.ThreadingMixIn, socketserver.TCPServer):
     daemon_threads = True
     allow_reuse_address = True
+    request_queue_size = 128
 
 with ThreadingTCPServer(("", PORT), SPAHandler) as httpd:
     print(f"SPA Dev Server running at http://localhost:{PORT}")

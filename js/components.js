@@ -95,26 +95,32 @@ export function isNavLinkActive(linkPath, currentPath) {
   const linkClean = linkPath.split('?')[0].replace(/\/+$/, '') || '/';
 
   // 1. My Courses destination active check:
-  // Active when on any course learning interface or on /my-courses
+  // Active only on /my-courses or on an individual course learning page (/courses/:slug/learn)
   if (linkPath === ROUTES.MY_COURSES || linkClean === '/my-courses' || linkClean === '/courses/nepse-stock-market-basics/learn') {
-    return currentClean.includes('/learn') || currentClean === '/my-courses';
+    return currentClean === '/my-courses' || (currentClean.startsWith('/courses/') && currentClean.endsWith('/learn'));
   }
 
-  // 2. Public Courses catalog active check:
+  // 2. Learn Academy active check:
+  // Active on /learn and its subpaths (/learn/category/*, /learn/guides/*, /learn/glossary/*)
+  if (linkClean === ROUTES.LEARN || linkClean === '/learn') {
+    return currentClean === '/learn' || currentClean.startsWith('/learn/');
+  }
+
+  // 3. Public Courses catalog active check:
   // Active on /courses or /courses/:slug BUT NOT when on learning page or /my-courses
   if (linkClean === '/courses') {
-    if (currentClean.includes('/learn') || currentClean === '/my-courses') {
+    if (currentClean.endsWith('/learn') || currentClean === '/my-courses') {
       return false;
     }
     return currentClean === '/courses' || currentClean.startsWith('/courses/');
   }
 
-  // 3. Home active check:
+  // 4. Home active check:
   if (linkClean === '/') {
     return currentClean === '/' || currentClean === '';
   }
 
-  // 4. Other routes:
+  // 5. Other routes:
   return currentClean === linkClean || currentClean.startsWith(linkClean + '/');
 }
 
@@ -144,16 +150,10 @@ function renderNavbar(currentPath) {
     { path: ROUTES.CONTACT, label: 'Contact', icon: ICONS.mail },
   ];
 
-  const isLearnPage = currentPath && (currentPath.includes('/learn') || currentPath.split('?')[0].replace(/\/+$/, '') === '/my-courses');
-  const isCoursesActive = currentPath && (currentPath === ROUTES.COURSES || currentPath.startsWith('/courses')) && !isLearnPage;
-  const isMyCoursesActive = isNavLinkActive(ROUTES.MY_COURSES, currentPath);
-  const isLearnActive = currentPath === ROUTES.LEARN || currentPath.startsWith('/learn');
-  const isCalcsActive = currentPath === ROUTES.CALCULATORS || currentPath.startsWith('/calculators');
-
-  const waLink = `https://wa.me/${getSettings().whatsapp}?text=${encodeURIComponent('I want to contact you.')}`;
+  const waLink = `https://wa.me/${getSettings().whatsapp}?text=${encodeURIComponent('Hello RisePaisa team, I would like to get in touch.')}`;
 
   return `
-    <nav class="navbar" id="navbar">
+    <nav class="navbar" id="navbar" role="navigation" aria-label="Main Navigation">
       <div class="navbar-inner">
         <!-- Brand Logo (Left) -->
         <a href="${ROUTES.HOME}" class="nav-logo" aria-label="${SITE_NAME} - Home">
@@ -168,37 +168,36 @@ function renderNavbar(currentPath) {
             if (l.isSecondary) classes.push('nav-link-secondary');
             if (l.isTertiary) classes.push('nav-link-tertiary');
             if (isActive) classes.push('active');
-            return `<a href="${l.path}" class="${classes.join(' ')}">${l.label}</a>`;
+            return `<a href="${l.path}" class="${classes.join(' ')}" ${isActive ? 'aria-current="page"' : ''}>${l.label}</a>`;
           }).join('')}
-        </div>
-
-        <!-- Mobile Center Quick Action Buttons (Center Mobile) -->
-        <div class="mobile-quick-actions" role="navigation" aria-label="Quick Navigation">
-          <a href="${ROUTES.MY_COURSES}" class="mobile-quick-btn ${isMyCoursesActive ? 'active' : ''}">
-            <span>My Courses</span>
-          </a>
-          <a href="${ROUTES.LEARN}" class="mobile-quick-btn ${isLearnActive ? 'active' : ''}">
-            <span>Learn</span>
-          </a>
-          <a href="${ROUTES.CALCULATORS}" class="mobile-quick-btn ${isCalcsActive ? 'active' : ''}">
-            <span>Calculators</span>
-          </a>
         </div>
 
         <!-- Desktop Action Cluster (Right Desktop) -->
         <div class="nav-auth-area">
+          <button class="nav-search-btn" id="nav-search-btn" aria-label="Search RisePaisa (⌘K)" title="Search topics, tools, lessons (⌘K)" type="button">
+            <span class="nav-search-icon" aria-hidden="true">${ICONS.search}</span>
+            <span class="nav-search-label">Search</span>
+            <kbd class="nav-search-kbd">⌘K</kbd>
+          </button>
           <button class="theme-toggle-btn desktop-theme-toggle" id="theme-toggle-btn-desktop" aria-label="Toggle light and dark mode" title="Switch appearance" type="button">
             <span class="theme-icon theme-icon-sun" aria-hidden="true">${ICONS.sun}</span>
             <span class="theme-icon theme-icon-moon" aria-hidden="true">${ICONS.moon}</span>
           </button>
           <div id="desktop-auth-container" class="nav-auth-slot"></div>
           <a href="${waLink}" target="_blank" rel="noopener" class="btn btn-primary nav-cta">
-            ${ICONS.whatsapp} Contact Us
+            ${ICONS.whatsapp} Contact
           </a>
         </div>
 
-        <!-- Mobile Right: Compact Hamburger Toggle (Right Mobile) -->
-        <div class="mobile-toggle-wrap">
+        <!-- Mobile Right Controls (Mobile & Tablet) -->
+        <div class="mobile-nav-cluster">
+          <button class="mobile-cluster-btn" id="mobile-search-btn" aria-label="Search RisePaisa" type="button">
+            ${ICONS.search}
+          </button>
+          <button class="theme-toggle-btn mobile-cluster-btn" id="theme-toggle-btn-mobile" aria-label="Toggle appearance" type="button">
+            <span class="theme-icon theme-icon-sun" aria-hidden="true">${ICONS.sun}</span>
+            <span class="theme-icon theme-icon-moon" aria-hidden="true">${ICONS.moon}</span>
+          </button>
           <button class="nav-toggle" id="nav-toggle" aria-label="Open navigation menu" aria-expanded="false" aria-controls="mobile-menu" type="button">
             <span class="nav-toggle-bar"></span>
             <span class="nav-toggle-bar"></span>
@@ -378,14 +377,17 @@ function renderFooter() {
   `;
 }
 
-// ── WhatsApp Float Button ────────────────────────
+// ── WhatsApp Advisor Capsule Float ────────────────
 function renderWhatsAppFloat() {
   const _wa = getSettings().whatsapp;
   return `
-    <a href="https://wa.me/${_wa}?text=${encodeURIComponent('I want to contact you.')}" 
-       target="_blank" rel="noopener" class="whatsapp-float" aria-label="Chat on WhatsApp" id="whatsapp-float">
-      ${ICONS.whatsapp}
-    </a>
+    <aside class="advisor-capsule-float" id="whatsapp-float" aria-label="Advisor support">
+      <a href="https://wa.me/${_wa}?text=${encodeURIComponent('Hello RisePaisa team, I have a question about financial education.')}" 
+         target="_blank" rel="noopener" class="advisor-capsule-link" aria-label="Ask Financial Advisor on WhatsApp">
+        <span class="advisor-capsule-icon" aria-hidden="true">${ICONS.whatsapp}</span>
+        <span class="advisor-capsule-label">Ask Advisor</span>
+      </a>
+    </aside>
   `;
 }
 

@@ -121,22 +121,10 @@
   height: 100%;
 }
 
-@media (min-width: 768px) {
-  .nav-links {
-    display: flex;
-    gap: 14px;
-  }
-}
-
-@media (min-width: 900px) {
-  .nav-links {
-    gap: 16px;
-  }
-}
-
 @media (min-width: 1024px) {
   .nav-links {
-    gap: 18px;
+    display: flex;
+    gap: 16px;
   }
 }
 
@@ -196,9 +184,10 @@
 .nav-link.active::after {
   content: '';
   position: absolute;
-  bottom: 8px;
-  left: 8px;
-  right: 8px;
+  bottom: 6px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 16px;
   height: 2px;
   background: var(--color-accent);
   border-radius: var(--radius-full);
@@ -212,14 +201,9 @@
   flex-shrink: 0;
 }
 
-@media (min-width: 768px) {
-  .nav-auth-area {
-    display: flex;
-  }
-}
-
 @media (min-width: 1024px) {
   .nav-auth-area {
+    display: flex;
     gap: 10px;
   }
 }
@@ -265,7 +249,61 @@
 }
 
 /* ── Desktop Icon Buttons (Search & Theme Toggle) ── */
-.nav-search-btn,
+.nav-search-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  height: 34px;
+  padding: 0 10px 0 10px;
+  border-radius: var(--radius-full);
+  background: var(--color-surface-pearl);
+  border: 1px solid var(--color-border);
+  color: var(--color-text-secondary);
+  font-family: var(--font-body);
+  font-size: 12.5px;
+  cursor: pointer;
+  transition: all var(--duration-fast) var(--ease-apple);
+  -webkit-tap-highlight-color: transparent;
+}
+
+.nav-search-btn:hover {
+  color: var(--color-heading);
+  background: var(--color-surface-hover);
+  border-color: var(--color-border-hover);
+  transform: translateY(-1px);
+}
+
+.nav-search-btn .nav-search-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 14px;
+  height: 14px;
+}
+
+.nav-search-btn .nav-search-icon svg {
+  width: 14px;
+  height: 14px;
+}
+
+.nav-search-btn .nav-search-label {
+  line-height: 1;
+}
+
+.nav-search-btn .nav-search-kbd {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-mono, monospace);
+  font-size: 10px;
+  font-weight: 550;
+  line-height: 1;
+  padding: 2px 5px;
+  border-radius: 4px;
+  background: var(--color-border);
+  color: var(--color-text-muted);
+}
+
 .theme-toggle-btn {
   position: relative;
   display: inline-flex;
@@ -290,7 +328,6 @@
   -webkit-tap-highlight-color: transparent;
 }
 
-.nav-search-btn:hover,
 .theme-toggle-btn:hover {
   color: var(--color-heading);
   background: var(--color-surface-hover);
@@ -299,7 +336,6 @@
   box-shadow: var(--shadow-xs);
 }
 
-.nav-search-btn:active,
 .theme-toggle-btn:active {
   transform: scale(0.96);
 }
@@ -308,11 +344,6 @@
 .theme-toggle-btn:focus-visible {
   outline: 2px solid var(--color-accent);
   outline-offset: 2px;
-}
-
-.nav-search-btn svg {
-  width: 16px;
-  height: 16px;
 }
 
 .theme-toggle-btn .theme-icon {
@@ -351,85 +382,47 @@
   transform: rotate(0deg) scale(1);
 }
 
-/* ── Mobile Center: 3 Quick Action Pill Buttons ── */
-.mobile-quick-actions {
-  display: none;
-}
-
-@media (max-width: 767px) {
-  .mobile-quick-actions {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 6px;
-    flex: 1 1 auto;
-    width: 100%;
-    margin: 0 auto;
-    min-width: 0;
-  }
-
-  .mobile-quick-btn {
-    height: 34px;
-    min-height: 34px;
-    border-radius: var(--radius-full);
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    text-decoration: none;
-    font-family: var(--font-body);
-    font-size: 12px;
-    font-weight: 500;
-    letter-spacing: -0.01em;
-    text-align: center;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    padding: 0 8px;
-    min-width: 0;
-    background: var(--color-surface);
-    border: 1px solid var(--color-border);
-    color: var(--color-text-secondary);
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
-    -webkit-tap-highlight-color: transparent;
-    transition: all 180ms var(--ease-apple);
-  }
-
-  .mobile-quick-btn span {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  }
-
-  .mobile-quick-btn:hover {
-    background: var(--color-surface-hover);
-    border-color: var(--color-border-hover);
-    color: var(--color-heading);
-  }
-
-  .mobile-quick-btn:active {
-    transform: scale(0.96);
-  }
-
-  .mobile-quick-btn.active {
-    background: var(--color-primary);
-    border-color: var(--color-primary);
-    color: #FFFFFF;
-    font-weight: 600;
-    box-shadow: 0 1px 3px rgba(0, 113, 227, 0.25);
-  }
-}
-
-/* ── Right Hamburger Toggle (Mobile & Tablet) ──── */
-.mobile-toggle-wrap {
+/* ── Mobile Right Navigation Cluster ─────────── */
+.mobile-nav-cluster {
   display: none;
 }
 
 @media (max-width: 1023px) {
-  .mobile-toggle-wrap {
-    display: flex;
+  .mobile-nav-cluster {
+    display: inline-flex;
     align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
+    gap: 4px;
+    margin-left: auto;
   }
+}
+
+.mobile-cluster-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  min-width: 38px;
+  min-height: 38px;
+  border-radius: var(--radius-full);
+  background: transparent;
+  border: 1px solid transparent;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  padding: 0;
+  transition: all var(--duration-fast) var(--ease-apple);
+  -webkit-tap-highlight-color: transparent;
+}
+
+.mobile-cluster-btn:hover,
+.mobile-cluster-btn:active {
+  background: var(--color-surface-pearl);
+  color: var(--color-heading);
+}
+
+.mobile-cluster-btn svg {
+  width: 18px;
+  height: 18px;
 }
 
 .nav-toggle {

@@ -1,96 +1,108 @@
 /* ==============================================================================
-   risePaisa - Premium Design System Tokens & Semantic Variables
-   Designed for Trust, Precision, Simplicity, and Financial Authority
-   Inspired by Apple, Linear, Notion, and Vercel
+   risePaisa - Premium Apple-Inspired Design System Tokens & Semantic Variables
+   Designed for Clarity, Restraint, Typography, Spacing, and Financial Authority
    ============================================================================== */
 
 :root,
 [data-theme="light"] {
-  /* ── Light Mode (Default): Warm Apple Parchment & Ink Hierarchy ── */
-  --color-bg:                  #F5F5F7;  /* Apple parchment canvas */
+  /* ── Apple Canvas & Surface Architecture (Light Mode) ────── */
+  --color-canvas:              #FFFFFF;  /* Pure gallery white */
+  --color-canvas-parchment:    #F5F5F7;  /* Apple signature off-white parchment */
+  --color-bg:                  #F5F5F7;  /* Default page background */
   --color-bg-alt:              #EDEDF0;  /* Alternating section canvas */
   --color-bg-subtle:           #E5E5EA;  /* Sub-canvas / table header */
   
-  /* Layered Card & Interactive Surfaces: Pure White on Parchment */
-  --color-surface:             #FFFFFF;
+  /* Layered Surfaces */
+  --color-surface:             #FFFFFF;  /* Primary card surface */
   --color-surface-hover:       #FFFFFF;
   --color-surface-active:      #F5F5F7;
   --color-surface-elevated:    #FFFFFF;  /* Modals, popovers, dropdowns */
   --color-surface-subtle:      rgba(0, 0, 0, 0.035);
+  --color-surface-card:        #FFFFFF;  /* Utility cards */
+  --color-surface-pearl:       #FAFAFC;  /* Ghost pill capsule fill */
+  --color-surface-tile-1:      #272729;  /* Museum dark tile */
+  --color-surface-tile-2:      #2A2A2C;  /* Elevated dark tile card */
+  --color-surface-tile-3:      #1D1D1F;  /* Deep contrast surface */
+  --color-surface-black:       #000000;  /* Cinematic void */
 
-  /* ── RisePaisa Financial Blue & Action Tokens (Light Mode) ─── */
-  --color-primary:             #0071E3;  /* Apple Action Blue for buttons/actions */
+  /* ── Action & Brand Accent (Apple Action Blue) ────────────── */
+  --color-primary:             #0071E3;  /* Apple Action Blue */
+  --color-primary-hover:       #0077ED;
+  --color-primary-active:      #0062C4;
   --color-primary-light:       #EBF5FF;  /* Pale sky blue tint */
-  --color-primary-text:        #0055A5;  /* Deep Action Blue: 6.88:1 contrast on pale tint */
+  --color-primary-text:        #0055A5;  /* Deep Action Blue: 6.88:1 contrast */
   --color-primary-subtle:      rgba(0, 113, 227, 0.08);
+  --color-primary-on-dark:     #2997FF;  /* Brighter blue on dark surfaces */
   --color-accent:              #0071E3;
-  --color-accent-hover:        #005BB5;
-  --color-accent-active:       #00478F;
+  --color-accent-hover:        #0077ED;
+  --color-accent-active:       #0062C4;
   --color-accent-dark:         #0055A5;
   --color-accent-subtle:       rgba(0, 113, 227, 0.08);
   --color-accent-glow:         transparent;
-  --focus-ring:                rgba(0, 113, 227, 0.3);
+  --focus-ring:                rgba(0, 113, 227, 0.35);
 
-  /* ── Navigation, Outline & Table of Contents Tokens ─────── */
+  /* ── Navigation & Outline State Tokens ───────────────────── */
   --nav-item-active-bg:        rgba(0, 113, 227, 0.08);
-  --nav-item-active-text:      #0055A5;
+  --nav-item-active-text:      #0071E3;
   --nav-item-active-bullet:    #0071E3;
   --nav-item-hover-bg:         rgba(0, 0, 0, 0.04);
   --nav-item-hover-text:       #1D1D1F;
 
-  /* ── Typography Hierarchy: Apple Near-Black Ink ──────────── */
+  /* ── Typography: Apple Near-Black Ink Hierarchy ──────────── */
   --color-white:               #FFFFFF;
-  --color-heading:             #1D1D1F;  /* Deep ink, photographic feel */
-  --color-text:                #1D1D1F;  /* Primary body text */
-  --color-text-secondary:      #56565C;  /* Reading subtitle / paragraphs */
-  --color-text-muted:          #86868B;  /* Metadata, timestamps */
+  --color-heading:             #1D1D1F;  /* Photographic near-black */
+  --color-text:                #1D1D1F;  /* Primary body read */
+  --color-text-secondary:      #6E6E73;  /* Subtitles & supporting paragraphs */
+  --color-text-muted:          #86868B;  /* Metadata, timestamps, fine print */
+  --color-ink:                 #1D1D1F;
+  --color-ink-secondary:       #6E6E73;
+  --color-ink-muted:           #86868B;
+  --color-ink-on-dark:         #FFFFFF;
+  --color-ink-muted-dark:      #A1A1A6;
 
-  /* ── Precision Hairline Borders & Dividers ───────────────── */
-  --color-border:              rgba(0, 0, 0, 0.07);
-  --color-border-light:        rgba(0, 0, 0, 0.11);
+  /* ── Hairline Borders & Dividers ─────────────────────────── */
+  --color-hairline:            rgba(0, 0, 0, 0.08);
+  --color-hairline-subtle:     rgba(0, 0, 0, 0.04);
+  --color-border:              rgba(0, 0, 0, 0.08);
+  --color-border-light:        rgba(0, 0, 0, 0.04);
   --color-border-hover:        rgba(0, 0, 0, 0.14);
-  --color-border-focus:        rgba(29, 161, 242, 0.6);
+  --color-border-focus:        rgba(0, 113, 227, 0.6);
   --color-divider:             rgba(0, 0, 0, 0.06);
 
-  /* ── Navbar Chrome: Frosted Glass ────────────────────────── */
-  --nav-bg:                    rgba(245, 245, 247, 0.85);
-  --nav-bg-scrolled:           rgba(245, 245, 247, 0.96);
-  --nav-link-color:            rgba(29, 29, 31, 0.72);
-  --nav-link-hover:            #1D1D1F;
+  /* ── Navbar Chrome: Apple Frosted Glass ──────────────────── */
+  --nav-bg:                    rgba(255, 255, 255, 0.82);
+  --nav-bg-scrolled:           rgba(255, 255, 255, 0.94);
+  --nav-link-color:            rgba(29, 29, 31, 0.8);
+  --nav-link-hover:            #0071E3;
 
   /* ── Card System Defaults ────────────────────────────────── */
   --card-bg:                   #FFFFFF;
   --card-bg-hover:             #FFFFFF;
-  --card-border:               1px solid rgba(0, 0, 0, 0.06);
-  --card-border-hover:         1px solid rgba(0, 0, 0, 0.12);
+  --card-border:               1px solid rgba(0, 0, 0, 0.08);
+  --card-border-hover:         1px solid rgba(0, 0, 0, 0.14);
 
   /* ── Form Controls & Inputs ──────────────────────────────── */
   --input-bg:                  #FFFFFF;
   --input-bg-focus:            #FFFFFF;
-  --input-border:              rgba(0, 0, 0, 0.13);
+  --input-border:              rgba(0, 0, 0, 0.15);
 
-  /* ── Shadows: Restrained Micro-Elevation ─────────────────── */
+  /* ── Elevation: Apple Signature Product Depth ────────────── */
   --shadow-xs:                 0 1px 2px rgba(0, 0, 0, 0.03);
   --shadow-sm:                 0 1px 3px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.02);
   --shadow-md:                 0 4px 14px rgba(0, 0, 0, 0.05);
   --shadow-lg:                 0 10px 28px rgba(0, 0, 0, 0.07);
   --shadow-xl:                 0 20px 48px rgba(0, 0, 0, 0.09);
   --shadow-card:               0 1px 3px rgba(0, 0, 0, 0.04), 0 0 0 1px rgba(0, 0, 0, 0.06);
-  --shadow-card-hover:         0 4px 16px rgba(0, 0, 0, 0.06), 0 0 0 1px rgba(0, 0, 0, 0.09);
+  --shadow-card-hover:         0 4px 16px rgba(0, 0, 0, 0.06), 0 0 0 1px rgba(0, 0, 0, 0.1);
+  --shadow-product:            0 14px 40px -10px rgba(0, 0, 0, 0.18), 0 4px 14px -2px rgba(0, 0, 0, 0.08);
+  --shadow-modal:              0 24px 60px rgba(0, 0, 0, 0.18);
 
   /* ── Semantic Financial Status ───────────────────────────── */
   --color-success:             #248A3D;
   --color-warning:             #B25000;
   --color-error:               #D70015;
   --color-danger:              #D70015;
-  --color-info:                #1DA1F2;
-
-  /* ── Domain Category Tags ────────────────────────────────── */
-  --color-cat-nepse:           #1DA1F2;
-  --color-cat-tax:             #B25000;
-  --color-cat-saving:          #248A3D;
-  --color-cat-fintech:         #8944AB;
-  --color-cat-personal:        #D70015;
+  --color-info:                #0071E3;
 
   /* ── Controls & Scrollbars ───────────────────────────────── */
   --color-scrollbar-thumb:     rgba(0, 0, 0, 0.18);
@@ -98,74 +110,92 @@
   --slider-track-bg:           rgba(0, 0, 0, 0.1);
 
   /* ── Frosted Glass System (Light Mode: Apple Translucent Pearl) ── */
-  --glass-bg:                  rgba(255, 255, 255, 0.92);
+  --glass-bg:                  rgba(255, 255, 255, 0.85);
   --glass-border:              rgba(0, 0, 0, 0.08);
-  --glass-blur:                blur(20px);
+  --glass-blur:                blur(20px) saturate(180%);
 }
 
 [data-theme="dark"] {
-  /* ── Dark Mode: Layered Charcoal Surfaces, Restrained Contrast ── */
-  --color-bg:                  #0D0E12;  /* Deep rich canvas, never harsh void */
-  --color-bg-alt:              #13141A;  /* Secondary section canvas */
-  --color-bg-subtle:           #171820;  /* Sub-canvas / table header */
+  /* ── Apple Canvas & Surface Architecture (Dark Mode) ─────── */
+  --color-canvas:              #000000;  /* Cinematic pure void */
+  --color-canvas-parchment:    #161617;  /* Dark parchment */
+  --color-bg:                  #000000;  /* Default dark page background */
+  --color-bg-alt:              #161617;  /* Secondary section canvas */
+  --color-bg-subtle:           #1D1D1F;  /* Sub-canvas / table header */
   
-  /* Layered Card & Interactive Surfaces */
-  --color-surface:             #181920;
-  --color-surface-hover:       #1F202B;
-  --color-surface-active:      #262835;
-  --color-surface-elevated:    #21222E;  /* Modals, popovers, dropdowns */
+  /* Layered Surfaces */
+  --color-surface:             #1C1C1E;  /* Elevated card surface */
+  --color-surface-hover:       #242426;
+  --color-surface-active:      #2C2C2E;
+  --color-surface-elevated:    #242426;  /* Modals, popovers, dropdowns */
   --color-surface-subtle:      rgba(255, 255, 255, 0.04);
+  --color-surface-card:        #1C1C1E;
+  --color-surface-pearl:       #2C2C2E;  /* Ghost pill capsule fill */
+  --color-surface-tile-1:      #1D1D1F;
+  --color-surface-tile-2:      #252527;
+  --color-surface-tile-3:      #161617;
+  --color-surface-black:       #000000;
   
-  /* ── RisePaisa Financial Blue & Action Tokens (Dark Mode) ──── */
-  --color-primary:             #1DA1F2;
+  /* ── Action & Brand Accent (Sky Link Blue) ───────────────── */
+  --color-primary:             #2997FF;  /* Brighter Action Blue on dark */
+  --color-primary-hover:       #47A5FF;
+  --color-primary-active:      #1D80E2;
   --color-primary-light:       #38BDF8;
   --color-primary-text:        #38BDF8;
-  --color-primary-subtle:      rgba(29, 161, 242, 0.14);
-  --color-accent:              #1DA1F2;
-  --color-accent-hover:        #0D8FDE;
-  --color-accent-active:       #0B7EC4;
-  --color-accent-dark:         #0D8FDE;
-  --color-accent-subtle:       rgba(29, 161, 242, 0.14);
+  --color-primary-subtle:      rgba(41, 151, 255, 0.15);
+  --color-primary-on-dark:     #2997FF;
+  --color-accent:              #2997FF;
+  --color-accent-hover:        #47A5FF;
+  --color-accent-active:       #1D80E2;
+  --color-accent-dark:         #1D80E2;
+  --color-accent-subtle:       rgba(41, 151, 255, 0.15);
   --color-accent-glow:         transparent;
-  --focus-ring:                rgba(29, 161, 242, 0.35);
+  --focus-ring:                rgba(41, 151, 255, 0.45);
 
-  /* ── Navigation, Outline & Table of Contents Tokens ─────── */
-  --nav-item-active-bg:        rgba(29, 161, 242, 0.16);
-  --nav-item-active-text:      #38BDF8;
-  --nav-item-active-bullet:    #38BDF8;
+  /* ── Navigation & Outline State Tokens ───────────────────── */
+  --nav-item-active-bg:        rgba(41, 151, 255, 0.15);
+  --nav-item-active-text:      #2997FF;
+  --nav-item-active-bullet:    #2997FF;
   --nav-item-hover-bg:         rgba(255, 255, 255, 0.06);
   --nav-item-hover-text:       #FFFFFF;
 
-  /* ── Typography Hierarchy: Clean Tonal Contrast ──────────── */
+  /* ── Typography: Clean Tonal Contrast ────────────────────── */
   --color-white:               #FFFFFF;
-  --color-heading:             #FFFFFF;  /* Confident crisp titles */
-  --color-text:                #E4E4E7;  /* Primary body read */
-  --color-text-secondary:      #A1A1AA;  /* Supporting copy, subtitles */
-  --color-text-muted:          #71717A;  /* Micro-labels, fine print */
+  --color-heading:             #F5F5F7;  /* Confident crisp titles */
+  --color-text:                #F5F5F7;  /* Primary body read */
+  --color-text-secondary:      #A1A1A6;  /* Supporting copy, subtitles */
+  --color-text-muted:          #86868B;  /* Micro-labels, fine print */
+  --color-ink:                 #F5F5F7;
+  --color-ink-secondary:       #A1A1A6;
+  --color-ink-muted:           #86868B;
+  --color-ink-on-dark:         #F5F5F7;
+  --color-ink-muted-dark:      #86868B;
 
   /* ── Precision Hairline Borders & Dividers ───────────────── */
-  --color-border:              rgba(255, 255, 255, 0.08);
-  --color-border-light:        rgba(255, 255, 255, 0.12);
-  --color-border-hover:        rgba(255, 255, 255, 0.16);
-  --color-border-focus:        rgba(29, 161, 242, 0.6);
-  --color-divider:             rgba(255, 255, 255, 0.06);
+  --color-hairline:            rgba(255, 255, 255, 0.12);
+  --color-hairline-subtle:     rgba(255, 255, 255, 0.06);
+  --color-border:              rgba(255, 255, 255, 0.12);
+  --color-border-light:        rgba(255, 255, 255, 0.06);
+  --color-border-hover:        rgba(255, 255, 255, 0.20);
+  --color-border-focus:        rgba(41, 151, 255, 0.6);
+  --color-divider:             rgba(255, 255, 255, 0.08);
 
   /* ── Navbar Chrome: Frosted Glass ────────────────────────── */
-  --nav-bg:                    rgba(13, 14, 18, 0.85);
-  --nav-bg-scrolled:           rgba(13, 14, 18, 0.95);
-  --nav-link-color:            rgba(228, 228, 231, 0.72);
-  --nav-link-hover:            #FFFFFF;
+  --nav-bg:                    rgba(22, 22, 23, 0.82);
+  --nav-bg-scrolled:           rgba(22, 22, 23, 0.95);
+  --nav-link-color:            rgba(245, 245, 247, 0.8);
+  --nav-link-hover:            #2997FF;
 
   /* ── Card System Defaults ────────────────────────────────── */
-  --card-bg:                   #181920;
-  --card-bg-hover:             #1F202B;
-  --card-border:               1px solid rgba(255, 255, 255, 0.08);
-  --card-border-hover:         1px solid rgba(255, 255, 255, 0.16);
+  --card-bg:                   #1C1C1E;
+  --card-bg-hover:             #242426;
+  --card-border:               1px solid rgba(255, 255, 255, 0.1);
+  --card-border-hover:         1px solid rgba(255, 255, 255, 0.18);
 
   /* ── Form Controls & Inputs ──────────────────────────────── */
-  --input-bg:                  rgba(255, 255, 255, 0.04);
-  --input-bg-focus:            rgba(255, 255, 255, 0.07);
-  --input-border:              rgba(255, 255, 255, 0.11);
+  --input-bg:                  rgba(255, 255, 255, 0.06);
+  --input-bg-focus:            rgba(255, 255, 255, 0.09);
+  --input-border:              rgba(255, 255, 255, 0.14);
 
   /* ── Shadows: Soft Atmospheric Elevation ─────────────────── */
   --shadow-xs:                 0 1px 2px rgba(0, 0, 0, 0.3);
@@ -175,20 +205,15 @@
   --shadow-xl:                 0 20px 48px rgba(0, 0, 0, 0.6);
   --shadow-card:               0 1px 3px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.08);
   --shadow-card-hover:         0 4px 20px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.14);
+  --shadow-product:            0 16px 44px -8px rgba(0, 0, 0, 0.65);
+  --shadow-modal:              0 24px 60px rgba(0, 0, 0, 0.7);
 
   /* ── Semantic Financial Status ───────────────────────────── */
   --color-success:             #30D158;
   --color-warning:             #FF9F0A;
   --color-error:               #FF453A;
   --color-danger:              #FF453A;
-  --color-info:                #1DA1F2;
-
-  /* ── Domain Category Tags ────────────────────────────────── */
-  --color-cat-nepse:           #1DA1F2;
-  --color-cat-tax:             #FF9F0A;
-  --color-cat-saving:          #30D158;
-  --color-cat-fintech:         #BF5AF2;
-  --color-cat-personal:        #FF375F;
+  --color-info:                #2997FF;
 
   /* ── Controls & Scrollbars ───────────────────────────────── */
   --color-scrollbar-thumb:     rgba(255, 255, 255, 0.18);
@@ -196,9 +221,9 @@
   --slider-track-bg:           rgba(255, 255, 255, 0.12);
 
   /* ── Frosted Glass System (Dark Mode) ────────────────────── */
-  --glass-bg:                  rgba(13, 14, 18, 0.82);
-  --glass-border:              rgba(255, 255, 255, 0.08);
-  --glass-blur:                blur(20px);
+  --glass-bg:                  rgba(22, 22, 23, 0.82);
+  --glass-border:              rgba(255, 255, 255, 0.12);
+  --glass-blur:                blur(20px) saturate(180%);
 }
 
 :root {
@@ -218,20 +243,36 @@
   --text-5xl:                  2.75rem;    /* 44px */
   --text-6xl:                  3.5rem;     /* 56px */
   
-  /* Standardized Hierarchy Tokens */
-  --text-hero:                 clamp(2.1rem, 3.8vw, 3rem);
-  --text-section:              clamp(1.65rem, 2.5vw, 2.2rem);
-  --text-card-title:           1.125rem;   /* 18px */
+  /* Standardized Apple Hierarchy Tokens */
+  --text-hero:                 clamp(2.5rem, 4.8vw, 3.5rem);
+  --text-display-lg:           clamp(2rem, 3.4vw, 2.5rem);
+  --text-display-md:           clamp(1.5rem, 2.4vw, 2rem);
+  --text-section:              clamp(1.75rem, 2.6vw, 2.25rem);
+  --text-tagline:              1.3125rem;  /* 21px */
+  --text-body:                 1.0625rem;  /* 17px */
+  --text-card-title:           1.1875rem;  /* 19px */
   --text-card-body:            0.9375rem;  /* 15px */
   --text-meta:                 0.8125rem;  /* 13px */
-  --text-kicker:               11.5px;
+  --text-kicker:               12px;
   
+  /* Optical Negative Tracking (The Signature Apple Headline Feel) */
+  --tracking-hero:             -0.028em;
+  --tracking-display-lg:       -0.022em;
+  --tracking-display-md:       -0.018em;
+  --tracking-tight:            -0.014em;
+  --tracking-normal:           -0.011em;
+  --tracking-wide:             0;
+  
+  /* Line Heights */
   --leading-none:              1.0;
+  --leading-hero:              1.07;
   --leading-tight:             1.12;
-  --leading-snug:              1.28;
-  --leading-normal:            1.6;
-  --leading-relaxed:           1.68;
+  --leading-snug:              1.24;
+  --leading-normal:            1.47;       /* Apple 17px standard leading */
+  --leading-relaxed:           1.62;
+  --leading-dense:             2.41;       /* Relaxed leading for footer link columns */
   
+  --weight-light:              300;
   --weight-normal:             400;
   --weight-medium:             500;
   --weight-semibold:           600;
@@ -252,43 +293,39 @@
   --space-24:                  6rem;      /* 96px */
 
   /* ── Layout & Responsive Container Max-Widths ────────────── */
-  --container-reading:         min(92vw, 980px); /* Generous immersive reading */
+  --container-reading:         min(92vw, 980px);
   --container-prose:           840px;            /* Comfortably proportioned reading line */
   --container-sm:              640px;
   --container-md:              768px;
   --container-lg:              1024px;
   --container-xl:              1200px;
   --container-2xl:             1360px;
-  --nav-height:                60px;
-  --nav-height-mobile:         56px;
-  --section-padding-y:         64px;
-  --section-padding-y-mobile:  44px;
+  --nav-height:                48px;             /* Apple slim nav standard */
+  --nav-height-mobile:         48px;
+  --section-padding-y:         80px;             /* Apple generous tile vertical air */
+  --section-padding-y-mobile:  52px;
 
   /* ── Standardized Card Geometry ──────────────────────────── */
-  --card-padding:              22px;
+  --card-padding:              24px;
   --card-padding-sm:           16px;
-  --card-radius:               16px;
+  --card-radius:               18px;             /* Apple rounded.lg standard */
 
   /* ── Continuous Radii (Apple-Style Squircles) ────────────── */
-  --radius-xs:                 4px;
-  --radius-sm:                 8px;
-  --radius-md:                 12px;
-  --radius-lg:                 16px;
-  --radius-xl:                 20px;
+  --radius-xs:                 5px;
+  --radius-sm:                 8px;              /* Dark utility button */
+  --radius-md:                 11px;             /* Capsule button */
+  --radius-lg:                 18px;             /* Utility card */
+  --radius-xl:                 22px;
   --radius-2xl:                28px;
   --radius-full:               9999px;
-  --radius-pill:               9999px;
+  --radius-pill:               9999px;           /* Signature Apple pill */
 
-  /* ── Frosted Glass System (Tokens managed per theme) ────── */
-  --shadow-glow:               none;
-  --shadow-glow-lg:            none;
-
-  /* ── Restrained, Handcrafted Easing Transitions (Apple / Linear) ─ */
+  /* ── Restrained, Handcrafted Easing Transitions (Apple Springs) ─ */
   --ease-apple:                cubic-bezier(0.16, 1, 0.3, 1);
   --ease-out:                  cubic-bezier(0.16, 1, 0.3, 1);
   --ease-in-out:               cubic-bezier(0.4, 0, 0.2, 1);
   --ease-smooth:               cubic-bezier(0.25, 0.1, 0.25, 1);
-  --duration-fast:             160ms;
+  --duration-fast:             120ms;
   --duration-normal:           220ms;
   --duration-base:             220ms;
   --duration-slow:             320ms;
@@ -317,6 +354,8 @@
 
 @media (max-width: 767px) {
   :root {
-    --nav-height: var(--nav-height-mobile, 56px);
+    --nav-height: var(--nav-height-mobile, 48px);
+    --section-padding-y: var(--section-padding-y-mobile, 52px);
   }
 }
+

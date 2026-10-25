@@ -401,6 +401,8 @@ function _harmonizeCourse(c) {
   // Harmonize description
   course.description = course.description || course.fullDescription || course.shortDescription || '';
   course.fullDescription = course.fullDescription || course.description || course.shortDescription || '';
+  course.instructor = course.instructor || 'Aakash Das';
+  course.instructorRole = course.instructorRole || 'Founder of RisePaisa';
   course.published = course.published !== undefined ? Boolean(course.published) : (course.isPublished !== false);
   course.isPublished = course.published;
 

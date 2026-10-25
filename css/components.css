@@ -618,45 +618,98 @@ button:disabled {
   height: 16px;
 }
 
-/* ── WhatsApp Floating Action ──────────────────────────────── */
+/* ── Apple-Inspired Advisor Capsule Floating Action ────────── */
+.advisor-capsule-float,
 .whatsapp-float {
   position: fixed;
   bottom: calc(max(var(--space-6), env(safe-area-inset-bottom, 0px)));
   right: calc(max(var(--space-6), env(safe-area-inset-right, 0px)));
   z-index: var(--z-whatsapp);
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  background-color: #25D366;
-  display: flex;
+  will-change: transform, opacity;
+  transition: transform var(--duration-fast) var(--ease-apple),
+              box-shadow var(--duration-fast) var(--ease-apple),
+              opacity var(--duration-fast) var(--ease-apple);
+}
+
+.advisor-capsule-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px 8px 12px;
+  border-radius: var(--radius-full);
+  background: var(--color-surface-pearl);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid var(--color-border);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.04);
+  text-decoration: none;
+  color: var(--color-heading);
+  font-family: var(--font-body);
+  font-size: 13.5px;
+  font-weight: 550;
+  letter-spacing: -0.01em;
+  transition: all var(--duration-fast) var(--ease-apple);
+  -webkit-tap-highlight-color: transparent;
+}
+
+.advisor-capsule-icon {
+  display: inline-flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2), 0 1px 3px rgba(0, 0, 0, 0.1);
-  transition: transform var(--duration-fast) var(--ease-out),
-              box-shadow var(--duration-fast) var(--ease-out),
-              opacity var(--duration-fast) var(--ease-out);
-  text-decoration: none;
-  will-change: transform, opacity;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: #25D366;
+  color: #FFFFFF;
+  flex-shrink: 0;
 }
 
-.whatsapp-float:hover {
+.advisor-capsule-icon svg {
+  width: 14px;
+  height: 14px;
+  fill: currentColor;
+}
+
+.advisor-capsule-label {
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.advisor-capsule-float:hover .advisor-capsule-link {
   transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25), 0 2px 6px rgba(0, 0, 0, 0.1);
+  background: var(--color-surface);
+  border-color: var(--color-border-hover);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12), 0 2px 6px rgba(0, 0, 0, 0.06);
+  color: var(--color-primary);
 }
 
-.whatsapp-float svg {
-  width: 26px;
-  height: 26px;
-  fill: #FFFFFF;
+.advisor-capsule-float:active .advisor-capsule-link {
+  transform: scale(0.97);
 }
 
-body:has(.search-modal.active) .whatsapp-float,
+@media (max-width: 640px) {
+  .advisor-capsule-link {
+    padding: 8px 12px 8px 10px;
+    font-size: 12.5px;
+    gap: 6px;
+  }
+  .advisor-capsule-icon {
+    width: 22px;
+    height: 22px;
+  }
+}
+
+body:has(.search-modal-overlay.open) .advisor-capsule-float,
+body:has(.search-modal-overlay.open) .whatsapp-float,
+body:has(.mobile-menu.open) .advisor-capsule-float,
 body:has(.mobile-menu.open) .whatsapp-float,
+body:has(.rp-mobile-toc-drawer.open) .advisor-capsule-float,
 body:has(.rp-mobile-toc-drawer.open) .whatsapp-float,
+body:has(.lesson-mobile-toc-drawer.open) .advisor-capsule-float,
 body:has(.lesson-mobile-toc-drawer.open) .whatsapp-float {
   opacity: 0;
   pointer-events: none;
-  transform: scale(0.8);
+  transform: scale(0.85);
 }
 
 /* ── Breadcrumb Navigation ─────────────────────────────────── */
