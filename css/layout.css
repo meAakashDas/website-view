@@ -2,7 +2,7 @@
    risePaisa - Layout: Navbar, Footer, Grids (Apple-Inspired Premium Design System)
    ============================================== */
 
-/* ── Navbar: Lightweight, Frosted Glass, Non-Intrusive ─── */
+/* ── Navbar: Authentic Apple Liquid Glass System ─── */
 .navbar {
   position: fixed;
   top: 0;
@@ -10,10 +10,11 @@
   right: 0;
   height: var(--nav-height);
   z-index: var(--z-sticky);
-  background: var(--nav-bg);
-  backdrop-filter: blur(20px) saturate(180%);
-  -webkit-backdrop-filter: blur(20px) saturate(180%);
-  border-bottom: 1px solid var(--color-border);
+  background: var(--liquid-glass-bg);
+  backdrop-filter: var(--liquid-glass-blur);
+  -webkit-backdrop-filter: var(--liquid-glass-blur);
+  border-bottom: 1px solid var(--liquid-glass-border);
+  box-shadow: var(--liquid-glass-highlight), 0 1px 2px rgba(0, 0, 0, 0.03);
   transition: background-color var(--duration-normal) var(--ease-out),
               border-color var(--duration-normal) var(--ease-out),
               box-shadow var(--duration-normal) var(--ease-out);
@@ -25,9 +26,9 @@
 }
 
 .navbar.scrolled {
-  background: var(--nav-bg-scrolled);
-  border-bottom-color: var(--color-border-hover);
-  box-shadow: var(--shadow-sm);
+  background: var(--liquid-glass-bg-scrolled);
+  border-bottom-color: var(--liquid-glass-border);
+  box-shadow: var(--liquid-glass-highlight), var(--liquid-glass-shadow);
 }
 
 .navbar-inner {
@@ -64,12 +65,12 @@
 
 @media (max-width: 767px) {
   .navbar {
-    background: var(--nav-bg-scrolled);
-    backdrop-filter: blur(20px) saturate(180%);
-    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    background: var(--liquid-glass-bg-scrolled);
+    backdrop-filter: var(--liquid-glass-blur);
+    -webkit-backdrop-filter: var(--liquid-glass-blur);
   }
   .navbar.scrolled {
-    background: var(--color-bg);
+    background: var(--liquid-glass-bg-scrolled);
   }
   .navbar-inner {
     padding: 0 10px;
@@ -414,8 +415,10 @@
     text-overflow: ellipsis;
     padding: 0 10px;
     min-width: 0;
-    background: var(--color-surface-pearl);
-    border: 1px solid var(--color-border);
+    background: var(--liquid-glass-subtle-bg);
+    backdrop-filter: var(--liquid-glass-subtle-blur);
+    -webkit-backdrop-filter: var(--liquid-glass-subtle-blur);
+    border: 1px solid var(--liquid-glass-subtle-border);
     color: var(--color-text-secondary);
     box-shadow: var(--shadow-xs);
     -webkit-tap-highlight-color: transparent;
@@ -651,11 +654,13 @@ body:has(.mobile-menu.open) .navbar .navbar-inner {
   max-width: 100vw;
   height: 100vh;
   height: 100dvh; /* iOS dynamic viewport */
-  background: var(--color-bg);
-  border-left: 1px solid var(--color-border);
+  background: var(--liquid-glass-bg-scrolled);
+  backdrop-filter: var(--liquid-glass-blur);
+  -webkit-backdrop-filter: var(--liquid-glass-blur);
+  border-left: 1px solid var(--liquid-glass-border);
   border-top-left-radius: 20px;
   border-bottom-left-radius: 20px;
-  box-shadow: -16px 0 48px rgba(0, 0, 0, 0.45);
+  box-shadow: var(--liquid-glass-highlight), -16px 0 48px rgba(0, 0, 0, 0.40);
   z-index: var(--z-overlay);
   display: flex;
   flex-direction: column;

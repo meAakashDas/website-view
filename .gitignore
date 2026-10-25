@@ -17,3 +17,5 @@ dist/
 # IDE / Agent tooling
 .agents/
 skills-lock.json
+.playwright-mcp/
+tests/screenshots/

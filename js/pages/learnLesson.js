@@ -966,6 +966,7 @@ export function initLearnLessonPage(categorySlug, lessonSlug) {
   document.querySelectorAll('.res-download-btn').forEach(btn => {
     btn.addEventListener('click', () => {
       const title = btn.getAttribute('data-resource-title') || 'Educational Resource';
+      const isEn = getLearnLanguage() !== 'ne';
       showToast(isEn ? `📥 Download started: ${title}` : `📥 डाउनलोड सुरु भयो: ${title}`);
     });
   });

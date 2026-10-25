@@ -645,11 +645,11 @@ button:disabled {
   gap: 8px;
   padding: 8px 16px 8px 12px;
   border-radius: var(--radius-full);
-  background: var(--color-surface-pearl);
-  backdrop-filter: blur(20px) saturate(180%);
-  -webkit-backdrop-filter: blur(20px) saturate(180%);
-  border: 1px solid var(--color-border);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.04);
+  background: var(--liquid-glass-clear-bg);
+  backdrop-filter: var(--liquid-glass-clear-blur);
+  -webkit-backdrop-filter: var(--liquid-glass-clear-blur);
+  border: 1px solid var(--liquid-glass-clear-border);
+  box-shadow: var(--liquid-glass-clear-highlight), var(--liquid-glass-clear-shadow);
   text-decoration: none;
   color: var(--color-heading);
   font-family: var(--font-body);
@@ -1205,4 +1205,79 @@ body:has(.lesson-mobile-toc-drawer.open) .whatsapp-float {
 
 .companion-tool-card:hover .companion-tool-cta svg {
   transform: translateX(3px);
+}
+
+/* ==============================================================================
+   Authentic Apple Liquid Glass System - Utility Classes & Surface Layers
+   - Category A: .glass-control (Regular Liquid Glass for Navigation, Modals, Floats)
+   - Category A-Clear: .glass-clear (Clear Liquid Glass for Media Controls, Transients)
+   - Category B: .glass-subtle (Subtle Translucent Material for Chips, Tabs, Quick Actions)
+   - Category C: .content-solid (100% Solid/Opaque for Long-form Articles, Tables, Numbers)
+   ============================================================================== */
+
+/* Category A: Regular Liquid Glass Controls */
+.glass-control {
+  background-color: var(--liquid-glass-bg);
+  backdrop-filter: var(--liquid-glass-blur);
+  -webkit-backdrop-filter: var(--liquid-glass-blur);
+  border: 1px solid var(--liquid-glass-border);
+  box-shadow: var(--liquid-glass-highlight), var(--liquid-glass-shadow);
+}
+
+/* Category A-Clear: Clear Liquid Glass Controls */
+.glass-clear {
+  background-color: var(--liquid-glass-clear-bg);
+  backdrop-filter: var(--liquid-glass-clear-blur);
+  -webkit-backdrop-filter: var(--liquid-glass-clear-blur);
+  border: 1px solid var(--liquid-glass-clear-border);
+  box-shadow: var(--liquid-glass-clear-highlight), var(--liquid-glass-clear-shadow);
+}
+
+/* Category B: Subtle Translucent Surface */
+.glass-subtle {
+  background-color: var(--liquid-glass-subtle-bg);
+  backdrop-filter: var(--liquid-glass-subtle-blur);
+  -webkit-backdrop-filter: var(--liquid-glass-subtle-blur);
+  border: 1px solid var(--liquid-glass-subtle-border);
+}
+
+/* Category C: Clear Content Surfaces (Guaranteed Opaque for Optimal Legibility & Performance) */
+.content-solid {
+  background-color: var(--card-bg) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+/* Progressive Enhancement: Fallback for environments without backdrop-filter support */
+@supports not (backdrop-filter: blur(10px)) {
+  .glass-control,
+  .navbar,
+  .mobile-menu,
+  .search-modal {
+    background-color: var(--liquid-glass-bg-scrolled);
+  }
+  .glass-clear,
+  .advisor-capsule-link {
+    background-color: var(--color-surface);
+  }
+  .glass-subtle,
+  .mobile-quick-btn {
+    background-color: var(--color-surface-subtle);
+  }
+}
+
+/* Accessibility: User requests reduced transparency (WCAG 2.2 AA Compliance) */
+@media (prefers-reduced-transparency: reduce) {
+  .glass-control,
+  .glass-clear,
+  .glass-subtle,
+  .navbar,
+  .mobile-menu,
+  .search-modal,
+  .advisor-capsule-link,
+  .mobile-quick-btn {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    background-color: var(--color-bg) !important;
+  }
 }

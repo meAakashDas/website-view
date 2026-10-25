@@ -263,10 +263,10 @@
 }
 
 .rp-center-btn {
-  background: rgba(15, 23, 42, 0.68);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: var(--liquid-glass-clear-bg, rgba(44, 44, 46, 0.55));
+  backdrop-filter: var(--liquid-glass-clear-blur, blur(14px) saturate(190%));
+  -webkit-backdrop-filter: var(--liquid-glass-clear-blur, blur(14px) saturate(190%));
+  border: 1px solid var(--liquid-glass-clear-border, rgba(255, 255, 255, 0.18));
   color: #ffffff;
   width: 44px;
   height: 44px;
@@ -275,7 +275,7 @@
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+  box-shadow: var(--liquid-glass-clear-highlight), 0 4px 16px rgba(0, 0, 0, 0.4);
   transition: transform 0.18s cubic-bezier(0.16, 1, 0.3, 1), background 0.18s ease, opacity 0.2s ease;
   opacity: 0.88;
   outline: none;
@@ -723,13 +723,13 @@
   overscroll-behavior: contain;
   scrollbar-width: thin;
   scrollbar-color: rgba(255, 255, 255, 0.25) transparent;
-  background: rgba(18, 18, 20, 0.97);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: var(--liquid-glass-bg, rgba(28, 28, 30, 0.90));
+  backdrop-filter: var(--liquid-glass-blur, blur(20px) saturate(180%));
+  -webkit-backdrop-filter: var(--liquid-glass-blur, blur(20px) saturate(180%));
+  border: 1px solid var(--liquid-glass-border, rgba(255, 255, 255, 0.12));
   border-radius: 12px;
   padding: 4px 0;
-  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.7);
+  box-shadow: var(--liquid-glass-highlight), 0 12px 36px rgba(0, 0, 0, 0.7);
   z-index: 35;
   user-select: none;
   -webkit-user-select: none;
