@@ -1300,6 +1300,7 @@ export function initLearnCategoryPage(slug) {
   const catFlyoutBackdrop = document.getElementById('cat-panel-backdrop');
   const catFlyoutCloseBtn = document.getElementById('cat-flyout-close-btn');
   const railCatExpandBtn = document.getElementById('rail-cat-expand-btn');
+  const railCatProgressBtn = document.getElementById('rail-cat-progress-btn');
   const railCatModulesBtn = document.getElementById('rail-cat-modules-btn');
   const railCatToolsBtn = document.getElementById('rail-cat-tools-btn');
   const railCatGuidesBtn = document.getElementById('rail-cat-guides-btn');
@@ -1443,9 +1444,6 @@ export function initLearnCategoryPage(slug) {
 
     sectionsToObserve.forEach(sec => observer.observe(sec));
   }
-
-  // Initial Progress UI calculation
-  updateProgressUI();
 
   // Download button toast feedback
   const lang = getLearnLanguage();
