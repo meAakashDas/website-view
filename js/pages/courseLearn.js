@@ -17,7 +17,16 @@ import {
   checkUserEnrollment
 } from '../firebase/courses.js';
 import { subscribeToAuth, getCurrentUser } from '../firebase/auth.js';
-import { openAuthModal } from '../firebase/ui.js';
+import { openAuthModal, promptSignInForBookmark } from '../firebase/ui.js';
+import { isBookmarkSaved, syncBookmarkToggle } from '../firebase/db.js';
+import { showToast, shareContent } from '../components.js';
+import {
+  initFloatingSystem,
+  renderLearningDockHtml,
+  bindLearningDock,
+  updateLearningDockBookmark,
+  unmountLearningDock
+} from '../floatingControls.js';
 import {
   createBrandedVideoPlayer,
   initBrandedVideoPlayer,
@@ -39,6 +48,9 @@ const CL_ICONS = {
   chevronRight: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>`,
   arrowLeft: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>`,
   sparkles: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/></svg>`,
+  bookmark: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"/></svg>`,
+  bookmarkFilled: `<svg viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"/></svg>`,
+  share: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>`,
   whatsapp: `<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>`
 };
 
@@ -259,6 +271,7 @@ export function renderCourseLearnPage(slug, initialLessonId = null) {
   const isFreePreview = Boolean(activeLesson.isFree);
   const embedUrl = isFreePreview ? toSafeYouTubeEmbedUrl(activeLesson.youtubeUrl) : null;
   const waEnrollUrl = _buildWhatsAppEnrollUrl(course);
+  const isInitialBookmarked = isBookmarkSaved('lesson', activeLesson.id);
 
   return `
     <div class="cl-page-container" id="cl-page" data-course-id="${sanitizeText(course.id)}" data-course-slug="${sanitizeText(course.slug)}">
@@ -282,18 +295,28 @@ export function renderCourseLearnPage(slug, initialLessonId = null) {
             </nav>
           </div>
 
-          <!-- Mobile Drawer Trigger Button -->
-          <button
-            type="button"
-            class="cl-mobile-contents-btn"
-            id="cl-mobile-contents-btn"
-            aria-haspopup="dialog"
-            aria-expanded="false"
-            aria-controls="cl-sidebar-card"
-            aria-label="Open course contents outline">
-            <span class="cl-m-btn-icon">${CL_ICONS.checklist}</span>
-            <span class="cl-m-btn-text">Course Contents</span>
-          </button>
+          <!-- Header Actions -->
+          <div class="cl-top-bar-actions">
+            ${course.price ? `
+              <a href="${waEnrollUrl}" target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp btn-sm cl-top-enroll-cta" id="cl-top-enroll-cta" aria-label="Buy Course — NPR ${(course.price || 2999).toLocaleString()}">
+                <span class="rp-btn-icon">${CL_ICONS.whatsapp}</span>
+                <span class="rp-btn-text">Buy Course — NPR ${(course.price || 2999).toLocaleString()}</span>
+              </a>
+            ` : ''}
+
+            <!-- Mobile Drawer Trigger Button -->
+            <button
+              type="button"
+              class="cl-mobile-contents-btn"
+              id="cl-mobile-contents-btn"
+              aria-haspopup="dialog"
+              aria-expanded="false"
+              aria-controls="cl-sidebar-card"
+              aria-label="Open course contents outline">
+              <span class="cl-m-btn-icon">${CL_ICONS.checklist}</span>
+              <span class="cl-m-btn-text">Course Contents</span>
+            </button>
+          </div>
         </div>
 
         <!-- Course Title Header -->
@@ -487,6 +510,9 @@ export function renderCourseLearnPage(slug, initialLessonId = null) {
 
       <!-- Mobile Off-Canvas Drawer Backdrop -->
       <div class="cl-drawer-backdrop" id="cl-drawer-backdrop" aria-hidden="true"></div>
+
+      <!-- 5. Smart Floating Liquid Glass Learning Dock (Mobile & Tablet) -->
+      ${renderLearningDockHtml({ isBookmarked: isInitialBookmarked, isEn: true, title: activeLesson.title, isCourse: true })}
     </div>
   `;
 }
@@ -556,6 +582,59 @@ export function initCourseLearnPage(slug, initialLessonId = null) {
   let activePlayerAccess = null;
   let activePlayerEmbedUrl = null;
 
+  const updateBookmarkButtonUi = (bookmarked) => {
+    const bookmarkBtn = document.getElementById('cl-bookmark-btn');
+    if (bookmarkBtn) {
+      bookmarkBtn.classList.toggle('active', Boolean(bookmarked));
+      bookmarkBtn.setAttribute('aria-label', bookmarked ? 'Bookmarked' : 'Save Lesson');
+      const iconSpan = bookmarkBtn.querySelector('.pill-icon');
+      if (iconSpan) iconSpan.innerHTML = bookmarked ? CL_ICONS.bookmarkFilled : CL_ICONS.bookmark;
+      const labelSpan = bookmarkBtn.querySelector('.pill-label');
+      if (labelSpan) labelSpan.textContent = bookmarked ? 'Saved' : 'Save';
+    }
+    updateLearningDockBookmark(Boolean(bookmarked));
+  };
+
+  const handleBookmarkToggle = async () => {
+    const user = getCurrentUser ? getCurrentUser() : null;
+    if (!user || !user.uid) {
+      promptSignInForBookmark({ contentType: 'lesson' });
+      return;
+    }
+    const currentlySaved = isBookmarkSaved('lesson', currentLessonId);
+    const targetState = !currentlySaved;
+    updateBookmarkButtonUi(targetState);
+
+    const lessonObj = _findLessonInSequence(allLessons, currentLessonId);
+    const res = await syncBookmarkToggle('lesson', currentLessonId, targetState, {
+      type: 'lesson',
+      slug: currentLessonId,
+      title: lessonObj?.title || currentLessonId,
+      url: window.location.pathname
+    });
+
+    if (res && res.requiresAuth) {
+      updateBookmarkButtonUi(false);
+      promptSignInForBookmark({ contentType: 'lesson' });
+      return;
+    }
+    if (res && res.success === false) {
+      updateBookmarkButtonUi(currentlySaved);
+      showToast('Could not update bookmark. Please try again.');
+    } else {
+      showToast(targetState ? 'Lesson saved to bookmarks' : 'Lesson removed from bookmarks');
+    }
+  };
+
+  const handleShareClick = () => {
+    const lessonObj = _findLessonInSequence(allLessons, currentLessonId);
+    shareContent({
+      title: `${lessonObj?.title || 'Lesson'} | ${course.title} - RisePaisa`,
+      text: lessonObj?.shortDescription || course.title,
+      url: window.location.href
+    });
+  };
+
   // ── UI Update: Video Player Frame ──────────────────────────────────────────
   function updatePlayer(lesson, hasAccess) {
     const wrapper = document.getElementById('cl-player-wrapper');
@@ -621,7 +700,23 @@ export function initCourseLearnPage(slug, initialLessonId = null) {
         lockBadgeTag = 'Enrollment Expired';
         lockHeadline = 'Your Enrollment Has Expired';
         lockSubtext = `Your access period for <strong>${sanitizeText(course.title)}</strong> has ended. Please renew your enrollment to continue watching full course lessons.`;
+      } else if (enrollmentStatus === 'pending' || enrollmentStatus === 'unverified') {
+        lockBadgeTag = 'Verification Pending';
+        lockHeadline = 'Payment Verification In Progress';
+        lockSubtext = `Your payment for <strong>${sanitizeText(course.title)}</strong> is currently being verified by RisePaisa administration. Paid lessons will unlock automatically once verified. You can watch the free preview lessons in the meantime.`;
+      } else if (enrollmentStatus === 'error') {
+        lockBadgeTag = 'Verification Failed';
+        lockHeadline = 'Unable to Verify Enrollment';
+        lockSubtext = `We could not verify your enrollment status at this time due to a connection or service issue. Paid content remains securely locked. Please check your network connection and reload.`;
       }
+
+      const isPendingStatus = (enrollmentStatus === 'pending' || enrollmentStatus === 'unverified');
+      const whatsappCtaUrl = isPendingStatus
+        ? `https://wa.me/9779740269317?text=${encodeURIComponent(`Hi RisePaisa! Checking verification status for my enrollment in ${course.title}.`)}`
+        : waEnrollUrl;
+      const whatsappCtaLabel = isPendingStatus
+        ? 'Check Verification Status via WhatsApp'
+        : (enrollmentStatus === 'expired' ? 'Renew Access via WhatsApp' : 'Enroll via WhatsApp');
 
       wrapper.innerHTML = `
         <div class="cl-locked-screen" id="cl-locked-screen">
@@ -640,8 +735,8 @@ export function initCourseLearnPage(slug, initialLessonId = null) {
                   Sign In to Your Account
                 </button>
               ` : ''}
-              <a href="${waEnrollUrl}" target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp" id="cl-locked-whatsapp-cta">
-                ${CL_ICONS.whatsapp} ${enrollmentStatus === 'expired' ? 'Renew Access via WhatsApp' : 'Enroll via WhatsApp'} (${course.currency || 'NPR'} ${(course.price || 2999).toLocaleString()})
+              <a href="${whatsappCtaUrl}" target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp" id="cl-locked-whatsapp-cta">
+                ${CL_ICONS.whatsapp} ${whatsappCtaLabel} ${!isPendingStatus ? `(${course.currency || 'NPR'} ${(course.price || 2999).toLocaleString()})` : ''}
               </a>
               ${allLessons[0] && allLessons[0].id !== lesson.id ? `
                 <button type="button" class="btn btn-ghost" id="cl-watch-preview-btn" data-target-id="${allLessons[0].id}">
@@ -775,6 +870,11 @@ export function initCourseLearnPage(slug, initialLessonId = null) {
       }
     }
 
+    // Update Bookmark Pill & Floating Dock State
+    const isBookmarked = isBookmarkSaved('lesson', lesson.id);
+    updateBookmarkButtonUi(isBookmarked);
+    const dockTitle = document.querySelector('.rp-learning-dock-title');
+    if (dockTitle) dockTitle.textContent = lesson.title || '';
   }
 
   // ── UI Update: Sidebar Active Highlight & Module Expansion ─────────────────
@@ -801,9 +901,18 @@ export function initCourseLearnPage(slug, initialLessonId = null) {
         const toggle = parentGroup.querySelector('.cl-module-toggle');
         if (toggle) toggle.setAttribute('aria-expanded', 'true');
       }
-      // Gentle scroll inside sidebar if needed
-      if (typeof window !== 'undefined' && window.innerWidth > 767) {
-        activeItem.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+      // Gentle scroll inside sidebar accordion only (never scroll window)
+      const accordion = activeItem.closest('.cl-modules-accordion');
+      if (accordion) {
+        const itemTop = activeItem.offsetTop;
+        const itemBottom = itemTop + activeItem.offsetHeight;
+        const accScrollTop = accordion.scrollTop;
+        const accHeight = accordion.clientHeight;
+        if (itemTop < accScrollTop) {
+          accordion.scrollTop = itemTop;
+        } else if (itemBottom > accScrollTop + accHeight) {
+          accordion.scrollTop = itemBottom - accHeight;
+        }
       }
     }
 
@@ -912,6 +1021,11 @@ export function initCourseLearnPage(slug, initialLessonId = null) {
         }
       }
 
+      if (isEnrolled) {
+        const topEnrollBtn = document.getElementById('cl-top-enroll-cta');
+        if (topEnrollBtn) topEnrollBtn.remove();
+      }
+
       // Update current view with fresh credentials
       selectLesson(currentLessonId, false);
     } catch (err) {
@@ -1009,6 +1123,51 @@ export function initCourseLearnPage(slug, initialLessonId = null) {
   prevBtn?.addEventListener('click', onPrevClick);
   nextBtn?.addEventListener('click', onNextClick);
 
+  // 3. Lesson Action Toolbar Pills & Smart Floating Learning Dock
+  const bookmarkBtn = document.getElementById('cl-bookmark-btn');
+  const shareBtn = document.getElementById('cl-share-btn');
+  const metaTocBtn = document.getElementById('cl-meta-toc-btn');
+
+  bookmarkBtn?.addEventListener('click', handleBookmarkToggle);
+  shareBtn?.addEventListener('click', handleShareClick);
+  metaTocBtn?.addEventListener('click', onMobileContentsClick);
+
+  initFloatingSystem();
+  bindLearningDock({
+    onToggleTOC: () => {
+      const isDrawerOpen = document.body.classList.contains('cl-drawer-open');
+      const tocBtn = document.getElementById('dock-toc-trigger');
+
+      if (typeof window !== 'undefined' && window.innerWidth < 768) {
+        // Mobile layout (<768px): sidebar is positioned directly in content flow below video
+        const sidebarEl = document.getElementById('cl-sidebar-col');
+        const playerEl = document.getElementById('cl-player-wrapper');
+        const isNearSidebar = sidebarEl && (window.scrollY >= (sidebarEl.offsetTop - 180));
+
+        if (isNearSidebar && playerEl) {
+          playerEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        } else if (sidebarEl) {
+          sidebarEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      } else if (typeof window !== 'undefined' && window.innerWidth <= 1024) {
+        // Tablet layout (768px–1024px): toggle slide-in drawer
+        if (isDrawerOpen) {
+          closeMobileDrawer();
+          tocBtn?.setAttribute('aria-expanded', 'false');
+        } else {
+          openMobileDrawer();
+          tocBtn?.setAttribute('aria-expanded', 'true');
+        }
+      } else {
+        // Desktop layout (>1024px): smoothly scroll right curriculum column into view
+        const sidebarEl = document.getElementById('cl-sidebar-col');
+        if (sidebarEl) {
+          sidebarEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }
+    }
+  });
+
   // 4. Locked Screen Sign-In Trigger (Initial static state)
   const initialSignInTrigger = document.getElementById('cl-locked-signin-trigger');
   initialSignInTrigger?.addEventListener('click', () => {
@@ -1092,6 +1251,9 @@ export function initCourseLearnPage(slug, initialLessonId = null) {
     accordionContainer?.removeEventListener('click', onAccordionClick);
     prevBtn?.removeEventListener('click', onPrevClick);
     nextBtn?.removeEventListener('click', onNextClick);
+    bookmarkBtn?.removeEventListener('click', handleBookmarkToggle);
+    shareBtn?.removeEventListener('click', handleShareClick);
+    metaTocBtn?.removeEventListener('click', onMobileContentsClick);
     mobileContentsBtn?.removeEventListener('click', onMobileContentsClick);
     mobileBottomContentsBtn?.removeEventListener('click', onMobileContentsClick);
     drawerCloseBtn?.removeEventListener('click', closeMobileDrawer);
@@ -1099,6 +1261,7 @@ export function initCourseLearnPage(slug, initialLessonId = null) {
     window.removeEventListener('keydown', onKeydown);
     document.body.classList.remove('cl-drawer-open');
     document.body.classList.remove('page-course-learn');
+    unmountLearningDock();
     destroyBrandedVideoPlayer(document.getElementById('cl-player-wrapper')?.querySelector('[data-rp-player]'));
   };
 }

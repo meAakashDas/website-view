@@ -1,4 +1,4 @@
-import { ROUTES } from '../routes.js';
+import { ROUTES, navigateTo } from '../routes.js';
 import { ICONS, setPageMeta } from '../components.js';
 import {
   fetchUserEnrolledCourses,
@@ -45,8 +45,8 @@ function buildWhatsAppRenewUrl(course) {
   const settings = getSettings ? getSettings() : {};
   const rawPhone = settings.whatsapp || '9779740269317';
   const cleanPhone = rawPhone.replace(/[^0-9]/g, '');
-  const priceStr = course?.price ? ` (NPR ${course.price.toLocaleString()})` : '';
-  const message = `Hi RisePaisa! I would like to renew my enrollment for ${course?.title || 'Share Market Full Course (NEPSE)'}${priceStr}.`;
+  const priceVal = course?.price || 2999;
+  const message = `Hi RisePaisa! I would like to renew my enrollment for ${course?.title || 'Share Market Full Course (NEPSE)'} (NPR ${priceVal.toLocaleString()}).`;
   return `https://wa.me/${cleanPhone}?text=${encodeURIComponent(message)}`;
 }
 
@@ -54,8 +54,8 @@ function buildWhatsAppEnrollUrl(course) {
   const settings = getSettings ? getSettings() : {};
   const rawPhone = settings.whatsapp || '9779740269317';
   const cleanPhone = rawPhone.replace(/[^0-9]/g, '');
-  const priceStr = course?.price ? ` (NPR ${course.price.toLocaleString()})` : '';
-  const message = `Hi RisePaisa! I want to enroll in the ${course?.title || 'Share Market Full Course (NEPSE)'}${priceStr} to unlock full lesson access.`;
+  const priceVal = course?.price || 2999;
+  const message = `Hi RisePaisa! I want to enroll in the ${course?.title || 'Share Market Full Course (NEPSE)'} for NPR ${priceVal.toLocaleString()} to unlock full lesson access.`;
   return `https://wa.me/${cleanPhone}?text=${encodeURIComponent(message)}`;
 }
 
@@ -121,10 +121,6 @@ export function initMyCoursesPage() {
     const reqId = ++activeRequestId;
 
     let rawCourse = getCourseBySlug(NEPSE_SLUG);
-    try {
-      const live = await fetchCourseData(NEPSE_SLUG);
-      if (live) rawCourse = live;
-    } catch {}
     const nepseCourse = normalizeCourseData(rawCourse);
 
     if (!nepseCourse) {
@@ -158,7 +154,7 @@ export function initMyCoursesPage() {
 
         <section class="mc-recommended-section" style="margin-top:var(--space-10)">
           <div class="mc-courses-grid">
-            <article class="mc-course-card mc-recommended-card">
+            <article class="mc-course-card mc-recommended-card" data-course-url="${NEPSE_LEARN_URL}" tabindex="0" role="region" aria-label="${sanitizeText(nepseCourse.title)}">
               <div class="mc-card-header">
                 <span class="mc-category-badge">${sanitizeText(nepseCourse.category || 'NEPSE & Investing')}</span>
                 <span class="mc-status-badge mc-badge-preview">Free Preview Available</span>
@@ -249,6 +245,14 @@ export function initMyCoursesPage() {
               ${MC_ICONS.whatsapp} Renew via WhatsApp
             </a>
           `;
+        } else if (status === 'pending' || status === 'unverified') {
+          lockBadge = `<span class="mc-status-badge mc-badge-pending">${MC_ICONS.clock} Verification Pending</span>`;
+          statusNotice = `<div class="mc-expiry-line" style="margin-top:var(--space-2);font-size:var(--text-xs);color:#F59E0B">${MC_ICONS.clock} Your payment is currently being verified. Paid lessons will unlock upon confirmation.</div>`;
+          ctaButton = `
+            <a href="https://wa.me/9779740269317?text=${encodeURIComponent('Hi RisePaisa! Checking verification status for my enrollment in Share Market Full Course (NEPSE).')}" target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp mc-continue-btn">
+              ${MC_ICONS.whatsapp} Check Verification Status
+            </a>
+          `;
         }
 
         container.innerHTML = `
@@ -262,8 +266,8 @@ export function initMyCoursesPage() {
               <a href="${ROUTES.COURSES}" class="btn btn-primary btn-lg">
                 Explore Courses
               </a>
-              <a href="${NEPSE_DETAIL_URL}" class="btn btn-outline btn-lg">
-                View NEPSE Course
+              <a href="${NEPSE_LEARN_URL}" class="btn btn-outline btn-lg">
+                ${MC_ICONS.play} View NEPSE Course (Free Preview)
               </a>
             </div>
           </div>
@@ -274,7 +278,7 @@ export function initMyCoursesPage() {
               <h3 style="font-size:var(--text-xl);color:var(--color-heading);margin:0">Recommended For You</h3>
             </div>
             <div class="mc-courses-grid">
-              <article class="mc-course-card mc-recommended-card ${status !== 'not_enrolled' ? 'mc-card-inactive' : ''}">
+              <article class="mc-course-card mc-recommended-card ${status !== 'not_enrolled' ? 'mc-card-inactive' : ''}" data-course-url="${NEPSE_LEARN_URL}" tabindex="0" role="region" aria-label="${sanitizeText(nepseCourse.title)}">
                 <div class="mc-card-header">
                   <span class="mc-category-badge">${sanitizeText(nepseCourse.category || 'NEPSE & Investing')}</span>
                   ${lockBadge}
@@ -344,7 +348,7 @@ export function initMyCoursesPage() {
 
       container.innerHTML = `
         <div class="mc-courses-grid">
-          <article class="mc-course-card">
+          <article class="mc-course-card" data-course-url="${NEPSE_LEARN_URL}" tabindex="0" role="region" aria-label="${sanitizeText(nepseCourse.title)}">
             <div class="mc-card-header">
               <span class="mc-category-badge">${sanitizeText(nepseCourse.category || 'NEPSE & Investing')}</span>
               ${statusBadge}
@@ -410,12 +414,38 @@ export function initMyCoursesPage() {
     }
   }
 
+  // Delegated click and keyboard interaction for course cards
+  const handleContainerClick = (e) => {
+    if (e.target.closest('a, button')) return;
+    const card = e.target.closest('.mc-course-card');
+    if (card) {
+      const targetUrl = card.getAttribute('data-course-url') || NEPSE_LEARN_URL;
+      navigateTo(targetUrl);
+    }
+  };
+
+  const handleContainerKeydown = (e) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      const card = e.target.closest('.mc-course-card');
+      if (card && e.target === card) {
+        e.preventDefault();
+        const targetUrl = card.getAttribute('data-course-url') || NEPSE_LEARN_URL;
+        navigateTo(targetUrl);
+      }
+    }
+  };
+
+  container.addEventListener('click', handleContainerClick);
+  container.addEventListener('keydown', handleContainerKeydown);
+
   // Subscribe to reactive auth changes
   authUnsubscribe = subscribeToAuth((user) => {
     renderStateForUser(user);
   });
 
   return () => {
+    container.removeEventListener('click', handleContainerClick);
+    container.removeEventListener('keydown', handleContainerKeydown);
     if (typeof authUnsubscribe === 'function') {
       authUnsubscribe();
     }

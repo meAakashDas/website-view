@@ -824,4 +824,7 @@ export function initCalculatorsPage(calcSlug = '') {
       });
     });
   }
+
+  return () => {};
 }
+

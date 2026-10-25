@@ -29,7 +29,7 @@ const ARTICLES = [
     },
     relatedCourse: {
       title: 'Share Market Full Course (NEPSE)',
-      url: '/courses/nepse-stock-market-basics'
+      url: '/courses/nepse-stock-market-basics/learn?lesson=lesson-1'
     },
     relatedTopic: {
       name: 'Nepal Stock Market Academy',
@@ -450,7 +450,7 @@ const ARTICLES = [
     },
     relatedCourse: {
       title: 'Share Market Full Course (NEPSE)',
-      url: '/courses/nepse-stock-market-basics'
+      url: '/courses/nepse-stock-market-basics/learn?lesson=lesson-1'
     },
     relatedTopic: {
       name: 'Nepal Stock Market Academy',
@@ -535,7 +535,7 @@ const ARTICLES = [
     },
     relatedCourse: {
       title: 'Share Market Full Course (NEPSE)',
-      url: '/courses/nepse-stock-market-basics'
+      url: '/courses/nepse-stock-market-basics/learn?lesson=lesson-1'
     },
     relatedTopic: {
       name: 'Nepal Stock Market Academy',
@@ -697,7 +697,7 @@ const ARTICLES = [
     },
     relatedCourse: {
       title: 'Share Market Full Course (NEPSE)',
-      url: '/courses/nepse-stock-market-basics'
+      url: '/courses/nepse-stock-market-basics/learn?lesson=lesson-1'
     },
     relatedTopic: {
       name: 'Nepal Stock Market Academy',
@@ -833,7 +833,7 @@ const ARTICLES = [
     },
     relatedCourse: {
       title: 'Share Market Full Course (NEPSE)',
-      url: '/courses/nepse-stock-market-basics'
+      url: '/courses/nepse-stock-market-basics/learn?lesson=lesson-1'
     },
     relatedTopic: {
       name: 'Nepal Stock Market Academy',
@@ -959,7 +959,7 @@ const ARTICLES = [
     },
     relatedCourse: {
       title: 'Share Market Full Course (NEPSE)',
-      url: '/courses/nepse-stock-market-basics'
+      url: '/courses/nepse-stock-market-basics/learn?lesson=lesson-1'
     },
     relatedTopic: {
       name: 'Banking & Financial Foundations',
@@ -1055,7 +1055,7 @@ const ARTICLES = [
     },
     relatedCourse: {
       title: 'Share Market Full Course (NEPSE)',
-      url: '/courses/nepse-stock-market-basics'
+      url: '/courses/nepse-stock-market-basics/learn?lesson=lesson-1'
     },
     relatedTopic: {
       name: 'Nepal Stock Market Academy',
@@ -1205,7 +1205,7 @@ const ARTICLES = [
     },
     relatedCourse: {
       title: 'Share Market Full Course (NEPSE)',
-      url: '/courses/nepse-stock-market-basics'
+      url: '/courses/nepse-stock-market-basics/learn?lesson=lesson-1'
     },
     relatedTopic: {
       name: 'Mutual Funds & Systematic Investing',
@@ -1327,7 +1327,7 @@ const ARTICLES = [
     },
     relatedCourse: {
       title: 'Share Market Full Course (NEPSE)',
-      url: '/courses/nepse-stock-market-basics'
+      url: '/courses/nepse-stock-market-basics/learn?lesson=lesson-1'
     },
     relatedTopic: {
       name: 'Nepal Stock Market Academy',
@@ -1430,7 +1430,7 @@ const ARTICLES = [
     },
     relatedCourse: {
       title: 'Share Market Full Course (NEPSE)',
-      url: '/courses/nepse-stock-market-basics'
+      url: '/courses/nepse-stock-market-basics/learn?lesson=lesson-1'
     },
     relatedTopic: {
       name: 'Digital Payments & Fintech in Nepal',

@@ -28,7 +28,7 @@ function getLearnLanguage() {
 
 import { getGlossaryTermBySlug, GLOSSARY_DICTIONARY } from './data/glossaryData.js';
 import { CALCULATOR_REGISTRY } from './calculators/registry.js';
-import { getAllCourses, getCourseBySlug } from './data/courses.js';
+import { getCourses, getAllCourses, getCourseBySlug } from './data/courses.js';
 import { getResources, getResourceBySlug } from './data/resources.js';
 import { getArticles, getArticleBySlug } from './data/articles.js';
 import { CALCULATOR_SLUG_TO_ID, CALCULATOR_ROUTES } from './routes.js';
@@ -720,7 +720,7 @@ export function resolvePageSEO(pathname = '/', searchParams = null, lang = 'en',
       seo.description = `Structured video courses and masterclasses on wealth management, personal finance, and investing in Nepal.`;
       seo.keywords = `NEPSE masterclass, personal finance course Nepal, share market training Kathmandu, risePaisa courses`;
 
-      const allCourses = getAllCourses ? getAllCourses() : [];
+      const allCourses = getCourses ? getCourses() : [];
       seo.schemas.push({
         '@type': 'CollectionPage',
         '@id': `${canonicalUrl}#collection`,
@@ -753,6 +753,10 @@ export function resolvePageSEO(pathname = '/', searchParams = null, lang = 'en',
         seo.description = cleanText(course.shortDescription || course.fullDescription, 160) || `Master ${course.title} in Nepal with comprehensive modules from risePaisa.`;
         seo.keywords = `${course.title}, ${course.category || 'finance Nepal'}, stock course Nepal, risePaisa academy`;
         seo.breadcrumbs.push({ name: course.title, url: canonicalUrl });
+
+        if (course.isPublicOffering === false || course.slug === 'personal-finance-masterclass') {
+          seo.robots = 'noindex, nofollow';
+        }
 
         // Course Schema
         seo.schemas.push({
@@ -790,7 +794,7 @@ export function resolvePageSEO(pathname = '/', searchParams = null, lang = 'en',
     seo.description = `Access your enrolled video masterclasses, progress tracking, and downloadable learning resources on risePaisa.`;
     seo.robots = 'noindex, nofollow';
     seo.canonical = `${SITE_DOMAIN}/my-courses`;
-    seo.breadcrumbs.push({ name: 'My Courses', url: `${SITE_DOMAIN}/my-courses` });
+    seo.breadcrumbs.push({ name: 'Courses', url: `${SITE_DOMAIN}/my-courses` });
   } else if (rootSection === 'admin') {
     if (pathParts[1] === 'enrollments') {
       seo.title = `Student Enrollment Management | risePaisa Admin`;

@@ -232,20 +232,28 @@
   border-radius: 14px;
   cursor: pointer;
   text-align: left;
-  transition: border-color 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease;
+  box-shadow: var(--card-highlight), var(--card-shadow-3d);
+  transition: border-color var(--duration-fast) var(--ease-apple),
+              box-shadow var(--duration-fast) var(--ease-apple),
+              transform var(--duration-fast) var(--ease-apple);
   font-family: inherit;
 }
 
 .learn-journey-card:hover {
   border-color: var(--color-border-hover);
-  box-shadow: var(--shadow-md);
-  transform: translateY(-1px);
+  box-shadow: var(--card-highlight), var(--card-shadow-3d-hover);
+  transform: translateY(-2px);
+}
+
+.learn-journey-card:active {
+  box-shadow: var(--card-highlight), var(--card-shadow-3d-pressed);
+  transform: translateY(0);
 }
 
 .learn-journey-card.active {
   border-color: var(--color-accent);
   background: var(--color-accent-subtle, rgba(29,161,242,0.06));
-  box-shadow: 0 0 0 1px var(--color-accent);
+  box-shadow: var(--card-highlight), var(--card-shadow-3d-hover), 0 0 0 1px var(--color-accent);
 }
 
 .learn-journey-card-icon {
@@ -3135,14 +3143,17 @@
 .learn-lang-switch {
   display: inline-flex;
   align-items: center;
-  background: var(--color-surface);
-  border: 1px solid var(--color-border);
+  background: var(--liquid-glass-clear-bg);
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  border: 1px solid var(--liquid-glass-border);
   border-radius: var(--radius-full);
   padding: 3px;
-  gap: 2px;
+  gap: 3px;
   position: relative;
+  box-shadow: var(--liquid-glass-highlight), var(--shadow-xs);
   transition: border-color var(--duration-fast) var(--ease-out),
-              background var(--duration-fast) var(--ease-out);
+              box-shadow var(--duration-fast) var(--ease-out);
 }
 
 .learn-lang-switch:hover {
@@ -3151,16 +3162,16 @@
 
 .learn-lang-btn {
   background: transparent;
-  border: none;
+  border: 1px solid transparent;
   color: var(--color-text-secondary);
   font-family: var(--font-body);
   font-size: 12px;
-  font-weight: var(--weight-medium);
+  font-weight: 550;
   padding: 5px 12px;
   border-radius: var(--radius-full);
   cursor: pointer;
   line-height: 1;
-  transition: all var(--duration-fast) var(--ease-out);
+  transition: all var(--duration-fast) var(--ease-apple);
   display: inline-flex;
   align-items: center;
   gap: 4px;
@@ -3171,17 +3182,19 @@
 }
 
 .learn-lang-btn.active {
-  background: var(--color-surface-elevated);
+  background: var(--liquid-glass-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   color: var(--color-heading);
-  font-weight: var(--weight-semibold);
-  box-shadow: var(--shadow-sm);
-  border: 1px solid var(--color-border);
+  font-weight: 600;
+  border-color: var(--liquid-glass-border);
+  box-shadow: var(--liquid-glass-highlight), 0 2px 8px rgba(0, 0, 0, 0.08);
 }
 
 [data-theme="light"] .learn-lang-btn.active {
-  background: #FFFFFF;
-  border-color: rgba(0, 0, 0, 0.08);
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  background: rgba(255, 255, 255, 0.85);
+  border-color: var(--liquid-glass-border);
+  box-shadow: var(--liquid-glass-highlight), 0 2px 6px rgba(0, 0, 0, 0.06);
 }
 
 .learn-lang-btn:focus-visible {
@@ -7633,37 +7646,44 @@
 
 /* ── Apple-Inspired Premium Lesson Action Buttons (Bookmark & Share) ── */
 .lesson-action-pill {
-  height: 36px;
-  min-height: 36px;
-  padding: 0 16px;
+  height: 38px;
+  min-height: 38px;
+  padding: 0 18px;
   font-family: var(--font-body, system-ui, -apple-system, sans-serif);
   font-size: 13px;
-  font-weight: 500;
+  font-weight: 550;
   line-height: 1;
   letter-spacing: -0.01em;
   color: var(--color-heading);
-  background-color: var(--color-surface);
-  border: 1px solid var(--color-border);
+  background: var(--raised-glass-bg);
+  backdrop-filter: blur(18px) saturate(190%);
+  -webkit-backdrop-filter: blur(18px) saturate(190%);
+  border: 1px solid var(--raised-glass-border);
   border-radius: var(--radius-full, 9999px);
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 7px;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+  gap: 8px;
+  box-shadow: var(--raised-glass-highlight), var(--raised-glass-shadow);
   cursor: pointer;
   white-space: nowrap;
   user-select: none;
   -webkit-user-select: none;
   -webkit-tap-highlight-color: transparent;
-  transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: transform var(--duration-fast) var(--ease-apple),
+              box-shadow var(--duration-fast) var(--ease-apple),
+              background var(--duration-fast) var(--ease-apple),
+              border-color var(--duration-fast) var(--ease-apple);
   box-sizing: border-box;
 }
 
 [data-theme="dark"] .lesson-action-pill {
-  background-color: rgba(255, 255, 255, 0.05);
-  border-color: rgba(255, 255, 255, 0.12);
-  color: var(--color-heading);
-  box-shadow: none;
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(18px) saturate(180%);
+  -webkit-backdrop-filter: blur(18px) saturate(180%);
+  border-color: rgba(255, 255, 255, 0.16);
+  color: #FFFFFF;
+  box-shadow: var(--liquid-glass-highlight-dark), var(--liquid-glass-shadow-sm);
 }
 
 /* Reset inner icon container to eliminate bulky boxes */
@@ -7695,7 +7715,7 @@
 
 .lesson-action-pill .btn-text {
   font-size: 13px;
-  font-weight: 500;
+  font-weight: 550;
   line-height: 1;
   color: inherit;
   white-space: nowrap;
@@ -7704,18 +7724,18 @@
 /* Desktop Hover */
 @media (hover: hover) {
   .lesson-action-pill:hover {
-    background-color: var(--color-surface-hover, #FAFAFC);
-    border-color: var(--color-border-hover, rgba(0, 0, 0, 0.18));
-    color: var(--color-heading);
-    transform: translateY(-1px);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    background: var(--liquid-glass-bg);
+    border-color: var(--color-accent);
+    color: var(--color-accent);
+    transform: translateY(-1.5px) scale(1.02);
+    box-shadow: var(--liquid-glass-highlight), 0 8px 20px -4px rgba(29, 161, 242, 0.20);
   }
 
   [data-theme="dark"] .lesson-action-pill:hover {
-    background-color: rgba(255, 255, 255, 0.09);
-    border-color: rgba(255, 255, 255, 0.22);
-    color: #FFFFFF;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+    background: rgba(255, 255, 255, 0.14);
+    border-color: rgba(77, 183, 245, 0.45);
+    color: #4DB7F5;
+    box-shadow: var(--liquid-glass-highlight-dark), 0 8px 22px -4px rgba(0, 0, 0, 0.45);
   }
 }
 
@@ -7734,31 +7754,36 @@
 /* ── Distinct Bookmarked / Saved State ── */
 .lesson-action-pill.bookmarked,
 .lesson-action-pill.active {
-  color: var(--color-accent, #0071E3);
-  background-color: rgba(0, 113, 227, 0.08);
-  border-color: rgba(0, 113, 227, 0.28);
+  color: #FFFFFF;
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  box-shadow: inset 0 1px 0.5px rgba(255, 255, 255, 0.4), 0 4px 14px rgba(29, 161, 242, 0.35);
 }
 
 [data-theme="dark"] .lesson-action-pill.bookmarked,
 [data-theme="dark"] .lesson-action-pill.active {
-  color: #4DB7F5;
-  background-color: rgba(29, 161, 242, 0.14);
-  border-color: rgba(77, 183, 245, 0.38);
+  color: #FFFFFF;
+  background: #0071E3;
+  border-color: #0071E3;
+  box-shadow: inset 0 1px 0.5px rgba(255, 255, 255, 0.4), 0 4px 16px rgba(0, 0, 0, 0.5);
 }
 
 @media (hover: hover) {
   .lesson-action-pill.bookmarked:hover,
   .lesson-action-pill.active:hover {
-    background-color: rgba(0, 113, 227, 0.12);
-    border-color: rgba(0, 113, 227, 0.4);
-    color: var(--color-accent-hover, #005BB5);
+    background: var(--color-primary-hover, #0077ED);
+    border-color: var(--color-primary-hover, #0077ED);
+    color: #FFFFFF;
+    transform: translateY(-1px);
+    box-shadow: inset 0 1px 0.5px rgba(255, 255, 255, 0.5), 0 6px 18px rgba(29, 161, 242, 0.45);
   }
 
   [data-theme="dark"] .lesson-action-pill.bookmarked:hover,
   [data-theme="dark"] .lesson-action-pill.active:hover {
-    background-color: rgba(29, 161, 242, 0.2);
-    border-color: rgba(77, 183, 245, 0.5);
-    color: #7BD1FF;
+    background: #0077ED;
+    border-color: #0077ED;
+    color: #FFFFFF;
+    box-shadow: inset 0 1px 0.5px rgba(255, 255, 255, 0.5), 0 6px 20px rgba(0, 0, 0, 0.6);
   }
 }
 

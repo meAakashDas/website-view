@@ -7,6 +7,32 @@ import { ROUTES, buildCanonicalUrl } from './routes.js';
 const WHATSAPP_NUMBER = '+9779740269317'; // legacy fallback
 const SITE_NAME = 'risePaisa';
 
+// ── Centralized WhatsApp Helpers ─────────────────
+function getWhatsAppNumber() {
+  const raw = (getSettings && getSettings().whatsapp) || WHATSAPP_NUMBER;
+  return raw.replace(/[^\d]/g, '');
+}
+
+function getWhatsAppPurchaseUrl(courseTitle = 'Share Market Full Course (NEPSE)', price = 2999) {
+  const number = getWhatsAppNumber();
+  const text = `Hi RisePaisa! I want to enroll in the ${courseTitle} for NPR ${price.toLocaleString()}.`;
+  return `https://wa.me/${number}?text=${encodeURIComponent(text)}`;
+}
+
+function getWhatsAppAdvisorUrl(topic = '') {
+  const number = getWhatsAppNumber();
+  const text = topic 
+    ? `Hello RisePaisa team, I have a question regarding ${topic}.`
+    : 'Hello RisePaisa team, I have a question about financial education.';
+  return `https://wa.me/${number}?text=${encodeURIComponent(text)}`;
+}
+
+function getWhatsAppContactUrl() {
+  const number = getWhatsAppNumber();
+  const text = 'Hello RisePaisa team, I would like to get in touch.';
+  return `https://wa.me/${number}?text=${encodeURIComponent(text)}`;
+}
+
 // ── SVG Icons ────────────────────────────────────
 const ICONS = {
   whatsapp: `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>`,
@@ -126,12 +152,15 @@ export function isNavLinkActive(linkPath, currentPath) {
 
 // ── Navbar Component ─────────────────────────────
 function renderNavbar(currentPath) {
-  const desktopLinks = [
+  const primaryDesktopLinks = [
     { path: ROUTES.HOME, label: 'Home' },
     { path: ROUTES.LEARN, label: 'Learn' },
     { path: ROUTES.COURSES, label: 'Courses' },
     { path: ROUTES.MY_COURSES, label: 'My Courses' },
     { path: ROUTES.CALCULATORS, label: 'Calculators' },
+  ];
+
+  const secondaryDesktopLinks = [
     { path: ROUTES.RESOURCES, label: 'Resources', isTertiary: true },
     { path: ROUTES.BLOG, label: 'Blog', isTertiary: true },
     { path: ROUTES.ABOUT, label: 'About', isSecondary: true },
@@ -141,7 +170,6 @@ function renderNavbar(currentPath) {
   const mobileDrawerLinks = [
     { path: ROUTES.HOME, label: 'Home', icon: ICONS.compass },
     { path: ROUTES.COURSES, label: 'Courses', icon: ICONS.graduationCap },
-    { path: ROUTES.MY_COURSES, label: 'My Courses', icon: ICONS.play },
     { path: ROUTES.LEARN, label: 'Learn Academy', icon: ICONS.bookOpen },
     { path: ROUTES.CALCULATORS, label: 'Calculators', icon: ICONS.calculator },
     { path: ROUTES.RESOURCES, label: 'Resources', icon: ICONS.layers },
@@ -150,11 +178,14 @@ function renderNavbar(currentPath) {
     { path: ROUTES.CONTACT, label: 'Contact', icon: ICONS.mail },
   ];
 
-  const waLink = `https://wa.me/${getSettings().whatsapp}?text=${encodeURIComponent('Hello RisePaisa team, I would like to get in touch.')}`;
+  const waLink = getWhatsAppContactUrl();
 
+  const isCoursesActive = isNavLinkActive(ROUTES.COURSES, currentPath);
   const isMyCoursesActive = isNavLinkActive(ROUTES.MY_COURSES, currentPath);
-  const isLearnActive = currentPath === ROUTES.LEARN || (currentPath && currentPath.startsWith('/learn'));
-  const isCalcsActive = currentPath === ROUTES.CALCULATORS || (currentPath && currentPath.startsWith('/calculators'));
+  const isLearnActive = isNavLinkActive(ROUTES.LEARN, currentPath);
+  const isCalculatorsActive = Boolean(currentPath && currentPath.startsWith('/calculators'));
+  const isOthersDesktopActive = isCalculatorsActive;
+  const isOthersMobileActive = isCalculatorsActive || isLearnActive;
 
   return `
     <nav class="navbar" id="navbar" role="navigation" aria-label="Main Navigation">
@@ -166,7 +197,12 @@ function renderNavbar(currentPath) {
         
         <!-- Desktop Nav Links (Center Desktop) -->
         <div class="nav-links">
-          ${desktopLinks.map(l => {
+          ${primaryDesktopLinks.map(l => {
+            const isActive = isNavLinkActive(l.path, currentPath);
+            return `<a href="${l.path}" class="nav-link ${isActive ? 'active' : ''}" ${isActive ? 'aria-current="page"' : ''}>${l.label}</a>`;
+          }).join('')}
+
+          ${secondaryDesktopLinks.map(l => {
             const isActive = isNavLinkActive(l.path, currentPath);
             const classes = ['nav-link'];
             if (l.isSecondary) classes.push('nav-link-secondary');
@@ -176,17 +212,37 @@ function renderNavbar(currentPath) {
           }).join('')}
         </div>
 
-        <!-- Mobile Center Quick Action Buttons (Center Mobile) -->
+        <!-- Mobile Center Quick Action Buttons (Center Mobile: EXACTLY 3 PRIMARY BUTTONS) -->
         <div class="mobile-quick-actions" role="navigation" aria-label="Quick Navigation">
-          <a href="${ROUTES.MY_COURSES}" class="mobile-quick-btn ${isMyCoursesActive ? 'active' : ''}">
+          <a href="${ROUTES.COURSES}" class="mobile-quick-btn ${isCoursesActive ? 'active' : ''}" id="mobile-nav-courses" aria-label="Courses">
+            <span>Courses</span>
+          </a>
+          <a href="${ROUTES.MY_COURSES}" class="mobile-quick-btn ${isMyCoursesActive ? 'active' : ''}" id="mobile-nav-my-courses" aria-label="My Courses">
             <span>My Courses</span>
           </a>
-          <a href="${ROUTES.LEARN}" class="mobile-quick-btn ${isLearnActive ? 'active' : ''}">
-            <span>Learn</span>
-          </a>
-          <a href="${ROUTES.CALCULATORS}" class="mobile-quick-btn ${isCalcsActive ? 'active' : ''}">
-            <span>Calculators</span>
-          </a>
+          <div class="mobile-others-wrapper" id="mobile-others-wrapper">
+            <button
+              type="button"
+              class="mobile-quick-btn ${isOthersMobileActive ? 'active' : ''}"
+              id="mobile-nav-others"
+              aria-label="Others Menu"
+              aria-haspopup="true"
+              aria-expanded="false"
+              aria-controls="mobile-others-menu"
+            >
+              <span>Others <svg class="mobile-chevron-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" width="9" height="9"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
+            </button>
+            <div class="nav-dropdown-menu mobile-dropdown-menu glass-control" id="mobile-others-menu" role="menu" aria-labelledby="mobile-nav-others">
+              <a href="${ROUTES.LEARN}" class="nav-dropdown-item ${isLearnActive ? 'active' : ''}" role="menuitem">
+                <span class="nav-dropdown-icon">${ICONS.bookOpen}</span>
+                <span class="nav-dropdown-title">Learn</span>
+              </a>
+              <a href="${ROUTES.CALCULATORS}" class="nav-dropdown-item ${isCalculatorsActive ? 'active' : ''}" role="menuitem">
+                <span class="nav-dropdown-icon">${ICONS.calculator}</span>
+                <span class="nav-dropdown-title">Calculators</span>
+              </a>
+            </div>
+          </div>
         </div>
 
         <!-- Desktop Action Cluster (Right Desktop) -->
@@ -388,13 +444,13 @@ function renderFooter() {
 
 // ── WhatsApp Advisor Capsule Float ────────────────
 function renderWhatsAppFloat() {
-  const _wa = getSettings().whatsapp;
+  const advisorUrl = getWhatsAppAdvisorUrl();
   return `
     <aside class="advisor-capsule-float" id="whatsapp-float" aria-label="Advisor support">
-      <a href="https://wa.me/${_wa}?text=${encodeURIComponent('Hello RisePaisa team, I have a question about financial education.')}" 
+      <a href="${advisorUrl}" 
          target="_blank" rel="noopener" class="advisor-capsule-link" aria-label="Ask Financial Advisor on WhatsApp">
         <span class="advisor-capsule-icon" aria-hidden="true">${ICONS.whatsapp}</span>
-        <span class="advisor-capsule-label">Ask Advisor</span>
+        <span class="advisor-capsule-label">Message Me</span>
       </a>
     </aside>
   `;
@@ -410,10 +466,14 @@ function renderCourseCard(course) {
     5: 'assets/images/course-fintech.png',
   };
   const thumb = course.thumbnail || thumbMap[course.id] || 'assets/images/course-nepse.png';
+  const waBuyUrl = getWhatsAppPurchaseUrl(course.title, course.price);
+  const isNepse = course.slug === 'nepse-stock-market-basics' || course.id === 1;
+  const nepseLearnUrl = '/courses/nepse-stock-market-basics/learn?lesson=lesson-1';
+  const targetUrl = isNepse ? nepseLearnUrl : ROUTES.COURSE_DETAIL(course.slug);
 
   return `
-    <article class="card course-card" id="course-card-${course.id}">
-      <a href="${ROUTES.COURSE_DETAIL(course.slug)}" class="card-image-link" aria-label="${course.title}">
+    <article class="card course-card" id="course-card-${course.id}" data-course-url="${targetUrl}">
+      <a href="${targetUrl}" class="card-image-link" aria-label="${course.title}">
         <img src="${thumb}" alt="${course.title}" class="card-image" loading="lazy" decoding="async">
       </a>
       <div class="card-body">
@@ -421,11 +481,16 @@ function renderCourseCard(course) {
           <span class="badge badge-primary">${course.category}</span>
           <span class="badge badge-outline">Curriculum</span>
         </div>
-        <h3><a href="${ROUTES.COURSE_DETAIL(course.slug)}" style="color:inherit;text-decoration:none">${course.title}</a></h3>
+        <h3><a href="${targetUrl}" style="color:inherit;text-decoration:none">${course.title}</a></h3>
         <p>${course.shortDescription}</p>
         <div class="card-meta">
           <div class="course-price"><span class="currency">NPR</span>${course.price.toLocaleString()}</div>
-          <a href="${ROUTES.COURSE_DETAIL(course.slug)}" class="btn btn-primary">View Details</a>
+          <div style="display:flex;gap:var(--space-2);align-items:center;flex-wrap:wrap">
+            <a href="${targetUrl}" class="btn btn-secondary btn-sm">${isNepse ? 'Start Learning' : 'Syllabus'}</a>
+            <a href="${waBuyUrl}" target="_blank" rel="noopener" class="btn btn-primary btn-sm btn-whatsapp" style="display:inline-flex;align-items:center;gap:5px;background:#25D366;color:#FFFFFF;border-color:#25D366">
+              ${ICONS.whatsapp} Buy Course — NPR ${course.price.toLocaleString()}
+            </a>
+          </div>
         </div>
       </div>
     </article>
@@ -678,9 +743,46 @@ function updateNavbarActive(currentPath) {
   // Update mobile quick buttons
   document.querySelectorAll('.mobile-quick-actions .mobile-quick-btn').forEach(btn => {
     const href = btn.getAttribute('href');
-    const isActive = isNavLinkActive(href, currentPath);
-    btn.classList.toggle('active', isActive);
+    if (href) {
+      const isActive = isNavLinkActive(href, currentPath);
+      btn.classList.toggle('active', isActive);
+    }
   });
+
+  // Update Others trigger active state
+  const isLearnActive = isNavLinkActive(ROUTES.LEARN, currentPath);
+  const isCalculatorsActive = Boolean(currentPath && currentPath.startsWith('/calculators'));
+  const isOthersDesktopActive = isCalculatorsActive;
+  const isOthersMobileActive = isCalculatorsActive || isLearnActive;
+
+  const othersTrigger = document.getElementById('nav-others-trigger');
+  if (othersTrigger) {
+    othersTrigger.classList.toggle('active', isOthersDesktopActive);
+  }
+  const mobileOthers = document.getElementById('mobile-nav-others');
+  if (mobileOthers) {
+    mobileOthers.classList.toggle('active', isOthersMobileActive);
+  }
+
+  // Update dropdown items inside both dropdown menus
+  document.querySelectorAll('.nav-dropdown-item').forEach(item => {
+    const href = item.getAttribute('href');
+    if (href) {
+      item.classList.toggle('active', isNavLinkActive(href, currentPath));
+    }
+  });
+
+  // Automatically close any open dropdowns on route transition
+  const othersWrapper = document.getElementById('nav-others-dropdown-wrapper');
+  if (othersWrapper) {
+    othersWrapper.classList.remove('open');
+    othersTrigger?.setAttribute('aria-expanded', 'false');
+  }
+  const mobileOthersWrapper = document.getElementById('mobile-others-wrapper');
+  if (mobileOthersWrapper) {
+    mobileOthersWrapper.classList.remove('open');
+    mobileOthers?.setAttribute('aria-expanded', 'false');
+  }
 
   // Close mobile drawer on navigation if open
   const mobileMenu = document.getElementById('mobile-menu');
@@ -771,9 +873,25 @@ function initNavbar() {
     });
   }
 
+  function closeDropdowns() {
+    const desktopWrapper = document.getElementById('nav-others-dropdown-wrapper');
+    const desktopTrigger = document.getElementById('nav-others-trigger');
+    if (desktopWrapper && desktopWrapper.classList.contains('open')) {
+      desktopWrapper.classList.remove('open');
+      desktopTrigger?.setAttribute('aria-expanded', 'false');
+    }
+    const mobileWrapper = document.getElementById('mobile-others-wrapper');
+    const mobileTrigger = document.getElementById('mobile-nav-others');
+    if (mobileWrapper && mobileWrapper.classList.contains('open')) {
+      mobileWrapper.classList.remove('open');
+      mobileTrigger?.setAttribute('aria-expanded', 'false');
+    }
+  }
+
   if (toggle && mobileMenu) {
     toggle.addEventListener('click', (e) => {
       e.stopPropagation();
+      closeDropdowns();
       const isKeyboard = e.detail === 0;
       if (mobileMenu.classList.contains('open')) {
         closeMobileMenu();
@@ -789,6 +907,63 @@ function initNavbar() {
 
     overlay?.addEventListener('click', () => {
       closeMobileMenu();
+    });
+
+    // Desktop Others Dropdown trigger (opens 2-option dropdown below desktop Others)
+    const othersTrigger = document.getElementById('nav-others-trigger');
+    const othersWrapper = document.getElementById('nav-others-dropdown-wrapper');
+    if (othersTrigger && othersWrapper) {
+      othersTrigger.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const willOpen = !othersWrapper.classList.contains('open');
+        closeDropdowns();
+        if (willOpen) {
+          othersWrapper.classList.add('open');
+          othersTrigger.setAttribute('aria-expanded', 'true');
+        }
+      });
+    }
+
+    // Mobile Others Dropdown trigger (opens 2-option dropdown directly below Others; NEVER opens sidebar drawer)
+    const mobileOthersBtn = document.getElementById('mobile-nav-others');
+    const mobileOthersWrapper = document.getElementById('mobile-others-wrapper');
+    if (mobileOthersBtn && mobileOthersWrapper) {
+      mobileOthersBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const willOpen = !mobileOthersWrapper.classList.contains('open');
+        closeDropdowns();
+        if (willOpen) {
+          mobileOthersWrapper.classList.add('open');
+          mobileOthersBtn.setAttribute('aria-expanded', 'true');
+        }
+      });
+    }
+
+    // Close dropdowns when user clicks outside them
+    document.addEventListener('click', (e) => {
+      if (!othersWrapper?.contains(e.target) && !mobileOthersWrapper?.contains(e.target)) {
+        closeDropdowns();
+      }
+    });
+
+    // Close dropdowns on Escape key and return focus
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        const desktopOpen = othersWrapper?.classList.contains('open');
+        const mobileOpen = mobileOthersWrapper?.classList.contains('open');
+        if (desktopOpen || mobileOpen) {
+          closeDropdowns();
+          if (desktopOpen) othersTrigger?.focus();
+          if (mobileOpen) mobileOthersBtn?.focus();
+        }
+      }
+    });
+
+    // Close dropdowns when the user selects an option
+    document.querySelectorAll('.nav-dropdown-item').forEach(item => {
+      item.addEventListener('click', () => {
+        closeDropdowns();
+      });
     });
 
     // Close menu on any link click inside drawer
@@ -1235,6 +1410,7 @@ export async function shareContent({ title, text, url } = {}) {
 // Export for use in other modules
 export {
   WHATSAPP_NUMBER, SITE_NAME, ICONS,
+  getWhatsAppNumber, getWhatsAppPurchaseUrl, getWhatsAppAdvisorUrl, getWhatsAppContactUrl,
   renderNavbar, renderFooter, renderWhatsAppFloat,
   renderCourseCard, renderResourceCard, renderArticleCard, renderShareButtons,
   formatDate, setPageMeta,

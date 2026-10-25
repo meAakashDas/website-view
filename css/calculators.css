@@ -52,11 +52,13 @@
 }
 
 .rp-calc-wrapper {
-  background: var(--color-surface);
-  border: 1px solid var(--color-border);
+  background: var(--liquid-glass-bg);
+  backdrop-filter: var(--liquid-glass-blur);
+  -webkit-backdrop-filter: var(--liquid-glass-blur);
+  border: 1px solid var(--liquid-glass-border);
   border-radius: var(--radius-xl);
   padding: 34px;
-  box-shadow: var(--shadow-sm);
+  box-shadow: var(--liquid-glass-highlight), var(--liquid-glass-shadow-lg);
   margin-bottom: var(--space-12);
   position: relative;
 }
@@ -97,13 +99,21 @@
 
 /* ── Calculator Controls Card ─────────────────── */
 .rp-calc-controls-card {
-  background: var(--color-surface);
-  border: 1px solid var(--color-border);
+  background: rgba(255, 255, 255, 0.50);
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  border: 1px solid var(--liquid-glass-border);
   border-radius: var(--radius-lg);
   padding: 28px;
   display: flex;
   flex-direction: column;
   gap: 26px;
+  box-shadow: var(--liquid-glass-highlight), var(--liquid-glass-shadow-sm);
+}
+
+[data-theme="dark"] .rp-calc-controls-card {
+  background: rgba(30, 30, 35, 0.55);
+  box-shadow: var(--liquid-glass-highlight-dark), var(--liquid-glass-shadow-sm);
 }
 
 @media (max-width: 600px) {
@@ -177,8 +187,8 @@
 .rp-input-affix-wrap {
   display: inline-flex;
   align-items: center;
-  background: var(--color-bg);
-  border: 1px solid var(--color-border);
+  background: var(--input-bg, var(--color-bg));
+  border: 1px solid var(--input-border, var(--color-border));
   border-radius: var(--radius-md);
   padding: 0 12px;
   min-height: 44px;
@@ -188,14 +198,16 @@
   justify-content: space-between;
   gap: 8px;
   box-sizing: border-box;
+  box-shadow: var(--input-inset-shadow);
   transition: border-color var(--duration-fast) var(--ease-out),
-              box-shadow var(--duration-fast) var(--ease-out);
+              box-shadow var(--duration-fast) var(--ease-out),
+              background-color var(--duration-fast) var(--ease-out);
 }
 
 .rp-input-affix-wrap:focus-within {
   border-color: var(--color-accent);
-  box-shadow: 0 0 0 3px rgba(29, 161, 242, 0.15);
-  background: var(--color-bg);
+  box-shadow: var(--input-focus-ring-shadow);
+  background: var(--input-bg-focus, var(--color-bg));
 }
 
 .rp-affix {
@@ -240,19 +252,20 @@
   -moz-appearance: textfield;
 }
 
-/* ── Range Slider ─────────────────────────────── */
+/* ── Range Slider (Material B: Tactile Raised Physical Control) ── */
 .rp-range-slider,
 .rp-slider {
   -webkit-appearance: none;
   appearance: none;
   width: 100%;
-  height: 4px;
+  height: 6px;
   background: var(--slider-track-bg);
   border-radius: var(--radius-full);
   outline: none;
   cursor: pointer;
   margin: 12px 0 6px 0;
   touch-action: pan-y;
+  box-shadow: var(--slider-track-inset-shadow);
   transition: background-color var(--duration-fast) var(--ease-out);
 }
 
@@ -260,42 +273,46 @@
 .rp-slider::-webkit-slider-thumb {
   -webkit-appearance: none;
   appearance: none;
-  width: 20px;
-  height: 20px;
+  width: 22px;
+  height: 22px;
   border-radius: 50%;
   background: #ffffff;
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: var(--slider-thumb-highlight), var(--slider-thumb-physical-shadow);
   cursor: grab;
-  transition: transform var(--duration-fast) var(--ease-out);
+  transition: transform var(--duration-fast) var(--ease-out), box-shadow var(--duration-fast) var(--ease-out);
 }
 
 .rp-range-slider::-webkit-slider-thumb:hover,
 .rp-slider::-webkit-slider-thumb:hover {
   transform: scale(1.1);
+  box-shadow: var(--slider-thumb-highlight), 0 4px 12px rgba(0, 0, 0, 0.22);
 }
 
 .rp-range-slider:active::-webkit-slider-thumb,
 .rp-slider:active::-webkit-slider-thumb {
   cursor: grabbing;
   transform: scale(1.15);
+  box-shadow: var(--slider-thumb-highlight), 0 2px 6px rgba(0, 0, 0, 0.28);
 }
 
 .rp-range-slider::-moz-range-thumb,
 .rp-slider::-moz-range-thumb {
-  width: 20px;
-  height: 20px;
+  width: 22px;
+  height: 22px;
   border-radius: 50%;
   background: #ffffff;
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: var(--slider-thumb-highlight), var(--slider-thumb-physical-shadow);
   cursor: grab;
+  transition: transform var(--duration-fast) var(--ease-out), box-shadow var(--duration-fast) var(--ease-out);
 }
 
 .rp-range-slider:active::-moz-range-thumb,
 .rp-slider:active::-moz-range-thumb {
   cursor: grabbing;
   transform: scale(1.15);
+  box-shadow: var(--slider-thumb-highlight), 0 2px 6px rgba(0, 0, 0, 0.28);
 }
 
 .rp-range-ticks,
@@ -407,8 +424,10 @@
 }
 
 .rp-stat-card {
-  background: var(--color-surface);
-  border: 1px solid var(--color-border);
+  background: rgba(255, 255, 255, 0.55);
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  border: 1px solid var(--liquid-glass-border);
   border-radius: var(--radius-lg);
   padding: 20px 22px;
   display: flex;
@@ -416,6 +435,13 @@
   justify-content: space-between;
   min-height: 112px;
   box-sizing: border-box;
+  box-shadow: var(--liquid-glass-highlight), var(--liquid-glass-shadow-sm);
+  transition: transform var(--duration-fast) var(--ease-out), box-shadow var(--duration-fast) var(--ease-out);
+}
+
+[data-theme="dark"] .rp-stat-card {
+  background: rgba(30, 30, 35, 0.60);
+  box-shadow: var(--liquid-glass-highlight-dark), var(--liquid-glass-shadow-sm);
 }
 
 .rp-stat-card.span-2 {
@@ -423,12 +449,23 @@
 }
 
 .rp-stat-card.maturity {
-  background: var(--color-surface-elevated);
-  border: 1px solid var(--color-border-hover);
-  box-shadow: var(--shadow-sm);
+  background: linear-gradient(135deg, rgba(235, 245, 255, 0.72) 0%, rgba(255, 255, 255, 0.58) 100%);
+  backdrop-filter: blur(20px) saturate(200%);
+  -webkit-backdrop-filter: blur(20px) saturate(200%);
+  border: 1px solid rgba(29, 161, 242, 0.35);
+  box-shadow: inset 0 1.5px 1px 0 rgba(255, 255, 255, 1), 
+              0 8px 24px -4px rgba(29, 161, 242, 0.18),
+              0 2px 6px -1px rgba(0, 0, 0, 0.05);
   position: relative;
   overflow: hidden;
   padding: 22px 26px;
+}
+
+[data-theme="dark"] .rp-stat-card.maturity {
+  background: linear-gradient(135deg, rgba(13, 50, 75, 0.65) 0%, rgba(28, 28, 32, 0.60) 100%);
+  border-color: rgba(77, 183, 245, 0.35);
+  box-shadow: inset 0 1.5px 1px 0 rgba(255, 255, 255, 0.25), 
+              0 8px 28px -4px rgba(0, 0, 0, 0.40);
 }
 
 .rp-stat-card.maturity::after {
@@ -1130,7 +1167,7 @@
               box-shadow var(--duration-normal) var(--ease-apple);
   position: relative;
   overflow: hidden;
-  box-shadow: var(--shadow-card);
+  box-shadow: var(--card-highlight), var(--card-shadow-3d);
 }
 
 .rp-calc-card.active-card {
@@ -1140,10 +1177,15 @@
 }
 
 .rp-calc-card.active-card:hover {
-  transform: translateY(-6px);
-  border-color: var(--color-accent);
+  transform: translateY(-4px);
+  border-color: var(--liquid-glass-border-focus);
   background: var(--card-bg-hover);
-  box-shadow: 0 16px 32px rgba(0, 0, 0, 0.12), 0 0 0 1px rgba(29, 161, 242, 0.2);
+  box-shadow: var(--card-highlight), var(--card-shadow-3d-hover);
+}
+
+.rp-calc-card.active-card:active {
+  transform: translateY(0px) scale(0.99);
+  box-shadow: var(--card-highlight), var(--card-shadow-3d-pressed);
 }
 
 .rp-calc-card.active-card:hover .calc-arrow-btn {
@@ -3538,14 +3580,17 @@
 }
 
 [data-theme="light"] .rp-input-affix-wrap {
-  background: #FFFFFF;
-  border-color: rgba(0, 0, 0, 0.14);
+  background: rgba(255, 255, 255, 0.70);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-color: var(--liquid-glass-border);
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.03), 0 1px 0 rgba(255, 255, 255, 0.85);
 }
 
 [data-theme="light"] .rp-input-affix-wrap:focus-within {
-  background: #FFFFFF;
+  background: rgba(255, 255, 255, 0.90);
   border-color: var(--color-accent);
-  box-shadow: 0 0 0 3px rgba(29, 161, 242, 0.15);
+  box-shadow: 0 0 0 3px rgba(29, 161, 242, 0.18), inset 0 1px 2px rgba(0, 0, 0, 0.03);
 }
 
 [data-theme="light"] .rp-calc-nav-bar {
@@ -3554,10 +3599,12 @@
 }
 
 [data-theme="light"] .rp-calc-tab-btn.active {
-  background: #FFFFFF;
+  background: var(--liquid-glass-clear-bg);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
   color: #1D1D1F;
-  border-color: rgba(0, 0, 0, 0.1);
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+  border-color: var(--liquid-glass-border);
+  box-shadow: var(--liquid-glass-highlight), 0 2px 8px rgba(0, 0, 0, 0.06);
 }
 
 [data-theme="light"] .rp-context-point {

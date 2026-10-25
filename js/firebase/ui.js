@@ -1096,11 +1096,11 @@ function attachOnboardingModalEvents(user) {
       setTimeout(() => {
         closeOnboardingModal();
         if (window.location.pathname.startsWith('/admin')) {
-          window.location.href = '/my-courses';
+          window.location.href = '/courses/nepse-stock-market-basics/learn?lesson=lesson-1';
         } else if (window.location.pathname.includes('/learn')) {
           window.location.reload();
         } else {
-          window.location.href = '/my-courses';
+          window.location.href = '/courses/nepse-stock-market-basics/learn?lesson=lesson-1';
         }
       }, 1000);
     } catch (err) {
@@ -1153,7 +1153,7 @@ export function updateNavUserUI(user) {
             <div class="nav-user-menu-name">${displayName}</div>
             <div class="nav-user-menu-email">${emailDisplay}</div>
           </div>
-          <a href="/my-courses" class="nav-user-menu-item" id="nav-menu-my-courses" role="menuitem" style="text-decoration: none;">
+          <a href="/courses/nepse-stock-market-basics/learn?lesson=lesson-1" class="nav-user-menu-item" id="nav-menu-my-courses" role="menuitem" style="text-decoration: none;">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px"><polygon points="5 3 19 12 5 21 5 3"/></svg>
             <span>My Courses</span>
           </a>
@@ -1277,7 +1277,7 @@ export function updateNavUserUI(user) {
             </div>
           </div>
           <div class="mobile-auth-actions-grid" role="group" aria-label="Account Actions">
-            <a href="/my-courses" class="mobile-auth-btn" id="mobile-courses-btn">
+            <a href="/courses/nepse-stock-market-basics/learn?lesson=lesson-1" class="mobile-auth-btn" id="mobile-courses-btn">
               <svg class="mobile-auth-btn-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><polygon points="5 3 19 12 5 21 5 3"/></svg>
               <span>Courses</span>
             </a>

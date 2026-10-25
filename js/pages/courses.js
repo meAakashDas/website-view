@@ -1,75 +1,14 @@
 // ==============================================
-// risePaisa | Courses Catalog Page
+// risePaisa | Primary Courses Page
+// Directly renders the Flagship Share Market Full Course (NEPSE) detailed landing page
+// Eliminates the intermediate generic listing catalog for a frictionless one-click journey
 // ==============================================
-import { getCourses } from '../data/courses.js';
-import { renderCourseCard, setPageMeta } from '../components.js';
-import { ROUTES } from '../routes.js';
+import { renderCourseDetailPage, initCourseDetailPage } from './courseDetail.js';
 
 export function renderCoursesPage() {
-  setPageMeta('Courses', 'Browse our Nepal-focused finance courses, including personal finance and wealth management masterclasses, designed for Nepali youth.', ROUTES.COURSES);
-
-  const COURSES = getCourses();
-  const categories = ['All', ...new Set(COURSES.map(c => c.category))];
-
-  return `
-    <div class="page-header" id="courses-header">
-      <div class="container">
-        <span class="section-eyebrow">Masterclasses</span>
-        <h1>Our Courses</h1>
-        <p>Practical financial education designed for Nepal. Learn at your own pace.</p>
-      </div>
-    </div>
-    <section class="section" id="courses-listing">
-      <div class="container">
-        ${categories.length > 1 ? `
-          <div class="filter-tabs" id="course-filters">
-            ${categories.map((cat, i) => `
-              <button class="filter-tab ${i === 0 ? 'active' : ''}" data-category="${cat}">${cat}</button>
-            `).join('')}
-          </div>
-        ` : ''}
-        <div class="grid-2" id="courses-grid" style="max-width:860px;margin:0 auto">
-          ${COURSES.map(c => renderCourseCard(c)).join('')}
-        </div>
-      </div>
-    </section>
-  `;
+  return renderCourseDetailPage('nepse-stock-market-basics');
 }
 
 export function initCoursesPage() {
-  let activeCourses = getCourses();
-  const filters = document.querySelectorAll('#course-filters .filter-tab');
-  const grid = document.getElementById('courses-grid');
-  if (!grid) return;
-
-  function renderGridWithFilter(category) {
-    const filtered = category === 'All' ? activeCourses : activeCourses.filter(c => c.category === category);
-    grid.innerHTML = filtered.map(c => renderCourseCard(c)).join('');
-    grid.querySelectorAll('.card').forEach((card, i) => {
-      card.style.opacity = '0';
-      card.style.animation = `fadeInUp 0.4s ease forwards ${i * 80}ms`;
-    });
-  }
-
-  filters.forEach(btn => {
-    btn.addEventListener('click', () => {
-      filters.forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      renderGridWithFilter(btn.dataset.category);
-    });
-  });
-
-  // Revalidate with live published courses from Firestore
-  if (typeof window !== 'undefined') {
-    import('../firebase/courses.js').then(({ fetchPublishedCourses }) => {
-      fetchPublishedCourses().then(liveCourses => {
-        if (Array.isArray(liveCourses) && liveCourses.length > 0) {
-          activeCourses = liveCourses;
-          const activeFilter = document.querySelector('#course-filters .filter-tab.active');
-          const currentCat = activeFilter ? activeFilter.dataset.category : 'All';
-          renderGridWithFilter(currentCat);
-        }
-      }).catch(() => {});
-    }).catch(() => {});
-  }
+  return initCourseDetailPage('nepse-stock-market-basics');
 }

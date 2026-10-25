@@ -54,7 +54,7 @@ export const ROUTES = {
   COURSE_DETAIL: (slug) => `/courses/${slug}`,
   COURSE_LEARN: (slug, lessonId) => lessonId ? `/courses/${slug}/learn?lesson=${encodeURIComponent(lessonId)}` : `/courses/${slug}/learn`,
   MY_COURSES: '/courses/nepse-stock-market-basics/learn?lesson=lesson-1',
-  MY_COURSES_PAGE: '/my-courses',
+  MY_COURSES_PAGE: '/courses/nepse-stock-market-basics/learn?lesson=lesson-1',
   ADMIN_COURSES: '/admin/courses',
   ADMIN_ENROLLMENTS: '/admin/enrollments',
   RESOURCES: '/resources',

@@ -57,12 +57,11 @@ test('Renders search trigger with min-width compatible label and kbd', () => {
   assert.ok(html.includes('class="mobile-drawer-search-kbd"'), 'Search keyboard shortcut badge present');
 });
 
-test('Renders all 9 mobile drawer navigation links with icons and chevrons', () => {
+test('Renders all 8 consolidated mobile drawer navigation links with icons and chevrons', () => {
   const html = renderNavbar('/');
   const expectedLabels = [
     'Home',
     'Courses',
-    'My Courses',
     'Learn Academy',
     'Calculators',
     'Resources',
@@ -74,6 +73,7 @@ test('Renders all 9 mobile drawer navigation links with icons and chevrons', () 
   for (const label of expectedLabels) {
     assert.ok(html.includes(`<span class="mobile-link-text">${label}</span>`), `Contains navigation item: ${label}`);
   }
+  assert.ok(!html.includes('<span class="mobile-link-text">My Courses</span>'), 'Does not render competing My Courses item in public drawer');
 });
 
 test('Renders drawer footer with full-width WhatsApp CTA button', () => {
@@ -156,9 +156,9 @@ test('layout.css styles mobile-auth-actions-grid with 2 columns and full-width s
 // ── 4. Testing Navigation Destinations & Integrity ───────
 console.log('\n--- 4. Testing Navigation Destinations & Integrity ---');
 
-test('My Courses links directly to /courses/nepse-stock-market-basics/learn?lesson=lesson-1', () => {
+test('Courses links directly to /courses in drawer', () => {
   const html = renderNavbar('/courses');
-  assert.ok(html.includes(`href="${ROUTES.MY_COURSES}"`), 'Drawer contains correct My Courses destination');
+  assert.ok(html.includes(`href="${ROUTES.COURSES}"`), 'Drawer contains correct Courses destination');
 });
 
 test('Calculators link is present and correct in drawer', () => {

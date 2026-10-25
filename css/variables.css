@@ -111,24 +111,99 @@
 
   /* ── Authentic Apple Liquid Glass System (Light Mode) ───────── */
   /* Regular Liquid Glass (Primary Navigation, Modals, Floating Bars, Flyouts) */
-  --liquid-glass-bg:           rgba(255, 255, 255, 0.78);
-  --liquid-glass-bg-scrolled:  rgba(255, 255, 255, 0.90);
-  --liquid-glass-border:       rgba(0, 0, 0, 0.08);
-  --liquid-glass-highlight:    inset 0 1px 0 0 rgba(255, 255, 255, 0.85);
-  --liquid-glass-blur:         blur(20px) saturate(180%);
-  --liquid-glass-shadow:       0 8px 32px -4px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.04);
-  
-  /* Clear Liquid Glass (Transient Overlays, Floating Video Controls, Knobs) */
-  --liquid-glass-clear-bg:     rgba(255, 255, 255, 0.58);
-  --liquid-glass-clear-border: rgba(255, 255, 255, 0.45);
-  --liquid-glass-clear-highlight: inset 0 1px 0 0 rgba(255, 255, 255, 0.95);
-  --liquid-glass-clear-blur:   blur(14px) saturate(190%);
-  --liquid-glass-clear-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+  --liquid-glass-bg:           rgba(255, 255, 255, 0.72);
+  --liquid-glass-bg-scrolled:  rgba(255, 255, 255, 0.85);
+  --liquid-glass-border:       rgba(255, 255, 255, 0.75);
+  --liquid-glass-highlight:    inset 0 1.5px 0.5px 0 rgba(255, 255, 255, 0.98), inset 0 0 0 1px rgba(255, 255, 255, 0.48), inset 0 -1px 0.5px 0 rgba(255, 255, 255, 0.25);
+  --liquid-glass-blur:         blur(28px) saturate(210%);
+  --liquid-glass-shadow:       0 20px 48px -10px rgba(0, 0, 0, 0.10), 0 6px 18px -3px rgba(29, 161, 242, 0.08), 0 0 0 1px rgba(0, 0, 0, 0.04);
+  --liquid-glass-shadow-lg:    0 28px 64px -12px rgba(0, 0, 0, 0.14), 0 10px 24px -4px rgba(29, 161, 242, 0.10), 0 0 0 1px rgba(0, 0, 0, 0.05);
+  --liquid-glass-shadow-sm:    0 6px 18px -2px rgba(0, 0, 0, 0.07), 0 2px 6px -1px rgba(29, 161, 242, 0.05);
 
-  /* Subtle Translucent Material (Pills, Chips, Quick Actions) */
-  --liquid-glass-subtle-bg:    rgba(0, 0, 0, 0.035);
-  --liquid-glass-subtle-border: rgba(0, 0, 0, 0.06);
-  --liquid-glass-subtle-blur:  blur(10px);
+  /* Clear Liquid Glass (Transient Overlays, Floating Controls, Knobs, Pills) */
+  --liquid-glass-clear-bg:     rgba(255, 255, 255, 0.56);
+  --liquid-glass-clear-border: rgba(255, 255, 255, 0.80);
+  --liquid-glass-clear-highlight: inset 0 1.5px 0.5px 0 rgba(255, 255, 255, 1), inset 0 0 0 1px rgba(255, 255, 255, 0.55), inset 0 -1px 0.5px 0 rgba(255, 255, 255, 0.30);
+  --liquid-glass-clear-blur:   blur(20px) saturate(220%);
+  --liquid-glass-clear-shadow: 0 10px 28px -4px rgba(0, 0, 0, 0.09), 0 3px 10px rgba(29, 161, 242, 0.06);
+
+  /* Subtle Translucent Material (Pills, Chips, Quick Actions, Sliders) */
+  --liquid-glass-subtle-bg:    rgba(255, 255, 255, 0.58);
+  --liquid-glass-subtle-border: rgba(255, 255, 255, 0.72);
+  --liquid-glass-subtle-blur:  blur(16px) saturate(190%);
+
+  /* ── 1. Drawer Surface Material (Controlled Milky Frosted Glass) ── */
+  --liquid-glass-drawer-bg:        rgba(248, 249, 252, 0.96);
+  --liquid-glass-drawer-border:    rgba(255, 255, 255, 0.85);
+  --liquid-glass-drawer-blur:      blur(36px) saturate(160%);
+  --liquid-glass-drawer-shadow:    -16px 0 48px -8px rgba(0, 0, 0, 0.28), 0 0 0 1px rgba(0, 0, 0, 0.04);
+  --liquid-glass-drawer-highlight: inset 1px 1.5px 0.5px rgba(255, 255, 255, 1), inset 0 0 0 1px rgba(255, 255, 255, 0.60);
+
+  /* ── 2. Raised Glass Buttons & Control Capsules (Light Theme) ── */
+  --raised-glass-bg:               linear-gradient(180deg, #ffffff 0%, rgba(246, 248, 252, 0.95) 100%);
+  --raised-glass-bg-hover:         linear-gradient(180deg, #ffffff 0%, #f0f4fc 100%);
+  --raised-glass-bg-active:        linear-gradient(180deg, #edf1f7 0%, #f6f8fc 100%);
+  --raised-glass-border:           rgba(255, 255, 255, 0.95);
+  --raised-glass-border-lower:     rgba(0, 0, 0, 0.08);
+  --raised-glass-highlight:        inset 0 1.5px 0.5px #ffffff, inset 0 -1px 0.5px rgba(0, 0, 0, 0.06), inset 0 0 0 1px rgba(255, 255, 255, 0.80);
+  --raised-glass-shadow:           0 4px 14px -2px rgba(15, 23, 42, 0.08), 0 1.5px 4px -1px rgba(15, 23, 42, 0.05);
+  --raised-glass-shadow-hover:     0 6px 20px -3px rgba(15, 23, 42, 0.12), 0 2px 6px -1px rgba(15, 23, 42, 0.06);
+  --raised-glass-shadow-pressed:   0 1px 3px rgba(15, 23, 42, 0.08), inset 0 1.5px 2px rgba(0, 0, 0, 0.07);
+
+  /* ── 3. Raised Glass Nav Items (Drawer & Menus) ── */
+  --raised-nav-item-bg:            linear-gradient(180deg, #ffffff 0%, rgba(248, 249, 252, 0.96) 100%);
+  --raised-nav-item-bg-hover:      linear-gradient(180deg, #ffffff 0%, #edf3fe 100%);
+  --raised-nav-item-bg-active:     linear-gradient(180deg, rgba(0, 113, 227, 0.14) 0%, rgba(0, 113, 227, 0.07) 100%);
+  --raised-nav-item-border:        rgba(255, 255, 255, 0.95);
+  --raised-nav-item-border-active: rgba(0, 113, 227, 0.35);
+  --raised-nav-item-highlight:     inset 0 1.5px 0.5px #ffffff, inset 0 -1px 0.5px rgba(0, 0, 0, 0.04), inset 0 0 0 1px rgba(255, 255, 255, 0.70);
+  --raised-nav-item-shadow:        0 3px 10px -2px rgba(15, 23, 42, 0.06), 0 1px 3px rgba(15, 23, 42, 0.03);
+
+  /* ── 4. Raised WhatsApp Action (Vibrant Physical Green Glass) ── */
+  --raised-wa-bg:                  linear-gradient(180deg, #2ae06c 0%, #20ba5a 100%);
+  --raised-wa-bg-hover:            linear-gradient(180deg, #32e874 0%, #22c560 100%);
+  --raised-wa-highlight:           inset 0 1.5px 0.5px rgba(255, 255, 255, 0.45), inset 0 -1.5px 1px rgba(0, 0, 0, 0.18), inset 0 0 0 1px rgba(255, 255, 255, 0.25);
+  --raised-wa-shadow:              0 6px 22px -3px rgba(37, 211, 102, 0.45), 0 2px 6px -1px rgba(0, 0, 0, 0.12);
+
+  /* ── 5. Raised Primary Action (Apple Action Blue Glass) ── */
+  --raised-primary-bg:             linear-gradient(180deg, #0a84ff 0%, #0066cc 100%);
+  --raised-primary-bg-hover:       linear-gradient(180deg, #1f8eff 0%, #0071e3 100%);
+  --raised-primary-highlight:      inset 0 1.5px 0.5px rgba(255, 255, 255, 0.40), inset 0 -1.5px 1px rgba(0, 0, 0, 0.20), inset 0 0 0 1px rgba(255, 255, 255, 0.22);
+  --raised-primary-shadow:         0 6px 20px -3px rgba(0, 113, 227, 0.38), 0 2px 6px -1px rgba(0, 0, 0, 0.12);
+
+  /* ── 6. Raised Dark / Utility Action (Apple Ink Glass) ── */
+  --raised-dark-bg:                linear-gradient(180deg, #2c2c2e 0%, #1d1d1f 100%);
+  --raised-dark-bg-hover:          linear-gradient(180deg, #3a3a3c 0%, #242426 100%);
+  --raised-dark-highlight:         inset 0 1.5px 0.5px rgba(255, 255, 255, 0.28), inset 0 -1.5px 1px rgba(0, 0, 0, 0.35), inset 0 0 0 1px rgba(255, 255, 255, 0.12);
+  --raised-dark-shadow:            0 4px 14px -2px rgba(0, 0, 0, 0.25), 0 1.5px 4px -1px rgba(0, 0, 0, 0.15);
+
+  /* ── 7. Raised Outline & Ghost Controls ── */
+  --raised-outline-bg:             rgba(255, 255, 255, 0.65);
+  --raised-outline-bg-hover:       rgba(255, 255, 255, 0.95);
+  --raised-outline-border:         rgba(0, 0, 0, 0.12);
+  --raised-outline-border-hover:   rgba(0, 113, 227, 0.35);
+  --raised-outline-highlight:      inset 0 1.5px 0.5px #ffffff, inset 0 0 0 1px rgba(255, 255, 255, 0.60);
+  --raised-outline-shadow:         0 2px 8px -1px rgba(15, 23, 42, 0.06), 0 1px 2px rgba(15, 23, 42, 0.04);
+  --raised-outline-shadow-hover:   0 4px 14px -2px rgba(0, 113, 227, 0.15), 0 1.5px 4px rgba(15, 23, 42, 0.06);
+
+  /* ── 8. Material C: Elevated Content Card System ── */
+  --card-highlight:                inset 0 1.5px 0.5px 0 rgba(255, 255, 255, 0.95), inset 0 0 0 1px rgba(255, 255, 255, 0.45);
+  --card-shadow-3d:                0 1px 2px rgba(15, 23, 42, 0.04), 0 6px 18px -2px rgba(15, 23, 42, 0.06), 0 0 0 1px rgba(0, 0, 0, 0.06);
+  --card-shadow-3d-hover:          0 2px 6px rgba(15, 23, 42, 0.04), 0 14px 32px -4px rgba(15, 23, 42, 0.10), 0 0 0 1px rgba(0, 113, 227, 0.20);
+  --card-shadow-3d-pressed:        0 1px 2px rgba(15, 23, 42, 0.06), 0 2px 6px -1px rgba(15, 23, 42, 0.04), inset 0 1px 2px rgba(0, 0, 0, 0.04);
+
+  /* ── 9. Material D: Media & Image Framing ── */
+  --media-frame-border:            rgba(0, 0, 0, 0.08);
+  --media-frame-highlight:         inset 0 1.5px 0.5px rgba(255, 255, 255, 0.45), inset 0 0 0 1px rgba(255, 255, 255, 0.20);
+  --media-frame-shadow:            0 4px 16px -3px rgba(15, 23, 42, 0.08), 0 1px 3px rgba(0, 0, 0, 0.04);
+  --media-frame-shadow-hover:      0 8px 24px -4px rgba(15, 23, 42, 0.14), 0 2px 6px rgba(0, 0, 0, 0.06);
+
+  /* ── 10. Form Controls: Inset Tactile Depth & Focus ── */
+  --input-inset-shadow:            inset 0 1.5px 3px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.02);
+  --input-focus-ring-shadow:       0 0 0 3.5px var(--focus-ring), inset 0 1px 2px rgba(0, 0, 0, 0.02);
+  --slider-track-inset-shadow:     inset 0 1.5px 3px rgba(0, 0, 0, 0.14), 0 1px 1px rgba(255, 255, 255, 0.60);
+  --slider-thumb-physical-shadow:  0 3px 10px rgba(0, 0, 0, 0.22), 0 1px 3px rgba(0, 0, 0, 0.12);
+  --slider-thumb-highlight:        inset 0 1.5px 0.5px #ffffff, inset 0 -1px 0.5px rgba(0, 0, 0, 0.10);
 
   /* Legacy aliases for backward compatibility */
   --glass-bg:                  var(--liquid-glass-bg);
@@ -243,24 +318,99 @@
 
   /* ── Authentic Apple Liquid Glass System (Dark Mode) ────────── */
   /* Regular Liquid Glass (Primary Navigation, Modals, Floating Bars, Flyouts) */
-  --liquid-glass-bg:           rgba(28, 28, 30, 0.78);
-  --liquid-glass-bg-scrolled:  rgba(22, 22, 24, 0.90);
-  --liquid-glass-border:       rgba(255, 255, 255, 0.12);
-  --liquid-glass-highlight:    inset 0 1px 0 0 rgba(255, 255, 255, 0.16);
-  --liquid-glass-blur:         blur(20px) saturate(180%);
-  --liquid-glass-shadow:       0 12px 40px -4px rgba(0, 0, 0, 0.55), 0 1px 3px rgba(0, 0, 0, 0.35);
+  --liquid-glass-bg:           rgba(22, 22, 26, 0.68);
+  --liquid-glass-bg-scrolled:  rgba(16, 16, 20, 0.82);
+  --liquid-glass-border:       rgba(255, 255, 255, 0.20);
+  --liquid-glass-highlight:    inset 0 1.5px 0.5px 0 rgba(255, 255, 255, 0.38), inset 0 0 0 1px rgba(255, 255, 255, 0.12), inset 0 -1px 0.5px 0 rgba(255, 255, 255, 0.08);
+  --liquid-glass-blur:         blur(28px) saturate(210%);
+  --liquid-glass-shadow:       0 20px 48px -10px rgba(0, 0, 0, 0.60), 0 4px 16px -2px rgba(41, 151, 255, 0.14), 0 0 0 1px rgba(255, 255, 255, 0.08);
+  --liquid-glass-shadow-lg:    0 28px 64px -12px rgba(0, 0, 0, 0.70), 0 8px 24px -4px rgba(41, 151, 255, 0.18), 0 0 0 1px rgba(255, 255, 255, 0.10);
+  --liquid-glass-shadow-sm:    0 6px 18px -2px rgba(0, 0, 0, 0.45), 0 2px 6px -1px rgba(41, 151, 255, 0.08);
 
   /* Clear Liquid Glass (Transient Overlays, Floating Video Controls, Knobs) */
-  --liquid-glass-clear-bg:     rgba(44, 44, 46, 0.55);
-  --liquid-glass-clear-border: rgba(255, 255, 255, 0.18);
-  --liquid-glass-clear-highlight: inset 0 1px 0 0 rgba(255, 255, 255, 0.25);
-  --liquid-glass-clear-blur:   blur(14px) saturate(190%);
-  --liquid-glass-clear-shadow: 0 6px 20px rgba(0, 0, 0, 0.45);
+  --liquid-glass-clear-bg:     rgba(40, 40, 48, 0.55);
+  --liquid-glass-clear-border: rgba(255, 255, 255, 0.26);
+  --liquid-glass-clear-highlight: inset 0 1.5px 0.5px 0 rgba(255, 255, 255, 0.45), inset 0 0 0 1px rgba(255, 255, 255, 0.14), inset 0 -1px 0.5px 0 rgba(255, 255, 255, 0.10);
+  --liquid-glass-clear-blur:   blur(20px) saturate(220%);
+  --liquid-glass-clear-shadow: 0 10px 28px -4px rgba(0, 0, 0, 0.50), 0 2px 8px rgba(41, 151, 255, 0.10);
 
   /* Subtle Translucent Material (Pills, Chips, Quick Actions) */
-  --liquid-glass-subtle-bg:    rgba(255, 255, 255, 0.06);
-  --liquid-glass-subtle-border: rgba(255, 255, 255, 0.10);
-  --liquid-glass-subtle-blur:  blur(10px);
+  --liquid-glass-subtle-bg:    rgba(255, 255, 255, 0.09);
+  --liquid-glass-subtle-border: rgba(255, 255, 255, 0.16);
+  --liquid-glass-subtle-blur:  blur(16px) saturate(190%);
+
+  /* ── 1. Drawer Surface Material (Smoked Obsidian Frosted Glass) ── */
+  --liquid-glass-drawer-bg:        rgba(20, 22, 27, 0.93);
+  --liquid-glass-drawer-border:    rgba(255, 255, 255, 0.14);
+  --liquid-glass-drawer-blur:      blur(32px) saturate(160%);
+  --liquid-glass-drawer-shadow:    -16px 0 52px rgba(0, 0, 0, 0.65), 0 0 0 1px rgba(255, 255, 255, 0.08);
+  --liquid-glass-drawer-highlight: inset 1px 1.5px 0.5px rgba(255, 255, 255, 0.25), inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+
+  /* ── 2. Raised Glass Buttons & Control Capsules (Dark Theme) ── */
+  --raised-glass-bg:               linear-gradient(180deg, rgba(42, 45, 53, 0.98) 0%, rgba(30, 32, 38, 0.95) 100%);
+  --raised-glass-bg-hover:         linear-gradient(180deg, rgba(50, 54, 64, 1) 0%, rgba(36, 39, 46, 0.98) 100%);
+  --raised-glass-bg-active:        linear-gradient(180deg, rgba(26, 28, 33, 0.98) 0%, rgba(34, 37, 44, 0.95) 100%);
+  --raised-glass-border:           rgba(255, 255, 255, 0.18);
+  --raised-glass-border-lower:     rgba(0, 0, 0, 0.40);
+  --raised-glass-highlight:        inset 0 1.5px 0.5px rgba(255, 255, 255, 0.25), inset 0 -1px 0.5px rgba(0, 0, 0, 0.35), inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+  --raised-glass-shadow:           0 4px 14px -2px rgba(0, 0, 0, 0.45), 0 1.5px 4px -1px rgba(0, 0, 0, 0.25);
+  --raised-glass-shadow-hover:     0 6px 20px -3px rgba(0, 0, 0, 0.60), 0 2px 6px -1px rgba(0, 0, 0, 0.30);
+  --raised-glass-shadow-pressed:   0 1px 3px rgba(0, 0, 0, 0.30), inset 0 1px 3px rgba(0, 0, 0, 0.40);
+
+  /* ── 3. Raised Glass Nav Items (Drawer & Menus) ── */
+  --raised-nav-item-bg:            linear-gradient(180deg, rgba(38, 42, 50, 0.98) 0%, rgba(28, 31, 38, 0.95) 100%);
+  --raised-nav-item-bg-hover:      linear-gradient(180deg, rgba(48, 53, 64, 1) 0%, rgba(34, 38, 46, 0.98) 100%);
+  --raised-nav-item-bg-active:     linear-gradient(180deg, rgba(41, 151, 255, 0.22) 0%, rgba(41, 151, 255, 0.12) 100%);
+  --raised-nav-item-border:        rgba(255, 255, 255, 0.15);
+  --raised-nav-item-border-active: rgba(41, 151, 255, 0.50);
+  --raised-nav-item-highlight:     inset 0 1.5px 0.5px rgba(255, 255, 255, 0.25), inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+  --raised-nav-item-shadow:        0 3px 10px -2px rgba(0, 0, 0, 0.35);
+
+  /* ── 4. Raised WhatsApp Action (Dark) ── */
+  --raised-wa-bg:                  linear-gradient(180deg, #24c65e 0%, #1da84f 100%);
+  --raised-wa-bg-hover:            linear-gradient(180deg, #2ae06c 0%, #20ba5a 100%);
+  --raised-wa-highlight:           inset 0 1.5px 0.5px rgba(255, 255, 255, 0.35), inset 0 -1.5px 1px rgba(0, 0, 0, 0.25), inset 0 0 0 1px rgba(255, 255, 255, 0.15);
+  --raised-wa-shadow:              0 6px 20px -3px rgba(37, 211, 102, 0.30), 0 2px 6px -1px rgba(0, 0, 0, 0.30);
+
+  /* ── 5. Raised Primary Action (Dark) ── */
+  --raised-primary-bg:             linear-gradient(180deg, #3aa0ff 0%, #1a82e8 100%);
+  --raised-primary-bg-hover:       linear-gradient(180deg, #4fb0ff 0%, #2997ff 100%);
+  --raised-primary-highlight:      inset 0 1.5px 0.5px rgba(255, 255, 255, 0.35), inset 0 -1.5px 1px rgba(0, 0, 0, 0.25), inset 0 0 0 1px rgba(255, 255, 255, 0.15);
+  --raised-primary-shadow:         0 6px 20px -3px rgba(41, 151, 255, 0.35), 0 2px 6px -1px rgba(0, 0, 0, 0.30);
+
+  /* ── 6. Raised Dark / Utility Action (Dark Theme) ── */
+  --raised-dark-bg:                linear-gradient(180deg, #3a3a3c 0%, #242426 100%);
+  --raised-dark-bg-hover:          linear-gradient(180deg, #48484a 0%, #2c2c2e 100%);
+  --raised-dark-highlight:         inset 0 1.5px 0.5px rgba(255, 255, 255, 0.24), inset 0 -1.5px 1px rgba(0, 0, 0, 0.40), inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+  --raised-dark-shadow:            0 4px 14px -2px rgba(0, 0, 0, 0.50), 0 1.5px 4px -1px rgba(0, 0, 0, 0.30);
+
+  /* ── 7. Raised Outline & Ghost Controls (Dark Theme) ── */
+  --raised-outline-bg:             rgba(255, 255, 255, 0.06);
+  --raised-outline-bg-hover:       rgba(255, 255, 255, 0.12);
+  --raised-outline-border:         rgba(255, 255, 255, 0.16);
+  --raised-outline-border-hover:   rgba(41, 151, 255, 0.45);
+  --raised-outline-highlight:      inset 0 1.5px 0.5px rgba(255, 255, 255, 0.20), inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+  --raised-outline-shadow:         0 2px 8px -1px rgba(0, 0, 0, 0.40);
+  --raised-outline-shadow-hover:   0 4px 14px -2px rgba(41, 151, 255, 0.25), 0 1.5px 4px rgba(0, 0, 0, 0.30);
+
+  /* ── 8. Material C: Elevated Content Card System (Dark Theme) ── */
+  --card-highlight:                inset 0 1.5px 0.5px 0 rgba(255, 255, 255, 0.18), inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+  --card-shadow-3d:                0 1px 3px rgba(0, 0, 0, 0.40), 0 6px 20px -2px rgba(0, 0, 0, 0.55), 0 0 0 1px rgba(255, 255, 255, 0.08);
+  --card-shadow-3d-hover:          0 2px 6px rgba(0, 0, 0, 0.45), 0 14px 34px -4px rgba(0, 0, 0, 0.65), 0 0 0 1px rgba(41, 151, 255, 0.30);
+  --card-shadow-3d-pressed:        0 1px 2px rgba(0, 0, 0, 0.50), 0 2px 6px -1px rgba(0, 0, 0, 0.40), inset 0 1px 3px rgba(0, 0, 0, 0.40);
+
+  /* ── 9. Material D: Media & Image Framing (Dark Theme) ── */
+  --media-frame-border:            rgba(255, 255, 255, 0.12);
+  --media-frame-highlight:         inset 0 1.5px 0.5px rgba(255, 255, 255, 0.25), inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+  --media-frame-shadow:            0 4px 16px -3px rgba(0, 0, 0, 0.55), 0 1px 3px rgba(0, 0, 0, 0.30);
+  --media-frame-shadow-hover:      0 8px 24px -4px rgba(0, 0, 0, 0.70), 0 2px 6px rgba(0, 0, 0, 0.40);
+
+  /* ── 10. Form Controls: Inset Tactile Depth & Focus (Dark Theme) ── */
+  --input-inset-shadow:            inset 0 1.5px 3px rgba(0, 0, 0, 0.35), 0 1px 2px rgba(0, 0, 0, 0.20);
+  --input-focus-ring-shadow:       0 0 0 3.5px var(--focus-ring), inset 0 1px 2px rgba(0, 0, 0, 0.20);
+  --slider-track-inset-shadow:     inset 0 1.5px 3px rgba(0, 0, 0, 0.40), 0 1px 1px rgba(255, 255, 255, 0.08);
+  --slider-thumb-physical-shadow:  0 3px 10px rgba(0, 0, 0, 0.60), 0 1px 3px rgba(0, 0, 0, 0.40);
+  --slider-thumb-highlight:        inset 0 1.5px 0.5px rgba(255, 255, 255, 0.50), inset 0 -1px 0.5px rgba(0, 0, 0, 0.40);
 
   /* Legacy aliases for backward compatibility */
   --glass-bg:                  var(--liquid-glass-bg);

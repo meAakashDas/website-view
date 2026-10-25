@@ -4,7 +4,8 @@
 import { getCourses } from '../data/courses.js';
 import { getResources } from '../data/resources.js';
 import { getArticles } from '../data/articles.js';
-import { ICONS, renderResourceCard, renderArticleCard, setPageMeta, initStatCounters, getWhatsApp } from '../components.js';
+import { ICONS, renderResourceCard, renderArticleCard, setPageMeta, initStatCounters, getWhatsApp, getWhatsAppPurchaseUrl } from '../components.js';
+import { initHomeFloatingBuy, unmountHomeFloatingBuy } from '../floatingControls.js';
 import { ROUTES } from '../routes.js';
 
 export function renderHomePage() {
@@ -12,6 +13,7 @@ export function renderHomePage() {
 
   const COURSES = getCourses();
   const nepseCourse = COURSES.find(c => c.slug === 'nepse-stock-market-basics') || COURSES[0];
+  const nepseLearnUrl = '/courses/nepse-stock-market-basics/learn?lesson=lesson-1';
   const RESOURCES = getResources();
   const ARTICLES = getArticles();
 
@@ -33,7 +35,7 @@ export function renderHomePage() {
             Nepal's most practical financial education platform. Master the NEPSE stock market, personal finance, taxation, and wealth building designed for Nepal.
           </p>
           <div class="hero-actions">
-            <a href="${ROUTES.COURSE_DETAIL('nepse-stock-market-basics')}" class="btn btn-primary btn-lg hero-btn-primary" id="hero-nepse-course-cta">
+            <a href="${nepseLearnUrl}" class="btn btn-primary btn-lg hero-btn-primary" id="hero-nepse-course-cta">
               Explore Share Market Course ${ICONS.arrowRight}
             </a>
             <a href="${ROUTES.LEARN}" class="btn btn-secondary btn-lg hero-btn-secondary" id="hero-free-resources-cta">
@@ -79,11 +81,11 @@ export function renderHomePage() {
         </div>
 
         <div class="flagship-showcase-container">
-          <article class="flagship-showcase" id="flagship-nepse-showcase">
+          <article class="flagship-showcase" id="flagship-nepse-showcase" data-course-url="${nepseLearnUrl}">
             
             <!-- Left Column: Original Course Cover Image -->
             <div class="flagship-col-visual">
-              <a href="${ROUTES.COURSE_DETAIL(nepseCourse.slug)}" class="flagship-cover-link" aria-label="Explore ${nepseCourse.title}">
+              <a href="${nepseLearnUrl}" class="flagship-cover-link" aria-label="Explore ${nepseCourse.title}">
                 <img src="${nepseCourse.thumbnail || 'assets/images/course-nepse.png'}" alt="${nepseCourse.title} by RisePaisa" class="flagship-cover-image" loading="lazy" decoding="async" width="1376" height="768">
               </a>
             </div>
@@ -91,7 +93,7 @@ export function renderHomePage() {
             <!-- Right Column: Course Info, Key Benefits, Price & CTAs -->
             <div class="flagship-col-details">
               <h3 class="flagship-course-heading">
-                <a href="${ROUTES.COURSE_DETAIL(nepseCourse.slug)}">${nepseCourse.title}</a>
+                <a href="${nepseLearnUrl}">${nepseCourse.title}</a>
               </h3>
 
               <p class="flagship-course-desc">
@@ -146,12 +148,13 @@ export function renderHomePage() {
                 </div>
 
                 <div class="flagship-actions-cluster">
-                  <a href="${ROUTES.COURSE_DETAIL(nepseCourse.slug)}" class="flagship-btn-primary" id="flagship-explore-course-btn">
-                    <span>Explore Full Course</span>
-                    ${ICONS.arrowRight}
+                  <a href="${getWhatsAppPurchaseUrl(nepseCourse.title, nepseCourse.price)}" target="_blank" rel="noopener" class="flagship-btn-primary" id="flagship-buy-course-btn" style="display:inline-flex;align-items:center;gap:6px;background:#25D366;border-color:#25D366;color:#FFFFFF">
+                    ${ICONS.whatsapp}
+                    <span>Buy Course — NPR ${(nepseCourse.price || 2999).toLocaleString()}</span>
                   </a>
-                  <a href="${ROUTES.LEARN}" class="flagship-btn-secondary" id="flagship-explore-free-btn">
-                    <span>Explore Free Resources</span>
+                  <a href="${nepseLearnUrl}" class="flagship-btn-secondary" id="flagship-explore-course-btn">
+                    <span>Explore Syllabus</span>
+                    ${ICONS.arrowRight}
                   </a>
                 </div>
               </div>
@@ -286,9 +289,11 @@ export function renderHomePage() {
           <h2>Start Your Financial Journey Today</h2>
           <p>Join hundreds of Nepali youth who are taking control of their financial future with risePaisa.</p>
           <div style="display:flex;gap:var(--space-4);justify-content:center;flex-wrap:wrap">
-            <a href="${ROUTES.COURSES}" class="btn btn-primary btn-lg">Explore Courses</a>
-            <a href="https://wa.me/${getWhatsApp()}?text=${encodeURIComponent('I want to contact you.')}" target="_blank" rel="noopener" class="btn btn-whatsapp btn-lg">
-              ${ICONS.whatsapp} Chat with Us
+            <a href="${getWhatsAppPurchaseUrl(nepseCourse.title, nepseCourse.price)}" target="_blank" rel="noopener" class="btn btn-primary btn-lg" style="display:inline-flex;align-items:center;gap:6px;background:#25D366;border-color:#25D366;color:#FFFFFF">
+              ${ICONS.whatsapp} Buy Course — NPR ${(nepseCourse.price || 2999).toLocaleString()}
+            </a>
+            <a href="${nepseLearnUrl}" class="btn btn-secondary btn-lg">
+              Explore Syllabus
             </a>
           </div>
         </div>
@@ -300,44 +305,97 @@ export function renderHomePage() {
 export function initHomePage() {
   initStatCounters();
 
+  let cleanupBuy = null;
+  const COURSES = getCourses();
+  const nepseCourse = COURSES.find(c => c.slug === 'nepse-stock-market-basics') || COURSES[0];
+  const nepseLearnUrl = '/courses/nepse-stock-market-basics/learn?lesson=lesson-1';
+
   if (typeof window !== 'undefined') {
+    const showcase = document.getElementById('flagship-nepse-showcase');
+    if (showcase) {
+      showcase.style.cursor = 'pointer';
+      showcase.addEventListener('click', (e) => {
+        if (e.target.closest('a') || e.target.closest('button')) return;
+        const targetUrl = showcase.getAttribute('data-course-url') || nepseLearnUrl;
+        if (typeof window._rpNavigateTo === 'function') {
+          window._rpNavigateTo(targetUrl);
+        } else {
+          window.location.href = targetUrl;
+        }
+      });
+    }
+
+    cleanupBuy = initHomeFloatingBuy({
+      course: nepseCourse,
+      waBuyLink: getWhatsAppPurchaseUrl(nepseCourse.title, nepseCourse.price)
+    });
+
+    // Check user enrollment state to update CTA
+    import('../firebase/auth.js').then(({ getCurrentUser }) => {
+      const user = getCurrentUser();
+      if (user) {
+        import('../firebase/courses.js').then(({ checkUserEnrollment }) => {
+          checkUserEnrollment(user.uid, nepseCourse.id).then(res => {
+            if (res && res.enrolled) {
+              if (typeof cleanupBuy === 'function') cleanupBuy();
+              cleanupBuy = initHomeFloatingBuy({
+                course: nepseCourse,
+                isEnrolled: true,
+                waBuyLink: getWhatsAppPurchaseUrl(nepseCourse.title, nepseCourse.price)
+              });
+            }
+          }).catch(() => {});
+        }).catch(() => {});
+      }
+    }).catch(() => {});
+
     import('../firebase/courses.js').then(({ fetchCourseData }) => {
       fetchCourseData('nepse-stock-market-basics').then((liveCourse) => {
         if (!liveCourse) return;
-        const showcase = document.getElementById('flagship-nepse-showcase');
-        if (!showcase) return;
+        const liveShowcase = document.getElementById('flagship-nepse-showcase');
+        if (!liveShowcase) return;
 
-        const headingLink = showcase.querySelector('.flagship-course-heading a');
+        const headingLink = liveShowcase.querySelector('.flagship-course-heading a');
         if (headingLink && liveCourse.title) {
           headingLink.textContent = liveCourse.title;
-          headingLink.href = ROUTES.COURSE_DETAIL(liveCourse.slug);
+          headingLink.href = nepseLearnUrl;
         }
 
-        const desc = showcase.querySelector('.flagship-course-desc');
+        const desc = liveShowcase.querySelector('.flagship-course-desc');
         if (desc && (liveCourse.shortDescription || liveCourse.description)) {
           desc.textContent = liveCourse.shortDescription || liveCourse.description;
         }
 
-        const img = showcase.querySelector('.flagship-cover-image');
+        const img = liveShowcase.querySelector('.flagship-cover-image');
         if (img && liveCourse.thumbnail) {
           img.src = liveCourse.thumbnail;
         }
 
-        const coverLink = showcase.querySelector('.flagship-cover-link');
+        const coverLink = liveShowcase.querySelector('.flagship-cover-link');
         if (coverLink) {
-          coverLink.href = ROUTES.COURSE_DETAIL(liveCourse.slug);
+          coverLink.href = nepseLearnUrl;
         }
 
         const exploreBtn = document.getElementById('flagship-explore-course-btn');
         if (exploreBtn) {
-          exploreBtn.href = ROUTES.COURSE_DETAIL(liveCourse.slug);
+          exploreBtn.href = nepseLearnUrl;
         }
 
-        const priceEl = showcase.querySelector('.flagship-price-amount');
+        const buyBtn = document.getElementById('flagship-buy-course-btn');
+        if (buyBtn && liveCourse.price) {
+          buyBtn.href = getWhatsAppPurchaseUrl(liveCourse.title, liveCourse.price);
+        }
+
+        const priceEl = liveShowcase.querySelector('.flagship-price-amount');
         if (priceEl && liveCourse.price) {
           priceEl.textContent = liveCourse.price.toLocaleString();
         }
       }).catch(() => {});
     }).catch(() => {});
   }
+
+  return () => {
+    if (typeof cleanupBuy === 'function') cleanupBuy();
+    unmountHomeFloatingBuy();
+  };
 }

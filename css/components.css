@@ -52,81 +52,103 @@
   border-radius: var(--radius-full);
 }
 
-/* Primary Button: Signature #1DA1F2 Blue Accent */
+/* Primary Button: Signature #1DA1F2 Blue Accent with Raised Glass Depth */
 .btn-primary {
-  background-color: var(--color-accent);
+  background: var(--raised-primary-bg);
   color: #FFFFFF;
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  box-shadow: var(--raised-primary-highlight), var(--raised-primary-shadow);
+  transition: all var(--duration-fast) var(--ease-apple);
 }
 
 .btn-primary:hover {
-  background-color: var(--color-accent-hover);
+  background: var(--raised-primary-bg-hover);
   color: #FFFFFF;
-  transform: translateY(-1px);
-  box-shadow: 0 3px 10px rgba(29, 161, 242, 0.28);
+  transform: translateY(-1.5px);
+  box-shadow: var(--raised-primary-highlight), 0 8px 24px rgba(29, 161, 242, 0.38), 0 2px 6px rgba(0, 0, 0, 0.12);
 }
 
 .btn-primary:active {
-  background-color: var(--color-accent-active);
-  transform: scale(0.985);
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+  transform: translateY(1px) scale(0.975);
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.22), 0 2px 6px rgba(29, 161, 242, 0.2);
 }
 
-/* Secondary Button: Clean Translucent Capsule */
-.btn-secondary {
-  background-color: var(--color-surface-subtle);
+/* Secondary Button & Glass Capsule Buttons: Authentic Apple Liquid Glass */
+.btn-secondary,
+.btn-glass {
+  background: var(--raised-glass-bg);
+  backdrop-filter: var(--liquid-glass-clear-blur);
+  -webkit-backdrop-filter: var(--liquid-glass-clear-blur);
   color: var(--color-heading);
-  border: 1px solid var(--color-border);
+  border: 1px solid var(--raised-glass-border);
+  box-shadow: var(--raised-glass-highlight), var(--raised-glass-shadow);
+  transition: all var(--duration-fast) var(--ease-apple);
 }
 
-.btn-secondary:hover {
-  background-color: var(--color-surface-hover);
-  border-color: var(--color-border-hover);
-  color: var(--color-heading);
+.btn-secondary:hover,
+.btn-glass:hover {
+  background: var(--raised-glass-bg-hover);
+  border-color: var(--raised-glass-border);
+  color: var(--color-accent);
   transform: translateY(-1px);
+  box-shadow: var(--raised-glass-highlight), var(--raised-glass-shadow-hover);
 }
 
-.btn-secondary:active {
-  transform: scale(0.985);
-  background-color: var(--color-surface-active);
+.btn-secondary:active,
+.btn-glass:active {
+  transform: translateY(1px) scale(0.97);
+  background: var(--raised-glass-bg-active);
+  box-shadow: var(--raised-glass-shadow-pressed);
 }
 
-/* Outline Button */
+/* ── Material B: Raised Outline Button ─────────────────────── */
 .btn-outline {
-  background-color: transparent;
+  background: var(--raised-outline-bg);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
   color: var(--color-heading);
-  border: 1px solid var(--color-border);
+  border: 1px solid var(--raised-outline-border);
+  box-shadow: var(--raised-outline-highlight), var(--raised-outline-shadow);
+  transition: all var(--duration-fast) var(--ease-apple);
 }
 
 .btn-outline:hover {
-  background-color: var(--color-surface-subtle);
-  border-color: var(--color-border-hover);
-  color: var(--color-heading);
+  background: var(--raised-outline-bg-hover);
+  border-color: var(--raised-outline-border-hover);
+  color: var(--color-accent);
+  transform: translateY(-1px);
+  box-shadow: var(--raised-outline-highlight), var(--raised-outline-shadow-hover);
 }
 
 .btn-outline:active {
-  transform: scale(0.985);
+  transform: translateY(1px) scale(0.98);
+  box-shadow: inset 0 1.5px 3px rgba(0, 0, 0, 0.08);
 }
 
-/* Ghost / Text Button: Quiet, Typographic Action */
+/* ── Material B: Raised Ghost / Text Button ────────────────── */
 .btn-ghost,
 .btn-text {
   background-color: transparent;
   color: var(--color-accent);
   border: 1px solid transparent;
   padding: 0 14px;
+  border-radius: var(--radius-full);
+  transition: all var(--duration-fast) var(--ease-apple);
 }
 
 .btn-ghost:hover,
 .btn-text:hover {
-  background-color: var(--color-surface-subtle);
+  background: var(--raised-outline-bg);
+  border-color: var(--raised-outline-border);
+  box-shadow: var(--raised-outline-highlight), var(--raised-outline-shadow);
   color: var(--color-accent-hover);
+  transform: translateY(-0.5px);
 }
 
 .btn-ghost:active,
 .btn-text:active {
-  transform: scale(0.985);
+  transform: translateY(1px) scale(0.98);
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.06);
 }
 
 /* Labels inside button variants inherit the variant's visual treatment. */
@@ -137,28 +159,99 @@
   color: inherit;
 }
 
-/* Success Button */
-.btn-success {
-  background-color: var(--color-success);
+/* ── Material B: Raised Dark Utility Button ────────────────── */
+.btn-dark,
+.btn-utility {
+  background: var(--raised-dark-bg);
   color: #FFFFFF;
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.20);
+  box-shadow: var(--raised-dark-highlight), var(--raised-dark-shadow);
+  transition: all var(--duration-fast) var(--ease-apple);
+}
+
+.btn-dark:hover,
+.btn-utility:hover {
+  background: var(--raised-dark-bg-hover);
+  color: #FFFFFF;
+  transform: translateY(-1px);
+  box-shadow: var(--raised-dark-highlight), 0 6px 18px rgba(0, 0, 0, 0.32);
+}
+
+.btn-dark:active,
+.btn-utility:active {
+  transform: translateY(1px) scale(0.975);
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.35);
+}
+
+/* ── Material B: Raised Success Button ─────────────────────── */
+.btn-success {
+  background: linear-gradient(180deg, #34c759 0%, #248a3d 100%);
+  color: #FFFFFF;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  box-shadow: inset 0 1.5px 0.5px rgba(255, 255, 255, 0.40), 0 4px 14px -2px rgba(36, 138, 61, 0.35);
+  transition: all var(--duration-fast) var(--ease-apple);
 }
 
 .btn-success:hover {
-  filter: brightness(1.06);
+  background: linear-gradient(180deg, #3cd763 0%, #299e46 100%);
   transform: translateY(-1px);
+  box-shadow: inset 0 1.5px 0.5px rgba(255, 255, 255, 0.45), 0 6px 18px rgba(36, 138, 61, 0.42);
 }
 
-/* Danger Button */
+.btn-success:active {
+  transform: translateY(1px) scale(0.98);
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.25);
+}
+
+/* ── Material B: Raised Danger Button ──────────────────────── */
 .btn-danger {
-  background-color: var(--color-danger);
+  background: linear-gradient(180deg, #ff453a 0%, #d70015 100%);
   color: #FFFFFF;
-  border: 1px solid rgba(255, 255, 255, 0.14);
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  box-shadow: inset 0 1.5px 0.5px rgba(255, 255, 255, 0.40), 0 4px 14px -2px rgba(215, 0, 21, 0.35);
+  transition: all var(--duration-fast) var(--ease-apple);
 }
 
 .btn-danger:hover {
-  filter: brightness(1.06);
+  background: linear-gradient(180deg, #ff5b52 0%, #e60017 100%);
   transform: translateY(-1px);
+  box-shadow: inset 0 1.5px 0.5px rgba(255, 255, 255, 0.45), 0 6px 18px rgba(215, 0, 21, 0.42);
+}
+
+.btn-danger:active {
+  transform: translateY(1px) scale(0.98);
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.25);
+}
+
+/* ── Material B: Raised Icon Buttons ───────────────────────── */
+.btn-icon,
+button.btn-icon {
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border-radius: var(--radius-full);
+  background: var(--raised-glass-bg);
+  border: 1px solid var(--raised-glass-border);
+  box-shadow: var(--raised-glass-highlight), var(--raised-glass-shadow);
+  color: var(--color-heading);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--duration-fast) var(--ease-apple);
+}
+
+.btn-icon:hover,
+button.btn-icon:hover {
+  background: var(--raised-glass-bg-hover);
+  transform: translateY(-1px) scale(1.04);
+  box-shadow: var(--raised-glass-highlight), var(--raised-glass-shadow-hover);
+  color: var(--color-accent);
+}
+
+.btn-icon:active,
+button.btn-icon:active {
+  transform: translateY(1px) scale(0.95);
+  box-shadow: var(--raised-glass-shadow-pressed);
 }
 
 /* Disabled State */
@@ -172,22 +265,25 @@ button:disabled {
   box-shadow: none !important;
 }
 
-/* WhatsApp Action Button */
+/* WhatsApp Action Button with Raised Glass Depth */
 .btn-whatsapp {
-  background-color: #25D366;
+  background: var(--raised-wa-bg);
   color: #FFFFFF;
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  box-shadow: var(--raised-wa-highlight), var(--raised-wa-shadow);
+  transition: all var(--duration-fast) var(--ease-apple);
 }
 
 .btn-whatsapp:hover {
-  background-color: #22BF5B;
+  background: var(--raised-wa-bg-hover);
   color: #FFFFFF;
-  transform: translateY(-1px);
+  transform: translateY(-1.5px);
+  box-shadow: var(--raised-wa-highlight), 0 8px 24px rgba(37, 211, 102, 0.42), 0 2px 6px rgba(0, 0, 0, 0.12);
 }
 
 .btn-whatsapp:active {
-  transform: scale(0.985);
+  transform: translateY(1px) scale(0.975);
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.22), 0 2px 6px rgba(37, 211, 102, 0.2);
 }
 
 .btn svg {
@@ -206,17 +302,17 @@ button:disabled {
   transform: none;
 }
 
-/* ── Standardized Card Architecture ────────────────────────── */
+/* ── Standardized Card Architecture (Material C: Elevated Content Surfaces) ── */
 .card {
   background-color: var(--card-bg);
-  border: var(--card-border);
+  border: 1px solid var(--color-border);
   border-radius: var(--card-radius);
   overflow: hidden;
   transition: transform var(--duration-normal) var(--ease-apple),
               border-color var(--duration-normal) var(--ease-apple),
               background-color var(--duration-normal) var(--ease-apple),
               box-shadow var(--duration-normal) var(--ease-apple);
-  box-shadow: var(--shadow-card);
+  box-shadow: var(--card-highlight), var(--card-shadow-3d);
   position: relative;
   display: flex;
   flex-direction: column;
@@ -224,16 +320,24 @@ button:disabled {
 
 .card:hover {
   border-color: var(--color-border-hover);
-  transform: translateY(-2px);
+  transform: translateY(-3px);
   background-color: var(--card-bg-hover);
-  box-shadow: var(--shadow-card-hover);
+  box-shadow: var(--card-highlight), var(--card-shadow-3d-hover);
 }
 
+.card:active {
+  transform: translateY(-1px) scale(0.995);
+  box-shadow: var(--card-highlight), var(--card-shadow-3d-pressed);
+}
+
+/* ── Material D: Image & Media Surfaces ──────────────────── */
 .card-image-link {
   display: block;
   position: relative;
   overflow: hidden;
   text-decoration: none;
+  border-top-left-radius: calc(var(--card-radius) - 1px);
+  border-top-right-radius: calc(var(--card-radius) - 1px);
 }
 
 .card-image {
@@ -241,13 +345,15 @@ button:disabled {
   aspect-ratio: 16 / 9;
   object-fit: cover;
   background-color: var(--color-surface-subtle);
-  border-bottom: 1px solid var(--color-border);
-  transition: transform 0.4s var(--ease-apple);
+  border-bottom: 1px solid var(--media-frame-border);
+  box-shadow: var(--media-frame-highlight);
+  transition: transform 0.45s var(--ease-apple);
+  display: block;
 }
 
 .card:hover .card-image,
 .card-image-link:hover .card-image {
-  transform: scale(1.015);
+  transform: scale(1.025);
 }
 
 .card-body {
@@ -312,31 +418,37 @@ button:disabled {
   letter-spacing: 0.04em;
 }
 
-/* ── Dedicated Professional Resource Card ──────────────────── */
+/* ── Dedicated Professional Resource Card (Material C: Elevated Content) ── */
 .resource-card {
   display: flex;
   flex-direction: column;
   background-color: var(--card-bg);
-  border: var(--card-border);
+  border: 1px solid var(--color-border);
   border-radius: var(--card-radius);
   overflow: hidden;
   transition: transform var(--duration-normal) var(--ease-apple),
               border-color var(--duration-normal) var(--ease-apple),
               background-color var(--duration-normal) var(--ease-apple),
               box-shadow var(--duration-normal) var(--ease-apple);
-  box-shadow: var(--shadow-card);
+  box-shadow: var(--card-highlight), var(--card-shadow-3d);
 }
 
 .resource-card:hover {
   border-color: var(--color-border-hover);
-  transform: translateY(-2px);
+  transform: translateY(-3px);
   background-color: var(--card-bg-hover);
-  box-shadow: var(--shadow-card-hover);
+  box-shadow: var(--card-highlight), var(--card-shadow-3d-hover);
+}
+
+.resource-card:active {
+  transform: translateY(-1px) scale(0.995);
+  box-shadow: var(--card-highlight), var(--card-shadow-3d-pressed);
 }
 
 .resource-card .card-image {
   aspect-ratio: 16 / 9;
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--media-frame-border);
+  box-shadow: var(--media-frame-highlight);
 }
 
 .resource-card .card-body {
@@ -402,21 +514,29 @@ button:disabled {
   flex-direction: column;
 }
 
-/* ── Topic / Domain Feature Card ───────────────────────────── */
+/* ── Topic / Domain Feature Card (Material C: Elevated Content) ── */
 .topic-card {
   padding: var(--space-6);
   background-color: var(--card-bg);
-  border: var(--card-border);
+  border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
-  transition: transform var(--duration-fast) var(--ease-out),
-              border-color var(--duration-fast) var(--ease-out),
-              background-color var(--duration-fast) var(--ease-out);
+  box-shadow: var(--card-highlight), var(--card-shadow-3d);
+  transition: transform var(--duration-fast) var(--ease-apple),
+              border-color var(--duration-fast) var(--ease-apple),
+              background-color var(--duration-fast) var(--ease-apple),
+              box-shadow var(--duration-fast) var(--ease-apple);
 }
 
 .topic-card:hover {
-  transform: translateY(-2px);
+  transform: translateY(-3px);
   border-color: var(--color-border-hover);
   background-color: var(--card-bg-hover);
+  box-shadow: var(--card-highlight), var(--card-shadow-3d-hover);
+}
+
+.topic-card:active {
+  transform: translateY(-1px) scale(0.995);
+  box-shadow: var(--card-highlight), var(--card-shadow-3d-pressed);
 }
 
 .topic-card .topic-icon {
@@ -428,8 +548,9 @@ button:disabled {
   border-radius: var(--radius-md);
   margin-bottom: var(--space-4);
   font-size: var(--text-2xl);
-  background-color: var(--color-surface-subtle);
-  border: 1px solid var(--color-border);
+  background: var(--raised-glass-bg);
+  border: 1px solid var(--raised-glass-border);
+  box-shadow: var(--raised-glass-highlight), var(--raised-glass-shadow);
 }
 
 .topic-card h4 {
@@ -508,6 +629,7 @@ button:disabled {
   font-family: var(--font-body);
   font-size: var(--text-base);
   min-height: 44px;
+  box-shadow: var(--input-inset-shadow);
   transition: border-color var(--duration-fast) var(--ease-out),
               box-shadow var(--duration-fast) var(--ease-out),
               background-color var(--duration-fast) var(--ease-out);
@@ -516,7 +638,7 @@ button:disabled {
 .form-input:focus,
 .form-textarea:focus {
   border-color: var(--color-accent);
-  box-shadow: 0 0 0 3px var(--focus-ring);
+  box-shadow: var(--input-focus-ring-shadow);
   background-color: var(--input-bg-focus);
   outline: none;
 }
@@ -541,7 +663,7 @@ button:disabled {
   margin-top: var(--space-1);
 }
 
-/* ── Video Embed Card ──────────────────────────────────────── */
+/* ── Video Embed Card (Material D: Framed Media Surface) ───── */
 .video-wrapper {
   position: relative;
   width: 100%;
@@ -549,8 +671,9 @@ button:disabled {
   background-color: var(--color-surface);
   border-radius: var(--radius-lg);
   overflow: hidden;
-  border: 1px solid var(--color-border);
-  box-shadow: var(--shadow-card);
+  border: 1px solid var(--media-frame-border);
+  box-shadow: var(--media-frame-highlight), var(--media-frame-shadow);
+  transition: box-shadow var(--duration-normal) var(--ease-apple);
 }
 
 .video-wrapper iframe,
@@ -685,9 +808,9 @@ button:disabled {
 
 .advisor-capsule-float:hover .advisor-capsule-link {
   transform: translateY(-2px);
-  background: var(--color-surface);
-  border-color: var(--color-border-hover);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12), 0 2px 6px rgba(0, 0, 0, 0.06);
+  background: var(--liquid-glass-bg);
+  border-color: var(--liquid-glass-border);
+  box-shadow: var(--liquid-glass-highlight), 0 14px 32px rgba(0, 0, 0, 0.12), 0 4px 12px rgba(0, 71, 227, 0.10);
   color: var(--color-primary);
 }
 
@@ -718,25 +841,45 @@ body:has(.lesson-mobile-toc-drawer.open) .whatsapp-float,
 body.has-learning-dock .advisor-capsule-float,
 body.has-learning-dock .whatsapp-float,
 body.has-learning-dock .rp-mobile-toc-fab,
+body.has-mobile-cta .advisor-capsule-float,
+body.has-mobile-cta .whatsapp-float,
+body:has(#course-page) .advisor-capsule-float,
+body:has(#course-page) .whatsapp-float,
+body:has(.cd-mobile-sticky-bar.visible) .advisor-capsule-float,
+body:has(.cd-mobile-sticky-bar.visible) .whatsapp-float,
+body:has(.rp-floating-buy-bar.visible) .advisor-capsule-float,
+body:has(.rp-floating-buy-bar.visible) .whatsapp-float,
 body.page-course-learn .advisor-capsule-float,
 body.page-course-learn .whatsapp-float,
 body.cl-drawer-open .advisor-capsule-float,
 body.cl-drawer-open .whatsapp-float,
 body:has(#cl-page) .advisor-capsule-float,
-body:has(#cl-page) .whatsapp-float,
-body.has-mobile-cta .advisor-capsule-float,
-body.has-mobile-cta .whatsapp-float,
 body.keyboard-open .advisor-capsule-float,
 body.keyboard-open .whatsapp-float,
 body.keyboard-open .rp-learning-dock,
 body.keyboard-open .cd-mobile-sticky-bar,
 body.keyboard-open .cd-mobile-cta,
+body.keyboard-open .rp-calc-floating-bar,
+body.keyboard-open .rp-article-floating-bar,
+body.keyboard-open .rp-floating-buy-bar,
+body.keyboard-open .mobile-contents-bar,
 body.is-fullscreen .advisor-capsule-float,
 body.is-fullscreen .whatsapp-float,
 body.is-fullscreen .rp-learning-dock,
+body.is-fullscreen .cd-mobile-sticky-bar,
+body.is-fullscreen .rp-calc-floating-bar,
+body.is-fullscreen .rp-article-floating-bar,
+body.is-fullscreen .rp-floating-buy-bar,
+body.is-fullscreen .mobile-contents-bar,
 body.near-footer .advisor-capsule-float,
 body.near-footer .whatsapp-float,
-body.near-footer .rp-learning-dock {
+body.near-footer .rp-learning-dock,
+body.near-footer .cd-mobile-sticky-bar,
+body.near-footer .cd-mobile-cta,
+body.near-footer .rp-calc-floating-bar,
+body.near-footer .rp-article-floating-bar,
+body.near-footer .rp-floating-buy-bar,
+body.near-footer .mobile-contents-bar {
   opacity: 0 !important;
   pointer-events: none !important;
   transform: translateY(20px) scale(0.90) !important;
@@ -1263,6 +1406,17 @@ body.near-footer .rp-learning-dock {
   backdrop-filter: var(--liquid-glass-subtle-blur);
   -webkit-backdrop-filter: var(--liquid-glass-subtle-blur);
   border: 1px solid var(--liquid-glass-subtle-border);
+  box-shadow: var(--liquid-glass-clear-highlight);
+}
+
+/* Category Glass Card / Panel */
+.glass-card,
+.card-glass {
+  background: var(--liquid-glass-bg) !important;
+  backdrop-filter: var(--liquid-glass-blur) !important;
+  -webkit-backdrop-filter: var(--liquid-glass-blur) !important;
+  border: 1px solid var(--liquid-glass-border) !important;
+  box-shadow: var(--liquid-glass-highlight), var(--liquid-glass-shadow) !important;
 }
 
 /* Category C: Clear Content Surfaces (Guaranteed Opaque for Optimal Legibility & Performance) */
@@ -1354,8 +1508,8 @@ body.near-footer .rp-learning-dock {
   left: 50%;
   transform: translateX(-50%) translateY(0);
   z-index: 260;
-  height: 48px;
-  padding: 4px 6px;
+  height: 44px;
+  padding: 4px;
   align-items: center;
   gap: 6px;
   border-radius: var(--radius-full);
@@ -1363,7 +1517,7 @@ body.near-footer .rp-learning-dock {
   backdrop-filter: var(--liquid-glass-blur);
   -webkit-backdrop-filter: var(--liquid-glass-blur);
   border: 1px solid var(--liquid-glass-border);
-  box-shadow: var(--liquid-glass-highlight), 0 10px 36px rgba(0, 0, 0, 0.22);
+  box-shadow: var(--liquid-glass-highlight), 0 12px 32px -4px rgba(0, 0, 0, 0.16), 0 4px 12px rgba(0, 71, 227, 0.10);
   transition: transform var(--duration-normal) var(--ease-apple),
               opacity var(--duration-normal) var(--ease-apple),
               visibility var(--duration-normal);
@@ -1383,17 +1537,17 @@ body.near-footer .rp-learning-dock {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 5px;
-  height: 38px;
-  min-height: 38px;
-  padding: 0 10px;
+  gap: 6px;
+  height: 36px;
+  min-height: 36px;
+  padding: 0 14px;
   border-radius: var(--radius-full);
   background: transparent;
   border: 1px solid transparent;
   color: var(--color-heading);
   font-family: var(--font-body);
-  font-size: 12.5px;
-  font-weight: 550;
+  font-size: 13px;
+  font-weight: 600;
   cursor: pointer;
   transition: background-color var(--duration-fast) var(--ease-apple),
               transform var(--duration-fast) var(--ease-apple),
@@ -1407,7 +1561,7 @@ body.near-footer .rp-learning-dock {
 }
 
 .rp-dock-btn:active {
-  transform: scale(0.94);
+  transform: scale(0.96);
 }
 
 .rp-dock-icon {
@@ -1431,7 +1585,7 @@ body.near-footer .rp-learning-dock {
 .rp-dock-pill-badge {
   font-size: 11px;
   font-weight: 600;
-  padding: 2px 6px;
+  padding: 2px 7px;
   border-radius: var(--radius-full);
   background: var(--liquid-glass-subtle-bg);
   border: 1px solid var(--liquid-glass-subtle-border);
@@ -1482,4 +1636,230 @@ body.near-footer .rp-learning-dock {
 .rp-dock-bookmark.bookmarked,
 .rp-dock-bookmark.active {
   color: var(--color-primary);
+}
+
+/* ── Smart Floating Calculator Quick Actions Bar ───────────── */
+.rp-calc-floating-bar {
+  position: fixed;
+  bottom: calc(max(16px, env(safe-area-inset-bottom, 0px)));
+  left: 50%;
+  transform: translateX(-50%) translateY(140%);
+  z-index: 260;
+  height: 48px;
+  padding: 4px 6px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border-radius: var(--radius-full);
+  background: var(--liquid-glass-bg);
+  backdrop-filter: var(--liquid-glass-blur);
+  -webkit-backdrop-filter: var(--liquid-glass-blur);
+  border: 1px solid var(--liquid-glass-border);
+  box-shadow: var(--liquid-glass-highlight), var(--liquid-glass-shadow-lg);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: transform var(--duration-normal) var(--ease-apple),
+              opacity var(--duration-normal) var(--ease-apple),
+              visibility var(--duration-normal);
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  max-width: calc(100vw - 28px);
+}
+
+.rp-calc-floating-bar.visible {
+  transform: translateX(-50%) translateY(0);
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.rp-calc-float-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  height: 38px;
+  min-height: 38px;
+  padding: 0 12px;
+  border-radius: var(--radius-full);
+  background: transparent;
+  border: 1px solid transparent;
+  color: var(--color-heading);
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 550;
+  cursor: pointer;
+  transition: all var(--duration-fast) var(--ease-apple);
+  -webkit-tap-highlight-color: transparent;
+  white-space: nowrap;
+}
+
+.rp-calc-float-btn:hover {
+  background: var(--liquid-glass-subtle-bg);
+  color: var(--color-primary);
+}
+
+.rp-calc-float-btn:active {
+  transform: scale(0.95);
+}
+
+.rp-calc-float-action {
+  background: var(--color-primary);
+  color: #FFFFFF !important;
+  font-weight: 600;
+  padding: 0 16px;
+  box-shadow: inset 0 1px 0.5px rgba(255, 255, 255, 0.4), 0 3px 10px rgba(29, 161, 242, 0.35);
+}
+
+.rp-calc-float-action:hover {
+  background: var(--color-primary-hover, #0077ED);
+  color: #FFFFFF !important;
+}
+
+/* ── Smart Floating Article Actions Bar ────────────────────── */
+.rp-article-floating-bar {
+  position: fixed;
+  bottom: calc(max(16px, env(safe-area-inset-bottom, 0px)));
+  left: 50%;
+  transform: translateX(-50%) translateY(140%);
+  z-index: 260;
+  height: 48px;
+  padding: 4px 6px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border-radius: var(--radius-full);
+  background: var(--liquid-glass-bg);
+  backdrop-filter: var(--liquid-glass-blur);
+  -webkit-backdrop-filter: var(--liquid-glass-blur);
+  border: 1px solid var(--liquid-glass-border);
+  box-shadow: var(--liquid-glass-highlight), var(--liquid-glass-shadow-lg);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: transform var(--duration-normal) var(--ease-apple),
+              opacity var(--duration-normal) var(--ease-apple),
+              visibility var(--duration-normal);
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  max-width: calc(100vw - 28px);
+}
+
+.rp-article-floating-bar.visible {
+  transform: translateX(-50%) translateY(0);
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+/* ── Standardized Smart Floating Buy & Enrollment Pill (Liquid Glass) ────── */
+.rp-floating-buy-bar,
+.cd-mobile-sticky-bar {
+  position: fixed;
+  bottom: calc(max(16px, env(safe-area-inset-bottom, 0px)));
+  left: 50%;
+  transform: translateX(-50%) translateY(140%);
+  z-index: var(--z-sticky, 260);
+  padding: 4px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-full);
+  background: var(--liquid-glass-bg);
+  backdrop-filter: var(--liquid-glass-blur);
+  -webkit-backdrop-filter: var(--liquid-glass-blur);
+  border: 1px solid var(--liquid-glass-border);
+  box-shadow: var(--liquid-glass-highlight), var(--liquid-glass-shadow-lg);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: transform var(--duration-normal) var(--ease-apple),
+              opacity var(--duration-normal) var(--ease-apple),
+              visibility var(--duration-normal);
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  max-width: calc(100vw - 32px);
+  width: auto;
+  box-sizing: border-box;
+}
+
+.rp-floating-buy-bar.visible,
+.cd-mobile-sticky-bar.visible {
+  transform: translateX(-50%) translateY(0);
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.rp-floating-buy-btn,
+.cd-sticky-buy-btn {
+  height: 44px;
+  min-height: 44px;
+  padding: 0 22px !important;
+  border-radius: var(--radius-full);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-family: var(--font-body);
+  font-size: 14px !important;
+  font-weight: 600 !important;
+  letter-spacing: -0.01em;
+  text-decoration: none !important;
+  white-space: nowrap;
+  transition: transform var(--duration-fast) var(--ease-apple),
+              box-shadow var(--duration-fast) var(--ease-apple),
+              background var(--duration-fast) var(--ease-apple);
+}
+
+.rp-floating-buy-btn.btn-whatsapp,
+.cd-sticky-buy-btn.btn-whatsapp {
+  background: var(--raised-wa-bg, linear-gradient(180deg, #2ED96E 0%, #20BF5B 100%));
+  color: #FFFFFF !important;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  box-shadow: var(--raised-wa-highlight, inset 0 1px 0.5px rgba(255, 255, 255, 0.5)),
+              0 6px 20px rgba(37, 211, 102, 0.38),
+              0 2px 6px rgba(0, 0, 0, 0.12);
+}
+
+.rp-floating-buy-btn.btn-whatsapp:hover,
+.cd-sticky-buy-btn.btn-whatsapp:hover {
+  background: var(--raised-wa-bg-hover, linear-gradient(180deg, #32E474 0%, #24CC62 100%));
+  color: #FFFFFF !important;
+  transform: translateY(-1.5px);
+  box-shadow: var(--raised-wa-highlight, inset 0 1px 0.5px rgba(255, 255, 255, 0.5)),
+              0 8px 24px rgba(37, 211, 102, 0.45),
+              0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.rp-floating-buy-btn.btn-whatsapp:active,
+.cd-sticky-buy-btn.btn-whatsapp:active {
+  transform: translateY(1px) scale(0.975);
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.22),
+              0 2px 6px rgba(37, 211, 102, 0.2);
+}
+
+.rp-floating-buy-btn:focus-visible,
+.cd-sticky-buy-btn:focus-visible {
+  outline: 2px solid var(--color-primary-focus, #0071e3);
+  outline-offset: 2px;
+}
+
+@media (max-width: 480px) {
+  .rp-floating-buy-bar,
+  .cd-mobile-sticky-bar {
+    padding: 3px;
+  }
+  .rp-floating-buy-btn,
+  .cd-sticky-buy-btn {
+    height: 40px;
+    min-height: 40px;
+    padding: 0 16px !important;
+    font-size: 13px !important;
+    gap: 6px;
+  }
 }

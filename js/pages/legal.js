@@ -561,7 +561,7 @@ const LEGAL_CONTENT = {
         Enrolling is fast and straightforward:
       </p>
       <ol>
-        <li>Visit the course page (such as the <a href="${ROUTES.COURSE_DETAIL('nepse-stock-market-basics')}">Share Market Full Course (NEPSE)</a>);</li>
+        <li>Visit the course page (such as the <a href="/courses/nepse-stock-market-basics/learn?lesson=lesson-1">Share Market Full Course (NEPSE)</a>);</li>
         <li>Click the prominent <strong>&ldquo;Buy Course via WhatsApp&rdquo;</strong> button to chat directly with our official enrollment desk;</li>
         <li>Complete payment via any supported Nepali payment method (eSewa, Khalti, connectIPS, or direct bank transfer);</li>
         <li>Our team verifies your payment reference and activates your personalized course access.</li>

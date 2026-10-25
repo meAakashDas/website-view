@@ -112,9 +112,9 @@ for (const calc of CALCULATOR_REGISTRY) {
   }
 }
 
-// 6. Courses
+// 6. Courses (Public Canonical Offerings Only)
 for (const course of COURSES) {
-  if (course.slug) {
+  if (course.slug && course.published !== false && course.isPublicOffering !== false && course.slug !== 'personal-finance-masterclass') {
     entries.push({
       loc: `${DOMAIN}/courses/${course.slug}`,
       priority: '0.85',

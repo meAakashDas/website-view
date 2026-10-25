@@ -263,20 +263,42 @@
         
         <!-- Desktop Nav Links (Center Desktop) -->
         <div class="nav-links">
-          <a href="/" class="nav-link" >Home</a><a href="/learn" class="nav-link" >Learn</a><a href="/courses" class="nav-link active" aria-current="page">Courses</a><a href="/courses/nepse-stock-market-basics/learn?lesson=lesson-1" class="nav-link" >My Courses</a><a href="/calculators" class="nav-link" >Calculators</a><a href="/resources" class="nav-link nav-link-tertiary" >Resources</a><a href="/blog" class="nav-link nav-link-tertiary" >Blog</a><a href="/about" class="nav-link nav-link-secondary" >About</a><a href="/contact" class="nav-link nav-link-secondary" >Contact</a>
+          <a href="/" class="nav-link " >Home</a><a href="/learn" class="nav-link " >Learn</a><a href="/courses" class="nav-link active" aria-current="page">Courses</a><a href="/courses/nepse-stock-market-basics/learn?lesson=lesson-1" class="nav-link " >My Courses</a><a href="/calculators" class="nav-link " >Calculators</a>
+
+          <a href="/resources" class="nav-link nav-link-tertiary" >Resources</a><a href="/blog" class="nav-link nav-link-tertiary" >Blog</a><a href="/about" class="nav-link nav-link-secondary" >About</a><a href="/contact" class="nav-link nav-link-secondary" >Contact</a>
         </div>
 
-        <!-- Mobile Center Quick Action Buttons (Center Mobile) -->
+        <!-- Mobile Center Quick Action Buttons (Center Mobile: EXACTLY 3 PRIMARY BUTTONS) -->
         <div class="mobile-quick-actions" role="navigation" aria-label="Quick Navigation">
-          <a href="/courses/nepse-stock-market-basics/learn?lesson=lesson-1" class="mobile-quick-btn ">
+          <a href="/courses" class="mobile-quick-btn active" id="mobile-nav-courses" aria-label="Courses">
+            <span>Courses</span>
+          </a>
+          <a href="/courses/nepse-stock-market-basics/learn?lesson=lesson-1" class="mobile-quick-btn " id="mobile-nav-my-courses" aria-label="My Courses">
             <span>My Courses</span>
           </a>
-          <a href="/learn" class="mobile-quick-btn ">
-            <span>Learn</span>
-          </a>
-          <a href="/calculators" class="mobile-quick-btn ">
-            <span>Calculators</span>
-          </a>
+          <div class="mobile-others-wrapper" id="mobile-others-wrapper">
+            <button
+              type="button"
+              class="mobile-quick-btn "
+              id="mobile-nav-others"
+              aria-label="Others Menu"
+              aria-haspopup="true"
+              aria-expanded="false"
+              aria-controls="mobile-others-menu"
+            >
+              <span>Others <svg class="mobile-chevron-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" width="9" height="9"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
+            </button>
+            <div class="nav-dropdown-menu mobile-dropdown-menu glass-control" id="mobile-others-menu" role="menu" aria-labelledby="mobile-nav-others">
+              <a href="/learn" class="nav-dropdown-item " role="menuitem">
+                <span class="nav-dropdown-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg></span>
+                <span class="nav-dropdown-title">Learn</span>
+              </a>
+              <a href="/calculators" class="nav-dropdown-item " role="menuitem">
+                <span class="nav-dropdown-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="16" height="20" x="4" y="2" rx="2"/><line x1="8" x2="16" y1="6" y2="6"/><line x1="16" x2="16" y1="14" y2="18"/><path d="M16 10h.01"/><path d="M12 10h.01"/><path d="M8 10h.01"/><path d="M12 14h.01"/><path d="M8 14h.01"/><path d="M12 18h.01"/><path d="M8 18h.01"/></svg></span>
+                <span class="nav-dropdown-title">Calculators</span>
+              </a>
+            </div>
+          </div>
         </div>
 
         <!-- Desktop Action Cluster (Right Desktop) -->
@@ -286,7 +308,7 @@
             <span class="theme-icon theme-icon-moon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></span>
           </button>
           <div id="desktop-auth-container" class="nav-auth-slot"></div>
-          <a href="https://wa.me/+9779740269317?text=Hello%20RisePaisa%20team%2C%20I%20would%20like%20to%20get%20in%20touch." target="_blank" rel="noopener" class="btn btn-primary nav-cta">
+          <a href="https://wa.me/9779740269317?text=Hello%20RisePaisa%20team%2C%20I%20would%20like%20to%20get%20in%20touch." target="_blank" rel="noopener" class="btn btn-primary nav-cta">
             <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg> Contact
           </a>
         </div>
@@ -348,12 +370,6 @@
                   <span class="mobile-link-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
                 </a>
               
-                <a href="/courses/nepse-stock-market-basics/learn?lesson=lesson-1" class="mobile-link ">
-                  <span class="mobile-link-icon-wrap" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg></span>
-                  <span class="mobile-link-text">My Courses</span>
-                  <span class="mobile-link-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
-                </a>
-              
                 <a href="/learn" class="mobile-link ">
                   <span class="mobile-link-icon-wrap" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg></span>
                   <span class="mobile-link-text">Learn Academy</span>
@@ -410,7 +426,7 @@
 
         <!-- Drawer Footer with WhatsApp Contact Button -->
         <div class="mobile-drawer-footer">
-          <a href="https://wa.me/+9779740269317?text=Hello%20RisePaisa%20team%2C%20I%20would%20like%20to%20get%20in%20touch." target="_blank" rel="noopener" class="btn btn-whatsapp btn-lg mobile-drawer-wa-btn">
+          <a href="https://wa.me/9779740269317?text=Hello%20RisePaisa%20team%2C%20I%20would%20like%20to%20get%20in%20touch." target="_blank" rel="noopener" class="btn btn-whatsapp btn-lg mobile-drawer-wa-btn">
             <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg> Chat on WhatsApp
           </a>
         </div>
@@ -453,185 +469,320 @@
   </div>
   <!-- App Content -->
   <main id="app">
-    <!-- ── 1. Premium Course Hero ───────────────────────────────────── -->
-    <header class="cd-hero" id="course-hero">
-      <div class="container">
-        <!-- Breadcrumb -->
-        <nav class="cd-breadcrumb" aria-label="Breadcrumb">
-          <a href="/">Home</a>
-          <span class="cd-sep">/</span>
-          <a href="/courses">Courses</a>
-          <span class="cd-sep">/</span>
-          <span class="cd-current">Share Market Full Course (NEPSE)</span>
-        </nav>
-
-        <div class="cd-hero-badge-wrap">
-          <span class="cd-flagship-pill">
-            <span class="cd-badge-pulse"></span>
-            Flagship Program · NEPSE &amp; Stock Market
-          </span>
-          <span class="cd-hero-rating">
-            <span class="cd-star-icon">★</span> 4.9 · Highly Rated by Nepali Learners
-          </span>
-        </div>
-
-        <h1 class="cd-hero-title">Share Market Full Course (NEPSE)</h1>
-
-        <p class="cd-hero-subtitle">
-          A complete learning program to understand Nepal's stock market (NEPSE), from beginner basics to technical analysis, fundamental analysis, and practical stock evaluation.
-        </p>
-
-        <!-- Instructor Byline -->
-        <div class="cd-hero-instructor">
-          <div class="cd-avatar-ring">
-            <img
-              src="assets/images/aakash-das-founder-risepaisa.jpg"
-              alt="Aakash Das, Founder of RisePaisa"
-              width="44"
-              height="44"
-              loading="eager"
-            />
-          </div>
-          <div class="cd-instructor-text">
-            <div class="cd-instructor-primary">
-              <span class="cd-inst-label">Taught by</span>
-              <a href="/aakash-das" class="cd-instructor-link">Aakash Das</a>
-              <span class="cd-inst-role">· Founder of RisePaisa</span>
-            </div>
-            <div class="cd-instructor-sub">
-              Selected lessons co-taught by <strong>Bikash Das</strong>
-            </div>
-          </div>
-        </div>
-
-        <!-- 3 Key Metric Badges -->
-        <div class="cd-hero-metrics">
-          <div class="cd-metric-item">
-            <span class="cd-metric-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></span>
-            <div class="cd-metric-body">
-              <strong>20+ Hours</strong>
-              <span>Structured Video Lessons</span>
-            </div>
-          </div>
-          <div class="cd-metric-item">
-            <span class="cd-metric-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span>
-            <div class="cd-metric-body">
-              <strong>Beginner to Advanced</strong>
-              <span>No Prior Experience Needed</span>
-            </div>
-          </div>
-          <div class="cd-metric-item">
-            <span class="cd-metric-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg></span>
-            <div class="cd-metric-body">
-              <strong>100% Practical NEPSE</strong>
-              <span>Real Listed Company Analysis</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </header>
-
-    <!-- ── 2. Main Content & Sticky Purchase Card Layout ──────────── -->
-    <main class="cd-body">
-      <div class="container">
+    <div class="cd-page" id="course-page">
+      <div class="container cd-container">
         <div class="cd-layout-grid">
 
-          <!-- LEFT / MAIN CONTENT STREAM -->
+          <!-- ── LEFT COLUMN: Course Content Stream (~65%) ─────────────── -->
           <div class="cd-main-column">
 
-            <!-- A. Free Demo Video Section -->
+            <!-- 1. Introductory Course Information Block -->
+            <div class="cd-intro-block" id="course-intro-block">
+              <!-- Compact Breadcrumb Navigation -->
+              <nav class="cd-breadcrumb" aria-label="Breadcrumb">
+                <a href="/">Home</a>
+                <span class="cd-sep">/</span>
+                <a href="/courses">Courses</a>
+                <span class="cd-sep">/</span>
+                <span class="cd-current">Share Market Full Course (NEPSE)</span>
+              </nav>
+
+              <!-- Course Title -->
+              <h1 class="cd-course-title cd-hero-title">Share Market Full Course (NEPSE)</h1>
+
+              <!-- Short Course Description -->
+              <p class="cd-course-desc cd-hero-subtitle">
+                A complete learning program to understand Nepal's stock market (NEPSE), from beginner basics to technical analysis, fundamental analysis, and practical stock evaluation.
+              </p>
+
+              
+            </div>
+
+            <!-- 2. Free Demo Video Section (Prominently Below Intro) -->
             <section class="cd-section cd-demo-section" id="course-demo">
               <div class="cd-demo-header">
                 <div class="cd-demo-label-block">
                   <h2 class="cd-demo-title">Free Demo Video</h2>
-                  <a href="/courses/nepse-stock-market-basics/learn" class="cd-demo-classroom-link">
-                    Open in Learning Player &rarr;
-                  </a>
                 </div>
-                <span class="cd-demo-runtime">Full Preview · 45 Minutes</span>
               </div>
 
-              <!-- 16:9 Responsive Player Container -->
+              <!-- 16:9 Responsive Video Player Container -->
+              <div class="cd-demo-video-wrapper">
+                
+    <div class="rp-video-player-frame cs-player-frame relative w-full aspect-video bg-black rounded-2xl overflow-hidden shadow-2xl border border-slate-200 dark:border-white/10 group select-none " id="cd-demo-video-container" data-rp-player="true" tabindex="0" role="region" aria-label="Video Player: Share Market Full Course (NEPSE) Free Demo Video">
+      <!-- 1. RisePaisa Player Top Chrome (Conceals YouTube channel name, title, and copy-link button) -->
+      <div class="rp-player-header" aria-hidden="true">
+        <div class="rp-player-header-left">
+          <span class="rp-player-course-label">RisePaisa Course</span>
+          <span class="rp-player-header-title">Share Market Full Course (NEPSE) Free Demo Video</span>
+        </div>
+        <div class="rp-player-badge">
+          <span class="rp-player-badge-dot"></span>
+          <span class="rp-player-badge-text">RisePaisa Secure Video Player</span>
+        </div>
+      </div>
 
-                <div class="cd-video-player-frame" id="cd-demo-video-container">
-                  <iframe
-                    id="cd-demo-iframe"
-                    src="https://www.youtube.com/embed/ziVeMxMF4e8?rel=0&modestbranding=1&controls=1&playsinline=1&fs=1"
-                    title="Share Market Full Course (NEPSE) Free Demo Video"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                    referrerpolicy="strict-origin-when-cross-origin"
-                    allowfullscreen
-                    loading="eager">
-                  </iframe>
+      <!-- 2. Video Stage & Underlying Media Element -->
+      <div class="rp-player-stage csPlayer-container">
+        
+        <iframe
+          id="cd-demo-iframe"
+          class="cl-video-iframe cd-video-iframe rp-player-iframe csPlayer-iframe"
+          src="https://www.youtube-nocookie.com/embed/ziVeMxMF4e8?rel=0&modestbranding=1&enablejsapi=1&controls=0&disablekb=1&fs=0&playsinline=1&iv_load_policy=3&cc_load_policy=3&showinfo=0&autohide=1&vq=hd1080"
+          title="Share Market Full Course (NEPSE) Free Demo Video"
+          width="100%"
+          height="100%"
+          frameborder="0"
+          tabindex="-1"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          referrerpolicy="strict-origin-when-cross-origin"
+          allowfullscreen
+          loading="eager">
+        </iframe>
+  
+        <!-- Seamless Click Surface for Single Unified Interaction -->
+        <div class="rp-player-click-surface" aria-hidden="true"></div>
+        
+        <!-- Clean Poster Cover for Unstarted State (Prevents YouTube red button & watermarks from showing) -->
+        <div class="rp-player-poster" aria-hidden="true">
+          <img
+            class="rp-poster-img"
+            src="https://i.ytimg.com/vi/ziVeMxMF4e8/hqdefault.jpg"
+            srcset="https://i.ytimg.com/vi/ziVeMxMF4e8/maxresdefault.jpg 1280w, https://i.ytimg.com/vi/ziVeMxMF4e8/hqdefault.jpg 480w"
+            sizes="(max-width: 1280px) 100vw, 1280px"
+            alt="Share Market Full Course (NEPSE) Free Demo Video"
+            loading="eager"
+            onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/ziVeMxMF4e8/hqdefault.jpg';"
+          />
+        </div>
+  
+      </div>
+
+      <!-- Buffering Loading Indicator -->
+      <div class="rp-player-buffering-indicator" aria-hidden="true">
+        <div class="rp-player-spinner-ring"></div>
+      </div>
+
+      <!-- 3. Center Controls Overlay (Rewind 10, Big Center Play/Pause, Forward 10) -->
+      <main class="rp-player-center-controls csPlayer-controls-center" aria-label="Center playback controls">
+        <button type="button" class="rp-center-btn rp-center-rewind" aria-label="Seek backward 10 seconds" title="Rewind 10s (j / ←)">
+          <span class="rp-center-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 2a9 9 0 1 0 9 9"/><polyline points="11 6 11 2 7 2"/><text x="12" y="14" font-size="7" font-weight="700" fill="currentColor" stroke="none" text-anchor="middle">10</text></svg></span>
+        </button>
+
+        <button type="button" class="rp-player-center-play csPlayer-play-pause-btn" aria-label="Play Share Market Full Course (NEPSE) Free Demo Video">
+          <span class="rp-center-play-icon"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>
+          <span class="rp-center-pause-icon"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg></span>
+        </button>
+
+        <button type="button" class="rp-center-btn rp-center-forward" aria-label="Seek forward 10 seconds" title="Forward 10s (l / →)">
+          <span class="rp-center-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2a9 9 0 1 1-9 9"/><polyline points="13 6 13 2 17 2"/><text x="12" y="14" font-size="7" font-weight="700" fill="currentColor" stroke="none" text-anchor="middle">10</text></svg></span>
+        </button>
+      </main>
+
+      <!-- 4. Cinema-Dark Bottom Controls Bar -->
+      <div class="rp-player-controls csPlayer-controls-box" role="toolbar" aria-label="Video Controls">
+        <!-- Scrubbable Timeline Progress Bar -->
+        <div class="rp-player-timeline-wrap csPlayer-prog-wrap" role="slider" aria-label="Video Timeline" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" tabindex="0">
+          <div class="rp-player-timeline-track">
+            <span class="rp-player-timeline-buffer csPlayer-buf-bar"></span>
+            <div class="rp-player-timeline-progress"></div>
+          </div>
+          <div class="rp-player-timeline-thumb"></div>
+          <div class="rp-player-timeline-tooltip">00:00</div>
+        </div>
+
+        <!-- Controls Row -->
+        <div class="rp-player-controls-row csPlayer-controls">
+          <!-- Left Controls: Play, Replay 10, Forward 10, Volume, Time -->
+          <div class="rp-player-controls-left">
+            <button type="button" class="rp-ctrl-btn rp-btn-play bottom-play-btn" aria-label="Play" title="Play (k / Space)">
+              <span class="rp-icon-play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>
+              <span class="rp-icon-pause"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg></span>
+            </button>
+
+            <button type="button" class="rp-ctrl-btn rp-btn-rewind" aria-label="Seek backward 10 seconds" title="Rewind 10s (j / ←)">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 2a9 9 0 1 0 9 9"/><polyline points="11 6 11 2 7 2"/><text x="12" y="14" font-size="7" font-weight="700" fill="currentColor" stroke="none" text-anchor="middle">10</text></svg>
+            </button>
+
+            <button type="button" class="rp-ctrl-btn rp-btn-forward" aria-label="Seek forward 10 seconds" title="Forward 10s (l / →)">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2a9 9 0 1 1-9 9"/><polyline points="13 6 13 2 17 2"/><text x="12" y="14" font-size="7" font-weight="700" fill="currentColor" stroke="none" text-anchor="middle">10</text></svg>
+            </button>
+
+            <!-- Volume Controls -->
+            <div class="rp-player-volume-group csPlayer-vol-wrap">
+              <button type="button" class="rp-ctrl-btn rp-btn-volume bottom-volume-btn" aria-label="Mute" title="Mute (m)">
+                <span class="rp-icon-vol-high"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg></span>
+                <span class="rp-icon-vol-low"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.5 12c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM5 9v6h4l5 5V4L9 9H5z"/></svg></span>
+                <span class="rp-icon-vol-muted"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/></svg></span>
+              </button>
+              <div class="rp-volume-slider-wrap csPlayer-vol-slider-wrap">
+                <input type="range" class="rp-volume-slider csPlayer-vol-slider" min="0" max="100" value="100" aria-label="Volume slider" />
+              </div>
+            </div>
+
+            <!-- Time Display -->
+            <div class="rp-player-time">
+              <span class="rp-time-current csPlayer-time-cur">00:00</span>
+              <span class="rp-time-divider">/</span>
+              <span class="rp-time-duration csPlayer-time-dur">00:00</span>
+            </div>
+          </div>
+
+          <!-- Right Controls: Settings (Speed & Quality), Fullscreen -->
+          <div class="rp-player-controls-right">
+            <!-- Settings Group & Menu (Speed & Quality) -->
+            <div class="rp-player-settings-group rp-player-speed-group">
+              <button type="button" class="rp-ctrl-btn rp-btn-settings rp-btn-speed settingsBtn" aria-label="Settings" title="Settings" aria-haspopup="true" aria-expanded="false">
+                <span class="rp-icon-settings"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg></span>
+              </button>
+
+              <div class="rp-settings-box rp-speed-menu csPlayer-settings-box" role="menu" hidden>
+                <div class="rp-settings-header csPlayer-settings-label">
+                  <span class="rp-settings-title">Playback Speed</span>
+                  <b class="rp-speed-val rp-speed-label">1×</b>
                 </div>
+                <div class="rp-settings-items rp-speed-items csPlayer-settings-items">
+                  <label class="rp-speed-opt" data-speed="0.5"><input type="radio" name="rp_spd_cd-demo-video-container_ziVeMxMF4e8" value="0.5">0.5×</label>
+                  <label class="rp-speed-opt" data-speed="0.75"><input type="radio" name="rp_spd_cd-demo-video-container_ziVeMxMF4e8" value="0.75">0.75×</label>
+                  <label class="rp-speed-opt active" data-speed="1"><input type="radio" name="rp_spd_cd-demo-video-container_ziVeMxMF4e8" value="1" checked>1×</label>
+                  <label class="rp-speed-opt" data-speed="1.25"><input type="radio" name="rp_spd_cd-demo-video-container_ziVeMxMF4e8" value="1.25">1.25×</label>
+                  <label class="rp-speed-opt" data-speed="1.5"><input type="radio" name="rp_spd_cd-demo-video-container_ziVeMxMF4e8" value="1.5">1.5×</label>
+                  <label class="rp-speed-opt" data-speed="1.75"><input type="radio" name="rp_spd_cd-demo-video-container_ziVeMxMF4e8" value="1.75">1.75×</label>
+                  <label class="rp-speed-opt" data-speed="2"><input type="radio" name="rp_spd_cd-demo-video-container_ziVeMxMF4e8" value="2">2×</label>
+                </div>
+              </div>
+            </div>
 
+            <!-- Fullscreen -->
+            <button type="button" class="rp-ctrl-btn rp-btn-fullscreen fsBtn" aria-label="Fullscreen" title="Fullscreen (f)">
+              <span class="rp-icon-fs-enter"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg></span>
+              <span class="rp-icon-fs-exit"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M5 16h3v3h2v-5H5v2zm3-8H5v2h5V5H8v3zm6 11h2v-3h3v-2h-5v5zm2-11V5h-2v5h5V8h-3z"/></svg></span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+              </div>
             </section>
 
-            <!-- B. What You Will Learn Section -->
-            <section class="cd-section" id="course-outcomes">
-              <div class="cd-section-header">
-                <span class="cd-section-eyebrow">Comprehensive Curriculum</span>
-                <h2 class="cd-section-heading">What You Will Learn</h2>
-                <p class="cd-section-lead">
-                  Designed specifically for the Nepal Stock Exchange. We teach concepts using real NEPSE charts, actual bank balance sheets, and practical frameworks.
-                </p>
+            <!-- 3. Compact Instructor Information (Directly Below Video) -->
+            <div class="cd-instructor-row" id="course-instructor-row">
+              <div class="cd-instructor-avatar-wrap">
+                <img
+                  class="cd-instructor-avatar"
+                  src="assets/images/aakash-das-founder-risepaisa.jpg"
+                  alt="Aakash Das, Founder of RisePaisa"
+                  width="36"
+                  height="36"
+                  loading="lazy"
+                />
+              </div>
+              <div class="cd-instructor-text">
+                <div class="cd-instructor-primary">
+                  <span class="cd-inst-label">Taught by</span>
+                  <a href="/aakash-das" class="cd-instructor-link">Aakash Das</a>
+                  <span class="cd-inst-role">· Founder of RisePaisa</span>
+                </div>
+                <div class="cd-instructor-sub">
+                  Selected lessons co-taught by <strong>Bikash Das</strong> · With guest technical sessions by NEPSE veteran traders
+                </div>
+              </div>
+            </div>
+
+            <!-- 4. Course Highlights and Learning Outcomes -->
+            <section class="cd-section cd-highlights-section" id="course-highlights">
+              <!-- 3 Compact Highlights -->
+              <div class="cd-compact-highlights">
+                <div class="cd-highlight-card">
+                  <span class="cd-highlight-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></span>
+                  <div class="cd-highlight-body">
+                    <strong>20+ Hours</strong>
+                    <span>Structured video lessons</span>
+                  </div>
+                </div>
+                <div class="cd-highlight-card">
+                  <span class="cd-highlight-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span>
+                  <div class="cd-highlight-body">
+                    <strong>Beginner to Advanced</strong>
+                    <span>No prior experience needed</span>
+                  </div>
+                </div>
+                <div class="cd-highlight-card">
+                  <span class="cd-highlight-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg></span>
+                  <div class="cd-highlight-body">
+                    <strong>Practical NEPSE</strong>
+                    <span>Real listed-company analysis</span>
+                  </div>
+                </div>
               </div>
 
-              <div class="cd-outcomes-grid">
-                
-                  <article class="cd-outcome-card">
-                    <div class="cd-outcome-icon-circle" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg></div>
-                    <div class="cd-outcome-text">
-                      <h3 class="cd-outcome-title">NEPSE Market Fundamentals</h3>
-                      <p class="cd-outcome-desc">Understand how the Nepal Stock Exchange operates, DEMAT & MeroShare setup, primary (IPO) vs secondary markets, SEBON rules, and broker systems.</p>
-                    </div>
-                  </article>
-                
-                  <article class="cd-outcome-card">
-                    <div class="cd-outcome-icon-circle" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg></div>
-                    <div class="cd-outcome-text">
-                      <h3 class="cd-outcome-title">Chart Reading & Price Action</h3>
-                      <p class="cd-outcome-desc">Interpret Japanese candlesticks, identify primary trends, map horizontal support and resistance, and analyze price-volume relationships.</p>
-                    </div>
-                  </article>
-                
-                  <article class="cd-outcome-card">
-                    <div class="cd-outcome-icon-circle" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20"/><path d="m17 5-5-3-5 3"/><path d="m17 19-5 3-5-3"/><path d="M2 12h20"/></svg></div>
-                    <div class="cd-outcome-text">
-                      <h3 class="cd-outcome-title">Technical Indicators & Setups</h3>
-                      <p class="cd-outcome-desc">Master Moving Averages, Supertrend, MACD momentum analysis, and Fibonacci Retracements tailored specifically for NEPSE stock charts.</p>
-                    </div>
-                  </article>
-                
-                  <article class="cd-outcome-card">
-                    <div class="cd-outcome-icon-circle" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></div>
-                    <div class="cd-outcome-text">
-                      <h3 class="cd-outcome-title">Fundamental Company Analysis</h3>
-                      <p class="cd-outcome-desc">Evaluate financial statements, balance sheets, quarterly reports, EPS, P/E ratio, Book Value, and commercial bank performance metrics.</p>
-                    </div>
-                  </article>
-                
-                  <article class="cd-outcome-card">
-                    <div class="cd-outcome-icon-circle" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m4.93 4.93 4.24 4.24"/><path d="m14.83 9.17 4.24-4.24"/><path d="m14.83 14.83 4.24 4.24"/><path d="m9.17 14.83-4.24 4.24"/></svg></div>
-                    <div class="cd-outcome-text">
-                      <h3 class="cd-outcome-title">Systematic Stock Selection</h3>
-                      <p class="cd-outcome-desc">Follow a proven evaluation framework to screen, analyze, and select sound investment opportunities in Nepal before committing capital.</p>
-                    </div>
-                  </article>
-                
-                  <article class="cd-outcome-card">
-                    <div class="cd-outcome-icon-circle" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
-                    <div class="cd-outcome-text">
-                      <h3 class="cd-outcome-title">Risk Management & Stop-Loss</h3>
-                      <p class="cd-outcome-desc">Preserve capital with position sizing, risk-reward ratios, strict stop-loss rules, and emotional discipline to avoid common market traps.</p>
-                    </div>
-                  </article>
-                
+              <!-- What You Will Learn -->
+              <div class="cd-outcomes-block">
+                <div class="cd-section-header">
+                  <span class="cd-section-eyebrow">Comprehensive Curriculum</span>
+                  <h2 class="cd-section-heading">What You Will Learn</h2>
+                  <p class="cd-section-lead">
+                    Designed specifically for the Nepal Stock Exchange. We teach concepts using real NEPSE charts, actual bank balance sheets, and practical frameworks.
+                  </p>
+                </div>
+
+                <div class="cd-outcomes-grid">
+                  
+                    <article class="cd-outcome-card">
+                      <div class="cd-outcome-icon-circle" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg></div>
+                      <div class="cd-outcome-text">
+                        <h3 class="cd-outcome-title">NEPSE Market Fundamentals</h3>
+                        <p class="cd-outcome-desc">Understand how the Nepal Stock Exchange operates, DEMAT & MeroShare setup, primary (IPO) vs secondary markets, SEBON rules, and broker systems.</p>
+                      </div>
+                    </article>
+                  
+                    <article class="cd-outcome-card">
+                      <div class="cd-outcome-icon-circle" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg></div>
+                      <div class="cd-outcome-text">
+                        <h3 class="cd-outcome-title">Chart Reading & Price Action</h3>
+                        <p class="cd-outcome-desc">Interpret Japanese candlesticks, identify primary trends, map horizontal support and resistance, and analyze price-volume relationships.</p>
+                      </div>
+                    </article>
+                  
+                    <article class="cd-outcome-card">
+                      <div class="cd-outcome-icon-circle" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20"/><path d="m17 5-5-3-5 3"/><path d="m17 19-5 3-5-3"/><path d="M2 12h20"/></svg></div>
+                      <div class="cd-outcome-text">
+                        <h3 class="cd-outcome-title">Technical Indicators & Setups</h3>
+                        <p class="cd-outcome-desc">Master Moving Averages, Supertrend, MACD momentum analysis, and Fibonacci Retracements tailored specifically for NEPSE stock charts.</p>
+                      </div>
+                    </article>
+                  
+                    <article class="cd-outcome-card">
+                      <div class="cd-outcome-icon-circle" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></div>
+                      <div class="cd-outcome-text">
+                        <h3 class="cd-outcome-title">Fundamental Company Analysis</h3>
+                        <p class="cd-outcome-desc">Evaluate financial statements, balance sheets, quarterly reports, EPS, P/E ratio, Book Value, and commercial bank performance metrics.</p>
+                      </div>
+                    </article>
+                  
+                    <article class="cd-outcome-card">
+                      <div class="cd-outcome-icon-circle" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m4.93 4.93 4.24 4.24"/><path d="m14.83 9.17 4.24-4.24"/><path d="m14.83 14.83 4.24 4.24"/><path d="m9.17 14.83-4.24 4.24"/></svg></div>
+                      <div class="cd-outcome-text">
+                        <h3 class="cd-outcome-title">Systematic Stock Selection</h3>
+                        <p class="cd-outcome-desc">Follow a proven evaluation framework to screen, analyze, and select sound investment opportunities in Nepal before committing capital.</p>
+                      </div>
+                    </article>
+                  
+                    <article class="cd-outcome-card">
+                      <div class="cd-outcome-icon-circle" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+                      <div class="cd-outcome-text">
+                        <h3 class="cd-outcome-title">Risk Management & Stop-Loss</h3>
+                        <p class="cd-outcome-desc">Preserve capital with position sizing, risk-reward ratios, strict stop-loss rules, and emotional discipline to avoid common market traps.</p>
+                      </div>
+                    </article>
+                  
+                </div>
               </div>
             </section>
 
-            <!-- C. All 8 Modules Curriculum Accordion -->
-            <section class="cd-section" id="course-curriculum">
+            <!-- 5. Course Curriculum and Syllabus -->
+            <section class="cd-section cd-curriculum-section" id="course-curriculum">
               <div class="cd-curriculum-header">
                 <div>
                   <span class="cd-section-eyebrow">Lesson Breakdown</span>
@@ -1142,102 +1293,116 @@
               </div>
             </section>
 
-            <!-- D. Instructor Section -->
-            <section class="cd-section" id="course-instructor">
-              <div class="cd-section-header">
-                <span class="cd-section-eyebrow">Your Instructor</span>
-                <h2 class="cd-section-heading">Learn from Financial Educators</h2>
-              </div>
-
-              <div class="cd-instructor-card">
-                <div class="cd-inst-profile-row">
-                  <div class="cd-inst-photo-wrap">
-                    <img
-                      src="assets/images/aakash-das-founder-risepaisa.jpg"
-                      alt="Aakash Das, Founder of RisePaisa"
-                      width="64"
-                      height="64"
-                      loading="lazy"
-                    />
+            <!-- 6. Course Inclusions, Resources, FAQs, & Supporting -->
+            <section class="cd-section cd-supporting-section" id="course-supporting">
+              <!-- Included In Enrollment -->
+              <div class="cd-inclusions-block">
+                <div class="cd-section-header">
+                  <span class="cd-section-eyebrow">Course Package</span>
+                  <h2 class="cd-section-heading">What's Included with Enrollment</h2>
+                </div>
+                <div class="cd-inclusions-grid">
+                  <div class="cd-inclusion-item">
+                    <span class="cd-check-bullet"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></span>
+                    <span>20+ hours of on-demand structured video lessons</span>
                   </div>
-                  <div class="cd-inst-details">
-                    <div class="cd-inst-name-line">
-                      <h3 class="cd-inst-name">
-                        <a href="/aakash-das">Aakash Das</a>
-                      </h3>
-                      <span class="cd-inst-verified-pill">Lead Instructor</span>
-                    </div>
-                    <div class="cd-inst-title">Founder of RisePaisa</div>
+                  <div class="cd-inclusion-item">
+                    <span class="cd-check-bullet"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></span>
+                    <span>Complete fundamental &amp; technical analysis for NEPSE</span>
+                  </div>
+                  <div class="cd-inclusion-item">
+                    <span class="cd-check-bullet"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></span>
+                    <span>Excel analysis templates &amp; printable PDF study guides</span>
+                  </div>
+                  <div class="cd-inclusion-item">
+                    <span class="cd-check-bullet"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></span>
+                    <span>Weekly live Q&amp;A sessions &amp; regular content updates</span>
+                  </div>
+                  <div class="cd-inclusion-item">
+                    <span class="cd-check-bullet"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></span>
+                    <span>Full unrestricted access on mobile and desktop devices</span>
+                  </div>
+                  <div class="cd-inclusion-item">
+                    <span class="cd-check-bullet"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></span>
+                    <span>Dedicated WhatsApp student support for question assistance</span>
                   </div>
                 </div>
+              </div>
 
-                <p class="cd-inst-bio-text">
-                  Aakash Das is the founder of RisePaisa, dedicated to making personal finance, NEPSE investing, taxation, and wealth building simple and practical for Nepali youth. He teaches through real NEPSE chart breakdowns, verifiable company reports, and disciplined risk-first principles.
-                </p>
-
-                <div class="cd-inst-coinstructor-notice">
-                  <span class="cd-coinstructor-dot"></span>
-                  <span>Selected lessons and specialized chart modules in this course are co-instructed by <strong>Bikash Das</strong>.</span>
+              <!-- Who Is This Course For -->
+              <div class="cd-audience-block" style="margin-top:var(--space-12)">
+                <div class="cd-section-header">
+                  <span class="cd-section-eyebrow">Target Audience</span>
+                  <h2 class="cd-section-heading">Who Is This Course For?</h2>
+                  <p class="cd-section-lead">
+                    Whether you are starting from zero or want to sharpen your technical trading discipline, this curriculum is built for you.
+                  </p>
                 </div>
-
-                <div class="cd-inst-card-footer">
-                  <a href="/aakash-das" class="cd-inst-bio-link">
-                    View Aakash Das's Full Founder Profile <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-                  </a>
+                <div class="cd-audience-grid">
+                  
+                    <div class="cd-audience-card">
+                      <div class="cd-audience-icon-wrap" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+                      <div class="cd-audience-body">
+                        <h3 class="cd-audience-title">Beginners & First-Time Investors</h3>
+                        <p class="cd-audience-desc">Anyone looking to enter Nepal’s share market with confidence, clear steps, and zero confusing jargon.</p>
+                      </div>
+                    </div>
+                  
+                    <div class="cd-audience-card">
+                      <div class="cd-audience-icon-wrap" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg></div>
+                      <div class="cd-audience-body">
+                        <h3 class="cd-audience-title">Students & Young Professionals</h3>
+                        <p class="cd-audience-desc">Ambitious youth wanting to build real financial literacy and sustainable wealth-building habits early in life.</p>
+                      </div>
+                    </div>
+                  
+                    <div class="cd-audience-card">
+                      <div class="cd-audience-icon-wrap" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg></div>
+                      <div class="cd-audience-body">
+                        <h3 class="cd-audience-title">Active Traders & Chart Analysts</h3>
+                        <p class="cd-audience-desc">Market participants wanting to master candlestick patterns, technical indicators, and disciplined price action.</p>
+                      </div>
+                    </div>
+                  
+                    <div class="cd-audience-card">
+                      <div class="cd-audience-icon-wrap" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275z"/></svg></div>
+                      <div class="cd-audience-body">
+                        <h3 class="cd-audience-title">Long-Term Value Investors</h3>
+                        <p class="cd-audience-desc">Investors seeking to evaluate company quarterly reports, earnings, and balance sheets to pick resilient stocks.</p>
+                      </div>
+                    </div>
+                  
                 </div>
               </div>
-            </section>
 
-            <!-- E. Who Is This Course For Section -->
-            <section class="cd-section" id="course-audience">
-              <div class="cd-section-header">
-                <span class="cd-section-eyebrow">Target Audience</span>
-                <h2 class="cd-section-heading">Who Is This Course For?</h2>
-                <p class="cd-section-lead">
-                  Whether you are starting from zero or want to sharpen your technical trading discipline, this curriculum is built for you.
-                </p>
+              <!-- Course FAQs -->
+              <div class="cd-faq-block" style="margin-top:var(--space-12)">
+                <div class="cd-section-header">
+                  <span class="cd-section-eyebrow">Got Questions?</span>
+                  <h2 class="cd-section-heading">Frequently Asked Questions</h2>
+                </div>
+                <div class="cd-faq-list">
+                  <div class="cd-faq-item">
+                    <h3 class="cd-faq-q">Do I need prior stock market experience?</h3>
+                    <p class="cd-faq-a">No prior experience is necessary. The course starts with basic concepts—such as how NEPSE works, opening a DEMAT account, and understanding IPOs—before advancing to technical chart reading and fundamental financial analysis.</p>
+                  </div>
+                  <div class="cd-faq-item">
+                    <h3 class="cd-faq-q">How do I access the lessons after purchasing?</h3>
+                    <p class="cd-faq-a">Once payment is verified via WhatsApp, your RisePaisa student account is activated with lifetime access. You can watch lessons anytime on your phone, tablet, or laptop through our Learning Player.</p>
+                  </div>
+                  <div class="cd-faq-item">
+                    <h3 class="cd-faq-q">Are there recurring monthly fees?</h3>
+                    <p class="cd-faq-a">No. The NPR 2,999 enrollment fee is a one-time payment for lifetime access to all 22 lessons, downloadable resources, and future course updates.</p>
+                  </div>
+                  <div class="cd-faq-item">
+                    <h3 class="cd-faq-q">Can I ask questions if I don't understand a topic?</h3>
+                    <p class="cd-faq-a">Yes! You can connect with our advisor and instructional team directly via WhatsApp for clarification on course concepts and practical NEPSE examples.</p>
+                  </div>
+                </div>
               </div>
 
-              <div class="cd-audience-grid">
-                
-                  <div class="cd-audience-card">
-                    <div class="cd-audience-icon-wrap" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
-                    <div class="cd-audience-body">
-                      <h3 class="cd-audience-title">Beginners & First-Time Investors</h3>
-                      <p class="cd-audience-desc">Anyone looking to enter Nepal’s share market with confidence, clear steps, and zero confusing jargon.</p>
-                    </div>
-                  </div>
-                
-                  <div class="cd-audience-card">
-                    <div class="cd-audience-icon-wrap" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg></div>
-                    <div class="cd-audience-body">
-                      <h3 class="cd-audience-title">Students & Young Professionals</h3>
-                      <p class="cd-audience-desc">Ambitious youth wanting to build real financial literacy and sustainable wealth-building habits early in life.</p>
-                    </div>
-                  </div>
-                
-                  <div class="cd-audience-card">
-                    <div class="cd-audience-icon-wrap" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg></div>
-                    <div class="cd-audience-body">
-                      <h3 class="cd-audience-title">Active Traders & Chart Analysts</h3>
-                      <p class="cd-audience-desc">Market participants wanting to master candlestick patterns, technical indicators, and disciplined price action.</p>
-                    </div>
-                  </div>
-                
-                  <div class="cd-audience-card">
-                    <div class="cd-audience-icon-wrap" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275z"/></svg></div>
-                    <div class="cd-audience-body">
-                      <h3 class="cd-audience-title">Long-Term Value Investors</h3>
-                      <p class="cd-audience-desc">Investors seeking to evaluate company quarterly reports, earnings, and balance sheets to pick resilient stocks.</p>
-                    </div>
-                  </div>
-                
-              </div>
-            </section>
-
-            <!-- F. Educational Disclaimer -->
-            <section class="cd-section" id="course-disclaimer">
-              <div class="cd-disclaimer-box">
+              <!-- Educational Disclaimer -->
+              <div class="cd-disclaimer-box" style="margin-top:var(--space-12)">
                 <div class="cd-disclaimer-header">
                   <span class="cd-disclaimer-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span>
                   <span class="cd-disclaimer-label">Important Educational Disclaimer</span>
@@ -1251,8 +1416,8 @@
 
           </div>
 
-          <!-- RIGHT / SIDEBAR: Sticky Course Purchase Card -->
-          <aside class="cd-sidebar-column">
+          <!-- ── RIGHT COLUMN: Enrollment & Purchase Panel (~35%) ─────── -->
+          <aside class="cd-sidebar-column" id="course-sidebar">
             <div class="cd-purchase-card" id="purchase-card">
               <!-- Course Visual Banner -->
               <div class="cd-card-thumb-container">
@@ -1271,23 +1436,27 @@
               <div class="cd-card-price-section">
                 <div class="cd-card-price-label">Complete Course Access</div>
                 <div class="cd-card-price-row">
-                  <span class="cd-card-currency">NPR</span>
-                  <span class="cd-card-price-number">2,999</span>
+                  
+                    <span class="cd-card-currency">NPR</span>
+                    <span class="cd-card-price-number">2,999</span>
+                  
                 </div>
-                <div class="cd-card-price-sub">One-time payment · No recurring subscription</div>
+                <div class="cd-card-price-sub">One-time payment · Lifetime access · No recurring subscription</div>
               </div>
 
-              <!-- PRIMARY CTA: Buy Course via WhatsApp (Impossible to miss) -->
-              <a href="https://wa.me/9779740269317?text=Hi%20RisePaisa!%20I%20want%20to%20enroll%20in%20the%20Share%20Market%20Full%20Course%20(NEPSE)%20(NPR%202%2C999)." target="_blank" rel="noopener" class="btn btn-whatsapp cd-primary-buy-cta" id="buy-course-whatsapp-btn">
-                <span class="cd-cta-whatsapp-icon"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></span>
-                <span class="cd-cta-whatsapp-text">Buy Course via WhatsApp</span>
-              </a>
-
-              <!-- SECONDARY ACTION: Ask a Question -->
-              <a href="https://wa.me/9779740269317?text=Hi%20RisePaisa!%20I%20have%20a%20question%20regarding%20the%20Share%20Market%20Full%20Course%20(NEPSE)." target="_blank" rel="noopener" class="btn btn-ghost cd-secondary-ask-cta" id="ask-question-btn">
-                <span class="cd-cta-ask-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></span>
-                <span>Ask a Question</span>
-              </a>
+              <!-- Purchase & WhatsApp Actions -->
+              
+                <div class="cd-purchase-actions cd-cta-group">
+                  <a href="https://wa.me/9779740269317?text=Hi%20RisePaisa!%20I%20want%20to%20enroll%20in%20the%20Share%20Market%20Full%20Course%20(NEPSE)%20for%20NPR%202%2C999." target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp cd-primary-buy-cta" id="buy-course-whatsapp-btn">
+                    <span class="cd-cta-whatsapp-icon"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></span>
+                    <span class="cd-cta-whatsapp-text">Buy Course via WhatsApp</span>
+                  </a>
+                  <a href="https://wa.me/9779740269317?text=Hello%20RisePaisa%20team%2C%20I%20have%20a%20question%20regarding%20Share%20Market%20Full%20Course%20(NEPSE)." target="_blank" rel="noopener noreferrer" class="btn btn-outline cd-secondary-ask-cta" id="ask-question-btn">
+                    <span class="cd-cta-whatsapp-icon"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></span>
+                    <span>Chat on WhatsApp</span>
+                  </a>
+                </div>
+              
 
               <!-- Essential Benefits (Zero Redundancy) -->
               <div class="cd-card-included-section">
@@ -1313,6 +1482,10 @@
                     <span class="cd-check-bullet"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></span>
                     <span>Full access on mobile and desktop</span>
                   </li>
+                  <li class="cd-included-item">
+                    <span class="cd-check-bullet"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></span>
+                    <span>Direct WhatsApp mentor support</span>
+                  </li>
                 </ul>
               </div>
 
@@ -1328,20 +1501,17 @@
 
         </div>
       </div>
-    </main>
-
-    <!-- ── 3. Mobile Sticky Bottom CTA Bar ────────────────────────── -->
-    <div class="cd-mobile-sticky-bar" id="mobile-sticky-bar" aria-label="Mobile Course Purchase Bar">
-      <div class="cd-mobile-sticky-inner">
-        <div class="cd-mobile-sticky-price">
-          <span class="cd-sticky-price-label">Course Access</span>
-          <span class="cd-sticky-price-val">NPR 2,999</span>
-        </div>
-        <a href="https://wa.me/9779740269317?text=Hi%20RisePaisa!%20I%20want%20to%20enroll%20in%20the%20Share%20Market%20Full%20Course%20(NEPSE)%20(NPR%202%2C999)." target="_blank" rel="noopener" class="btn btn-whatsapp cd-sticky-buy-btn" id="mobile-bar-whatsapp-btn">
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg> Buy via WhatsApp
-        </a>
-      </div>
     </div>
+
+    <!-- ── Floating Course Purchase CTA Bar ────────────────────────────── -->
+    
+      <aside class="cd-mobile-sticky-bar glass-control" id="mobile-sticky-bar" role="complementary" aria-label="Course Purchase Action">
+        <a href="https://wa.me/9779740269317?text=Hi%20RisePaisa!%20I%20want%20to%20enroll%20in%20the%20Share%20Market%20Full%20Course%20(NEPSE)%20for%20NPR%202%2C999." target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp cd-sticky-buy-btn rp-floating-buy-btn" id="mobile-bar-whatsapp-btn" aria-label="Buy Course — NPR 2,999">
+          <span class="rp-btn-icon"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></span>
+          <span class="rp-btn-text">Buy Course — NPR 2,999</span>
+        </a>
+      </aside>
+    
   </main>
   <div id="footer-container">
     <footer class="footer">
@@ -1409,10 +1579,10 @@
   </div>
   <div id="whatsapp-container">
     <aside class="advisor-capsule-float" id="whatsapp-float" aria-label="Advisor support">
-      <a href="https://wa.me/+9779740269317?text=Hello%20RisePaisa%20team%2C%20I%20have%20a%20question%20about%20financial%20education." 
+      <a href="https://wa.me/9779740269317?text=Hello%20RisePaisa%20team%2C%20I%20have%20a%20question%20about%20financial%20education." 
          target="_blank" rel="noopener" class="advisor-capsule-link" aria-label="Ask Financial Advisor on WhatsApp">
         <span class="advisor-capsule-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></span>
-        <span class="advisor-capsule-label">Ask Advisor</span>
+        <span class="advisor-capsule-label">Message Me</span>
       </a>
     </aside>
   </div>

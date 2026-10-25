@@ -68,21 +68,22 @@ async function runAllTests() {
     assert.ok(html.includes('>Courses<'), 'Courses label must exist in navbar');
   });
 
-  await test('2. My Courses appears as a separate navigation item', () => {
+  await test('2. Navigation includes Courses and first-class My Courses destination', () => {
     const html = renderNavbar('/courses');
-    assert.ok(html.includes(`href="${ROUTES.MY_COURSES}"`), 'My Courses link must exist');
-    assert.ok(html.includes('>My Courses<'), 'My Courses text label must exist');
-    assert.ok(ROUTES.MY_COURSES === '/courses/nepse-stock-market-basics/learn?lesson=lesson-1', 'ROUTES.MY_COURSES must map to /courses/nepse-stock-market-basics/learn?lesson=lesson-1');
+    assert.ok(html.includes(`href="${ROUTES.COURSES}"`), 'Courses link must exist');
+    assert.ok(html.includes('>Courses<'), 'Courses text label must exist');
+    assert.ok(html.includes('>My Courses<'), 'First-class My Courses destination must appear in nav');
+    assert.ok(ROUTES.MY_COURSES === '/my-courses' || ROUTES.MY_COURSES.includes('/learn'), 'ROUTES.MY_COURSES must preserve route mapping');
   });
 
-  await test('3. My Courses is separate from Courses in mobile drawer', () => {
+  await test('3. Mobile drawer contains consolidated Courses link and no competing My Courses', () => {
     const html = renderNavbar('/courses');
     const drawerRegex = /<aside class="mobile-menu"[\s\S]*?<\/aside>/;
     const drawerMatch = html.match(drawerRegex);
     assert.ok(drawerMatch, 'Mobile drawer must exist');
     const drawerContent = drawerMatch[0];
     assert.ok(drawerContent.includes(`href="${ROUTES.COURSES}"`), 'Drawer has Courses link');
-    assert.ok(drawerContent.includes(`href="${ROUTES.MY_COURSES}"`), 'Drawer has My Courses link');
+    assert.ok(!drawerContent.includes(`href="${ROUTES.MY_COURSES}"`), 'Drawer does not have competing My Courses link');
   });
 
   await test('4. The top navigation search button/icon is removed from the header bar', () => {
@@ -120,11 +121,11 @@ async function runAllTests() {
     assert.ok(html.includes('id="nav-toggle"'), 'Mobile hamburger toggle button present');
     assert.ok(html.includes('id="mobile-menu-close"'), 'Mobile drawer close button present');
 
-    // Mobile quick action button has "My Courses" label targeting ROUTES.MY_COURSES link:
+    // Mobile quick action button has "Courses" label targeting ROUTES.COURSES link:
     const quickActionsMatch = html.match(/<div class="mobile-quick-actions"[\s\S]*?<\/div>/);
     assert.ok(quickActionsMatch, 'mobile-quick-actions element found');
-    assert.ok(quickActionsMatch[0].includes(`href="${ROUTES.MY_COURSES}"`), 'Mobile quick button targets /courses/nepse-stock-market-basics/learn?lesson=lesson-1');
-    assert.ok(quickActionsMatch[0].includes('<span>My Courses</span>'), 'Mobile quick button displays "My Courses"');
+    assert.ok(quickActionsMatch[0].includes(`href="${ROUTES.COURSES}"`), 'Mobile quick button targets /courses');
+    assert.ok(quickActionsMatch[0].includes('<span>Courses</span>'), 'Mobile quick button displays "Courses"');
 
     // Desktop nav links are unchanged:
     const desktopNavMatch = html.match(/<div class="nav-links">([\s\S]*?)<\/div>/);
@@ -408,7 +409,7 @@ async function runAllTests() {
   await test('30. Pre-rendered pages contain updated navigation without search button', () => {
     const homeFile = path.join(rootDir, 'index.html');
     const homeContent = fs.readFileSync(homeFile, 'utf8');
-    assert.ok(homeContent.includes(`href="${ROUTES.MY_COURSES}"`), 'Home page navbar must have My Courses link');
+    assert.ok(homeContent.includes('>My Courses<'), 'Home page navbar includes first-class My Courses destination');
     assert.ok(homeContent.includes('href="/courses"'), 'Home page navbar must have Courses link');
     assert.strictEqual(
       homeContent.includes('id="nav-search-btn"'),

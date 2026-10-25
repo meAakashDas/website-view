@@ -28,6 +28,7 @@ const layoutCss = fs.readFileSync(path.join(repoRoot, 'css/layout.css'), 'utf-8'
 const searchCss = fs.readFileSync(path.join(repoRoot, 'css/search.css'), 'utf-8');
 const learnCss = fs.readFileSync(path.join(repoRoot, 'css/learn.css'), 'utf-8');
 const calculatorsCss = fs.readFileSync(path.join(repoRoot, 'css/calculators.css'), 'utf-8');
+const pagesCss = fs.readFileSync(path.join(repoRoot, 'css/pages.css'), 'utf-8');
 const videoPlayerCss = fs.readFileSync(path.join(repoRoot, 'css/videoPlayer.css'), 'utf-8');
 
 // 1. Token Architecture in variables.css
@@ -91,6 +92,12 @@ assert(floatingControlsJs.includes('export function bindLearningDock'), 'Exports
 assert(floatingControlsJs.includes('export function updateLearningDockProgress'), 'Exports updateLearningDockProgress handler');
 assert(floatingControlsJs.includes('export function updateLearningDockBookmark'), 'Exports updateLearningDockBookmark handler');
 assert(floatingControlsJs.includes('export function unmountLearningDock'), 'Exports unmountLearningDock cleanup handler');
+assert(floatingControlsJs.includes('export function initCourseFloatingBuy'), 'Exports initCourseFloatingBuy smart purchase action');
+assert(floatingControlsJs.includes('export function unmountCourseFloatingBuy'), 'Exports unmountCourseFloatingBuy cleanup');
+assert(floatingControlsJs.includes('export function initCalculatorFloatingControls'), 'Exports initCalculatorFloatingControls quick actions');
+assert(floatingControlsJs.includes('export function unmountCalculatorFloatingControls'), 'Exports unmountCalculatorFloatingControls cleanup');
+assert(floatingControlsJs.includes('export function initArticleFloatingControls'), 'Exports initArticleFloatingControls article actions');
+assert(floatingControlsJs.includes('export function unmountArticleFloatingControls'), 'Exports unmountArticleFloatingControls cleanup');
 
 assert(componentsJs.includes('export function showToast('), 'Exports universal Liquid Glass showToast in components.js');
 assert(componentsJs.includes('export async function shareContent('), 'Exports universal shareContent helper in components.js');
@@ -102,6 +109,9 @@ assert(componentsCss.includes('body.keyboard-open .rp-learning-dock'), 'Hides le
 assert(componentsCss.includes('body.is-fullscreen .rp-learning-dock'), 'Hides floating controls during fullscreen video playback');
 assert(componentsCss.includes('body.near-footer .rp-learning-dock'), 'Tucks learning dock away near footer boundary');
 assert(componentsCss.includes('body.page-course-learn .whatsapp-float'), 'Suppresses WhatsApp float on course video learn pages');
+assert(componentsCss.includes('.rp-calc-floating-bar'), 'Defines smart floating calculator quick actions bar');
+assert(componentsCss.includes('.rp-article-floating-bar'), 'Defines smart floating article actions bar');
+assert(pagesCss.includes('.cd-mobile-sticky-bar'), 'Defines smart floating course purchase capsule');
 
 // Verify mobile drawer and responsive grid fixes
 assert(learnCss.includes('.rp-mobile-toc-drawer'), 'Defines authentic Liquid Glass mobile TOC drawer');

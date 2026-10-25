@@ -5,9 +5,15 @@
 // ==============================================
 import { getCourseBySlug } from '../data/courses.js';
 import { getSettings } from '../data/settings.js';
-import { ICONS, setPageMeta } from '../components.js';
+import { ICONS, setPageMeta, getWhatsAppPurchaseUrl, getWhatsAppAdvisorUrl } from '../components.js';
 import { ROUTES } from '../routes.js';
 import { extractYouTubeVideoId, sanitizeText, toSafeYouTubeEmbedUrl } from '../firebase/courses.js';
+import {
+  createBrandedVideoPlayer,
+  initBrandedVideoPlayer,
+  destroyBrandedVideoPlayer
+} from '../components/videoPlayer.js';
+import { initFloatingSystem } from '../floatingControls.js';
 
 // ── YouTube URL → Safe Embed URL converter ────────
 function _toYouTubeEmbed(url) {
@@ -215,12 +221,11 @@ export function renderCourseDetailPage(slug) {
     `;
   }
 
+  const isPublicOffering = course.isPublicOffering !== false && course.slug !== 'personal-finance-masterclass';
   setPageMeta(course.title, course.shortDescription, ROUTES.COURSE_DETAIL(course.slug));
 
-  const WHATSAPP_RAW = getSettings().whatsapp || '9779740269317';
-  const cleanPhone = WHATSAPP_RAW.replace(/[^0-9]/g, '');
-  const waBuyLink = `https://wa.me/${cleanPhone}?text=${encodeURIComponent('Hi RisePaisa! I want to enroll in the ' + course.title + ' (NPR ' + course.price.toLocaleString() + ').')}`;
-  const waAskLink = `https://wa.me/${cleanPhone}?text=${encodeURIComponent('Hi RisePaisa! I have a question regarding the ' + course.title + '.')}`;
+  const waBuyLink = getWhatsAppPurchaseUrl(course.title, course.price || 2999);
+  const waAskLink = getWhatsAppAdvisorUrl(course.title);
 
   const thumbMap = {
     1: 'assets/images/course-nepse.png',
@@ -234,161 +239,159 @@ export function renderCourseDetailPage(slug) {
   const totalModules = course.curriculum ? course.curriculum.length : 0;
   const totalLessons = course.curriculum ? course.curriculum.reduce((sum, m) => sum + (Array.isArray(m.lessons) ? m.lessons.length : 0), 0) : 0;
   const displayDuration = course.duration || '20+ Hours';
-  const embedUrl = _toYouTubeDemoEmbed(course.previewVideoUrl);
+  const demoVideoUrl = (isNepseCourse || course.slug === 'nepse-stock-market-basics')
+    ? (course.previewVideoUrl && course.previewVideoUrl.includes('ziVeMxMF4e8') ? course.previewVideoUrl : 'https://youtu.be/ziVeMxMF4e8')
+    : course.previewVideoUrl;
+  const safeEmbedUrl = toSafeYouTubeEmbedUrl(demoVideoUrl);
+
+  const learnUrl = ROUTES.COURSE_LEARN ? ROUTES.COURSE_LEARN(course.slug, 'lesson-1') : `/courses/${course.slug}/learn?lesson=lesson-1`;
 
   return `
-    <!-- ── 1. Premium Course Hero ───────────────────────────────────── -->
-    <header class="cd-hero" id="course-hero">
-      <div class="container">
-        <!-- Breadcrumb -->
-        <nav class="cd-breadcrumb" aria-label="Breadcrumb">
-          <a href="${ROUTES.HOME}">Home</a>
-          <span class="cd-sep">/</span>
-          <a href="${ROUTES.COURSES}">Courses</a>
-          <span class="cd-sep">/</span>
-          <span class="cd-current">${course.title}</span>
-        </nav>
-
-        <div class="cd-hero-badge-wrap">
-          <span class="cd-flagship-pill">
-            <span class="cd-badge-pulse"></span>
-            ${isNepseCourse ? 'Flagship Program · NEPSE &amp; Stock Market' : course.category}
-          </span>
-          <span class="cd-hero-rating">
-            <span class="cd-star-icon">★</span> 4.9 · Highly Rated by Nepali Learners
-          </span>
-        </div>
-
-        <h1 class="cd-hero-title">${course.title}</h1>
-
-        <p class="cd-hero-subtitle">
-          ${course.shortDescription || "A complete learning program to understand Nepal's stock market (NEPSE), from beginner basics to technical analysis, fundamental analysis, and practical stock evaluation."}
-        </p>
-
-        <!-- Instructor Byline -->
-        <div class="cd-hero-instructor">
-          <div class="cd-avatar-ring">
-            <img
-              src="assets/images/aakash-das-founder-risepaisa.jpg"
-              alt="${course.instructor}, Founder of RisePaisa"
-              width="44"
-              height="44"
-              loading="eager"
-            />
-          </div>
-          <div class="cd-instructor-text">
-            <div class="cd-instructor-primary">
-              <span class="cd-inst-label">Taught by</span>
-              ${course.instructor === 'Aakash Das'
-                ? `<a href="${ROUTES.AAKASH_DAS}" class="cd-instructor-link">Aakash Das</a>`
-                : `<strong>${course.instructor}</strong>`}
-              <span class="cd-inst-role">· ${course.instructorRole || 'Founder of RisePaisa'}</span>
-            </div>
-            <div class="cd-instructor-sub">
-              Selected lessons co-taught by <strong>Bikash Das</strong>
-            </div>
-          </div>
-        </div>
-
-        <!-- 3 Key Metric Badges -->
-        <div class="cd-hero-metrics">
-          <div class="cd-metric-item">
-            <span class="cd-metric-icon">${ICONS.clock}</span>
-            <div class="cd-metric-body">
-              <strong>${displayDuration}</strong>
-              <span>Structured Video Lessons</span>
-            </div>
-          </div>
-          <div class="cd-metric-item">
-            <span class="cd-metric-icon">${ICONS.users}</span>
-            <div class="cd-metric-body">
-              <strong>Beginner to Advanced</strong>
-              <span>No Prior Experience Needed</span>
-            </div>
-          </div>
-          <div class="cd-metric-item">
-            <span class="cd-metric-icon">${ICONS.trendingUp}</span>
-            <div class="cd-metric-body">
-              <strong>100% Practical NEPSE</strong>
-              <span>Real Listed Company Analysis</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </header>
-
-    <!-- ── 2. Main Content & Sticky Purchase Card Layout ──────────── -->
-    <main class="cd-body">
-      <div class="container">
+    <div class="cd-page" id="course-page">
+      <div class="container cd-container">
         <div class="cd-layout-grid">
 
-          <!-- LEFT / MAIN CONTENT STREAM -->
+          <!-- ── LEFT COLUMN: Course Content Stream (~65%) ─────────────── -->
           <div class="cd-main-column">
 
-            <!-- A. Free Demo Video Section -->
+            <!-- 1. Introductory Course Information Block -->
+            <div class="cd-intro-block" id="course-intro-block">
+              <!-- Compact Breadcrumb Navigation -->
+              <nav class="cd-breadcrumb" aria-label="Breadcrumb">
+                <a href="${ROUTES.HOME}">Home</a>
+                <span class="cd-sep">/</span>
+                <a href="${ROUTES.COURSES}">Courses</a>
+                <span class="cd-sep">/</span>
+                <span class="cd-current">${course.title}</span>
+              </nav>
+
+              <!-- Course Title -->
+              <h1 class="cd-course-title cd-hero-title">${course.title}</h1>
+
+              <!-- Short Course Description -->
+              <p class="cd-course-desc cd-hero-subtitle">
+                ${course.shortDescription || "A complete learning program to understand Nepal's stock market (NEPSE), from beginner basics to technical analysis, fundamental analysis, and practical stock evaluation."}
+              </p>
+
+              ${!isPublicOffering ? `
+                <div class="cd-notice-box" style="margin:var(--space-2) 0 var(--space-4);padding:var(--space-3) var(--space-4);border-radius:var(--radius-lg);background:var(--color-surface-subtle);border:1px solid var(--color-border);display:flex;gap:var(--space-3);align-items:flex-start">
+                  <span style="color:var(--color-primary);flex-shrink:0;margin-top:2px">${ICONS.info}</span>
+                  <div style="font-size:var(--text-xs);line-height:1.5">
+                    <strong>Course Status Notice:</strong> This course is currently not open for new public enrollments. Personal finance lessons and budgeting tools remain available in our <a href="${ROUTES.LEARN}" style="color:var(--color-primary);font-weight:600">Learn Academy</a>. To enroll in our active public course, explore the <a href="/courses/nepse-stock-market-basics/learn?lesson=lesson-1" style="color:var(--color-primary);font-weight:600">Share Market Full Course (NEPSE) — NPR 2,999</a>.
+                  </div>
+                </div>
+              ` : ''}
+            </div>
+
+            <!-- 2. Free Demo Video Section (Prominently Below Intro) -->
             <section class="cd-section cd-demo-section" id="course-demo">
               <div class="cd-demo-header">
                 <div class="cd-demo-label-block">
                   <h2 class="cd-demo-title">Free Demo Video</h2>
-                  <a href="${ROUTES.COURSE_LEARN ? ROUTES.COURSE_LEARN(course.slug) : `/courses/${course.slug}/learn`}" class="cd-demo-classroom-link">
-                    Open in Learning Player &rarr;
-                  </a>
                 </div>
-                <span class="cd-demo-runtime">Full Preview · 45 Minutes</span>
               </div>
 
-              <!-- 16:9 Responsive Player Container -->
-${embedUrl ? `
-                <div class="cd-video-player-frame" id="cd-demo-video-container">
-                  <iframe
-                    id="cd-demo-iframe"
-                    src="${embedUrl}"
-                    title="${sanitizeText(`${course.title} Free Demo Video`)}"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                    referrerpolicy="strict-origin-when-cross-origin"
-                    allowfullscreen
-                    loading="eager">
-                  </iframe>
+              <!-- 16:9 Responsive Video Player Container -->
+              <div class="cd-demo-video-wrapper">
+                ${safeEmbedUrl ? createBrandedVideoPlayer({
+                  embedUrl: safeEmbedUrl,
+                  title: `${course.title} Free Demo Video`,
+                  iframeId: 'cd-demo-iframe',
+                  containerId: 'cd-demo-video-container'
+                }) : `
+                  <a href="${learnUrl}" class="cd-video-player-frame" style="text-decoration:none;display:block" aria-label="Open ${course.title} Free Demo in Learning Player">
+                    <div class="cd-video-placeholder" style="background-image:url(${course.thumbnail || thumbMap[course.id] || thumbMap[1]})">
+                      <div class="cd-play-btn">${ICONS.play}</div>
+                      <span class="cd-preview-label">Free Demo Video</span>
+                    </div>
+                  </a>
+                `}
+              </div>
+            </section>
+
+            <!-- 3. Compact Instructor Information (Directly Below Video) -->
+            <div class="cd-instructor-row" id="course-instructor-row">
+              <div class="cd-instructor-avatar-wrap">
+                <img
+                  class="cd-instructor-avatar"
+                  src="assets/images/aakash-das-founder-risepaisa.jpg"
+                  alt="${course.instructor}, Founder of RisePaisa"
+                  width="36"
+                  height="36"
+                  loading="lazy"
+                />
+              </div>
+              <div class="cd-instructor-text">
+                <div class="cd-instructor-primary">
+                  <span class="cd-inst-label">Taught by</span>
+                  ${course.instructor === 'Aakash Das'
+                    ? `<a href="${ROUTES.AAKASH_DAS}" class="cd-instructor-link">Aakash Das</a>`
+                    : `<strong>${course.instructor}</strong>`}
+                  <span class="cd-inst-role">· ${course.instructorRole || 'Founder of RisePaisa'}</span>
                 </div>
-` : `
-                <div class="cd-video-player-frame">
-                  <div class="cd-video-placeholder" style="background-image:url(${course.thumbnail || thumbMap[course.id] || thumbMap[1]})">
-                    <div class="cd-play-btn">${ICONS.play}</div>
-                    <span class="cd-preview-label">Free Demo Video</span>
+                <div class="cd-instructor-sub">
+                  Selected lessons co-taught by <strong>Bikash Das</strong> · With guest technical sessions by NEPSE veteran traders
+                </div>
+              </div>
+            </div>
+
+            <!-- 4. Course Highlights and Learning Outcomes -->
+            <section class="cd-section cd-highlights-section" id="course-highlights">
+              <!-- 3 Compact Highlights -->
+              <div class="cd-compact-highlights">
+                <div class="cd-highlight-card">
+                  <span class="cd-highlight-icon">${ICONS.clock}</span>
+                  <div class="cd-highlight-body">
+                    <strong>20+ Hours</strong>
+                    <span>Structured video lessons</span>
                   </div>
                 </div>
-`}
-            </section>
-
-            <!-- B. What You Will Learn Section -->
-            <section class="cd-section" id="course-outcomes">
-              <div class="cd-section-header">
-                <span class="cd-section-eyebrow">Comprehensive Curriculum</span>
-                <h2 class="cd-section-heading">What You Will Learn</h2>
-                <p class="cd-section-lead">
-                  Designed specifically for the Nepal Stock Exchange. We teach concepts using real NEPSE charts, actual bank balance sheets, and practical frameworks.
-                </p>
+                <div class="cd-highlight-card">
+                  <span class="cd-highlight-icon">${ICONS.users}</span>
+                  <div class="cd-highlight-body">
+                    <strong>Beginner to Advanced</strong>
+                    <span>No prior experience needed</span>
+                  </div>
+                </div>
+                <div class="cd-highlight-card">
+                  <span class="cd-highlight-icon">${ICONS.trendingUp}</span>
+                  <div class="cd-highlight-body">
+                    <strong>Practical NEPSE</strong>
+                    <span>Real listed-company analysis</span>
+                  </div>
+                </div>
               </div>
 
-              <div class="cd-outcomes-grid">
-                ${(isNepseCourse ? NEPSE_LEARNING_OUTCOMES : (course.whatYouLearn || []).map(text => ({
-                  icon: ICONS.checkCircle,
-                  title: text,
-                  desc: 'Practical, actionable knowledge designed for everyday application in Nepal.'
-                }))).map(item => `
-                  <article class="cd-outcome-card">
-                    <div class="cd-outcome-icon-circle" aria-hidden="true">${item.icon}</div>
-                    <div class="cd-outcome-text">
-                      <h3 class="cd-outcome-title">${item.title}</h3>
-                      <p class="cd-outcome-desc">${item.desc}</p>
-                    </div>
-                  </article>
-                `).join('')}
+              <!-- What You Will Learn -->
+              <div class="cd-outcomes-block">
+                <div class="cd-section-header">
+                  <span class="cd-section-eyebrow">Comprehensive Curriculum</span>
+                  <h2 class="cd-section-heading">What You Will Learn</h2>
+                  <p class="cd-section-lead">
+                    Designed specifically for the Nepal Stock Exchange. We teach concepts using real NEPSE charts, actual bank balance sheets, and practical frameworks.
+                  </p>
+                </div>
+
+                <div class="cd-outcomes-grid">
+                  ${(isNepseCourse ? NEPSE_LEARNING_OUTCOMES : (course.whatYouLearn || []).map(text => ({
+                    icon: ICONS.checkCircle,
+                    title: text,
+                    desc: 'Practical, actionable knowledge designed for everyday application in Nepal.'
+                  }))).map(item => `
+                    <article class="cd-outcome-card">
+                      <div class="cd-outcome-icon-circle" aria-hidden="true">${item.icon}</div>
+                      <div class="cd-outcome-text">
+                        <h3 class="cd-outcome-title">${item.title}</h3>
+                        <p class="cd-outcome-desc">${item.desc}</p>
+                      </div>
+                    </article>
+                  `).join('')}
+                </div>
               </div>
             </section>
 
-            <!-- C. All 8 Modules Curriculum Accordion -->
-            <section class="cd-section" id="course-curriculum">
+            <!-- 5. Course Curriculum and Syllabus -->
+            <section class="cd-section cd-curriculum-section" id="course-curriculum">
               <div class="cd-curriculum-header">
                 <div>
                   <span class="cd-section-eyebrow">Lesson Breakdown</span>
@@ -407,78 +410,92 @@ ${embedUrl ? `
               </div>
             </section>
 
-            <!-- D. Instructor Section -->
-            <section class="cd-section" id="course-instructor">
-              <div class="cd-section-header">
-                <span class="cd-section-eyebrow">Your Instructor</span>
-                <h2 class="cd-section-heading">Learn from Financial Educators</h2>
+            <!-- 6. Course Inclusions, Resources, FAQs, & Supporting -->
+            <section class="cd-section cd-supporting-section" id="course-supporting">
+              <!-- Included In Enrollment -->
+              <div class="cd-inclusions-block">
+                <div class="cd-section-header">
+                  <span class="cd-section-eyebrow">Course Package</span>
+                  <h2 class="cd-section-heading">What's Included with Enrollment</h2>
+                </div>
+                <div class="cd-inclusions-grid">
+                  <div class="cd-inclusion-item">
+                    <span class="cd-check-bullet">${ICONS.checkCircle}</span>
+                    <span>20+ hours of on-demand structured video lessons</span>
+                  </div>
+                  <div class="cd-inclusion-item">
+                    <span class="cd-check-bullet">${ICONS.checkCircle}</span>
+                    <span>Complete fundamental &amp; technical analysis for NEPSE</span>
+                  </div>
+                  <div class="cd-inclusion-item">
+                    <span class="cd-check-bullet">${ICONS.checkCircle}</span>
+                    <span>Excel analysis templates &amp; printable PDF study guides</span>
+                  </div>
+                  <div class="cd-inclusion-item">
+                    <span class="cd-check-bullet">${ICONS.checkCircle}</span>
+                    <span>Weekly live Q&amp;A sessions &amp; regular content updates</span>
+                  </div>
+                  <div class="cd-inclusion-item">
+                    <span class="cd-check-bullet">${ICONS.checkCircle}</span>
+                    <span>Full unrestricted access on mobile and desktop devices</span>
+                  </div>
+                  <div class="cd-inclusion-item">
+                    <span class="cd-check-bullet">${ICONS.checkCircle}</span>
+                    <span>Dedicated WhatsApp student support for question assistance</span>
+                  </div>
+                </div>
               </div>
 
-              <div class="cd-instructor-card">
-                <div class="cd-inst-profile-row">
-                  <div class="cd-inst-photo-wrap">
-                    <img
-                      src="assets/images/aakash-das-founder-risepaisa.jpg"
-                      alt="${course.instructor}, Founder of RisePaisa"
-                      width="64"
-                      height="64"
-                      loading="lazy"
-                    />
-                  </div>
-                  <div class="cd-inst-details">
-                    <div class="cd-inst-name-line">
-                      <h3 class="cd-inst-name">
-                        <a href="${ROUTES.AAKASH_DAS}">${course.instructor}</a>
-                      </h3>
-                      <span class="cd-inst-verified-pill">Lead Instructor</span>
+              <!-- Who Is This Course For -->
+              <div class="cd-audience-block" style="margin-top:var(--space-12)">
+                <div class="cd-section-header">
+                  <span class="cd-section-eyebrow">Target Audience</span>
+                  <h2 class="cd-section-heading">Who Is This Course For?</h2>
+                  <p class="cd-section-lead">
+                    Whether you are starting from zero or want to sharpen your technical trading discipline, this curriculum is built for you.
+                  </p>
+                </div>
+                <div class="cd-audience-grid">
+                  ${NEPSE_AUDIENCE.map(aud => `
+                    <div class="cd-audience-card">
+                      <div class="cd-audience-icon-wrap" aria-hidden="true">${aud.icon}</div>
+                      <div class="cd-audience-body">
+                        <h3 class="cd-audience-title">${aud.title}</h3>
+                        <p class="cd-audience-desc">${aud.desc}</p>
+                      </div>
                     </div>
-                    <div class="cd-inst-title">${course.instructorRole || 'Founder of RisePaisa'}</div>
+                  `).join('')}
+                </div>
+              </div>
+
+              <!-- Course FAQs -->
+              <div class="cd-faq-block" style="margin-top:var(--space-12)">
+                <div class="cd-section-header">
+                  <span class="cd-section-eyebrow">Got Questions?</span>
+                  <h2 class="cd-section-heading">Frequently Asked Questions</h2>
+                </div>
+                <div class="cd-faq-list">
+                  <div class="cd-faq-item">
+                    <h3 class="cd-faq-q">Do I need prior stock market experience?</h3>
+                    <p class="cd-faq-a">No prior experience is necessary. The course starts with basic concepts—such as how NEPSE works, opening a DEMAT account, and understanding IPOs—before advancing to technical chart reading and fundamental financial analysis.</p>
+                  </div>
+                  <div class="cd-faq-item">
+                    <h3 class="cd-faq-q">How do I access the lessons after purchasing?</h3>
+                    <p class="cd-faq-a">Once payment is verified via WhatsApp, your RisePaisa student account is activated with lifetime access. You can watch lessons anytime on your phone, tablet, or laptop through our Learning Player.</p>
+                  </div>
+                  <div class="cd-faq-item">
+                    <h3 class="cd-faq-q">Are there recurring monthly fees?</h3>
+                    <p class="cd-faq-a">No. The NPR 2,999 enrollment fee is a one-time payment for lifetime access to all 22 lessons, downloadable resources, and future course updates.</p>
+                  </div>
+                  <div class="cd-faq-item">
+                    <h3 class="cd-faq-q">Can I ask questions if I don't understand a topic?</h3>
+                    <p class="cd-faq-a">Yes! You can connect with our advisor and instructional team directly via WhatsApp for clarification on course concepts and practical NEPSE examples.</p>
                   </div>
                 </div>
-
-                <p class="cd-inst-bio-text">
-                  Aakash Das is the founder of RisePaisa, dedicated to making personal finance, NEPSE investing, taxation, and wealth building simple and practical for Nepali youth. He teaches through real NEPSE chart breakdowns, verifiable company reports, and disciplined risk-first principles.
-                </p>
-
-                <div class="cd-inst-coinstructor-notice">
-                  <span class="cd-coinstructor-dot"></span>
-                  <span>Selected lessons and specialized chart modules in this course are co-instructed by <strong>Bikash Das</strong>.</span>
-                </div>
-
-                <div class="cd-inst-card-footer">
-                  <a href="${ROUTES.AAKASH_DAS}" class="cd-inst-bio-link">
-                    View Aakash Das's Full Founder Profile ${ICONS.arrowRight}
-                  </a>
-                </div>
-              </div>
-            </section>
-
-            <!-- E. Who Is This Course For Section -->
-            <section class="cd-section" id="course-audience">
-              <div class="cd-section-header">
-                <span class="cd-section-eyebrow">Target Audience</span>
-                <h2 class="cd-section-heading">Who Is This Course For?</h2>
-                <p class="cd-section-lead">
-                  Whether you are starting from zero or want to sharpen your technical trading discipline, this curriculum is built for you.
-                </p>
               </div>
 
-              <div class="cd-audience-grid">
-                ${NEPSE_AUDIENCE.map(aud => `
-                  <div class="cd-audience-card">
-                    <div class="cd-audience-icon-wrap" aria-hidden="true">${aud.icon}</div>
-                    <div class="cd-audience-body">
-                      <h3 class="cd-audience-title">${aud.title}</h3>
-                      <p class="cd-audience-desc">${aud.desc}</p>
-                    </div>
-                  </div>
-                `).join('')}
-              </div>
-            </section>
-
-            <!-- F. Educational Disclaimer -->
-            <section class="cd-section" id="course-disclaimer">
-              <div class="cd-disclaimer-box">
+              <!-- Educational Disclaimer -->
+              <div class="cd-disclaimer-box" style="margin-top:var(--space-12)">
                 <div class="cd-disclaimer-header">
                   <span class="cd-disclaimer-icon">${ICONS.shield}</span>
                   <span class="cd-disclaimer-label">Important Educational Disclaimer</span>
@@ -492,8 +509,8 @@ ${embedUrl ? `
 
           </div>
 
-          <!-- RIGHT / SIDEBAR: Sticky Course Purchase Card -->
-          <aside class="cd-sidebar-column">
+          <!-- ── RIGHT COLUMN: Enrollment & Purchase Panel (~35%) ─────── -->
+          <aside class="cd-sidebar-column" id="course-sidebar">
             <div class="cd-purchase-card" id="purchase-card">
               <!-- Course Visual Banner -->
               <div class="cd-card-thumb-container">
@@ -510,25 +527,40 @@ ${embedUrl ? `
 
               <!-- Price Box -->
               <div class="cd-card-price-section">
-                <div class="cd-card-price-label">Complete Course Access</div>
+                <div class="cd-card-price-label">${isPublicOffering ? 'Complete Course Access' : 'Course Status'}</div>
                 <div class="cd-card-price-row">
-                  <span class="cd-card-currency">NPR</span>
-                  <span class="cd-card-price-number">${course.price.toLocaleString()}</span>
+                  ${isPublicOffering ? `
+                    <span class="cd-card-currency">NPR</span>
+                    <span class="cd-card-price-number">${(course.price || 2999).toLocaleString()}</span>
+                  ` : `
+                    <span style="font-size:16px;color:var(--color-text-secondary);font-weight:600">Archived from Public Sale</span>
+                  `}
                 </div>
-                <div class="cd-card-price-sub">One-time payment · No recurring subscription</div>
+                <div class="cd-card-price-sub">${isPublicOffering ? 'One-time payment · Lifetime access · No recurring subscription' : 'Existing enrolled students retain lifetime access'}</div>
               </div>
 
-              <!-- PRIMARY CTA: Buy Course via WhatsApp (Impossible to miss) -->
-              <a href="${waBuyLink}" target="_blank" rel="noopener" class="btn btn-whatsapp cd-primary-buy-cta" id="buy-course-whatsapp-btn">
-                <span class="cd-cta-whatsapp-icon">${ICONS.whatsapp}</span>
-                <span class="cd-cta-whatsapp-text">Buy Course via WhatsApp</span>
-              </a>
-
-              <!-- SECONDARY ACTION: Ask a Question -->
-              <a href="${waAskLink}" target="_blank" rel="noopener" class="btn btn-ghost cd-secondary-ask-cta" id="ask-question-btn">
-                <span class="cd-cta-ask-icon">${ICONS.mail}</span>
-                <span>Ask a Question</span>
-              </a>
+              <!-- Purchase & WhatsApp Actions -->
+              ${isPublicOffering ? `
+                <div class="cd-purchase-actions cd-cta-group">
+                  <a href="${waBuyLink}" target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp cd-primary-buy-cta" id="buy-course-whatsapp-btn">
+                    <span class="cd-cta-whatsapp-icon">${ICONS.whatsapp}</span>
+                    <span class="cd-cta-whatsapp-text">Buy Course via WhatsApp</span>
+                  </a>
+                  <a href="${waAskLink}" target="_blank" rel="noopener noreferrer" class="btn btn-outline cd-secondary-ask-cta" id="ask-question-btn">
+                    <span class="cd-cta-whatsapp-icon">${ICONS.whatsapp}</span>
+                    <span>Chat on WhatsApp</span>
+                  </a>
+                </div>
+              ` : `
+                <div class="cd-purchase-actions">
+                  <a href="/courses/nepse-stock-market-basics/learn?lesson=lesson-1" class="btn btn-primary cd-primary-buy-cta">
+                    Explore Share Market Course ${ICONS.arrowRight}
+                  </a>
+                  <a href="${ROUTES.LEARN}" class="btn btn-secondary cd-secondary-ask-cta">
+                    Browse Free Lessons
+                  </a>
+                </div>
+              `}
 
               <!-- Essential Benefits (Zero Redundancy) -->
               <div class="cd-card-included-section">
@@ -554,6 +586,10 @@ ${embedUrl ? `
                     <span class="cd-check-bullet">${ICONS.checkCircle}</span>
                     <span>Full access on mobile and desktop</span>
                   </li>
+                  <li class="cd-included-item">
+                    <span class="cd-check-bullet">${ICONS.checkCircle}</span>
+                    <span>Direct WhatsApp mentor support</span>
+                  </li>
                 </ul>
               </div>
 
@@ -569,24 +605,28 @@ ${embedUrl ? `
 
         </div>
       </div>
-    </main>
-
-    <!-- ── 3. Mobile Sticky Bottom CTA Bar ────────────────────────── -->
-    <div class="cd-mobile-sticky-bar" id="mobile-sticky-bar" aria-label="Mobile Course Purchase Bar">
-      <div class="cd-mobile-sticky-inner">
-        <div class="cd-mobile-sticky-price">
-          <span class="cd-sticky-price-label">Course Access</span>
-          <span class="cd-sticky-price-val">NPR ${course.price.toLocaleString()}</span>
-        </div>
-        <a href="${waBuyLink}" target="_blank" rel="noopener" class="btn btn-whatsapp cd-sticky-buy-btn" id="mobile-bar-whatsapp-btn">
-          ${ICONS.whatsapp} Buy via WhatsApp
-        </a>
-      </div>
     </div>
+
+    <!-- ── Floating Course Purchase CTA Bar ────────────────────────────── -->
+    ${isPublicOffering ? `
+      <aside class="cd-mobile-sticky-bar glass-control" id="mobile-sticky-bar" role="complementary" aria-label="Course Purchase Action">
+        <a href="${waBuyLink}" target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp cd-sticky-buy-btn rp-floating-buy-btn" id="mobile-bar-whatsapp-btn" aria-label="Buy Course — NPR ${(course.price || 2999).toLocaleString()}">
+          <span class="rp-btn-icon">${ICONS.whatsapp}</span>
+          <span class="rp-btn-text">Buy Course — NPR ${(course.price || 2999).toLocaleString()}</span>
+        </a>
+      </aside>
+    ` : ''}
   `;
 }
 
 export function initCourseDetailPage(slugOverride = null) {
+  // ── 0. Initialize Branded Custom Video Player for Free Demo ──
+  const demoPlayerEl = document.getElementById('cd-demo-video-container') || document.querySelector('.cd-demo-section [data-rp-player]');
+  let demoPlayerController = null;
+  if (demoPlayerEl && demoPlayerEl.hasAttribute('data-rp-player')) {
+    demoPlayerController = initBrandedVideoPlayer(demoPlayerEl);
+  }
+
   // ── 1. Accordion Interactivity with Expand / Collapse All ──
   const accordionContainer = document.getElementById('curriculum-accordion');
   const toggleBtn = document.getElementById('cd-expand-all-btn');
@@ -649,23 +689,50 @@ export function initCourseDetailPage(slugOverride = null) {
   }
   _bindDemoLink();
 
-  // ── 3. Mobile Sticky CTA Bar: Appear when scrolled past purchase card ──
+  initFloatingSystem();
+
+  // ── 3. Floating Course Purchase CTA: Hidden while demo video or purchase card is visible ──
   const mobileBar = document.getElementById('mobile-sticky-bar');
   const purchaseCard = document.getElementById('purchase-card');
+  const demoSection = document.getElementById('course-demo');
   let updateMobileBar = null;
+  let cardObserver = null;
+  let demoObserver = null;
 
-  if (mobileBar && purchaseCard) {
-    updateMobileBar = () => {
-      if (window.innerWidth >= 1024) {
-        mobileBar.classList.remove('visible');
-        document.body.classList.remove('has-mobile-cta');
-        return;
+  if (mobileBar) {
+    let isPurchaseCardVisible = false;
+    let isDemoVideoVisible = false;
+
+    if (typeof IntersectionObserver !== 'undefined') {
+      if (purchaseCard) {
+        cardObserver = new IntersectionObserver((entries) => {
+          isPurchaseCardVisible = entries[0].isIntersecting;
+          if (updateMobileBar) updateMobileBar();
+        }, {
+          rootMargin: '0px 0px 40px 0px',
+          threshold: 0.05
+        });
+        cardObserver.observe(purchaseCard);
       }
-      const rect = purchaseCard.getBoundingClientRect();
-      // Show when the bottom of the purchase card is scrolled above the viewport (or top has passed)
-      const hasPassed = rect.bottom < 40;
-      mobileBar.classList.toggle('visible', hasPassed);
-      document.body.classList.toggle('has-mobile-cta', hasPassed);
+
+      if (demoSection) {
+        demoObserver = new IntersectionObserver((entries) => {
+          isDemoVideoVisible = entries[0].isIntersecting;
+          if (updateMobileBar) updateMobileBar();
+        }, {
+          rootMargin: '20px 0px 20px 0px',
+          threshold: 0.1
+        });
+        demoObserver.observe(demoSection);
+      }
+    }
+
+    updateMobileBar = () => {
+      const scrollY = window.scrollY || window.pageYOffset;
+      // Show when user scrolls past initial video (> 400px) AND neither purchase card NOR demo video is in view
+      const shouldShow = scrollY > 400 && !isPurchaseCardVisible && !isDemoVideoVisible;
+      mobileBar.classList.toggle('visible', shouldShow);
+      document.body.classList.toggle('has-mobile-cta', shouldShow);
     };
 
     window.addEventListener('scroll', updateMobileBar, { passive: true });
@@ -674,7 +741,13 @@ export function initCourseDetailPage(slugOverride = null) {
   }
 
   // ── 5. Async Course Live Sync & Enrollment ──
-  const effectiveSlug = slugOverride || (typeof window !== 'undefined' ? window.location.pathname.replace(/^\/courses\//, '').split('/')[0] : null);
+  const effectiveSlug = slugOverride || (
+    typeof window !== 'undefined'
+      ? (window.location.pathname === '/courses' || window.location.pathname === '/courses/'
+          ? 'nepse-stock-market-basics'
+          : window.location.pathname.replace(/^\/courses\//, '').split('/')[0])
+      : null
+  );
   if (effectiveSlug) {
     import('../firebase/courses.js').then(({ fetchCourseData, toSafeYouTubeEmbedUrl, checkUserEnrollment }) => {
       // Sync live course data
@@ -693,13 +766,24 @@ export function initCourseDetailPage(slugOverride = null) {
         const bcEl = document.querySelector('.cd-breadcrumb .cd-current');
         if (bcEl && liveCourse.title) bcEl.textContent = liveCourse.title;
 
-        // 2. Preview Video
-        if (liveCourse.previewVideoUrl && effectiveSlug !== 'nepse-stock-market-basics') {
+        // 2. Preview Video Live Sync
+        if (liveCourse.previewVideoUrl && effectiveSlug !== 'nepse-stock-market-basics' && liveCourse.slug !== 'nepse-stock-market-basics') {
           const newEmbed = toSafeYouTubeEmbedUrl(liveCourse.previewVideoUrl);
-          const iframe = document.querySelector('.cd-demo-section iframe');
+          const demoContainer = document.getElementById('cd-demo-video-container');
+          const currentIframe = demoContainer ? demoContainer.querySelector('iframe') : null;
           const videoId = extractYouTubeVideoId(newEmbed);
-          if (videoId && iframe && extractYouTubeVideoId(iframe.src) !== videoId) {
-            iframe.src = _toYouTubeDemoEmbed(newEmbed);
+          if (videoId && currentIframe && extractYouTubeVideoId(currentIframe.src) !== videoId) {
+            destroyBrandedVideoPlayer(demoContainer);
+            demoContainer.outerHTML = createBrandedVideoPlayer({
+              embedUrl: newEmbed,
+              title: `${liveCourse.title || 'Course'} Free Demo Video`,
+              iframeId: 'cd-demo-iframe',
+              containerId: 'cd-demo-video-container'
+            });
+            const updatedEl = document.getElementById('cd-demo-video-container');
+            if (updatedEl) {
+              demoPlayerController = initBrandedVideoPlayer(updatedEl);
+            }
           }
         }
 
@@ -738,9 +822,20 @@ export function initCourseDetailPage(slugOverride = null) {
   }
 
   return () => {
+    if (demoPlayerController && typeof demoPlayerController.destroy === 'function') {
+      demoPlayerController.destroy();
+    } else if (demoPlayerEl) {
+      destroyBrandedVideoPlayer(demoPlayerEl);
+    }
     if (updateMobileBar) {
       window.removeEventListener('scroll', updateMobileBar);
       window.removeEventListener('resize', updateMobileBar);
+    }
+    if (cardObserver) {
+      cardObserver.disconnect();
+    }
+    if (demoObserver) {
+      demoObserver.disconnect();
     }
     document.body.classList.remove('has-mobile-cta');
   };
@@ -748,6 +843,10 @@ export function initCourseDetailPage(slugOverride = null) {
 
 
 function _updateEnrolledUi(card, mobileBar) {
+  const currentPath = typeof window !== 'undefined' ? window.location.pathname : '';
+  const matchSlug = currentPath.replace(/^\/courses\//, '').split('/')[0] || 'nepse-stock-market-basics';
+  const learnUrl = `/courses/${matchSlug}/learn`;
+
   if (card) {
     const priceLabel = card.querySelector('.cd-card-price-label');
     if (priceLabel) {
@@ -755,23 +854,24 @@ function _updateEnrolledUi(card, mobileBar) {
     }
     const buyBtn = card.querySelector('#buy-course-whatsapp-btn');
     if (buyBtn) {
-      buyBtn.innerHTML = '<span>✓ Enrolled in Course</span>';
+      buyBtn.innerHTML = '<span>Continue Learning &rarr;</span>';
       buyBtn.classList.remove('btn-whatsapp');
       buyBtn.classList.add('btn-primary');
-      buyBtn.removeAttribute('href');
-      buyBtn.setAttribute('role', 'status');
-      buyBtn.style.cursor = 'default';
+      buyBtn.setAttribute('href', learnUrl);
+      buyBtn.removeAttribute('target');
+      buyBtn.removeAttribute('rel');
     }
   }
   if (mobileBar) {
     const mobileBuyBtn = mobileBar.querySelector('#mobile-bar-whatsapp-btn');
     if (mobileBuyBtn) {
-      mobileBuyBtn.innerHTML = '<span>✓ Enrolled</span>';
+      mobileBuyBtn.innerHTML = '<span class="rp-btn-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg></span><span class="rp-btn-text">Continue Learning &rarr;</span>';
       mobileBuyBtn.classList.remove('btn-whatsapp');
       mobileBuyBtn.classList.add('btn-primary');
-      mobileBuyBtn.removeAttribute('href');
-      mobileBuyBtn.setAttribute('role', 'status');
-      mobileBuyBtn.style.cursor = 'default';
+      mobileBuyBtn.setAttribute('href', learnUrl);
+      mobileBuyBtn.setAttribute('aria-label', 'Continue Learning');
+      mobileBuyBtn.removeAttribute('target');
+      mobileBuyBtn.removeAttribute('rel');
     }
   }
 }

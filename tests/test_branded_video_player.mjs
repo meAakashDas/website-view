@@ -128,7 +128,8 @@ const clSrc = fs.readFileSync(path.join(rootDir, 'js', 'pages', 'courseLearn.js'
 assert(clSrc.includes('activePlayerLessonId'), 'courseLearn.js tracks activePlayerLessonId to prevent duplicate player instances');
 const courseDetailSrc = fs.readFileSync(path.join(rootDir, 'js', 'pages', 'courseDetail.js'), 'utf8');
 assert(courseDetailSrc.includes("effectiveSlug !== 'nepse-stock-market-basics'"), 'Course detail preserves the verified NEPSE free demo instead of replacing it with the broken live override');
-assert(courseDetailSrc.includes('iframe.src = _toYouTubeDemoEmbed(newEmbed)'), 'Course detail live sync still updates other courses’ native free demo iframes');
+assert(courseDetailSrc.includes('createBrandedVideoPlayer'), 'Course detail reuses createBrandedVideoPlayer for custom demo playback');
+assert(courseDetailSrc.includes('initBrandedVideoPlayer'), 'Course detail initializes custom branded player controller');
 
 // ── 3. Page Integrations (Course Learn, Course Detail, Resource)
 console.log('\n--- 3. Testing Global Page Integrations ---');
@@ -142,11 +143,11 @@ assert(learnHtml.includes('id="cl-video-iframe"'), 'Course Learn retains #cl-vid
 // NEPSE Course Detail (Demo Video)
 const courseDetailHtml = renderCourseDetailPage('nepse-stock-market-basics');
 assert(courseDetailHtml.includes('id="cd-demo-iframe"'), 'Course Detail renders the free demo iframe');
-assert(courseDetailHtml.includes('www.youtube.com/embed/'), 'Course Detail uses the standard YouTube player for reliable demo playback');
+assert(courseDetailHtml.includes('rp-video-player-frame'), 'Course Detail renders rp-video-player-frame');
+assert(courseDetailHtml.includes('RisePaisa Secure Video Player'), 'Course Detail displays RisePaisa branded badge');
 assert(courseDetailHtml.includes('ziVeMxMF4e8'), 'Course Detail uses the verified playable NEPSE demo video');
-assert(courseDetailHtml.includes('controls=1'), 'Course Detail keeps YouTube playback controls available');
 assert(courseDetailHtml.includes('referrerpolicy="strict-origin-when-cross-origin"'), 'Course Detail supplies YouTube a safe referrer');
-assert(!courseDetailHtml.includes('id="cd-demo-video-container" data-rp-player'), 'Course Detail free demo does not intercept playback with a custom API player');
+assert(courseDetailHtml.includes('data-rp-player="true"'), 'Course Detail free demo reuses custom branded player component');
 
 // Resource Detail Preview Video
 const resourceHtml = renderResourceDetailPage('budget-planner-system');
@@ -197,7 +198,8 @@ assert(staticCourseLearn.includes('referrerpolicy="strict-origin-when-cross-orig
 
 const staticCourseDetail = fs.readFileSync(path.join(rootDir, 'courses', 'nepse-stock-market-basics', 'index.html'), 'utf8');
 assert(staticCourseDetail.includes('id="cd-demo-iframe"'), 'Static NEPSE course detail contains the free demo iframe');
-assert(staticCourseDetail.includes('controls=1'), 'Static NEPSE course detail exposes native playback controls');
+assert(staticCourseDetail.includes('rp-video-player-frame'), 'Static NEPSE course detail contains rp-video-player-frame');
+assert(staticCourseDetail.includes('RisePaisa Secure Video Player'), 'Static NEPSE course detail contains branded badge');
 
 const staticResource = fs.readFileSync(path.join(rootDir, 'resources', 'budget-planner-system', 'index.html'), 'utf8');
 assert(staticResource.includes('rp-video-player-frame'), 'Static resource detail contains rp-video-player-frame');

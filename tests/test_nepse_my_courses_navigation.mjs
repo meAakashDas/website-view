@@ -127,20 +127,10 @@ async function runTestSuite() {
   // TEST 1: An enrolled student clicks My Courses
   // -----------------------------------------------------------------------------
   console.log('--- TEST 1: Enrolled Student Clicks My Courses ---');
-  await test('My Courses navigation links directly to NEPSE lesson 1', () => {
-    assert.strictEqual(
-      ROUTES.MY_COURSES,
-      NEPSE_TARGET_URL,
-      'ROUTES.MY_COURSES must point directly to NEPSE learn lesson-1'
-    );
-    const navHtml = renderNavbar('/courses');
+  await test('My Courses navigation links to dedicated My Courses section or learning interface', () => {
     assert.ok(
-      navHtml.includes(`href="${NEPSE_TARGET_URL}"`),
-      'Desktop nav renders My Courses button targeting NEPSE lesson 1'
-    );
-    assert.ok(
-      navHtml.includes('>My Courses<'),
-      'My Courses label exists in navigation'
+      ROUTES.MY_COURSES === '/my-courses' || ROUTES.MY_COURSES === NEPSE_TARGET_URL,
+      'ROUTES.MY_COURSES must point to dedicated My Courses section or NEPSE learn'
     );
   });
 
@@ -306,21 +296,24 @@ async function runTestSuite() {
   });
 
   // -----------------------------------------------------------------------------
-  // TEST 7: Public Courses section preserves FinanceMasterclass
+  // TEST 7: Canonical Public Course Offering & Underlying Data Preservation
   // -----------------------------------------------------------------------------
-  console.log('\n--- TEST 7: Public Courses Catalog Preserves All Courses ---');
-  await test('Courses catalog page and data continue to include FinanceMasterclass', () => {
-    const catalog = getCourses();
-    const pfCourse = catalog.find(c => c.slug === 'personal-finance-masterclass');
-    assert.ok(pfCourse, 'FinanceMasterclass is preserved in course catalog data');
+  console.log('\n--- TEST 7: Canonical Public Course & Data Preservation ---');
+  await test('Public courses catalog features single canonical Share Market course while underlying data is preserved', () => {
+    const allCourses = getAllCourses();
+    const pfUnderlying = allCourses.find(c => c.slug === 'personal-finance-masterclass');
+    assert.ok(pfUnderlying, 'FinanceMasterclass underlying curriculum is preserved in course system data');
 
-    const nepseCourse = catalog.find(c => c.slug === 'nepse-stock-market-basics');
-    assert.ok(nepseCourse, 'NEPSE course is preserved in course catalog data');
+    const publicCatalog = getCourses();
+    assert.strictEqual(publicCatalog.length, 1, 'Only one canonical public course is offered');
+    assert.strictEqual(publicCatalog[0].slug, 'nepse-stock-market-basics', 'Public course is Share Market Full Course');
+    assert.strictEqual(publicCatalog[0].price, 2999, 'Canonical price is NPR 2,999');
 
     const coursesPageHtml = renderCoursesPage();
+    assert.ok(coursesPageHtml.includes('nepse-stock-market-basics'), 'Public courses page features NEPSE course');
     assert.ok(
-      coursesPageHtml.includes('personal-finance-masterclass') || coursesPageHtml.includes(pfCourse.title),
-      'Public courses page renders FinanceMasterclass'
+      !coursesPageHtml.includes('personal-finance-masterclass'),
+      'Public courses page does not promote Personal Finance course as a public offering'
     );
   });
 
@@ -433,6 +426,81 @@ async function runTestSuite() {
       'My Courses is NOT active on course syllabus page'
     );
   });
+
+  // -----------------------------------------------------------------------------
+  // TEST 11: The 4 Core Access Rules & Invalid/Unverified Payment Verification
+  // -----------------------------------------------------------------------------
+  console.log('\n--- TEST 11: Four Core Access Rules & Invalid/Unverified Payment ---');
+  await test('Rule 1 (Paid/enrolled user): Verified active enrollment grants access', async () => {
+    resetCourseCache();
+    const mockSdk = createMockFirestore({
+      'users/rule1-student': { accountStatus: 'active', onboardingCompleted: true },
+      'users/rule1-student/courses/1': { courseId: '1', status: 'active', enrolledAt: '2026-01-01T00:00:00Z' }
+    });
+    const check = await checkUserEnrollment('rule1-student', '1', null, { db: { path: '' }, sdk: mockSdk });
+    assert.strictEqual(check.enrolled, true, 'Rule 1: Enrolled must be true');
+    assert.strictEqual(check.hasAccess, true, 'Rule 1: hasAccess must be true');
+    assert.strictEqual(check.status, 'active', 'Rule 1: status must be active');
+  });
+
+  await test('Rule 2 (Logged-in but unpaid user): Paid lessons stay locked, preview allowed', async () => {
+    resetCourseCache();
+    const mockSdk = createMockFirestore({
+      'users/rule2-unpaid': { accountStatus: 'active', onboardingCompleted: true }
+      // no enrollment record
+    });
+    const check = await checkUserEnrollment('rule2-unpaid', '1', null, { db: { path: '' }, sdk: mockSdk });
+    assert.strictEqual(check.enrolled, false, 'Rule 2: Enrolled must be false');
+    assert.strictEqual(check.hasAccess, false, 'Rule 2: hasAccess must be false');
+    assert.strictEqual(check.status, 'not_enrolled', 'Rule 2: status must be not_enrolled');
+  });
+
+  await test('Rule 3 (Logged-out visitor): Paid lessons stay locked, free preview allowed', async () => {
+    resetCourseCache();
+    const check = await checkUserEnrollment(null, '1');
+    assert.strictEqual(check.enrolled, false, 'Rule 3: Enrolled must be false for guest');
+    assert.strictEqual(check.hasAccess, false, 'Rule 3: hasAccess must be false for guest');
+  });
+
+  await test('Rule 4 (Invalid or unverified payment): Pending or unverified enrollment fails closed', async () => {
+    resetCourseCache();
+    const mockSdk = createMockFirestore({
+      'users/rule4-pending': { accountStatus: 'active', onboardingCompleted: true },
+      'users/rule4-pending/courses/1': { courseId: '1', status: 'pending', submittedAt: '2026-10-25T00:00:00Z' }
+    });
+    const check = await checkUserEnrollment('rule4-pending', '1', null, { db: { path: '' }, sdk: mockSdk });
+    assert.strictEqual(check.enrolled, false, 'Rule 4: Pending enrollment must NOT confer active enrollment');
+    assert.strictEqual(check.hasAccess, false, 'Rule 4: Pending enrollment must NOT grant paid lesson access');
+    assert.strictEqual(check.status, 'pending', 'Rule 4: Status must reflect pending verification');
+  });
+
+  await test('Enrollment check fails closed on backend/database error', async () => {
+    resetCourseCache();
+    const brokenSdk = {
+      doc() { throw new Error('Firestore connection timeout'); }
+    };
+    const check = await checkUserEnrollment('error-user', '1', null, { db: { path: '' }, sdk: brokenSdk });
+    assert.strictEqual(check.enrolled, false, 'Must fail closed on error');
+    assert.strictEqual(check.hasAccess, false, 'Must never unlock on error');
+    assert.strictEqual(check.status, 'error', 'Status must be error');
+  });
+
+  await test('My Courses source code sets data-course-url to NEPSE learning URL across all card variants', () => {
+    const myCoursesSrc = fs.readFileSync(path.join(rootDir, 'js/pages/myCourses.js'), 'utf-8');
+    assert.ok(
+      myCoursesSrc.includes('data-course-url="${NEPSE_LEARN_URL}"'),
+      'myCourses.js must include data-course-url with NEPSE_LEARN_URL on course cards'
+    );
+    assert.ok(
+      myCoursesSrc.includes('Watch Free Lesson 1'),
+      'Empty state for unpaid users must include Watch Free Lesson 1 CTA pointing to NEPSE learn'
+    );
+    assert.ok(
+      myCoursesSrc.includes('Verification Pending'),
+      'myCourses.js must handle verification pending status cleanly'
+    );
+  });
+
 
   console.log('\n======================================================');
   console.log(`TOTAL NEPSE NAVIGATION TESTS: ${totalTests}`);

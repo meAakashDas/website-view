@@ -9,6 +9,7 @@ import { getFirebaseApp, isFirebaseConfigured } from './config.js';
 let _authInstance = null;
 let _authModule = null;
 let _currentUser = null;
+let _isMockUser = false;
 let _authInitialized = false;
 let _authInitError = null;
 const _authSubscribers = new Set();
@@ -49,6 +50,9 @@ async function loadAuthSDK() {
 
       // Attach master auth listener once
       sdk.onAuthStateChanged(_authInstance, (user) => {
+        if (_isMockUser) {
+          return;
+        }
         _currentUser = user;
         _authInitialized = true;
         while (_authWaiters.length > 0) {
@@ -160,7 +164,12 @@ export function getCurrentUser() {
  * @param {object|null} user
  */
 export function setCurrentUserForTesting(user) {
+  _isMockUser = user !== null;
   _currentUser = user;
+  _authInitialized = true;
+  _authSubscribers.forEach((cb) => {
+    try { cb(user); } catch {}
+  });
 }
 
 /**

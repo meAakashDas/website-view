@@ -17,6 +17,11 @@
   -webkit-user-select: none;
   font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui, sans-serif;
   outline: none;
+  /* Scoped dark cinema glass tokens: guarantees settings HUD remains dark and high-contrast in all themes */
+  --liquid-glass-bg: rgba(18, 20, 26, 0.95);
+  --liquid-glass-border: rgba(255, 255, 255, 0.16);
+  --liquid-glass-highlight: inset 0 1px 0.5px rgba(255, 255, 255, 0.18);
+  --liquid-glass-blur: blur(20px) saturate(180%);
   /* Safari/WebKit hardware acceleration & anti-aliased subpixel clipping */
   -webkit-mask-image: -webkit-radial-gradient(white, black);
   transform: translateZ(0);
@@ -42,18 +47,20 @@
   display: inline-flex;
   align-items: center;
   gap: 7px;
-  background: rgba(10, 12, 16, 0.85);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(10, 12, 16, 0.90);
+  border: 1px solid rgba(255, 255, 255, 0.16);
   border-radius: 9999px;
   padding: 4px 11px;
-  color: rgba(255, 255, 255, 0.9);
+  color: #ffffff;
   font-size: 11px;
   font-weight: 600;
   letter-spacing: 0.2px;
   pointer-events: none;
   transition: opacity 0.35s ease, transform 0.35s ease;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.45);
   flex-shrink: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 /* Standalone fallback if rendered without .rp-player-header */
@@ -140,6 +147,9 @@
   text-overflow: ellipsis;
   max-width: 420px;
   letter-spacing: -0.1px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.85);
 }
 
 /* 2. Video Stage & Underlying Iframe (Oversized Clipping Technique to Conceal YouTube UI) */
@@ -677,19 +687,22 @@
 
 /* Time Readout */
 .rp-player-time {
-  color: rgba(255, 255, 255, 0.9);
+  color: #ffffff;
   font-size: 13px;
-  font-weight: 500;
+  font-weight: 600;
   font-variant-numeric: tabular-nums;
   display: flex;
   align-items: center;
   gap: 4px;
   margin-left: 4px;
   white-space: nowrap;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.85);
 }
 
 .rp-time-divider {
-  color: rgba(255, 255, 255, 0.4);
+  color: rgba(255, 255, 255, 0.65);
 }
 
 /* Settings Group & Box (Speed & Quality) */
@@ -722,17 +735,22 @@
   overflow-y: auto;
   overscroll-behavior: contain;
   scrollbar-width: thin;
-  scrollbar-color: rgba(255, 255, 255, 0.25) transparent;
-  background: var(--liquid-glass-bg, rgba(28, 28, 30, 0.90));
+  scrollbar-color: rgba(255, 255, 255, 0.3) transparent;
+  background: var(--liquid-glass-bg, rgba(18, 20, 26, 0.96));
   backdrop-filter: var(--liquid-glass-blur, blur(20px) saturate(180%));
   -webkit-backdrop-filter: var(--liquid-glass-blur, blur(20px) saturate(180%));
-  border: 1px solid var(--liquid-glass-border, rgba(255, 255, 255, 0.12));
+  border: 1px solid var(--liquid-glass-border, rgba(255, 255, 255, 0.16));
   border-radius: 12px;
   padding: 4px 0;
-  box-shadow: var(--liquid-glass-highlight), 0 12px 36px rgba(0, 0, 0, 0.7);
+  box-shadow: var(--liquid-glass-highlight), 0 12px 36px rgba(0, 0, 0, 0.75);
   z-index: 35;
   user-select: none;
   -webkit-user-select: none;
+  isolation: isolate;
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 .rp-settings-box.is-open,
@@ -744,18 +762,25 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 8px 12px 6px 12px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 9px 12px 7px 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.14);
   font-size: 11px;
   font-weight: 600;
-  letter-spacing: 0.2px;
-  color: rgba(255, 255, 255, 0.7);
+  letter-spacing: 0.3px;
+  color: #ffffff;
   user-select: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 .rp-settings-title {
   font-size: 11px;
-  font-weight: 600;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 .rp-settings-label,
@@ -764,24 +789,28 @@
   align-items: center;
   gap: 8px;
   width: 100%;
-  padding: 8px 12px 6px 12px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-  color: rgba(255, 255, 255, 0.7);
+  padding: 9px 12px 7px 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.14);
+  color: #ffffff;
   font-size: 11px;
   font-weight: 600;
-  letter-spacing: 0.2px;
+  letter-spacing: 0.3px;
   user-select: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 .rp-settings-label b,
 .rp-speed-val {
   margin-left: auto;
-  font-weight: 600;
-  opacity: 0.95;
+  font-weight: 700;
+  opacity: 1;
   font-size: 12px;
   padding-left: 8px;
   color: #38bdf8;
   white-space: nowrap;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 .rp-settings-items,
@@ -792,7 +821,7 @@
   flex-direction: column;
   padding: 4px 6px;
   scrollbar-width: thin;
-  scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
+  scrollbar-color: rgba(255, 255, 255, 0.25) transparent;
 }
 
 .rp-settings-items::-webkit-scrollbar,
@@ -801,7 +830,7 @@
 }
 .rp-settings-items::-webkit-scrollbar-thumb,
 .csPlayer-settings-items::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.25);
   border-radius: 4px;
 }
 
@@ -810,28 +839,33 @@
   display: flex;
   align-items: center;
   gap: 10px;
-  font-size: 12px;
-  color: #cbd5e1;
-  padding: 7px 6px;
+  font-size: 12.5px;
+  font-weight: 500;
+  color: #f8fafc;
+  padding: 7px 8px;
   border-radius: 6px;
   cursor: pointer;
-  opacity: 0.85;
-  transition: opacity 0.15s ease, color 0.15s ease, background 0.15s ease;
+  opacity: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  transition: color 0.15s ease, background 0.15s ease;
 }
 
 .rp-settings-items label:hover,
 .csPlayer-settings-items label:hover {
   opacity: 1;
   color: #ffffff;
-  background: rgba(255, 255, 255, 0.06);
+  background: rgba(255, 255, 255, 0.12);
 }
 
 .rp-settings-items label.active,
 .csPlayer-settings-items label.active {
   opacity: 1;
   color: #ffffff;
-  font-weight: 600;
-  background: rgba(16, 185, 129, 0.14);
+  font-weight: 700;
+  background: rgba(16, 185, 129, 0.22);
+  border: 1px solid rgba(16, 185, 129, 0.38);
 }
 
 .rp-settings-items label input[type="radio"],
@@ -841,8 +875,8 @@
   width: 14px;
   height: 14px;
   border-radius: 50%;
-  background: #2a2a2e;
-  border: 1.5px solid rgba(255, 255, 255, 0.28);
+  background: rgba(255, 255, 255, 0.10);
+  border: 1.5px solid rgba(255, 255, 255, 0.45);
   flex-shrink: 0;
   cursor: pointer;
   transition: border-color 0.15s ease, background-color 0.15s ease;
@@ -854,6 +888,7 @@
 .csPlayer-settings-items label input[type="radio"]:checked {
   border: 4px solid #10b981;
   background: #ffffff;
+  box-shadow: 0 0 6px rgba(16, 185, 129, 0.4);
 }
 
 .rp-speed-opt {

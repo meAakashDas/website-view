@@ -383,8 +383,10 @@ The goal is to help you build a strong understanding of the Nepalese share marke
     ],
     targetAudience: 'Anyone who wants to take full control of their finances; People dealing with loans, responsibilities, and future planning; Individuals who want to invest correctly and avoid financial mistakes; Anyone serious about building long-term wealth in Nepal',
     previewVideoUrl: 'https://youtu.be/vqKypJh0xxo',
-    featured: true,
-    isPublished: true
+    featured: false,
+    isPublished: false,
+    published: false,
+    isPublicOffering: false
   }
 ];
 
@@ -561,7 +563,16 @@ export function getAllCourses() {
 }
 
 export function getCourses() {
-  return getAllCourses().filter(c => c.published !== false && c.isPublished !== false);
+  return getAllCourses().filter(c => c.published !== false && c.isPublished !== false && c.isPublicOffering !== false && c.slug !== 'personal-finance-masterclass');
+}
+
+/**
+ * Single source of truth for the active canonical public course offering:
+ * Share Market Full Course (NEPSE) — NPR 2,999
+ */
+export function getPublicCourse() {
+  const publicCourses = getCourses();
+  return publicCourses.find(c => c.slug === 'nepse-stock-market-basics') || publicCourses[0] || getAllCourses()[0];
 }
 
 export function getCourseBySlug(slug) {

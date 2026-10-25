@@ -1212,8 +1212,8 @@ export async function checkUserEnrollment(uid, courseId, forceRefresh = false, d
 
     const { db, sdk } = bundle;
 
-    // Authoritative Account Status Verification: Suspended accounts cannot access protected courses
     try {
+      // Authoritative Account Status Verification: Suspended accounts cannot access protected courses
       const userDocRef = sdk.doc(db, 'users', uid);
       const userSnap = await withBoundedRetry(async () => sdk.getDoc(userDocRef));
       if (userSnap && (typeof userSnap.exists === 'function' ? userSnap.exists() : Boolean(userSnap.exists))) {
@@ -1252,16 +1252,8 @@ export async function checkUserEnrollment(uid, courseId, forceRefresh = false, d
           return onboardingResult;
         }
       }
-    } catch (userErr) {
-      // If user read is permission-denied due to suspension rules, fail closed safely
-      if (userErr && String(userErr.code || userErr.message).includes('permission-denied')) {
-        return { enrolled: false, hasAccess: false, status: 'error', cached: false };
-      }
-    }
 
-    const enrollmentRef = sdk.doc(db, 'users', uid, 'courses', cleanCourseId);
-
-    try {
+      const enrollmentRef = sdk.doc(db, 'users', uid, 'courses', cleanCourseId);
       const snap = await withBoundedRetry(async () => sdk.getDoc(enrollmentRef));
       if (!snap.exists()) {
         const result = {
@@ -1300,7 +1292,7 @@ export async function checkUserEnrollment(uid, courseId, forceRefresh = false, d
       _enrollmentCache.set(cacheKey, result);
       return result;
     } catch (err) {
-      // If security rules forbid read or network error occurs, fail closed safely
+      // If security rules forbid read, permission is denied, or network error occurs, fail closed safely
       console.warn('[risePaisa:Course] Could not check enrollment status:', err.message || err);
       return { enrolled: false, hasAccess: false, status: 'error', cached: false };
     }
@@ -1570,7 +1562,7 @@ export async function fetchPublishedCourses(dbOverride = null) {
   const staticList = getAllCourses ? getAllCourses() : [];
   for (const raw of staticList) {
     const norm = normalizeCourseData(raw);
-    if (norm.published !== false && norm.isPublished !== false) {
+    if (norm.published !== false && norm.isPublished !== false && norm.isPublicOffering !== false && norm.slug !== 'personal-finance-masterclass') {
       coursesMap.set(norm.slug.toLowerCase(), norm);
     }
   }
@@ -1597,10 +1589,10 @@ export async function fetchPublishedCourses(dbOverride = null) {
         if (raw) {
           const parsed = JSON.parse(raw);
           const norm = normalizeCourseData(parsed);
-          if (norm && norm.published !== false && norm.isPublished !== false) {
+          if (norm && norm.published !== false && norm.isPublished !== false && norm.isPublicOffering !== false && norm.slug !== 'personal-finance-masterclass') {
             coursesMap.set(norm.slug.toLowerCase(), norm);
             _courseDataCache.set(norm.slug.toLowerCase(), norm);
-          } else if (norm && (norm.published === false || norm.isPublished === false)) {
+          } else if (norm && (norm.published === false || norm.isPublished === false || norm.isPublicOffering === false || norm.slug === 'personal-finance-masterclass')) {
             // Explicitly respect unpublished status: remove from published catalog!
             coursesMap.delete(norm.slug.toLowerCase());
           }
@@ -1632,7 +1624,7 @@ export async function fetchPublishedCourses(dbOverride = null) {
           const data = docSnap.data();
           if (data && data.slug) {
             const norm = normalizeCourseData(data);
-            if (norm.published !== false && norm.isPublished !== false) {
+            if (norm.published !== false && norm.isPublished !== false && norm.isPublicOffering !== false && norm.slug !== 'personal-finance-masterclass') {
               coursesMap.set(norm.slug.toLowerCase(), norm);
               _courseDataCache.set(norm.slug.toLowerCase(), norm);
               if (typeof window !== 'undefined' && window.localStorage) {
@@ -3376,5 +3368,21 @@ export function resetCourseCache() {
   _courseDataCache.clear();
   _inFlightEnrollmentChecks.clear();
   _inFlightCourseData.clear();
+}
+
+/**
+ * Seed enrollment cache for automated testing.
+ *
+ * @param {string} uid
+ * @param {string} courseId
+ * @param {object} result
+ */
+export function setEnrollmentCacheForTesting(uid, courseId, result) {
+  const cleanCourseId = String(courseId).trim().toLowerCase();
+  const cacheKey = `${uid}_${cleanCourseId}`;
+  _enrollmentCache.set(cacheKey, {
+    ...result,
+    _cachedAt: Date.now()
+  });
 }
 

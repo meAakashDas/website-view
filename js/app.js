@@ -44,13 +44,10 @@ const routes = [
   },
   {
     pattern: /^\/my-courses\/?$/,
-    load: () => import('./pages/myCourses.js'),
-    render: (m, p, mod) => mod.renderMyCoursesPage(),
-    init: (m, p, mod) => mod.initMyCoursesPage(),
-    nav: ROUTES.MY_COURSES
+    redirect: () => '/courses/nepse-stock-market-basics/learn?lesson=lesson-1'
   },
   // Legacy /course/:slug redirect
-  { pattern: /^\/course\/([a-z0-9-]+)\/?$/, redirect: (m) => ROUTES.COURSE_DETAIL(m[1]) },
+  { pattern: /^\/course\/([a-z0-9-]+)\/?$/, redirect: (m) => m[1] === 'nepse-stock-market-basics' ? '/courses/nepse-stock-market-basics/learn?lesson=lesson-1' : ROUTES.COURSE_DETAIL(m[1]) },
 
   // 3. Resources Hierarchy
   {
@@ -544,8 +541,19 @@ function initApp() {
     body.appendChild(waContainer);
   }
 
-  // Intercept internal link clicks for smooth client-side SPA transitions
+  // Intercept internal link clicks and course card clicks for smooth client-side SPA transitions
   document.addEventListener('click', (e) => {
+    // Handle course card clicks when not directly clicking an anchor or button
+    const card = e.target.closest('.course-card, #flagship-nepse-showcase');
+    if (card && !e.target.closest('a') && !e.target.closest('button') && !e.target.closest('input')) {
+      const dest = card.getAttribute('data-course-url') || (card.id === 'flagship-nepse-showcase' ? '/courses/nepse-stock-market-basics/learn?lesson=lesson-1' : null);
+      if (dest) {
+        e.preventDefault();
+        navigateTo(dest);
+        return;
+      }
+    }
+
     const link = e.target.closest('a');
     if (!link) return;
 
