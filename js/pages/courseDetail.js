@@ -727,16 +727,32 @@ export function initCourseDetailPage(slugOverride = null) {
       }
     }
 
+    let isCurrentlyShown = false;
+    let ticking = false;
+
     updateMobileBar = () => {
       const scrollY = window.scrollY || window.pageYOffset;
       // Show when user scrolls past initial video (> 400px) AND neither purchase card NOR demo video is in view
       const shouldShow = scrollY > 400 && !isPurchaseCardVisible && !isDemoVideoVisible;
-      mobileBar.classList.toggle('visible', shouldShow);
-      document.body.classList.toggle('has-mobile-cta', shouldShow);
+      if (shouldShow !== isCurrentlyShown) {
+        isCurrentlyShown = shouldShow;
+        mobileBar.classList.toggle('visible', shouldShow);
+        document.body.classList.toggle('has-mobile-cta', shouldShow);
+      }
     };
 
-    window.addEventListener('scroll', updateMobileBar, { passive: true });
-    window.addEventListener('resize', updateMobileBar, { passive: true });
+    const onScrollOrResize = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          updateMobileBar();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+
+    window.addEventListener('scroll', onScrollOrResize, { passive: true });
+    window.addEventListener('resize', onScrollOrResize, { passive: true });
     updateMobileBar();
   }
 

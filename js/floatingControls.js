@@ -322,14 +322,19 @@ export function initCourseFloatingBuy({ course, isEnrolled = false, waBuyLink = 
   let observer = null;
   let scrollHandler = null;
   let isTargetVisible = false;
+  let isCurrentlyShown = false;
+  let ticking = false;
 
   const updateVisibility = () => {
     const scrollY = window.scrollY || window.pageYOffset;
     // Reveal once user scrolls past initial hero (> 160px) AND the inline card is not in view
     const shouldShow = scrollY > 160 && !isTargetVisible;
 
-    floatingBar.classList.toggle('visible', shouldShow);
-    document.body.classList.toggle('has-mobile-cta', shouldShow);
+    if (shouldShow !== isCurrentlyShown) {
+      isCurrentlyShown = shouldShow;
+      floatingBar.classList.toggle('visible', shouldShow);
+      document.body.classList.toggle('has-mobile-cta', shouldShow);
+    }
   };
 
   if (inlineTarget && typeof IntersectionObserver !== 'undefined') {
@@ -344,7 +349,13 @@ export function initCourseFloatingBuy({ course, isEnrolled = false, waBuyLink = 
   }
 
   scrollHandler = () => {
-    updateVisibility();
+    if (!ticking) {
+      window.requestAnimationFrame(() => {
+        updateVisibility();
+        ticking = false;
+      });
+      ticking = true;
+    }
   };
 
   window.addEventListener('scroll', scrollHandler, { passive: true });
@@ -418,16 +429,21 @@ export function initHomeFloatingBuy({ course, isEnrolled = false, waBuyLink = ''
 
   let heroVisible = true;
   let flagshipVisible = false;
+  let isCurrentlyShown = false;
   let scrollHandler = null;
   let observer = null;
+  let ticking = false;
 
   const updateVisibility = () => {
     const scrollY = window.scrollY || window.pageYOffset;
     // Show only when scrolled past the hero (> 360px) AND neither hero CTA nor flagship section is in view
     const shouldShow = scrollY > 360 && !heroVisible && !flagshipVisible;
 
-    floatingBar.classList.toggle('visible', shouldShow);
-    document.body.classList.toggle('has-mobile-cta', shouldShow);
+    if (shouldShow !== isCurrentlyShown) {
+      isCurrentlyShown = shouldShow;
+      floatingBar.classList.toggle('visible', shouldShow);
+      document.body.classList.toggle('has-mobile-cta', shouldShow);
+    }
   };
 
   if (typeof IntersectionObserver !== 'undefined') {
@@ -450,7 +466,13 @@ export function initHomeFloatingBuy({ course, isEnrolled = false, waBuyLink = ''
   }
 
   scrollHandler = () => {
-    updateVisibility();
+    if (!ticking) {
+      window.requestAnimationFrame(() => {
+        updateVisibility();
+        ticking = false;
+      });
+      ticking = true;
+    }
   };
 
   window.addEventListener('scroll', scrollHandler, { passive: true });
@@ -586,14 +608,30 @@ export function initArticleFloatingControls({ title = '', url = '', isBookmarked
   }
 
   // Scroll visibility (shows after reading down > 400px)
-  const handleScroll = () => {
+  let isCurrentlyShown = false;
+  let ticking = false;
+
+  const updateVisibility = () => {
     const scrollY = window.scrollY || window.pageYOffset;
     const shouldShow = scrollY > 400;
-    bar.classList.toggle('visible', shouldShow);
+    if (shouldShow !== isCurrentlyShown) {
+      isCurrentlyShown = shouldShow;
+      bar.classList.toggle('visible', shouldShow);
+    }
+  };
+
+  const handleScroll = () => {
+    if (!ticking) {
+      window.requestAnimationFrame(() => {
+        updateVisibility();
+        ticking = false;
+      });
+      ticking = true;
+    }
   };
 
   window.addEventListener('scroll', handleScroll, { passive: true });
-  handleScroll();
+  updateVisibility();
 
   articleFloatingCleanup = () => {
     window.removeEventListener('scroll', handleScroll);

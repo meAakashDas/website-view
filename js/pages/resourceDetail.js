@@ -415,21 +415,40 @@ export function initResourceDetailPage() {
   let updateMobileBar = null;
 
   if (mobileBar && purchaseCard) {
-    updateMobileBar = () => {
+    let isCurrentlyShown = false;
+    let ticking = false;
+
+    const computeVisibility = () => {
       if (window.innerWidth >= 1024) {
-        mobileBar.classList.remove('visible');
-        document.body.classList.remove('has-mobile-cta');
+        if (isCurrentlyShown) {
+          isCurrentlyShown = false;
+          mobileBar.classList.remove('visible');
+          document.body.classList.remove('has-mobile-cta');
+        }
         return;
       }
       const rect = purchaseCard.getBoundingClientRect();
       const hasPassed = rect.bottom < 40;
-      mobileBar.classList.toggle('visible', hasPassed);
-      document.body.classList.toggle('has-mobile-cta', hasPassed);
+      if (hasPassed !== isCurrentlyShown) {
+        isCurrentlyShown = hasPassed;
+        mobileBar.classList.toggle('visible', hasPassed);
+        document.body.classList.toggle('has-mobile-cta', hasPassed);
+      }
+    };
+
+    updateMobileBar = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          computeVisibility();
+          ticking = false;
+        });
+        ticking = true;
+      }
     };
 
     window.addEventListener('scroll', updateMobileBar, { passive: true });
     window.addEventListener('resize', updateMobileBar, { passive: true });
-    updateMobileBar();
+    computeVisibility();
   }
 
   return () => {

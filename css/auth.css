@@ -395,8 +395,6 @@
   position: fixed;
   inset: 0;
   background: rgba(0, 0, 0, 0.45);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -411,6 +409,8 @@
 .rp-auth-modal-overlay.open {
   opacity: 1;
   visibility: visible;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
 }
 
 .rp-auth-modal-card {

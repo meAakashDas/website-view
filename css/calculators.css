@@ -53,8 +53,6 @@
 
 .rp-calc-wrapper {
   background: var(--liquid-glass-bg);
-  backdrop-filter: var(--liquid-glass-blur);
-  -webkit-backdrop-filter: var(--liquid-glass-blur);
   border: 1px solid var(--liquid-glass-border);
   border-radius: var(--radius-xl);
   padding: 34px;
@@ -100,8 +98,6 @@
 /* ── Calculator Controls Card ─────────────────── */
 .rp-calc-controls-card {
   background: rgba(255, 255, 255, 0.50);
-  backdrop-filter: blur(16px) saturate(180%);
-  -webkit-backdrop-filter: blur(16px) saturate(180%);
   border: 1px solid var(--liquid-glass-border);
   border-radius: var(--radius-lg);
   padding: 28px;
@@ -425,8 +421,6 @@
 
 .rp-stat-card {
   background: rgba(255, 255, 255, 0.55);
-  backdrop-filter: blur(16px) saturate(180%);
-  -webkit-backdrop-filter: blur(16px) saturate(180%);
   border: 1px solid var(--liquid-glass-border);
   border-radius: var(--radius-lg);
   padding: 20px 22px;
@@ -450,8 +444,6 @@
 
 .rp-stat-card.maturity {
   background: linear-gradient(135deg, rgba(235, 245, 255, 0.72) 0%, rgba(255, 255, 255, 0.58) 100%);
-  backdrop-filter: blur(20px) saturate(200%);
-  -webkit-backdrop-filter: blur(20px) saturate(200%);
   border: 1px solid rgba(29, 161, 242, 0.35);
   box-shadow: inset 0 1.5px 1px 0 rgba(255, 255, 255, 1), 
               0 8px 24px -4px rgba(29, 161, 242, 0.18),
@@ -895,8 +887,6 @@
   padding: 14px 18px;
   box-shadow: var(--shadow-md);
   pointer-events: none;
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
   z-index: 20;
   transition: opacity 0.15s ease;
   min-width: 200px;
@@ -3581,8 +3571,6 @@
 
 [data-theme="light"] .rp-input-affix-wrap {
   background: rgba(255, 255, 255, 0.70);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
   border-color: var(--liquid-glass-border);
   box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.03), 0 1px 0 rgba(255, 255, 255, 0.85);
 }
