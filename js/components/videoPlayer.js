@@ -768,7 +768,9 @@ export function initBrandedVideoPlayer(target, options = {}) {
   const toggleFullscreen = () => {
     const fsEl = getFullscreenElement();
     lastFullscreenChangeTime = Date.now();
-    if (!fsEl && !container.classList.contains('is-fullscreen')) {
+    const isCurrentlyFs = Boolean(fsEl === container || container.classList.contains('is-fullscreen'));
+
+    if (!isCurrentlyFs) {
       let requestPromise = null;
       if (container.requestFullscreen) {
         requestPromise = container.requestFullscreen();
@@ -782,30 +784,84 @@ export function initBrandedVideoPlayer(target, options = {}) {
         nativeVideo.webkitEnterFullscreen();
       }
 
-      if (requestPromise && typeof requestPromise.catch === 'function') {
-        requestPromise.catch(() => {
-          container.classList.add('is-fullscreen');
-          container.classList.remove('rp-controls-hidden');
-          resetHideTimer();
-        });
+      if (requestPromise && typeof requestPromise.then === 'function') {
+        requestPromise
+          .then(() => {
+            container.classList.add('is-fullscreen');
+            document.documentElement.classList.add('rp-fullscreen-active');
+            document.body.classList.add('rp-fullscreen-active');
+            container.classList.remove('rp-controls-hidden');
+            resetHideTimer();
+          })
+          .catch(() => {
+            container.classList.add('is-fullscreen');
+            document.documentElement.classList.add('rp-fullscreen-active');
+            document.body.classList.add('rp-fullscreen-active');
+            container.classList.remove('rp-controls-hidden');
+            resetHideTimer();
+          });
+      } else {
+        container.classList.add('is-fullscreen');
+        document.documentElement.classList.add('rp-fullscreen-active');
+        document.body.classList.add('rp-fullscreen-active');
+        container.classList.remove('rp-controls-hidden');
+        resetHideTimer();
       }
+
+      try {
+        if (screen.orientation && typeof screen.orientation.lock === 'function') {
+          screen.orientation.lock('landscape').catch(() => {});
+        }
+      } catch (_) {}
     } else {
-      if (document.exitFullscreen) {
-        document.exitFullscreen().catch(() => {});
-      } else if (document.webkitExitFullscreen) {
-        document.webkitExitFullscreen();
-      } else if (document.mozCancelFullScreen) {
-        document.mozCancelFullScreen();
-      } else if (document.msExitFullscreen) {
-        document.msExitFullscreen();
+      if (getFullscreenElement()) {
+        try {
+          if (document.exitFullscreen) {
+            document.exitFullscreen().catch(() => {});
+          } else if (document.webkitExitFullscreen) {
+            document.webkitExitFullscreen();
+          } else if (document.mozCancelFullScreen) {
+            document.mozCancelFullScreen();
+          } else if (document.msExitFullscreen) {
+            document.msExitFullscreen();
+          }
+        } catch (_) {}
       }
       container.classList.remove('is-fullscreen');
+      document.documentElement.classList.remove('rp-fullscreen-active');
+      document.body.classList.remove('rp-fullscreen-active');
+
+      try {
+        if (screen.orientation && typeof screen.orientation.unlock === 'function') {
+          screen.orientation.unlock();
+        }
+      } catch (_) {}
+
       container.classList.remove('rp-controls-hidden');
       resetHideTimer();
     }
   };
 
   // Wire User Interactions
+  let lastControlsRevealedByTouchTime = 0;
+
+  const handleContainerTouchOrPointerDown = (e) => {
+    if (e.type === 'pointerdown' && e.pointerType !== 'touch') {
+      return;
+    }
+    // If touch begins on interactive controls, let controls handle their own events
+    if (e.target.closest('button, input, label, a, .rp-player-timeline-wrap, .rp-settings-box, .rp-speed-menu, .rp-player-controls')) {
+      resetHideTimer();
+      return;
+    }
+    // If controls were hidden at the moment touch started, remember it so synthesized click doesn't pause playback
+    if (container.classList.contains('rp-controls-hidden')) {
+      lastControlsRevealedByTouchTime = Date.now();
+      container.classList.remove('rp-controls-hidden');
+    }
+    resetHideTimer();
+  };
+
   if (poster) {
     poster.addEventListener('click', () => {
       try { container.focus(); } catch (_) {}
@@ -818,6 +874,17 @@ export function initBrandedVideoPlayer(target, options = {}) {
       e.preventDefault();
       e.stopPropagation();
       try { container.focus(); } catch (_) {}
+
+      // Requirement 3: If controls were hidden when user tapped, temporarily reveal controls without pausing playback
+      const wasHiddenOnTap = (Date.now() - lastControlsRevealedByTouchTime < 700) || container.classList.contains('rp-controls-hidden');
+      if (wasHiddenOnTap) {
+        lastControlsRevealedByTouchTime = 0;
+        container.classList.remove('rp-controls-hidden');
+        resetHideTimer();
+        return;
+      }
+
+      // If controls were already visible: tapping video toggles play/pause
       togglePlay();
       resetHideTimer();
     });
@@ -827,6 +894,26 @@ export function initBrandedVideoPlayer(target, options = {}) {
       toggleFullscreen();
     });
   }
+
+  // Tapping the letterbox area outside clickSurface in fullscreen mode
+  container.addEventListener('click', (e) => {
+    if (e.target.closest('.rp-player-controls, .rp-settings-box, .rp-speed-menu, .rp-player-header, button, input')) {
+      return;
+    }
+    if (clickSurface && (e.target === clickSurface || clickSurface.contains(e.target))) {
+      return;
+    }
+    const wasHiddenOnTap = (Date.now() - lastControlsRevealedByTouchTime < 700) || container.classList.contains('rp-controls-hidden');
+    if (wasHiddenOnTap) {
+      lastControlsRevealedByTouchTime = 0;
+      container.classList.remove('rp-controls-hidden');
+      resetHideTimer();
+      return;
+    }
+    togglePlay();
+    resetHideTimer();
+  });
+
   const controlsEl = container.querySelector('.rp-player-controls');
   if (controlsEl) {
     controlsEl.addEventListener('click', (e) => {
@@ -839,6 +926,7 @@ export function initBrandedVideoPlayer(target, options = {}) {
       resetHideTimer();
     });
     controlsEl.addEventListener('pointerdown', resetHideTimer);
+    controlsEl.addEventListener('touchstart', resetHideTimer, { passive: true });
   }
   if (centerPlayBtn) {
     centerPlayBtn.addEventListener('click', () => {
@@ -1108,9 +1196,23 @@ export function initBrandedVideoPlayer(target, options = {}) {
   });
 
   const handleFsChange = () => {
-    const isFs = Boolean(getFullscreenElement() === container);
+    const fsEl = getFullscreenElement();
+    const isFs = Boolean(fsEl === container);
     lastFullscreenChangeTime = Date.now();
-    container.classList.toggle('is-fullscreen', isFs);
+    if (isFs) {
+      container.classList.add('is-fullscreen');
+      document.documentElement.classList.add('rp-fullscreen-active');
+      document.body.classList.add('rp-fullscreen-active');
+    } else if (!fsEl) {
+      container.classList.remove('is-fullscreen');
+      document.documentElement.classList.remove('rp-fullscreen-active');
+      document.body.classList.remove('rp-fullscreen-active');
+      try {
+        if (screen.orientation && typeof screen.orientation.unlock === 'function') {
+          screen.orientation.unlock();
+        }
+      } catch (_) {}
+    }
     container.classList.remove('rp-controls-hidden');
     resetHideTimer();
   };
@@ -1118,6 +1220,11 @@ export function initBrandedVideoPlayer(target, options = {}) {
   document.addEventListener('webkitfullscreenchange', handleFsChange);
   document.addEventListener('mozfullscreenchange', handleFsChange);
   document.addEventListener('MSFullscreenChange', handleFsChange);
+
+  const handleOrientationChange = () => {
+    resetHideTimer();
+  };
+  window.addEventListener('orientationchange', handleOrientationChange);
 
   // Timeline Dragging & Scrubbing
   const handleTimelineSeek = (clientX) => {
@@ -1199,10 +1306,17 @@ export function initBrandedVideoPlayer(target, options = {}) {
   window.addEventListener('touchcancel', handleGlobalMouseUp);
 
   // Mouse / Pointer / Touch Inactivity Listeners
+  const handleContainerPointerMove = (e) => {
+    // On touch devices, slight finger contact during touch shouldn't prematurely clear hidden state before click
+    if (e.pointerType === 'touch') return;
+    resetHideTimer();
+  };
+
+  container.addEventListener('touchstart', handleContainerTouchOrPointerDown, { passive: true });
+  container.addEventListener('pointerdown', handleContainerTouchOrPointerDown, { passive: true });
   container.addEventListener('mousemove', resetHideTimer);
-  container.addEventListener('pointermove', resetHideTimer);
+  container.addEventListener('pointermove', handleContainerPointerMove);
   container.addEventListener('mouseenter', resetHideTimer);
-  container.addEventListener('touchstart', resetHideTimer, { passive: true });
   container.addEventListener('focusin', resetHideTimer);
   const handleMouseLeave = () => {
     // Prevent immediate hide on mouseleave right after fullscreen transitions
@@ -1465,11 +1579,15 @@ export function initBrandedVideoPlayer(target, options = {}) {
       document.removeEventListener('webkitfullscreenchange', handleFsChange);
       document.removeEventListener('mozfullscreenchange', handleFsChange);
       document.removeEventListener('MSFullscreenChange', handleFsChange);
+      document.documentElement.classList.remove('rp-fullscreen-active');
+      document.body.classList.remove('rp-fullscreen-active');
+      window.removeEventListener('orientationchange', handleOrientationChange);
       container.removeEventListener('mousemove', resetHideTimer);
-      container.removeEventListener('pointermove', resetHideTimer);
+      container.removeEventListener('pointermove', handleContainerPointerMove);
       container.removeEventListener('mouseenter', resetHideTimer);
       container.removeEventListener('mouseleave', handleMouseLeave);
-      container.removeEventListener('touchstart', resetHideTimer);
+      container.removeEventListener('touchstart', handleContainerTouchOrPointerDown);
+      container.removeEventListener('pointerdown', handleContainerTouchOrPointerDown);
       container.removeEventListener('focusin', resetHideTimer);
       if (handleOutsideSpeedMenuClick) {
         document.removeEventListener('click', handleOutsideSpeedMenuClick);
