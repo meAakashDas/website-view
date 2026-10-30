@@ -507,10 +507,21 @@ export function calculateEMI({ loanAmount, annualRate, tenureMonths, processingF
     },
   };
 
+  const tenureYears = n / 12;
+  const equivalentFlatRate = (P > 0 && tenureYears > 0)
+    ? Math.round((totalInterest / (P * tenureYears)) * 10000) / 100
+    : 0;
+
+  // Comparison: What if this nominal rate was deceptively charged as a "Flat Rate"?
+  const flatTotalInterest = Math.round((P * (rate / 100) * tenureYears) * 100) / 100;
+  const flatMonthlyPayment = Math.round(((P + flatTotalInterest) / n) * 100) / 100;
+  const flatExcessInterest = Math.max(0, Math.round((flatTotalInterest - totalInterest) * 100) / 100);
+
   return {
     loanAmount: P,
     annualRate: rate,
     tenureMonths: n,
+    tenureYears: Math.round(tenureYears * 10) / 10,
     processingFeePercent: feePct,
     processingFeeAmount,
     monthlyEMI: roundedEMI,
@@ -520,6 +531,13 @@ export function calculateEMI({ loanAmount, annualRate, tenureMonths, processingF
     principalPct,
     interestPct,
     rateComparison,
+    calculationMethod: 'Reducing Balance (Nepal Rastra Bank Standard)',
+    equivalentFlatRate,
+    flatRateComparison: {
+      flatTotalInterest,
+      flatMonthlyPayment,
+      flatExcessInterest,
+    },
   };
 }
 
@@ -1297,6 +1315,9 @@ export function validateTaxInputs(inputs) {
     donations: sanitizeDeduction(inputs.deductions?.donations),
   };
 
+  sanitized.hasSSF = Boolean(inputs.hasSSF || sanitized.deductions.ssf > 0);
+  sanitized.isFemale = Boolean(inputs.isFemale);
+
   return {
     isValid: Object.keys(errors).length === 0,
     errors,
@@ -1324,6 +1345,8 @@ export function calculateNepalIncomeTax({
   healthInsurancePremium,
   charitableDonations,
   fiscalYear = DEFAULT_FISCAL_YEAR,
+  hasSSF = false,
+  isFemale = false,
 }) {
   const config = NEPAL_TAX_CONFIG[fiscalYear] || NEPAL_TAX_CONFIG[DEFAULT_FISCAL_YEAR];
   const gross = Math.max(0, Number(grossIncome ?? annualGrossIncome) || 0);
@@ -1337,6 +1360,9 @@ export function calculateNepalIncomeTax({
   const rawLife = Math.max(0, Number(deductions.lifeInsurance ?? lifeInsurancePremium) || 0);
   const rawHealth = Math.max(0, Number(deductions.healthInsurance ?? healthInsurancePremium) || 0);
   const rawDonations = Math.max(0, Number(deductions.donations ?? charitableDonations) || 0);
+
+  // SSF Exemption Flag: Proviso to Schedule 1 Section 1(1) of Nepal Income Tax Act 2058
+  const isSSFExempt = Boolean(hasSSF || rawSSF > 0);
 
   // Retirement Fund Contribution limit: min(total contribution, 1/3 of gross, max limit)
   const totalRetirementContrib = rawEPF + rawCIT + rawSSF;
@@ -1366,16 +1392,21 @@ export function calculateNepalIncomeTax({
   // ── 3. Progressive Slab Calculation ───────────────
   const slabs = config.slabs[status];
   let remainingIncome = netTaxableIncome;
-  let totalTax = 0;
+  let preRebateTax = 0;
   const breakdown = [];
 
   for (const slab of slabs) {
+    // If taxpayer contributes to SSF, the 1% SST on first slab is exempt (0%)
+    const isFirstSlab = slab.id === 's1' || slab.id === 'm1';
+    const effectiveRate = (isFirstSlab && isSSFExempt) ? 0.0 : slab.rate;
+    const effectiveRateLabel = (isFirstSlab && isSSFExempt) ? '0% (SSF Exempt)' : slab.rateLabel;
+
     if (remainingIncome <= 0) {
       breakdown.push({
         id: slab.id,
         label: slab.label,
-        rate: slab.rate,
-        rateLabel: slab.rateLabel,
+        rate: effectiveRate,
+        rateLabel: effectiveRateLabel,
         taxableInSlab: 0,
         taxPaid: 0,
         isActive: false,
@@ -1387,22 +1418,28 @@ export function calculateNepalIncomeTax({
       ? remainingIncome
       : Math.min(remainingIncome, slab.limit);
 
-    const taxInSlab = Math.round(taxableInSlab * slab.rate * 100) / 100;
-    totalTax += taxInSlab;
+    const taxInSlab = Math.round(taxableInSlab * effectiveRate * 100) / 100;
+    preRebateTax += taxInSlab;
     remainingIncome -= taxableInSlab;
 
     breakdown.push({
       id: slab.id,
       label: slab.label,
-      rate: slab.rate,
-      rateLabel: slab.rateLabel,
+      rate: effectiveRate,
+      rateLabel: effectiveRateLabel,
       taxableInSlab: Math.round(taxableInSlab * 100) / 100,
       taxPaid: taxInSlab,
       isActive: true,
     });
   }
 
-  totalTax = Math.round(totalTax);
+  // ── 4. Special Tax Credits / Rebates ──────────────
+  // Schedule 1 Section 1(12): 10% tax rebate for resident female single employee
+  const femaleRebate = (isFemale && status === 'single')
+    ? Math.round(preRebateTax * (config.specialRules?.femaleEmploymentRebateRate || 0.10) * 100) / 100
+    : 0;
+
+  const totalTax = Math.max(0, Math.round(preRebateTax - femaleRebate));
   const annualTakeHome = Math.max(0, gross - totalTax);
   const monthlyTax = Math.round((totalTax / 12) * 100) / 100;
   const monthlyTakeHome = Math.round((annualTakeHome / 12) * 100) / 100;
@@ -1410,8 +1447,16 @@ export function calculateNepalIncomeTax({
 
   return {
     fiscalYear: config.fiscalYear,
+    verifiedDate: config.verifiedDate,
+    authority: config.authority,
     maritalStatus: status,
     grossIncome: gross,
+    isSSFExempt,
+    ssfExemptionApplied: isSSFExempt,
+    isFemale: Boolean(isFemale),
+    femaleRebate,
+    femaleRebateAmount: femaleRebate,
+    preRebateTax: Math.round(preRebateTax * 100) / 100,
     deductions: {
       raw: {
         epf: rawEPF,

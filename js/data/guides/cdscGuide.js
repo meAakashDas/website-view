@@ -152,8 +152,8 @@ export const CDSC_GUIDE = {
     ],
     whereToGoNext: {
       nextLesson: {
-        title: 'EDIS Clearance & Share Settlement Mechanics',
-        slug: 'edis-transfer-rules',
+        title: 'Broker TMS & Order Navigation',
+        slug: 'broker-account-tms-navigation',
         categorySlug: 'nepse',
         readTime: '14 min read'
       },
@@ -294,8 +294,8 @@ export const CDSC_GUIDE = {
     ],
     whereToGoNext: {
       nextLesson: {
-        title: 'इडीआईएस सेयर हस्तान्तरण र राफसाफ नियम',
-        slug: 'edis-transfer-rules',
+        title: 'ब्रोकर TMS खाता र सेयर कारोबार नियम',
+        slug: 'broker-account-tms-navigation',
         categorySlug: 'nepse',
         readTime: '१४ मिनेट पढाइ'
       },

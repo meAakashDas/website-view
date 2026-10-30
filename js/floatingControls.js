@@ -3,11 +3,11 @@
 // Premium Apple-Platform Inspired Ergonomics, Liquid Glass Layering & Touch Bounds
 // ==============================================================================
 
-import { ICONS, showToast, shareContent } from './components.js';
+import { ICONS, shareContent } from './components.js';
 
 let isInitialized = false;
 let footerObserver = null;
-let currentDockCallbacks = null;
+let _currentDockCallbacks = null;
 
 // Active component cleanup references
 let homeBuyCleanup = null;
@@ -181,7 +181,7 @@ export function renderLearningDockHtml({ isBookmarked = false, isEn = true, isCo
  * @param {Object} [handlers.shareData] - { title, text, url }
  */
 export function bindLearningDock(handlers = {}) {
-  currentDockCallbacks = handlers;
+  _currentDockCallbacks = handlers;
   document.body.classList.add('has-learning-dock');
 
   const dock = document.getElementById('rp-learning-dock');
@@ -268,7 +268,7 @@ export function updateLearningDockBookmark(isBookmarked) {
  */
 export function unmountLearningDock() {
   document.body.classList.remove('has-learning-dock');
-  currentDockCallbacks = null;
+  _currentDockCallbacks = null;
   const dock = document.getElementById('rp-learning-dock');
   if (dock) {
     dock.remove();
@@ -562,7 +562,7 @@ export function initArticleFloatingControls({ title = '', url = '', isBookmarked
       </button>
       <span class="rp-dock-separator" aria-hidden="true"></span>
       <button type="button" class="rp-dock-btn" id="article-float-top" aria-label="Back to Top" title="Back to Top">
-        <span class="rp-dock-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></svg></span>
+        <span class="rp-dock-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></svg></span>
         <span class="rp-dock-label">Top</span>
       </button>
     </aside>

@@ -3834,5 +3834,8 @@ export const DETAILED_GUIDES = {
   'complete-ipo-guide': IPO_GUIDE,
   'complete-cdsc-guide': CDSC_GUIDE,
   ...EXPANDED_GUIDES,
-  ...ADDITIONAL_GUIDES
+  ...ADDITIONAL_GUIDES,
+  // Canonical aliases for internal link resilience
+  get 'complete-mutual-funds-guide'() { return this['complete-mutual-fund-guide']; },
+  get 'complete-nepse-investing-guide'() { return this['complete-tms-guide']; }
 };

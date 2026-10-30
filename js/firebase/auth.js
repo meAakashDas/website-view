@@ -350,7 +350,7 @@ export function validateNepaliPhoneNumber(phone) {
   }
 
   // Strip spaces, dashes, parentheses, dots
-  let digits = phone.replace(/[\s\-\(\)\.]/g, '');
+  let digits = phone.replace(/[\s\-().]/g, '');
 
   // Strip leading international prefix if provided
   if (digits.startsWith('+977')) {

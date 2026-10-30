@@ -28,7 +28,7 @@ function getLearnLanguage() {
 
 import { getGlossaryTermBySlug, GLOSSARY_DICTIONARY } from './data/glossaryData.js';
 import { CALCULATOR_REGISTRY } from './calculators/registry.js';
-import { getCourses, getAllCourses, getCourseBySlug } from './data/courses.js';
+import { getCourses, getCourseBySlug } from './data/courses.js';
 import { getResources, getResourceBySlug } from './data/resources.js';
 import { getArticles, getArticleBySlug } from './data/articles.js';
 import { CALCULATOR_SLUG_TO_ID, CALCULATOR_ROUTES } from './routes.js';
@@ -129,8 +129,8 @@ export function resolvePageSEO(pathname = '/', searchParams = null, lang = 'en',
 
   // Default SEO fallback
   let seo = {
-    title: `${SITE_NAME} | Nepal's Financial Education Platform`,
-    description: `Nepal's premier financial education academy. Master personal finance, NEPSE stock market investing, mutual funds, taxation, banking, and practical wealth building in Nepal.`,
+    title: `RisePaisa — Financial Education & Wealth Building in Nepal`,
+    description: `Master personal finance, NEPSE stock market investing, taxation, and financial planning in Nepal with free guides, calculators, and structured courses.`,
     keywords: `risePaisa, Nepal finance, NEPSE, financial literacy Nepal, stock market Nepal, personal finance Nepal, tax Nepal, fintech Nepal, eSewa, Khalti, MeroShare, Demat, SIP Nepal`,
     type: 'website',
     image: DEFAULT_OG_IMAGE,
@@ -218,16 +218,16 @@ export function resolvePageSEO(pathname = '/', searchParams = null, lang = 'en',
   // ── Route Matchers ─────────────────────────────
   if (!rootSection) {
     // 1. Home
-    seo.title = `risePaisa | Nepal's Financial Education Platform`;
-    seo.description = `Learn personal finance, stock market investing (NEPSE), taxation, and fintech in Nepal. Join thousands of Nepali youth building financial literacy with risePaisa.`;
+    seo.title = `RisePaisa — Financial Education & Wealth Building in Nepal`;
+    seo.description = `Master personal finance, NEPSE stock market investing, taxation, and financial planning in Nepal. Free educational guides, practical calculators, and structured courses.`;
   } else if (rootSection === 'learn') {
     seo.breadcrumbs.push({ name: isNp ? 'सिकाइ केन्द्र' : 'Learn Academy', url: `${SITE_DOMAIN}/learn` });
 
     if (pathParts.length === 1) {
       // 2. Learn Academy Hub
       seo.title = isNp
-        ? `नेपालको वित्तीय शिक्षा एकेडेमी | risePaisa Learn`
-        : `Financial Education Academy for Nepal | risePaisa Learn`;
+        ? `नेपालको वित्तीय शिक्षा एकेडेमी | RisePaisa Learn`
+        : `Financial Education Academy for Nepal | RisePaisa Learn`;
       seo.description = isNp
         ? `नेपालका लागि तयार गरिएको व्यावहारिक वित्तीय शिक्षा। व्यक्तिगत वित्त, नेप्से सेयर बजार, म्युचुअल फण्ड, कर र बैंकिङ सम्बन्धी नि:शुल्क सिकाइ मार्गहरू।`
         : `Free financial education academy designed for Nepal. Structured learning roadmaps covering personal finance, NEPSE stock investing, mutual funds, tax, and banking.`;
@@ -254,8 +254,8 @@ export function resolvePageSEO(pathname = '/', searchParams = null, lang = 'en',
       if (pathParts.length === 2) {
         // 3. Guides Hub
         seo.title = isNp
-          ? `नेपाल वित्तीय निर्देशिकाहरू र व्यावहारिक म्यानुअल | risePaisa`
-          : `Nepal Finance Guides & Practical Manuals | risePaisa Learn`;
+          ? `नेपाल वित्तीय निर्देशिकाहरू र व्यावहारिक म्यानुअल | RisePaisa`
+          : `Nepal Finance Guides & Practical Manuals | RisePaisa Learn`;
         seo.description = isNp
           ? `नेपालमा प्राथमिक सेयर (IPO), डिम्याट, मेरोसेयर, ब्रोकर TMS ट्रेडिङ, र कर चुक्ता सम्बन्धी विस्तृत तथा व्यावहारिक कर्नरस्टोन गाइडहरू।`
           : `In-depth practical finance guides for Nepal: IPO applications, MeroShare setup, Demat accounts, NEPSE TMS broker trading, tax filing, and retirement planning.`;
@@ -266,6 +266,12 @@ export function resolvePageSEO(pathname = '/', searchParams = null, lang = 'en',
         const guide = getGuideBySlug(guideSlug);
 
         if (guide) {
+          if (guideSlug === 'complete-mutual-funds-guide') {
+            seo.canonical = `${SITE_DOMAIN}/learn/guides/complete-mutual-fund-guide`;
+          } else if (guideSlug === 'complete-nepse-investing-guide') {
+            seo.canonical = `${SITE_DOMAIN}/learn/guides/complete-tms-guide`;
+          }
+
           const guideTitle = isNp
             ? (guide.title?.np || (typeof guide.title === 'string' ? guide.title : guide.title?.en || 'Guide'))
             : (guide.title?.en || (typeof guide.title === 'string' ? guide.title : 'Guide'));
@@ -351,8 +357,8 @@ export function resolvePageSEO(pathname = '/', searchParams = null, lang = 'en',
       if (pathParts.length === 2) {
         // 5. Glossary Hub
         seo.title = isNp
-          ? `नेपाल वित्तीय शब्दकोश र शब्दावली | risePaisa Learn`
-          : `Nepal Financial Dictionary & Glossary | risePaisa Learn`;
+          ? `नेपाल वित्तीय शब्दकोश र शब्दावली | RisePaisa Learn`
+          : `Nepal Financial Dictionary & Glossary | RisePaisa Learn`;
         seo.description = isNp
           ? `नेपालको सेयर बजार (NEPSE), बैंकिङ, कर, र अर्थतन्त्र सम्बन्धी शब्दावलीको स्पष्ट, प्रामाणिक नेपाली तथा अंग्रेजी व्याख्या।`
           : `Clear, authoritative definitions of financial, stock market (NEPSE), banking, tax, and economic terms in Nepal with English and Nepali explanations.`;
@@ -500,6 +506,9 @@ export function resolvePageSEO(pathname = '/', searchParams = null, lang = 'en',
       const lesson = getLessonBySlug(catSlug, lessonSlug);
 
       if (category && lesson) {
+        if (lesson.slug && lesson.slug !== lessonSlug) {
+          seo.canonical = `${SITE_DOMAIN}/learn/${catSlug}/${lesson.slug}`;
+        }
         const catTitle = isNp ? (category.np?.name || category.titleNp || category.en?.name || category.title) : (category.en?.name || category.title);
         const lessonTitle = isNp
           ? (lesson.np?.title || lesson.title || 'Lesson')
@@ -591,8 +600,8 @@ export function resolvePageSEO(pathname = '/', searchParams = null, lang = 'en',
 
     if (pathParts.length === 1) {
       // 9. Calculators Hub
-      seo.title = `Financial Calculators for Nepal | SIP, EMI, Tax & Loans | risePaisa`;
-      seo.description = `Free financial calculators designed for Nepal: SIP wealth compounding, loan EMIs, SWP regular income, home loans, fixed deposits, and income tax calculations.`;
+      seo.title = `Financial Calculators for Nepal — SIP, EMI, Tax & NEPSE | RisePaisa`;
+      seo.description = `Free financial calculators designed for Nepal: SIP wealth compounding, loan EMIs, income tax slabs, fixed deposits, and NEPSE share trading costs.`;
       seo.keywords = `SIP calculator Nepal, EMI calculator Nepal, loan interest calculator Kathmandu, SWP calculator, home loan calculator Nepal, risePaisa calculators`;
 
       seo.schemas.push({
@@ -620,63 +629,63 @@ export function resolvePageSEO(pathname = '/', searchParams = null, lang = 'en',
 
         const calcCustomSEO = {
           sip: {
-            title: `SIP Calculator Nepal — Estimate Investment Returns | RisePaisa`,
-            desc: `Estimate SIP maturity value, total investment, and projected returns using your monthly contribution, expected annual return, and duration in Nepal.`,
+            title: `SIP Calculator Nepal — Estimate Investment Growth | RisePaisa`,
+            desc: `Estimate SIP maturity value, total investment, and expected returns using monthly contributions and compounding projections in Nepal.`,
             keywords: `SIP calculator Nepal, systematic investment plan Nepal, mutual fund SIP return, compounding calculator Kathmandu, SIP maturity calculator`
           },
           tax: {
-            title: `Nepal Income Tax Calculator — FY 2082/83 | RisePaisa`,
-            desc: `Estimate Nepal income tax using applicable FY 2082/83 Inland Revenue Department (IRD) progressive tax rules. Review taxable income, deductions, and take-home pay.`,
+            title: `Nepal Income Tax Calculator — Estimate Your Tax (FY 2082/83) | RisePaisa`,
+            desc: `Estimate personal income tax under Nepal FY 2082/83 tax slabs. Calculate tax liability, SSF contributions, deductions, and monthly take-home salary.`,
             keywords: `Nepal income tax calculator, salary tax calculator Nepal, IRD tax slabs 2082/83, married tax Nepal, social security tax Nepal`
           },
           emi: {
-            title: `EMI & Loan Calculator Nepal — Monthly Installment & Schedule | RisePaisa`,
-            desc: `Calculate reducing-balance monthly loan EMI, total interest, and full repayment schedules for commercial bank loans in Nepal.`,
+            title: `EMI Calculator Nepal — Monthly Loan Payment & Schedule | RisePaisa`,
+            desc: `Calculate reducing-balance monthly loan EMIs, total payable interest, and repayment schedules for commercial bank loans in Nepal.`,
             keywords: `EMI calculator Nepal, loan EMI calculator Kathmandu, reducing interest rate Nepal, bank loan installment, loan amortization schedule`
           },
           'home-loan': {
             title: `Home Loan Calculator Nepal — Housing EMI & NRB LTV Ratio | RisePaisa`,
-            desc: `Calculate residential home loan installments, Loan-to-Value (LTV) health metrics under Nepal Rastra Bank guidelines, down payment, and total interest in Nepal.`,
+            desc: `Calculate monthly housing loan installments, NRB Loan-to-Value (LTV) limits, down payment requirements, and total interest for property in Nepal.`,
             keywords: `Home loan calculator Nepal, housing loan EMI Kathmandu, NRB LTV ratio home loan, mortgage calculator Nepal, property loan interest`
           },
           'personal-loan': {
-            title: `Personal Loan Calculator Nepal — Rates & Payment Schedule | RisePaisa`,
-            desc: `Calculate unsecured personal loan monthly EMIs, effective borrowing costs, and compare repayment tenures for bank loans in Nepal.`,
+            title: `Personal Loan Calculator Nepal — Unsecured Loan EMI | RisePaisa`,
+            desc: `Calculate monthly EMIs, total borrowing costs, and interest payments for unsecured personal loans from commercial banks in Nepal.`,
             keywords: `Personal loan calculator Nepal, unsecured bank loan EMI, personal loan interest rates Kathmandu, tenure comparison`
           },
           'vehicle-loan': {
-            title: `Vehicle Loan & Auto EMI Calculator Nepal — Car, Bike & EV | RisePaisa`,
-            desc: `Calculate down payment, loan ratio, and monthly EMIs for two-wheelers, cars, SUVs, and electric vehicles (EV) in Nepal.`,
+            title: `Vehicle Loan Calculator Nepal — Car, Bike & EV EMI | RisePaisa`,
+            desc: `Calculate auto loan EMIs, down payments, and loan-to-value limits for cars, bikes, scooters, and electric vehicles (EVs) in Nepal.`,
             keywords: `Vehicle loan calculator Nepal, auto loan EMI Kathmandu, EV car loan Nepal, bike loan calculator, down payment auto loan`
           },
           swp: {
             title: `SWP Calculator Nepal — Systematic Withdrawal Plan & Regular Income | RisePaisa`,
-            desc: `Simulate monthly regular income withdrawals, portfolio longevity, and project remaining corpus health over time for mutual funds in Nepal.`,
+            desc: `Estimate monthly cash withdrawals, investment portfolio longevity, and remaining balance for mutual fund investments in Nepal.`,
             keywords: `SWP calculator Nepal, systematic withdrawal plan, retirement monthly income Nepal, mutual fund SWP, corpus longevity`
           },
           fdrd: {
-            title: `Nepal Fixed Deposit (FD) & RD Calculator with 5% TDS | RisePaisa`,
-            desc: `Calculate FD and RD returns with quarterly compounding, statutory 5% TDS withholding tax deduction, and net maturity value in Nepal.`,
+            title: `Fixed Deposit Calculator Nepal — FD Returns with 5% TDS | RisePaisa`,
+            desc: `Calculate quarterly compounded fixed deposit returns, statutory 5% TDS withholding tax, and net maturity value for commercial banks in Nepal.`,
             keywords: `Fixed deposit calculator Nepal, FD interest calculator with TDS, RD calculator Nepal, recurring deposit return, bank FD rates`
           },
           share: {
-            title: `NEPSE Share Trading & Capital Gains Tax Calculator | RisePaisa`,
-            desc: `Calculate NEPSE stock trading costs, broker commissions (0.27%-0.40%), SEBON fees, DP charges, WACC average price, and capital gains tax (CGT).`,
+            title: `NEPSE Share Calculator — Estimate Trading Costs & Net Profit | RisePaisa`,
+            desc: `Estimate NEPSE stock trading costs, broker commissions (0.27%-0.40%), SEBON fees, DP charges, WACC average buy price, and capital gains tax.`,
             keywords: `NEPSE share calculator, broker commission calculator Nepal, SEBON fee, WACC calculator Nepal, capital gains tax NEPSE, share profit calculator`
           },
           cagr: {
             title: `CAGR Calculator Nepal — Compound Annual Growth Rate | RisePaisa`,
-            desc: `Measure the Compound Annual Growth Rate (CAGR) of your stock, mutual fund, real estate, or business investments in Nepal.`,
+            desc: `Calculate the Compound Annual Growth Rate (CAGR) of your stock, mutual fund, real estate, or business investments in Nepal.`,
             keywords: `CAGR calculator Nepal, compound annual growth rate, investment return annualized, portfolio growth rate, stock CAGR`
           },
           inflation: {
             title: `Inflation Calculator Nepal — Purchasing Power & Future Cost | RisePaisa`,
-            desc: `Calculate the erosion of purchasing power over time and plan for future price escalation and living expenses in Nepal.`,
+            desc: `Calculate how inflation erodes purchasing power in Nepal and estimate future expenses for education, housing, and living costs.`,
             keywords: `Inflation calculator Nepal, purchasing power loss Kathmandu, future expense calculator, inflation adjustment Nepal`
           },
           retirement: {
-            title: `Retirement & Goal Planner Nepal — Corpus & SIP Target | RisePaisa`,
-            desc: `Plan long-term retirement corpus needs, inflation escalation, and required monthly SIPs for major life goals in Nepal.`,
+            title: `Retirement Calculator Nepal — Plan Your Future Corpus | RisePaisa`,
+            desc: `Plan your retirement corpus, estimate future living costs adjusted for inflation, and determine required monthly savings in Nepal.`,
             keywords: `Retirement planner Nepal, goal calculator, pension corpus Nepal, retirement SIP target, financial freedom Kathmandu`
           }
         };
@@ -716,8 +725,8 @@ export function resolvePageSEO(pathname = '/', searchParams = null, lang = 'en',
 
     if (pathParts.length === 1) {
       // 11. Courses Hub
-      seo.title = `Financial Masterclasses & Courses for Nepal | risePaisa`;
-      seo.description = `Structured video courses and masterclasses on wealth management, personal finance, and investing in Nepal.`;
+      seo.title = `NEPSE & Stock Market Courses in Nepal | RisePaisa`;
+      seo.description = `Structured stock market courses and NEPSE masterclasses for beginners, retail investors, and finance learners in Nepal.`;
       seo.keywords = `NEPSE masterclass, personal finance course Nepal, share market training Kathmandu, risePaisa courses`;
 
       const allCourses = getCourses ? getCourses() : [];
@@ -741,7 +750,7 @@ export function resolvePageSEO(pathname = '/', searchParams = null, lang = 'en',
 
       if (course && isLearnMode) {
         // Course Learning Interface (Private / Interactive - Unindexed & Canonicalized)
-        seo.title = `${course.title} - Learning Interface | risePaisa`;
+        seo.title = `${course.title} - Learning Interface | RisePaisa`;
         seo.description = `Watch structured lessons and explore learning resources for ${course.title}.`;
         seo.robots = 'noindex, nofollow';
         seo.canonical = `${SITE_DOMAIN}/courses/${course.slug}`;
@@ -749,8 +758,12 @@ export function resolvePageSEO(pathname = '/', searchParams = null, lang = 'en',
         seo.breadcrumbs.push({ name: 'Learn', url: canonicalUrl });
       } else if (course) {
         // 12. Course Detail Page
-        seo.title = `${course.title} | Nepal Financial Course | risePaisa`;
-        seo.description = cleanText(course.shortDescription || course.fullDescription, 160) || `Master ${course.title} in Nepal with comprehensive modules from risePaisa.`;
+        seo.title = course.slug === 'nepse-stock-market-basics'
+          ? `Share Market Full Course (NEPSE) — Nepal Stock Market for Beginners | RisePaisa`
+          : `${course.title} | Nepal Financial Course | RisePaisa`;
+        seo.description = course.slug === 'nepse-stock-market-basics'
+          ? `Learn fundamental analysis, technical analysis, IPOs, broker TMS trading, and risk management in Nepal's share market (NEPSE). Structured 20+ hour beginner-friendly course.`
+          : (cleanText(course.shortDescription || course.fullDescription, 160) || `Master ${course.title} in Nepal with comprehensive modules from RisePaisa.`);
         seo.keywords = `${course.title}, ${course.category || 'finance Nepal'}, stock course Nepal, risePaisa academy`;
         seo.breadcrumbs.push({ name: course.title, url: canonicalUrl });
 
@@ -866,8 +879,8 @@ export function resolvePageSEO(pathname = '/', searchParams = null, lang = 'en',
 
     if (pathParts.length === 1) {
       // 15. Blog Hub
-      seo.title = `Financial Blog & Market Analysis for Nepal | risePaisa`;
-      seo.description = `In-depth articles and analytical perspectives on NEPSE market trends, macroeconomics, tax policies, and wealth strategies in Nepal.`;
+      seo.title = `Financial Insights & Market Analysis for Nepal | RisePaisa Blog`;
+      seo.description = `Articles, educational guides, and analysis on NEPSE market trends, personal finance strategies, taxation, and economics in Nepal.`;
       seo.keywords = `Nepal finance blog, NEPSE analysis, share market articles, Nepal tax blog, risePaisa insights`;
 
       const allArticles = getArticles ? getArticles() : [];
@@ -1089,11 +1102,11 @@ export async function updatePageSEO(pathname = (typeof window !== 'undefined' ? 
   const pageAuthor = (rootSection === 'aakash-das' || seo.type === 'article') ? 'Aakash Das' : SITE_NAME;
   setMetaTag('name', 'author', pageAuthor);
 
-  // 4. Canonical & Hreflang Tags
+  // 4. Canonical Tag (Strictly without duplicate self-referencing alternate hreflangs)
   setLinkTag('canonical', seo.canonical);
-  setLinkTag('alternate', seo.canonical, { hreflang: 'en' });
-  setLinkTag('alternate', seo.canonical, { hreflang: 'ne' });
-  setLinkTag('alternate', seo.canonical, { hreflang: 'x-default' });
+  if (typeof document !== 'undefined') {
+    document.querySelectorAll('link[rel="alternate"][hreflang]').forEach(el => el.remove());
+  }
 
   // 5. Open Graph Meta Tags
   setMetaTag('property', 'og:site_name', SITE_NAME);

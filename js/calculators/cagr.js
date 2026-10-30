@@ -502,7 +502,7 @@ export function renderCAGRCalculator() {
         <!-- Nepal Educational Context Note & Companion Links -->
         <div class="rp-educational-note" style="margin-top:var(--space-6)">
           <div class="rp-edu-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
           </div>
           <div class="rp-edu-text">
             <strong>Recommended Learning Path:</strong> Learn how compounding velocity accelerates after year 7 in our flagship lesson on <a href="/learn/investing/compounding-engine-wealth" style="color:var(--color-accent);text-decoration:underline">The Compounding Engine of Wealth</a> or simulate recurring systematic investments using the <a href="/calculators/sip" style="color:var(--color-accent);text-decoration:underline">SIP Calculator</a>.

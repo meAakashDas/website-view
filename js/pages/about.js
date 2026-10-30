@@ -1,13 +1,13 @@
 // ==============================================
-// risePaisa | About Page (Polished & Unified Experience)
+// RisePaisa | About Page (Polished & Unified Experience)
 // ==============================================
 import { ICONS, setPageMeta, getWhatsApp } from '../components.js';
 import { ROUTES } from '../routes.js';
 
 export function renderAboutPage() {
   setPageMeta(
-    'About Us',
-    "risePaisa is Nepal's trusted financial education platform. Founded by Aakash Das, we're on a mission to improve financial literacy across Nepal.",
+    'About RisePaisa — Financial Education for Nepal',
+    'RisePaisa is an independent financial education platform founded by Aakash Das, providing structured masterclasses, free calculators, and practical guides for Nepal.',
     ROUTES.ABOUT
   );
 
@@ -15,10 +15,10 @@ export function renderAboutPage() {
     <!-- 1. Hero Section -->
     <section class="about-hero" id="about-hero">
       <div class="container">
-        <div class="hero-badge" style="margin:0 auto var(--space-5)">🇳🇵 About risePaisa</div>
-        <h1 class="about-hero-title">About risePaisa</h1>
+        <div class="hero-badge" style="margin:0 auto var(--space-5)">🇳🇵 About RisePaisa</div>
+        <h1 class="about-hero-title">About RisePaisa</h1>
         <p class="about-hero-sub">
-          Building Nepal's most trusted financial education platform, one lesson at a time.
+          Practical financial education, verified market research, and free analytical tools built specifically for Nepal.
         </p>
       </div>
     </section>
@@ -30,16 +30,13 @@ export function renderAboutPage() {
           <h2 class="about-section-heading">Our Story</h2>
           <div class="about-story-content">
             <p>
-              <strong>RisePaisa is a Nepal-focused financial education platform founded by Aakash Das.</strong>
+              <strong>RisePaisa is a Nepal-focused financial education platform founded by Aakash Das in Kathmandu.</strong>
             </p>
             <p>
-              The platform was built on a simple reality: people across Nepal want to improve their financial lives, build wealth, and invest prudently, but lack clear, practical, and verified direction.
+              The platform was created to address a clear, everyday challenge: individuals across Nepal and in the diaspora want to build savings, understand the share market, and plan for their financial future, but often encounter fragmented explanations, speculative social media tips, and dense legal text.
             </p>
             <p>
-              The challenge is not effort, but confusion. Scattered information, unverified social media tips, and complex jargon make it difficult to make the right financial choices.
-            </p>
-            <p>
-              RisePaisa brings clarity. We demystify how money works in Nepal, covering personal budgeting, NEPSE investing, income taxation, and digital banking, turning knowledge into practical, step-by-step systems that help Nepali learners earn better, manage smarter, and build lasting financial stability.
+              RisePaisa brings structure and clarity to personal finance in Nepal. We explain how money actually works under Nepalese regulations—spanning personal budgeting, NEPSE stock investing, progressive income tax slabs, and banking products—translating financial concepts into practical, step-by-step systems.
             </p>
           </div>
         </div>
@@ -50,10 +47,10 @@ export function renderAboutPage() {
     <section class="section section-alt" id="about-mission">
       <div class="container">
         <div class="section-header" style="text-align:center;margin-bottom:var(--space-10)">
-          <span class="section-eyebrow">Purpose</span>
-          <h2 class="about-section-heading">Mission & Vision</h2>
+          <span class="section-eyebrow">Purpose & Direction</span>
+          <h2 class="about-section-heading">Mission & Educational Philosophy</h2>
           <p style="max-width:600px;margin:var(--space-3) auto 0;color:var(--color-text-secondary)">
-            Guiding the future of financial literacy and empowerment across Nepal.
+            Guiding learners with practical, research-backed financial education tailored to Nepal's economic landscape.
           </p>
         </div>
 
@@ -65,20 +62,20 @@ export function renderAboutPage() {
             </div>
             <h3>Our Mission</h3>
             <p class="mission-card-intro">
-              To make financial knowledge in Nepal clear, practical, and accessible so every Nepali can make better money decisions, regardless of background or income.
+              To make financial knowledge in Nepal clear, practical, and accessible so every Nepali earner can make informed, independent money decisions.
             </p>
             <ul class="mission-checklist">
               <li>
                 <span class="mission-check-icon">${ICONS.check}</span>
-                <span>Make financial education available in simple, accessible language</span>
+                <span>Explain complex statutory rules in straightforward, accessible language</span>
               </li>
               <li>
                 <span class="mission-check-icon">${ICONS.check}</span>
-                <span>Focus 100% on Nepal's financial ecosystem</span>
+                <span>Focus 100% on Nepal's regulatory and financial framework</span>
               </li>
               <li>
                 <span class="mission-check-icon">${ICONS.check}</span>
-                <span>Enable confident, informed financial decisions</span>
+                <span>Equip learners with objective analytical tools rather than speculative tips</span>
               </li>
             </ul>
           </div>
@@ -88,22 +85,22 @@ export function renderAboutPage() {
             <div class="mission-card__icon-wrap">
               <span class="mission-card__icon">${ICONS.eye}</span>
             </div>
-            <h3>Our Vision</h3>
+            <h3>Our Educational Approach</h3>
             <p class="mission-card-intro">
-              To become Nepal’s most trusted financial education platform and the standard for understanding, managing, and growing money.
+              To establish dependable, high-quality financial education where financial literacy is treated as an essential practical life skill.
             </p>
             <ul class="mission-checklist">
               <li>
                 <span class="mission-check-icon">${ICONS.check}</span>
-                <span>Build a Nepal where financial literacy is a fundamental life skill</span>
+                <span>Base all research on primary statutory sources (NRB, SEBON, IRD, CDSC)</span>
               </li>
               <li>
                 <span class="mission-check-icon">${ICONS.check}</span>
-                <span>Provide actionable tools, calculators, and educational roadmaps</span>
+                <span>Provide 12 verified mathematical calculators free for public use</span>
               </li>
               <li>
                 <span class="mission-check-icon">${ICONS.check}</span>
-                <span>Empower the next generation of Nepali investors and creators</span>
+                <span>Foster long-term financial discipline rather than get-rich-quick speculation</span>
               </li>
             </ul>
           </div>
@@ -115,10 +112,10 @@ export function renderAboutPage() {
     <section class="section" id="about-values">
       <div class="container">
         <div class="section-header" style="text-align:center;margin-bottom:var(--space-10)">
-          <span class="section-eyebrow">Core Values</span>
+          <span class="section-eyebrow">Core Standards</span>
           <h2 class="about-section-heading">What We Stand For</h2>
           <p style="max-width:600px;margin:var(--space-3) auto 0;color:var(--color-text-secondary)">
-            Our principles reflect our commitment to genuine value and clarity for our students.
+            Our editorial and educational standards prioritize student clarity, accuracy, and genuine utility.
           </p>
         </div>
 
@@ -128,7 +125,7 @@ export function renderAboutPage() {
               <span class="value-card__icon">${ICONS.book}</span>
             </div>
             <h3>Practical Over Theoretical</h3>
-            <p>Every concept is explained with real Nepali examples, realistic rupee figures, and actual case studies.</p>
+            <p>Every concept is explained with realistic Nepalese Rupee figures, current fiscal year tax rules, and local market case studies.</p>
           </div>
 
           <div class="value-card about-enhanced-card">
@@ -136,7 +133,7 @@ export function renderAboutPage() {
               <span class="value-card__icon">${ICONS.shield}</span>
             </div>
             <h3>Honest & Unbiased</h3>
-            <p>We don't promote get-rich-quick schemes or sponsored stock tips. Only verified financial principles.</p>
+            <p>We do not promote speculative trading calls, stock tips, or paid affiliate recommendations. Only verified financial principles.</p>
           </div>
 
           <div class="value-card about-enhanced-card">
@@ -144,15 +141,15 @@ export function renderAboutPage() {
               <span class="value-card__icon">${ICONS.compass}</span>
             </div>
             <h3>Tailored for Nepal</h3>
-            <p>From NEPSE rules and Meroshare to local tax slabs and banking systems, everything is built for Nepal.</p>
+            <p>From NEPSE settlement by-laws and MeroShare to IRD income tax brackets and NRB Base Rates, content is built specifically for Nepal.</p>
           </div>
 
           <div class="value-card about-enhanced-card">
             <div class="value-card__icon-wrap">
               <span class="value-card__icon">${ICONS.users}</span>
             </div>
-            <h3>Community First</h3>
-            <p>We learn together. Connect with fellow learners, ask questions, and grow your wealth alongside peers.</p>
+            <h3>Transparent Authorship</h3>
+            <p>All guides, masterclasses, and calculation tools disclose their creators, review dates, and primary source documents.</p>
           </div>
         </div>
       </div>
@@ -182,7 +179,7 @@ export function renderAboutPage() {
             <!-- Right Column: Founder Information, Bio, Stats, Actions -->
             <div class="founder-info-col">
               <div class="founder-header-block">
-                <span class="founder-badge">Founder of RisePaisa</span>
+                <span class="founder-badge">Founder & Educator</span>
                 <h2 class="founder-name">
                   <a href="${ROUTES.AAKASH_DAS}" style="color:inherit;text-decoration:none">Aakash Das</a>
                 </h2>
@@ -197,10 +194,10 @@ export function renderAboutPage() {
 
               <div class="founder-bio-block">
                 <p>
-                  Aakash Das is the founder of RisePaisa and a finance educator and content creator focused on making financial concepts easier to understand for a Nepali audience.
+                  Aakash Das is the founder of RisePaisa and a finance educator and content creator focused on making personal finance and capital markets accessible for Nepali learners.
                 </p>
                 <p>
-                  He founded RisePaisa to address a critical gap: the absence of clear, structured financial guidance tailored to Nepal's economic reality. His approach is direct: remove confusion, focus on what works in Nepal, and teach in a way that leads to disciplined execution and long-term financial stability.
+                  He created RisePaisa to replace market speculation with structured, research-backed financial education. Combining foundational financial analysis with modern web software engineering, he authored the platform's learning curriculum and designed its 12 interactive financial engines.
                 </p>
               </div>
 
@@ -210,10 +207,10 @@ export function renderAboutPage() {
                   href="${ROUTES.AAKASH_DAS}"
                   class="btn btn-secondary founder-btn-profile"
                 >
-                  View Profile & Authored Work ${ICONS.arrowRight}
+                  View Profile & Background ${ICONS.arrowRight}
                 </a>
                 <a
-                  href="https://wa.me/${getWhatsApp()}?text=${encodeURIComponent('Hi Aakash, I would like to connect and learn more about risePaisa.')}"
+                  href="https://wa.me/${getWhatsApp()}?text=${encodeURIComponent('Hi Aakash, I would like to connect and learn more about RisePaisa.')}"
                   target="_blank"
                   rel="noopener"
                   class="btn btn-whatsapp founder-btn-primary"
@@ -224,7 +221,7 @@ export function renderAboutPage() {
                   href="${ROUTES.CONTACT}"
                   class="btn btn-ghost founder-btn-secondary"
                 >
-                  ${ICONS.mail} Contact risePaisa
+                  ${ICONS.mail} Contact RisePaisa
                 </a>
               </div>
             </div>
@@ -237,11 +234,11 @@ export function renderAboutPage() {
     <section class="section" id="about-cta">
       <div class="container">
         <div class="cta-banner">
-          <h2>Ready to Start Learning?</h2>
-          <p>Join hundreds of Nepali youth who are taking control of their financial future with risePaisa.</p>
+          <h2>Start Your Financial Learning</h2>
+          <p>Explore structured masterclasses, research-backed guides, and free financial calculators built for Nepal.</p>
           <div style="display:flex;gap:var(--space-4);justify-content:center;flex-wrap:wrap">
             <a href="${ROUTES.COURSES}" class="btn btn-primary btn-lg">Explore Courses</a>
-            <a href="${ROUTES.BLOG}" class="btn btn-secondary btn-lg">Read Free Articles</a>
+            <a href="${ROUTES.CALCULATORS}" class="btn btn-secondary btn-lg">Use Free Calculators</a>
           </div>
         </div>
       </div>

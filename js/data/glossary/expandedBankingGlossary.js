@@ -96,7 +96,7 @@ export const EXPANDED_BANKING_GLOSSARY = [
       { title: 'Bank Financial Statement Breakdown', categorySlug: 'banking', slug: 'cheque-bounce-banking-offence-nepal' }
     ],
     relatedGuides: [
-      { title: 'Commercial Bank Loan Comparison Worksheet', slug: 'commercial-bank-loan-comparison-worksheet' }
+      { title: 'Commercial Bank Loan & Deposit Guide', slug: 'complete-banking-guide' }
     ],
     relatedCalculators: [
       { name: 'Loan EMI Calculator', slug: 'emi', desc: 'Simulate loan schedules and payments.' }
@@ -204,7 +204,7 @@ export const EXPANDED_BANKING_GLOSSARY = [
       { title: 'Deposit Types and Banking Security in Nepal', categorySlug: 'banking', slug: 'deposit-types-fixed-deposit-nepal' }
     ],
     relatedGuides: [
-      { title: 'Commercial Bank Loan Comparison Worksheet', slug: 'commercial-bank-loan-comparison-worksheet' }
+      { title: 'Commercial Bank Loan & Deposit Guide', slug: 'complete-banking-guide' }
     ],
     relatedCalculators: [
       { name: 'Loan EMI Calculator', slug: 'emi', desc: 'Simulate loan schedules.' }
@@ -311,7 +311,7 @@ export const EXPANDED_BANKING_GLOSSARY = [
       { title: 'Base Rate, Premium and Bank Lending in Nepal', categorySlug: 'banking', slug: 'base-rate-premium-nepal-banks' }
     ],
     relatedGuides: [
-      { title: 'Commercial Bank Loan Comparison Worksheet', slug: 'commercial-bank-loan-comparison-worksheet' }
+      { title: 'Commercial Bank Loan & Deposit Guide', slug: 'complete-banking-guide' }
     ],
     relatedCalculators: [
       { name: 'Loan EMI Calculator', slug: 'emi', desc: 'Simulate lending payments.' }
@@ -409,7 +409,7 @@ export const EXPANDED_BANKING_GLOSSARY = [
       { title: 'Flat Rate vs Reducing Balance EMI in Nepal', categorySlug: 'loans', slug: 'flat-rate-vs-reducing-balance-emi' }
     ],
     relatedGuides: [
-      { title: 'Commercial Bank Loan Comparison Worksheet', slug: 'commercial-bank-loan-comparison-worksheet' }
+      { title: 'Commercial Bank Loan & Deposit Guide', slug: 'complete-banking-guide' }
     ],
     relatedCalculators: [
       { name: 'Loan EMI Calculator', slug: 'emi', desc: 'Calculate reducing-balance EMIs and full amortization schedules.' }

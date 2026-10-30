@@ -10,10 +10,13 @@
  */
 export const NEPAL_TAX_CONFIG = {
   currentFiscalYear: '2082/83',
+  supportedFiscalYears: ['2082/83', '2081/82'],
   '2082/83': {
     fiscalYear: 'FY 2082/83',
-    effectiveFrom: '2082-04-01 BS',
-    description: 'Finance Act 2082/83 resident natural person progressive tax schedule',
+    effectiveFrom: '2082-04-01 BS (July 2025)',
+    verifiedDate: '2026-02-15',
+    authority: 'Inland Revenue Department (IRD) Nepal / Finance Act 2082',
+    description: 'Finance Act 2082 resident natural person progressive tax schedule',
     slabs: {
       single: [
         { id: 's1', label: 'First NPR 500,000 (0 - 5L)', limit: 500000, rate: 0.01, rateLabel: '1%' },
@@ -33,7 +36,7 @@ export const NEPAL_TAX_CONFIG = {
       ],
     },
     deductionLimits: {
-      retirementMax: 500000, // Maximum NPR 500,000 or 1/3rd of assessable income (EPF + CIT + SSF)
+      retirementMax: 500000, // Maximum NPR 500,000 or 1/3rd of assessable income (EPF + CIT + SSF) per Finance Act 2080+
       retirementIncomeFraction: 1 / 3,
       lifeInsuranceMax: 40000, // NPR 40,000 max per year
       healthInsuranceMax: 20000, // NPR 20,000 max per year
@@ -41,6 +44,49 @@ export const NEPAL_TAX_CONFIG = {
       donationMaxAmount: 100000, // Alias for backwards compatibility
       donationsIncomeFraction: 0.05,
       donationIncomeFraction: 0.05,
+    },
+    specialRules: {
+      ssfExemptsFirstSlab: true, // Proviso to Schedule 1 Section 1(1): 1% SST exempt for SSF contributors
+      femaleEmploymentRebateRate: 0.10, // Schedule 1 Section 1(12): 10% rebate for resident female earning only salary
+    },
+  },
+  '2081/82': {
+    fiscalYear: 'FY 2081/82',
+    effectiveFrom: '2081-04-01 BS (July 2024)',
+    verifiedDate: '2025-07-16',
+    authority: 'Inland Revenue Department (IRD) Nepal / Finance Act 2081',
+    description: 'Finance Act 2081 resident natural person progressive tax schedule',
+    slabs: {
+      single: [
+        { id: 's1', label: 'First NPR 500,000 (0 - 5L)', limit: 500000, rate: 0.01, rateLabel: '1%' },
+        { id: 's2', label: 'Next NPR 200,000 (5L - 7L)', limit: 200000, rate: 0.10, rateLabel: '10%' },
+        { id: 's3', label: 'Next NPR 300,000 (7L - 10L)', limit: 300000, rate: 0.20, rateLabel: '20%' },
+        { id: 's4', label: 'Next NPR 1,000,000 (10L - 20L)', limit: 1000000, rate: 0.30, rateLabel: '30%' },
+        { id: 's5', label: 'Next NPR 3,000,000 (20L - 50L)', limit: 3000000, rate: 0.36, rateLabel: '36%' },
+        { id: 's6', label: 'Above NPR 5,000,000 (50L+)', limit: Infinity, rate: 0.39, rateLabel: '39%' },
+      ],
+      married: [
+        { id: 'm1', label: 'First NPR 600,000 (0 - 6L)', limit: 600000, rate: 0.01, rateLabel: '1%' },
+        { id: 'm2', label: 'Next NPR 200,000 (6L - 8L)', limit: 200000, rate: 0.10, rateLabel: '10%' },
+        { id: 'm3', label: 'Next NPR 300,000 (8L - 11L)', limit: 300000, rate: 0.20, rateLabel: '20%' },
+        { id: 'm4', label: 'Next NPR 900,000 (11L - 20L)', limit: 900000, rate: 0.30, rateLabel: '30%' },
+        { id: 'm5', label: 'Next NPR 3,000,000 (20L - 50L)', limit: 3000000, rate: 0.36, rateLabel: '36%' },
+        { id: 'm6', label: 'Above NPR 5,000,000 (50L+)', limit: Infinity, rate: 0.39, rateLabel: '39%' },
+      ],
+    },
+    deductionLimits: {
+      retirementMax: 500000,
+      retirementIncomeFraction: 1 / 3,
+      lifeInsuranceMax: 40000,
+      healthInsuranceMax: 20000,
+      donationsMaxAmount: 100000,
+      donationMaxAmount: 100000,
+      donationsIncomeFraction: 0.05,
+      donationIncomeFraction: 0.05,
+    },
+    specialRules: {
+      ssfExemptsFirstSlab: true,
+      femaleEmploymentRebateRate: 0.10,
     },
   },
 };

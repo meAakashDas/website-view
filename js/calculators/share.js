@@ -641,13 +641,19 @@ export function renderShareCalculator() {
         </div>
       </div>
 
+      <!-- Statutory Scope & Fee Disclosure -->
+      <div class="rp-statutory-notice-box" style="margin-top:var(--space-6);padding:var(--space-4);background:rgba(218,165,32,0.06);border:1px solid rgba(218,165,32,0.25);border-radius:var(--radius-lg);font-size:var(--text-xs);color:var(--color-text-secondary);line-height:1.5">
+        <strong style="color:var(--color-heading);display:block;margin-bottom:4px">🇳🇵 Authoritative NEPSE Trading Scope &amp; Regulatory Schedule</strong>
+        Calculations are based on the Securities Board of Nepal (SEBON) Broker Commission Directive (0.27% - 0.40% tiered rates, min NPR 10), SEBON regulatory fee (0.015%), CDSC Demat transaction DP charge (NPR 25 per scrip transferred), and Inland Revenue Department / Finance Act Capital Gains Tax rates (5% resident individual long-term &gt;365 days, 7.5% resident individual short-term &le;365 days, 10% corporate). <em>Scope limitation:</em> This tool is specifically modeled for secondary market ordinary equity transactions on NEPSE TMS. It does not calculate debt securities/debentures (flat 0.10%), mutual fund repurchase fees, right share applications, auction bid clearing fees, or physical transfer penalties.
+      </div>
+
       <!-- Nepal Stock Market Notice & Companion Links -->
-      <div class="rp-educational-note" style="margin-top:var(--space-6)">
+      <div class="rp-educational-note" style="margin-top:var(--space-4)">
         <div class="rp-edu-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
         </div>
         <div class="rp-edu-text">
-          <strong>Recommended Learning Path:</strong> Learn the end-to-end trading and settlement process in our lesson on <a href="/learn/nepse/broker-account-tms-navigation" style="color:var(--color-accent);text-decoration:underline">Broker Account & TMS Navigation</a> or study the comprehensive <a href="/learn/guides/complete-tms-guide" style="color:var(--color-accent);text-decoration:underline">Complete NEPSE Online TMS Trading Guide</a>.
+          <strong>Recommended Learning Path:</strong> Learn the end-to-end trading and settlement process in our lesson on <a href="/learn/nepse/broker-account-tms-navigation" style="color:var(--color-accent);text-decoration:underline">Broker Account &amp; TMS Navigation</a> or study the comprehensive <a href="/learn/guides/complete-tms-guide" style="color:var(--color-accent);text-decoration:underline">Complete NEPSE Online TMS Trading Guide</a>.
         </div>
       </div>
 

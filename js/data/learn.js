@@ -2,8 +2,6 @@
 // risePaisa - Learn Section Data & Localization Engine
 // Foundation for Nepal's Structured Financial Learning Platform
 // ==============================================
-
-import { ROUTES } from '../routes.js';
 import { FREE_RESOURCES } from './freeResources.js';
 // Lazy dynamic batch loaders map (loaded on-demand when lesson is viewed)
 const BATCH_LOADERS = {
@@ -7354,11 +7352,12 @@ export const FLAGSHIP_LESSONS = loadedFlagshipLessons;
 // Universal Lesson Alias Mapping
 export const LESSON_ALIAS_MAP = {
   'investing': {
-    'what-is-investing': 'what-is-investing',
-    'investing-basics': 'what-is-investing',
+    'what-is-investing': 'inflation-vs-savings-nepal',
+    'investing-basics': 'inflation-vs-savings-nepal',
     'compounding': 'compounding-engine-wealth',
     'power-of-compounding': 'compounding-engine-wealth',
     'compound-interest': 'compounding-engine-wealth',
+    'compounding-returns': 'compounding-engine-wealth',
     'sip-compounding': 'compounding-engine-wealth',
     'inflation-vs-savings': 'inflation-vs-savings-nepal',
     'inflation': 'inflation-vs-savings-nepal',
@@ -7370,20 +7369,24 @@ export const LESSON_ALIAS_MAP = {
     'bonus-shares-vs-dividend': 'dividend-investing-nepal'
   },
   'nepse': {
-    'what-is-an-ipo': 'what-is-an-ipo',
-    'ipo': 'what-is-an-ipo',
+    'what-is-an-ipo': 'analyzing-applying-ipo-meroshare',
+    'what-is-nepse': 'nepal-stock-exchange-history-role',
+    'ipo': 'analyzing-applying-ipo-meroshare',
+    'ipo-analysis-red-flags': 'analyzing-applying-ipo-meroshare',
     'demat': 'demat-meroshare-crn-setup',
     'meroshare': 'demat-meroshare-crn-setup',
     'boid': 'demat-meroshare-crn-setup',
     'crn': 'demat-meroshare-crn-setup',
     'open-demat': 'demat-meroshare-crn-setup',
+    'demat-meroshare-tms': 'demat-meroshare-crn-setup',
     'tms': 'broker-account-tms-navigation',
+    'cgt-taxation': 'broker-commissions-sebon-fees-nepal',
     'right-shares': 'right-shares-nepal',
     'fundamental-analysis': 'fundamental-analysis-nepse'
   },
   'banking': {
-    'fixed-deposit': 'fixed-deposit',
-    'fd': 'fixed-deposit',
+    'fixed-deposit': 'deposit-types-fixed-deposit-nepal',
+    'fd': 'deposit-types-fixed-deposit-nepal',
     'bank-classes': 'bank-classes-nepal-nrb',
     'ka-shreni': 'bank-classes-nepal-nrb',
     'class-a-bank': 'bank-classes-nepal-nrb',
@@ -7397,24 +7400,34 @@ export const LESSON_ALIAS_MAP = {
     'pan': 'pan-explained',
     'income-tax-slabs': 'nepal-income-tax-slabs-salary',
     'income-tax': 'nepal-income-tax-slabs-salary',
+    'income-tax-nepal-basics': 'nepal-income-tax-slabs-salary',
     'tax-slabs': 'nepal-income-tax-slabs-salary',
     'tds': 'nepal-income-tax-slabs-salary',
     'salary-tax': 'nepal-income-tax-slabs-salary',
+    'tax-exemptions': 'ssf-cit-insurance-tax-deductions',
     'freelance-tax': 'freelance-it-export-tax-nepal',
     'it-export-tax': 'freelance-it-export-tax-nepal'
   },
   'mutual-funds': {
     'what-is-mutual-fund': 'what-is-mutual-fund-nepal',
-    'sip-explained': 'starting-online-sip-connectips-nepal'
+    'what-is-a-mutual-fund': 'what-is-mutual-fund-nepal',
+    'sip-explained': 'starting-online-sip-connectips-nepal',
+    'sip-investing-nepal': 'starting-online-sip-connectips-nepal'
   },
   'loans': {
     'emi-explained': 'flat-rate-vs-reducing-balance-emi',
+    'how-loans-work': 'flat-rate-vs-reducing-balance-emi',
+    'base-rate-spreads': 'flat-rate-vs-reducing-balance-emi',
     'education-loan': 'education-abroad-loan-nepal',
     'abroad-loan': 'education-abroad-loan-nepal'
   },
   'digital-payments': {
     'wrong-transfer': 'reversing-wrong-digital-transfer-nepal',
-    'reverse-transfer': 'reversing-wrong-digital-transfer-nepal'
+    'reverse-transfer': 'reversing-wrong-digital-transfer-nepal',
+    'nchl-digital-payment-infrastructure': 'connectips-setup-verification-nepal'
+  },
+  'business': {
+    'business-structures-nepal': 'sole-proprietorship-registration-nepal'
   },
   'retirement-planning': {
     'healthcare-retirement': 'healthcare-costs-in-retirement-nepal',
@@ -7423,7 +7436,14 @@ export const LESSON_ALIAS_MAP = {
   'personal-finance': {
     'cash-flow': 'cash-flow-equation-nepal',
     'budget-50-30-20': '50-30-20-budget-nepal',
+    '50-30-20-budget-rule': '50-30-20-budget-nepal',
+    'budgeting-50-30-20-nepal': '50-30-20-budget-nepal',
+    'budgeting-basics': 'cash-flow-equation-nepal',
+    'tracking-money-leaks': 'cash-flow-equation-nepal',
+    'good-debt-vs-bad-debt': 'pay-yourself-first-nepal',
+    'compound-interest-nepal': 'pay-yourself-first-nepal',
     'emergency-fund': 'emergency-fund-building',
+    'emergency-fund-blueprint': 'emergency-fund-building',
     'bipat-kosh': 'emergency-fund-building',
     'rainy-day-fund': 'emergency-fund-building',
     '6-month-fund': 'emergency-fund-building',

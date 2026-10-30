@@ -32,7 +32,7 @@ const LEGAL_CONTENT = {
   terms: {
     title: 'Terms & Conditions',
     badge: 'Legal Agreement · Governing All Services',
-    description: 'Terms governing enrollment, one-year course access, intellectual property, payments, and limitations of liability on RisePaisa under Nepalese law.',
+    description: 'Terms governing enrollment, course access validity, intellectual property, payments, and limitations of liability on RisePaisa under Nepalese law.',
     lastUpdated: 'October 2026',
     content: `
       <p class="legal-lead">
@@ -65,22 +65,21 @@ const LEGAL_CONTENT = {
 
       <h2>3. Course Purchase, Fees &amp; Payment Processing</h2>
       <ul>
-        <li><strong>Course Fees:</strong> All course fees and product prices are clearly indicated in Nepalese Rupees (NPR). RisePaisa reserves the right to modify prices for future enrollments at any time without prior notice; however, price changes will never affect existing, confirmed enrollments.</li>
+        <li><strong>Course Fees:</strong> All course fees and product prices are clearly indicated in Nepalese Rupees (NPR). The published fee for the <em>Share Market Full Course (NEPSE)</em> is NPR 2,999. RisePaisa reserves the right to modify prices for future enrollments at any time without prior notice; however, price changes will never affect existing, confirmed enrollments.</li>
         <li><strong>Payment Rails:</strong> Payments are processed via licensed payment service providers in Nepal, including <strong>eSewa</strong>, <strong>Khalti</strong>, <strong>connectIPS</strong>, or authorized commercial bank fund transfers. RisePaisa does not collect, record, or store sensitive banking credentials, ATM PINs, MPINs, or card CVVs.</li>
         <li><strong>Access Activation:</strong> Course access is granted only upon verified receipt of payment. Once payment is verified by our team, access instructions, credentials, or private streaming links are issued to the student.</li>
         <li><strong>Taxes:</strong> Any transaction fees imposed by your bank or wallet provider, as well as applicable statutory taxes under the <em>Income Tax Act, 2058</em>, are the responsibility of the paying student.</li>
       </ul>
 
-      <h2>4. Course Access Period &amp; Expiration Terms</h2>
+      <h2>4. Course Access and Validity</h2>
       <p>
-        Unlike physical publications, access to online video masterclasses is provided as a structured digital subscription for a defined validity period:
+        Access to purchased courses is provided for a period of one (1) year. Course access is not lifetime access. Once the applicable access period expires, access to the course content may be discontinued.
       </p>
       <ul>
-        <li><strong>4.1 Share Market Full Course (NEPSE): One-Year Access Only:</strong> Enrollment in the <em>Share Market Full Course (NEPSE)</em> grants the individual student access for <strong>exactly one (1) calendar year (365 days)</strong> commencing from the date and time course access is activated or access credentials are delivered.</li>
-        <li><strong>4.2 Automatic Expiration:</strong> Upon the conclusion of the applicable one-year period, your course access will automatically expire and terminate. Continued access after expiration is not guaranteed or implied.</li>
-        <li><strong>4.3 Exclusion of Lifetime Access:</strong> Lifetime access is <strong>expressly not included</strong> in the Share Market Full Course (NEPSE). No marketing statement or communication shall be construed as conferring perpetual or lifetime access.</li>
-        <li><strong>4.4 Extensions and Renewals:</strong> Any course extension, renewal, or continuing access following the expiry of the one-year access term is entirely at RisePaisa&rsquo;s discretion and subject to the prevailing renewal terms and enrollment fees communicated to the student at the time of renewal.</li>
-        <li><strong>4.5 Digital Downloadable Resources:</strong> Standalone downloadable files (such as personal budget spreadsheets or Notion template duplicates) that are designed to reside on your local device or personal Notion workspace remain accessible to you indefinitely on your own devices once downloaded, subject to the single-user intellectual property restrictions below.</li>
+        <li><strong>4.1 Access Duration:</strong> Course access validity begins from the date payment is verified and course access credentials or links are activated, extending for exactly 365 calendar days (1 year).</li>
+        <li><strong>4.2 Single-User Educational License:</strong> Course access is strictly licensed to one registered individual student. Account credentials, private streaming links, and lesson materials may not be shared, rented, pooled, or redistributed. Concurrent streaming across geographically conflicting IP addresses may trigger automated security verification.</li>
+        <li><strong>4.3 Curriculum Additions &amp; Updates:</strong> During your active one-year enrollment, you receive access to any newly added lessons, updated case studies, and refreshed Excel models for your enrolled course at no additional charge.</li>
+        <li><strong>4.4 Digital Downloadable Resources:</strong> Standalone downloadable study files (such as checklists, spreadsheets, and templates) downloaded to your personal device during your active access period remain available for your individual, non-commercial educational study.</li>
       </ul>
 
       <h2>5. Intellectual Property &amp; Copyright Protection</h2>
@@ -125,7 +124,7 @@ const LEGAL_CONTENT = {
 
       <h2>8. Curriculum Updates &amp; Course Enhancements</h2>
       <p>
-        Because financial regulations, tax slabs (e.g., IRD Finance Acts), and NEPSE trading by-laws evolve regularly in Nepal, RisePaisa reserves the right to periodically update, modify, expand, or refine course lessons, worksheets, and resources to maintain pedagogical accuracy. Active students with valid enrollments receive access to all such lesson updates published within their applicable one-year access period at no additional charge.
+        Because financial regulations, tax slabs (e.g., IRD Finance Acts), and NEPSE trading by-laws evolve regularly in Nepal, RisePaisa reserves the right to periodically update, modify, expand, or refine course lessons, worksheets, and resources to maintain pedagogical accuracy. Active students with valid enrollments receive access to all such lesson updates during their active enrollment period at no additional charge.
       </p>
 
       <h2>9. Technical Availability &amp; Service Maintenance</h2>
@@ -138,9 +137,12 @@ const LEGAL_CONTENT = {
         <li>If you experience prolonged technical impediments in accessing course materials, our support team will actively investigate and assist you within 24 to 48 business hours upon receiving written notice.</li>
       </ul>
 
-      <h2>10. Refunds and Cancellations</h2>
+      <h2>10. Refund and Cancellation Policy</h2>
       <p>
-        All requests for refunds or cancellations are strictly governed by our published <a href="${ROUTES.REFUND}">Refund &amp; Cancellation Policy</a>. In summary, due to the digital and immediately accessible nature of online course videos and proprietary templates, fees are generally non-refundable once access credentials or links have been delivered and accessed, subject to mandatory statutory consumer rights under the <em>Consumer Protection Act, 2075</em>.
+        All course purchases are final and non-refundable. Once payment has been completed and course enrollment has been processed, the amount paid will not be refunded. Please review the course information and available details carefully before making a purchase.
+      </p>
+      <p>
+        All requests and inquiries regarding digital course access are strictly governed by these terms and our published <a href="${ROUTES.REFUND}">Refund &amp; Cancellation Policy</a>.
       </p>
 
       <h2>11. Educational Disclaimer &amp; Investment Risks</h2>
@@ -274,7 +276,7 @@ const LEGAL_CONTENT = {
 
       <h2>4. Data Retention Schedule</h2>
       <ul>
-        <li><strong>Active Enrollment Records:</strong> Student enrollment records and access verification logs are retained for the duration of the active subscription period (e.g., 1 year for the NEPSE course) plus a reasonable archive period to facilitate renewals or past transaction verification;</li>
+        <li><strong>Active Enrollment Records:</strong> Student enrollment records and access verification logs are retained for the duration of active platform operation plus a reasonable statutory archive period to maintain continuous student access and verify past transactions;</li>
         <li><strong>Financial &amp; Tax Records:</strong> Invoices and transaction payment records are retained for the mandatory statutory period mandated by the Inland Revenue Department (IRD Nepal) under the <em>Income Tax Act, 2058</em> (typically 5 to 7 fiscal years);</li>
         <li><strong>Inquiry &amp; Support Messages:</strong> General contact form inquiries and WhatsApp messages are retained only as long as necessary to address your inquiry or resolve ongoing support matters.</li>
       </ul>
@@ -530,7 +532,7 @@ const LEGAL_CONTENT = {
   faq: {
     title: 'Frequently Asked Questions (FAQ)',
     badge: 'Knowledge Base · Common Questions Answered',
-    description: 'Frequently asked questions regarding RisePaisa courses, one-year enrollment validity, payments, calculators, and educational policies.',
+    description: 'Frequently asked questions regarding RisePaisa courses, course enrollment access, payments, calculators, and educational policies.',
     lastUpdated: 'October 2026',
     content: `
       <p class="legal-lead">
@@ -569,14 +571,8 @@ const LEGAL_CONTENT = {
 
       <h3>How long do I have access to course materials?</h3>
       <p>
-        Course access duration is determined on a per-course basis and governed by our <a href="${ROUTES.TERMS}">Terms &amp; Conditions</a>. Specifically:
+        Course access terms and duration are governed by our official <a href="${ROUTES.TERMS}">Terms &amp; Conditions</a>. Enrolled students receive access to watch structured video lessons and use companion learning materials during their active enrollment period. Downloadable worksheets and PDF checklists saved to your device remain in your possession for your individual educational study.
       </p>
-      <ul>
-        <li>Enrollment in the <strong>Share Market Full Course (NEPSE)</strong> grants <strong>one (1) calendar year (365 days) of complete access</strong> from your activation date;</li>
-        <li>Lifetime access is <strong>not included</strong> with the NEPSE course;</li>
-        <li>Upon completion of the one-year access term, access expires automatically. Continued access or renewal after expiration is subject to the applicable renewal terms and fees communicated to students at that time;</li>
-        <li>Standalone downloadable spreadsheet templates or Notion workspace duplicates remain on your local device or Notion workspace indefinitely once downloaded for your personal, non-commercial use.</li>
-      </ul>
 
       <h3>Can I download course videos or share my login?</h3>
       <p>

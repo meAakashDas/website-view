@@ -469,6 +469,27 @@ function renderHomeLoanMarkup() {
 
         </div>
 
+        <!-- Reducing Balance vs Flat Rate Reality Check -->
+        <div class="rp-flat-rate-notice-card" id="hl-flat-rate-card" style="margin:var(--space-4) 0;padding:var(--space-4);background:var(--color-bg-alt);border:1px solid var(--color-border);border-radius:var(--radius-lg)">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:var(--space-2);flex-wrap:wrap;gap:var(--space-2)">
+            <span style="font-size:var(--text-xs);font-weight:700;text-transform:uppercase;letter-spacing:0.05em;color:var(--color-primary-text)">Reducing Balance vs Flat Rate Reality Check</span>
+            <span class="rp-badge rp-badge-neutral" style="font-size:10px">NRB Mandated</span>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-3);margin-bottom:var(--space-2)">
+            <div>
+              <span style="font-size:var(--text-xs);color:var(--color-text-secondary);display:block">Commercial Bank Reducing Rate</span>
+              <strong style="font-size:var(--text-base);color:var(--color-heading)" id="hl-reducing-rate-val">${s.annualRate}% p.a.</strong>
+            </div>
+            <div>
+              <span style="font-size:var(--text-xs);color:var(--color-text-secondary);display:block">Equivalent Flat Rate</span>
+              <strong style="font-size:var(--text-base);color:var(--color-success)" id="hl-equiv-flat-val">~${res.equivalentFlatRate}% p.a.</strong>
+            </div>
+          </div>
+          <p style="font-size:var(--text-xs);color:var(--color-text-secondary);margin:0;line-height:1.45" id="hl-flat-warning-text">
+            Nepal Rastra Bank mandates that all licensed banks calculate home loans on a <strong>Reducing Balance</strong> basis. If an informal cooperative quotes you a "${s.annualRate}% Flat Rate", you would pay <strong>${formatNPR(res.flatRateComparison.flatExcessInterest)} more</strong> in total interest!
+          </p>
+        </div>
+
         <!-- Loan Health Indicator (Loan-to-Value LTV) -->
         <div class="rp-ltv-card" id="hl-ltv-card">
           <div class="rp-ltv-header">
@@ -790,6 +811,27 @@ function renderPersonalLoanMarkup() {
             <div class="rp-stat-value" style="color:var(--color-primary-text)" id="pl-res-effective">${formatNPR(res.effectiveTotalCost)}</div>
             <span class="rp-stat-sub" id="pl-res-fee-sub">Including ${formatNPR(res.processingFeeAmount)} fee</span>
           </div>
+        </div>
+
+        <!-- Reducing Balance vs Flat Rate Reality Check -->
+        <div class="rp-flat-rate-notice-card" id="pl-flat-rate-card" style="margin:var(--space-4) 0;padding:var(--space-4);background:var(--color-bg-alt);border:1px solid var(--color-border);border-radius:var(--radius-lg)">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:var(--space-2);flex-wrap:wrap;gap:var(--space-2)">
+            <span style="font-size:var(--text-xs);font-weight:700;text-transform:uppercase;letter-spacing:0.05em;color:var(--color-primary-text)">Reducing Balance vs Flat Rate Reality Check</span>
+            <span class="rp-badge rp-badge-neutral" style="font-size:10px">NRB Mandated</span>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-3);margin-bottom:var(--space-2)">
+            <div>
+              <span style="font-size:var(--text-xs);color:var(--color-text-secondary);display:block">Commercial Bank Reducing Rate</span>
+              <strong style="font-size:var(--text-base);color:var(--color-heading)" id="pl-reducing-rate-val">${s.annualRate}% p.a.</strong>
+            </div>
+            <div>
+              <span style="font-size:var(--text-xs);color:var(--color-text-secondary);display:block">Equivalent Flat Rate</span>
+              <strong style="font-size:var(--text-base);color:var(--color-success)" id="pl-equiv-flat-val">~${res.equivalentFlatRate}% p.a.</strong>
+            </div>
+          </div>
+          <p style="font-size:var(--text-xs);color:var(--color-text-secondary);margin:0;line-height:1.45" id="pl-flat-warning-text">
+            Nepal commercial banks use <strong>Reducing Balance</strong>. Beware of lenders quoting "${s.annualRate}% Flat Rate", where you would pay <strong>${formatNPR(res.flatRateComparison.flatExcessInterest)} more</strong> in lifetime interest!
+          </p>
         </div>
 
         <!-- Doughnut Chart -->
@@ -1175,6 +1217,27 @@ function renderVehicleLoanMarkup() {
           </div>
         </div>
 
+        <!-- Reducing Balance vs Flat Rate Reality Check -->
+        <div class="rp-flat-rate-notice-card" id="vl-flat-rate-card" style="margin:var(--space-4) 0;padding:var(--space-4);background:var(--color-bg-alt);border:1px solid var(--color-border);border-radius:var(--radius-lg)">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:var(--space-2);flex-wrap:wrap;gap:var(--space-2)">
+            <span style="font-size:var(--text-xs);font-weight:700;text-transform:uppercase;letter-spacing:0.05em;color:var(--color-primary-text)">Reducing Balance vs Flat Rate Reality Check</span>
+            <span class="rp-badge rp-badge-neutral" style="font-size:10px">NRB Mandated</span>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-3);margin-bottom:var(--space-2)">
+            <div>
+              <span style="font-size:var(--text-xs);color:var(--color-text-secondary);display:block">Commercial Bank Reducing Rate</span>
+              <strong style="font-size:var(--text-base);color:var(--color-heading)" id="vl-reducing-rate-val">${s.annualRate}% p.a.</strong>
+            </div>
+            <div>
+              <span style="font-size:var(--text-xs);color:var(--color-text-secondary);display:block">Equivalent Flat Rate</span>
+              <strong style="font-size:var(--text-base);color:var(--color-success)" id="vl-equiv-flat-val">~${res.equivalentFlatRate}% p.a.</strong>
+            </div>
+          </div>
+          <p style="font-size:var(--text-xs);color:var(--color-text-secondary);margin:0;line-height:1.45" id="vl-flat-warning-text">
+            Vehicle loans in Nepal banks are calculated on <strong>Reducing Balance</strong>. If a showroom or finance company quotes a "${s.annualRate}% Flat Rate", you would pay <strong>${formatNPR(res.flatRateComparison.flatExcessInterest)} more</strong> in interest!
+          </p>
+        </div>
+
         <!-- Doughnut Chart -->
         <div id="vl-donut-container">
           ${renderLoanDonutChart({ principal: res.loanAmount, totalInterest: res.totalInterest })}
@@ -1279,7 +1342,7 @@ function renderSharedEducationalSection() {
       <!-- Nepal Educational Context Note & Companion Links -->
       <div class="rp-educational-note" style="margin-top:var(--space-6)">
         <div class="rp-edu-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
         </div>
         <div class="rp-edu-text">
           <strong>Recommended Learning Path:</strong> Learn how to negotiate your premium spread and review bank appraisal steps in our lesson on <a href="/learn/loans/flat-rate-vs-reducing-balance-emi" style="color:var(--color-accent);text-decoration:underline">Flat Rate vs Reducing Balance EMI</a> or explore the comprehensive <a href="/learn/guides/complete-home-loan-guide" style="color:var(--color-accent);text-decoration:underline">Complete Home Loan & Mortgage Guide for Nepal</a>.
@@ -1601,6 +1664,16 @@ function initHomeLoanEvents(container) {
     if (resEffective) resEffective.textContent = formatNPR(res.effectiveTotalCost);
     if (resFeeNote) resFeeNote.textContent = `Including ${formatNPR(res.processingFeeAmount)} fee`;
 
+    // Flat Rate Comparison Update
+    const hlReducingRateVal = document.getElementById('hl-reducing-rate-val');
+    const hlEquivFlatVal = document.getElementById('hl-equiv-flat-val');
+    const hlFlatWarningText = document.getElementById('hl-flat-warning-text');
+    if (hlReducingRateVal) hlReducingRateVal.textContent = `${s.annualRate}% p.a.`;
+    if (hlEquivFlatVal) hlEquivFlatVal.textContent = `~${res.equivalentFlatRate}% p.a.`;
+    if (hlFlatWarningText) {
+      hlFlatWarningText.innerHTML = `Nepal Rastra Bank mandates that all licensed banks calculate home loans on a <strong>Reducing Balance</strong> basis. If an informal cooperative quotes you a "${s.annualRate}% Flat Rate", you would pay <strong>${formatNPR(res.flatRateComparison.flatExcessInterest)} more</strong> in total interest!`;
+    }
+
     // LTV Health
     if (ltvBadge) {
       ltvBadge.className = `rp-ltv-badge ${ltvHealth.badgeClass}`;
@@ -1831,6 +1904,16 @@ function initPersonalLoanEvents(container) {
     if (resFeeSub) resFeeSub.textContent = `Including ${formatNPR(res.processingFeeAmount)} fee`;
     if (elFeeCalcText) elFeeCalcText.textContent = `Fee: ${formatNPR(res.processingFeeAmount)}`;
 
+    // Flat Rate Comparison Update
+    const plReducingRateVal = document.getElementById('pl-reducing-rate-val');
+    const plEquivFlatVal = document.getElementById('pl-equiv-flat-val');
+    const plFlatWarningText = document.getElementById('pl-flat-warning-text');
+    if (plReducingRateVal) plReducingRateVal.textContent = `${s.annualRate}% p.a.`;
+    if (plEquivFlatVal) plEquivFlatVal.textContent = `~${res.equivalentFlatRate}% p.a.`;
+    if (plFlatWarningText) {
+      plFlatWarningText.innerHTML = `Nepal commercial banks use <strong>Reducing Balance</strong>. Beware of lenders quoting "${s.annualRate}% Flat Rate", where you would pay <strong>${formatNPR(res.flatRateComparison.flatExcessInterest)} more</strong> in lifetime interest!`;
+    }
+
     // Comparison grid
     if (compGrid) {
       compGrid.innerHTML = renderTenureComparisonCards(comparisonData, s.tenure, isMonths);
@@ -2059,6 +2142,16 @@ function initVehicleLoanEvents(container) {
       resLtv.style.color = ltvHealth.color;
     }
     if (resLtvSub) resLtvSub.textContent = ltvHealth.label;
+
+    // Flat Rate Comparison Update
+    const vlReducingRateVal = document.getElementById('vl-reducing-rate-val');
+    const vlEquivFlatVal = document.getElementById('vl-equiv-flat-val');
+    const vlFlatWarningText = document.getElementById('vl-flat-warning-text');
+    if (vlReducingRateVal) vlReducingRateVal.textContent = `${s.annualRate}% p.a.`;
+    if (vlEquivFlatVal) vlEquivFlatVal.textContent = `~${res.equivalentFlatRate}% p.a.`;
+    if (vlFlatWarningText) {
+      vlFlatWarningText.innerHTML = `Vehicle loans in Nepal banks are calculated on <strong>Reducing Balance</strong>. If a showroom or finance company quotes a "${s.annualRate}% Flat Rate", you would pay <strong>${formatNPR(res.flatRateComparison.flatExcessInterest)} more</strong> in interest!`;
+    }
 
     // Donut Chart
     if (donutWrap) {

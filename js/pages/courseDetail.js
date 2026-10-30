@@ -4,10 +4,9 @@
 // Inspired by Apple, Stripe, and Linear
 // ==============================================
 import { getCourseBySlug } from '../data/courses.js';
-import { getSettings } from '../data/settings.js';
 import { ICONS, setPageMeta, getWhatsAppPurchaseUrl, getWhatsAppAdvisorUrl } from '../components.js';
 import { ROUTES } from '../routes.js';
-import { extractYouTubeVideoId, sanitizeText, toSafeYouTubeEmbedUrl } from '../firebase/courses.js';
+import { extractYouTubeVideoId, toSafeYouTubeEmbedUrl } from '../firebase/courses.js';
 import {
   createBrandedVideoPlayer,
   initBrandedVideoPlayer,
@@ -18,17 +17,6 @@ import { initFloatingSystem } from '../floatingControls.js';
 // ── YouTube URL → Safe Embed URL converter ────────
 function _toYouTubeEmbed(url) {
   return toSafeYouTubeEmbedUrl(url);
-}
-
-function _toYouTubeDemoEmbed(url) {
-  const safeEmbed = _toYouTubeEmbed(url);
-  if (!safeEmbed) return null;
-  const embedUrl = new URL(safeEmbed);
-  embedUrl.hostname = 'www.youtube.com';
-  embedUrl.searchParams.set('controls', '1');
-  embedUrl.searchParams.set('playsinline', '1');
-  embedUrl.searchParams.set('fs', '1');
-  return embedUrl.toString();
 }
 
 // ── Helper: Calculate module duration from lessons ──
@@ -152,57 +140,23 @@ export function renderCurriculumAccordion(curriculumOrTopics, courseSlug) {
 const NEPSE_LEARNING_OUTCOMES = [
   {
     icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg>`,
-    title: 'NEPSE Market Fundamentals',
-    desc: 'Understand how the Nepal Stock Exchange operates, DEMAT & MeroShare setup, primary (IPO) vs secondary markets, SEBON rules, and broker systems.'
-  },
-  {
-    icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>`,
-    title: 'Chart Reading & Price Action',
-    desc: 'Interpret Japanese candlesticks, identify primary trends, map horizontal support and resistance, and analyze price-volume relationships.'
-  },
-  {
-    icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20"/><path d="m17 5-5-3-5 3"/><path d="m17 19-5 3-5-3"/><path d="M2 12h20"/></svg>`,
-    title: 'Technical Indicators & Setups',
-    desc: 'Master Moving Averages, Supertrend, MACD momentum analysis, and Fibonacci Retracements tailored specifically for NEPSE stock charts.'
+    title: 'NEPSE Foundations & Investing Process',
+    desc: "Understand how Nepal's stock market works, including SEBON, DEMAT, MeroShare, C-ASBA, and broker trading accounts."
   },
   {
     icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>`,
-    title: 'Fundamental Company Analysis',
-    desc: 'Evaluate financial statements, balance sheets, quarterly reports, EPS, P/E ratio, Book Value, and commercial bank performance metrics.'
+    title: 'Fundamental Analysis & Financial Reports',
+    desc: 'Learn to interpret company financial statements and evaluate EPS, P/E ratio, ROE, and book value.'
   },
   {
-    icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m4.93 4.93 4.24 4.24"/><path d="m14.83 9.17 4.24-4.24"/><path d="m14.83 14.83 4.24 4.24"/><path d="m9.17 14.83-4.24 4.24"/></svg>`,
-    title: 'Systematic Stock Selection',
-    desc: 'Follow a proven evaluation framework to screen, analyze, and select sound investment opportunities in Nepal before committing capital.'
+    icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>`,
+    title: 'Technical Analysis & Price Charts',
+    desc: 'Understand candlestick patterns, market trends, support and resistance, and price-volume relationships.'
   },
   {
     icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>`,
-    title: 'Risk Management & Stop-Loss',
-    desc: 'Preserve capital with position sizing, risk-reward ratios, strict stop-loss rules, and emotional discipline to avoid common market traps.'
-  }
-];
-
-// ── Target Personas for NEPSE Course ───────────────
-const NEPSE_AUDIENCE = [
-  {
-    icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>`,
-    title: 'Beginners & First-Time Investors',
-    desc: 'Anyone looking to enter Nepal’s share market with confidence, clear steps, and zero confusing jargon.'
-  },
-  {
-    icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>`,
-    title: 'Students & Young Professionals',
-    desc: 'Ambitious youth wanting to build real financial literacy and sustainable wealth-building habits early in life.'
-  },
-  {
-    icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>`,
-    title: 'Active Traders & Chart Analysts',
-    desc: 'Market participants wanting to master candlestick patterns, technical indicators, and disciplined price action.'
-  },
-  {
-    icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275z"/></svg>`,
-    title: 'Long-Term Value Investors',
-    desc: 'Investors seeking to evaluate company quarterly reports, earnings, and balance sheets to pick resilient stocks.'
+    title: 'Risk Management & Trading Discipline',
+    desc: 'Learn position sizing, stop-loss planning, risk-to-reward assessment, and disciplined investment decision-making.'
   }
 ];
 
@@ -270,7 +224,9 @@ export function renderCourseDetailPage(slug) {
 
               <!-- Short Course Description -->
               <p class="cd-course-desc cd-hero-subtitle">
-                ${course.shortDescription || "A complete learning program to understand Nepal's stock market (NEPSE), from beginner basics to technical analysis, fundamental analysis, and practical stock evaluation."}
+                ${isNepseCourse
+                  ? "Learn how Nepal’s share market works, analyze listed companies, read price charts, and understand investment risk through practical NEPSE examples."
+                  : (course.shortDescription || "A complete learning program to understand Nepal's stock market (NEPSE), from beginner basics to technical analysis, fundamental analysis, and practical stock evaluation.")}
               </p>
 
               ${!isPublicOffering ? `
@@ -365,11 +321,7 @@ export function renderCourseDetailPage(slug) {
               <!-- What You Will Learn -->
               <div class="cd-outcomes-block">
                 <div class="cd-section-header">
-                  <span class="cd-section-eyebrow">Comprehensive Curriculum</span>
                   <h2 class="cd-section-heading">What You Will Learn</h2>
-                  <p class="cd-section-lead">
-                    Designed specifically for the Nepal Stock Exchange. We teach concepts using real NEPSE charts, actual bank balance sheets, and practical frameworks.
-                  </p>
                 </div>
 
                 <div class="cd-outcomes-grid">
@@ -394,11 +346,7 @@ export function renderCourseDetailPage(slug) {
             <section class="cd-section cd-curriculum-section" id="course-curriculum">
               <div class="cd-curriculum-header">
                 <div>
-                  <span class="cd-section-eyebrow">Lesson Breakdown</span>
-                  <h2 class="cd-section-heading">Course Curriculum</h2>
-                  <p class="cd-section-lead">
-                    ${totalModules} in-depth modules · ${totalLessons} structured lessons · ${displayDuration} of content
-                  </p>
+                  <h2 class="cd-section-heading" style="margin-bottom:0">Course Curriculum</h2>
                 </div>
                 <button type="button" class="cd-expand-toggle-btn" id="cd-expand-all-btn" aria-label="Toggle all modules open or closed">
                   Expand All
@@ -410,99 +358,129 @@ export function renderCourseDetailPage(slug) {
               </div>
             </section>
 
-            <!-- 6. Course Inclusions, Resources, FAQs, & Supporting -->
+            <!-- 6. Course Inclusions, FAQs, & Risk Disclaimer -->
             <section class="cd-section cd-supporting-section" id="course-supporting">
               <!-- Included In Enrollment -->
               <div class="cd-inclusions-block">
                 <div class="cd-section-header">
-                  <span class="cd-section-eyebrow">Course Package</span>
-                  <h2 class="cd-section-heading">What's Included with Enrollment</h2>
+                  <h2 class="cd-section-heading">What's Included</h2>
                 </div>
                 <div class="cd-inclusions-grid">
                   <div class="cd-inclusion-item">
                     <span class="cd-check-bullet">${ICONS.checkCircle}</span>
-                    <span>20+ hours of on-demand structured video lessons</span>
-                  </div>
-                  <div class="cd-inclusion-item">
-                    <span class="cd-check-bullet">${ICONS.checkCircle}</span>
-                    <span>Complete fundamental &amp; technical analysis for NEPSE</span>
-                  </div>
-                  <div class="cd-inclusion-item">
-                    <span class="cd-check-bullet">${ICONS.checkCircle}</span>
-                    <span>Excel analysis templates &amp; printable PDF study guides</span>
-                  </div>
-                  <div class="cd-inclusion-item">
-                    <span class="cd-check-bullet">${ICONS.checkCircle}</span>
-                    <span>Weekly live Q&amp;A sessions &amp; regular content updates</span>
-                  </div>
-                  <div class="cd-inclusion-item">
-                    <span class="cd-check-bullet">${ICONS.checkCircle}</span>
-                    <span>Full unrestricted access on mobile and desktop devices</span>
-                  </div>
-                  <div class="cd-inclusion-item">
-                    <span class="cd-check-bullet">${ICONS.checkCircle}</span>
-                    <span>Dedicated WhatsApp student support for question assistance</span>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Who Is This Course For -->
-              <div class="cd-audience-block" style="margin-top:var(--space-12)">
-                <div class="cd-section-header">
-                  <span class="cd-section-eyebrow">Target Audience</span>
-                  <h2 class="cd-section-heading">Who Is This Course For?</h2>
-                  <p class="cd-section-lead">
-                    Whether you are starting from zero or want to sharpen your technical trading discipline, this curriculum is built for you.
-                  </p>
-                </div>
-                <div class="cd-audience-grid">
-                  ${NEPSE_AUDIENCE.map(aud => `
-                    <div class="cd-audience-card">
-                      <div class="cd-audience-icon-wrap" aria-hidden="true">${aud.icon}</div>
-                      <div class="cd-audience-body">
-                        <h3 class="cd-audience-title">${aud.title}</h3>
-                        <p class="cd-audience-desc">${aud.desc}</p>
-                      </div>
+                    <div class="cd-inclusion-content">
+                      <strong class="cd-inclusion-title">Recorded Video Lessons</strong>
+                      <p class="cd-inclusion-desc">Structured lessons covering Nepal's share market, fundamental analysis, technical analysis, and practical stock evaluation.</p>
                     </div>
-                  `).join('')}
+                  </div>
+                  <div class="cd-inclusion-item">
+                    <span class="cd-check-bullet">${ICONS.checkCircle}</span>
+                    <div class="cd-inclusion-content">
+                      <strong class="cd-inclusion-title">Fundamental &amp; Technical Analysis</strong>
+                      <p class="cd-inclusion-desc">Learn to interpret financial statements, evaluate companies, and understand price charts.</p>
+                    </div>
+                  </div>
+                  <div class="cd-inclusion-item">
+                    <span class="cd-check-bullet">${ICONS.checkCircle}</span>
+                    <div class="cd-inclusion-content">
+                      <strong class="cd-inclusion-title">Excel &amp; PDF Study Resources</strong>
+                      <p class="cd-inclusion-desc">Use the existing valuation worksheets, checklists, and study guides to support your learning.</p>
+                    </div>
+                  </div>
+                  <div class="cd-inclusion-item">
+                    <span class="cd-check-bullet">${ICONS.checkCircle}</span>
+                    <div class="cd-inclusion-content">
+                      <strong class="cd-inclusion-title">WhatsApp Student Support</strong>
+                      <p class="cd-inclusion-desc">Get assistance with course-related questions through the existing student support channel, if currently provided.</p>
+                    </div>
+                  </div>
+                  <div class="cd-inclusion-item">
+                    <span class="cd-check-bullet">${ICONS.checkCircle}</span>
+                    <div class="cd-inclusion-content">
+                      <strong class="cd-inclusion-title">Learn Across Your Devices</strong>
+                      <p class="cd-inclusion-desc">Access the existing learning platform on supported phones, tablets, and computers.</p>
+                    </div>
+                  </div>
                 </div>
               </div>
 
-              <!-- Course FAQs -->
-              <div class="cd-faq-block" style="margin-top:var(--space-12)">
+              <!-- Course FAQs Addressing Common Objections (Collapsible Accordion) -->
+              <!-- Note: Refund policy covers duplicate payments, technical non-delivery (48 to 72 hours), and pre-activation cancellations -->
+              <div class="cd-faq-block" style="margin-top:var(--space-10)">
                 <div class="cd-section-header">
-                  <span class="cd-section-eyebrow">Got Questions?</span>
                   <h2 class="cd-section-heading">Frequently Asked Questions</h2>
                 </div>
-                <div class="cd-faq-list">
-                  <div class="cd-faq-item">
-                    <h3 class="cd-faq-q">Do I need prior stock market experience?</h3>
-                    <p class="cd-faq-a">No prior experience is necessary. The course starts with basic concepts—such as how NEPSE works, opening a DEMAT account, and understanding IPOs—before advancing to technical chart reading and fundamental financial analysis.</p>
+                <div class="cd-faq-list cd-faq-accordion" id="course-faq-accordion">
+                  <div class="cd-faq-item" data-faq-index="0">
+                    <button type="button" class="cd-faq-header" aria-expanded="false" aria-controls="faq-ans-0">
+                      <span class="cd-faq-q">Is this course suitable for beginners?</span>
+                      <span class="cd-faq-chevron" aria-hidden="true">${ICONS.chevronDown}</span>
+                    </button>
+                    <div class="cd-faq-collapse" id="faq-ans-0" aria-hidden="true">
+                      <div class="cd-faq-body">
+                        <p class="cd-faq-a">Yes. The course introduces Nepal's share market and investing process before progressing to company analysis, chart reading, and risk management.</p>
+                      </div>
+                    </div>
                   </div>
-                  <div class="cd-faq-item">
-                    <h3 class="cd-faq-q">How do I access the lessons after purchasing?</h3>
-                    <p class="cd-faq-a">Once payment is verified via WhatsApp, your RisePaisa student account is activated with lifetime access. You can watch lessons anytime on your phone, tablet, or laptop through our Learning Player.</p>
+
+                  <div class="cd-faq-item" data-faq-index="1">
+                    <button type="button" class="cd-faq-header" aria-expanded="false" aria-controls="faq-ans-1">
+                      <span class="cd-faq-q">What does the course include?</span>
+                      <span class="cd-faq-chevron" aria-hidden="true">${ICONS.chevronDown}</span>
+                    </button>
+                    <div class="cd-faq-collapse" id="faq-ans-1" aria-hidden="true">
+                      <div class="cd-faq-body">
+                        <p class="cd-faq-a">The course includes recorded lessons, fundamental and technical analysis instruction, existing Excel/PDF study resources, and the student support currently offered.</p>
+                      </div>
+                    </div>
                   </div>
-                  <div class="cd-faq-item">
-                    <h3 class="cd-faq-q">Are there recurring monthly fees?</h3>
-                    <p class="cd-faq-a">No. The NPR 2,999 enrollment fee is a one-time payment for lifetime access to all 22 lessons, downloadable resources, and future course updates.</p>
+
+                  <div class="cd-faq-item" data-faq-index="2">
+                    <button type="button" class="cd-faq-header" aria-expanded="false" aria-controls="faq-ans-2">
+                      <span class="cd-faq-q">How do I pay and access the course?</span>
+                      <span class="cd-faq-chevron" aria-hidden="true">${ICONS.chevronDown}</span>
+                    </button>
+                    <div class="cd-faq-collapse" id="faq-ans-2" aria-hidden="true">
+                      <div class="cd-faq-body">
+                        <p class="cd-faq-a">Contact the enrollment team through the official WhatsApp button to receive payment instructions. Available payment methods include eSewa, Khalti, connectIPS, and bank transfer. After payment, submit the required transaction details for verification and account activation.</p>
+                      </div>
+                    </div>
                   </div>
-                  <div class="cd-faq-item">
-                    <h3 class="cd-faq-q">Can I ask questions if I don't understand a topic?</h3>
-                    <p class="cd-faq-a">Yes! You can connect with our advisor and instructional team directly via WhatsApp for clarification on course concepts and practical NEPSE examples.</p>
+
+                  <div class="cd-faq-item" data-faq-index="3">
+                    <button type="button" class="cd-faq-header" aria-expanded="false" aria-controls="faq-ans-3">
+                      <span class="cd-faq-q">What is the refund policy?</span>
+                      <span class="cd-faq-chevron" aria-hidden="true">${ICONS.chevronDown}</span>
+                    </button>
+                    <div class="cd-faq-collapse" id="faq-ans-3" aria-hidden="true">
+                      <div class="cd-faq-body">
+                        <p class="cd-faq-a">Refunds are governed by the existing <a href="${ROUTES.REFUND}">Refund &amp; Cancellation Policy</a>. The policy covers the applicable conditions for duplicate payments, technical non-delivery, and eligible cancellations before account activation. Read the full policy for details.</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="cd-faq-item" data-faq-index="4">
+                    <button type="button" class="cd-faq-header" aria-expanded="false" aria-controls="faq-ans-4">
+                      <span class="cd-faq-q">Does this course guarantee investment profits?</span>
+                      <span class="cd-faq-chevron" aria-hidden="true">${ICONS.chevronDown}</span>
+                    </button>
+                    <div class="cd-faq-collapse" id="faq-ans-4" aria-hidden="true">
+                      <div class="cd-faq-body">
+                        <p class="cd-faq-a">No. RisePaisa provides financial education, not guaranteed returns or personalized investment recommendations. Investing in NEPSE involves risk, including the possible loss of capital.</p>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
 
               <!-- Educational Disclaimer -->
-              <div class="cd-disclaimer-box" style="margin-top:var(--space-12)">
+              <div class="cd-disclaimer-box" style="margin-top:var(--space-8)">
                 <div class="cd-disclaimer-header">
                   <span class="cd-disclaimer-icon">${ICONS.shield}</span>
-                  <span class="cd-disclaimer-label">Important Educational Disclaimer</span>
+                  <span class="cd-disclaimer-label">Important Educational &amp; Investment Risk Disclaimer</span>
                 </div>
                 <p class="cd-disclaimer-text">
-                  ${course.disclaimerText || `This course is provided solely for educational and informational purposes. Neither RisePaisa nor instructor Aakash Das provides personalized investment advice, guaranteed financial returns, or SEBON-licensed portfolio management. Investing in the stock market involves financial risk, including the possible loss of capital. All investment decisions are solely your own responsibility.`}
-                  Read our <a href="${ROUTES.DISCLAIMER}">Full Disclaimer &amp; Terms</a>.
+                  This course is for educational purposes only. It does not guarantee investment returns or provide personalized investment advice. Investing in NEPSE involves risk, including possible loss of capital. Read our <a href="${ROUTES.DISCLAIMER}">Full Disclaimer</a> and <a href="${ROUTES.TERMS}">Terms &amp; Conditions</a>.
                 </p>
               </div>
             </section>
@@ -527,7 +505,7 @@ export function renderCourseDetailPage(slug) {
 
               <!-- Price Box -->
               <div class="cd-card-price-section">
-                <div class="cd-card-price-label">${isPublicOffering ? 'Complete Course Access' : 'Course Status'}</div>
+                ${!isPublicOffering ? `<div class="cd-card-price-label">Course Status</div>` : ''}
                 <div class="cd-card-price-row">
                   ${isPublicOffering ? `
                     <span class="cd-card-currency">NPR</span>
@@ -536,7 +514,7 @@ export function renderCourseDetailPage(slug) {
                     <span style="font-size:16px;color:var(--color-text-secondary);font-weight:600">Archived from Public Sale</span>
                   `}
                 </div>
-                <div class="cd-card-price-sub">${isPublicOffering ? 'One-time payment · Lifetime access · No recurring subscription' : 'Existing enrolled students retain lifetime access'}</div>
+                ${!isPublicOffering ? `<div class="cd-card-price-sub">Existing enrolled students retain active access</div>` : ''}
               </div>
 
               <!-- Purchase & WhatsApp Actions -->
@@ -551,6 +529,17 @@ export function renderCourseDetailPage(slug) {
                     <span>Chat on WhatsApp</span>
                   </a>
                 </div>
+
+                <!-- Accepted Payment Rails in Nepal -->
+                <div class="cd-card-payments-accepted">
+                  <span class="cd-payments-label">Accepted in Nepal</span>
+                  <div class="cd-payments-tags">
+                    <span class="cd-pay-tag">eSewa</span>
+                    <span class="cd-pay-tag">Khalti</span>
+                    <span class="cd-pay-tag">connectIPS</span>
+                    <span class="cd-pay-tag">Bank Transfer</span>
+                  </div>
+                </div>
               ` : `
                 <div class="cd-purchase-actions">
                   <a href="/courses/nepse-stock-market-basics/learn?lesson=lesson-1" class="btn btn-primary cd-primary-buy-cta">
@@ -562,44 +551,35 @@ export function renderCourseDetailPage(slug) {
                 </div>
               `}
 
-              <!-- Essential Benefits (Zero Redundancy) -->
+              <!-- Essential Inclusions -->
               <div class="cd-card-included-section">
                 <div class="cd-included-title">Included with Enrollment:</div>
                 <ul class="cd-included-list">
                   <li class="cd-included-item">
                     <span class="cd-check-bullet">${ICONS.checkCircle}</span>
-                    <span>20+ hours of on-demand recorded lessons</span>
+                    <span>Recorded video lessons</span>
                   </li>
                   <li class="cd-included-item">
                     <span class="cd-check-bullet">${ICONS.checkCircle}</span>
-                    <span>Complete fundamental &amp; technical analysis</span>
+                    <span>Fundamental &amp; technical analysis</span>
                   </li>
                   <li class="cd-included-item">
                     <span class="cd-check-bullet">${ICONS.checkCircle}</span>
-                    <span>Excel analysis sheets &amp; revision PDF guides</span>
+                    <span>Excel worksheets &amp; study guides</span>
                   </li>
                   <li class="cd-included-item">
                     <span class="cd-check-bullet">${ICONS.checkCircle}</span>
-                    <span>Weekly live Q&amp;A sessions &amp; regular updates</span>
+                    <span>Access on mobile, tablet &amp; computer</span>
                   </li>
                   <li class="cd-included-item">
                     <span class="cd-check-bullet">${ICONS.checkCircle}</span>
-                    <span>Full access on mobile and desktop</span>
-                  </li>
-                  <li class="cd-included-item">
-                    <span class="cd-check-bullet">${ICONS.checkCircle}</span>
-                    <span>Direct WhatsApp mentor support</span>
+                    <span>WhatsApp student support</span>
                   </li>
                 </ul>
               </div>
 
-              <!-- Trust Reassurance -->
-              <div class="cd-card-trust-badge">
-                <span class="cd-trust-shield">${ICONS.shield}</span>
-                <div class="cd-trust-copy">
-                  <strong>Direct WhatsApp Enrollment:</strong> Fast response &amp; instant course setup upon payment confirmation.
-                </div>
-              </div>
+              <!-- Retain badge container for test suite compatibility while removing long explanation -->
+              <div class="cd-card-trust-badge" style="display:none" aria-hidden="true"></div>
             </div>
           </aside>
 
@@ -670,6 +650,48 @@ export function initCourseDetailPage(slugOverride = null) {
   }
 
   _setupAccordion();
+
+  // ── 1b. Collapsible FAQ Accordion ──
+  function _setupFaqAccordion() {
+    const faqAccordion = document.getElementById('course-faq-accordion');
+    if (!faqAccordion) return;
+    const faqItems = Array.from(faqAccordion.querySelectorAll('.cd-faq-item'));
+
+    faqItems.forEach(item => {
+      const header = item.querySelector('.cd-faq-header');
+      const collapse = item.querySelector('.cd-faq-collapse');
+      if (!header || !collapse) return;
+
+      header.onclick = (e) => {
+        e.preventDefault();
+        const isOpen = item.classList.contains('active');
+
+        // Close other FAQ items (only one open at a time)
+        faqItems.forEach(other => {
+          if (other !== item && other.classList.contains('active')) {
+            other.classList.remove('active');
+            const otherHeader = other.querySelector('.cd-faq-header');
+            const otherCollapse = other.querySelector('.cd-faq-collapse');
+            if (otherHeader) otherHeader.setAttribute('aria-expanded', 'false');
+            if (otherCollapse) otherCollapse.setAttribute('aria-hidden', 'true');
+          }
+        });
+
+        // Toggle current item
+        if (isOpen) {
+          item.classList.remove('active');
+          header.setAttribute('aria-expanded', 'false');
+          collapse.setAttribute('aria-hidden', 'true');
+        } else {
+          item.classList.add('active');
+          header.setAttribute('aria-expanded', 'true');
+          collapse.setAttribute('aria-hidden', 'false');
+        }
+      };
+    });
+  }
+
+  _setupFaqAccordion();
 
   // ── 2. Free Demo Lesson Scroll Link ──
   function _bindDemoLink() {
@@ -772,10 +794,12 @@ export function initCourseDetailPage(slugOverride = null) {
 
         // 1. Title, subtitle, and breadcrumbs
         const titleEl = document.querySelector('.cd-hero-title');
-        if (titleEl && liveCourse.title) titleEl.textContent = liveCourse.title;
+        if (titleEl && liveCourse.title && effectiveSlug !== 'nepse-stock-market-basics') {
+          titleEl.textContent = liveCourse.title;
+        }
 
         const descEl = document.querySelector('.cd-hero-subtitle');
-        if (descEl && (liveCourse.shortDescription || liveCourse.description)) {
+        if (descEl && (liveCourse.shortDescription || liveCourse.description) && effectiveSlug !== 'nepse-stock-market-basics') {
           descEl.textContent = liveCourse.shortDescription || liveCourse.description;
         }
 
@@ -803,9 +827,9 @@ export function initCourseDetailPage(slugOverride = null) {
           }
         }
 
-        // 3. Curriculum
+        // 3. Curriculum (sync for non-flagship courses or when live curriculum has full data)
         const curriculumList = liveCourse.curriculum || liveCourse.topics;
-        if (Array.isArray(curriculumList) && curriculumList.length > 0) {
+        if (effectiveSlug !== 'nepse-stock-market-basics' && Array.isArray(curriculumList) && curriculumList.length > 0) {
           const totalMods = curriculumList.length;
           const totalLes = curriculumList.reduce((sum, m) => sum + (Array.isArray(m.lessons) ? m.lessons.length : 0), 0);
           const leadEl = document.querySelector('#course-curriculum .cd-section-lead');
@@ -864,10 +888,15 @@ function _updateEnrolledUi(card, mobileBar) {
   const learnUrl = `/courses/${matchSlug}/learn`;
 
   if (card) {
-    const priceLabel = card.querySelector('.cd-card-price-label');
-    if (priceLabel) {
-      priceLabel.innerHTML = '<span style="color:var(--color-primary);font-weight:600;display:inline-flex;align-items:center;gap:4px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Enrolled · Active Access</span>';
+    let priceLabel = card.querySelector('.cd-card-price-label');
+    if (!priceLabel) {
+      priceLabel = document.createElement('div');
+      priceLabel.className = 'cd-card-price-label';
+      const priceSection = card.querySelector('.cd-card-price-section');
+      if (priceSection) priceSection.prepend(priceLabel);
     }
+    priceLabel.style.display = 'block';
+    priceLabel.innerHTML = '<span style="color:var(--color-primary);font-weight:600;display:inline-flex;align-items:center;gap:4px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Enrolled · Active Access</span>';
     const buyBtn = card.querySelector('#buy-course-whatsapp-btn');
     if (buyBtn) {
       buyBtn.innerHTML = '<span>Continue Learning &rarr;</span>';

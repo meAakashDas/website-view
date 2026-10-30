@@ -52,7 +52,7 @@ const AE_ICONS = {
   history: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/><path d="M12 7v5l4 2"/></svg>`,
   slash: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/></svg>`,
   book: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>`,
-  key: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m21 2-2 2m-1.5 1.5L14 9l-2-2-4 4 2 2-5 5a2 2 0 0 0 0 2.83l.17.17a2 2 0 0 0 2.83 0l5-5 2 2 4-4-2-2 3.5-3.5"/></svg>`,
+  key: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="7.5" cy="15.5" r="5.5"/><path d="m21 2-9.6 9.6"/><path d="m15.5 7.5 3 3"/></svg>`,
   edit: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>`,
   copy: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>`,
   phone: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>`
@@ -1023,11 +1023,11 @@ export function initAdminEnrollmentsPage() {
             <div class="ae-form-group">
               <label for="ae-expiration-select" class="ae-label">Expiration Policy <span class="ae-req">*</span></label>
               <select id="ae-expiration-select" class="ae-input" required>
-                <option value="none">No Expiration (Lifetime Access)</option>
+                <option value="none" selected>No Expiration (Lifetime Access) — Standard</option>
                 <option value="1_month">1 Month Access</option>
                 <option value="3_months">3 Months Access</option>
                 <option value="6_months">6 Months Access</option>
-                <option value="1_year" selected>1 Year Access (Standard)</option>
+                <option value="1_year">1 Year Access</option>
                 <option value="custom">Custom Expiration Date...</option>
               </select>
             </div>
@@ -1494,11 +1494,11 @@ export function initAdminEnrollmentsPage() {
             <div class="ae-form-group ae-hidden" id="ae-add-duration-group">
               <label for="ae-add-duration-select" class="ae-label">Course Access Duration</label>
               <select id="ae-add-duration-select" class="ae-input">
+                <option value="0" selected>Lifetime Access (No Expiration) — Standard</option>
                 <option value="30">1 Month (30 Days)</option>
                 <option value="90">3 Months (90 Days)</option>
                 <option value="180">6 Months (180 Days)</option>
-                <option value="365" selected>1 Year (365 Days) — Standard</option>
-                <option value="0">Lifetime Access (No Expiration)</option>
+                <option value="365">1 Year (365 Days)</option>
               </select>
             </div>
 

@@ -7,7 +7,7 @@
 import { getCourseBySlug } from '../data/courses.js';
 import { getSettings } from '../data/settings.js';
 import { ROUTES } from '../routes.js';
-import { ICONS, setPageMeta } from '../components.js';
+import { setPageMeta } from '../components.js';
 import {
   normalizeCourseData,
   fetchCourseData,
@@ -47,6 +47,7 @@ const CL_ICONS = {
   chevronLeft: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>`,
   chevronRight: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>`,
   arrowLeft: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>`,
+  close: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>`,
   sparkles: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/></svg>`,
   bookmark: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"/></svg>`,
   bookmarkFilled: `<svg viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"/></svg>`,
@@ -119,7 +120,7 @@ function _buildWhatsAppEnrollUrl(course) {
   const rawPhone = settings.whatsapp || '9779740269317';
   const cleanPhone = rawPhone.replace(/[^0-9]/g, '');
   const priceStr = course?.price ? ` (NPR ${course.price.toLocaleString()})` : '';
-  const message = `Hi RisePaisa! I want to enroll in the ${course?.title || 'Course'}${priceStr} to unlock full lesson access.`;
+  const message = `Hi RisePaisa! I want to enroll in the ${course?.title || 'Course'}${priceStr}. Please share the payment and enrollment details.`;
   return `https://wa.me/${cleanPhone}?text=${encodeURIComponent(message)}`;
 }
 
@@ -321,13 +322,7 @@ export function renderCourseLearnPage(slug, initialLessonId = null) {
 
         <!-- Course Title Header -->
         <header class="cl-header-banner">
-          <div class="cl-header-meta">
-            <span class="cl-kicker-pill">
-              <span class="cl-kicker-pulse"></span>
-              Learning Mode · ${publishedLessons.length} Lessons
-            </span>
-            <h1 class="cl-course-title">${sanitizeText(course.title)}</h1>
-          </div>
+          <h1 class="cl-course-title">${sanitizeText(course.title)}</h1>
         </header>
       </div>
 
@@ -421,7 +416,6 @@ export function renderCourseLearnPage(slug, initialLessonId = null) {
                         <div class="cl-res-icon-wrap">${icon}</div>
                         <div class="cl-res-info">
                           <span class="cl-res-title">${sanitizeText(res.title)}</span>
-                          <span class="cl-res-type-pill">${sanitizeText(res.fileType || 'Document')}</span>
                         </div>
                         <a href="${safeUrl}" download target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-ghost cl-res-download-btn">
                           ${CL_ICONS.download} Open Resource
@@ -491,7 +485,7 @@ export function renderCourseLearnPage(slug, initialLessonId = null) {
                   </div>
                   <div class="cl-sidebar-header-actions">
                     <button type="button" class="cl-drawer-close-btn" id="cl-drawer-close-btn" aria-label="Close Course Outline">
-                      ✕
+                      ${CL_ICONS.close}
                     </button>
                   </div>
                 </div>
@@ -815,7 +809,6 @@ export function initCourseLearnPage(slug, initialLessonId = null) {
                 <div class="cl-res-icon-wrap">${icon}</div>
                 <div class="cl-res-info">
                   <span class="cl-res-title">${sanitizeText(res.title)}</span>
-                  <span class="cl-res-type-pill">${sanitizeText(res.fileType || 'Document')}</span>
                 </div>
                 <a href="${safeUrl}" download target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-ghost cl-res-download-btn">
                   ${CL_ICONS.download} Open Resource
@@ -1200,11 +1193,6 @@ export function initCourseLearnPage(slug, initialLessonId = null) {
     // Update course metadata in DOM
     const titleEl = document.querySelector('.cl-course-title');
     if (titleEl && liveCourse.title) titleEl.textContent = liveCourse.title;
-
-    const kickerEl = document.querySelector('.cl-header-meta .cl-kicker-pill');
-    if (kickerEl) {
-      kickerEl.innerHTML = `<span class="cl-kicker-pulse"></span> Learning Mode · ${updatedLessons.length} Lessons`;
-    }
 
     const subEl = document.querySelector('.cl-sidebar-subtitle');
     if (subEl) {

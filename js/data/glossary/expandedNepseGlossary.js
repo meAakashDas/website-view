@@ -707,7 +707,7 @@ export const EXPANDED_NEPSE_GLOSSARY = [
       { slug: 'portfolio', name: 'Portfolio', type: 'glossary' }
     ],
     relatedLessons: [
-      { title: 'Understanding Market Trends and Trend Analysis', categorySlug: 'nepse', slug: 'market-psychology-down-markets' }
+      { title: 'Understanding Market Trends and Trend Analysis', categorySlug: 'investing', slug: 'market-psychology-down-markets' }
     ],
     relatedGuides: [
       { title: 'NEPSE Investing Guide', slug: 'complete-nepse-investing-guide' }

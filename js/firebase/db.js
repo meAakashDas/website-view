@@ -4,7 +4,7 @@
 // Loaded on-demand to maintain zero overhead on static pages
 // ==============================================
 
-import { getFirebaseApp, isFirebaseConfigured } from './config.js';
+import { getFirebaseApp } from './config.js';
 import { getCurrentUser, isAuthInitialized, waitForAuthReady } from './auth.js';
 
 let _dbInstance = null;

@@ -232,6 +232,13 @@ textarea {
   padding-right: max(var(--space-4), env(safe-area-inset-right, 0px));
 }
 
+@media (max-width: 360px) {
+  .container {
+    padding-left: max(10px, env(safe-area-inset-left, 0px));
+    padding-right: max(10px, env(safe-area-inset-right, 0px));
+  }
+}
+
 @media (min-width: 480px) {
   .container {
     padding: 0 var(--space-5);

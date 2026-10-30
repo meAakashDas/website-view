@@ -1,23 +1,21 @@
 import { ROUTES, navigateTo } from '../routes.js';
-import { ICONS, setPageMeta } from '../components.js';
+import { setPageMeta } from '../components.js';
 import {
-  fetchUserEnrolledCourses,
   fetchUserCourseProgress,
   checkUserEnrollment,
-  fetchCourseData,
   normalizeCourseData,
   sanitizeText,
   parseDateToMillis
 } from '../firebase/courses.js';
 import { getCourseBySlug } from '../data/courses.js';
 import { getSettings } from '../data/settings.js';
-import { subscribeToAuth, getCurrentUser } from '../firebase/auth.js';
+import { subscribeToAuth } from '../firebase/auth.js';
 import { openAuthModal } from '../firebase/ui.js';
 
 const MC_ICONS = {
   lock: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>`,
   play: `<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><polygon points="5 3 19 12 5 21 5 3"/></svg>`,
-  checkCircle: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>`,
+  checkCircle: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="16 9 10.5 14.5 8 12"/></svg>`,
   graduationCap: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>`,
   arrowRight: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>`,
   bookOpen: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>`,
@@ -31,7 +29,7 @@ const NEPSE_LEARN_URL = '/courses/nepse-stock-market-basics/learn?lesson=lesson-
 const NEPSE_DETAIL_URL = '/courses/nepse-stock-market-basics';
 
 function formatExpirationDate(expiresAt) {
-  if (!expiresAt) return 'Lifetime Access';
+  if (!expiresAt) return 'Active';
   const ms = parseDateToMillis(expiresAt);
   if (!ms) return 'Active';
   return new Date(ms).toLocaleDateString('en-US', {
@@ -339,7 +337,7 @@ export function initMyCoursesPage() {
 
       const percent = totalLessons > 0 ? Math.round((completedLessons / totalLessons) * 100) : 0;
       let statusBadge = `<span class="mc-status-badge mc-badge-active">${MC_ICONS.checkCircle} Enrolled</span>`;
-      let expirationText = `<div class="mc-expiry-line" style="margin-top:var(--space-2);font-size:var(--text-xs);color:var(--color-text-secondary)">${MC_ICONS.checkCircle} <strong>Lifetime Access</strong></div>`;
+      let expirationText = `<div class="mc-expiry-line" style="margin-top:var(--space-2);font-size:var(--text-xs);color:var(--color-text-secondary)">${MC_ICONS.checkCircle} <strong>Active Enrollment</strong></div>`;
 
       if (enrollmentResult.expiresAt) {
         const expFormatted = formatExpirationDate(enrollmentResult.expiresAt);

@@ -359,6 +359,13 @@ export function renderFDRDCalculator() {
                 💡 <em>FD provides predictable returns guaranteed by your bank, whereas SIP returns depend on market performance.</em>
               </div>
             </div>
+
+            <!-- Nepal Banking Assumptions & Estimate Notice -->
+            <div class="rp-statutory-notice-box" style="margin-top:var(--space-4);padding:var(--space-3) var(--space-4);background:rgba(218,165,32,0.06);border:1px solid rgba(218,165,32,0.25);border-radius:var(--radius-md);font-size:var(--text-xs);color:var(--color-text-secondary);line-height:1.45">
+              <strong style="color:var(--color-heading);display:block;margin-bottom:2px">🇳🇵 Nepal Banking Assumptions &amp; Estimate Notice</strong>
+              Calculated on standard quarterly compounding and 5% final withholding tax (TDS) for resident natural persons under Nepal Income Tax Act Section 88. Actual interest capitalization, compounding frequency (quarterly vs monthly), special remittance rates (+1%), and premature withdrawal penalty terms vary by commercial bank and financial institution. This calculation is an illustrative estimate.
+            </div>
+
           </div>
         </div>
 
@@ -615,6 +622,13 @@ export function renderFDRDCalculator() {
                 <span class="rp-stat-sub">Take-home growth</span>
               </div>
             </div>
+
+            <!-- Nepal Banking Assumptions & Estimate Notice -->
+            <div class="rp-statutory-notice-box" style="margin-top:var(--space-4);padding:var(--space-3) var(--space-4);background:rgba(218,165,32,0.06);border:1px solid rgba(218,165,32,0.25);border-radius:var(--radius-md);font-size:var(--text-xs);color:var(--color-text-secondary);line-height:1.45">
+              <strong style="color:var(--color-heading);display:block;margin-bottom:2px">🇳🇵 Nepal Banking Assumptions &amp; Estimate Notice</strong>
+              Recurring Deposit maturity values are estimates based on monthly regular installments, selected compounding frequency, and 5% statutory TDS. Individual bank payout schemes, missed installment penalty interest, and specific capitalization policies may vary slightly.
+            </div>
+
           </div>
         </div>
       </div>
@@ -669,7 +683,7 @@ export function renderFDRDCalculator() {
       <!-- Nepal Banking Context Notice & Companion Links -->
       <div class="rp-educational-note" style="margin-top:var(--space-6)">
         <div class="rp-edu-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
         </div>
         <div class="rp-edu-text">
           <strong>Recommended Learning Path:</strong> Master bank classification and deposit optimization in our lesson on <a href="/learn/banking/deposit-types-fixed-deposit-nepal" style="color:var(--color-accent);text-decoration:underline">Fixed Deposit Mechanics &amp; TDS in Nepal</a> or review the comprehensive <a href="/learn/guides/complete-banking-guide" style="color:var(--color-accent);text-decoration:underline">Complete Nepal Banking &amp; Deposit Guide</a>.

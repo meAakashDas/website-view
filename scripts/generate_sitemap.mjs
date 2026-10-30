@@ -78,8 +78,9 @@ for (const cat of LEARN_CATEGORIES) {
   }
 }
 
-// 3. Flagship & Cornerstone Guides
-const guideSlugs = Object.keys(DETAILED_GUIDES);
+// 3. Flagship & Cornerstone Guides (Canonical URLs Only)
+const aliasGuideSlugs = ['complete-mutual-funds-guide', 'complete-nepse-investing-guide'];
+const guideSlugs = Object.keys(DETAILED_GUIDES).filter(slug => !aliasGuideSlugs.includes(slug));
 for (const slug of guideSlugs) {
   entries.push({
     loc: `${DOMAIN}/learn/guides/${slug}`,
@@ -150,8 +151,7 @@ for (const article of ARTICLES) {
 
 // Build XML string
 let xml = `<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 `;
 
 for (const entry of entries) {
@@ -160,9 +160,6 @@ for (const entry of entries) {
     <lastmod>${entry.lastmod}</lastmod>
     <changefreq>${entry.changefreq}</changefreq>
     <priority>${entry.priority}</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="${entry.loc}" />
-    <xhtml:link rel="alternate" hreflang="ne" href="${entry.loc}" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="${entry.loc}" />
   </url>
 `;
 }

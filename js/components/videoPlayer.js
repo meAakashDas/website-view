@@ -99,6 +99,39 @@ export const QUALITY_MAP = {
 };
 
 /**
+ * Resolution hierarchy from highest to lowest available stream quality.
+ */
+export const RESOLUTION_PRIORITY = [
+  'highres',
+  'hd2160',
+  'hd1440',
+  'hd1080',
+  'hd720',
+  'large',
+  'medium',
+  'small',
+  'tiny'
+];
+
+/**
+ * Identifies the genuine highest available stream resolution from an array of quality levels.
+ * @param {string[]} levels
+ * @returns {string}
+ */
+export function getHighestAvailableQualityCode(levels) {
+  if (!Array.isArray(levels) || levels.length === 0) {
+    return 'hd1080';
+  }
+  for (const rank of RESOLUTION_PRIORITY) {
+    if (levels.includes(rank)) {
+      return rank;
+    }
+  }
+  const valid = levels.filter(l => l && l !== 'auto' && l !== 'default' && l !== 'unknown');
+  return valid.length > 0 ? valid[0] : 'hd1080';
+}
+
+/**
  * Sanitizes plain text for safe HTML interpolation.
  */
 function sanitizeText(str) {
@@ -436,12 +469,16 @@ export function initBrandedVideoPlayer(target, options = {}) {
   let hideControlsTimeout = null;
   let progressInterval = null;
   let isDraggingTimeline = false;
+  let isDraggingVolume = false;
   let isDestroyed = false;
   let isQualitySwitching = false;
   let qualitySwitchTimeout = null;
   let handleOutsideSpeedMenuClick = null;
   let handleWindowKeydown = null;
   let startFallbackTimer = null;
+  let lastFullscreenChangeTime = 0;
+  let lastQualityEnforceTime = 0;
+  let progressTickCount = 0;
 
   const toYouTubeQualityCode = (val) => {
     if (!val || val === 'auto' || val === 'default') return 'default';
@@ -458,17 +495,45 @@ export function initBrandedVideoPlayer(target, options = {}) {
     return val;
   };
 
+  const getFullscreenElement = () => {
+    return (
+      document.fullscreenElement ||
+      document.webkitFullscreenElement ||
+      document.mozFullScreenElement ||
+      document.msFullscreenElement ||
+      null
+    );
+  };
+
+  const isCurrentlyFullscreen = () => {
+    return Boolean(
+      getFullscreenElement() === container ||
+      container.classList.contains('is-fullscreen')
+    );
+  };
+
   // Auto-hide controls management (only during active playback)
   const resetHideTimer = () => {
     container.classList.remove('rp-controls-hidden');
-    if (hideControlsTimeout) clearTimeout(hideControlsTimeout);
+    if (hideControlsTimeout) {
+      clearTimeout(hideControlsTimeout);
+      hideControlsTimeout = null;
+    }
     if (!isPlaying) return; // Never hide controls when paused
     if (!container.classList.contains('rp-settings-open') && !container.classList.contains('rp-speed-menu-open')) {
       hideControlsTimeout = setTimeout(() => {
-        if (isPlaying && !isDraggingTimeline && !container.classList.contains('rp-settings-open')) {
+        if (
+          isPlaying &&
+          !isDraggingTimeline &&
+          !isDraggingVolume &&
+          !container.classList.contains('rp-settings-open') &&
+          !container.classList.contains('rp-speed-menu-open') &&
+          !container.classList.contains('is-starting') &&
+          !container.classList.contains('is-buffering')
+        ) {
           container.classList.add('rp-controls-hidden');
         }
-      }, 3000);
+      }, 2500);
     }
   };
 
@@ -531,6 +596,7 @@ export function initBrandedVideoPlayer(target, options = {}) {
   const startProgressTracking = () => {
     if (progressInterval) clearInterval(progressInterval);
     progressInterval = setInterval(() => {
+      progressTickCount++;
       if (!ytPlayer || typeof ytPlayer.getCurrentTime !== 'function') return;
       try {
         const cur = ytPlayer.getCurrentTime() || 0;
@@ -547,6 +613,27 @@ export function initBrandedVideoPlayer(target, options = {}) {
           markPlaybackStarted(true);
         }
         updateProgressUi(cur, dur);
+
+        // Periodically verify and maintain highest available stream quality during active playback
+        if (progressTickCount % 8 === 0 && isPlaying) {
+          try {
+            if (typeof ytPlayer.getAvailableQualityLevels === 'function' && typeof ytPlayer.getPlaybackQuality === 'function') {
+              const levels = ytPlayer.getAvailableQualityLevels() || [];
+              if (levels.length > 0) {
+                const highest = getHighestAvailableQualityCode(levels);
+                const curQ = ytPlayer.getPlaybackQuality();
+                if (highest && curQ && curQ !== highest) {
+                  const qRank = RESOLUTION_PRIORITY.indexOf(curQ);
+                  const highestRank = RESOLUTION_PRIORITY.indexOf(highest);
+                  if ((qRank > highestRank || curQ === 'auto' || curQ === 'default') && Date.now() - lastQualityEnforceTime > 2500) {
+                    lastQualityEnforceTime = Date.now();
+                    applyQuality();
+                  }
+                }
+              }
+            }
+          } catch (_) {}
+        }
       } catch (_) {}
     }, 250);
   };
@@ -679,16 +766,42 @@ export function initBrandedVideoPlayer(target, options = {}) {
   };
 
   const toggleFullscreen = () => {
-    if (!document.fullscreenElement) {
+    const fsEl = getFullscreenElement();
+    lastFullscreenChangeTime = Date.now();
+    if (!fsEl && !container.classList.contains('is-fullscreen')) {
+      let requestPromise = null;
       if (container.requestFullscreen) {
-        container.requestFullscreen().catch(() => {});
+        requestPromise = container.requestFullscreen();
       } else if (container.webkitRequestFullscreen) {
-        container.webkitRequestFullscreen();
+        requestPromise = container.webkitRequestFullscreen();
+      } else if (container.mozRequestFullScreen) {
+        requestPromise = container.mozRequestFullScreen();
+      } else if (container.msRequestFullscreen) {
+        requestPromise = container.msRequestFullscreen();
+      } else if (nativeVideo && nativeVideo.webkitEnterFullscreen) {
+        nativeVideo.webkitEnterFullscreen();
+      }
+
+      if (requestPromise && typeof requestPromise.catch === 'function') {
+        requestPromise.catch(() => {
+          container.classList.add('is-fullscreen');
+          container.classList.remove('rp-controls-hidden');
+          resetHideTimer();
+        });
       }
     } else {
       if (document.exitFullscreen) {
         document.exitFullscreen().catch(() => {});
+      } else if (document.webkitExitFullscreen) {
+        document.webkitExitFullscreen();
+      } else if (document.mozCancelFullScreen) {
+        document.mozCancelFullScreen();
+      } else if (document.msExitFullscreen) {
+        document.msExitFullscreen();
       }
+      container.classList.remove('is-fullscreen');
+      container.classList.remove('rp-controls-hidden');
+      resetHideTimer();
     }
   };
 
@@ -697,6 +810,7 @@ export function initBrandedVideoPlayer(target, options = {}) {
     poster.addEventListener('click', () => {
       try { container.focus(); } catch (_) {}
       togglePlay();
+      resetHideTimer();
     });
   }
   if (clickSurface) {
@@ -705,6 +819,7 @@ export function initBrandedVideoPlayer(target, options = {}) {
       e.stopPropagation();
       try { container.focus(); } catch (_) {}
       togglePlay();
+      resetHideTimer();
     });
     clickSurface.addEventListener('dblclick', (e) => {
       e.preventDefault();
@@ -721,34 +836,67 @@ export function initBrandedVideoPlayer(target, options = {}) {
         e.stopPropagation();
         togglePlay();
       }
+      resetHideTimer();
     });
+    controlsEl.addEventListener('pointerdown', resetHideTimer);
   }
   if (centerPlayBtn) {
     centerPlayBtn.addEventListener('click', () => {
       try { container.focus(); } catch (_) {}
       togglePlay();
+      resetHideTimer();
     });
   }
   if (centerRewindBtn) {
     centerRewindBtn.addEventListener('click', (e) => {
       e.stopPropagation();
       seekRelative(-10);
+      resetHideTimer();
     });
   }
   if (centerForwardBtn) {
     centerForwardBtn.addEventListener('click', (e) => {
       e.stopPropagation();
       seekRelative(10);
+      resetHideTimer();
     });
   }
-  if (playBtn) playBtn.addEventListener('click', togglePlay);
-  if (rewindBtn) rewindBtn.addEventListener('click', () => seekRelative(-10));
-  if (forwardBtn) forwardBtn.addEventListener('click', () => seekRelative(10));
-  if (volumeBtn) volumeBtn.addEventListener('click', toggleMute);
+  if (playBtn) playBtn.addEventListener('click', () => {
+    try { container.focus(); } catch (_) {}
+    togglePlay();
+    resetHideTimer();
+  });
+  if (rewindBtn) rewindBtn.addEventListener('click', () => {
+    try { container.focus(); } catch (_) {}
+    seekRelative(-10);
+    resetHideTimer();
+  });
+  if (forwardBtn) forwardBtn.addEventListener('click', () => {
+    try { container.focus(); } catch (_) {}
+    seekRelative(10);
+    resetHideTimer();
+  });
+  if (volumeBtn) volumeBtn.addEventListener('click', () => {
+    try { container.focus(); } catch (_) {}
+    toggleMute();
+    resetHideTimer();
+  });
 
   if (volumeSlider) {
+    volumeSlider.addEventListener('mousedown', () => {
+      isDraggingVolume = true;
+      resetHideTimer();
+    });
+    volumeSlider.addEventListener('touchstart', () => {
+      isDraggingVolume = true;
+      resetHideTimer();
+    }, { passive: true });
     volumeSlider.addEventListener('input', (e) => {
       setVolumeLevel(e.target.value);
+      resetHideTimer();
+    });
+    volumeSlider.addEventListener('change', () => {
+      resetHideTimer();
     });
   }
 
@@ -785,15 +933,13 @@ export function initBrandedVideoPlayer(target, options = {}) {
     });
   };
 
-  // Applies optimal stream quality without disruptive seeks or freezing
+  // Automatically enforces the highest available genuine resolution for the active video
   const applyQuality = () => {
     let targetCode = 'hd1080';
     if (ytPlayer && typeof ytPlayer.getAvailableQualityLevels === 'function') {
       try {
         const levels = ytPlayer.getAvailableQualityLevels() || [];
-        if (levels.includes('hd1080')) targetCode = 'hd1080';
-        else if (levels.includes('hd720')) targetCode = 'hd720';
-        else if (levels.includes('large')) targetCode = 'large';
+        targetCode = getHighestAvailableQualityCode(levels);
       } catch (_) {}
     }
 
@@ -914,6 +1060,7 @@ export function initBrandedVideoPlayer(target, options = {}) {
     settingsBox.classList.remove('is-open');
     settingsBtn.setAttribute('aria-expanded', 'false');
     container.classList.remove('rp-settings-open', 'rp-speed-menu-open');
+    resetHideTimer();
   };
 
   // Settings Cog Toggle, Outside Click & Keyboard Listeners
@@ -954,13 +1101,23 @@ export function initBrandedVideoPlayer(target, options = {}) {
   }
 
   // Fullscreen Events
-  if (fsBtn) fsBtn.addEventListener('click', toggleFullscreen);
+  if (fsBtn) fsBtn.addEventListener('click', () => {
+    try { container.focus(); } catch (_) {}
+    toggleFullscreen();
+    resetHideTimer();
+  });
 
   const handleFsChange = () => {
-    const isFs = Boolean(document.fullscreenElement === container);
+    const isFs = Boolean(getFullscreenElement() === container);
+    lastFullscreenChangeTime = Date.now();
     container.classList.toggle('is-fullscreen', isFs);
+    container.classList.remove('rp-controls-hidden');
+    resetHideTimer();
   };
   document.addEventListener('fullscreenchange', handleFsChange);
+  document.addEventListener('webkitfullscreenchange', handleFsChange);
+  document.addEventListener('mozfullscreenchange', handleFsChange);
+  document.addEventListener('MSFullscreenChange', handleFsChange);
 
   // Timeline Dragging & Scrubbing
   const handleTimelineSeek = (clientX) => {
@@ -1009,11 +1166,17 @@ export function initBrandedVideoPlayer(target, options = {}) {
     if (isDraggingTimeline) {
       handleTimelineSeek(e.clientX);
     }
+    if (isCurrentlyFullscreen()) {
+      resetHideTimer();
+    }
   };
 
   const handleGlobalTouchMove = (e) => {
     if (isDraggingTimeline && e.touches && e.touches[0]) {
       handleTimelineSeek(e.touches[0].clientX);
+    }
+    if (isCurrentlyFullscreen()) {
+      resetHideTimer();
     }
   };
 
@@ -1021,6 +1184,10 @@ export function initBrandedVideoPlayer(target, options = {}) {
     if (isDraggingTimeline) {
       isDraggingTimeline = false;
       container.classList.remove('is-scrubbing');
+      resetHideTimer();
+    }
+    if (isDraggingVolume) {
+      isDraggingVolume = false;
       resetHideTimer();
     }
   };
@@ -1031,14 +1198,23 @@ export function initBrandedVideoPlayer(target, options = {}) {
   window.addEventListener('touchend', handleGlobalMouseUp);
   window.addEventListener('touchcancel', handleGlobalMouseUp);
 
-  // Mouse / Touch Inactivity Listener
+  // Mouse / Pointer / Touch Inactivity Listeners
   container.addEventListener('mousemove', resetHideTimer);
+  container.addEventListener('pointermove', resetHideTimer);
+  container.addEventListener('mouseenter', resetHideTimer);
   container.addEventListener('touchstart', resetHideTimer, { passive: true });
-  container.addEventListener('mouseleave', () => {
-    if (isPlaying && !container.classList.contains('rp-speed-menu-open')) {
+  container.addEventListener('focusin', resetHideTimer);
+  const handleMouseLeave = () => {
+    // Prevent immediate hide on mouseleave right after fullscreen transitions
+    if (Date.now() - lastFullscreenChangeTime < 2000) {
+      return;
+    }
+    // Only auto-hide immediately on mouseleave if not in fullscreen mode
+    if (isPlaying && !isCurrentlyFullscreen() && !container.classList.contains('rp-speed-menu-open') && !container.classList.contains('rp-settings-open')) {
       container.classList.add('rp-controls-hidden');
     }
-  });
+  };
+  container.addEventListener('mouseleave', handleMouseLeave);
 
   // Keyboard Shortcuts (Space, K, J, L, M, F, Arrow keys)
   const handleKeydown = (e) => {
@@ -1213,6 +1389,8 @@ export function initBrandedVideoPlayer(target, options = {}) {
             } else if (event.data === YT.PlayerState.BUFFERING) {
               container.classList.add('is-buffering');
               applyQuality();
+            } else if (event.data === YT.PlayerState.CUED) {
+              applyQuality();
             }
             if (event.data !== YT.PlayerState.BUFFERING && event.data !== -1) {
               container.classList.remove('is-buffering');
@@ -1236,12 +1414,17 @@ export function initBrandedVideoPlayer(target, options = {}) {
             if (isDestroyed) return;
             const q = (typeof event === 'object' && event && event.data) ? event.data : event;
             if (q && q !== 'unknown') {
-              if (q === 'medium' || q === 'small' || q === 'large' || q === 'tiny') {
-                if (ytPlayer && typeof ytPlayer.getAvailableQualityLevels === 'function') {
-                  const levels = ytPlayer.getAvailableQualityLevels() || [];
-                  const best = levels.find(l => l === 'hd1080') || levels.find(l => l === 'hd720');
-                  if (best && best !== q) {
-                    try { ytPlayer.setPlaybackQuality(best); } catch (_) {}
+              if (ytPlayer && typeof ytPlayer.getAvailableQualityLevels === 'function') {
+                const levels = ytPlayer.getAvailableQualityLevels() || [];
+                if (levels.length > 0) {
+                  const highest = getHighestAvailableQualityCode(levels);
+                  if (highest && q !== highest) {
+                    const qRank = RESOLUTION_PRIORITY.indexOf(q);
+                    const highestRank = RESOLUTION_PRIORITY.indexOf(highest);
+                    if ((qRank > highestRank || q === 'auto' || q === 'default') && Date.now() - lastQualityEnforceTime > 1500) {
+                      lastQualityEnforceTime = Date.now();
+                      applyQuality();
+                    }
                   }
                 }
               }
@@ -1279,6 +1462,15 @@ export function initBrandedVideoPlayer(target, options = {}) {
       window.removeEventListener('touchend', handleGlobalMouseUp);
       window.removeEventListener('touchcancel', handleGlobalMouseUp);
       document.removeEventListener('fullscreenchange', handleFsChange);
+      document.removeEventListener('webkitfullscreenchange', handleFsChange);
+      document.removeEventListener('mozfullscreenchange', handleFsChange);
+      document.removeEventListener('MSFullscreenChange', handleFsChange);
+      container.removeEventListener('mousemove', resetHideTimer);
+      container.removeEventListener('pointermove', resetHideTimer);
+      container.removeEventListener('mouseenter', resetHideTimer);
+      container.removeEventListener('mouseleave', handleMouseLeave);
+      container.removeEventListener('touchstart', resetHideTimer);
+      container.removeEventListener('focusin', resetHideTimer);
       if (handleOutsideSpeedMenuClick) {
         document.removeEventListener('click', handleOutsideSpeedMenuClick);
         document.removeEventListener('touchend', handleOutsideSpeedMenuClick);
@@ -1295,10 +1487,23 @@ export function initBrandedVideoPlayer(target, options = {}) {
       if (ytPlayer && typeof ytPlayer.destroy === 'function') {
         try { ytPlayer.destroy(); } catch (_) {}
       }
-      ytPlayer = null;
       _activeControllers.delete(container);
+      try { delete container.__rpController; } catch (_) {}
     },
     getPlayer: () => (nativeVideo || ytPlayer),
+    getAvailableQualityLevels: () => {
+      if (ytPlayer && typeof ytPlayer.getAvailableQualityLevels === 'function') {
+        try { return ytPlayer.getAvailableQualityLevels() || []; } catch (_) {}
+      }
+      return [];
+    },
+    getPlaybackQuality: () => {
+      if (ytPlayer && typeof ytPlayer.getPlaybackQuality === 'function') {
+        try { return ytPlayer.getPlaybackQuality() || 'unknown'; } catch (_) {}
+      }
+      return 'unknown';
+    },
+    applyQuality: () => applyQuality(true),
     play: () => {
       if (nativeVideo) nativeVideo.play().catch(() => {});
       else if (ytPlayer) ytPlayer.playVideo();
@@ -1310,6 +1515,7 @@ export function initBrandedVideoPlayer(target, options = {}) {
   };
 
   _activeControllers.set(container, controller);
+  try { container.__rpController = controller; } catch (_) {}
   return controller;
 }
 

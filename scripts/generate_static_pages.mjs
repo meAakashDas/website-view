@@ -94,9 +94,6 @@ function buildHtml(routePath, navPath, contentHtml) {
   <meta name="googlebot" content="${seo.robots}">
   <meta name="bingbot" content="${seo.robots}">
   <link rel="canonical" href="${seo.canonical}">
-  <link rel="alternate" hreflang="en" href="${seo.canonical}">
-  <link rel="alternate" hreflang="ne" href="${seo.canonical}">
-  <link rel="alternate" hreflang="x-default" href="${seo.canonical}">
 
   <!-- Geo & Local SEO Tags (Nepal) -->
   <meta name="geo.region" content="NP">
@@ -284,6 +281,19 @@ async function generateAllPages() {
     { alias: '/calculators/retirement-calculator', id: 'retirement' },
     { alias: '/calculators/cagr-calculator', id: 'cagr' },
     { alias: '/calculators/inflation-calculator', id: 'inflation' },
+    { alias: '/calculators/income-tax', id: 'tax' },
+    { alias: '/calculators/fd', id: 'fdrd' },
+    { alias: '/calculators/loan', id: 'emi' },
+    { alias: '/calculators/loans', id: 'emi' },
+    { alias: '/calculators/loan-prepayment', id: 'emi' },
+    { alias: '/calculators/emergency-fund', id: 'fdrd' },
+    { alias: '/calculators/net-worth', id: 'retirement' },
+    { alias: '/calculators/budget', id: 'sip' },
+    { alias: '/calculators/bonus-share-adjustment', id: 'share' },
+    { alias: '/calculators/dividend-yield', id: 'share' },
+    { alias: '/calculators/rights-share-adjustment', id: 'share' },
+    { alias: '/calculators/hlv', id: 'retirement' },
+    { alias: '/calculators/inflation-nepal', id: 'inflation' },
   ];
   for (const item of longCalcAliases) {
     const html = buildHtml(item.alias, ROUTES.CALCULATORS, renderCalculatorsPage(item.id));
@@ -345,6 +355,17 @@ async function generateAllPages() {
             count++;
           }
         }
+      }
+    }
+
+    // Category Lesson Aliases (Ensures all internal links resolve with proper canonical tags)
+    const catAliases = learnData.LESSON_ALIAS_MAP ? (learnData.LESSON_ALIAS_MAP[cat.slug] || {}) : {};
+    for (const [aliasSlug, targetSlug] of Object.entries(catAliases)) {
+      if (aliasSlug !== targetSlug) {
+        const aliasRoute = `/learn/${cat.slug}/${aliasSlug}`;
+        const aliasHtml = buildHtml(aliasRoute, ROUTES.LEARN, renderLearnLessonPage(cat.slug, targetSlug));
+        writeStaticFile(aliasRoute, aliasHtml);
+        count++;
       }
     }
   }

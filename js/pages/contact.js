@@ -98,7 +98,10 @@ function renderContactBlock(name, description, imgSrc, socials) {
 
 // ── Page render ──────────────────────────────────
 export function renderContactPage() {
-  setPageMeta('Contact Us', 'Connect with RisePaisa for financial education or reach out for professional inquiries.');
+  setPageMeta(
+    'Contact RisePaisa — Support, Course Inquiries & Official Channels',
+    'Official contact details, student support pathways, pre-purchase inquiries, and WhatsApp enrollment assistance for RisePaisa and founder Aakash Das.'
+  );
 
   const settings = getSettings();
   const cl = settings.contactLinks || {};
@@ -106,16 +109,20 @@ export function renderContactPage() {
   const risePaisaSocials = _buildSocials(cl.risepaisa, 'RisePaisa', RISEPAISA_DESCRIPTIONS);
   const aakashSocials    = _buildSocials(cl.aakash,    'Aakash Das', AAKASH_DESCRIPTIONS);
 
+  const waPrePurchaseMsg = encodeURIComponent('Hi RisePaisa, I have a few questions about the Share Market Course (NEPSE) before enrolling.');
+  const waPaymentMsg     = encodeURIComponent('Hi RisePaisa, I have sent payment of NPR 2,999 for course enrollment. Here is my transaction reference: ');
+  const waStudentHelpMsg = encodeURIComponent('Hi RisePaisa, I am an enrolled student and need help accessing my course account.');
+
   return `
-    <div class="page-header" id="contact-header">
-      <div class="container">
-        <span class="section-eyebrow">Get in Touch</span>
-        <h1>Connect With Us</h1>
-        <p>Official communication channels for RisePaisa and founder Aakash Das.</p>
-      </div>
-    </div>
-    <section class="section" id="contact-section">
-      <div class="container">
+    <!-- 1. Official Social Profiles -->
+    <section class="section contact-social-section" id="contact-social-section">
+      <div class="container contact-container">
+        <div class="section-header contact-section-header">
+          <span class="section-eyebrow">PUBLIC COMMUNITIES</span>
+          <h2>Official Social Profiles</h2>
+          <p>Follow RisePaisa and Aakash Das.</p>
+        </div>
+
         <div class="contact-dual-grid">
           ${renderContactBlock(
             'RisePaisa',
@@ -131,19 +138,148 @@ export function renderContactPage() {
           )}
         </div>
 
-        <!-- Media & Institutional Inquiries Note -->
-        <div style="max-width:760px;margin:var(--space-10) auto 0;text-align:center;padding:var(--space-6);border-radius:var(--radius-lg);background:var(--color-surface);border:1px solid var(--color-border);font-size:var(--text-xs);color:var(--color-text-secondary);line-height:1.6">
-          <strong style="color:var(--color-heading);display:block;margin-bottom:var(--space-1)">Professional & Media Inquiries</strong>
-          <p style="margin:0">
-            For educational partnerships, speaking engagements, research collaborations, or press inquiries related to Aakash Das or RisePaisa, please email <a href="mailto:itsaakashdas@gmail.com" style="color:var(--color-accent);font-weight:600;text-decoration:none">itsaakashdas@gmail.com</a> or WhatsApp <a href="https://wa.me/9779740269317" style="color:var(--color-accent);font-weight:600;text-decoration:none">+977 9740269317</a>.
-          </p>
-        </div>
-
         ${risePaisaSocials.length === 0 && aakashSocials.length === 0 ? `
-          <div style="text-align:center;padding:48px 0;color:var(--color-text-muted)">
-            <p style="font-size:1.1rem;margin-bottom:8px">No contact links configured yet.</p>
+          <div style="text-align:center;padding:32px 0;color:var(--color-text-muted)">
+            <p style="font-size:1rem;margin-bottom:8px">No contact links configured yet.</p>
           </div>
         ` : ''}
+      </div>
+    </section>
+
+    <!-- 2. Contact RisePaisa & Inquiries -->
+    <section class="section section-alt contact-inquiries-section" id="contact-support-pathways">
+      <div class="container contact-container">
+        <div class="section-header contact-section-header">
+          <span class="section-eyebrow">CONTACT &amp; SUPPORT</span>
+          <h2>Contact RisePaisa</h2>
+          <p>Get help with courses, payments, student access, or feedback.</p>
+        </div>
+
+        <div class="contact-inquiry-header">
+          <span class="section-eyebrow">CONTACT OPTIONS</span>
+          <h3>How Can We Help?</h3>
+        </div>
+
+        <div class="contact-inquiry-grid">
+          
+          <!-- Pathway 1: Course Inquiries -->
+          <div class="contact-inquiry-card">
+            <div class="contact-inquiry-card-body">
+              <div class="contact-inquiry-card-top">
+                <div class="contact-inquiry-icon" aria-hidden="true">
+                  ${ICONS.bookOpen}
+                </div>
+                <h4 class="contact-inquiry-title">Course Inquiries</h4>
+              </div>
+              <p class="contact-inquiry-desc">
+                Questions about the NEPSE course? Contact us before enrolling.
+              </p>
+            </div>
+            <a
+              href="https://wa.me/9779740269317?text=${waPrePurchaseMsg}"
+              target="_blank"
+              rel="noopener"
+              class="btn btn-whatsapp contact-inquiry-btn"
+            >
+              ${ICONS.whatsapp} Ask via WhatsApp
+            </a>
+          </div>
+
+          <!-- Pathway 2: Verify Payment -->
+          <div class="contact-inquiry-card">
+            <div class="contact-inquiry-card-body">
+              <div class="contact-inquiry-card-top">
+                <div class="contact-inquiry-icon" aria-hidden="true">
+                  ${ICONS.receipt}
+                </div>
+                <h4 class="contact-inquiry-title">Verify Payment</h4>
+              </div>
+              <p class="contact-inquiry-desc">
+                Submit your payment receipt and transaction ID.
+              </p>
+            </div>
+            <a
+              href="https://wa.me/9779740269317?text=${waPaymentMsg}"
+              target="_blank"
+              rel="noopener"
+              class="btn btn-whatsapp contact-inquiry-btn"
+            >
+              ${ICONS.whatsapp} Verify via WhatsApp
+            </a>
+          </div>
+
+          <!-- Pathway 3: Student Access Help -->
+          <div class="contact-inquiry-card">
+            <div class="contact-inquiry-card-body">
+              <div class="contact-inquiry-card-top">
+                <div class="contact-inquiry-icon" aria-hidden="true">
+                  ${ICONS.shield}
+                </div>
+                <h4 class="contact-inquiry-title">Student Access Help</h4>
+              </div>
+              <p class="contact-inquiry-desc">
+                Need help with your course or account?
+              </p>
+            </div>
+            <a
+              href="https://wa.me/9779740269317?text=${waStudentHelpMsg}"
+              target="_blank"
+              rel="noopener"
+              class="btn btn-secondary contact-inquiry-btn"
+            >
+              ${ICONS.whatsapp} Student Support
+            </a>
+          </div>
+
+          <!-- Pathway 4: Feedback & Media -->
+          <div class="contact-inquiry-card">
+            <div class="contact-inquiry-card-body">
+              <div class="contact-inquiry-card-top">
+                <div class="contact-inquiry-icon" aria-hidden="true">
+                  ${ICONS.check}
+                </div>
+                <h4 class="contact-inquiry-title">Feedback &amp; Media</h4>
+              </div>
+              <p class="contact-inquiry-desc">
+                Report errors, share feedback, or discuss partnerships.
+              </p>
+            </div>
+            <a
+              href="mailto:itsaakashdas@gmail.com?subject=RisePaisa%20Feedback%20or%20Media%20Inquiry"
+              class="btn btn-secondary contact-inquiry-btn"
+            >
+              ${ICONS.mail} Email Editorial Desk
+            </a>
+          </div>
+
+        </div>
+
+        <!-- Verified Operational Channels Panel -->
+        <div class="legal-contact-card contact-official-channels">
+          <h3>${ICONS.shield} Verified Official Channels</h3>
+          <p>
+            Contact RisePaisa only through the official channels listed below.
+          </p>
+          <div class="legal-contact-grid">
+            <div class="legal-contact-item">
+              <span class="legal-contact-label">Official WhatsApp</span>
+              <span class="legal-contact-val"><a href="https://wa.me/9779740269317" target="_blank" rel="noopener">+977 9740269317</a></span>
+            </div>
+            <div class="legal-contact-item">
+              <span class="legal-contact-label">Official Email</span>
+              <span class="legal-contact-val"><a href="mailto:itsaakashdas@gmail.com">itsaakashdas@gmail.com</a></span>
+            </div>
+            <div class="legal-contact-item">
+              <span class="legal-contact-label">Operating Schedule</span>
+              <span class="legal-contact-val">Sunday to Friday, 9:00 AM – 6:00 PM NPT</span>
+            </div>
+            <div class="legal-contact-item">
+              <span class="legal-contact-label">Physical Location</span>
+              <span class="legal-contact-val">Kathmandu, Nepal</span>
+            </div>
+          </div>
+        </div>
+
       </div>
     </section>
   `;

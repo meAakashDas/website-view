@@ -94,11 +94,13 @@ for (const reqUrl of requiredSitemapUrls) {
   assert(locMatches.includes(reqUrl), `sitemap includes canonical URL: ${reqUrl}`);
 }
 
+assert(!sitemapContent.includes('hreflang='), 'sitemap.xml has 0 conflicting self-referencing alternate hreflang entries');
+
 // ── 3. STATIC PRERENDERED HTML VALIDATION ────────────
 console.log('\n--- 3. Testing Pre-rendered Static HTML Pages on Disk ---');
 
 const testRoutes = [
-  { url: 'https://risepaisa.com/', file: 'index.html', titleContains: 'risePaisa' },
+  { url: 'https://risepaisa.com/', file: 'index.html', titleContains: 'RisePaisa' },
   { url: 'https://risepaisa.com/about', file: 'about/index.html', titleContains: 'About' },
   { url: 'https://risepaisa.com/aakash-das', file: 'aakash-das/index.html', titleContains: 'Aakash Das' },
   { url: 'https://risepaisa.com/editorial-policy', file: 'editorial-policy/index.html', titleContains: 'Editorial Policy' },
@@ -129,9 +131,15 @@ for (const tr of testRoutes) {
   const canonMatch = html.match(/<link rel="canonical" href="([^"]+)">/);
   assert(canonMatch && canonMatch[1] === tr.url, `${tr.file} canonical tag matches exact URL: ${tr.url} (got: "${canonMatch ? canonMatch[1] : ''}")`);
 
+  // Hreflang defect check: Must not declare duplicate self-referencing hreflangs to itself
+  assert(!html.includes('hreflang="en"') && !html.includes('hreflang="ne"'), `${tr.file} contains zero duplicate self-referencing alternate hreflang tags`);
+
   // Meta description check
   const descMatch = html.match(/<meta name="description" content="([^"]+)">/);
   assert(descMatch && descMatch[1].length > 25, `${tr.file} has substantive meta description (len: ${descMatch ? descMatch[1].length : 0})`);
+
+  // Primary heading check
+  assert(html.includes('<h1'), `${tr.file} contains a clear primary <h1> heading`);
 
   // Robots check: Must not accidentally noindex
   const robotsTagMatch = html.match(/<meta name="robots" content="([^"]+)">/);
@@ -155,13 +163,17 @@ for (const tr of testRoutes) {
 }
 
 // ── 4. CANONICAL DEDUPLICATION & ALIAS CHECKS ────────
-console.log('\n--- 4. Testing Calculator Alias Deduplication ---');
+console.log('\n--- 4. Testing Calculator & Guide Alias Deduplication ---');
 const aliasTests = [
   { file: 'calculators/tax/index.html', canonicalTarget: 'https://risepaisa.com/calculators/nepal-income-tax' },
+  { file: 'calculators/income-tax/index.html', canonicalTarget: 'https://risepaisa.com/calculators/nepal-income-tax' },
   { file: 'calculators/fdrd/index.html', canonicalTarget: 'https://risepaisa.com/calculators/fixed-deposit' },
+  { file: 'calculators/fd/index.html', canonicalTarget: 'https://risepaisa.com/calculators/fixed-deposit' },
   { file: 'calculators/share/index.html', canonicalTarget: 'https://risepaisa.com/calculators/nepse-share' },
   { file: 'calculators/sip-calculator/index.html', canonicalTarget: 'https://risepaisa.com/calculators/sip' },
-  { file: 'calculators/nepal-income-tax-calculator/index.html', canonicalTarget: 'https://risepaisa.com/calculators/nepal-income-tax' }
+  { file: 'calculators/nepal-income-tax-calculator/index.html', canonicalTarget: 'https://risepaisa.com/calculators/nepal-income-tax' },
+  { file: 'learn/guides/complete-mutual-funds-guide/index.html', canonicalTarget: 'https://risepaisa.com/learn/guides/complete-mutual-fund-guide' },
+  { file: 'learn/guides/complete-nepse-investing-guide/index.html', canonicalTarget: 'https://risepaisa.com/learn/guides/complete-tms-guide' }
 ];
 
 for (const at of aliasTests) {

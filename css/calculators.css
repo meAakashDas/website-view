@@ -2375,7 +2375,7 @@
     padding: var(--space-10) 0 var(--space-6);
   }
   .rp-hub-title {
-    font-size: 1.85rem;
+    font-size: clamp(1.5rem, 6vw, 1.85rem);
     margin-bottom: 8px;
   }
   .rp-hub-desc {
@@ -3629,16 +3629,21 @@
     min-width: 100%;
   }
 
+  .rp-range-slider,
+  .rp-slider {
+    height: 8px;
+  }
+
   .rp-range-slider::-webkit-slider-thumb,
   .rp-slider::-webkit-slider-thumb {
-    width: 24px;
-    height: 24px;
+    width: 28px;
+    height: 28px;
   }
 
   .rp-range-slider::-moz-range-thumb,
   .rp-slider::-moz-range-thumb {
-    width: 24px;
-    height: 24px;
+    width: 28px;
+    height: 28px;
   }
 
   .rp-stat-value.maturity-large {
@@ -3653,6 +3658,111 @@
     padding: 18px 14px;
   }
 }
+
+@media (max-width: 360px) {
+  .rp-calc-wrapper {
+    padding: 10px 8px;
+    border-radius: 12px;
+  }
+
+  .rp-calc-controls-card,
+  .rp-calc-results-card {
+    padding: 14px 10px;
+    min-width: 0;
+  }
+
+  .rp-calc-layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .rp-freq-switch {
+    grid-template-columns: 1fr;
+  }
+
+  .rp-stat-card {
+    padding: 14px 12px;
+    min-width: 0;
+  }
+}
+
+/* ── Calculator Directory Category Filter Bar ──── */
+.rp-directory-filter-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0 auto 32px auto;
+  max-width: 900px;
+}
+
+.rp-dir-filter-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  border-radius: var(--radius-full);
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--color-text-secondary);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  cursor: pointer;
+  transition: all var(--duration-fast) var(--ease-apple);
+  white-space: nowrap;
+}
+
+.rp-dir-filter-btn:hover {
+  color: var(--color-heading);
+  border-color: var(--color-accent);
+  background: var(--color-surface-hover);
+}
+
+.rp-dir-filter-btn.active {
+  color: #ffffff;
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+  font-weight: 600;
+  box-shadow: 0 2px 8px rgba(29, 161, 242, 0.35);
+}
+
+.rp-dir-filter-count {
+  font-size: 0.75rem;
+  padding: 1px 6px;
+  border-radius: var(--radius-full);
+  background: rgba(0, 0, 0, 0.08);
+}
+
+.rp-dir-filter-btn.active .rp-dir-filter-count {
+  background: rgba(255, 255, 255, 0.25);
+  color: #ffffff;
+}
+
+.rp-calc-card-companion {
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px dashed var(--color-divider);
+}
+
+.rp-calc-card-companion-link {
+  font-size: 0.8125rem;
+  color: var(--color-accent);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  transition: color var(--duration-fast);
+}
+
+.rp-calc-card-companion-link:hover {
+  text-decoration: underline;
+  color: var(--color-accent-hover);
+}
+
+.rp-calc-card[data-category] {
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
 
 
 

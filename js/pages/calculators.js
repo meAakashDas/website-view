@@ -3,7 +3,7 @@
 // Navigation tabs between SIP, EMI, SWP, Tax, NEPSE Share, FD & RD, Retirement & Goal Planner
 // ==============================================
 import { setPageMeta } from '../components.js';
-import { CALCULATOR_REGISTRY } from '../calculators/registry.js';
+import { CALCULATOR_REGISTRY, CALCULATOR_CATEGORIES } from '../calculators/registry.js';
 import { renderSIPCalculator, initSIPCalculator } from '../calculators/sip.js';
 import { renderLoanCalculators, initLoanCalculators } from '../calculators/loans.js';
 import { renderSWPCalculator, initSWPCalculator } from '../calculators/swp.js';
@@ -13,7 +13,7 @@ import { renderFDRDCalculator, initFDRDCalculator } from '../calculators/fdrd.js
 import { renderRetirementGoalCalculator, initRetirementGoalCalculator } from '../calculators/retirement.js';
 import { renderCAGRCalculator, initCAGRCalculator } from '../calculators/cagr.js';
 import { renderInflationCalculator, initInflationCalculator } from '../calculators/inflation.js';
-import { ROUTES, CALCULATOR_ROUTES, CALCULATOR_SLUG_TO_ID, getAppPathname, toBrowserPath } from '../routes.js';
+import { ROUTES, CALCULATOR_SLUG_TO_ID, getAppPathname, toBrowserPath } from '../routes.js';
 
 function renderPaneContent(key, initialLoanSubtab = 'home') {
   switch (key) {
@@ -149,15 +149,34 @@ export function renderCalculatorsPage(calcSlug = '') {
   setPageMeta(meta.title, meta.desc, meta.path);
 
   const activeCalculators = CALCULATOR_REGISTRY.filter(c => c.status === 'active');
+  const categoryCounts = { All: activeCalculators.length };
+  CALCULATOR_CATEGORIES.forEach(cat => {
+    if (cat !== 'All') {
+      categoryCounts[cat] = activeCalculators.filter(c => c.category === cat).length;
+    }
+  });
+
+  const isIndividual = Boolean(calcSlug);
+  const activeCalcObj = isIndividual
+    ? CALCULATOR_REGISTRY.find(c => c.id === calcSlug || (CALCULATOR_SLUG_TO_ID && CALCULATOR_SLUG_TO_ID[calcSlug] === c.id))
+    : null;
+
+  const heroHeading = isIndividual && activeCalcObj
+    ? activeCalcObj.title
+    : 'Financial Calculators for Nepal';
+
+  const heroDescription = isIndividual && activeCalcObj
+    ? activeCalcObj.shortDesc
+    : 'Free financial calculators designed for Nepal to help estimate retirement independence, major financial goals, bank savings, stock trades, personal taxes, loans, and SIP wealth compounding.';
 
   return `
     <!-- Calculator Hub Hero -->
     <section class="rp-hub-hero" id="calculators-hero">
       <div class="container">
-        <div class="rp-hub-badge">🇳🇵 Financial Tools for Nepal</div>
-        <h1 class="rp-hub-title">Financial Calculators</h1>
+        <div class="rp-hub-badge">${isIndividual && activeCalcObj ? '🇳🇵 Financial Calculator · Nepal' : '🇳🇵 Financial Tools for Nepal'}</div>
+        <h1 class="rp-hub-title">${heroHeading}</h1>
         <p class="rp-hub-desc">
-          Free financial calculators designed for Nepal to help estimate retirement independence, major financial goals, bank savings, stock trades, personal taxes, loans, and SIP wealth compounding.
+          ${heroDescription}
         </p>
       </div>
     </section>
@@ -518,27 +537,62 @@ export function renderCalculatorsPage(calcSlug = '') {
       </div>
     </section>
 
-    <!-- Future Calculators Directory -->
+    <!-- Financial Calculators Directory -->
     <section class="rp-future-section" id="future-calculators" style="background:var(--color-bg-alt);border-top:1px solid var(--color-border)">
       <div class="container">
         <div class="rp-future-header">
           <span class="section-eyebrow">Directory</span>
           <h2>Financial Calculators Directory</h2>
           <p>
-            Explore live calculators or preview upcoming tools tailored for Nepal's financial and regulatory landscape.
+            Explore all 12 free financial tools categorized for Nepal's personal finance, banking, loans, taxation, and stock market rules.
           </p>
+        </div>
+
+        <!-- Category Filter Pills Bar -->
+        <div class="rp-directory-filter-bar" role="tablist" aria-label="Filter Calculators by Category">
+          ${CALCULATOR_CATEGORIES.map(cat => `
+            <button
+              type="button"
+              class="rp-dir-filter-btn ${cat === 'All' ? 'active' : ''}"
+              data-category="${cat}"
+              role="tab"
+              aria-selected="${cat === 'All'}"
+              aria-label="${cat} (${categoryCounts[cat] || 0} calculators)"
+            >
+              <span>${cat}</span>
+              <span class="rp-dir-filter-count">${categoryCounts[cat] || 0}</span>
+            </button>
+          `).join('')}
         </div>
 
         <div class="rp-calc-grid">
           <!-- Active Cards -->
           ${activeCalculators.map(c => `
-            <div class="rp-calc-card active-card" id="card-${c.id}" data-target="${c.id}" role="button" tabindex="0">
+            <div
+              class="rp-calc-card active-card"
+              id="card-${c.id}"
+              data-target="${c.id}"
+              data-category="${c.category}"
+              role="button"
+              tabindex="0"
+            >
               <div class="rp-calc-card-top">
                 <div class="rp-calc-card-icon" aria-hidden="true">${c.icon}</div>
-                <span class="rp-badge-live">${c.badge}</span>
+                <div style="display:flex;align-items:center;gap:6px">
+                  <span class="rp-calc-category">${c.category}</span>
+                  <span class="rp-badge-live">${c.badge}</span>
+                </div>
               </div>
               <h3 class="rp-calc-card-title">${c.title}</h3>
               <p class="rp-calc-card-desc">${c.shortDesc}</p>
+              ${c.companionLink ? `
+                <div class="rp-calc-card-companion">
+                  <a href="${c.companionLink.url}" class="rp-calc-card-companion-link" onclick="event.stopPropagation()">
+                    <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+                    <span>${c.companionLink.label}</span>
+                  </a>
+                </div>
+              ` : ''}
               <div class="rp-calc-card-footer">
                 <span class="rp-calc-cta">Launch Calculator</span>
                 <button
@@ -787,6 +841,30 @@ export function initCalculatorsPage(calcSlug = '') {
         const btn = card.querySelector('.rp-switch-calc-btn');
         if (btn) btn.click();
       }
+    });
+  });
+
+  // Directory Category Filter
+  const filterBtns = document.querySelectorAll('.rp-dir-filter-btn');
+  const calcCards = document.querySelectorAll('.rp-calc-card.active-card');
+
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const selectedCat = btn.dataset.category;
+      filterBtns.forEach(b => {
+        const isActive = b === btn;
+        b.classList.toggle('active', isActive);
+        b.setAttribute('aria-selected', String(isActive));
+      });
+
+      calcCards.forEach(card => {
+        const cardCat = card.dataset.category;
+        if (selectedCat === 'All' || cardCat === selectedCat) {
+          card.style.display = 'flex';
+        } else {
+          card.style.display = 'none';
+        }
+      });
     });
   });
 

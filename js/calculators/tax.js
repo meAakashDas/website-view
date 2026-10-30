@@ -20,6 +20,8 @@ let state = {
   grossIncome: TAX_BOUNDS.defaultIncome,
   maritalStatus: TAX_BOUNDS.defaultStatus, // 'single' | 'married'
   fiscalYear: DEFAULT_FISCAL_YEAR,
+  hasSSF: false,
+  isFemale: false,
   deductionsExpanded: false,
   deductions: {
     epf: 0,
@@ -42,6 +44,8 @@ export function renderTaxCalculator() {
     maritalStatus: state.maritalStatus,
     deductions: state.deductions,
     fiscalYear: state.fiscalYear,
+    hasSSF: state.hasSSF || state.deductions.ssf > 0,
+    isFemale: state.isFemale,
   });
 
   return `
@@ -142,7 +146,7 @@ export function renderTaxCalculator() {
               aria-controls="tax-deductions-panel"
             >
               <div style="display:flex;align-items:center;gap:8px">
-                <svg class="rp-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                <svg class="rp-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
                 <span style="font-weight:var(--weight-semibold);color:var(--color-heading);font-size:var(--text-sm)">
                   Tax Deductions & Reliefs (Optional)
                 </span>
@@ -284,6 +288,29 @@ export function renderTaxCalculator() {
             </div>
           </div>
 
+          <!-- Special Statutory Provisions & Rebates -->
+          <div class="rp-special-rules-card" style="margin-top:var(--space-4);padding:14px;background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-md)">
+            <span style="display:block;font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:0.04em;color:var(--color-heading);margin-bottom:10px">
+              Special Statutory Provisions (Nepal Finance Act)
+            </span>
+
+            <label class="rp-checkbox-label" style="display:flex;align-items:flex-start;gap:10px;cursor:pointer;margin-bottom:12px;font-size:13px;line-height:1.4">
+              <input type="checkbox" id="tax-check-ssf" ${state.hasSSF || state.deductions.ssf > 0 ? 'checked' : ''} style="margin-top:2px;accent-color:var(--color-accent)">
+              <div>
+                <strong>Enrolled in Social Security Fund (SSF)</strong>
+                <span style="display:block;font-size:11.5px;color:var(--color-text-secondary)">Exempts 1% Social Security Tax on first slab (NPR 5L single / 6L married), saving NPR 5,000 - NPR 6,000 per IRD Schedule 1 Section 1(1).</span>
+              </div>
+            </label>
+
+            <label class="rp-checkbox-label" style="display:flex;align-items:flex-start;gap:10px;cursor:pointer;font-size:13px;line-height:1.4">
+              <input type="checkbox" id="tax-check-female" ${state.isFemale ? 'checked' : ''} style="margin-top:2px;accent-color:var(--color-accent)">
+              <div>
+                <strong>Resident Female Employee (Salary Income Only)</strong>
+                <span style="display:block;font-size:11.5px;color:var(--color-text-secondary)">Entitled to a 10% statutory tax rebate on computed tax liability under Schedule 1 Section 1(12).</span>
+              </div>
+            </label>
+          </div>
+
         </div>
 
         <!-- Results & Visualization Column -->
@@ -302,6 +329,10 @@ export function renderTaxCalculator() {
               </div>
               <div class="rp-stat-caption">
                 Calculated on net taxable income of <strong id="tax-res-caption-net">${formatNPR(res.netTaxableIncome)}</strong>
+              </div>
+              <div id="tax-rebate-banner" style="${res.isSSFExempt || res.femaleRebate > 0 ? 'margin-top:10px;padding:8px 12px;background:rgba(16,185,129,0.08);border:1px solid rgba(16,185,129,0.25);border-radius:var(--radius-sm);font-size:12px;color:var(--color-heading);line-height:1.4;' : 'display:none;'}">
+                ${res.isSSFExempt ? '✓ <strong>SSF 1% SST Exemption Applied:</strong> First slab 1% tax waived (saved NPR ' + (isMarried ? '6,000' : '5,000') + '). ' : ''}
+                ${res.femaleRebate > 0 ? '✓ <strong>Female Employee 10% Rebate:</strong> -NPR ' + formatNPR(res.femaleRebate) + ' deducted.' : ''}
               </div>
             </div>
 
@@ -409,7 +440,7 @@ export function renderTaxCalculator() {
             <div class="rp-edu-icon-wrap" style="color:#10b981;font-size:24px;margin-bottom:8px">🇳🇵</div>
             <h4>Legal Tax Deductions Checklist</h4>
             <ul class="rp-edu-list" style="margin:0;padding-left:18px;font-size:0.875rem;color:var(--color-text-secondary);line-height:1.6">
-              <li><strong>Section 63 Retirement Funds:</strong> Deduct up to one-third of total taxable salary or NPR 3,00,000 (whichever is lower) by depositing into CIT, EPF, or SSF.</li>
+              <li><strong>Section 63 Retirement Funds:</strong> Deduct up to one-third of total taxable salary or NPR 5,00,000 (whichever is lower, per Finance Act 2080+) by depositing into CIT, EPF, or SSF.</li>
               <li><strong>SSF 1% Exemption:</strong> Employees enrolled in the Social Security Fund (SSF) are 100% exempt from the 1% Social Security Tax on their first income slab.</li>
               <li><strong>Insurance Relief:</strong> Deduct up to NPR 40,000 for Life Insurance premiums and NPR 20,000 for Health Insurance premiums annually.</li>
             </ul>
@@ -431,11 +462,17 @@ export function renderTaxCalculator() {
       <!-- Official IRD Notice & Companion Links -->
       <div class="rp-educational-note" style="margin-top:var(--space-6)">
         <div class="rp-edu-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
         </div>
         <div class="rp-edu-text">
           <strong>Recommended Learning Path:</strong> Master salary tax planning in our lesson on <a href="/learn/taxation/nepal-income-tax-slabs-salary" style="color:var(--color-accent);text-decoration:underline">Nepal Income Tax Slabs & Salary Deductions</a> or review the end-to-end <a href="/learn/guides/complete-income-tax-guide" style="color:var(--color-accent);text-decoration:underline">Complete Nepal Income Tax Guide</a>.
         </div>
+      </div>
+
+      <!-- Statutory Disclaimer Box -->
+      <div class="rp-statutory-disclaimer-box" style="margin-top:var(--space-6);padding:14px 18px;background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-md);font-size:12px;color:var(--color-text-secondary);line-height:1.5">
+        <strong style="color:var(--color-heading);display:block;margin-bottom:4px">🏛️ Official IRD Nepal & Statutory Disclaimer</strong>
+        Calculations are based on the Inland Revenue Department (IRD) Nepal progressive schedule and Finance Act Schedule 1 for ${res.fiscalYear} (Effective: ${res.verifiedDate || 'July 2025'}). This tool provides educational and personal financial planning estimates and does not constitute official tax advice or a certified tax assessment. For formal filing, reconcile your returns on the official IRD portal (<a href="https://ird.gov.np" target="_blank" rel="noopener noreferrer" style="color:var(--color-accent);text-decoration:underline">ird.gov.np</a>).
       </div>
 
     </div>
@@ -532,6 +569,8 @@ export function initTaxCalculator() {
       maritalStatus: state.maritalStatus,
       deductions: state.deductions,
       fiscalYear: state.fiscalYear,
+      hasSSF: state.hasSSF || state.deductions.ssf > 0,
+      isFemale: state.isFemale,
     });
 
     // Update Primary Results
@@ -541,6 +580,19 @@ export function initTaxCalculator() {
     if (resMonthlyTax) resMonthlyTax.textContent = formatNPR(res.monthlyTax);
     if (resMonthlyHome) resMonthlyHome.textContent = formatNPR(res.monthlyTakeHome);
     if (resAnnualHome) resAnnualHome.textContent = formatNPR(res.annualTakeHome);
+
+    const rebateBanner = document.getElementById('tax-rebate-banner');
+    if (rebateBanner) {
+      if (res.isSSFExempt || res.femaleRebate > 0) {
+        rebateBanner.style.display = 'block';
+        rebateBanner.innerHTML = `
+          ${res.isSSFExempt ? '✓ <strong>SSF 1% SST Exemption Applied:</strong> First slab 1% tax waived (saved NPR ' + (state.maritalStatus === 'married' ? '6,000' : '5,000') + '). ' : ''}
+          ${res.femaleRebate > 0 ? '✓ <strong>Female Employee 10% Rebate:</strong> -NPR ' + formatNPR(res.femaleRebate) + ' deducted.' : ''}
+        `;
+      } else {
+        rebateBanner.style.display = 'none';
+      }
+    }
 
     if (badgeDedApplied) {
       badgeDedApplied.textContent = res.deductions.totalApplied > 0
@@ -630,5 +682,18 @@ export function initTaxCalculator() {
     input?.addEventListener('input', () => {
       scheduleUpdate();
     });
+  });
+
+  // Special statutory provisions checkboxes
+  const elCheckSSF = document.getElementById('tax-check-ssf');
+  elCheckSSF?.addEventListener('change', () => {
+    state.hasSSF = elCheckSSF.checked;
+    scheduleUpdate();
+  });
+
+  const elCheckFemale = document.getElementById('tax-check-female');
+  elCheckFemale?.addEventListener('change', () => {
+    state.isFemale = elCheckFemale.checked;
+    scheduleUpdate();
   });
 }

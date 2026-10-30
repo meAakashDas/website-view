@@ -16,7 +16,13 @@ export default [
       }
     },
     rules: {
-      ...js.configs.recommended.rules
+      ...js.configs.recommended.rules,
+      "no-unused-vars": ["warn", {
+        "args": "none",
+        "varsIgnorePattern": "^_",
+        "caughtErrors": "none"
+      }],
+      "no-empty": ["error", { "allowEmptyCatch": true }]
     }
   }
 ];

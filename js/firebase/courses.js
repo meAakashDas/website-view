@@ -10,8 +10,7 @@ import {
   generateStudentId,
   generateTemporaryPassword,
   formatStudentInternalEmail,
-  validateNepaliPhoneNumber,
-  normalizeNepaliPhoneNumber
+  validateNepaliPhoneNumber
 } from './auth.js';
 
 /**

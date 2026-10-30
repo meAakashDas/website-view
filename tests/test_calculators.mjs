@@ -88,6 +88,9 @@ assert(Math.abs(emiRes.monthlyEMI - 21247.04) < 1, `EMI is ~21,247 (got ${emiRes
 assert(emiRes.totalPayment > 1000000, `Total payment exceeds principal`);
 assert(emiRes.processingFeeAmount === 10000, `1% processing fee on 1M is 10,000`);
 assert(emiRes.effectiveTotalCost === emiRes.totalPayment + 10000, `Effective total cost includes fee`);
+assert(emiRes.equivalentFlatRate > 0, `Equivalent flat rate computed (${emiRes.equivalentFlatRate}%)`);
+assert(emiRes.flatRateComparison.flatExcessInterest > 0, `Flat rate excess interest accurately computed (>0)`);
+assert(emiRes.flatRateComparison.flatTotalInterest > emiRes.totalInterest, `Flat rate total interest exceeds reducing balance interest`);
 
 // Zero interest loan: EMI = P / n, total interest = 0
 const emiZero = calculateEMI({ loanAmount: 1000000, annualRate: 0, tenureMonths: 60 });
@@ -232,6 +235,20 @@ const taxWithDeductions = calculateNepalIncomeTax({
 // Life insurance max 40,000 => 40,000; Health max 20,000 => 20,000 => Total deductions = 360,000
 assert(taxWithDeductions.totalDeductions === 360000, `Allowable deductions correctly capped at 360,000 (got ${taxWithDeductions.totalDeductions})`);
 assert(taxWithDeductions.netTaxableIncome === 840000, `Net taxable income is 1,200,000 - 360,000 = 840,000`);
+
+// SSF Contributor Exemption from 1% SST on basic slab
+const taxSSF = calculateNepalIncomeTax({ grossIncome: 800000, maritalStatus: 'single', hasSSF: true });
+assert(taxSSF.totalTax === 40000, `Tax for single 8L with SSF is 40,000 (saves 5,000 1% SST, got ${taxSSF.totalTax})`);
+assert(taxSSF.ssfExemptionApplied === true, `SSF exemption applied flag is true`);
+
+// Resident Female Employee 10% Rebate
+const taxFemale = calculateNepalIncomeTax({ grossIncome: 800000, maritalStatus: 'single', isFemale: true });
+assert(taxFemale.totalTax === 40500, `Female resident 10% rebate reduces 45k to 40.5k (got ${taxFemale.totalTax})`);
+assert(taxFemale.femaleRebateAmount === 4500, `Female rebate amount is 4,500`);
+
+// Combined SSF and Female rebate
+const taxSSFFemale = calculateNepalIncomeTax({ grossIncome: 800000, maritalStatus: 'single', hasSSF: true, isFemale: true });
+assert(taxSSFFemale.totalTax === 36000, `Combined SSF and female rebate: 36,000 (got ${taxSSFFemale.totalTax})`);
 
 // ─────────────────────────────────────────────────────────────
 // 10. NEPSE SHARE CALCULATORS (SEBON Rules, CDSC & CGT)
