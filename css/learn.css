@@ -9438,6 +9438,8 @@
   position: relative;
   overflow-y: auto;
   overflow-x: hidden;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
   max-height: calc(100vh - 240px);
   padding-right: 2px;
   scrollbar-width: thin;
@@ -9868,6 +9870,8 @@
   flex: 1;
   overflow-y: auto;
   overflow-x: hidden;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
   padding-right: 4px;
 }
 

@@ -1166,23 +1166,25 @@
   cursor: pointer;
 }
 
-.rp-calc-card.active-card:hover {
-  transform: translateY(-4px);
-  border-color: var(--liquid-glass-border-focus);
-  background: var(--card-bg-hover);
-  box-shadow: var(--card-highlight), var(--card-shadow-3d-hover);
+@media (hover: hover) and (pointer: fine) {
+  .rp-calc-card.active-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--liquid-glass-border-focus);
+    background: var(--card-bg-hover);
+    box-shadow: var(--card-highlight), var(--card-shadow-3d-hover);
+  }
+
+  .rp-calc-card.active-card:hover .calc-arrow-btn {
+    transform: translateX(4px);
+    background: var(--color-accent);
+    color: #ffffff;
+    border-color: var(--color-accent);
+  }
 }
 
 .rp-calc-card.active-card:active {
   transform: translateY(0px) scale(0.99);
   box-shadow: var(--card-highlight), var(--card-shadow-3d-pressed);
-}
-
-.rp-calc-card.active-card:hover .calc-arrow-btn {
-  transform: translateX(4px);
-  background: var(--color-accent);
-  color: #ffffff;
-  border-color: var(--color-accent);
 }
 
 .rp-calc-card.disabled-card {

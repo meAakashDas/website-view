@@ -318,11 +318,13 @@ button:disabled {
   flex-direction: column;
 }
 
-.card:hover {
-  border-color: var(--color-border-hover);
-  transform: translateY(-3px);
-  background-color: var(--card-bg-hover);
-  box-shadow: var(--card-highlight), var(--card-shadow-3d-hover);
+@media (hover: hover) and (pointer: fine) {
+  .card:hover {
+    border-color: var(--color-border-hover);
+    transform: translateY(-3px);
+    background-color: var(--card-bg-hover);
+    box-shadow: var(--card-highlight), var(--card-shadow-3d-hover);
+  }
 }
 
 .card:active {
@@ -527,11 +529,13 @@ button:disabled {
               box-shadow var(--duration-fast) var(--ease-apple);
 }
 
-.topic-card:hover {
-  transform: translateY(-3px);
-  border-color: var(--color-border-hover);
-  background-color: var(--card-bg-hover);
-  box-shadow: var(--card-highlight), var(--card-shadow-3d-hover);
+@media (hover: hover) and (pointer: fine) {
+  .topic-card:hover {
+    transform: translateY(-3px);
+    border-color: var(--color-border-hover);
+    background-color: var(--card-bg-hover);
+    box-shadow: var(--card-highlight), var(--card-shadow-3d-hover);
+  }
 }
 
 .topic-card:active {
@@ -845,10 +849,6 @@ body.has-mobile-cta .advisor-capsule-float,
 body.has-mobile-cta .whatsapp-float,
 body:has(#course-page) .advisor-capsule-float,
 body:has(#course-page) .whatsapp-float,
-body:has(.cd-mobile-sticky-bar.visible) .advisor-capsule-float,
-body:has(.cd-mobile-sticky-bar.visible) .whatsapp-float,
-body:has(.rp-floating-buy-bar.visible) .advisor-capsule-float,
-body:has(.rp-floating-buy-bar.visible) .whatsapp-float,
 body.page-course-learn .advisor-capsule-float,
 body.page-course-learn .whatsapp-float,
 body.cl-drawer-open .advisor-capsule-float,
@@ -1663,7 +1663,8 @@ body.near-footer .mobile-contents-bar {
   position: fixed;
   bottom: calc(max(16px, env(safe-area-inset-bottom, 0px)));
   left: 50%;
-  transform: translateX(-50%) translateY(140%);
+  transform: translateX(-50%) translateY(140%) translateZ(0);
+  will-change: transform, opacity;
   z-index: 260;
   height: 48px;
   padding: 4px 6px;
@@ -1743,7 +1744,8 @@ body.near-footer .mobile-contents-bar {
   position: fixed;
   bottom: calc(max(16px, env(safe-area-inset-bottom, 0px)));
   left: 50%;
-  transform: translateX(-50%) translateY(140%);
+  transform: translateX(-50%) translateY(140%) translateZ(0);
+  will-change: transform, opacity;
   z-index: 260;
   height: 48px;
   padding: 4px 6px;
@@ -1781,7 +1783,8 @@ body.near-footer .mobile-contents-bar {
   position: fixed;
   bottom: calc(max(16px, env(safe-area-inset-bottom, 0px)));
   left: 50%;
-  transform: translateX(-50%) translateY(140%);
+  transform: translateX(-50%) translateY(140%) translateZ(0);
+  will-change: transform, opacity;
   z-index: var(--z-sticky, 260);
   padding: 4px;
   display: inline-flex;

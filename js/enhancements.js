@@ -6,54 +6,9 @@ import { initGlobalFloatingTOC } from './outline.js';
 // cursor glow, micro-interactions
 // ==============================================
 
-// ── Scroll-Reveal Observer ────────────────────
+// ── Scroll-Reveal Observer (Cleaned: Native CSS rendering without JS scroll jank) ─
 export function initScrollReveal() {
-  const revealEls = document.querySelectorAll(
-    '.card, .topic-card, .stat-item, .mission-card, .contact-info-card, ' +
-    '.section-header, .about-teaser > *, .cta-banner, .founder-section > *, ' +
-    '.accordion-item, .pricing-card, .filter-tabs'
-  );
-
-  if (!revealEls.length) return;
-
-  let remaining = revealEls.length;
-
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        // Stagger within the same parent group
-        const siblings = Array.from(entry.target.parentElement?.children || [])
-          .filter(el => el.classList.contains('card') ||
-                        el.classList.contains('topic-card') ||
-                        el.classList.contains('stat-item') ||
-                        el.classList.contains('accordion-item'));
-        const idx = siblings.indexOf(entry.target);
-        const delay = siblings.length > 1 ? Math.min(idx * 60, 300) : 0;
-
-        if (delay > 0) {
-          setTimeout(() => {
-            entry.target.classList.add('revealed');
-          }, delay);
-        } else {
-          entry.target.classList.add('revealed');
-        }
-
-        observer.unobserve(entry.target);
-        remaining--;
-        if (remaining <= 0) {
-          observer.disconnect();
-        }
-      }
-    });
-  }, {
-    threshold: 0.08,
-    rootMargin: '0px 0px -40px 0px'
-  });
-
-  revealEls.forEach(el => {
-    el.classList.add('reveal');
-    observer.observe(el);
-  });
+  // Rely on pure, hardware-accelerated CSS rendering to ensure 60fps/120fps native scrolling
 }
 
 // ── Hero Mouse-Parallax Ambient Light (Zero Idle CPU, Cached Layout) ──

@@ -29,13 +29,6 @@ body {
   line-height: var(--leading-normal);
   color: var(--color-text);
   background-color: var(--color-bg);
-  background-image: 
-    radial-gradient(ellipse 90% 60% at 50% -10%, rgba(0, 113, 227, 0.08) 0%, transparent 65%),
-    radial-gradient(ellipse 60% 50% at 85% 25%, rgba(90, 200, 250, 0.07) 0%, transparent 60%),
-    radial-gradient(ellipse 50% 40% at 10% 45%, rgba(0, 113, 227, 0.04) 0%, transparent 60%),
-    radial-gradient(ellipse 80% 60% at 50% 85%, rgba(0, 113, 227, 0.06) 0%, transparent 70%);
-  background-attachment: fixed;
-  background-repeat: no-repeat;
   min-height: 100vh;
   min-height: 100svh;
   overflow-x: clip;
@@ -45,7 +38,24 @@ body {
   padding-bottom: env(safe-area-inset-bottom);
 }
 
-[data-theme="dark"] body {
+/* Atmospheric Ambient Background: isolated on a hardware-accelerated fixed pseudo-element.
+   This replaces background-attachment: fixed on body, preventing full-viewport re-rasterization on every scroll frame! */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image: 
+    radial-gradient(ellipse 90% 60% at 50% -10%, rgba(0, 113, 227, 0.08) 0%, transparent 65%),
+    radial-gradient(ellipse 60% 50% at 85% 25%, rgba(90, 200, 250, 0.07) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 40% at 10% 45%, rgba(0, 113, 227, 0.04) 0%, transparent 60%),
+    radial-gradient(ellipse 80% 60% at 50% 85%, rgba(0, 113, 227, 0.06) 0%, transparent 70%);
+  background-repeat: no-repeat;
+  transform: translateZ(0);
+}
+
+[data-theme="dark"] body::before {
   background-image: 
     radial-gradient(ellipse 90% 60% at 50% -10%, rgba(0, 113, 227, 0.16) 0%, transparent 65%),
     radial-gradient(ellipse 60% 50% at 85% 25%, rgba(94, 92, 230, 0.12) 0%, transparent 60%),

@@ -413,12 +413,13 @@ export function initResourceDetailPage() {
   const mobileBar = document.getElementById('resource-mobile-cta');
   const purchaseCard = document.getElementById('resource-pricing-card');
   let updateMobileBar = null;
+  let cardObserver = null;
 
   if (mobileBar && purchaseCard) {
     let isCurrentlyShown = false;
-    let ticking = false;
+    let isCardInView = true;
 
-    const computeVisibility = () => {
+    const syncVisibility = () => {
       if (window.innerWidth >= 1024) {
         if (isCurrentlyShown) {
           isCurrentlyShown = false;
@@ -427,19 +428,31 @@ export function initResourceDetailPage() {
         }
         return;
       }
-      const rect = purchaseCard.getBoundingClientRect();
-      const hasPassed = rect.bottom < 40;
-      if (hasPassed !== isCurrentlyShown) {
-        isCurrentlyShown = hasPassed;
-        mobileBar.classList.toggle('visible', hasPassed);
-        document.body.classList.toggle('has-mobile-cta', hasPassed);
+      const scrollY = window.scrollY || window.pageYOffset;
+      const shouldShow = !isCardInView && scrollY > 200;
+      if (shouldShow !== isCurrentlyShown) {
+        isCurrentlyShown = shouldShow;
+        mobileBar.classList.toggle('visible', shouldShow);
+        document.body.classList.toggle('has-mobile-cta', shouldShow);
       }
     };
 
+    if (typeof IntersectionObserver !== 'undefined') {
+      cardObserver = new IntersectionObserver((entries) => {
+        isCardInView = Boolean(entries[0]?.isIntersecting);
+        syncVisibility();
+      }, {
+        rootMargin: '0px 0px -40px 0px',
+        threshold: 0
+      });
+      cardObserver.observe(purchaseCard);
+    }
+
+    let ticking = false;
     updateMobileBar = () => {
       if (!ticking) {
         window.requestAnimationFrame(() => {
-          computeVisibility();
+          syncVisibility();
           ticking = false;
         });
         ticking = true;
@@ -448,12 +461,16 @@ export function initResourceDetailPage() {
 
     window.addEventListener('scroll', updateMobileBar, { passive: true });
     window.addEventListener('resize', updateMobileBar, { passive: true });
-    computeVisibility();
+    syncVisibility();
   }
 
   return () => {
     if (previewPlayerController) {
       previewPlayerController.destroy();
+    }
+    if (cardObserver) {
+      cardObserver.disconnect();
+      cardObserver = null;
     }
     if (updateMobileBar) {
       window.removeEventListener('scroll', updateMobileBar);
