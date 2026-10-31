@@ -427,6 +427,16 @@ export function initBrandedVideoPlayer(target, options = {}) {
   const iframe = !nativeVideo ? container.querySelector('iframe.rp-player-iframe, iframe.cl-video-iframe, iframe') : null;
   if (!iframe && !nativeVideo) return null;
 
+  if (iframe && iframe.src && typeof window !== 'undefined' && window.location && window.location.origin) {
+    try {
+      const u = new URL(iframe.src);
+      if (!u.searchParams.get('origin')) {
+        u.searchParams.set('origin', window.location.origin);
+        iframe.src = u.toString();
+      }
+    } catch (_) {}
+  }
+
   // DOM Elements
   const clickSurface = container.querySelector('.rp-player-click-surface');
   const poster = container.querySelector('.rp-player-poster');
@@ -478,6 +488,7 @@ export function initBrandedVideoPlayer(target, options = {}) {
   let startFallbackTimer = null;
   let lastFullscreenChangeTime = 0;
   let lastQualityEnforceTime = 0;
+  let qualityEnforceAttempts = 0;
   let progressTickCount = 0;
 
   const toYouTubeQualityCode = (val) => {
@@ -614,8 +625,8 @@ export function initBrandedVideoPlayer(target, options = {}) {
         }
         updateProgressUi(cur, dur);
 
-        // Periodically verify and maintain highest available stream quality during active playback
-        if (progressTickCount % 8 === 0 && isPlaying) {
+        // Re-verify highest quality at early stabilization points (~2s and ~4s) without continuous polling loops
+        if ((progressTickCount === 8 || progressTickCount === 16) && qualityEnforceAttempts < 3 && isPlaying) {
           try {
             if (typeof ytPlayer.getAvailableQualityLevels === 'function' && typeof ytPlayer.getPlaybackQuality === 'function') {
               const levels = ytPlayer.getAvailableQualityLevels() || [];
@@ -625,8 +636,7 @@ export function initBrandedVideoPlayer(target, options = {}) {
                 if (highest && curQ && curQ !== highest) {
                   const qRank = RESOLUTION_PRIORITY.indexOf(curQ);
                   const highestRank = RESOLUTION_PRIORITY.indexOf(highest);
-                  if ((qRank > highestRank || curQ === 'auto' || curQ === 'default') && Date.now() - lastQualityEnforceTime > 2500) {
-                    lastQualityEnforceTime = Date.now();
+                  if (qRank > highestRank || curQ === 'auto' || curQ === 'default') {
                     applyQuality();
                   }
                 }
@@ -1021,36 +1031,37 @@ export function initBrandedVideoPlayer(target, options = {}) {
     });
   };
 
-  // Automatically enforces the highest available genuine resolution for the active video
-  const applyQuality = () => {
-    let targetCode = 'hd1080';
-    if (ytPlayer && typeof ytPlayer.getAvailableQualityLevels === 'function') {
+  // Automatically requests the highest available genuine resolution for the active video
+  const applyQuality = (force = false) => {
+    if (!ytPlayer || isDestroyed) return;
+    const now = Date.now();
+    if (!force && (now - lastQualityEnforceTime < 1500 || qualityEnforceAttempts >= 3)) {
+      return;
+    }
+
+    let targetCode = 'highres';
+    if (typeof ytPlayer.getAvailableQualityLevels === 'function') {
       try {
         const levels = ytPlayer.getAvailableQualityLevels() || [];
-        targetCode = getHighestAvailableQualityCode(levels);
+        if (levels.length > 0) {
+          targetCode = getHighestAvailableQualityCode(levels);
+        }
       } catch (_) {}
     }
 
+    lastQualityEnforceTime = now;
+    qualityEnforceAttempts++;
+
     try {
-      if (ytPlayer) {
-        if (typeof ytPlayer.setPlaybackQualityRange === 'function') {
-          try { ytPlayer.setPlaybackQualityRange(targetCode, targetCode); } catch (_) {}
-        }
-        if (typeof ytPlayer.setPlaybackQuality === 'function') {
-          try { ytPlayer.setPlaybackQuality(targetCode); } catch (_) {}
-        }
+      if (typeof ytPlayer.setPlaybackQuality === 'function') {
+        try { ytPlayer.setPlaybackQuality(targetCode); } catch (_) {}
       }
 
-      const activeIframe = (ytPlayer && typeof ytPlayer.getIframe === 'function')
+      const activeIframe = (typeof ytPlayer.getIframe === 'function')
         ? ytPlayer.getIframe()
         : (container.querySelector('iframe') || iframe);
       if (targetCode && activeIframe && activeIframe.contentWindow) {
         try {
-          activeIframe.contentWindow.postMessage(JSON.stringify({
-            event: 'command',
-            func: 'setPlaybackQualityRange',
-            args: [targetCode, targetCode]
-          }), '*');
           activeIframe.contentWindow.postMessage(JSON.stringify({
             event: 'command',
             func: 'setPlaybackQuality',
@@ -1475,7 +1486,7 @@ export function initBrandedVideoPlayer(target, options = {}) {
               if (currentSpeed !== 1) {
                 handleSpeedSelect(currentSpeed);
               }
-              applyQuality();
+              applyQuality(true);
             } catch (_) {}
           },
           onStateChange: (event) => {
@@ -1489,7 +1500,12 @@ export function initBrandedVideoPlayer(target, options = {}) {
               isQualitySwitching = false;
               markPlaybackStarted();
               setPlayingState(true);
-              applyQuality();
+              applyQuality(true);
+              setTimeout(() => {
+                if (!isDestroyed && isPlaying) {
+                  applyQuality();
+                }
+              }, 400);
             } else if (event.data === YT.PlayerState.PAUSED) {
               container.classList.remove('is-starting');
               container.classList.remove('is-buffering');
@@ -1532,11 +1548,10 @@ export function initBrandedVideoPlayer(target, options = {}) {
                 const levels = ytPlayer.getAvailableQualityLevels() || [];
                 if (levels.length > 0) {
                   const highest = getHighestAvailableQualityCode(levels);
-                  if (highest && q !== highest) {
+                  if (highest && q !== highest && qualityEnforceAttempts < 3) {
                     const qRank = RESOLUTION_PRIORITY.indexOf(q);
                     const highestRank = RESOLUTION_PRIORITY.indexOf(highest);
-                    if ((qRank > highestRank || q === 'auto' || q === 'default') && Date.now() - lastQualityEnforceTime > 1500) {
-                      lastQualityEnforceTime = Date.now();
+                    if ((qRank > highestRank || q === 'auto' || q === 'default') && Date.now() - lastQualityEnforceTime > 2000) {
                       applyQuality();
                     }
                   }
