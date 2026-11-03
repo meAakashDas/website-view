@@ -11,5 +11,11 @@
     "eslint": "^9.39.5",
     "globals": "^17.13.0",
     "prettier": "^3.9.10"
+  },
+  "dependencies": {
+    "@videojs/cdn": "^10.2.0",
+    "@videojs/html": "^10.2.0",
+    "@videojs/youtube-video": "^10.2.0",
+    "video.js": "^10.2.0"
   }
 }
