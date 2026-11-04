@@ -599,22 +599,55 @@ export function initBrandedVideoPlayer(target, options = {}) {
   // Moreover, iOS Safari and Android Chrome require synchronous play dispatch within a user gesture.
   const ensurePlayback = () => {
     if (!mediaEl || isDestroyed) return;
+    const engine = getEngine();
+
+    // 1. Immediately kick off play on media element synchronously within the user gesture
     try {
       const p = mediaEl.play();
       if (p && typeof p.catch === 'function') p.catch(() => {});
     } catch (_) {}
-    if (mediaEl.engine && typeof mediaEl.engine.playVideo === 'function') {
-      try { mediaEl.engine.playVideo(); } catch (_) {}
+
+    if (engine && typeof engine.playVideo === 'function') {
+      try { engine.playVideo(); } catch (_) {}
     }
+
     const iframe = mediaEl.shadowRoot?.querySelector('iframe') || mediaEl.querySelector('iframe');
     if (iframe && iframe.contentWindow) {
       try {
         iframe.contentWindow.postMessage(JSON.stringify({ event: 'command', func: 'playVideo', args: '' }), '*');
       } catch (_) {}
     }
+
+    // 2. Mobile Autoplay Protection & Resilient Fallback:
+    // If strict mobile browser policies (e.g. Android Chrome user-gesture-required) block unmuted
+    // playback across the cross-origin iframe (engine drops to state -1, 2, or 5 with currentTime === 0),
+    // immediately recover via muted autoplay (100% permitted by all mobile platforms)
+    setTimeout(() => {
+      if (isDestroyed || !mediaEl) return;
+      const eng = getEngine();
+      const state = eng && typeof eng.getPlayerState === 'function' ? eng.getPlayerState() : null;
+      const isBlocked = (state === -1 || state === 2 || state === 5) && (mediaEl.currentTime || 0) === 0;
+      if (isBlocked) {
+        try {
+          if (eng && typeof eng.mute === 'function') eng.mute();
+          if (eng && typeof eng.playVideo === 'function') eng.playVideo();
+          mediaEl.muted = true;
+          const p = mediaEl.play();
+          if (p && typeof p.catch === 'function') p.catch(() => {});
+        } catch (_) {}
+        if (iframe && iframe.contentWindow) {
+          try {
+            iframe.contentWindow.postMessage(JSON.stringify({ event: 'command', func: 'mute', args: '' }), '*');
+            iframe.contentWindow.postMessage(JSON.stringify({ event: 'command', func: 'playVideo', args: '' }), '*');
+          } catch (_) {}
+        }
+      }
+    }, 350);
   };
 
-  const handleContainerClick = (e) => {
+  let lastTouchEndTime = 0;
+
+  const handleContainerInteraction = (e) => {
     if (isDestroyed || !mediaEl) return;
     const path = e.composedPath ? e.composedPath() : [];
 
@@ -640,6 +673,22 @@ export function initBrandedVideoPlayer(target, options = {}) {
       resetHideTimer();
     }
   };
+
+  const handleTouchEnd = (e) => {
+    lastTouchEndTime = Date.now();
+    handleContainerInteraction(e);
+  };
+
+  const handleContainerClick = (e) => {
+    // Prevent synthetic click from firing twice immediately after a touchend
+    if (Date.now() - lastTouchEndTime < 400) {
+      resetHideTimer();
+      return;
+    }
+    handleContainerInteraction(e);
+  };
+
+  container.addEventListener('touchend', handleTouchEnd);
   container.addEventListener('click', handleContainerClick);
 
   const toggleFullscreen = (request = null) => {
@@ -775,6 +824,7 @@ export function initBrandedVideoPlayer(target, options = {}) {
     }
     container.removeEventListener('click', handleFullscreenButtonClick, true);
     container.removeEventListener('click', handleContainerClick);
+    container.removeEventListener('touchend', handleTouchEnd);
     container.removeEventListener('mousemove', handleMouseMove);
     container.removeEventListener('touchstart', handleTouchStart);
     document.removeEventListener('fullscreenchange', onFullscreenChange);

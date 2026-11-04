@@ -20,6 +20,7 @@
   -webkit-user-select: none;
   font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui, sans-serif;
   outline: none;
+  cursor: pointer;
   /* Scoped dark cinema glass tokens */
   --liquid-glass-bg: rgba(18, 20, 26, 0.95);
   --liquid-glass-clear-bg: rgba(20, 24, 33, 0.75);
