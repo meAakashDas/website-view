@@ -240,6 +240,7 @@ export function createBrandedVideoPlayer(options = {}) {
           title="${safeTitle}"
           ${ytVideoId ? `poster="https://i.ytimg.com/vi/${ytVideoId}/hqdefault.jpg"` : ''}
           playsinline
+          webkit-playsinline
           preload="metadata"
           referrerpolicy="strict-origin-when-cross-origin">
         </youtube-video>
@@ -592,6 +593,55 @@ export function initBrandedVideoPlayer(target, options = {}) {
   container.addEventListener('mousemove', handleMouseMove);
   container.addEventListener('touchstart', handleTouchStart, { passive: true });
 
+  // Synchronous touch / click tap-to-play handler for mobile devices & user-gesture activation
+  // On mobile touch devices, Video.js defaults to <media-gesture pointer="touch" action="toggleControls">,
+  // which only toggles controls visibility and leaves the player stuck on poster without starting playback.
+  // Moreover, iOS Safari and Android Chrome require synchronous play dispatch within a user gesture.
+  const ensurePlayback = () => {
+    if (!mediaEl || isDestroyed) return;
+    try {
+      const p = mediaEl.play();
+      if (p && typeof p.catch === 'function') p.catch(() => {});
+    } catch (_) {}
+    if (mediaEl.engine && typeof mediaEl.engine.playVideo === 'function') {
+      try { mediaEl.engine.playVideo(); } catch (_) {}
+    }
+    const iframe = mediaEl.shadowRoot?.querySelector('iframe') || mediaEl.querySelector('iframe');
+    if (iframe && iframe.contentWindow) {
+      try {
+        iframe.contentWindow.postMessage(JSON.stringify({ event: 'command', func: 'playVideo', args: '' }), '*');
+      } catch (_) {}
+    }
+  };
+
+  const handleContainerClick = (e) => {
+    if (isDestroyed || !mediaEl) return;
+    const path = e.composedPath ? e.composedPath() : [];
+
+    // Ignore clicks on controls other than the play button / viewing frame
+    const isOtherControl = path.some(el => {
+      if (!el || !el.tagName) return false;
+      const t = el.tagName.toUpperCase();
+      if (t === 'MEDIA-PLAY-BUTTON' || (el.classList && el.classList.contains('media-play-button'))) return false;
+      return t === 'MEDIA-MUTE-BUTTON' || t === 'MEDIA-TIME-SLIDER' || t === 'MEDIA-VOLUME-SLIDER' ||
+             t === 'MEDIA-SETTINGS-MENU-TRIGGER' || t === 'MEDIA-FULLSCREEN-BUTTON' ||
+             (el.classList && el.classList.contains('rp-seek-btn'));
+    });
+
+    if (isOtherControl) {
+      resetHideTimer();
+      return;
+    }
+
+    if (mediaEl.paused) {
+      ensurePlayback();
+      resetHideTimer();
+    } else {
+      resetHideTimer();
+    }
+  };
+  container.addEventListener('click', handleContainerClick);
+
   const toggleFullscreen = (request = null) => {
     const isFs = isCurrentlyFullscreen();
     const shouldEnter = request !== null ? request : !isFs;
@@ -724,6 +774,7 @@ export function initBrandedVideoPlayer(target, options = {}) {
       try { mediaEl.pause(); } catch (_) {}
     }
     container.removeEventListener('click', handleFullscreenButtonClick, true);
+    container.removeEventListener('click', handleContainerClick);
     container.removeEventListener('mousemove', handleMouseMove);
     container.removeEventListener('touchstart', handleTouchStart);
     document.removeEventListener('fullscreenchange', onFullscreenChange);
@@ -741,6 +792,7 @@ export function initBrandedVideoPlayer(target, options = {}) {
     getVideoSkin: () => videoSkinEl,
     getPlayer: () => mediaEl,
     play: () => {
+      ensurePlayback();
       if (mediaEl && typeof mediaEl.play === 'function') {
         return mediaEl.play().catch(() => {});
       }
