@@ -5,7 +5,7 @@
    Zero bleed into global layout, typography, or spacing.
    ======================================================== */
 
-@import url('/node_modules/@videojs/cdn/video.css');
+@import url('https://cdn.jsdelivr.net/npm/@videojs/cdn@10.2.0/video.css');
 
 .rp-video-player-frame {
   position: relative;

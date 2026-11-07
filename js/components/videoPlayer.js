@@ -139,6 +139,9 @@ const ICONS = {
   forward10: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2a9 9 0 1 1-9 9"/><polyline points="13 6 13 2 17 2"/><text x="12" y="14" font-size="7" font-weight="700" fill="currentColor" stroke="none" text-anchor="middle">10</text></svg>`
 };
 
+const VJS_CDN_URL = `https://cdn.jsdelivr.net/npm/@videojs/cdn@${VIDEOJS_VERSION}`;
+const VJS_FALLBACK_URL = `https://unpkg.com/@videojs/cdn@${VIDEOJS_VERSION}`;
+
 /**
  * Ensures Video.js v10 custom elements and styles are loaded in browser runtime.
  */
@@ -155,16 +158,29 @@ export function ensureVideoJsV10() {
     if (!document.querySelector('link[data-vjs-cdn="video.css"]')) {
       const link = document.createElement('link');
       link.rel = 'stylesheet';
-      link.href = '/node_modules/@videojs/cdn/video.css';
+      link.href = `${VJS_CDN_URL}/video.css`;
       link.setAttribute('data-vjs-cdn', 'video.css');
+      link.onerror = () => {
+        link.href = `${VJS_FALLBACK_URL}/video.css`;
+      };
       document.head.appendChild(link);
     }
 
     try {
-      await import('/node_modules/@videojs/cdn/video.js');
-      await import('/node_modules/@videojs/cdn/media/youtube-video.js');
-    } catch (e) {
-      console.warn('[RisePaisa Player] Video.js v10 module dynamic load notice:', e);
+      await import(`${VJS_CDN_URL}/video.js`);
+      await import(`${VJS_CDN_URL}/media/youtube-video.js`);
+    } catch (cdnErr) {
+      try {
+        await import(`${VJS_FALLBACK_URL}/video.js`);
+        await import(`${VJS_FALLBACK_URL}/media/youtube-video.js`);
+      } catch (fallbackErr) {
+        try {
+          await import('/node_modules/@videojs/cdn/video.js');
+          await import('/node_modules/@videojs/cdn/media/youtube-video.js');
+        } catch (localErr) {
+          console.warn('[RisePaisa Player] Video.js v10 module dynamic load notice:', localErr);
+        }
+      }
     }
   })();
 
@@ -344,6 +360,40 @@ export function initBrandedVideoPlayer(target, options = {}) {
   let isMuted = false;
   let currentSelectedQuality = 'auto';
   let availableQualityCodes = ['auto'];
+
+  // Ensure origin is explicitly provided to YouTube custom element engine
+  const applyYouTubeOrigin = () => {
+    if (!mediaEl || isDestroyed || mediaEl.tagName !== 'YOUTUBE-VIDEO') return;
+    const currentOrigin = (typeof window !== 'undefined' && window.location && window.location.origin) ? window.location.origin : '';
+    if (currentOrigin && currentOrigin !== 'null') {
+      try {
+        const rawSrc = mediaEl.getAttribute('src') || mediaEl.src || '';
+        if (rawSrc && (!mediaEl.source || !mediaEl.source.engine?.youtube?.origin)) {
+          mediaEl.source = {
+            src: rawSrc,
+            engine: {
+              youtube: {
+                origin: currentOrigin,
+                enablejsapi: 1,
+                modestbranding: 1,
+                rel: 0,
+                playsinline: 1
+              }
+            }
+          };
+        }
+      } catch (_) {}
+    }
+  };
+
+  applyYouTubeOrigin();
+  if (typeof window !== 'undefined' && window.customElements && !customElements.get('youtube-video')) {
+    customElements.whenDefined('youtube-video').then(() => {
+      if (!isDestroyed) {
+        applyYouTubeOrigin();
+      }
+    });
+  }
 
   const getEngine = () => {
     if (!mediaEl) return null;
