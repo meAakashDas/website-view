@@ -39,7 +39,8 @@ for (const file of testFiles) {
   } else {
     failedSuites++;
     console.log(`FAILED (exit ${result.status})`);
-    console.error(result.stdout || result.stderr);
+    if (result.stdout) console.error(result.stdout);
+    if (result.stderr) console.error(result.stderr);
   }
 }
 

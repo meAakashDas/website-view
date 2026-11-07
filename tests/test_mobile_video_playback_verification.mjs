@@ -72,11 +72,11 @@ async function verifyPlatform(name, browserType, deviceConfig, launchArgs = []) 
   }, { timeout: 8000 }).catch(() => {});
 
   const frame = await page.$('.rp-video-player-frame');
-  const box = await frame.boundingBox();
-  await page.touchscreen.tap(box.x + box.width / 2, box.y + box.height / 2);
+  await frame.scrollIntoViewIfNeeded();
+  await frame.click();
 
-  // Wait 4.5 seconds to allow playback and time advancement
-  await page.waitForTimeout(4500);
+  // Wait to allow playback and time advancement
+  await page.waitForTimeout(5000);
 
   const playData = await page.evaluate(() => {
     const ytv = document.querySelector('youtube-video');

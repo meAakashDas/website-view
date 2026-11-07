@@ -135,7 +135,7 @@ async function run() {
         const frameEl = document.querySelector('.rp-video-player-frame');
         frameEl.__rpController.requestFullscreen();
       });
-      await page.waitForTimeout(250);
+      await page.waitForTimeout(400);
 
       const inFs = await page.evaluate(() => {
         const frameEl = document.querySelector('.rp-video-player-frame');
@@ -148,7 +148,7 @@ async function run() {
         const frameEl = document.querySelector('.rp-video-player-frame');
         frameEl.__rpController.exitFullscreen();
       });
-      await page.waitForTimeout(250);
+      await page.waitForTimeout(400);
 
       const outFs = await page.evaluate(el => {
         const frameEl = document.querySelector('.rp-video-player-frame');

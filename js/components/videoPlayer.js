@@ -741,20 +741,46 @@ export function initBrandedVideoPlayer(target, options = {}) {
   container.addEventListener('touchend', handleTouchEnd);
   container.addEventListener('click', handleContainerClick);
 
+  const lockOrientationToLandscape = () => {
+    try {
+      if (typeof screen !== 'undefined' && screen.orientation && typeof screen.orientation.lock === 'function') {
+        const isMobile = (typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(max-width: 1024px)').matches) ||
+          /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+        if (isMobile) {
+          screen.orientation.lock('landscape').catch(() => {});
+        }
+      }
+    } catch (_) {}
+  };
+
+  const unlockOrientation = () => {
+    try {
+      if (typeof screen !== 'undefined' && screen.orientation && typeof screen.orientation.unlock === 'function') {
+        screen.orientation.unlock();
+      }
+    } catch (_) {}
+  };
+
   const toggleFullscreen = (request = null) => {
     const isFs = isCurrentlyFullscreen();
     const shouldEnter = request !== null ? request : !isFs;
 
     if (shouldEnter) {
       if (container.requestFullscreen) {
-        container.requestFullscreen().catch(() => {});
+        container.requestFullscreen().then(() => {
+          lockOrientationToLandscape();
+        }).catch(() => {
+          lockOrientationToLandscape();
+        });
       } else if (container.webkitRequestFullscreen) {
         container.webkitRequestFullscreen();
+        lockOrientationToLandscape();
       }
       container.classList.add('is-fullscreen', 'vjs-fullscreen');
       document.documentElement.classList.add('rp-fullscreen-active');
       document.body.classList.add('rp-fullscreen-active');
     } else {
+      unlockOrientation();
       if (getFullscreenElement()) {
         try {
           if (document.exitFullscreen) document.exitFullscreen().catch(() => {});
@@ -779,6 +805,12 @@ export function initBrandedVideoPlayer(target, options = {}) {
     container.classList.toggle('vjs-fullscreen', isFs);
     document.documentElement.classList.toggle('rp-fullscreen-active', isFs);
     document.body.classList.toggle('rp-fullscreen-active', isFs);
+
+    if (isFs) {
+      lockOrientationToLandscape();
+    } else {
+      unlockOrientation();
+    }
 
     videoSkinEl?.requestUpdate?.();
     videoPlayerEl?.requestUpdate?.();
@@ -845,6 +877,7 @@ export function initBrandedVideoPlayer(target, options = {}) {
 
   const teardown = () => {
     isDestroyed = true;
+    unlockOrientation();
     if (hideControlsTimeout) {
       clearTimeout(hideControlsTimeout);
       hideControlsTimeout = null;
