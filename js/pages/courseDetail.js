@@ -14,6 +14,7 @@ import {
 } from '../components/videoPlayer.js';
 import { initFloatingSystem } from '../floatingControls.js';
 
+
 // ── YouTube URL → Safe Embed URL converter ────────
 function _toYouTubeEmbed(url) {
   return toSafeYouTubeEmbedUrl(url);
@@ -190,9 +191,6 @@ export function renderCourseDetailPage(slug) {
   };
 
   const isNepseCourse = course.id === 1 || course.slug === 'nepse-stock-market-basics';
-  const totalModules = course.curriculum ? course.curriculum.length : 0;
-  const totalLessons = course.curriculum ? course.curriculum.reduce((sum, m) => sum + (Array.isArray(m.lessons) ? m.lessons.length : 0), 0) : 0;
-  const displayDuration = course.duration || '20+ Hours';
   const demoVideoUrl = (isNepseCourse || course.slug === 'nepse-stock-market-basics')
     ? (course.previewVideoUrl && course.previewVideoUrl.includes('ziVeMxMF4e8') ? course.previewVideoUrl : 'https://youtu.be/ziVeMxMF4e8')
     : course.previewVideoUrl;
@@ -233,7 +231,7 @@ export function renderCourseDetailPage(slug) {
                 <div class="cd-notice-box" style="margin:var(--space-2) 0 var(--space-4);padding:var(--space-3) var(--space-4);border-radius:var(--radius-lg);background:var(--color-surface-subtle);border:1px solid var(--color-border);display:flex;gap:var(--space-3);align-items:flex-start">
                   <span style="color:var(--color-primary);flex-shrink:0;margin-top:2px">${ICONS.info}</span>
                   <div style="font-size:var(--text-xs);line-height:1.5">
-                    <strong>Course Status Notice:</strong> This course is currently not open for new public enrollments. Personal finance lessons and budgeting tools remain available in our <a href="${ROUTES.LEARN}" style="color:var(--color-primary);font-weight:600">Learn Academy</a>. To enroll in our active public course, explore the <a href="/courses/nepse-stock-market-basics/learn?lesson=lesson-1" style="color:var(--color-primary);font-weight:600">Share Market Full Course (NEPSE) — NPR 2,999</a>.
+                    <strong>Course Status Notice:</strong> This course is currently not open for new public enrollments. Personal finance lessons and budgeting tools remain available in our <a href="${ROUTES.LEARN}" style="color:var(--color-primary);font-weight:600">Learn Academy</a>. To enroll in our active public course, explore the <a href="/courses/nepse-stock-market-basics/learn?lesson=lesson-1" style="color:var(--color-primary);font-weight:600">Share Market Full Course (NEPSE) (NPR 2,999)</a>.
                   </div>
                 </div>
               ` : ''}
@@ -248,12 +246,11 @@ export function renderCourseDetailPage(slug) {
               </div>
 
               <!-- 16:9 Responsive Video Player Container -->
-              <div class="cd-demo-video-wrapper">
+              <div class="cd-demo-video-wrapper" id="cd-demo-video-container">
                 ${safeEmbedUrl ? createBrandedVideoPlayer({
                   embedUrl: safeEmbedUrl,
                   title: `${course.title} Free Demo Video`,
-                  iframeId: 'cd-demo-iframe',
-                  containerId: 'cd-demo-video-container'
+                  playerId: 'cd-demo-player'
                 }) : `
                   <a href="${learnUrl}" class="cd-video-player-frame" style="text-decoration:none;display:block" aria-label="Open ${course.title} Free Demo in Learning Player">
                     <div class="cd-video-placeholder" style="background-image:url(${course.thumbnail || thumbMap[course.id] || thumbMap[1]})">
@@ -590,9 +587,9 @@ export function renderCourseDetailPage(slug) {
     <!-- ── Floating Course Purchase CTA Bar ────────────────────────────── -->
     ${isPublicOffering ? `
       <aside class="cd-mobile-sticky-bar glass-control" id="mobile-sticky-bar" role="complementary" aria-label="Course Purchase Action">
-        <a href="${waBuyLink}" target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp cd-sticky-buy-btn rp-floating-buy-btn" id="mobile-bar-whatsapp-btn" aria-label="Buy Course — NPR ${(course.price || 2999).toLocaleString()}">
+        <a href="${waBuyLink}" target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp cd-sticky-buy-btn rp-floating-buy-btn" id="mobile-bar-whatsapp-btn" aria-label="Buy Course: NPR ${(course.price || 2999).toLocaleString()}">
           <span class="rp-btn-icon">${ICONS.whatsapp}</span>
-          <span class="rp-btn-text">Buy Course — NPR ${(course.price || 2999).toLocaleString()}</span>
+          <span class="rp-btn-text">Buy Course: NPR ${(course.price || 2999).toLocaleString()}</span>
         </a>
       </aside>
     ` : ''}
@@ -600,11 +597,13 @@ export function renderCourseDetailPage(slug) {
 }
 
 export function initCourseDetailPage(slugOverride = null) {
-  // ── 0. Initialize Branded Custom Video Player for Free Demo ──
-  const demoPlayerEl = document.getElementById('cd-demo-video-container') || document.querySelector('.cd-demo-section [data-rp-player]');
-  let demoPlayerController = null;
-  if (demoPlayerEl && demoPlayerEl.hasAttribute('data-rp-player')) {
-    demoPlayerController = initBrandedVideoPlayer(demoPlayerEl);
+  // ── 0. Initialize Video.js Player for Free Demo Video ──
+  const demoPlayerEl = document.getElementById('cd-demo-player');
+  let demoPlayerInstance = null;
+  if (demoPlayerEl) {
+    initBrandedVideoPlayer(demoPlayerEl).then(p => {
+      demoPlayerInstance = p;
+    }).catch(() => {});
   }
 
   // ── 1. Accordion Interactivity with Expand / Collapse All ──
@@ -808,22 +807,12 @@ export function initCourseDetailPage(slugOverride = null) {
 
         // 2. Preview Video Live Sync
         if (liveCourse.previewVideoUrl && effectiveSlug !== 'nepse-stock-market-basics' && liveCourse.slug !== 'nepse-stock-market-basics') {
-          const newEmbed = toSafeYouTubeEmbedUrl(liveCourse.previewVideoUrl);
-          const demoContainer = document.getElementById('cd-demo-video-container');
-          const currentIframe = demoContainer ? demoContainer.querySelector('iframe') : null;
-          const videoId = extractYouTubeVideoId(newEmbed);
-          if (videoId && currentIframe && extractYouTubeVideoId(currentIframe.src) !== videoId) {
-            destroyBrandedVideoPlayer(demoContainer);
-            demoContainer.outerHTML = createBrandedVideoPlayer({
-              embedUrl: newEmbed,
-              title: `${liveCourse.title || 'Course'} Free Demo Video`,
-              iframeId: 'cd-demo-iframe',
-              containerId: 'cd-demo-video-container'
+          const videoId = extractYouTubeVideoId(liveCourse.previewVideoUrl);
+          if (videoId && demoPlayerInstance && typeof demoPlayerInstance.src === 'function') {
+            demoPlayerInstance.src({
+              type: 'video/youtube',
+              src: `https://www.youtube.com/watch?v=${videoId}`
             });
-            const updatedEl = document.getElementById('cd-demo-video-container');
-            if (updatedEl) {
-              demoPlayerController = initBrandedVideoPlayer(updatedEl);
-            }
           }
         }
 
@@ -862,8 +851,8 @@ export function initCourseDetailPage(slugOverride = null) {
   }
 
   return () => {
-    if (demoPlayerController && typeof demoPlayerController.destroy === 'function') {
-      demoPlayerController.destroy();
+    if (demoPlayerInstance && typeof demoPlayerInstance.dispose === 'function') {
+      demoPlayerInstance.dispose();
     } else if (demoPlayerEl) {
       destroyBrandedVideoPlayer(demoPlayerEl);
     }

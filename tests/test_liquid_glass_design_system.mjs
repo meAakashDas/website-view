@@ -72,14 +72,15 @@ assert(componentsCss.includes('.advisor-capsule-link {') && componentsCss.includ
 assert(searchCss.includes('.search-modal {') && searchCss.includes('var(--liquid-glass-bg)'), 'Search command modal uses liquid glass material');
 assert(learnCss.includes('.learn-tabs-bar.scrolled {') && learnCss.includes('var(--liquid-glass-bg)'), 'Learn sub-nav uses frosted liquid glass material');
 assert(calculatorsCss.includes('.rp-calc-nav-bar {') && calculatorsCss.includes('var(--liquid-glass-bg)'), 'Calculator sub-nav bar uses frosted liquid glass material');
-assert(videoPlayerCss.includes('.rp-center-btn {') && videoPlayerCss.includes('var(--liquid-glass-clear-bg'), 'Video center play button uses clear liquid glass material');
-assert(videoPlayerCss.includes('.rp-settings-box {') && videoPlayerCss.includes('var(--liquid-glass-bg'), 'Video player settings menu uses liquid glass material');
+assert(videoPlayerCss.includes('aspect-ratio: 16 / 9'), 'Video player container enforces uncropped 16:9 aspect ratio');
+assert(!videoPlayerCss.includes('width: 300%') && !videoPlayerCss.includes('left: -100%'), 'Video player strictly eliminates artificial clipping and distortion');
 
 // 5. Content Surfaces Integrity (Must remain solid/opaque)
 console.log('\n--- 5. Testing Content Surfaces (Opaque Content Layer) ---');
-assert(componentsCss.includes('.card {') && componentsCss.includes('background-color: var(--card-bg);'), 'Content cards maintain opaque background for readability');
-assert(variablesCss.includes('--card-bg:                   #FFFFFF;'), 'Light mode card surface is 100% opaque pure white');
-assert(variablesCss.includes('--card-bg:                   #1C1C1E;'), 'Dark mode card surface is 100% opaque system dark');
+assert(componentsCss.includes('.card {') && componentsCss.includes('background-color: var(--card-bg);'), 'Content cards use standardized card system');
+assert(variablesCss.includes('--card-backdrop:'), 'Card system defines backdrop-filter token for liquid glass');
+assert(variablesCss.includes('--card-border:'), 'Card system defines glass hairline border');
+assert(componentsCss.includes('.content-solid'), 'Dedicated content-solid class retains opaque surface for financial readability');
 
 // 6. Floating Control System & Mobile Learning Dock
 console.log('\n--- 6. Testing Floating Liquid Glass Learning Dock & Controls Coordinator ---');

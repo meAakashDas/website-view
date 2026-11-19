@@ -434,6 +434,7 @@ export function initLearnGlossaryHubPage() {
     chip.addEventListener('click', () => {
       categoryChips.forEach(c => c.classList.remove('active'));
       chip.classList.add('active');
+      chip.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
 
       currentCategory = chip.getAttribute('data-cat') || 'all';
       updateView();
@@ -449,7 +450,11 @@ export function initLearnGlossaryHubPage() {
 
       currentCategory = catSlug;
       categoryChips.forEach(c => {
-        c.classList.toggle('active', c.getAttribute('data-cat') === catSlug);
+        const isActive = c.getAttribute('data-cat') === catSlug;
+        c.classList.toggle('active', isActive);
+        if (isActive) {
+          c.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+        }
       });
 
       updateView();
@@ -470,7 +475,13 @@ export function initLearnGlossaryHubPage() {
 
       if (searchClearBtn) searchClearBtn.style.display = 'none';
 
-      categoryChips.forEach((c, idx) => c.classList.toggle('active', idx === 0));
+      categoryChips.forEach((c, idx) => {
+        const isFirst = idx === 0;
+        c.classList.toggle('active', isFirst);
+        if (isFirst) {
+          c.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+        }
+      });
       alphabetBtns.forEach(b => b.classList.toggle('active', b.getAttribute('data-letter') === 'ALL'));
 
       updateView();

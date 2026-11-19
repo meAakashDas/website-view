@@ -67,10 +67,13 @@ function renderSocialCard(social) {
     <a href="${social.url}" target="_blank" rel="noopener" class="social-link-card" id="social-${social.platform.toLowerCase()}-${social.title.replace(/\s+/g, '-').toLowerCase()}">
       <div class="social-link-card__icon">${social.icon}</div>
       <div class="social-link-card__info">
-        <div class="social-link-card__title">${social.title}</div>
+        <div class="social-link-card__title">
+          <span class="social-platform-label">${social.platform}</span>
+          <span class="social-handle-label">· ${social.title}</span>
+        </div>
         <div class="social-link-card__desc">${social.desc}</div>
       </div>
-      <div class="social-link-card__arrow">${ICON_EXTERNAL}</div>
+      <div class="social-link-card__arrow" aria-hidden="true">${ICON_EXTERNAL}</div>
     </a>
   `;
 }
@@ -99,7 +102,7 @@ function renderContactBlock(name, description, imgSrc, socials) {
 // ── Page render ──────────────────────────────────
 export function renderContactPage() {
   setPageMeta(
-    'Contact RisePaisa — Support, Course Inquiries & Official Channels',
+    'Contact RisePaisa: Support, Course Inquiries & Official Channels',
     'Official contact details, student support pathways, pre-purchase inquiries, and WhatsApp enrollment assistance for RisePaisa and founder Aakash Das.'
   );
 
@@ -287,5 +290,20 @@ export function renderContactPage() {
 
 // ── Page init ────────────────────────────────────
 export function initContactPage() {
-  // No special interactivity needed
+  if (typeof IntersectionObserver === 'undefined') return;
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('about-animate-in');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
+
+  document.querySelectorAll(
+    '.contact-block, .contact-inquiry-card, .contact-official-channels'
+  ).forEach(el => {
+    el.classList.add('about-animate-target');
+    observer.observe(el);
+  });
 }

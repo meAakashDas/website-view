@@ -6,7 +6,6 @@
 import { ROUTES } from '../routes.js';
 import { setPageMeta } from '../components.js';
 import {
-  checkIsAdmin,
   checkIsAdminDetailed,
   searchStudentUser,
   fetchStudentEnrollments,
@@ -17,7 +16,6 @@ import {
   fetchAdminCourses,
   sanitizeText,
   parseDateToMillis,
-  ENROLLMENT_STATUS,
   createStudentAccount,
   suspendStudentAccount,
   reactivateStudentAccount,
@@ -27,14 +25,12 @@ import {
 } from '../firebase/courses.js';
 import {
   subscribeToAuth,
-  getCurrentUser,
   isAuthInitialized,
   waitForAuthReady,
   logoutUser,
   generateStudentId,
   generateTemporaryPassword,
-  validateNepaliPhoneNumber,
-  normalizeNepaliPhoneNumber
+  validateNepaliPhoneNumber
 } from '../firebase/auth.js';
 import { openAuthModal } from '../firebase/ui.js';
 
@@ -543,8 +539,8 @@ export function initAdminEnrollmentsPage() {
                         <strong>${sanitizeText(s.displayName || 'Pending Profile')}</strong>
                         ${!s.onboardingCompleted ? '<span class="ae-sub-tag">New</span>' : ''}
                       </td>
-                      <td class="ae-cell-date">${sanitizeText(s.phoneNumber || '—')}</td>
-                      <td class="ae-cell-date ae-text-muted">${sanitizeText(s.email || (s.internalEmail ? 'ID Auth' : '—'))}</td>
+                      <td class="ae-cell-date">${sanitizeText(s.phoneNumber || '-')}</td>
+                      <td class="ae-cell-date ae-text-muted">${sanitizeText(s.email || (s.internalEmail ? 'ID Auth' : '-'))}</td>
                       <td>
                         <span class="ae-status-pill ${isSusp ? 'ae-badge-revoked' : 'ae-badge-active'}">
                           ${isSusp ? AE_ICONS.slash : AE_ICONS.check} <span>${isSusp ? 'Suspended' : 'Active'}</span>
@@ -1023,7 +1019,7 @@ export function initAdminEnrollmentsPage() {
             <div class="ae-form-group">
               <label for="ae-expiration-select" class="ae-label">Expiration Policy <span class="ae-req">*</span></label>
               <select id="ae-expiration-select" class="ae-input" required>
-                <option value="none" selected>No Expiration (Lifetime Access) — Standard</option>
+                <option value="none" selected>No Expiration (Lifetime Access) - Standard</option>
                 <option value="1_month">1 Month Access</option>
                 <option value="3_months">3 Months Access</option>
                 <option value="6_months">6 Months Access</option>
@@ -1494,7 +1490,7 @@ export function initAdminEnrollmentsPage() {
             <div class="ae-form-group ae-hidden" id="ae-add-duration-group">
               <label for="ae-add-duration-select" class="ae-label">Course Access Duration</label>
               <select id="ae-add-duration-select" class="ae-input">
-                <option value="0" selected>Lifetime Access (No Expiration) — Standard</option>
+                <option value="0" selected>Lifetime Access (No Expiration) - Standard</option>
                 <option value="30">1 Month (30 Days)</option>
                 <option value="90">3 Months (90 Days)</option>
                 <option value="180">6 Months (180 Days)</option>
@@ -1633,7 +1629,7 @@ export function initAdminEnrollmentsPage() {
                   </div>
 
                   <div style="margin-top:14px;padding:10px 12px;background:#fff8e6;border:1px solid #f6d365;border-radius:6px;font-size:12px;color:#856404;line-height:1.4;">
-                    <strong>Security Notice:</strong> Plaintext passwords are not stored in Cloud Firestore. Copy this password now — it cannot be displayed again.
+                    <strong>Security Notice:</strong> Plaintext passwords are not stored in Cloud Firestore. Copy this password now. It cannot be displayed again.
                   </div>
                 </div>
 

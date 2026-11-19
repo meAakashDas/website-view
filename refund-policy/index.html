@@ -198,6 +198,17 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@600;700&display=swap" rel="stylesheet">
 
+  <!-- YouTube Stream & Embed Preconnects -->
+  <link rel="dns-prefetch" href="https://www.youtube.com">
+  <link rel="dns-prefetch" href="https://www.youtube-nocookie.com">
+  <link rel="dns-prefetch" href="https://i.ytimg.com">
+  <link rel="dns-prefetch" href="https://img.youtube.com">
+  <link rel="dns-prefetch" href="https://googlevideo.com">
+  <link rel="preconnect" href="https://www.youtube.com">
+  <link rel="preconnect" href="https://www.youtube-nocookie.com">
+  <link rel="preconnect" href="https://i.ytimg.com" crossorigin>
+  <link rel="preconnect" href="https://googlevideo.com" crossorigin>
+
   <!-- Theme Bootstrapper (Zero Flash: Default Light Mode for First-Time Visitors) -->
   <script>
     (function() {
@@ -211,16 +222,16 @@
     })();
   </script>
 
-  <!-- Video.js v10 Official Architecture & Skin -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@videojs/cdn@10.2.0/video.css">
-  <script type="module" src="https://cdn.jsdelivr.net/npm/@videojs/cdn@10.2.0/video.js"></script>
-  <script type="module" src="https://cdn.jsdelivr.net/npm/@videojs/cdn@10.2.0/media/youtube-video.js"></script>
+
 
   <!-- Stylesheets -->
   <link rel="stylesheet" href="css/variables.css">
   <link rel="stylesheet" href="css/base.css">
   <link rel="stylesheet" href="css/components.css">
   <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/videoPlayer.css">
+  <script type="module" src="assets/vendor/videojs/video.js"></script>
+  <script type="module" src="assets/vendor/videojs/media/youtube-video.js"></script>
   <link rel="stylesheet" href="css/pages.css?v=2">
   <link rel="stylesheet" href="css/calculators.css">
   <link rel="stylesheet" href="css/learn.css">
@@ -238,6 +249,7 @@
         
         <!-- Desktop Nav Links (Center Desktop) -->
         <div class="nav-links">
+          <span class="nav-active-pill" id="nav-active-pill" aria-hidden="true"></span>
           <a href="/" class="nav-link " >Home</a><a href="/learn" class="nav-link " >Learn</a><a href="/courses" class="nav-link " >Courses</a><a href="/courses/nepse-stock-market-basics/learn?lesson=lesson-1" class="nav-link " >My Courses</a><a href="/calculators" class="nav-link " >Calculators</a>
 
           <a href="/resources" class="nav-link nav-link-tertiary" >Resources</a><a href="/blog" class="nav-link nav-link-tertiary" >Blog</a><a href="/about" class="nav-link nav-link-secondary" >About</a><a href="/contact" class="nav-link nav-link-secondary" >Contact</a>
@@ -282,7 +294,12 @@
             <span class="theme-icon theme-icon-sun" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg></span>
             <span class="theme-icon theme-icon-moon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></span>
           </button>
-          <div id="desktop-auth-container" class="nav-auth-slot"></div>
+          <div id="desktop-auth-container" class="nav-auth-slot">
+            <button type="button" class="nav-auth-btn" id="nav-signin-btn" aria-label="Sign in to your account">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/></svg>
+              <span>Sign In</span>
+            </button>
+          </div>
           <a href="https://wa.me/9779740269317?text=Hello%20RisePaisa%20team%2C%20I%20would%20like%20to%20get%20in%20touch." target="_blank" rel="noopener" class="btn btn-primary nav-cta">
             <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg> Contact
           </a>
@@ -294,6 +311,9 @@
             <span class="theme-icon theme-icon-sun" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg></span>
             <span class="theme-icon theme-icon-moon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></span>
           </button>
+          <button class="mobile-cluster-btn tablet-account-btn" id="tablet-account-btn" aria-label="Sign in to your account" type="button">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/></svg>
+          </button>
           <button class="nav-toggle" id="nav-toggle" aria-label="Open navigation menu" aria-expanded="false" aria-controls="mobile-menu" type="button">
             <span class="nav-toggle-bar"></span>
             <span class="nav-toggle-bar"></span>
@@ -301,112 +321,112 @@
           </button>
         </div>
       </div>
+    </nav>
       
-      <!-- Mobile Backdrop Overlay -->
-      <div class="mobile-menu-overlay" id="mobile-menu-overlay" aria-hidden="true"></div>
+    <!-- Mobile Backdrop Overlay -->
+    <div class="mobile-menu-overlay" id="mobile-menu-overlay" aria-hidden="true"></div>
 
-      <!-- Mobile Slide-Out Drawer (Slides in smoothly from right) -->
-      <aside class="mobile-menu" id="mobile-menu" role="dialog" aria-modal="true" aria-label="Mobile Navigation Menu">
-        <!-- Drawer Header -->
-        <div class="mobile-drawer-header">
-          <a href="/" class="drawer-logo" aria-label="risePaisa - Home">
-            <div class="logo-text">rise<span>Paisa</span></div>
-          </a>
-          <button class="mobile-menu-close" id="mobile-menu-close" aria-label="Close navigation menu" type="button">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    <!-- Mobile Slide-Out Drawer (Slides in smoothly from right) -->
+    <aside class="mobile-menu" id="mobile-menu" role="dialog" aria-modal="true" aria-label="Mobile Navigation Menu">
+      <!-- Drawer Header -->
+      <div class="mobile-drawer-header">
+        <a href="/" class="drawer-logo" aria-label="risePaisa - Home">
+          <div class="logo-text">rise<span>Paisa</span></div>
+        </a>
+        <button class="mobile-menu-close" id="mobile-menu-close" aria-label="Close navigation menu" type="button">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+
+      <div class="mobile-drawer-body">
+        <!-- Prominent Quick Search inside Drawer -->
+        <div class="mobile-drawer-search-wrap">
+          <button type="button" class="mobile-drawer-search-btn" id="mobile-drawer-search-btn" aria-label="Search finance topics and calculators">
+            <span class="mobile-drawer-search-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></span>
+            <span class="mobile-drawer-search-text">Search topics, tools, lessons…</span>
+            <kbd class="mobile-drawer-search-kbd">⌘K</kbd>
           </button>
         </div>
 
-        <div class="mobile-drawer-body">
-          <!-- Prominent Quick Search inside Drawer -->
-          <div class="mobile-drawer-search-wrap">
-            <button type="button" class="mobile-drawer-search-btn" id="mobile-drawer-search-btn" aria-label="Search finance topics and calculators">
-              <span class="mobile-drawer-search-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></span>
-              <span class="mobile-drawer-search-text">Search topics, tools, lessons…</span>
-              <kbd class="mobile-drawer-search-kbd">⌘K</kbd>
+        <!-- Account / Auth Drawer Slot -->
+        <div id="mobile-auth-container" class="mobile-drawer-auth-slot"></div>
+
+        <!-- Navigation Links List -->
+        <nav class="mobile-nav-links" aria-label="Mobile Navigation Links">
+          
+              <a href="/" class="mobile-link ">
+                <span class="mobile-link-icon-wrap" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg></span>
+                <span class="mobile-link-text">Home</span>
+                <span class="mobile-link-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
+              </a>
+            
+              <a href="/courses" class="mobile-link ">
+                <span class="mobile-link-icon-wrap" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg></span>
+                <span class="mobile-link-text">Courses</span>
+                <span class="mobile-link-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
+              </a>
+            
+              <a href="/learn" class="mobile-link ">
+                <span class="mobile-link-icon-wrap" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg></span>
+                <span class="mobile-link-text">Learn Academy</span>
+                <span class="mobile-link-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
+              </a>
+            
+              <a href="/calculators" class="mobile-link ">
+                <span class="mobile-link-icon-wrap" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="16" height="20" x="4" y="2" rx="2"/><line x1="8" x2="16" y1="6" y2="6"/><path d="M8 10h.01M12 10h.01M16 10h.01M8 14h.01M12 14h.01M16 14h.01M8 18h.01M12 18h.01M16 18h.01"/></svg></span>
+                <span class="mobile-link-text">Calculators</span>
+                <span class="mobile-link-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
+              </a>
+            
+              <a href="/resources" class="mobile-link ">
+                <span class="mobile-link-icon-wrap" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg></span>
+                <span class="mobile-link-text">Resources</span>
+                <span class="mobile-link-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
+              </a>
+            
+              <a href="/blog" class="mobile-link ">
+                <span class="mobile-link-icon-wrap" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2l-2 1-2-1-2 1-2-1-2 1-2-1-2 1-2-1Z"/><path d="M8 7h8"/><path d="M8 11h8"/><path d="M8 15h5"/></svg></span>
+                <span class="mobile-link-text">Articles & Blog</span>
+                <span class="mobile-link-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
+              </a>
+            
+              <a href="/about" class="mobile-link ">
+                <span class="mobile-link-icon-wrap" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span>
+                <span class="mobile-link-text">About Us</span>
+                <span class="mobile-link-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
+              </a>
+            
+              <a href="/contact" class="mobile-link ">
+                <span class="mobile-link-icon-wrap" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg></span>
+                <span class="mobile-link-text">Contact</span>
+                <span class="mobile-link-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
+              </a>
+            
+        </nav>
+
+        <!-- Appearance Theme Control -->
+        <div class="mobile-menu-theme-row">
+          <span class="mobile-menu-theme-label">Appearance</span>
+          <div class="mobile-theme-segmented" role="radiogroup" aria-label="Appearance">
+            <button type="button" class="mobile-theme-seg-btn" id="seg-btn-light" data-theme-val="light" aria-label="Light mode">
+              <span class="theme-seg-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg></span>
+              <span>Light</span>
+            </button>
+            <button type="button" class="mobile-theme-seg-btn" id="seg-btn-dark" data-theme-val="dark" aria-label="Dark mode">
+              <span class="theme-seg-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></span>
+              <span>Dark</span>
             </button>
           </div>
-
-          <!-- Account / Auth Drawer Slot -->
-          <div id="mobile-auth-container" class="mobile-drawer-auth-slot"></div>
-
-          <!-- Navigation Links List -->
-          <nav class="mobile-nav-links" aria-label="Mobile Navigation Links">
-            
-                <a href="/" class="mobile-link ">
-                  <span class="mobile-link-icon-wrap" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg></span>
-                  <span class="mobile-link-text">Home</span>
-                  <span class="mobile-link-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
-                </a>
-              
-                <a href="/courses" class="mobile-link ">
-                  <span class="mobile-link-icon-wrap" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg></span>
-                  <span class="mobile-link-text">Courses</span>
-                  <span class="mobile-link-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
-                </a>
-              
-                <a href="/learn" class="mobile-link ">
-                  <span class="mobile-link-icon-wrap" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg></span>
-                  <span class="mobile-link-text">Learn Academy</span>
-                  <span class="mobile-link-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
-                </a>
-              
-                <a href="/calculators" class="mobile-link ">
-                  <span class="mobile-link-icon-wrap" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="16" height="20" x="4" y="2" rx="2"/><line x1="8" x2="16" y1="6" y2="6"/><path d="M8 10h.01M12 10h.01M16 10h.01M8 14h.01M12 14h.01M16 14h.01M8 18h.01M12 18h.01M16 18h.01"/></svg></span>
-                  <span class="mobile-link-text">Calculators</span>
-                  <span class="mobile-link-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
-                </a>
-              
-                <a href="/resources" class="mobile-link ">
-                  <span class="mobile-link-icon-wrap" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg></span>
-                  <span class="mobile-link-text">Resources</span>
-                  <span class="mobile-link-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
-                </a>
-              
-                <a href="/blog" class="mobile-link ">
-                  <span class="mobile-link-icon-wrap" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2l-2 1-2-1-2 1-2-1-2 1-2-1-2 1-2-1Z"/><path d="M8 7h8"/><path d="M8 11h8"/><path d="M8 15h5"/></svg></span>
-                  <span class="mobile-link-text">Articles & Blog</span>
-                  <span class="mobile-link-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
-                </a>
-              
-                <a href="/about" class="mobile-link ">
-                  <span class="mobile-link-icon-wrap" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span>
-                  <span class="mobile-link-text">About Us</span>
-                  <span class="mobile-link-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
-                </a>
-              
-                <a href="/contact" class="mobile-link ">
-                  <span class="mobile-link-icon-wrap" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg></span>
-                  <span class="mobile-link-text">Contact</span>
-                  <span class="mobile-link-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
-                </a>
-              
-          </nav>
-
-          <!-- Appearance Theme Control -->
-          <div class="mobile-menu-theme-row">
-            <span class="mobile-menu-theme-label">Appearance</span>
-            <div class="mobile-theme-segmented" role="radiogroup" aria-label="Appearance">
-              <button type="button" class="mobile-theme-seg-btn" id="seg-btn-light" data-theme-val="light" aria-label="Light mode">
-                <span class="theme-seg-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg></span>
-                <span>Light</span>
-              </button>
-              <button type="button" class="mobile-theme-seg-btn" id="seg-btn-dark" data-theme-val="dark" aria-label="Dark mode">
-                <span class="theme-seg-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></span>
-                <span>Dark</span>
-              </button>
-            </div>
-          </div>
         </div>
+      </div>
 
-        <!-- Drawer Footer with WhatsApp Contact Button -->
-        <div class="mobile-drawer-footer">
-          <a href="https://wa.me/9779740269317?text=Hello%20RisePaisa%20team%2C%20I%20would%20like%20to%20get%20in%20touch." target="_blank" rel="noopener" class="btn btn-whatsapp btn-lg mobile-drawer-wa-btn">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg> Chat on WhatsApp
-          </a>
-        </div>
-      </aside>
-    </nav>
+      <!-- Drawer Footer with WhatsApp Contact Button -->
+      <div class="mobile-drawer-footer">
+        <a href="https://wa.me/9779740269317?text=Hello%20RisePaisa%20team%2C%20I%20would%20like%20to%20get%20in%20touch." target="_blank" rel="noopener" class="btn btn-whatsapp btn-lg mobile-drawer-wa-btn">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg> Chat on WhatsApp
+        </a>
+      </div>
+    </aside>
 
     <!-- ── Global Search Modal ──────────────────────────────────────── -->
     <div class="search-modal-overlay" id="search-modal-overlay" role="dialog" aria-modal="true" aria-label="Search RisePaisa">
@@ -456,7 +476,7 @@
       </div>
 
       <h1>Refund & Cancellation Policy</h1>
-      <p class="last-updated">Last verified &amp; updated: October 2026 · Governed by the Laws of Nepal</p>
+      <p class="last-updated">Last verified &amp; updated: November 2026 · Governed by the Laws of Nepal</p>
 
       
     <nav class="legal-nav-strip" aria-label="Legal Documentation Navigation">
@@ -479,67 +499,115 @@
       <div class="legal-content-body">
         
       <p class="legal-lead">
-        At <strong>RisePaisa</strong>, we are committed to delivering the highest caliber of practical financial education for Nepal. We believe in fair dealing, absolute transparency, and mutual respect. This Refund &amp; Cancellation Policy sets out the exact terms, eligible scenarios, and administrative procedures governing refund requests for our online courses and digital resources.
+        At <strong>RisePaisa</strong>, we are committed to delivering high-caliber, practical financial education tailored for Nepal. We believe in fair trade, absolute transparency, and professional accountability. This Refund &amp; Cancellation Policy sets out the exact terms, eligible scenarios, procedural requirements, and statutory timelines governing refund requests for our online digital courses and learning materials.
       </p>
 
       <div class="legal-callout-box">
-        <h4><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg> Alignment with the Consumer Protection Act, 2075</h4>
+        <h4><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg> Statutory Compliance: Consumer Protection Act, 2075 &amp; Electronic Commerce Act, 2081</h4>
         <p>
-          This policy is formulated in accordance with the principles of fair consumer trade under the <strong>Consumer Protection Act, 2075 (उपभोक्ता संरक्षण ऐन, २०७५)</strong> of Nepal. It balances statutory consumer rights regarding quality and non-defective delivery with the inherent technical realities of instantly delivered digital intellectual property.
+          This policy is formulated in strict accordance with the <strong>Consumer Protection Act, 2075 (उपभोक्ता संरक्षण ऐन, २०७५)</strong> and the <strong>Electronic Commerce Act, 2081 (विद्युतीय व्यापार ऐन, २०८१)</strong> of Nepal. It balances consumer rights to quality, non-defective digital services with the technical characteristics of instantly delivered, self-paced digital educational content.
         </p>
       </div>
 
-      <h2>1. The Nature of Digital Educational Products</h2>
+      <h2>1. The Nature of Digital Course Services</h2>
       <p>
-        Unlike physical goods that can be returned in an unused, restockable condition, our courses consist of proprietary on-demand video lectures, downloadable financial modeling spreadsheets, and PDF guides. Upon access activation, these intellectual assets are immediately viewable and usable. Therefore, course fees are generally non-refundable once access credentials or streaming links have been delivered and accessed, subject to the specific eligible conditions set out below.
+        <strong>1.1 Instant Digital Delivery:</strong> RisePaisa courses consist of proprietary on-demand video lectures, downloadable financial modeling spreadsheets, and PDF guides. Unlike physical goods that can be physically returned in an unused, restockable condition, digital access credentials and streaming links provide immediate access to proprietary intellectual assets upon activation.
+      </p>
+      <p>
+        <strong>1.2 Due Diligence Before Enrollment:</strong> Prospective learners are strongly encouraged to carefully review the published course description, curriculum outline, instructor background, fee structure (e.g. NPR 2,999 for the Share Market Full Course), one-year access validity period, and device requirements before completing a purchase.
+      </p>
+      <p>
+        <strong>1.3 Inactivity Does Not Constitute Refund Entitlement:</strong> Deciding not to watch the lessons, failing to access the materials, or personal scheduling conflicts following successful access activation does not automatically create an entitlement to a refund.
       </p>
 
-      <h2>2. Eligible Circumstances for a Refund</h2>
+      <h2>2. No Refund for Ordinary Change of Mind</h2>
       <p>
-        RisePaisa will gladly issue a prompt, full refund under any of the following verified conditions:
+        In accordance with standard digital commerce practice and subject to applicable consumer protection laws of Nepal, once course access credentials or streaming links have been successfully generated, delivered, and activated on your account, refunds are <strong>not provided for ordinary change of mind</strong>.
+      </p>
+      <p>Circumstances that do NOT qualify for a refund following access activation include:</p>
+      <ul>
+        <li><strong>Change of Mind or Personal Preference:</strong> Deciding you no longer wish to pursue the course or experiencing &ldquo;buyer&rsquo;s remorse&rdquo; after credentials have been issued;</li>
+        <li><strong>Loss of Interest or Motivation:</strong> Losing interest or motivation to study personal finance or NEPSE share market concepts;</li>
+        <li><strong>Scheduling &amp; Time Constraints:</strong> Inability to dedicate time to complete the modules due to employment, academic, or personal schedule conflicts;</li>
+        <li><strong>Failure to Watch or Study:</strong> Not logging in, not watching the video lessons, or not utilizing the companion spreadsheets during the access period;</li>
+        <li><strong>Subjective Relevance:</strong> Deciding after activation that the course concepts are no longer personally useful for your immediate situation;</li>
+        <li><strong>Investment &amp; Trading Outcomes:</strong> Dissatisfaction arising from personal investment decisions, capital market losses on NEPSE, or broader economic volatility. RisePaisa provides financial education, not investment advice, stock tips, or guaranteed capital returns;</li>
+        <li><strong>Failure to Complete Within Access Period:</strong> Inability or failure to complete the curriculum before the strict one-year (365 days) access validity period automatically expires.</li>
+      </ul>
+      <p>
+        This policy operates strictly without prejudice to mandatory statutory consumer protections and remedies guaranteed under the laws of Nepal.
+      </p>
+
+      <h2>3. Verified Scenarios Requiring Investigation and Legitimate Remedies</h2>
+      <p>
+        RisePaisa clearly distinguishes ordinary change-of-mind requests from legitimate service-related issues. We investigate all genuine transaction and technical complaints promptly and provide full remedies, including a complete 100% refund, under any of the following verified circumstances:
       </p>
       <ol>
         <li>
-          <strong>Duplicate or Accidental Excess Billing:</strong> If due to a technical error, wallet delay, or duplicate transaction you were billed more than once for the same course enrollment or product, we will refund <strong>100% of the duplicate amount</strong> immediately upon transaction verification.
+          <strong>Duplicate or Accidental Excess Billing:</strong> If due to a technical error, wallet network delay, or duplicate transaction you were billed more than once for the same course enrollment, RisePaisa will refund <strong>100% of the duplicate amount</strong> immediately upon transaction verification.
         </li>
         <li>
-          <strong>Technical Non-Delivery &amp; Failure to Resolve:</strong> If you have completed verified payment and our platform fails to deliver course access credentials or video streaming links, and our technical support team is <strong>unable to resolve the access impediment within 48 to 72 business hours</strong> after receiving your written notification, you are entitled to a complete, 100% refund.
+          <strong>Technical Non-Delivery &amp; Failure to Resolve:</strong> If you have completed verified payment and our platform fails to deliver course access credentials or video streaming links, and our technical support team is unable to resolve the access impediment within <strong>48 to 72 business hours</strong> after receiving your written notification, you are entitled to a complete, 100% refund.
         </li>
         <li>
-          <strong>Pre-Activation Cancellation Request:</strong> If you enroll in a course and submit a formal cancellation request in writing <strong>before</strong> your access credentials or private course links have been generated, delivered, or activated on your account.
+          <strong>Pre-Activation Cancellation Request:</strong> If you enroll in a course and submit a formal cancellation request in writing <strong>before</strong> your access credentials or private course links have been generated, dispatched, or activated on your account.
         </li>
         <li>
-          <strong>Substantial Material Non-Conformity:</strong> If the delivered course material is fundamentally and demonstrably different from the published curriculum outline, or exhibits sustained, irreversible defects preventing learning as recognized under Section 16 of the <em>Consumer Protection Act, 2075</em>, verified following joint inspection with our team.
+          <strong>Material Non-Conformity or Service Deficiency:</strong> If the delivered educational service is fundamentally and demonstrably different from the published curriculum outline, or exhibits sustained, irreversible technical defects preventing study as recognized under Section 16 of the <em>Consumer Protection Act, 2075</em> and Section 10 of the <em>Electronic Commerce Act, 2081</em>, verified following joint inspection with our team.
+        </li>
+        <li>
+          <strong>Unauthorized Transaction:</strong> If a payment was executed fraudulently without the account holder&rsquo;s knowledge or consent, subject to formal verification with the relevant payment service operator and banking switch.
         </li>
       </ol>
-
-      <h2>3. Non-Refundable Circumstances</h2>
-      <p>A refund will NOT be granted under the following circumstances:</p>
-      <ul>
-        <li><strong>Change of Mind Post-Access:</strong> Requests made simply due to a change of personal preference or &ldquo;buyer&rsquo;s remorse&rdquo; after course credentials have been issued and video modules have been accessed or viewed;</li>
-        <li><strong>Personal Time &amp; Scheduling Constraints:</strong> Inability to dedicate time to complete the course due to employment, academic, or personal schedule conflicts;</li>
-        <li><strong>Stock Market Losses &amp; Trading Outcomes:</strong> Dissatisfaction arising from your personal investment decisions, trading losses on NEPSE, or broader capital market declines. RisePaisa provides financial education, not investment advice or guaranteed financial returns;</li>
-        <li><strong>Violation of Terms &amp; Conditions:</strong> Accounts terminated or suspended due to copyright piracy, credential sharing, unauthorized recording, harassment, or breach of our <a href="/terms">Terms &amp; Conditions</a>;</li>
-        <li><strong>Purchases from Unauthorized Resellers:</strong> Any transaction executed through unauthorized third parties, group-buys, or fraudulent channels not authorized directly by RisePaisa.</li>
-      </ul>
+      <p>
+        Where a refund is legally required under Nepalese law, it will be executed without imposing unfair deductions, in accordance with applicable banking and e-commerce rules.
+      </p>
 
       <h2>4. Step-by-Step Refund Application Procedure</h2>
-      <p>If you believe you meet one of the eligible refund criteria above, please follow this straightforward procedure:</p>
+      <p>If you believe you meet one of the eligible remedy criteria set forth in Section 3, please follow this straightforward procedure:</p>
       <ul>
-        <li><strong>Step 1: Submit Written Notice:</strong> Send an email to <a href="mailto:itsaakashdas@gmail.com">itsaakashdas@gmail.com</a> or message our official WhatsApp support at <a href="https://wa.me/9779740269317" target="_blank" rel="noopener">+977 9740269317</a> with the subject line: <code>Refund Request - [Course Name] - [Your Full Name]</code>.</li>
-        <li><strong>Step 2: Provide Verification Details:</strong> Include your full name, registered mobile number/email, date of payment, exact payment amount, and the official <strong>Transaction Reference ID</strong> (from eSewa, Khalti, connectIPS, or your bank transfer receipt), along with a clear description of the issue.</li>
-        <li><strong>Step 3: Review &amp; Assessment:</strong> Our team will review your application and transaction logs within <strong>3 to 5 business days</strong> and communicate an official decision in writing.</li>
-        <li><strong>Step 4: Disbursement:</strong> If approved, the refund will be remitted back to your original payment source (eSewa wallet, Khalti wallet, or bank account) within <strong>5 to 7 business days</strong>. Any standard interbank transfer fees or payment gateway processing charges imposed by external switches will be handled in accordance with banking norms.</li>
+        <li>
+          <strong>Step 1: Contact Official Support:</strong> Send an email to our official billing desk at <a href="mailto:itsaakashdas@gmail.com">itsaakashdas@gmail.com</a> or message our official WhatsApp helpline at <a href="https://wa.me/9779740269317" target="_blank" rel="noopener">+977 9740269317</a> with the subject: <code>Refund Request - [Course Name] - [Your Full Name]</code>.
+        </li>
+        <li>
+          <strong>Step 2: Provide Verification Details:</strong> Include your registered email address, student ID (if issued), mobile phone number, date of payment, exact amount paid, and the official <strong>Transaction Reference ID</strong> issued by eSewa, Khalti, connectIPS, or your commercial bank.
+        </li>
+        <li>
+          <strong>Step 3: State the Ground Clearly:</strong> Provide a clear, detailed explanation of the issue (e.g. duplicate billing proof, access link non-delivery, or technical defect description).
+        </li>
+        <li>
+          <strong>Step 4: Verification &amp; Investigation:</strong> RisePaisa verifies the transaction with the payment operator and checks server access logs to validate the claim.
+        </li>
+        <li>
+          <strong>Step 5: Written Determination:</strong> You will receive a clear written determination explaining the outcome of the investigation and the applicable remedy.
+        </li>
       </ul>
 
-      <h2>5. Fair Consumer Resolution &amp; Inquiries</h2>
+      <h2>5. Statutory Grievance Handling Mechanism (Electronic Commerce Act, 2081)</h2>
       <p>
-        We treat every student inquiry with empathy and integrity. If you face any technical difficulties with your course videos or learning materials, we strongly encourage you to contact our support team first so we can help you resolve the problem quickly.
+        <strong>5.1 Formal Complaint Mechanism:</strong> In compliance with Section 33 (दफा ३३) of the <em>Electronic Commerce Act, 2081</em>, RisePaisa maintains a dedicated grievance handling mechanism for e-commerce consumers.
+      </p>
+      <p>
+        <strong>5.2 Statutory 15-Day Resolution Period:</strong> All formal consumer complaints and grievances received through our official channels are registered immediately. Under Section 33(3) and 33(5) of the Act, RisePaisa will investigate the matter and deliver a formal written decision and resolution <strong>within 15 calendar days</strong> from the date of grievance registration.
+      </p>
+      <p>
+        <strong>5.3 Consumer Redress &amp; Appeal:</strong> If a consumer is not satisfied with the grievance decision or if the complaint is not resolved within the statutory period, the consumer retains the statutory right to seek redress before the Department of Commerce, Supplies and Consumer Protection (वाणिज्य, आपूर्ति तथा उपभोक्ता संरक्षण विभाग) or competent consumer dispute resolution forums.
+      </p>
+
+      <h2>6. Refund Processing Timelines &amp; Disbursement</h2>
+      <p>
+        <strong>6.1 Disbursement Initiation:</strong> Where a refund is approved under Section 3 or ordered under Section 5, RisePaisa will initiate the refund within <strong>seven (7) calendar days</strong> of the approval date, in accordance with Section 10 of the <em>Electronic Commerce Act, 2081</em>.
+      </p>
+      <p>
+        <strong>6.2 Original Payment Rail:</strong> Refunds are disbursed directly back to the original source payment instrument (your registered eSewa digital wallet, Khalti digital wallet, or bank account via connectIPS). We do not issue cash refunds or third-party transfers.
+      </p>
+      <p>
+        <strong>6.3 Banking Clearance Periods:</strong> While RisePaisa initiates the remittance promptly, the final appearance of funds in your bank account depends on interbank clearing cycles, national switch settlement schedules (NCHL), and receiving bank processing norms.
       </p>
 
       <div class="legal-contact-card">
-        <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg> Refund Desk &amp; Customer Support</h3>
-        <p>For refund submissions, billing queries, or payment verification assistance, reach out directly:</p>
+        <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg> Refund Desk &amp; Grievance Handling Office</h3>
+        <p>For refund submissions, transaction inquiries, or formal grievances, contact our official desk:</p>
         <div class="legal-contact-grid">
           <div class="legal-contact-item">
             <span class="legal-contact-label">Billing Support Email</span>
@@ -550,12 +618,12 @@
             <span class="legal-contact-val"><a href="https://wa.me/9779740269317" target="_blank" rel="noopener">+977 9740269317</a></span>
           </div>
           <div class="legal-contact-item">
-            <span class="legal-contact-label">Turnaround Time</span>
-            <span class="legal-contact-val">3 to 5 Business Days</span>
+            <span class="legal-contact-label">Grievance Decision Period</span>
+            <span class="legal-contact-val">Within 15 Days (Statutory)</span>
           </div>
           <div class="legal-contact-item">
             <span class="legal-contact-label">Operating Hours</span>
-            <span class="legal-contact-val">Sunday to Friday, 9:00 AM to 6:00 PM NPT</span>
+            <span class="legal-contact-val">Sunday to Friday, 9:00 AM – 6:00 PM NPT</span>
           </div>
         </div>
       </div>
@@ -569,11 +637,10 @@
         <div class="footer-grid">
           <div class="footer-brand">
             <a href="/" class="nav-logo">
-
               <div class="logo-text">rise<span>Paisa</span></div>
             </a>
             <p>Nepal's most practical financial education platform. Practical NEPSE, taxation, and personal finance strategies built for real income growth in Nepal.</p>
-            <p style="font-size:var(--text-xs);color:var(--color-text-muted);margin:var(--space-2) 0 var(--space-4)">
+            <p class="footer-founder" style="font-size:var(--text-xs);color:var(--color-text-muted);margin:var(--space-2) 0 var(--space-4)">
               Founded by <a href="/aakash-das" style="color:var(--color-text-secondary);text-decoration:underline;text-underline-offset:2px">Aakash Das</a>
             </p>
             <div class="footer-social">
@@ -584,39 +651,66 @@
             </div>
           </div>
           
-          <div class="footer-section">
-            <h4>Quick Links</h4>
-            <a href="/">Home</a>
-            <a href="/learn">Learn Academy</a>
-            <a href="/courses">Courses</a>
-            <a href="/calculators">Calculators</a>
-            <a href="/resources">Resources</a>
-            <a href="/blog">Articles</a>
-            <a href="/about">About Us</a>
-            <a href="/aakash-das">Aakash Das (Founder)</a>
-            <a href="/contact">Contact</a>
+          <div class="footer-section" data-collapsible="true">
+            <button type="button" class="footer-section-toggle" aria-expanded="false" aria-controls="footer-links-quick">
+              <h4>Quick Links</h4>
+              <span class="footer-toggle-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+              </span>
+            </button>
+            <div class="footer-links-content" id="footer-links-quick">
+              <div class="footer-links-inner">
+                <a href="/">Home</a>
+                <a href="/learn">Learn Academy</a>
+                <a href="/courses">Courses</a>
+                <a href="/calculators">Calculators</a>
+                <a href="/resources">Resources</a>
+                <a href="/blog">Articles</a>
+                <a href="/about">About Us</a>
+                <a href="/aakash-das">Aakash Das (Founder)</a>
+                <a href="/contact">Contact</a>
+              </div>
+            </div>
           </div>
           
-          <div class="footer-section">
-            <h4>Academy & Topics</h4>
-            <a href="/learn/investing">Investing</a>
-            <a href="/learn/nepse">NEPSE</a>
-            <a href="/learn/personal-finance">Personal Finance</a>
-            <a href="/learn/taxation">Taxation Nepal</a>
-            <a href="/learn/mutual-funds">Mutual Funds</a>
-            <a href="/learn/loans">Loans &amp; Banking</a>
-            <a href="/learn/insurance">Insurance</a>
-            <a href="/learn/retirement-planning">Retirement Planning</a>
+          <div class="footer-section" data-collapsible="true">
+            <button type="button" class="footer-section-toggle" aria-expanded="false" aria-controls="footer-links-topics">
+              <h4>Academy & Topics</h4>
+              <span class="footer-toggle-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+              </span>
+            </button>
+            <div class="footer-links-content" id="footer-links-topics">
+              <div class="footer-links-inner">
+                <a href="/learn/investing">Investing</a>
+                <a href="/learn/nepse">NEPSE</a>
+                <a href="/learn/personal-finance">Personal Finance</a>
+                <a href="/learn/taxation">Taxation Nepal</a>
+                <a href="/learn/mutual-funds">Mutual Funds</a>
+                <a href="/learn/loans">Loans &amp; Banking</a>
+                <a href="/learn/insurance">Insurance</a>
+                <a href="/learn/retirement-planning">Retirement Planning</a>
+              </div>
+            </div>
           </div>
           
-          <div class="footer-section">
-            <h4>Trust & Legal</h4>
-            <a href="/editorial-policy">Editorial Policy</a>
-            <a href="/disclaimer">Disclaimer</a>
-            <a href="/privacy">Privacy Policy</a>
-            <a href="/terms">Terms & Conditions</a>
-            <a href="/refund-policy">Refund Policy</a>
-            <a href="/faq">FAQ</a>
+          <div class="footer-section" data-collapsible="true">
+            <button type="button" class="footer-section-toggle" aria-expanded="false" aria-controls="footer-links-legal">
+              <h4>Trust & Legal</h4>
+              <span class="footer-toggle-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+              </span>
+            </button>
+            <div class="footer-links-content" id="footer-links-legal">
+              <div class="footer-links-inner">
+                <a href="/editorial-policy">Editorial Policy</a>
+                <a href="/disclaimer">Disclaimer</a>
+                <a href="/privacy">Privacy Policy</a>
+                <a href="/terms">Terms & Conditions</a>
+                <a href="/refund-policy">Refund Policy</a>
+                <a href="/faq">FAQ</a>
+              </div>
+            </div>
           </div>
         </div>
         

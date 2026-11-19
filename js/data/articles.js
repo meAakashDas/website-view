@@ -995,7 +995,7 @@ const ARTICLES = [
         <li>Total Repayment: NPR 1,500,000.</li>
         <li>Fixed Monthly EMI: <code>NPR 1,500,000 / 60 months = NPR 25,000</code>.</li>
       </ul>
-      <p>Notice the fatal flaw: in Year 5, when you have already paid off most of your debt and owe only NPR 200,000, the lender is still charging you interest on the full original NPR 1,000,000! Your true Effective Annual Rate (Internal Rate of Return) in this scenario is approximately <strong>17.27%</strong>—nearly double the advertised 10% figure.</p>
+      <p>Notice the fatal flaw: in Year 5, when you have already paid off most of your debt and owe only NPR 200,000, the lender is still charging you interest on the full original NPR 1,000,000! Your true Effective Annual Rate (Internal Rate of Return) in this scenario is approximately <strong>17.27%</strong>, nearly double the advertised 10% figure.</p>
 
       <h2>2. How Reducing-Balance Interest Works</h2>
       <p>Under a <strong>Reducing-Balance (Diminishing Balance)</strong> system, interest for each monthly cycle is calculated <em>only on the outstanding principal balance remaining</em> at the beginning of that specific month.</p>
@@ -1273,7 +1273,7 @@ const ARTICLES = [
           </tbody>
         </table>
       </div>
-      <p>Across these 3 months, you invested a total of NPR 15,000 and accumulated <strong>1,525 units</strong>. Your average cost per unit was <code>NPR 15,000 / 1,525 = NPR 9.83</code>—well below the original NAV of NPR 10.00 and far below the peak of NPR 12.50. When the market surges, your accumulated low-cost units generate compound returns.</p>
+      <p>Across these 3 months, you invested a total of NPR 15,000 and accumulated <strong>1,525 units</strong>. Your average cost per unit was <code>NPR 15,000 / 1,525 = NPR 9.83</code>, well below the original NAV of NPR 10.00 and far below the peak of NPR 12.50. When the market surges, your accumulated low-cost units generate compound returns.</p>
 
       <h2>3. The Compounding Engine: Dividend Reinvestment Plan (DREP)</h2>
       <p>When enrolling in an SIP in Nepal, fund managers provide two options for annual dividend distributions:</p>
@@ -1391,7 +1391,7 @@ const ARTICLES = [
       <ul>
         <li><strong>RSI Below 30:</strong> Considered <em>Oversold</em>. Selling may be exhausted; watch for bullish reversal patterns.</li>
         <li><strong>RSI Above 70:</strong> Considered <em>Overbought</em>. The stock has experienced intense rapid buying; expect consolidation or profit-taking.</li>
-        <li><strong>Bullish / Bearish Divergence:</strong> If the stock makes a new lower low but RSI forms a higher low, momentum is shifting upward—often presaging a major trend reversal.</li>
+        <li><strong>Bullish / Bearish Divergence:</strong> If the stock makes a new lower low but RSI forms a higher low, momentum is shifting upward, which often signals a major trend reversal.</li>
       </ul>
 
       <h3>3. Volume Confirmation</h3>

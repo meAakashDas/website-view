@@ -8,8 +8,8 @@ import { ROUTES } from '../routes.js';
 
 export function renderHomePage() {
   setPageMeta(
-    'Understand Money. Make Better Financial Decisions | risePaisa',
-    'Nepal\'s practical financial education platform. Master the NEPSE share market, personal finance, taxation, and explore 12 free financial calculators.',
+    'RisePaisa | Hamro Nepal, Hamro Arthik Uday',
+    'Financial knowledge, practical tools, and smarter opportunities for a financially stronger Nepal.',
     ROUTES.HOME
   );
 
@@ -21,16 +21,17 @@ export function renderHomePage() {
   const waBuyUrl = getWhatsAppPurchaseUrl(nepseCourse.title, coursePrice);
 
   return `
-    <!-- Section A — Hero -->
+    <!-- Section A: Hero -->
     <section class="hero" id="hero-section">
       <div class="container">
         <div class="hero-content">
           <span class="section-eyebrow hero-eyebrow">FINANCIAL EDUCATION FOR NEPAL</span>
-          <h1>
-            Understand Money.<br><span class="hero-title-accent">Make Better Financial Decisions.</span>
+          <h1 class="hero-title">
+            <span class="hero-title-line hero-title-top">Hamro Nepal<span class="hero-title-comma">,</span></span>
+            <span class="hero-title-line hero-title-bottom">Hamro Arthik Uday</span>
           </h1>
           <p class="hero-subtitle">
-            Learn about investing, taxation, and personal finance in Nepal through practical guides, free calculators, and structured courses.
+            Financial knowledge, practical tools, and smarter opportunities for a financially stronger Nepal.
           </p>
           <div class="hero-actions">
             <a href="${nepseLearnUrl}" class="btn btn-primary btn-lg hero-btn-primary" id="hero-nepse-course-cta">
@@ -40,11 +41,18 @@ export function renderHomePage() {
               Financial Calculators
             </a>
           </div>
+          <div class="hero-pillars-dock" aria-label="Core focus areas">
+            <span class="hero-pillar-item"><span class="hero-pillar-dot"></span>NEPSE Stock Market</span>
+            <span class="hero-pillar-sep" aria-hidden="true">·</span>
+            <span class="hero-pillar-item"><span class="hero-pillar-dot"></span>Personal Finance &amp; Tax</span>
+            <span class="hero-pillar-sep" aria-hidden="true">·</span>
+            <span class="hero-pillar-item"><span class="hero-pillar-dot"></span>Financial Tools</span>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- Section B — Featured NEPSE Course -->
+    <!-- Section B: Featured NEPSE Course -->
     <section class="section flagship-section" id="featured-course">
       <div class="container">
         <div class="flagship-header">
@@ -59,7 +67,7 @@ export function renderHomePage() {
             <!-- Left Column: Course Visual -->
             <div class="flagship-col-visual">
               <a href="${nepseLearnUrl}" class="flagship-cover-link" aria-label="Explore ${nepseCourse.title}">
-                <img src="${nepseCourse.thumbnail || 'assets/images/course-nepse.png'}" alt="${nepseCourse.title} by RisePaisa" class="flagship-cover-image" loading="lazy" decoding="async" width="1376" height="768">
+                <img src="${nepseCourse.thumbnail || '/assets/images/course-nepse.png'}" alt="${nepseCourse.title} by RisePaisa" class="flagship-cover-image" loading="lazy" decoding="async" width="1376" height="768">
                 <span class="flagship-cover-badge">
                   <span class="flagship-badge-dot"></span> 20+ Hours of Lessons · Practical NEPSE Analysis
                 </span>
@@ -120,7 +128,7 @@ export function renderHomePage() {
       </div>
     </section>
 
-    <!-- Section C — Free Financial Tools -->
+    <!-- Section C: Free Financial Tools -->
     <section class="section section-alt" id="calculators-spotlight">
       <div class="container">
         <div class="section-header">
@@ -196,17 +204,17 @@ export function renderHomePage() {
           </a>
         </div>
 
-        <div style="text-align:center;margin-top:var(--space-8)">
+        <div class="calc-spotlight-bottom-action">
           <a href="${ROUTES.CALCULATORS}" class="btn btn-secondary btn-lg">Explore All Calculators ${ICONS.arrowRight}</a>
         </div>
       </div>
     </section>
 
-    <!-- Section D — Learn and Explore -->
+    <!-- Section D: Learn and Explore -->
     <section class="section learn-explore-section" id="learn-explore">
       <div class="container">
         <div class="section-header">
-          <span class="section-eyebrow">FREE LEARNING RESOURCES</span>
+          <span class="section-eyebrow">CURRICULUM &amp; KNOWLEDGE</span>
           <h2>Learn and Explore</h2>
           <p>Explore practical guides, financial concepts, and research tailored to Nepal.</p>
         </div>
@@ -302,49 +310,39 @@ export function renderHomePage() {
             </a>
           </div>
         </div>
-
-        <!-- Downloadable Spreadsheets & Templates Banner -->
-        <div class="learn-resources-banner">
-          <div class="learn-resources-info">
-            <div class="learn-resources-icon" aria-hidden="true">${ICONS.download}</div>
-            <div>
-              <h4 class="learn-resources-title">Free Financial Resources</h4>
-              <p class="learn-resources-desc">Download practical budgeting spreadsheets, investment worksheets, and study checklists.</p>
-            </div>
-          </div>
-          <a href="${ROUTES.RESOURCES}" class="btn btn-secondary btn-sm">Explore Free Resources ${ICONS.arrowRight}</a>
-        </div>
       </div>
     </section>
 
-    <!-- Section E — Trust and Founder Identity -->
-    <section class="section section-alt" id="about-teaser-section">
+    <!-- Section E: Trust and Founder Identity -->
+    <section class="section section-alt about-teaser-section" id="about-teaser-section">
       <div class="container">
         <div class="about-teaser">
-          <div class="about-teaser-img">
-            <img src="assets/images/aakash-das-founder-risepaisa.jpg" alt="Aakash Das, founder of RisePaisa" loading="lazy" decoding="async" width="500" height="500">
+          <div class="about-teaser-visual">
+            <div class="about-teaser-img">
+              <img src="/assets/images/aakash-das-founder-risepaisa.jpg" alt="Aakash Das, founder of RisePaisa" loading="eager" decoding="async" width="440" height="440" onerror="this.onerror=null;this.src='/assets/images/founder.png';">
+            </div>
           </div>
-          <div>
-            <span class="section-eyebrow" style="margin-bottom:var(--space-2);display:inline-block">OUR MISSION</span>
-            <h2>Financial Education Built for Nepal</h2>
-            <p style="font-size:var(--text-lg);margin-bottom:var(--space-4)">
-              RisePaisa was founded by <a href="${ROUTES.AAKASH_DAS}" style="color:var(--color-accent);font-weight:600;text-decoration:none">Aakash Das</a> to make financial knowledge easier to understand and apply in Nepal. We create practical educational content, calculators, and resources covering the country's financial system, taxation, banking, and stock market.
+          <div class="about-teaser-content">
+            <span class="section-eyebrow about-eyebrow">OUR MISSION</span>
+            <h2 class="about-teaser-title">Financial Education Built for Nepal</h2>
+            <p class="about-teaser-lead">
+              RisePaisa was founded by <a href="${ROUTES.AAKASH_DAS}" style="color:var(--color-accent);font-weight:600;text-decoration:none" class="about-founder-link">Aakash Das</a> to make financial knowledge easier to understand and apply in Nepal. We create practical educational content, calculators, and resources covering the country's financial system, taxation, banking, and stock market.
             </p>
             <div class="about-trust-pillars">
               <div class="about-trust-item">
-                ${ICONS.checkCircle}
-                <span>Nepal-focused financial education</span>
+                <span class="about-trust-check" aria-hidden="true">${ICONS.compass}</span>
+                <span class="about-trust-text">Nepal-focused financial education</span>
               </div>
               <div class="about-trust-item">
-                ${ICONS.checkCircle}
-                <span>Practical tools and research-based learning</span>
+                <span class="about-trust-check" aria-hidden="true">${ICONS.chartBar}</span>
+                <span class="about-trust-text">Practical tools and research-based learning</span>
               </div>
               <div class="about-trust-item">
-                ${ICONS.checkCircle}
-                <span>Clear explanations of investing, taxation, and personal finance</span>
+                <span class="about-trust-check" aria-hidden="true">${ICONS.bookOpen}</span>
+                <span class="about-trust-text">Clear explanations of investing, taxation, and personal finance</span>
               </div>
             </div>
-            <div style="display:flex;gap:var(--space-3);align-items:center;flex-wrap:wrap;margin-top:var(--space-6)">
+            <div class="about-teaser-actions">
               <a href="${ROUTES.ABOUT}" class="btn btn-secondary">About RisePaisa ${ICONS.arrowRight}</a>
               <a href="${ROUTES.AAKASH_DAS}" class="btn btn-ghost">Meet Aakash Das ${ICONS.arrowRight}</a>
             </div>
@@ -353,13 +351,13 @@ export function renderHomePage() {
       </div>
     </section>
 
-    <!-- Section F — Final Action -->
+    <!-- Section F: Final Action -->
     <section class="section" id="final-cta">
       <div class="container">
         <div class="cta-banner">
           <h2>Take the Next Step in Your Financial Learning</h2>
           <p>Explore free calculators and practical guides, or learn the NEPSE share market through our structured course.</p>
-          <div style="display:flex;gap:var(--space-4);justify-content:center;flex-wrap:wrap">
+          <div class="cta-actions">
             <a href="${ROUTES.CALCULATORS}" class="btn btn-primary btn-lg hero-btn-primary">
               Explore Financial Tools ${ICONS.arrowRight}
             </a>

@@ -17,7 +17,6 @@ import {
   DEFAULT_FISCAL_YEAR,
   NEPSE_FEE_CONFIG,
   FD_RD_CONFIG,
-  RETIREMENT_GOAL_CONFIG,
 } from './nepalConfig.js';
 
 /**

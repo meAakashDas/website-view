@@ -198,6 +198,17 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@600;700&display=swap" rel="stylesheet">
 
+  <!-- YouTube Stream & Embed Preconnects -->
+  <link rel="dns-prefetch" href="https://www.youtube.com">
+  <link rel="dns-prefetch" href="https://www.youtube-nocookie.com">
+  <link rel="dns-prefetch" href="https://i.ytimg.com">
+  <link rel="dns-prefetch" href="https://img.youtube.com">
+  <link rel="dns-prefetch" href="https://googlevideo.com">
+  <link rel="preconnect" href="https://www.youtube.com">
+  <link rel="preconnect" href="https://www.youtube-nocookie.com">
+  <link rel="preconnect" href="https://i.ytimg.com" crossorigin>
+  <link rel="preconnect" href="https://googlevideo.com" crossorigin>
+
   <!-- Theme Bootstrapper (Zero Flash: Default Light Mode for First-Time Visitors) -->
   <script>
     (function() {
@@ -211,16 +222,16 @@
     })();
   </script>
 
-  <!-- Video.js v10 Official Architecture & Skin -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@videojs/cdn@10.2.0/video.css">
-  <script type="module" src="https://cdn.jsdelivr.net/npm/@videojs/cdn@10.2.0/video.js"></script>
-  <script type="module" src="https://cdn.jsdelivr.net/npm/@videojs/cdn@10.2.0/media/youtube-video.js"></script>
+
 
   <!-- Stylesheets -->
   <link rel="stylesheet" href="css/variables.css">
   <link rel="stylesheet" href="css/base.css">
   <link rel="stylesheet" href="css/components.css">
   <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/videoPlayer.css">
+  <script type="module" src="assets/vendor/videojs/video.js"></script>
+  <script type="module" src="assets/vendor/videojs/media/youtube-video.js"></script>
   <link rel="stylesheet" href="css/pages.css?v=2">
   <link rel="stylesheet" href="css/calculators.css">
   <link rel="stylesheet" href="css/learn.css">
@@ -238,6 +249,7 @@
         
         <!-- Desktop Nav Links (Center Desktop) -->
         <div class="nav-links">
+          <span class="nav-active-pill" id="nav-active-pill" aria-hidden="true"></span>
           <a href="/" class="nav-link " >Home</a><a href="/learn" class="nav-link " >Learn</a><a href="/courses" class="nav-link " >Courses</a><a href="/courses/nepse-stock-market-basics/learn?lesson=lesson-1" class="nav-link " >My Courses</a><a href="/calculators" class="nav-link " >Calculators</a>
 
           <a href="/resources" class="nav-link nav-link-tertiary" >Resources</a><a href="/blog" class="nav-link nav-link-tertiary" >Blog</a><a href="/about" class="nav-link nav-link-secondary" >About</a><a href="/contact" class="nav-link nav-link-secondary" >Contact</a>
@@ -282,7 +294,12 @@
             <span class="theme-icon theme-icon-sun" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg></span>
             <span class="theme-icon theme-icon-moon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></span>
           </button>
-          <div id="desktop-auth-container" class="nav-auth-slot"></div>
+          <div id="desktop-auth-container" class="nav-auth-slot">
+            <button type="button" class="nav-auth-btn" id="nav-signin-btn" aria-label="Sign in to your account">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/></svg>
+              <span>Sign In</span>
+            </button>
+          </div>
           <a href="https://wa.me/9779740269317?text=Hello%20RisePaisa%20team%2C%20I%20would%20like%20to%20get%20in%20touch." target="_blank" rel="noopener" class="btn btn-primary nav-cta">
             <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg> Contact
           </a>
@@ -294,6 +311,9 @@
             <span class="theme-icon theme-icon-sun" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg></span>
             <span class="theme-icon theme-icon-moon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></span>
           </button>
+          <button class="mobile-cluster-btn tablet-account-btn" id="tablet-account-btn" aria-label="Sign in to your account" type="button">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/></svg>
+          </button>
           <button class="nav-toggle" id="nav-toggle" aria-label="Open navigation menu" aria-expanded="false" aria-controls="mobile-menu" type="button">
             <span class="nav-toggle-bar"></span>
             <span class="nav-toggle-bar"></span>
@@ -301,112 +321,112 @@
           </button>
         </div>
       </div>
+    </nav>
       
-      <!-- Mobile Backdrop Overlay -->
-      <div class="mobile-menu-overlay" id="mobile-menu-overlay" aria-hidden="true"></div>
+    <!-- Mobile Backdrop Overlay -->
+    <div class="mobile-menu-overlay" id="mobile-menu-overlay" aria-hidden="true"></div>
 
-      <!-- Mobile Slide-Out Drawer (Slides in smoothly from right) -->
-      <aside class="mobile-menu" id="mobile-menu" role="dialog" aria-modal="true" aria-label="Mobile Navigation Menu">
-        <!-- Drawer Header -->
-        <div class="mobile-drawer-header">
-          <a href="/" class="drawer-logo" aria-label="risePaisa - Home">
-            <div class="logo-text">rise<span>Paisa</span></div>
-          </a>
-          <button class="mobile-menu-close" id="mobile-menu-close" aria-label="Close navigation menu" type="button">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    <!-- Mobile Slide-Out Drawer (Slides in smoothly from right) -->
+    <aside class="mobile-menu" id="mobile-menu" role="dialog" aria-modal="true" aria-label="Mobile Navigation Menu">
+      <!-- Drawer Header -->
+      <div class="mobile-drawer-header">
+        <a href="/" class="drawer-logo" aria-label="risePaisa - Home">
+          <div class="logo-text">rise<span>Paisa</span></div>
+        </a>
+        <button class="mobile-menu-close" id="mobile-menu-close" aria-label="Close navigation menu" type="button">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+
+      <div class="mobile-drawer-body">
+        <!-- Prominent Quick Search inside Drawer -->
+        <div class="mobile-drawer-search-wrap">
+          <button type="button" class="mobile-drawer-search-btn" id="mobile-drawer-search-btn" aria-label="Search finance topics and calculators">
+            <span class="mobile-drawer-search-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></span>
+            <span class="mobile-drawer-search-text">Search topics, tools, lessons…</span>
+            <kbd class="mobile-drawer-search-kbd">⌘K</kbd>
           </button>
         </div>
 
-        <div class="mobile-drawer-body">
-          <!-- Prominent Quick Search inside Drawer -->
-          <div class="mobile-drawer-search-wrap">
-            <button type="button" class="mobile-drawer-search-btn" id="mobile-drawer-search-btn" aria-label="Search finance topics and calculators">
-              <span class="mobile-drawer-search-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></span>
-              <span class="mobile-drawer-search-text">Search topics, tools, lessons…</span>
-              <kbd class="mobile-drawer-search-kbd">⌘K</kbd>
+        <!-- Account / Auth Drawer Slot -->
+        <div id="mobile-auth-container" class="mobile-drawer-auth-slot"></div>
+
+        <!-- Navigation Links List -->
+        <nav class="mobile-nav-links" aria-label="Mobile Navigation Links">
+          
+              <a href="/" class="mobile-link ">
+                <span class="mobile-link-icon-wrap" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg></span>
+                <span class="mobile-link-text">Home</span>
+                <span class="mobile-link-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
+              </a>
+            
+              <a href="/courses" class="mobile-link ">
+                <span class="mobile-link-icon-wrap" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg></span>
+                <span class="mobile-link-text">Courses</span>
+                <span class="mobile-link-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
+              </a>
+            
+              <a href="/learn" class="mobile-link ">
+                <span class="mobile-link-icon-wrap" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg></span>
+                <span class="mobile-link-text">Learn Academy</span>
+                <span class="mobile-link-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
+              </a>
+            
+              <a href="/calculators" class="mobile-link ">
+                <span class="mobile-link-icon-wrap" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="16" height="20" x="4" y="2" rx="2"/><line x1="8" x2="16" y1="6" y2="6"/><path d="M8 10h.01M12 10h.01M16 10h.01M8 14h.01M12 14h.01M16 14h.01M8 18h.01M12 18h.01M16 18h.01"/></svg></span>
+                <span class="mobile-link-text">Calculators</span>
+                <span class="mobile-link-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
+              </a>
+            
+              <a href="/resources" class="mobile-link ">
+                <span class="mobile-link-icon-wrap" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg></span>
+                <span class="mobile-link-text">Resources</span>
+                <span class="mobile-link-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
+              </a>
+            
+              <a href="/blog" class="mobile-link ">
+                <span class="mobile-link-icon-wrap" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2l-2 1-2-1-2 1-2-1-2 1-2-1-2 1-2-1Z"/><path d="M8 7h8"/><path d="M8 11h8"/><path d="M8 15h5"/></svg></span>
+                <span class="mobile-link-text">Articles & Blog</span>
+                <span class="mobile-link-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
+              </a>
+            
+              <a href="/about" class="mobile-link ">
+                <span class="mobile-link-icon-wrap" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span>
+                <span class="mobile-link-text">About Us</span>
+                <span class="mobile-link-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
+              </a>
+            
+              <a href="/contact" class="mobile-link ">
+                <span class="mobile-link-icon-wrap" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg></span>
+                <span class="mobile-link-text">Contact</span>
+                <span class="mobile-link-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
+              </a>
+            
+        </nav>
+
+        <!-- Appearance Theme Control -->
+        <div class="mobile-menu-theme-row">
+          <span class="mobile-menu-theme-label">Appearance</span>
+          <div class="mobile-theme-segmented" role="radiogroup" aria-label="Appearance">
+            <button type="button" class="mobile-theme-seg-btn" id="seg-btn-light" data-theme-val="light" aria-label="Light mode">
+              <span class="theme-seg-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg></span>
+              <span>Light</span>
+            </button>
+            <button type="button" class="mobile-theme-seg-btn" id="seg-btn-dark" data-theme-val="dark" aria-label="Dark mode">
+              <span class="theme-seg-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></span>
+              <span>Dark</span>
             </button>
           </div>
-
-          <!-- Account / Auth Drawer Slot -->
-          <div id="mobile-auth-container" class="mobile-drawer-auth-slot"></div>
-
-          <!-- Navigation Links List -->
-          <nav class="mobile-nav-links" aria-label="Mobile Navigation Links">
-            
-                <a href="/" class="mobile-link ">
-                  <span class="mobile-link-icon-wrap" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg></span>
-                  <span class="mobile-link-text">Home</span>
-                  <span class="mobile-link-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
-                </a>
-              
-                <a href="/courses" class="mobile-link ">
-                  <span class="mobile-link-icon-wrap" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg></span>
-                  <span class="mobile-link-text">Courses</span>
-                  <span class="mobile-link-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
-                </a>
-              
-                <a href="/learn" class="mobile-link ">
-                  <span class="mobile-link-icon-wrap" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg></span>
-                  <span class="mobile-link-text">Learn Academy</span>
-                  <span class="mobile-link-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
-                </a>
-              
-                <a href="/calculators" class="mobile-link ">
-                  <span class="mobile-link-icon-wrap" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="16" height="20" x="4" y="2" rx="2"/><line x1="8" x2="16" y1="6" y2="6"/><path d="M8 10h.01M12 10h.01M16 10h.01M8 14h.01M12 14h.01M16 14h.01M8 18h.01M12 18h.01M16 18h.01"/></svg></span>
-                  <span class="mobile-link-text">Calculators</span>
-                  <span class="mobile-link-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
-                </a>
-              
-                <a href="/resources" class="mobile-link ">
-                  <span class="mobile-link-icon-wrap" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg></span>
-                  <span class="mobile-link-text">Resources</span>
-                  <span class="mobile-link-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
-                </a>
-              
-                <a href="/blog" class="mobile-link ">
-                  <span class="mobile-link-icon-wrap" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2l-2 1-2-1-2 1-2-1-2 1-2-1-2 1-2-1Z"/><path d="M8 7h8"/><path d="M8 11h8"/><path d="M8 15h5"/></svg></span>
-                  <span class="mobile-link-text">Articles & Blog</span>
-                  <span class="mobile-link-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
-                </a>
-              
-                <a href="/about" class="mobile-link ">
-                  <span class="mobile-link-icon-wrap" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span>
-                  <span class="mobile-link-text">About Us</span>
-                  <span class="mobile-link-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
-                </a>
-              
-                <a href="/contact" class="mobile-link ">
-                  <span class="mobile-link-icon-wrap" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg></span>
-                  <span class="mobile-link-text">Contact</span>
-                  <span class="mobile-link-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
-                </a>
-              
-          </nav>
-
-          <!-- Appearance Theme Control -->
-          <div class="mobile-menu-theme-row">
-            <span class="mobile-menu-theme-label">Appearance</span>
-            <div class="mobile-theme-segmented" role="radiogroup" aria-label="Appearance">
-              <button type="button" class="mobile-theme-seg-btn" id="seg-btn-light" data-theme-val="light" aria-label="Light mode">
-                <span class="theme-seg-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg></span>
-                <span>Light</span>
-              </button>
-              <button type="button" class="mobile-theme-seg-btn" id="seg-btn-dark" data-theme-val="dark" aria-label="Dark mode">
-                <span class="theme-seg-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></span>
-                <span>Dark</span>
-              </button>
-            </div>
-          </div>
         </div>
+      </div>
 
-        <!-- Drawer Footer with WhatsApp Contact Button -->
-        <div class="mobile-drawer-footer">
-          <a href="https://wa.me/9779740269317?text=Hello%20RisePaisa%20team%2C%20I%20would%20like%20to%20get%20in%20touch." target="_blank" rel="noopener" class="btn btn-whatsapp btn-lg mobile-drawer-wa-btn">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg> Chat on WhatsApp
-          </a>
-        </div>
-      </aside>
-    </nav>
+      <!-- Drawer Footer with WhatsApp Contact Button -->
+      <div class="mobile-drawer-footer">
+        <a href="https://wa.me/9779740269317?text=Hello%20RisePaisa%20team%2C%20I%20would%20like%20to%20get%20in%20touch." target="_blank" rel="noopener" class="btn btn-whatsapp btn-lg mobile-drawer-wa-btn">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg> Chat on WhatsApp
+        </a>
+      </div>
+    </aside>
 
     <!-- ── Global Search Modal ──────────────────────────────────────── -->
     <div class="search-modal-overlay" id="search-modal-overlay" role="dialog" aria-modal="true" aria-label="Search RisePaisa">
@@ -456,7 +476,7 @@
       </div>
 
       <h1>Terms & Conditions</h1>
-      <p class="last-updated">Last verified &amp; updated: October 2026 · Governed by the Laws of Nepal</p>
+      <p class="last-updated">Last verified &amp; updated: November 2026 · Governed by the Laws of Nepal</p>
 
       
     <nav class="legal-nav-strip" aria-label="Legal Documentation Navigation">
@@ -479,157 +499,215 @@
       <div class="legal-content-body">
         
       <p class="legal-lead">
-        These Terms &amp; Conditions (&ldquo;<strong>Terms</strong>&rdquo;) constitute a legally binding agreement between you (&ldquo;<strong>User</strong>&rdquo;, &ldquo;<strong>Student</strong>&rdquo;, or &ldquo;<strong>You</strong>&rdquo;) and <strong>RisePaisa</strong> (&ldquo;<strong>RisePaisa</strong>&rdquo;, &ldquo;<strong>we</strong>&rdquo;, &ldquo;<strong>us</strong>&rdquo;, or &ldquo;<strong>our</strong>&rdquo;), founded by Aakash Das in Kathmandu, Nepal. These Terms govern your access to and use of our website (<a href="https://risepaisa.com">risepaisa.com</a>), online educational courses, digital templates, analytical calculators, and learning materials.
+        These Terms &amp; Conditions (&ldquo;<strong>Terms</strong>&rdquo;) constitute a legally binding agreement between you (&ldquo;<strong>User</strong>&rdquo;, &ldquo;<strong>Student</strong>&rdquo;, or &ldquo;<strong>You</strong>&rdquo;) and <strong>RisePaisa</strong> (&ldquo;<strong>RisePaisa</strong>&rdquo;, &ldquo;<strong>we</strong>&rdquo;, &ldquo;<strong>us</strong>&rdquo;, or &ldquo;<strong>our</strong>&rdquo;), founded by Aakash Das in Kathmandu, Nepal. These Terms govern your access to and use of our website (<a href="https://risepaisa.com">risepaisa.com</a>), online educational courses, digital learning materials, research documents, and analytical calculators.
       </p>
 
       <div class="legal-callout-box">
         <h4><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg> Statutory Notice &amp; Governing Jurisdiction</h4>
         <p>
-          RisePaisa operates as an independent financial education initiative in Nepal. These Terms are drafted and enforced under the laws of Nepal, including the <strong>National Civil Code (Muluki Dewani Samhita), 2074</strong>, the <strong>Electronic Transactions Act, 2063</strong>, the <strong>Copyright Act, 2059</strong>, and the <strong>Consumer Protection Act, 2075</strong>. By accessing our website, enrolling in our courses, or utilizing our digital resources, you acknowledge that you have read, understood, and agreed to be bound by these Terms.
+          RisePaisa provides structured financial literacy and investor education tailored to Nepal. These Terms are formulated and enforced in strict compliance with the laws of Nepal, including the <strong>National Civil Code (Muluki Dewani Samhita), 2074</strong>, the <strong>Consumer Protection Act, 2075</strong>, the <strong>Electronic Commerce Act, 2081</strong>, the <strong>Individual Privacy Act, 2075</strong>, the <strong>Electronic Transactions Act, 2063</strong>, and the <strong>Copyright Act, 2059</strong>. By visiting our website, creating an account, or enrolling in our courses, you confirm that you have read, understood, and agreed to be bound by these Terms.
         </p>
       </div>
 
-      <h2>1. User Eligibility &amp; Contractual Capacity</h2>
-      <p>By accessing the platform or completing a course enrollment, you affirm that:</p>
-      <ul>
-        <li>You are at least <strong>16 years of age</strong>, or are accessing the platform under the active supervision and with the express consent of a parent or legal guardian;</li>
-        <li>You possess the full legal competence and authority to enter into a valid, binding contract under Chapter 2 of the <em>Muluki Dewani Samhita, 2074</em>;</li>
-        <li>All information provided during enrollment and communication (including your legal name, contact telephone/WhatsApp number, and email address) is accurate, current, and complete; and</li>
-        <li>You are not barred from receiving digital educational services under any applicable laws or regulatory sanctions of Nepal.</li>
-      </ul>
+      <h2>1. Acceptance of Terms &amp; User Eligibility</h2>
+      <p>
+        <strong>1.1 Agreement upon Access or Purchase:</strong> By registering on RisePaisa, browsing our website, or completing a course enrollment, you signify your unreserved acceptance of these Terms. If you do not agree to these Terms, you must discontinue using our platform and services immediately.
+      </p>
+      <p>
+        <strong>1.2 Continued Use:</strong> Your continued use of the platform following any published updates or revisions to these Terms confirms your ongoing acceptance of the updated terms.
+      </p>
+      <p>
+        <strong>1.3 Contractual Capacity:</strong> In accordance with Part 5 of the <em>Muluki Dewani Samhita, 2074</em>, you affirm that you are at least sixteen (16) years of age or are accessing the platform with the informed consent and supervision of a parent or legal guardian who assumes full responsibility for your compliance.
+      </p>
+      <p>
+        <strong>1.4 Accuracy of Registration Information:</strong> You are strictly responsible for providing true, current, and complete information during registration and enrollment (including your full legal name, valid email address, and active telephone or WhatsApp number). Providing false, misleading, or impersonated contact details constitutes a material breach of these Terms.
+      </p>
 
       <h2>2. Nature &amp; Scope of Educational Services</h2>
       <p>
-        RisePaisa publishes structured, self-paced financial literacy courses (including the <em>Share Market Full Course (NEPSE)</em> and <em>Personal Finance Masterclass</em>), practical financial templates, financial calculators, and research articles focused on Nepal&rsquo;s economic ecosystem.
+        <strong>2.1 Educational Publishing:</strong> RisePaisa develops and publishes self-paced digital educational masterclasses (such as the <em>Share Market Full Course (NEPSE)</em> and <em>Personal Finance Masterclass</em>), financial modeling spreadsheets, interactive financial calculators, and research articles focused on Nepal&rsquo;s economic ecosystem.
       </p>
       <p>
-        <strong>Educational Purpose Only:</strong> RisePaisa operates solely as an educational and pedagogical publisher. RisePaisa, its founder Aakash Das, and its instructors are <strong>not</strong> registered as stock brokers, merchant bankers, portfolio managers (PMS), or investment advisors with the Securities Board of Nepal (SEBON) under the <em>Securities Act, 2063</em>. No service or material provided constitutes personalized financial planning, investment advice, tax counsel, or a solicitation to buy or sell securities.
+        <strong>2.2 Non-Licensed Advisory Status:</strong> RisePaisa operates exclusively as an educational publisher. RisePaisa, its founder Aakash Das, and its educators are <strong>not</strong> licensed or registered as stock brokers, merchant bankers, portfolio managers (PMS), or investment advisers with the Securities Board of Nepal (SEBON) under the <em>Securities Act, 2063</em>.
+      </p>
+      <p>
+        <strong>2.3 No Individualized Financial Advice:</strong> Nothing contained in our video lessons, curriculum modules, downloadable templates, or calculators constitutes personalized investment advice, financial planning, portfolio recommendations, tax counsel, or legal advice. All materials are prepared strictly for general educational purposes.
       </p>
 
-      <h2>3. Course Purchase, Fees &amp; Payment Processing</h2>
-      <ul>
-        <li><strong>Course Fees:</strong> All course fees and product prices are clearly indicated in Nepalese Rupees (NPR). The published fee for the <em>Share Market Full Course (NEPSE)</em> is NPR 2,999. RisePaisa reserves the right to modify prices for future enrollments at any time without prior notice; however, price changes will never affect existing, confirmed enrollments.</li>
-        <li><strong>Payment Rails:</strong> Payments are processed via licensed payment service providers in Nepal, including <strong>eSewa</strong>, <strong>Khalti</strong>, <strong>connectIPS</strong>, or authorized commercial bank fund transfers. RisePaisa does not collect, record, or store sensitive banking credentials, ATM PINs, MPINs, or card CVVs.</li>
-        <li><strong>Access Activation:</strong> Course access is granted only upon verified receipt of payment. Once payment is verified by our team, access instructions, credentials, or private streaming links are issued to the student.</li>
-        <li><strong>Taxes:</strong> Any transaction fees imposed by your bank or wallet provider, as well as applicable statutory taxes under the <em>Income Tax Act, 2058</em>, are the responsibility of the paying student.</li>
-      </ul>
+      <h2>3. Account Responsibility, Credential Protection &amp; Single-User License</h2>
+      <p>
+        <strong>3.1 Single-User Educational License:</strong> Each course enrollment and student account is granted solely to one (1) designated individual learner. Your enrollment represents a personal, non-exclusive, non-transferable, and revocable limited digital service licence.
+      </p>
+      <p>
+        <strong>3.2 Protection of Login Credentials:</strong> You are solely responsible for maintaining the strict confidentiality of your account credentials, login passwords, and private course streaming links. You must not disclose, share, or transfer your login details to any other individual or entity.
+      </p>
+      <p>
+        <strong>3.3 Strict Prohibition of Account Sharing:</strong> Sharing accounts, passwords, or course streaming links with third parties (including family members, friends, colleagues, study circles, or public internet groups) is strictly prohibited. Pooling purchases, organizing &ldquo;group buys&rdquo;, or reselling shared access violates Nepalese intellectual property and cyber law.
+      </p>
+      <p>
+        <strong>3.4 Suspension and Termination for Breach:</strong> RisePaisa monitors concurrent sessions and abnormal traffic patterns. Detected instances of unauthorized credential sharing, simultaneous logins across conflicting geographical IP addresses, or account pooling will result in immediate suspension or permanent termination of course access without refund, alongside applicable legal remedies.
+      </p>
+      <p>
+        <strong>3.5 Reporting Unauthorized Account Access:</strong> If you suspect or discover any unauthorized access to your account, password compromise, or security breach, you must notify RisePaisa immediately in writing at <a href="mailto:itsaakashdas@gmail.com">itsaakashdas@gmail.com</a> or via our WhatsApp helpline at <a href="https://wa.me/9779740269317" target="_blank" rel="noopener">+977 9740269317</a> so protective measures can be implemented.
+      </p>
 
       <h2>4. Course Access and Validity</h2>
       <p>
         Access to purchased courses is provided for a period of one (1) year. Course access is not lifetime access. Once the applicable access period expires, access to the course content may be discontinued.
       </p>
       <ul>
-        <li><strong>4.1 Access Duration:</strong> Course access validity begins from the date payment is verified and course access credentials or links are activated, extending for exactly 365 calendar days (1 year).</li>
-        <li><strong>4.2 Single-User Educational License:</strong> Course access is strictly licensed to one registered individual student. Account credentials, private streaming links, and lesson materials may not be shared, rented, pooled, or redistributed. Concurrent streaming across geographically conflicting IP addresses may trigger automated security verification.</li>
-        <li><strong>4.3 Curriculum Additions &amp; Updates:</strong> During your active one-year enrollment, you receive access to any newly added lessons, updated case studies, and refreshed Excel models for your enrolled course at no additional charge.</li>
-        <li><strong>4.4 Digital Downloadable Resources:</strong> Standalone downloadable study files (such as checklists, spreadsheets, and templates) downloaded to your personal device during your active access period remain available for your individual, non-commercial educational study.</li>
+        <li>
+          <strong>4.1 Strict 365-Day Validity Period:</strong> Each purchased course provides access for <strong>ONE YEAR ONLY</strong>. Course access is valid for exactly 365 calendar days (1 year) from the recorded activation date following verified payment. The exact commencement date and expiration date are recorded in the student&rsquo;s official enrollment record.
+        </li>
+        <li>
+          <strong>4.2 Automatic Expiration:</strong> Course access automatically expires at the conclusion of the 365-day validity period. Expired access does not continue indefinitely. Upon expiration, access to course streaming links, video lessons, and active course dashboards terminates automatically.
+        </li>
+        <li>
+          <strong>4.3 Absolute Disclaimer of Lifetime Access:</strong> RisePaisa courses do <strong>NOT</strong> provide lifetime access. No lifetime access is promised, offered, or implied anywhere by RisePaisa. Purchasing course access does not confer permanent ownership of the course content, video assets, or platform infrastructure. The purchase represents a limited-term digital educational service licence.
+        </li>
+        <li>
+          <strong>4.4 Extensions and Renewals:</strong> Renewal or extension of course access is available only if RisePaisa explicitly offers it in writing at its sole discretion upon payment of applicable renewal fees. RisePaisa does not promise automatic renewals or price-locked extensions.
+        </li>
+        <li>
+          <strong>4.5 Curriculum Additions During Active Validity:</strong> During your active 365-day enrollment window, you receive access to any newly published curriculum updates, updated case studies, and refreshed Excel models added to your enrolled course at no additional charge.
+        </li>
+        <li>
+          <strong>4.6 Downloadable Study Templates:</strong> Standalone supplementary study assets (such as Excel sheets, checklists, and PDF guides) downloaded to your personal device during your active 365-day access period remain in your possession for your individual, non-commercial educational study.
+        </li>
       </ul>
 
       <h2>5. Intellectual Property &amp; Copyright Protection</h2>
       <p>
-        All educational content on RisePaisa, including but not limited to recorded video lessons, presentation slides, curriculum frameworks, financial modeling spreadsheets, Excel formulas, research articles, website code, graphics, and trade dress, is the exclusive intellectual property of RisePaisa and Aakash Das, protected under the <strong>Copyright Act, 2059 (प्रतिलिपि अधिकार ऐन, २०५९)</strong> and the <strong>Electronic Transactions Act, 2063</strong> of Nepal.
+        <strong>5.1 Proprietary Ownership:</strong> All educational content on RisePaisa, including recorded video lectures, lesson outlines, curriculum frameworks, presentation slides, Excel financial models, mathematical formulas, research articles, PDF guides, website code, graphics, branding, and logos, is the exclusive intellectual property of RisePaisa and Aakash Das, protected under the <strong>Copyright Act, 2059 (प्रतिलिपि अधिकार ऐन, २०५९)</strong> and the <strong>Electronic Transactions Act, 2063</strong> of Nepal.
       </p>
       <div class="legal-callout-box warning">
-        <h4><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> Limited Personal License &amp; Strict Anti-Piracy Notice</h4>
+        <h4><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> Limited Personal Educational License &amp; Strict Anti-Piracy Notice</h4>
         <p>
-          Upon enrollment, you are granted a <strong>limited, non-exclusive, non-transferable, revocable single-user license</strong> solely for your personal, non-commercial educational study.
+          Purchasing course access grants you a limited, non-exclusive, non-transferable, and revocable license solely for your personal, private, non-commercial educational study. Purchasing access does <strong>not</strong> transfer copyright, title, or proprietary interest.
         </p>
         <p>
           <strong>You are strictly prohibited from:</strong>
         </p>
         <ul style="margin-bottom:0">
-          <li>Sharing, leasing, lending, sublicensing, or transferring your login credentials or course links to any other individual or group;</li>
           <li>Screen-recording, ripping, downloading, streaming-ripping, or mirroring course video lessons;</li>
-          <li>Uploading course videos, PDFs, or spreadsheets to Google Drive, Telegram groups, WhatsApp groups, Discord servers, Mega links, torrent networks, or social media;</li>
-          <li>Organizing &ldquo;group buys&rdquo;, shared subscriptions, or screening lessons in public or commercial settings;</li>
-          <li>Reselling, commercially republishing, or creating unauthorized derivative courses based on RisePaisa&rsquo;s proprietary curriculum.</li>
+          <li>Uploading course videos, Excel templates, or PDF guides to cloud repositories, Google Drive, Telegram, WhatsApp groups, Discord, Mega, torrent networks, or file-sharing platforms;</li>
+          <li>Sharing, leasing, lending, sublicensing, or transferring login credentials or course streaming links;</li>
+          <li>Reselling, sub-licensing, or commercially republishing any RisePaisa content;</li>
+          <li>Screening or broadcasting video lessons in public, educational, commercial, or coaching environments;</li>
+          <li>Creating unauthorized derivative courses, summaries, or materials based on RisePaisa&rsquo;s proprietary curriculum.</li>
         </ul>
       </div>
       <p>
-        <strong>Legal Enforcement:</strong> Any detected violation of our intellectual property will result in <strong>immediate, permanent termination of course access without refund</strong>, alongside civil damages claims under the <em>Muluki Dewani Samhita, 2074</em> and formal criminal complaints under Sections 25, 26, 27, and 28 of the <em>Copyright Act, 2059</em> and Section 47 of the <em>Electronic Transactions Act, 2063</em>.
+        <strong>5.2 Statutory Legal Enforcement:</strong> Any detected violation of our intellectual property will result in immediate, permanent termination of course access without refund. RisePaisa actively pursues civil damages under Chapter 2 of the <em>Muluki Dewani Samhita, 2074</em> and initiates formal criminal proceedings under Sections 25, 26, 27, and 28 of the <em>Copyright Act, 2059</em> and Section 45 and 47 of the <em>Electronic Transactions Act, 2063</em>.
       </p>
 
-      <h2>6. Account Security &amp; Single-User Access</h2>
-      <ul>
-        <li>Each course enrollment is strictly for a <strong>single individual learner</strong>.</li>
-        <li>You are responsible for safeguarding your access links, email, and credentials. You must notify RisePaisa immediately at <a href="mailto:itsaakashdas@gmail.com">itsaakashdas@gmail.com</a> if you suspect unauthorized access to your account.</li>
-        <li>Simultaneous logins from geographically conflicting IP addresses or multiple concurrent devices may trigger automated security alerts and temporary account suspension pending identity verification.</li>
-      </ul>
-
-      <h2>7. Permitted &amp; Prohibited Platform Conduct</h2>
-      <p>When interacting with RisePaisa, including our live Q&amp;A sessions, student discussion channels, and contact avenues, you agree to conduct yourself professionally. You agree NOT to:</p>
-      <ul>
-        <li>Engage in harassment, abusive language, hate speech, or defamatory conduct towards instructors, team members, or fellow learners;</li>
-        <li>Promote unauthorized commercial products, unsolicited investment schemes, multi-level marketing (MLM), or illegal financial platforms;</li>
-        <li>Post speculative &ldquo;stock tips&rdquo;, pump-and-dump promotion, or market manipulation chatter;</li>
-        <li>Attempt to probe, scan, or breach the security of the website or hosting infrastructure.</li>
-      </ul>
-
-      <h2>8. Curriculum Updates &amp; Course Enhancements</h2>
+      <h2>6. Payments, Pricing &amp; Financial Disclosures</h2>
       <p>
-        Because financial regulations, tax slabs (e.g., IRD Finance Acts), and NEPSE trading by-laws evolve regularly in Nepal, RisePaisa reserves the right to periodically update, modify, expand, or refine course lessons, worksheets, and resources to maintain pedagogical accuracy. Active students with valid enrollments receive access to all such lesson updates during their active enrollment period at no additional charge.
+        <strong>6.1 Transparent Pricing:</strong> All course fees and product prices are clearly indicated in Nepalese Rupees (NPR) before purchase. The published standard fee for the <em>Share Market Full Course (NEPSE)</em> is <strong>NPR 2,999</strong>. Any promotional rates, bundles, or fee revisions will be explicitly displayed prior to payment confirmation.
+      </p>
+      <p>
+        <strong>6.2 Authorized Payment Rails:</strong> Payments must be executed through authorized, licensed Payment Service Providers (PSPs) and Payment System Operators (PSOs) in Nepal, such as <strong>eSewa</strong>, <strong>Khalti</strong>, <strong>NCHL connectIPS</strong>, or authorized commercial bank fund transfers.
+      </p>
+      <p>
+        <strong>6.3 Security of Financial Credentials:</strong> All electronic payments are processed directly within the secure, regulated interfaces of licensed payment gateways or commercial banking applications. RisePaisa <strong>never</strong> collects, processes, views, or stores your bank login credentials, ATM PINs, mobile banking MPINs, or payment card CVVs.
+      </p>
+      <p>
+        <strong>6.4 Access Activation upon Verification:</strong> Course access is granted only after successful, verified receipt of payment. Students are advised to retain official transaction receipts, payment screenshots, and unique Transaction Reference IDs issued by the payment operator.
+      </p>
+      <p>
+        <strong>6.5 Duplicate Payments &amp; Failed Transactions:</strong> If your account is debited but course access is not provisioned, or if an accidental duplicate payment occurs due to gateway network lag, RisePaisa investigates the transaction logs promptly upon receiving written notice. Verified duplicate charges will be refunded in accordance with our <a href="/refund-policy">Refund &amp; Cancellation Policy</a>.
       </p>
 
-      <h2>9. Technical Availability &amp; Service Maintenance</h2>
+      <h2>7. Platform Conduct &amp; Prohibited Activities</h2>
+      <p>When interacting with RisePaisa, including our live Q&amp;A sessions, student communication channels, and support desks, you agree to conduct yourself ethically and professionally. You agree NOT to:</p>
+      <ul>
+        <li>Harass, abuse, defame, threaten, or demean instructors, support team members, or fellow learners;</li>
+        <li>Promote unauthorized commercial products, multi-level marketing (MLM) schemes, pyramid arrangements, or illegal financial schemes;</li>
+        <li>Post speculative &ldquo;stock tips&rdquo;, pump-and-dump claims, or market manipulation discussions relating to NEPSE;</li>
+        <li>Probe, scan, reverse-engineer, or attempt to compromise the security, integrity, or availability of our website or server infrastructure.</li>
+      </ul>
+
+      <h2>8. Suspension and Termination of Service</h2>
       <p>
-        We make every reasonable commercial effort to ensure reliable, high-availability access to our website and video streaming servers. However:
+        <strong>8.1 Right to Suspend or Terminate:</strong> RisePaisa reserves the right to restrict, suspend, or permanently terminate your account and course access upon verified evidence of:
       </p>
       <ul>
-        <li>Temporary downtime may occasionally occur due to scheduled system maintenance, server upgrades, or telecommunications disruptions beyond our control;</li>
-        <li>Third-party platform dependencies (such as YouTube video delivery, global CDN routing, or Nepal internet exchange latency) are subject to their respective service level agreements;</li>
-        <li>If you experience prolonged technical impediments in accessing course materials, our support team will actively investigate and assist you within 24 to 48 business hours upon receiving written notice.</li>
+        <li>Fraudulent enrollment, payment fraud, or chargeback abuse;</li>
+        <li>Unauthorized sharing of account credentials, passwords, or course links;</li>
+        <li>Copyright infringement, video piracy, or commercial redistribution of proprietary assets;</li>
+        <li>Cybersecurity threats, malicious network behavior, or unauthorized automated scraping;</li>
+        <li>Abusive, defamatory, or disruptive conduct toward platform staff or learners;</li>
+        <li>Any material violation of these Terms.</li>
       </ul>
+      <p>
+        <strong>8.2 Proportionate Enforcement &amp; Legal Remedies:</strong> Disciplinary actions are applied proportionately following internal review. Account suspension or termination does not restrict RisePaisa from pursuing further statutory civil damages or criminal penalties under applicable Nepalese law.
+      </p>
+
+      <h2>9. Technical Availability, Compatibility &amp; Service Maintenance</h2>
+      <p>
+        <strong>9.1 Reasonable Commercial Efforts:</strong> We make every commercially reasonable effort to maintain high availability and uninterrupted streaming access to our educational materials.
+      </p>
+      <p>
+        <strong>9.2 Maintenance and Third-Party Dependencies:</strong> Temporary service disruptions may occur due to scheduled infrastructure maintenance, hosting updates, or third-party service provider outages (such as global CDN routing or telecommunications exchange latency in Nepal).
+      </p>
+      <p>
+        <strong>9.3 Support Response Commitment:</strong> If you experience persistent technical difficulties accessing purchased lessons, our support desk will investigate and provide technical guidance within <strong>24 to 48 business hours</strong> upon receiving written notification.
+      </p>
 
       <h2>10. Refund and Cancellation Policy</h2>
       <p>
         All course purchases are final and non-refundable. Once payment has been completed and course enrollment has been processed, the amount paid will not be refunded. Please review the course information and available details carefully before making a purchase.
       </p>
       <p>
-        All requests and inquiries regarding digital course access are strictly governed by these terms and our published <a href="/refund-policy">Refund &amp; Cancellation Policy</a>.
+        All refund requests, duplicate payment claims, and technical non-delivery scenarios are strictly governed by these Terms and our standalone <a href="/refund-policy">Refund &amp; Cancellation Policy</a>. The Refund Policy provides comprehensive consumer remedies for verified duplicate billing, technical non-delivery, and material service non-conformity in strict accordance with the <em>Consumer Protection Act, 2075</em> and the <em>Electronic Commerce Act, 2081</em>.
       </p>
 
-      <h2>11. Educational Disclaimer &amp; Investment Risks</h2>
+      <h2>11. Educational Disclaimer &amp; Capital Market Risks</h2>
       <p>
-        Course materials, financial calculators, and articles are provided for educational purposes only. Investing in the stock market (NEPSE) involves substantial financial risk, including the possible loss of principal. For detailed risk disclosures, please review our comprehensive <a href="/disclaimer">Educational Disclaimer</a>, which is incorporated into these Terms by reference.
+        All courses, financial models, research articles, and interactive calculators published by RisePaisa are strictly for educational and financial literacy purposes. Investing in shares, mutual funds, and debentures on the Nepal Stock Exchange (NEPSE) involves substantial market risk, including the possible loss of principal. For comprehensive disclosures, please review our published <a href="/disclaimer">Educational Disclaimer</a>, which is incorporated into these Terms by reference.
       </p>
 
       <h2>12. Limitation of Liability</h2>
       <p>
-        To the fullest extent permitted under applicable Nepalese law (including the <em>Consumer Protection Act, 2075</em>):
+        <strong>12.1 Exclusion of Consequential Damages:</strong> To the maximum extent permitted by applicable Nepalese law, RisePaisa, its founder Aakash Das, and its educators shall not be liable for any indirect, special, incidental, punitive, or consequential damages whatsoever, including but not limited to loss of capital, trading losses on NEPSE, lost profits, business interruptions, or investment decisions made on the basis of our educational materials.
       </p>
-      <ul>
-        <li>RisePaisa, its founder Aakash Das, and its instructors shall <strong>not be liable</strong> for any indirect, special, incidental, punitive, or consequential damages whatsoever;</li>
-        <li>RisePaisa shall <strong>not be liable</strong> for any investment losses, capital depreciation, trading deficits, lost profits, or business decisions made by you or any third party based on course content, calculators, or articles;</li>
-        <li>In all circumstances where liability cannot be lawfully excluded, RisePaisa&rsquo;s maximum aggregate liability for any direct damages arising out of your enrollment or use of our services shall be strictly limited to the <strong>actual total amount paid by you</strong> for the specific course or resource in dispute.</li>
-      </ul>
+      <p>
+        <strong>12.2 Preservation of Non-Waivable Statutory Consumer Rights:</strong> Nothing in these Terms attempts to exclude, restrict, or modify any statutory consumer guarantee, warranty, or remedy that cannot lawfully be excluded under Section 3(2) and Section 16 of the <em>Consumer Protection Act, 2075</em>, or Section 9 and Section 10 of the <em>Electronic Commerce Act, 2081</em>.
+      </p>
+      <p>
+        <strong>12.3 Aggregate Financial Cap:</strong> In all circumstances where statutory liability cannot be lawfully excluded, RisePaisa&rsquo;s total aggregate liability arising out of your enrollment or use of our services shall be strictly capped at the <strong>actual total amount paid by you</strong> for the specific course or resource in dispute.
+      </p>
 
       <h2>13. Indemnification</h2>
       <p>
-        Subject to applicable law, you agree to indemnify, defend, and hold harmless RisePaisa, Aakash Das, and its educators from and against any third-party claims, liabilities, damages, losses, or legal costs arising out of: (a) your willful breach of these Terms; (b) your unauthorized reproduction, piracy, or distribution of RisePaisa&rsquo;s intellectual property; or (c) your violation of any applicable law or rights of a third party.
+        Subject to applicable law, you agree to defend, indemnify, and hold harmless RisePaisa, its founder Aakash Das, and its team from and against any third-party claims, liabilities, damages, losses, or legal expenses arising out of: (a) your willful breach of these Terms; (b) your unauthorized copying, piracy, or distribution of RisePaisa&rsquo;s intellectual property; or (c) your violation of any statutory law or third-party rights.
       </p>
 
       <h2>14. Governing Law &amp; Dispute Resolution</h2>
       <p>
-        These Terms, their interpretation, and any contractual or non-contractual disputes arising hereunder shall be governed by, construed, and enforced in accordance with the <strong>substantive laws of Nepal</strong>.
+        <strong>14.1 Substantive Laws of Nepal:</strong> These Terms, their interpretation, and any contractual or non-contractual disputes arising hereunder shall be governed by, construed, and enforced in accordance with the <strong>substantive laws of Nepal</strong>.
       </p>
       <p>
-        <strong>Amicable Negotiation:</strong> In the event of any disagreement or dispute, the parties agree to first attempt to resolve the matter amicably through good-faith direct consultation within thirty (30) calendar days of written notice.
+        <strong>14.2 Good-Faith Amicable Consultation:</strong> In the event of any dispute, controversy, or claim arising between the parties, the parties agree to first attempt to resolve the matter amicably through direct, good-faith consultation within thirty (30) calendar days of written notice.
       </p>
       <p>
-        <strong>Exclusive Jurisdiction:</strong> If the dispute cannot be resolved through amicable negotiation, the parties mutually agree that the <strong>competent courts situated in Kathmandu, Nepal</strong> shall have exclusive territorial and subject-matter jurisdiction over all legal proceedings.
+        <strong>14.3 Competent Jurisdiction:</strong> If the dispute cannot be settled through amicable consultation, the matter shall be submitted to the <strong>competent courts situated in Kathmandu, Nepal</strong>, which shall exercise exclusive jurisdiction.
+      </p>
+      <p>
+        <strong>14.4 Statutory Consumer Recourse:</strong> Nothing in this dispute resolution clause precludes a consumer from exercising statutory rights to lodge formal grievances with the Department of Commerce, Supplies and Consumer Protection (वाणिज्य, आपूर्ति तथा उपभोक्ता संरक्षण विभाग) or competent consumer dispute resolution forums under the <em>Consumer Protection Act, 2075</em> and the <em>Electronic Commerce Act, 2081</em>.
       </p>
 
       <h2>15. Amendments &amp; Severability</h2>
       <p>
-        We reserve the right to revise or update these Terms periodically to reflect evolving legal, regulatory, or operational requirements. Any revisions will be published on this page with an updated &ldquo;Last updated&rdquo; timestamp. Continued use of our platform following published modifications signifies your acceptance of the revised Terms.
+        <strong>15.1 Amendments:</strong> We reserve the right to revise or update these Terms periodically to reflect evolving legal, regulatory, or operational requirements in Nepal. Any revisions will be published on this page with an updated &ldquo;Last verified &amp; updated&rdquo; timestamp.
       </p>
       <p>
-        If any individual clause or provision of these Terms is determined by a court of competent jurisdiction to be invalid, unlawful, or unenforceable, that specific clause shall be severed or limited to the minimum extent necessary, and the remaining provisions shall continue in full force and effect.
+        <strong>15.2 Severability:</strong> If any specific clause or provision of these Terms is held invalid, illegal, or unenforceable by a court of competent jurisdiction, such clause shall be severed or modified to the minimum extent necessary, and the remaining provisions shall remain in full force and effect.
       </p>
 
       <div class="legal-contact-card">
         <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg> Contact Information &amp; Official Communications</h3>
-        <p>If you have any questions, legal notices, or inquiries regarding these Terms &amp; Conditions, please contact us:</p>
+        <p>For questions, formal notices, or inquiries regarding these Terms &amp; Conditions, please reach out to our official desk:</p>
         <div class="legal-contact-grid">
           <div class="legal-contact-item">
             <span class="legal-contact-label">Platform Founder</span>
@@ -644,7 +722,7 @@
             <span class="legal-contact-val"><a href="https://wa.me/9779740269317" target="_blank" rel="noopener">+977 9740269317</a></span>
           </div>
           <div class="legal-contact-item">
-            <span class="legal-contact-label">Location</span>
+            <span class="legal-contact-label">Operating Location</span>
             <span class="legal-contact-val">Kathmandu, Nepal</span>
           </div>
         </div>
@@ -659,11 +737,10 @@
         <div class="footer-grid">
           <div class="footer-brand">
             <a href="/" class="nav-logo">
-
               <div class="logo-text">rise<span>Paisa</span></div>
             </a>
             <p>Nepal's most practical financial education platform. Practical NEPSE, taxation, and personal finance strategies built for real income growth in Nepal.</p>
-            <p style="font-size:var(--text-xs);color:var(--color-text-muted);margin:var(--space-2) 0 var(--space-4)">
+            <p class="footer-founder" style="font-size:var(--text-xs);color:var(--color-text-muted);margin:var(--space-2) 0 var(--space-4)">
               Founded by <a href="/aakash-das" style="color:var(--color-text-secondary);text-decoration:underline;text-underline-offset:2px">Aakash Das</a>
             </p>
             <div class="footer-social">
@@ -674,39 +751,66 @@
             </div>
           </div>
           
-          <div class="footer-section">
-            <h4>Quick Links</h4>
-            <a href="/">Home</a>
-            <a href="/learn">Learn Academy</a>
-            <a href="/courses">Courses</a>
-            <a href="/calculators">Calculators</a>
-            <a href="/resources">Resources</a>
-            <a href="/blog">Articles</a>
-            <a href="/about">About Us</a>
-            <a href="/aakash-das">Aakash Das (Founder)</a>
-            <a href="/contact">Contact</a>
+          <div class="footer-section" data-collapsible="true">
+            <button type="button" class="footer-section-toggle" aria-expanded="false" aria-controls="footer-links-quick">
+              <h4>Quick Links</h4>
+              <span class="footer-toggle-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+              </span>
+            </button>
+            <div class="footer-links-content" id="footer-links-quick">
+              <div class="footer-links-inner">
+                <a href="/">Home</a>
+                <a href="/learn">Learn Academy</a>
+                <a href="/courses">Courses</a>
+                <a href="/calculators">Calculators</a>
+                <a href="/resources">Resources</a>
+                <a href="/blog">Articles</a>
+                <a href="/about">About Us</a>
+                <a href="/aakash-das">Aakash Das (Founder)</a>
+                <a href="/contact">Contact</a>
+              </div>
+            </div>
           </div>
           
-          <div class="footer-section">
-            <h4>Academy & Topics</h4>
-            <a href="/learn/investing">Investing</a>
-            <a href="/learn/nepse">NEPSE</a>
-            <a href="/learn/personal-finance">Personal Finance</a>
-            <a href="/learn/taxation">Taxation Nepal</a>
-            <a href="/learn/mutual-funds">Mutual Funds</a>
-            <a href="/learn/loans">Loans &amp; Banking</a>
-            <a href="/learn/insurance">Insurance</a>
-            <a href="/learn/retirement-planning">Retirement Planning</a>
+          <div class="footer-section" data-collapsible="true">
+            <button type="button" class="footer-section-toggle" aria-expanded="false" aria-controls="footer-links-topics">
+              <h4>Academy & Topics</h4>
+              <span class="footer-toggle-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+              </span>
+            </button>
+            <div class="footer-links-content" id="footer-links-topics">
+              <div class="footer-links-inner">
+                <a href="/learn/investing">Investing</a>
+                <a href="/learn/nepse">NEPSE</a>
+                <a href="/learn/personal-finance">Personal Finance</a>
+                <a href="/learn/taxation">Taxation Nepal</a>
+                <a href="/learn/mutual-funds">Mutual Funds</a>
+                <a href="/learn/loans">Loans &amp; Banking</a>
+                <a href="/learn/insurance">Insurance</a>
+                <a href="/learn/retirement-planning">Retirement Planning</a>
+              </div>
+            </div>
           </div>
           
-          <div class="footer-section">
-            <h4>Trust & Legal</h4>
-            <a href="/editorial-policy">Editorial Policy</a>
-            <a href="/disclaimer">Disclaimer</a>
-            <a href="/privacy">Privacy Policy</a>
-            <a href="/terms">Terms & Conditions</a>
-            <a href="/refund-policy">Refund Policy</a>
-            <a href="/faq">FAQ</a>
+          <div class="footer-section" data-collapsible="true">
+            <button type="button" class="footer-section-toggle" aria-expanded="false" aria-controls="footer-links-legal">
+              <h4>Trust & Legal</h4>
+              <span class="footer-toggle-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+              </span>
+            </button>
+            <div class="footer-links-content" id="footer-links-legal">
+              <div class="footer-links-inner">
+                <a href="/editorial-policy">Editorial Policy</a>
+                <a href="/disclaimer">Disclaimer</a>
+                <a href="/privacy">Privacy Policy</a>
+                <a href="/terms">Terms & Conditions</a>
+                <a href="/refund-policy">Refund Policy</a>
+                <a href="/faq">FAQ</a>
+              </div>
+            </div>
           </div>
         </div>
         

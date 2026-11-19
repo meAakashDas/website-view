@@ -30,18 +30,20 @@ import { resetCourseCache, checkIsAdmin, completeStudentProfile } from './course
 import { isFirebaseConfigured } from './config.js';
 
 const ICONS = {
-  user: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/></svg>`,
-  mail: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>`,
-  lock: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>`,
-  eye: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>`,
+  user: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/></svg>`,
+  mail: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><polyline points="3 7 12 13 21 7"/></svg>`,
+  lock: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>`,
+  eye: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>`,
+  eyeOff: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>`,
   close: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>`,
   chevronDown: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>`,
-  bookmark: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"/></svg>`,
-  logout: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>`,
+  bookmark: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"/></svg>`,
+  logout: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>`,
   google: `<svg viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/></svg>`,
-  shield: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>`,
-  settings: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>`,
-  key: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="7.5" cy="15.5" r="5.5"/><path d="m21 2-9.6 9.6"/><path d="m15.5 7.5 3 3"/></svg>`
+  shield: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>`,
+  settings: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>`,
+  key: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="7.5" cy="15.5" r="5.5"/><path d="m21 2-9.6 9.6"/><path d="m15.5 7.5 3 3"/></svg>`,
+  check: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>`
 };
 
 let _modalMounted = false;
@@ -61,18 +63,18 @@ function createAuthModalHtml() {
           ${ICONS.close}
         </button>
 
-        <!-- Modal Header -->
+        <!-- Brand Header -->
         <div class="rp-auth-header">
           <div class="rp-auth-brand-logo">rise<span>Paisa</span></div>
-          <h2 class="rp-auth-title" id="rp-auth-modal-title">Welcome to RisePaisa</h2>
-          <p class="rp-auth-subtitle" id="rp-auth-modal-subtitle">Save bookmarks, track courses, and personalize your finance journey.</p>
+          <h2 class="rp-auth-title" id="rp-auth-modal-title">Welcome back.</h2>
+          <p class="rp-auth-subtitle" id="rp-auth-modal-subtitle">Continue learning.</p>
         </div>
 
-        <!-- Tab Switcher -->
-        <div class="rp-auth-tabs" id="rp-auth-tabs" role="tablist">
-          <button type="button" class="rp-auth-tab active" data-tab="login" role="tab" aria-selected="true" aria-label="Student Sign In tab">Sign In</button>
-          <button type="button" class="rp-auth-tab" data-tab="register" role="tab" aria-selected="false" aria-label="Create Account tab">Create Account</button>
-          <button type="button" class="rp-auth-tab" data-tab="forgot" role="tab" aria-selected="false" aria-label="Forgot Password tab">Forgot</button>
+        <!-- Segmented Tab Switcher (Sign In | Create Account) -->
+        <div class="rp-auth-tabs" id="rp-auth-tabs" role="tablist" aria-label="Authentication mode">
+          <button type="button" class="rp-auth-tab active" data-tab="login" role="tab" aria-selected="true" id="rp-tab-login" aria-label="Student Sign In tab">Sign In</button>
+          <button type="button" class="rp-auth-tab" data-tab="register" role="tab" aria-selected="false" id="rp-tab-register" aria-label="Create Account tab">Create Account</button>
+          <button type="button" class="rp-auth-tab rp-auth-tab-forgot" data-tab="forgot" role="tab" aria-selected="false" id="rp-tab-forgot" aria-label="Forgot Password tab" style="display: none;">Forgot</button>
         </div>
 
         <!-- Alert Notification Box -->
@@ -83,25 +85,28 @@ function createAuthModalHtml() {
         <form class="rp-auth-form" id="rp-auth-form" novalidate>
           <!-- Display Name (Register only) -->
           <div class="rp-form-group" id="rp-group-name" style="display: none;">
-            <label class="rp-form-label" for="rp-auth-name">Your Full Name</label>
+            <label class="rp-form-label" for="rp-auth-name">Full Name</label>
             <div class="rp-input-wrap">
               <span class="rp-input-icon">${ICONS.user}</span>
-              <input type="text" id="rp-auth-name" class="rp-input" placeholder="e.g. Aakash Das" autocomplete="name">
+              <input type="text" id="rp-auth-name" class="rp-input" placeholder="Aakash Das" autocomplete="name">
             </div>
           </div>
 
           <!-- Email / Student ID Input (Always visible) -->
-          <div class="rp-form-group">
+          <div class="rp-form-group" id="rp-group-email">
             <label class="rp-form-label" for="rp-auth-email" id="rp-auth-email-label">Email or Student ID</label>
             <div class="rp-input-wrap">
               <span class="rp-input-icon">${ICONS.mail}</span>
-              <input type="text" id="rp-auth-email" class="rp-input" placeholder="you@example.com or RP-2026-A7K9M2" required autocomplete="username">
+              <input type="text" id="rp-auth-email" class="rp-input" placeholder="you@example.com or RP-2026-A7K9M2" required autocomplete="username" spellcheck="false" autocapitalize="none">
             </div>
           </div>
 
           <!-- Password Input (Login & Register only) -->
           <div class="rp-form-group" id="rp-group-password">
-            <label class="rp-form-label" for="rp-auth-password">Password</label>
+            <div class="rp-form-label-row">
+              <label class="rp-form-label" for="rp-auth-password" id="rp-auth-password-label">Password</label>
+              <button type="button" class="rp-auth-inline-link" id="rp-auth-forgot-link">Forgot password?</button>
+            </div>
             <div class="rp-input-wrap">
               <span class="rp-input-icon">${ICONS.lock}</span>
               <input type="password" id="rp-auth-password" class="rp-input" placeholder="••••••••" required autocomplete="current-password">
@@ -120,18 +125,18 @@ function createAuthModalHtml() {
         <!-- Social Divider & Google Button -->
         <div id="rp-social-section">
           <div class="rp-auth-divider">
-            <span>or continue with</span>
+            <span>or</span>
           </div>
           <button type="button" class="rp-auth-google-btn" id="rp-auth-google">
             ${ICONS.google}
-            <span>Sign in with Google</span>
+            <span>Continue with Google</span>
           </button>
         </div>
 
         <!-- Secondary Footnote Link -->
-        <div style="text-align: center; margin-top: 14px;">
+        <div class="rp-auth-footer-area">
           <button type="button" class="rp-auth-footer-link" id="rp-auth-switch-link">
-            Need an account? Register free
+            Don't have an account? Sign up
           </button>
         </div>
       </div>
@@ -172,6 +177,7 @@ function attachModalEvents() {
   const form = document.getElementById('rp-auth-form');
   const tabs = document.querySelectorAll('.rp-auth-tab');
   const switchLink = document.getElementById('rp-auth-switch-link');
+  const forgotLink = document.getElementById('rp-auth-forgot-link');
   const googleBtn = document.getElementById('rp-auth-google');
   const pwdToggle = document.getElementById('rp-toggle-pwd');
   const pwdInput = document.getElementById('rp-auth-password');
@@ -188,11 +194,18 @@ function attachModalEvents() {
     _authModalKeydownAttached = true;
   }
 
-  // Password visibility toggle
+  // Password visibility toggle with dynamic icon feedback
   pwdToggle?.addEventListener('click', () => {
     if (!pwdInput) return;
     const isPwd = pwdInput.type === 'password';
     pwdInput.type = isPwd ? 'text' : 'password';
+    pwdToggle.innerHTML = isPwd ? ICONS.eyeOff : ICONS.eye;
+    pwdToggle.setAttribute('aria-label', isPwd ? 'Hide password' : 'Show password');
+  });
+
+  // Forgot password link in login view
+  forgotLink?.addEventListener('click', () => {
+    setAuthTab('forgot');
   });
 
   // Tab switching
@@ -219,7 +232,7 @@ function attachModalEvents() {
 }
 
 /**
- * Switch the active tab inside the modal.
+ * Switch the active tab inside the modal with minimal Apple text hierarchy.
  */
 export function setAuthTab(tabKey) {
   _currentTab = tabKey || 'login';
@@ -229,12 +242,16 @@ export function setAuthTab(tabKey) {
   const subtitleEl = document.getElementById('rp-auth-modal-subtitle');
   const nameGroup = document.getElementById('rp-group-name');
   const pwdGroup = document.getElementById('rp-group-password');
+  const inlineForgot = document.getElementById('rp-auth-forgot-link');
   const submitText = document.getElementById('rp-submit-text');
+  const submitBtn = document.getElementById('rp-auth-submit');
   const socialSection = document.getElementById('rp-social-section');
   const switchLink = document.getElementById('rp-auth-switch-link');
+  const tabsContainer = document.getElementById('rp-auth-tabs');
   const tabs = document.querySelectorAll('.rp-auth-tab');
 
   clearAlerts();
+  if (submitBtn) submitBtn.classList.remove('rp-btn-success');
 
   tabs.forEach(tab => {
     const isActive = tab.dataset.tab === _currentTab;
@@ -246,8 +263,9 @@ export function setAuthTab(tabKey) {
   const emailInput = document.getElementById('rp-auth-email');
 
   if (_currentTab === 'login') {
-    if (titleEl) titleEl.textContent = 'Welcome back';
-    if (subtitleEl) subtitleEl.textContent = 'Sign in to access your saved lessons and preferences.';
+    if (titleEl) titleEl.textContent = 'Welcome back.';
+    if (subtitleEl) subtitleEl.textContent = 'Continue learning.';
+    if (tabsContainer) tabsContainer.style.display = 'flex';
     if (emailLabel) emailLabel.textContent = 'Email or Student ID';
     if (emailInput) {
       emailInput.placeholder = 'you@example.com or RP-2026-A7K9M2';
@@ -255,12 +273,14 @@ export function setAuthTab(tabKey) {
     }
     if (nameGroup) nameGroup.style.display = 'none';
     if (pwdGroup) pwdGroup.style.display = 'flex';
+    if (inlineForgot) inlineForgot.style.display = '';
     if (submitText) submitText.textContent = 'Sign In';
     if (socialSection) socialSection.style.display = 'block';
-    if (switchLink) switchLink.textContent = "Don't have an account? Register free";
+    if (switchLink) switchLink.textContent = "Don't have an account? Sign up";
   } else if (_currentTab === 'register') {
-    if (titleEl) titleEl.textContent = 'Create your Account';
-    if (subtitleEl) subtitleEl.textContent = 'Join RisePaisa free for personal finance learning.';
+    if (titleEl) titleEl.textContent = 'Create your account.';
+    if (subtitleEl) subtitleEl.textContent = 'Start learning.';
+    if (tabsContainer) tabsContainer.style.display = 'flex';
     if (emailLabel) emailLabel.textContent = 'Email Address';
     if (emailInput) {
       emailInput.placeholder = 'you@example.com';
@@ -268,13 +288,15 @@ export function setAuthTab(tabKey) {
     }
     if (nameGroup) nameGroup.style.display = 'flex';
     if (pwdGroup) pwdGroup.style.display = 'flex';
+    if (inlineForgot) inlineForgot.style.display = 'none';
     if (submitText) submitText.textContent = 'Create Account';
     if (socialSection) socialSection.style.display = 'block';
     if (switchLink) switchLink.textContent = 'Already have an account? Sign in';
   } else if (_currentTab === 'forgot') {
-    if (titleEl) titleEl.textContent = 'Reset Password';
-    if (subtitleEl) subtitleEl.textContent = "Enter your registered email and we'll send a reset link.";
-    if (emailLabel) emailLabel.textContent = 'Registered Email Address';
+    if (titleEl) titleEl.textContent = 'Reset password.';
+    if (subtitleEl) subtitleEl.textContent = 'Enter your email to receive a recovery link.';
+    if (tabsContainer) tabsContainer.style.display = 'none';
+    if (emailLabel) emailLabel.textContent = 'Registered Email';
     if (emailInput) {
       emailInput.placeholder = 'you@example.com';
       emailInput.autocomplete = 'email';
@@ -283,7 +305,7 @@ export function setAuthTab(tabKey) {
     if (pwdGroup) pwdGroup.style.display = 'none';
     if (submitText) submitText.textContent = 'Send Reset Link';
     if (socialSection) socialSection.style.display = 'none';
-    if (switchLink) switchLink.textContent = 'Remembered your password? Sign in';
+    if (switchLink) switchLink.textContent = 'Back to sign in';
   }
 }
 
@@ -322,13 +344,15 @@ export function openAuthModal(tab = 'login', options = {}) {
 export function closeAuthModal() {
   const modal = document.getElementById('rp-auth-modal');
   if (modal) {
-    modal.classList.remove('open');
+    modal.classList.remove('open', 'rp-auth-success');
     clearAlerts();
+    const submitBtn = document.getElementById('rp-auth-submit');
+    if (submitBtn) submitBtn.classList.remove('rp-btn-success');
     // Reset modal title and subtitle to defaults
     const titleEl = document.getElementById('rp-auth-modal-title');
-    if (titleEl) titleEl.textContent = 'Welcome to RisePaisa';
+    if (titleEl) titleEl.textContent = 'Welcome back.';
     const subEl = document.getElementById('rp-auth-modal-subtitle');
-    if (subEl) subEl.textContent = 'Save bookmarks, track courses, and personalize your finance journey.';
+    if (subEl) subEl.textContent = 'Continue learning.';
   }
 }
 
@@ -464,7 +488,7 @@ async function handleFormSubmit(e) {
   const name = document.getElementById('rp-auth-name')?.value?.trim();
 
   if (!email) {
-    showError('Please enter your email address.');
+    showError('Please enter your email or student ID.');
     return;
   }
 
@@ -485,7 +509,15 @@ async function handleFormSubmit(e) {
       }
       await loginWithEmail(email, password);
       showSuccess('Signed in successfully.');
-      setTimeout(() => closeAuthModal(), 600);
+      const modal = document.getElementById('rp-auth-modal');
+      const submitBtn = document.getElementById('rp-auth-submit');
+      const submitText = document.getElementById('rp-submit-text');
+      if (submitBtn && submitText) {
+        submitBtn.classList.add('rp-btn-success');
+        submitText.innerHTML = `<span class="rp-success-check" aria-hidden="true">${ICONS.check}</span> Success`;
+      }
+      if (modal) modal.classList.add('rp-auth-success');
+      setTimeout(() => closeAuthModal(), 550);
     } else if (_currentTab === 'register') {
       if (!password || password.length < 6) {
         showError('Password must be at least 6 characters.');
@@ -494,7 +526,15 @@ async function handleFormSubmit(e) {
       }
       await registerWithEmail(email, password, name);
       showSuccess('Account created successfully!');
-      setTimeout(() => closeAuthModal(), 600);
+      const modal = document.getElementById('rp-auth-modal');
+      const submitBtn = document.getElementById('rp-auth-submit');
+      const submitText = document.getElementById('rp-submit-text');
+      if (submitBtn && submitText) {
+        submitBtn.classList.add('rp-btn-success');
+        submitText.innerHTML = `<span class="rp-success-check" aria-hidden="true">${ICONS.check}</span> Success`;
+      }
+      if (modal) modal.classList.add('rp-auth-success');
+      setTimeout(() => closeAuthModal(), 550);
     } else if (_currentTab === 'forgot') {
       await resetPassword(email);
       showSuccess('Password reset link sent! Check your inbox.');
@@ -516,7 +556,9 @@ async function handleGoogleSignIn() {
   try {
     await loginWithGoogle();
     showSuccess('Signed in with Google.');
-    setTimeout(() => closeAuthModal(), 600);
+    const modal = document.getElementById('rp-auth-modal');
+    if (modal) modal.classList.add('rp-auth-success');
+    setTimeout(() => closeAuthModal(), 550);
   } catch (err) {
     showError(formatAuthError(err));
   }
@@ -571,7 +613,7 @@ function createSettingsModalHtml(user, isAdmin = false) {
         <div class="rp-auth-header">
           <div class="rp-auth-brand-logo">rise<span>Paisa</span></div>
           <h2 class="rp-auth-title" id="rp-settings-title">Account & Security</h2>
-          <p class="rp-auth-subtitle">Manage your credentials, password, and platform authorizations.</p>
+          <p class="rp-auth-subtitle">Credentials and security settings.</p>
         </div>
 
         <!-- User Information Card -->
@@ -600,11 +642,11 @@ function createSettingsModalHtml(user, isAdmin = false) {
 
         <!-- Password Management Section -->
         <div class="rp-settings-section">
-          <h3 class="rp-settings-section-title">Password & Security</h3>
+          <h3 class="rp-settings-section-title">Password</h3>
           <p class="rp-settings-section-desc" id="rp-settings-desc">
             ${isPasswordUser
-              ? 'Update your RisePaisa login password. Enter your current password to verify your identity.'
-              : 'You are currently signed in with Google. Set an account password below to enable direct email and password login alongside Google OAuth.'}
+              ? 'Update your login password.'
+              : 'Set a password to enable email sign in alongside Google.'}
           </p>
 
           <!-- Alert Notification Box -->
@@ -649,14 +691,13 @@ function createSettingsModalHtml(user, isAdmin = false) {
             </div>
 
             <button type="submit" class="rp-auth-submit-btn" id="rp-settings-submit-btn">
-              ${ICONS.key}
               <span id="rp-settings-submit-text">${isPasswordUser ? 'Update Password' : 'Set Account Password'}</span>
             </button>
 
             ${isPasswordUser && user?.email ? `
-            <div style="text-align: center; margin-top: 10px;">
+            <div class="rp-auth-footer-area">
               <button type="button" class="rp-auth-footer-link" id="rp-settings-forgot-link">
-                Forgot current password? Send reset link
+                Forgot password? Send reset link
               </button>
             </div>
             ` : ''}
@@ -727,7 +768,8 @@ function attachSettingsModalEvents(user) {
       if (!input) return;
       const isPwd = input.type === 'password';
       input.type = isPwd ? 'text' : 'password';
-      toggle.classList.toggle('active', isPwd);
+      toggle.innerHTML = isPwd ? ICONS.eyeOff : ICONS.eye;
+      toggle.setAttribute('aria-label', isPwd ? 'Hide password' : 'Show password');
     });
   });
 
@@ -809,13 +851,18 @@ function attachSettingsModalEvents(user) {
     }
 
     if (submitBtn) submitBtn.disabled = true;
-    if (submitText) submitText.textContent = 'Updating...';
+    if (submitText) submitText.innerHTML = `<span class="rp-spinner" aria-hidden="true"></span> Updating…`;
 
     try {
       const res = await changeAccountPassword({
         currentPassword,
         newPassword
       });
+
+      if (submitBtn && submitText) {
+        submitBtn.classList.add('rp-btn-success');
+        submitText.innerHTML = `<span class="rp-success-check" aria-hidden="true">${ICONS.check}</span> Updated`;
+      }
 
       if (res && res.mode === 'linked') {
         showSettingsOk('Password created successfully! You can now sign in using your email and password or continue with Google.');
@@ -824,11 +871,17 @@ function attachSettingsModalEvents(user) {
       }
 
       form.reset();
+      setTimeout(() => {
+        if (submitBtn) submitBtn.classList.remove('rp-btn-success');
+        if (submitText) submitText.textContent = isPasswordUser ? 'Update Password' : 'Set Account Password';
+      }, 2000);
     } catch (err) {
       showSettingsErr(formatAuthError(err));
     } finally {
       if (submitBtn) submitBtn.disabled = false;
-      if (submitText) submitText.textContent = isPasswordUser ? 'Update Password' : 'Set Account Password';
+      if (submitText && !submitBtn.classList.contains('rp-btn-success')) {
+        submitText.textContent = isPasswordUser ? 'Update Password' : 'Set Account Password';
+      }
     }
   });
 }
@@ -907,8 +960,8 @@ function createOnboardingModalHtml(user, studentData = {}) {
         <!-- Header -->
         <div class="rp-auth-header">
           <div class="rp-auth-brand-logo">rise<span>Paisa</span></div>
-          <h2 class="rp-auth-title" id="rp-onboarding-title">Complete Your Student Profile</h2>
-          <p class="rp-auth-subtitle">Before accessing your courses, please provide the basic information required for your RisePaisa student account.</p>
+          <h2 class="rp-auth-title" id="rp-onboarding-title">Complete Your Profile</h2>
+          <p class="rp-auth-subtitle">Set up your student profile to start learning.</p>
         </div>
 
         ${studentId ? `
@@ -938,7 +991,7 @@ function createOnboardingModalHtml(user, studentData = {}) {
               <span class="rp-input-icon">${ICONS.shield}</span>
               <input type="tel" id="rp-onboard-phone" class="rp-input" placeholder="98XXXXXXXX" value="${initialPhone}" required autocomplete="tel">
             </div>
-            <span class="rp-field-hint">10-digit Nepalese mobile number (e.g. 9841000000, 9741000000)</span>
+            <span class="rp-field-hint">10-digit Nepalese mobile number (e.g. 9841000000)</span>
           </div>
 
           <div class="rp-form-group">
@@ -947,7 +1000,7 @@ function createOnboardingModalHtml(user, studentData = {}) {
               <span class="rp-input-icon">${ICONS.mail}</span>
               <input type="email" id="rp-onboard-email" class="rp-input" placeholder="you@example.com" value="${initialEmail}" autocomplete="email">
             </div>
-            <span class="rp-field-hint">Used for official communications and course updates</span>
+            <span class="rp-field-hint">Used for course updates and official communications</span>
           </div>
 
           <div class="rp-form-group rp-checkbox-group">
@@ -958,12 +1011,12 @@ function createOnboardingModalHtml(user, studentData = {}) {
           </div>
 
           <button type="submit" class="rp-auth-submit-btn" id="rp-onboard-submit">
-            <span id="rp-onboard-submit-text">Complete Profile & Start Learning</span>
+            <span class="rp-submit-text" id="rp-onboard-submit-text">Complete Profile & Start Learning</span>
           </button>
         </form>
 
-        <div style="text-align: center; margin-top: 14px;">
-          <button type="button" class="rp-auth-footer-link" id="rp-onboard-signout" style="color: #666;">
+        <div class="rp-auth-footer-area">
+          <button type="button" class="rp-auth-footer-link" id="rp-onboard-signout">
             Sign out of this account
           </button>
         </div>
@@ -1087,6 +1140,9 @@ function attachOnboardingModalEvents(user) {
         termsAccepted: true
       });
 
+      if (submitBtn) submitBtn.classList.add('rp-btn-success');
+      if (submitText) submitText.innerHTML = `<span class="rp-check-icon" aria-hidden="true">${ICONS.check}</span> Profile Saved`;
+
       if (successAlert) {
         successAlert.textContent = 'Profile completed successfully! Welcome to RisePaisa.';
         successAlert.classList.add('show');
@@ -1119,6 +1175,28 @@ function attachOnboardingModalEvents(user) {
 export function updateNavUserUI(user) {
   const desktopContainer = document.getElementById('desktop-auth-container');
   const mobileContainer = document.getElementById('mobile-auth-container');
+  const tabletAccountBtn = document.getElementById('tablet-account-btn');
+
+  if (typeof window !== 'undefined') {
+    window._rpCurrentUser = user || null;
+  }
+
+  if (tabletAccountBtn) {
+    if (!user) {
+      tabletAccountBtn.innerHTML = ICONS.user;
+      tabletAccountBtn.setAttribute('aria-label', 'Sign in to your account');
+    } else {
+      const studentId = extractStudentIdFromEmail(user.email);
+      const rawName = user.displayName || (studentId ? studentId : (user.email?.split('@')[0] || 'User'));
+      const displayName = escapeHtml(rawName);
+      const initial = (displayName.charAt(0) || 'U').toUpperCase();
+      const photoUrl = user.photoURL ? escapeHtml(user.photoURL) : null;
+      tabletAccountBtn.innerHTML = photoUrl
+        ? `<div class="nav-user-avatar" style="width:24px;height:24px;font-size:11px"><img src="${photoUrl}" alt="${displayName}" referrerpolicy="no-referrer"></div>`
+        : `<div class="nav-user-avatar" style="width:24px;height:24px;font-size:11px">${initial}</div>`;
+      tabletAccountBtn.setAttribute('aria-label', `Account menu for ${displayName}`);
+    }
+  }
 
   if (desktopContainer) {
     if (!user) {
@@ -1329,6 +1407,28 @@ export function initAuthUI() {
 
   // Mount modal markup
   ensureAuthModal();
+
+  // Attach immediate fallback click handlers to pre-rendered markup
+  const initialSignIn = document.getElementById('nav-signin-btn');
+  if (initialSignIn) {
+    initialSignIn.onclick = () => openAuthModal('login');
+  }
+  const initialTabletAccount = document.getElementById('tablet-account-btn');
+  if (initialTabletAccount) {
+    initialTabletAccount.onclick = () => {
+      if (typeof window !== 'undefined' && window._rpCurrentUser) {
+        document.getElementById('nav-toggle')?.click();
+      } else {
+        openAuthModal('login');
+      }
+    };
+  }
+
+  // Ensure desktop container has fallback markup if loaded dynamically
+  const desktopBox = document.getElementById('desktop-auth-container');
+  if (desktopBox && !desktopBox.children.length) {
+    updateNavUserUI(null);
+  }
 
 
   let _lastKnownUid = null;

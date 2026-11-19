@@ -8,15 +8,15 @@
   /* ── Apple Canvas & Surface Architecture (Light Mode) ────── */
   --color-canvas:              #FFFFFF;  /* Pure gallery white */
   --color-canvas-parchment:    #F5F5F7;  /* Apple signature off-white parchment */
-  --color-bg:                  #F5F5F7;  /* Default page background */
-  --color-bg-alt:              #EDEDF0;  /* Alternating section canvas */
+  --color-bg:                  #FFFFFF;  /* Default page background: clean gallery white */
+  --color-bg-alt:              #F5F5F7;  /* Alternating section canvas */
   --color-bg-subtle:           #E5E5EA;  /* Sub-canvas / table header */
   
-  /* Layered Surfaces */
+  /* Layered Surfaces (Clean Solid Content Surfaces) */
   --color-surface:             #FFFFFF;  /* Primary card surface */
   --color-surface-hover:       #FFFFFF;
   --color-surface-active:      #F5F5F7;
-  --color-surface-elevated:    #FFFFFF;  /* Modals, popovers, dropdowns */
+  --color-surface-elevated:    var(--liquid-glass-sheet-bg);  /* Modals, popovers, dropdowns */
   --color-surface-subtle:      rgba(0, 0, 0, 0.035);
   --color-surface-card:        #FFFFFF;  /* Utility cards */
   --color-surface-pearl:       #FAFAFC;  /* Ghost pill capsule fill */
@@ -70,8 +70,8 @@
   --color-divider:             rgba(0, 0, 0, 0.06);
 
   /* ── Navbar Chrome: Apple Frosted Glass ──────────────────── */
-  --nav-bg:                    rgba(255, 255, 255, 0.78);
-  --nav-bg-scrolled:           rgba(255, 255, 255, 0.90);
+  --nav-bg:                    rgba(255, 255, 255, 0.80);
+  --nav-bg-scrolled:           rgba(255, 255, 255, 0.88);
   --nav-link-color:            rgba(29, 29, 31, 0.85);
   --nav-link-hover:            #0071E3;
 
@@ -80,11 +80,13 @@
   --card-bg-hover:             #FFFFFF;
   --card-border:               1px solid rgba(0, 0, 0, 0.08);
   --card-border-hover:         1px solid rgba(0, 0, 0, 0.14);
+  --card-backdrop:             none;
+  --card-radius:               var(--radius-xl, 18px);
 
   /* ── Form Controls & Inputs ──────────────────────────────── */
   --input-bg:                  #FFFFFF;
   --input-bg-focus:            #FFFFFF;
-  --input-border:              rgba(0, 0, 0, 0.15);
+  --input-border:              rgba(0, 0, 0, 0.12);
 
   /* ── Elevation: Apple Signature Product Depth ────────────── */
   --shadow-xs:                 0 1px 2px rgba(0, 0, 0, 0.03);
@@ -93,7 +95,7 @@
   --shadow-lg:                 0 10px 28px rgba(0, 0, 0, 0.07);
   --shadow-xl:                 0 20px 48px rgba(0, 0, 0, 0.09);
   --shadow-card:               0 1px 3px rgba(0, 0, 0, 0.04), 0 0 0 1px rgba(0, 0, 0, 0.06);
-  --shadow-card-hover:         0 4px 16px rgba(0, 0, 0, 0.06), 0 0 0 1px rgba(0, 0, 0, 0.1);
+  --shadow-card-hover:         0 4px 16px rgba(0, 0, 0, 0.06), 0 0 0 1px rgba(0, 0, 0, 0.10);
   --shadow-product:            0 14px 40px -10px rgba(0, 0, 0, 0.18), 0 4px 14px -2px rgba(0, 0, 0, 0.08);
   --shadow-modal:              0 24px 60px rgba(0, 0, 0, 0.18);
 
@@ -107,63 +109,82 @@
   /* ── Controls & Scrollbars ───────────────────────────────── */
   --color-scrollbar-thumb:     rgba(0, 0, 0, 0.18);
   --color-scrollbar-thumb-hover: rgba(0, 0, 0, 0.32);
-  --slider-track-bg:           rgba(0, 0, 0, 0.1);
+  --slider-track-bg:           rgba(0, 0, 0, 0.08);
 
   /* ── Authentic Apple Liquid Glass System (Light Mode) ───────── */
   /* Regular Liquid Glass (Primary Navigation, Modals, Floating Bars, Flyouts) */
-  --liquid-glass-bg:           rgba(255, 255, 255, 0.72);
-  --liquid-glass-bg-scrolled:  rgba(255, 255, 255, 0.85);
-  --liquid-glass-border:       rgba(255, 255, 255, 0.75);
-  --liquid-glass-highlight:    inset 0 1.5px 0.5px 0 rgba(255, 255, 255, 0.98), inset 0 0 0 1px rgba(255, 255, 255, 0.48), inset 0 -1px 0.5px 0 rgba(255, 255, 255, 0.25);
-  --liquid-glass-blur:         blur(16px) saturate(180%);
-  --liquid-glass-shadow:       0 20px 48px -10px rgba(0, 0, 0, 0.10), 0 6px 18px -3px rgba(29, 161, 242, 0.08), 0 0 0 1px rgba(0, 0, 0, 0.04);
-  --liquid-glass-shadow-lg:    0 28px 64px -12px rgba(0, 0, 0, 0.14), 0 10px 24px -4px rgba(29, 161, 242, 0.10), 0 0 0 1px rgba(0, 0, 0, 0.05);
-  --liquid-glass-shadow-sm:    0 6px 18px -2px rgba(0, 0, 0, 0.07), 0 2px 6px -1px rgba(29, 161, 242, 0.05);
+  --liquid-glass-bg:           linear-gradient(180deg, rgba(255, 255, 255, 0.70) 0%, rgba(255, 255, 255, 0.46) 55%, rgba(255, 255, 255, 0.58) 100%);
+  --liquid-glass-bg-hover:     rgba(255, 255, 255, 0.82);
+  --liquid-glass-bg-active:    rgba(245, 247, 252, 0.90);
+  --liquid-glass-bg-scrolled:  linear-gradient(180deg, rgba(255, 255, 255, 0.84) 0%, rgba(250, 252, 255, 0.72) 100%);
+  --liquid-glass-border:       rgba(0, 0, 0, 0.07);
+  --liquid-glass-border-subtle: rgba(0, 0, 0, 0.05);
+  --liquid-glass-highlight:    inset 0 1px 0.5px rgba(255, 255, 255, 0.95), inset 0 -0.5px 0.5px rgba(0, 0, 0, 0.03);
+  --liquid-glass-blur:         blur(28px) saturate(210%) brightness(102%) contrast(102%);
+  --liquid-glass-shadow:       0 8px 24px -2px rgba(0, 0, 0, 0.04), 0 1px 3px rgba(0, 0, 0, 0.02);
+  --liquid-glass-shadow-lg:    0 16px 36px -4px rgba(0, 0, 0, 0.07), 0 2px 6px rgba(0, 0, 0, 0.03);
+  --liquid-glass-shadow-sm:    0 4px 16px rgba(0, 0, 0, 0.04);
 
   /* Clear Liquid Glass (Transient Overlays, Floating Controls, Knobs, Pills) */
-  --liquid-glass-clear-bg:     rgba(255, 255, 255, 0.56);
-  --liquid-glass-clear-border: rgba(255, 255, 255, 0.80);
-  --liquid-glass-clear-highlight: inset 0 1.5px 0.5px 0 rgba(255, 255, 255, 1), inset 0 0 0 1px rgba(255, 255, 255, 0.55), inset 0 -1px 0.5px 0 rgba(255, 255, 255, 0.30);
-  --liquid-glass-clear-blur:   blur(14px) saturate(180%);
-  --liquid-glass-clear-shadow: 0 10px 28px -4px rgba(0, 0, 0, 0.09), 0 3px 10px rgba(29, 161, 242, 0.06);
+  --liquid-glass-clear-bg:     rgba(255, 255, 255, 0.65);
+  --liquid-glass-clear-hover:  rgba(255, 255, 255, 0.80);
+  --liquid-glass-clear-border: rgba(255, 255, 255, 0.75);
+  --liquid-glass-clear-highlight: inset 0 1px 0.5px rgba(255, 255, 255, 0.95), inset 0 0 0 1px rgba(255, 255, 255, 0.50);
+  --liquid-glass-clear-blur:   blur(18px) saturate(180%);
+  --liquid-glass-clear-shadow: 0 6px 20px -4px rgba(0, 0, 0, 0.06);
 
-  /* Subtle Translucent Material (Pills, Chips, Quick Actions, Sliders) */
-  --liquid-glass-subtle-bg:    rgba(255, 255, 255, 0.58);
-  --liquid-glass-subtle-border: rgba(255, 255, 255, 0.72);
-  --liquid-glass-subtle-blur:  blur(10px) saturate(150%);
+  /* Subtle Translucent Material (Pills, Chips, Quick Actions) */
+  --liquid-glass-subtle-bg:    rgba(255, 255, 255, 0.55);
+  --liquid-glass-subtle-hover: rgba(255, 255, 255, 0.70);
+  --liquid-glass-subtle-border: rgba(0, 0, 0, 0.05);
+  --liquid-glass-subtle-blur:  blur(14px) saturate(160%);
 
-  /* ── 1. Drawer Surface Material (Controlled Milky Frosted Glass) ── */
-  --liquid-glass-drawer-bg:        rgba(248, 249, 252, 0.96);
-  --liquid-glass-drawer-border:    rgba(255, 255, 255, 0.85);
-  --liquid-glass-drawer-blur:      blur(20px) saturate(150%);
-  --liquid-glass-drawer-shadow:    -16px 0 48px -8px rgba(0, 0, 0, 0.28), 0 0 0 1px rgba(0, 0, 0, 0.04);
-  --liquid-glass-drawer-highlight: inset 1px 1.5px 0.5px rgba(255, 255, 255, 1), inset 0 0 0 1px rgba(255, 255, 255, 0.60);
+  /* Elevated Glass Sheet / Dialog Surface (Light) */
+  --liquid-glass-sheet-bg:     rgba(255, 255, 255, 0.82);
+  --liquid-glass-sheet-border: rgba(255, 255, 255, 0.85);
+  --liquid-glass-sheet-highlight: inset 0 1.5px 0.5px 0 #FFFFFF, inset 0 0 0 1px rgba(255, 255, 255, 0.60);
+  --liquid-glass-sheet-blur:   blur(28px) saturate(190%);
+  --liquid-glass-sheet-shadow: 0 20px 48px -8px rgba(15, 23, 42, 0.10), 0 4px 14px -2px rgba(15, 23, 42, 0.04);
+
+  /* ── 1. Drawer Surface Material (Apple Frosted Liquid Glass Sheet) ── */
+  --liquid-glass-drawer-bg:        linear-gradient(180deg, rgba(255, 255, 255, 0.82) 0%, rgba(248, 250, 255, 0.76) 100%);
+  --liquid-glass-drawer-border:    rgba(255, 255, 255, 0.75);
+  --liquid-glass-drawer-blur:      blur(24px) saturate(180%);
+  --liquid-glass-drawer-shadow:    -14px 0 40px -4px rgba(15, 23, 42, 0.12), -4px 0 12px -2px rgba(15, 23, 42, 0.04);
+  --liquid-glass-drawer-highlight: inset 1px 0 0.5px rgba(255, 255, 255, 0.85);
+  --liquid-glass-drawer-overlay:   rgba(15, 23, 42, 0.22);
+
+  /* ── 1b. Dropdown Surface Material (Apple Floating Liquid Glass Panel) ── */
+  --liquid-glass-dropdown-bg:        linear-gradient(180deg, rgba(255, 255, 255, 0.94) 0%, rgba(246, 249, 255, 0.88) 100%);
+  --liquid-glass-dropdown-border:    rgba(255, 255, 255, 0.95);
+  --liquid-glass-dropdown-blur:      blur(28px) saturate(210%) brightness(102%);
+  --liquid-glass-dropdown-shadow:    inset 0 1.5px 0.5px #FFFFFF, inset 0 0 0 1px rgba(255, 255, 255, 0.70), 0 20px 48px -6px rgba(15, 23, 42, 0.22), 0 8px 20px -2px rgba(15, 23, 42, 0.10);
 
   /* ── 2. Raised Glass Buttons & Control Capsules (Light Theme) ── */
-  --raised-glass-bg:               linear-gradient(180deg, #ffffff 0%, rgba(246, 248, 252, 0.95) 100%);
-  --raised-glass-bg-hover:         linear-gradient(180deg, #ffffff 0%, #f0f4fc 100%);
-  --raised-glass-bg-active:        linear-gradient(180deg, #edf1f7 0%, #f6f8fc 100%);
-  --raised-glass-border:           rgba(255, 255, 255, 0.95);
-  --raised-glass-border-lower:     rgba(0, 0, 0, 0.08);
-  --raised-glass-highlight:        inset 0 1.5px 0.5px #ffffff, inset 0 -1px 0.5px rgba(0, 0, 0, 0.06), inset 0 0 0 1px rgba(255, 255, 255, 0.80);
-  --raised-glass-shadow:           0 4px 14px -2px rgba(15, 23, 42, 0.08), 0 1.5px 4px -1px rgba(15, 23, 42, 0.05);
-  --raised-glass-shadow-hover:     0 6px 20px -3px rgba(15, 23, 42, 0.12), 0 2px 6px -1px rgba(15, 23, 42, 0.06);
-  --raised-glass-shadow-pressed:   0 1px 3px rgba(15, 23, 42, 0.08), inset 0 1.5px 2px rgba(0, 0, 0, 0.07);
+  --raised-glass-bg:               linear-gradient(180deg, rgba(255, 255, 255, 0.84) 0%, rgba(246, 248, 254, 0.74) 100%);
+  --raised-glass-bg-hover:         #ffffff;
+  --raised-glass-bg-active:        linear-gradient(180deg, rgba(235, 240, 250, 0.90) 0%, rgba(246, 248, 254, 0.85) 100%);
+  --raised-glass-border:           rgba(255, 255, 255, 0.90);
+  --raised-glass-border-lower:     rgba(0, 0, 0, 0.06);
+  --raised-glass-highlight:        inset 0 1.5px 0.5px #ffffff, inset 0 0 0 1px rgba(255, 255, 255, 0.75);
+  --raised-glass-shadow:           0 4px 14px -2px rgba(15, 23, 42, 0.06), 0 1.5px 4px -1px rgba(15, 23, 42, 0.04);
+  --raised-glass-shadow-hover:     0 6px 20px -3px rgba(15, 23, 42, 0.10), 0 2px 6px -1px rgba(15, 23, 42, 0.05);
+  --raised-glass-shadow-pressed:   0 1px 3px rgba(15, 23, 42, 0.08), inset 0 1.5px 2px rgba(0, 0, 0, 0.06);
 
   /* ── 3. Raised Glass Nav Items (Drawer & Menus) ── */
-  --raised-nav-item-bg:            linear-gradient(180deg, #ffffff 0%, rgba(248, 249, 252, 0.96) 100%);
-  --raised-nav-item-bg-hover:      linear-gradient(180deg, #ffffff 0%, #edf3fe 100%);
-  --raised-nav-item-bg-active:     linear-gradient(180deg, rgba(0, 113, 227, 0.14) 0%, rgba(0, 113, 227, 0.07) 100%);
-  --raised-nav-item-border:        rgba(255, 255, 255, 0.95);
-  --raised-nav-item-border-active: rgba(0, 113, 227, 0.35);
-  --raised-nav-item-highlight:     inset 0 1.5px 0.5px #ffffff, inset 0 -1px 0.5px rgba(0, 0, 0, 0.04), inset 0 0 0 1px rgba(255, 255, 255, 0.70);
-  --raised-nav-item-shadow:        0 3px 10px -2px rgba(15, 23, 42, 0.06), 0 1px 3px rgba(15, 23, 42, 0.03);
+  --raised-nav-item-bg:            linear-gradient(180deg, rgba(255, 255, 255, 0.82) 0%, rgba(248, 249, 254, 0.72) 100%);
+  --raised-nav-item-bg-hover:      #ffffff;
+  --raised-nav-item-bg-active:     linear-gradient(180deg, rgba(0, 113, 227, 0.12) 0%, rgba(0, 113, 227, 0.06) 100%);
+  --raised-nav-item-border:        rgba(255, 255, 255, 0.88);
+  --raised-nav-item-border-active: rgba(0, 113, 227, 0.32);
+  --raised-nav-item-highlight:     inset 0 1px 0.5px rgba(255, 255, 255, 0.95);
+  --raised-nav-item-shadow:        0 2px 6px rgba(15, 23, 42, 0.04);
 
   /* ── 4. Raised WhatsApp Action (Vibrant Physical Green Glass) ── */
-  --raised-wa-bg:                  linear-gradient(180deg, #2ae06c 0%, #20ba5a 100%);
-  --raised-wa-bg-hover:            linear-gradient(180deg, #32e874 0%, #22c560 100%);
-  --raised-wa-highlight:           inset 0 1.5px 0.5px rgba(255, 255, 255, 0.45), inset 0 -1.5px 1px rgba(0, 0, 0, 0.18), inset 0 0 0 1px rgba(255, 255, 255, 0.25);
-  --raised-wa-shadow:              0 6px 22px -3px rgba(37, 211, 102, 0.45), 0 2px 6px -1px rgba(0, 0, 0, 0.12);
+  --raised-wa-bg:                  linear-gradient(180deg, #28D264 0%, #1DB956 100%);
+  --raised-wa-bg-hover:            linear-gradient(180deg, #2CE26B 0%, #1EC158 100%);
+  --raised-wa-highlight:           inset 0 1.5px 0.5px rgba(255, 255, 255, 0.50), inset 0 -1.5px 1px rgba(0, 0, 0, 0.16), inset 0 0 0 1px rgba(255, 255, 255, 0.25);
+  --raised-wa-shadow:              0 6px 18px -3px rgba(27, 179, 82, 0.28), 0 2px 6px -1px rgba(0, 0, 0, 0.08);
 
   /* ── 5. Raised Primary Action (Apple Action Blue Glass) ── */
   --raised-primary-bg:             linear-gradient(180deg, #0a84ff 0%, #0066cc 100%);
@@ -215,17 +236,17 @@
   /* ── Apple Canvas & Surface Architecture (Dark Mode) ─────── */
   --color-canvas:              #000000;  /* Cinematic pure void */
   --color-canvas-parchment:    #161617;  /* Dark parchment */
-  --color-bg:                  #000000;  /* Default dark page background */
-  --color-bg-alt:              #161617;  /* Secondary section canvas */
-  --color-bg-subtle:           #1D1D1F;  /* Sub-canvas / table header */
+  --color-bg:                  #0A0B0D;  /* Default dark page background */
+  --color-bg-alt:              rgba(22, 23, 28, 0.78);  /* Secondary section canvas */
+  --color-bg-subtle:           rgba(29, 29, 31, 0.85);  /* Sub-canvas / table header */
   
-  /* Layered Surfaces */
-  --color-surface:             #1C1C1E;  /* Elevated card surface */
-  --color-surface-hover:       #242426;
-  --color-surface-active:      #2C2C2E;
-  --color-surface-elevated:    #242426;  /* Modals, popovers, dropdowns */
+  /* Layered Surfaces (Liquid Glass Translucent Architecture) */
+  --color-surface:             var(--card-bg);  /* Elevated card surface */
+  --color-surface-hover:       var(--card-bg-hover);
+  --color-surface-active:      var(--liquid-glass-bg-active);
+  --color-surface-elevated:    var(--liquid-glass-sheet-bg);  /* Modals, popovers, dropdowns */
   --color-surface-subtle:      rgba(255, 255, 255, 0.04);
-  --color-surface-card:        #1C1C1E;
+  --color-surface-card:        var(--card-bg);
   --color-surface-pearl:       #2C2C2E;  /* Ghost pill capsule fill */
   --color-surface-tile-1:      #1D1D1F;
   --color-surface-tile-2:      #252527;
@@ -284,14 +305,16 @@
 
   /* ── Card System Defaults (Clear Content Surfaces: Opaque) ── */
   --card-bg:                   #1C1C1E;
-  --card-bg-hover:             #242426;
-  --card-border:               1px solid rgba(255, 255, 255, 0.1);
+  --card-bg-hover:             #242428;
+  --card-border:               1px solid rgba(255, 255, 255, 0.10);
   --card-border-hover:         1px solid rgba(255, 255, 255, 0.18);
+  --card-backdrop:             none;
+  --card-radius:               var(--radius-xl, 18px);
 
   /* ── Form Controls & Inputs ──────────────────────────────── */
-  --input-bg:                  rgba(255, 255, 255, 0.06);
-  --input-bg-focus:            rgba(255, 255, 255, 0.09);
-  --input-border:              rgba(255, 255, 255, 0.14);
+  --input-bg:                  #1C1C1E;
+  --input-bg-focus:            #242428;
+  --input-border:              rgba(255, 255, 255, 0.16);
 
   /* ── Shadows: Soft Atmospheric Elevation ─────────────────── */
   --shadow-xs:                 0 1px 2px rgba(0, 0, 0, 0.3);
@@ -318,59 +341,79 @@
 
   /* ── Authentic Apple Liquid Glass System (Dark Mode) ────────── */
   /* Regular Liquid Glass (Primary Navigation, Modals, Floating Bars, Flyouts) */
-  --liquid-glass-bg:           rgba(22, 22, 26, 0.68);
-  --liquid-glass-bg-scrolled:  rgba(16, 16, 20, 0.82);
-  --liquid-glass-border:       rgba(255, 255, 255, 0.20);
-  --liquid-glass-highlight:    inset 0 1.5px 0.5px 0 rgba(255, 255, 255, 0.38), inset 0 0 0 1px rgba(255, 255, 255, 0.12), inset 0 -1px 0.5px 0 rgba(255, 255, 255, 0.08);
-  --liquid-glass-blur:         blur(16px) saturate(180%);
-  --liquid-glass-shadow:       0 20px 48px -10px rgba(0, 0, 0, 0.60), 0 4px 16px -2px rgba(41, 151, 255, 0.14), 0 0 0 1px rgba(255, 255, 255, 0.08);
-  --liquid-glass-shadow-lg:    0 28px 64px -12px rgba(0, 0, 0, 0.70), 0 8px 24px -4px rgba(41, 151, 255, 0.18), 0 0 0 1px rgba(255, 255, 255, 0.10);
-  --liquid-glass-shadow-sm:    0 6px 18px -2px rgba(0, 0, 0, 0.45), 0 2px 6px -1px rgba(41, 151, 255, 0.08);
+  --liquid-glass-bg:           linear-gradient(180deg, rgba(30, 32, 40, 0.68) 0%, rgba(20, 22, 28, 0.52) 55%, rgba(16, 18, 24, 0.62) 100%);
+  --liquid-glass-bg-hover:     rgba(34, 38, 48, 0.78);
+  --liquid-glass-bg-active:    rgba(16, 18, 24, 0.85);
+  --liquid-glass-bg-scrolled:  linear-gradient(180deg, rgba(28, 30, 38, 0.84) 0%, rgba(16, 18, 24, 0.76) 100%);
+  --liquid-glass-border:       rgba(255, 255, 255, 0.12);
+  --liquid-glass-border-subtle: rgba(255, 255, 255, 0.06);
+  --liquid-glass-highlight:    inset 0 1px 0.5px rgba(255, 255, 255, 0.22), inset 0 -0.5px 0.5px rgba(0, 0, 0, 0.40);
+  --liquid-glass-refraction:   none;
+  --liquid-glass-blur:         blur(28px) saturate(200%) brightness(106%) contrast(104%);
+  --liquid-glass-shadow:       0 12px 36px -4px rgba(0, 0, 0, 0.55), 0 1px 3px rgba(0, 0, 0, 0.35);
+  --liquid-glass-shadow-lg:    0 20px 48px -4px rgba(0, 0, 0, 0.65), 0 2px 6px rgba(0, 0, 0, 0.45);
+  --liquid-glass-shadow-sm:    0 6px 20px rgba(0, 0, 0, 0.40);
 
   /* Clear Liquid Glass (Transient Overlays, Floating Video Controls, Knobs) */
-  --liquid-glass-clear-bg:     rgba(40, 40, 48, 0.55);
-  --liquid-glass-clear-border: rgba(255, 255, 255, 0.26);
-  --liquid-glass-clear-highlight: inset 0 1.5px 0.5px 0 rgba(255, 255, 255, 0.45), inset 0 0 0 1px rgba(255, 255, 255, 0.14), inset 0 -1px 0.5px 0 rgba(255, 255, 255, 0.10);
-  --liquid-glass-clear-blur:   blur(14px) saturate(180%);
-  --liquid-glass-clear-shadow: 0 10px 28px -4px rgba(0, 0, 0, 0.50), 0 2px 8px rgba(41, 151, 255, 0.10);
+  --liquid-glass-clear-bg:     rgba(32, 35, 44, 0.60);
+  --liquid-glass-clear-hover:  rgba(44, 48, 60, 0.75);
+  --liquid-glass-clear-border: rgba(255, 255, 255, 0.18);
+  --liquid-glass-clear-highlight: inset 0 1px 0.5px 0 rgba(255, 255, 255, 0.30);
+  --liquid-glass-clear-blur:   blur(18px) saturate(180%);
+  --liquid-glass-clear-shadow: 0 10px 28px rgba(0, 0, 0, 0.50);
 
   /* Subtle Translucent Material (Pills, Chips, Quick Actions) */
-  --liquid-glass-subtle-bg:    rgba(255, 255, 255, 0.09);
-  --liquid-glass-subtle-border: rgba(255, 255, 255, 0.16);
-  --liquid-glass-subtle-blur:  blur(10px) saturate(150%);
+  --liquid-glass-subtle-bg:    rgba(255, 255, 255, 0.08);
+  --liquid-glass-subtle-hover: rgba(255, 255, 255, 0.14);
+  --liquid-glass-subtle-border: rgba(255, 255, 255, 0.10);
+  --liquid-glass-subtle-blur:  blur(14px) saturate(160%);
 
-  /* ── 1. Drawer Surface Material (Smoked Obsidian Frosted Glass) ── */
-  --liquid-glass-drawer-bg:        rgba(20, 22, 27, 0.93);
-  --liquid-glass-drawer-border:    rgba(255, 255, 255, 0.14);
-  --liquid-glass-drawer-blur:      blur(20px) saturate(150%);
-  --liquid-glass-drawer-shadow:    -16px 0 52px rgba(0, 0, 0, 0.65), 0 0 0 1px rgba(255, 255, 255, 0.08);
-  --liquid-glass-drawer-highlight: inset 1px 1.5px 0.5px rgba(255, 255, 255, 0.25), inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+  /* Elevated Glass Sheet / Dialog Surface (Dark) */
+  --liquid-glass-sheet-bg:     rgba(22, 24, 30, 0.84);
+  --liquid-glass-sheet-border: rgba(255, 255, 255, 0.16);
+  --liquid-glass-sheet-highlight: inset 0 1px 0.5px 0 rgba(255, 255, 255, 0.25);
+  --liquid-glass-sheet-blur:   blur(26px) saturate(190%);
+  --liquid-glass-sheet-shadow: 0 24px 60px rgba(0, 0, 0, 0.75);
+
+  /* ── 1. Drawer Surface Material (Smoked Obsidian Apple Frosted Glass Sheet) ── */
+  --liquid-glass-drawer-bg:        linear-gradient(180deg, rgba(22, 26, 36, 0.82) 0%, rgba(15, 18, 25, 0.78) 100%);
+  --liquid-glass-drawer-border:    rgba(255, 255, 255, 0.12);
+  --liquid-glass-drawer-blur:      blur(28px) saturate(190%);
+  --liquid-glass-drawer-shadow:    -16px 0 48px -4px rgba(0, 0, 0, 0.60), -6px 0 16px -2px rgba(0, 0, 0, 0.35);
+  --liquid-glass-drawer-highlight: inset 1px 0 0.5px rgba(255, 255, 255, 0.14);
+  --liquid-glass-drawer-overlay:   rgba(0, 0, 0, 0.50);
+
+  /* ── 1b. Dropdown Surface Material (Apple Floating Liquid Glass Panel - Dark) ── */
+  --liquid-glass-dropdown-bg:        linear-gradient(180deg, rgba(36, 40, 52, 0.94) 0%, rgba(22, 25, 34, 0.90) 100%);
+  --liquid-glass-dropdown-border:    rgba(255, 255, 255, 0.22);
+  --liquid-glass-dropdown-blur:      blur(28px) saturate(200%) brightness(108%);
+  --liquid-glass-dropdown-shadow:    inset 0 1.5px 0.5px rgba(255, 255, 255, 0.35), inset 0 0 0 1px rgba(255, 255, 255, 0.12), 0 24px 64px rgba(0, 0, 0, 0.80), 0 8px 24px rgba(0, 0, 0, 0.50);
 
   /* ── 2. Raised Glass Buttons & Control Capsules (Dark Theme) ── */
-  --raised-glass-bg:               linear-gradient(180deg, rgba(42, 45, 53, 0.98) 0%, rgba(30, 32, 38, 0.95) 100%);
-  --raised-glass-bg-hover:         linear-gradient(180deg, rgba(50, 54, 64, 1) 0%, rgba(36, 39, 46, 0.98) 100%);
-  --raised-glass-bg-active:        linear-gradient(180deg, rgba(26, 28, 33, 0.98) 0%, rgba(34, 37, 44, 0.95) 100%);
-  --raised-glass-border:           rgba(255, 255, 255, 0.18);
+  --raised-glass-bg:               linear-gradient(180deg, rgba(46, 52, 66, 0.80) 0%, rgba(30, 34, 46, 0.70) 100%);
+  --raised-glass-bg-hover:         linear-gradient(180deg, rgba(58, 65, 84, 0.92) 0%, rgba(40, 45, 60, 0.88) 100%);
+  --raised-glass-bg-active:        linear-gradient(180deg, rgba(28, 32, 42, 0.95) 0%, rgba(36, 40, 52, 0.90) 100%);
+  --raised-glass-border:           rgba(255, 255, 255, 0.14);
   --raised-glass-border-lower:     rgba(0, 0, 0, 0.40);
-  --raised-glass-highlight:        inset 0 1.5px 0.5px rgba(255, 255, 255, 0.25), inset 0 -1px 0.5px rgba(0, 0, 0, 0.35), inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+  --raised-glass-highlight:        inset 0 1.5px 0.5px rgba(255, 255, 255, 0.20), inset 0 0 0 1px rgba(255, 255, 255, 0.08);
   --raised-glass-shadow:           0 4px 14px -2px rgba(0, 0, 0, 0.45), 0 1.5px 4px -1px rgba(0, 0, 0, 0.25);
   --raised-glass-shadow-hover:     0 6px 20px -3px rgba(0, 0, 0, 0.60), 0 2px 6px -1px rgba(0, 0, 0, 0.30);
   --raised-glass-shadow-pressed:   0 1px 3px rgba(0, 0, 0, 0.30), inset 0 1px 3px rgba(0, 0, 0, 0.40);
 
   /* ── 3. Raised Glass Nav Items (Drawer & Menus) ── */
-  --raised-nav-item-bg:            linear-gradient(180deg, rgba(38, 42, 50, 0.98) 0%, rgba(28, 31, 38, 0.95) 100%);
-  --raised-nav-item-bg-hover:      linear-gradient(180deg, rgba(48, 53, 64, 1) 0%, rgba(34, 38, 46, 0.98) 100%);
+  --raised-nav-item-bg:            linear-gradient(180deg, rgba(46, 52, 66, 0.82) 0%, rgba(32, 36, 48, 0.72) 100%);
+  --raised-nav-item-bg-hover:      rgba(58, 65, 84, 0.90);
   --raised-nav-item-bg-active:     linear-gradient(180deg, rgba(41, 151, 255, 0.22) 0%, rgba(41, 151, 255, 0.12) 100%);
-  --raised-nav-item-border:        rgba(255, 255, 255, 0.15);
-  --raised-nav-item-border-active: rgba(41, 151, 255, 0.50);
-  --raised-nav-item-highlight:     inset 0 1.5px 0.5px rgba(255, 255, 255, 0.25), inset 0 0 0 1px rgba(255, 255, 255, 0.08);
-  --raised-nav-item-shadow:        0 3px 10px -2px rgba(0, 0, 0, 0.35);
+  --raised-nav-item-border:        rgba(255, 255, 255, 0.14);
+  --raised-nav-item-border-active: rgba(41, 151, 255, 0.45);
+  --raised-nav-item-highlight:     inset 0 1px 0.5px rgba(255, 255, 255, 0.22);
+  --raised-nav-item-shadow:        0 2px 6px rgba(0, 0, 0, 0.35);
 
   /* ── 4. Raised WhatsApp Action (Dark) ── */
   --raised-wa-bg:                  linear-gradient(180deg, #24c65e 0%, #1da84f 100%);
   --raised-wa-bg-hover:            linear-gradient(180deg, #2ae06c 0%, #20ba5a 100%);
   --raised-wa-highlight:           inset 0 1.5px 0.5px rgba(255, 255, 255, 0.35), inset 0 -1.5px 1px rgba(0, 0, 0, 0.25), inset 0 0 0 1px rgba(255, 255, 255, 0.15);
-  --raised-wa-shadow:              0 6px 20px -3px rgba(37, 211, 102, 0.30), 0 2px 6px -1px rgba(0, 0, 0, 0.30);
+  --raised-wa-shadow:              0 6px 18px -3px rgba(29, 185, 84, 0.25), 0 2px 6px -1px rgba(0, 0, 0, 0.25);
 
   /* ── 5. Raised Primary Action (Dark) ── */
   --raised-primary-bg:             linear-gradient(180deg, #3aa0ff 0%, #1a82e8 100%);
@@ -492,8 +535,8 @@
   --container-lg:              1024px;
   --container-xl:              1200px;
   --container-2xl:             1360px;
-  --nav-height:                48px;             /* Apple slim nav standard */
-  --nav-height-mobile:         48px;
+  --nav-height:                54px;             /* Apple-grade navigation standard */
+  --nav-height-mobile:         52px;
   --section-padding-y:         80px;             /* Apple generous tile vertical air */
   --section-padding-y-mobile:  52px;
 
@@ -546,7 +589,7 @@
 
 @media (max-width: 767px) {
   :root {
-    --nav-height: var(--nav-height-mobile, 48px);
+    --nav-height: var(--nav-height-mobile, 52px);
     --section-padding-y: var(--section-padding-y-mobile, 52px);
     --liquid-glass-blur: blur(12px) saturate(160%);
     --liquid-glass-clear-blur: blur(10px) saturate(160%);

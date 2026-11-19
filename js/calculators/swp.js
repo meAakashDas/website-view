@@ -4,7 +4,6 @@
 // ==============================================
 import {
   formatNPR,
-  formatCompactNPR,
   validateSWPInputs,
   simulateSWP,
   SWP_BOUNDS,

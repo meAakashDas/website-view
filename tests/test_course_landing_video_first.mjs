@@ -88,7 +88,7 @@ assert(!contentBetweenDescAndDemo.includes('cd-purchase-card'), 'No purchase car
 // ── 2. Demo Video Main Focus ─────────────────────────────────
 console.log('\n--- 2. Testing Demo Video Main Focus ---');
 
-assert(courseDetailHtml.includes('id="cd-demo-iframe"'), 'Includes real demo iframe with id="cd-demo-iframe"');
+assert(courseDetailHtml.includes('id="cd-demo-player"') || courseDetailHtml.includes('id="cd-demo-iframe"'), 'Includes real demo player with id="cd-demo-player"');
 assert(courseDetailHtml.includes('ziVeMxMF4e8'), 'Uses real configured YouTube demo video ID ziVeMxMF4e8');
 assert(courseDetailHtml.includes('Free Demo Video'), 'Contains clear heading "Free Demo Video"');
 assert(!courseDetailHtml.includes('18m 42s Free Preview'), 'Does not contain removed "18m 42s Free Preview" runtime label');

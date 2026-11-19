@@ -578,11 +578,12 @@ export async function resolveBookmarkMetadata(type, slug) {
         return { type: 'guide', slug: cleanSlug, title, url };
       }
     } else if (cleanType === 'resource') {
-      const { FREE_RESOURCES } = await import('../data/freeResources.js');
-      const r = (FREE_RESOURCES || []).find(item => item.id === cleanSlug);
+      const { getResources } = await import('../data/resources.js');
+      const allRes = getResources ? getResources() : [];
+      const r = allRes.find(item => item.slug === cleanSlug || String(item.id) === cleanSlug);
       if (r) {
-        const title = r.title?.en || r.title || r.id;
-        const url = r.downloadUrl || `/resources/${r.id}`;
+        const title = r.title?.en || r.title || r.slug;
+        const url = `/resources/${r.slug}`;
         return { type: 'resource', slug: cleanSlug, title, url };
       }
     }

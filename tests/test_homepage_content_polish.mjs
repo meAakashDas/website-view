@@ -41,13 +41,20 @@ test('Hero eyebrow is "FINANCIAL EDUCATION FOR NEPAL"', () => {
   assert.ok(indexHtml.includes('FINANCIAL EDUCATION FOR NEPAL'), 'Static index.html contains exact hero eyebrow');
 });
 
-test('Hero heading is "Understand Money. Make Better Financial Decisions."', () => {
-  assert.ok(homeHtml.includes('Understand Money.'), 'Hero heading line 1');
-  assert.ok(homeHtml.includes('Make Better Financial Decisions.'), 'Hero heading line 2');
+test('Hero heading is "Hamro Nepal, Hamro Arthik Uday"', () => {
+  const homeH1Match = homeHtml.match(/<h1[^>]*>([\s\S]*?)<\/h1>/);
+  assert.ok(homeH1Match, 'Home h1 element exists');
+  const cleanHomeH1 = homeH1Match[1].replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim();
+  assert.strictEqual(cleanHomeH1, 'Hamro Nepal, Hamro Arthik Uday', 'Component HTML h1 contains exact brand headline');
+
+  const indexH1Match = indexHtml.match(/<h1[^>]*>([\s\S]*?)<\/h1>/);
+  assert.ok(indexH1Match, 'Index h1 element exists');
+  const cleanIndexH1 = indexH1Match[1].replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim();
+  assert.strictEqual(cleanIndexH1, 'Hamro Nepal, Hamro Arthik Uday', 'Static index.html h1 contains exact brand headline');
 });
 
-test('Hero description matches exact revised copy', () => {
-  const expectedDesc = 'Learn about investing, taxation, and personal finance in Nepal through practical guides, free calculators, and structured courses.';
+test('Hero description matches exact revised brand statement', () => {
+  const expectedDesc = 'Financial knowledge, practical tools, and smarter opportunities for a financially stronger Nepal.';
   assert.ok(homeHtml.includes(expectedDesc), 'Component HTML contains exact hero description');
   assert.ok(indexHtml.includes(expectedDesc), 'Static index.html contains exact hero description');
 });
@@ -172,9 +179,9 @@ test('Calculators bottom action is "Explore All Calculators"', () => {
 
 console.log('\n--- 4. Testing Learn and Explore Section Simplification ---');
 
-test('Learn & Explore eyebrow is "FREE LEARNING RESOURCES"', () => {
-  assert.ok(homeHtml.includes('FREE LEARNING RESOURCES'), 'Eyebrow in home.js');
-  assert.ok(indexHtml.includes('FREE LEARNING RESOURCES'), 'Eyebrow in index.html');
+test('Learn & Explore eyebrow is "CURRICULUM & KNOWLEDGE"', () => {
+  assert.ok(homeHtml.includes('CURRICULUM &amp; KNOWLEDGE'), 'Eyebrow in home.js');
+  assert.ok(indexHtml.includes('CURRICULUM &amp; KNOWLEDGE'), 'Eyebrow in index.html');
   assert.ok(!homeHtml.includes('Free Knowledge Hub'), 'Obsolete eyebrow removed');
 });
 
@@ -202,10 +209,10 @@ test('Group 3 (Articles & Insights) has exact description and clean footer', () 
   assert.ok(homeHtml.includes('Read Articles'), 'Clean footer link');
 });
 
-test('Downloadable Resources banner has exact concise copy', () => {
-  assert.ok(homeHtml.includes('Free Financial Resources'), 'Banner title');
-  assert.ok(homeHtml.includes('Download practical budgeting spreadsheets, investment worksheets, and study checklists.'), 'Banner desc');
-  assert.ok(homeHtml.includes('Explore Free Resources'), 'Banner action');
+test('Downloadable free resources banner is cleanly removed from homepage', () => {
+  assert.ok(!homeHtml.includes('learn-resources-banner'), 'Banner container removed from home.js');
+  assert.ok(!indexHtml.includes('learn-resources-banner'), 'Banner container removed from index.html');
+  assert.ok(!homeHtml.includes('Explore Free Resources'), 'Explore Free Resources CTA removed');
 });
 
 console.log('\n--- 5. Testing Founder and Mission Section Simplification ---');

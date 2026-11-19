@@ -4,7 +4,6 @@
 // ==============================================
 import {
   formatNPR,
-  formatCompactNPR,
   calculateFD,
   calculateRD,
   FD_RD_CONFIG,
@@ -722,6 +721,15 @@ export function initFDRDCalculator() {
       paneRD.style.display = target === 'rd' ? 'block' : 'none';
       paneRD.classList.toggle('active', target === 'rd');
     }
+
+    try {
+      import('../liquid-glass.js').then(({ LiquidGlassManager }) => {
+        const activePane = target === 'fd' ? paneFD : paneRD;
+        if (activePane) {
+          LiquidGlassManager.initSliderGlass(activePane);
+        }
+      }).catch(() => {});
+    } catch {}
   }
 
   tabBtns.forEach(btn => {

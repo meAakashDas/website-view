@@ -1,4 +1,4 @@
-# RisePaisa — Student Account Management & Onboarding Architecture
+# RisePaisa: Student Account Management & Onboarding Architecture
 
 This document specifies the technical architecture, security model, and operating procedures for the Student Account Management System in the RisePaisa Administrator Portal.
 

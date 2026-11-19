@@ -1,4 +1,4 @@
-# RisePaisa — Course Platform Release Checklist & Runbook
+# RisePaisa: Course Platform Release Checklist & Runbook
 
 > **Authoritative Deployment & Release Protocol for RisePaisa Course Platform (Parts 1–10)**  
 > *Target Environment: risepaisa-77278 | Custom Domain: risepaisa.com | Hosting: GitHub Pages*
@@ -13,7 +13,7 @@ This runbook specifies the step-by-step procedures required to prepare, verify, 
 
 ---
 
-## Stage A — Local Verification
+## Stage A: Local Verification
 
 Before seeking release approval, complete and document the local verification checklist:
 
@@ -53,7 +53,7 @@ Before seeking release approval, complete and document the local verification ch
 
 ---
 
-## Stage B — Firebase Configuration Verification
+## Stage B: Firebase Configuration Verification
 
 Prior to rules deployment, the project owner must verify project settings in the [Firebase Console](https://console.firebase.google.com/project/risepaisa-77278):
 
@@ -90,7 +90,7 @@ Prior to rules deployment, the project owner must verify project settings in the
 
 ---
 
-## Stage C — Controlled Firebase Release
+## Stage C: Controlled Firebase Release
 
 Execute this stage **only after receiving explicit owner approval**:
 
@@ -116,7 +116,7 @@ Execute this stage **only after receiving explicit owner approval**:
 
 ---
 
-## Stage D — Website Release (GitHub Pages)
+## Stage D: Website Release (GitHub Pages)
 
 Execute this stage **only after receiving explicit owner approval**:
 
@@ -140,7 +140,7 @@ Execute this stage **only after receiving explicit owner approval**:
 
 ---
 
-## Stage E — Post-Release Verification Runbook
+## Stage E: Post-Release Verification Runbook
 
 Perform a full smoke-test across all critical user journeys:
 

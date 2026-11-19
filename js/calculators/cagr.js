@@ -4,7 +4,6 @@
 // ==============================================
 import {
   formatNPR,
-  formatCompactNPR,
   calculateCAGR,
   calculateFutureValueFromCAGR,
   generateCAGRGrowthCurve,

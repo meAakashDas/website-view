@@ -12,9 +12,7 @@ import {
   getLearnLanguage, 
   setLearnLanguage, 
   LEARN_UI,
-  CATEGORY_ENHANCEMENTS,
-  GLOSSARY_DICTIONARY,
-  FREE_RESOURCES
+  GLOSSARY_DICTIONARY
 } from '../data/learn.js';
 import { ROUTES, CALCULATOR_ROUTES } from '../routes.js';
 import { ICONS, setPageMeta } from '../components.js';
@@ -242,12 +240,6 @@ export function renderLearnCategoryPage(slug) {
     (category.slug === 'business' && (t.categorySlug === 'investing' || t.categorySlug === 'accounting'))
   ).slice(0, 6);
 
-  // Contextual free resources for this category
-  const catResources = (FREE_RESOURCES || []).filter(r => 
-    r.companionCategorySlug === category.slug || 
-    (category.relatedResources && category.relatedResources.includes(r.id || r.slug))
-  );
-
   return `
     <div class="learn-category-page" data-category-slug="${category.slug}" data-total-lessons="${totalLessonsCount}">
       
@@ -364,12 +356,6 @@ export function renderLearnCategoryPage(slug) {
               <a href="#cat-glossary" class="cat-nav-tab" data-target="cat-glossary">
                 <span class="tab-icon">${ICONS.bookmark}</span>
                 <span>${isEn ? 'Glossary' : 'शब्दावली'} (${catGlossaryTerms.length})</span>
-              </a>
-            ` : ''}
-            ${catResources.length > 0 ? `
-              <a href="#cat-resources" class="cat-nav-tab" data-target="cat-resources">
-                <span class="tab-icon">${ICONS.download}</span>
-                <span>${isEn ? 'Resources' : 'स्रोतहरू'} (${catResources.length})</span>
               </a>
             ` : ''}
             ${category.faqs && category.faqs.length > 0 ? `
@@ -735,62 +721,6 @@ export function renderLearnCategoryPage(slug) {
                 </section>
               ` : ''}
 
-              <!-- Category Downloadable Resources Section -->
-              ${catResources.length > 0 ? `
-                <section class="learn-cat-resources-section" id="cat-resources" aria-label="${isEn ? 'Downloadable Resources' : 'डाउनलोड गर्न मिल्ने स्रोतहरू'}">
-                  <div class="learn-section-header">
-                    <span class="learn-section-kicker">${isEn ? 'Resources' : 'स्रोतहरू'}</span>
-                    <h2 class="learn-section-title">${isEn ? 'Practical Worksheets & Templates' : 'व्यावहारिक चेकलिस्ट तथा टेम्प्लेटहरू'}</h2>
-                    <p class="learn-section-sub">
-                      ${isEn 
-                        ? 'Handcrafted worksheets, spreadsheets, and decision templates designed for Nepal:' 
-                        : 'नेपाली परिवेशका लागि तयार पारिएका व्यावहारिक चेकलिस्ट र एक्सेल टेम्प्लेटहरू:'}
-                    </p>
-                  </div>
-
-                  <div class="cat-resources-grid">
-                    ${catResources.map(res => {
-                      const resTitle = res.title ? (res.title[lang] || res.title.en) : 'Worksheet';
-                      const resDesc = res.desc ? (res.desc[lang] || res.desc.en) : '';
-                      const isHtml = (res.downloadUrl || '').endsWith('.html');
-                      const downloadAttr = isHtml ? '' : `download="${res.downloadFilename || 'resource'}"`;
-                      const targetAttr = isHtml ? 'target="_blank" rel="noopener noreferrer"' : '';
-                      const badge = res.formatBadge || res.type || (isEn ? 'Toolkit' : 'उपकरण');
-
-                      const highlights = Array.isArray(res.highlights) ? res.highlights : [];
-                      const highlightsHtml = highlights.length > 0 ? `
-                        <div class="learn-res-highlights" style="margin: 10px 0 14px; display:flex; flex-wrap:wrap; gap:5px;">
-                          ${highlights.map(h => `<span class="learn-res-highlight-chip" style="font-size:11px; padding:2px 8px; border-radius:9999px; background:var(--color-surface-subtle); border:1px solid var(--color-border-subtle);">${typeof h === 'object' ? (h[lang] || h.en) : h}</span>`).join('')}
-                        </div>
-                      ` : '';
-
-                      return `
-                        <div class="cat-resource-card learn-resource-card" style="padding:22px; border-radius:18px;">
-                          <div class="cat-res-header" style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
-                            <div class="res-badge-wrap" style="display:flex; align-items:center; gap:6px;">
-                              <span class="cat-res-type-pill" style="font-size:11px; font-weight:600; padding:3px 8px; border-radius:9999px; background:rgba(29, 161, 242, 0.08); color:var(--color-accent);">${badge}</span>
-                            </div>
-                            <span class="cat-res-size" style="font-size:11.5px; color:var(--color-text-muted);">${res.fileSize || ''}</span>
-                          </div>
-                          <h3 class="cat-res-title" style="font-size:16.5px; font-weight:600; margin-bottom:6px; line-height:1.3;">${resTitle}</h3>
-                          <p class="cat-res-desc" style="font-size:13px; color:var(--color-text-secondary); line-height:1.5;">${resDesc}</p>
-                          ${highlightsHtml}
-                          <div class="cat-res-footer" style="display:flex; gap:8px; margin-top:auto; padding-top:12px; border-top:1px solid var(--color-border-subtle);">
-                            <button type="button" class="btn btn-outline btn-sm learn-cat-preview-btn" data-res-id="${res.id}" style="flex:1; justify-content:center; border-radius:9999px; font-size:12px;" onclick="if(window.openResourcePreviewModal) window.openResourcePreviewModal('${res.id}', '${lang}')">
-                              <span>${isEn ? 'Preview' : 'पूर्वावलोकन'}</span>
-                            </button>
-                            <a href="${res.downloadUrl || (res.downloadFilename ? `assets/downloads/${res.downloadFilename}` : 'assets/downloads/nepal-personal-budget-planner.csv')}" class="cat-res-download-btn btn btn-primary btn-sm" ${downloadAttr} ${targetAttr} data-resource-title="${resTitle.replace(/"/g, '&quot;')}" style="flex:1.2; justify-content:center; border-radius:9999px; font-size:12px;">
-                              <span class="btn-icon">${ICONS.download}</span>
-                              <span>${isHtml ? (isEn ? 'Open' : 'खोल्नुहोस्') : (isEn ? 'Download' : 'डाउनलोड')}</span>
-                            </a>
-                          </div>
-                        </div>
-                      `;
-                    }).join('')}
-                  </div>
-                </section>
-              ` : ''}
-
               <!-- Category Frequently Asked Questions -->
               ${category.faqs && category.faqs.length > 0 ? `
                 <section class="learn-faq-section" id="cat-faqs" aria-label="${ui.faqTitle}">
@@ -1070,8 +1000,6 @@ export function initLearnCategoryPage(slug) {
 
   const pageContainer = document.querySelector('.learn-category-page');
   if (!pageContainer) return;
-
-  const totalLessons = parseInt(pageContainer.dataset.totalLessons, 10) || category.lessonCount || 6;
 
   // 1. Language Selector Handler
   const switchBtns = document.querySelectorAll('.learn-lang-btn');
@@ -1423,7 +1351,7 @@ export function initLearnCategoryPage(slug) {
   });
 
   // Scroll spy for category tabs
-  const observedSectionIds = ['cat-overview', 'cat-lessons', 'cat-guides', 'cat-calculators', 'cat-glossary', 'cat-resources', 'cat-faqs'];
+  const observedSectionIds = ['cat-overview', 'cat-lessons', 'cat-guides', 'cat-calculators', 'cat-glossary', 'cat-faqs'];
   const sectionsToObserve = observedSectionIds.map(id => document.getElementById(id)).filter(Boolean);
 
   if ('IntersectionObserver' in window && sectionsToObserve.length > 0) {

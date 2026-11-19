@@ -9,7 +9,6 @@ import {
   fetchAdminCourses,
   saveAdminCourse,
   deleteAdminCourse,
-  checkIsAdmin,
   checkIsAdminDetailed,
   validateYouTubeUrl,
   toCanonicalYouTubeUrl,
@@ -24,7 +23,6 @@ import {
 } from '../firebase/courses.js';
 import {
   subscribeToAuth,
-  getCurrentUser,
   isAuthInitialized,
   waitForAuthReady,
   logoutUser

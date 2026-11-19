@@ -4,11 +4,11 @@
 // Answers: What is this? Why does it matter? How does it work? How in Nepal? What next?
 // ==============================================
 
-import { getLessonBySlug, loadLesson, getLearnLanguage, setLearnLanguage, LEARN_UI, getRelatedContent } from '../data/learn.js';
+import { getLessonBySlug, loadLesson, getLearnLanguage, setLearnLanguage, LEARN_UI } from '../data/learn.js';
 import { ROUTES } from '../routes.js';
 import { initGlossaryTooltips } from '../enhancements.js';
 import { initNotionOutline } from '../outline.js';
-import { showToast, shareContent } from '../components.js';
+import { showToast } from '../components.js';
 import {
   initFloatingSystem,
   renderLearningDockHtml,
@@ -131,7 +131,6 @@ export function renderLearnLessonPage(categorySlug, lessonSlug) {
   const lessonMeta = lesson[lang] || lesson.en;
   const categoryMeta = category[lang] || category.en;
   const isEn = lang === 'en';
-  const relatedContent = getRelatedContent('lesson', lessonSlug, categorySlug);
 
   // Read saved bookmarks only for authenticated sessions
   let bookmarkedArr = [];

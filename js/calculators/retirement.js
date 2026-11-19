@@ -4,7 +4,6 @@
 // ==============================================
 import {
   formatNPR,
-  formatCompactNPR,
   calculateRetirement,
   calculateFinancialGoal,
   RETIREMENT_GOAL_CONFIG,

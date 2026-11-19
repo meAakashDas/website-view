@@ -954,7 +954,6 @@ export function renderShareProfitChart({ buyTotal, totalCharges, cgt, netProfit 
   const chargesPct = Math.round((charges / total) * 1000) / 10;
   const taxPct = Math.round((tax / total) * 1000) / 10;
   const profitPct = isProfitable ? Math.max(0, Math.round((profit / total) * 1000) / 10) : 0;
-  const lossPct = !isProfitable ? Math.min(100, Math.round((loss / total) * 1000) / 10) : 0;
 
   const size = 180;
   const cx = 90;
@@ -967,7 +966,6 @@ export function renderShareProfitChart({ buyTotal, totalCharges, cgt, netProfit 
   const chargesDash = (chargesPct / 100) * circumference;
   const taxDash = (taxPct / 100) * circumference;
   const profitDash = (profitPct / 100) * circumference;
-  const lossDash = (lossPct / 100) * circumference;
 
   let currentOffset = 0;
   const buyOffset = currentOffset;

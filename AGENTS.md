@@ -1,4 +1,4 @@
-# RisePaisa — Engineering and Design Standards
+# RisePaisa: Engineering and Design Standards
 
 ## 1. Project Integrity
 - Preserve the existing HTML, CSS, vanilla JavaScript, Express, and SQLite architecture.

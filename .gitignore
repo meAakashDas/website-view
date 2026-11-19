@@ -17,5 +17,10 @@ dist/
 # IDE / Agent tooling
 .agents/
 skills-lock.json
+.claude/
+agent/
 .playwright-mcp/
 tests/screenshots/
+screenshots/
+scratch/
+*.map

@@ -2,7 +2,7 @@
 // risePaisa - Learn Section Data & Localization Engine
 // Foundation for Nepal's Structured Financial Learning Platform
 // ==============================================
-import { FREE_RESOURCES } from './freeResources.js';
+import { getResources } from './resources.js';
 // Lazy dynamic batch loaders map (loaded on-demand when lesson is viewed)
 const BATCH_LOADERS = {
   'A': () => import('./lessons/batchA.js').then(m => m.BATCH_A),
@@ -210,9 +210,9 @@ export const LEARN_UI = {
     glossaryTitle: 'Finance Glossary Preview',
     glossarySubtitle: 'Demystifying essential financial jargon used in Nepal.',
     viewAllGlossary: 'View Complete Glossary',
-    freeResourcesTitle: 'Free Educational Resources',
-    freeResourcesSubtitle: 'Practical templates, spreadsheets, and checklists to take control of your wealth.',
-    downloadResource: 'Download Template',
+    paidResourcesTitle: 'Financial Frameworks & Systems',
+    paidResourcesSubtitle: 'Comprehensive multi-year Notion architectures and financial planners designed for Nepal.',
+    downloadResource: 'Explore System',
     continueTitle: 'Continue Learning',
     continueSubtitle: 'Pick up where you left off or start with the highest-rated introductory lesson.',
     continuePrompt: 'Resume Your Journey',
@@ -444,9 +444,9 @@ export const LEARN_UI = {
     glossaryTitle: 'वित्तीय शब्दावली (Glossary Preview)',
     glossarySubtitle: 'नेपालमा प्रयोग हुने प्रमुख आर्थिक तथा वित्तीय शब्दहरूको सरल परिभाषा।',
     viewAllGlossary: 'पूर्ण शब्दावली हेर्नुहोस्',
-    freeResourcesTitle: 'निःशुल्क शैक्षिक स्रोत र Templates',
-    freeResourcesSubtitle: 'व्यक्तिगत बजेट, लगानी चेकलिस्ट र वित्तीय व्यवस्थापनका लागि उपयोगी डाउनलोडहरू।',
-    downloadResource: 'Template डाउनलोड गर्नुहोस्',
+    paidResourcesTitle: 'वित्तीय प्रणाली र ड्यासबोर्ड',
+    paidResourcesSubtitle: 'गहिरो वित्तीय व्यवस्थापनका लागि तयार पारिएका प्रिमियम उपकरणहरू।',
+    downloadResource: 'प्रणाली हेर्नुहोस्',
     continueTitle: 'सिकाइलाई निरन्तरता दिनुहोस्',
     continueSubtitle: 'छाडेको ठाउँबाट अघि बढ्नुहोस् वा आधारभूत पाठबाट आफ्नो यात्रा सुरु गर्नुहोस्।',
     continuePrompt: 'आफ्नो सिकाइ यात्रा पुनः सुरु गर्नुहोस्',
@@ -9001,8 +9001,8 @@ export const KNOWLEDGE_GRAPH = {
       "Inflation (मुद्रास्फीति)"
     ],
     "relatedResources": [
-      "res-budget-planner",
-      "res-reading-list"
+      "budget-planner-system",
+      "notion-finance-tracker"
     ],
     "whereNext": {
       "lesson": {
@@ -9052,7 +9052,7 @@ export const KNOWLEDGE_GRAPH = {
       "Capital Gain (पुँजीगत लाभ)"
     ],
     "relatedResources": [
-      "res-nepse-checklist"
+      "budget-planner-system"
     ],
     "whereNext": {
       "lesson": {
@@ -9102,7 +9102,7 @@ export const KNOWLEDGE_GRAPH = {
       "MeroShare (मेरोसेयर)"
     ],
     "relatedResources": [
-      "res-nepse-checklist"
+      "budget-planner-system"
     ],
     "whereNext": {
       "lesson": {
@@ -9149,7 +9149,7 @@ export const KNOWLEDGE_GRAPH = {
       "PAN (स्थायी लेखा नम्बर)"
     ],
     "relatedResources": [
-      "res-nepse-checklist"
+      "budget-planner-system"
     ],
     "whereNext": {
       "lesson": {
@@ -9197,7 +9197,7 @@ export const KNOWLEDGE_GRAPH = {
       "TDS (कर कट्टी / स्रोतमा कर)"
     ],
     "relatedResources": [
-      "res-budget-planner"
+      "budget-planner-system"
     ],
     "whereNext": {
       "lesson": {
@@ -9240,7 +9240,7 @@ export const KNOWLEDGE_GRAPH = {
       "TDS (कर कट्टी / स्रोतमा कर)"
     ],
     "relatedResources": [
-      "res-tax-deductions-list"
+      "budget-planner-system"
     ],
     "whereNext": {
       "lesson": {
@@ -9284,8 +9284,8 @@ export const KNOWLEDGE_GRAPH = {
       "Inflation (मुद्रास्फीति)"
     ],
     "relatedResources": [
-      "res-budget-planner",
-      "res-cashflow-notion"
+      "budget-planner-system",
+      "notion-finance-tracker"
     ],
     "whereNext": {
       "lesson": {
@@ -9332,8 +9332,8 @@ export const KNOWLEDGE_GRAPH = {
       "Fixed Deposit / FD (मुद्दती निक्षेप)"
     ],
     "relatedResources": [
-      "res-budget-planner",
-      "res-cashflow-notion"
+      "budget-planner-system",
+      "notion-finance-tracker"
     ],
     "whereNext": {
       "lesson": {
@@ -9378,7 +9378,7 @@ export const KNOWLEDGE_GRAPH = {
       "Repo Rate (रिपो दर)"
     ],
     "relatedResources": [
-      "res-loan-comparison"
+      "budget-planner-system"
     ],
     "whereNext": {
       "lesson": {
@@ -9423,7 +9423,7 @@ export const KNOWLEDGE_GRAPH = {
       "PAN (स्थायी लेखा नम्बर)"
     ],
     "relatedResources": [
-      "res-tax-deductions-list"
+      "budget-planner-system"
     ],
     "whereNext": {
       "lesson": {
@@ -9452,8 +9452,8 @@ export const KNOWLEDGE_GRAPH = {
 export const CATEGORY_ENHANCEMENTS = {
   "investing": {
     "resources": [
-      "res-reading-list",
-      "res-nepse-checklist"
+      "notion-finance-tracker",
+      "budget-planner-system"
     ],
     "glossary": [
       "Asset (सम्पत्ति)",
@@ -9465,8 +9465,8 @@ export const CATEGORY_ENHANCEMENTS = {
   },
   "nepse": {
     "resources": [
-      "res-nepse-checklist",
-      "res-glossary-pocket"
+      "budget-planner-system",
+      "notion-finance-tracker"
     ],
     "glossary": [
       "IPO (Initial Public Offering)",
@@ -9477,8 +9477,8 @@ export const CATEGORY_ENHANCEMENTS = {
   },
   "taxation": {
     "resources": [
-      "res-tax-deductions-list",
-      "res-glossary-pocket"
+      "budget-planner-system",
+      "notion-finance-tracker"
     ],
     "glossary": [
       "PAN (स्थायी लेखा नम्बर)",
@@ -9488,8 +9488,8 @@ export const CATEGORY_ENHANCEMENTS = {
   },
   "personal-finance": {
     "resources": [
-      "res-budget-planner",
-      "res-cashflow-notion"
+      "budget-planner-system",
+      "notion-finance-tracker"
     ],
     "glossary": [
       "Budget (बजेट)",
@@ -9499,8 +9499,8 @@ export const CATEGORY_ENHANCEMENTS = {
   },
   "loans": {
     "resources": [
-      "res-loan-comparison",
-      "res-budget-planner"
+      "budget-planner-system",
+      "budget-planner-system"
     ],
     "glossary": [
       "EMI (Equated Monthly Installment)",
@@ -9509,8 +9509,8 @@ export const CATEGORY_ENHANCEMENTS = {
   },
   "banking": {
     "resources": [
-      "res-loan-comparison",
-      "res-budget-planner"
+      "budget-planner-system",
+      "budget-planner-system"
     ],
     "glossary": [
       "Fixed Deposit / FD (मुद्दती निक्षेप)",
@@ -9520,8 +9520,8 @@ export const CATEGORY_ENHANCEMENTS = {
   },
   "insurance": {
     "resources": [
-      "res-reading-list",
-      "res-tax-deductions-list"
+      "notion-finance-tracker",
+      "budget-planner-system"
     ],
     "glossary": [
       "HLV (Human Life Value)",
@@ -9530,8 +9530,8 @@ export const CATEGORY_ENHANCEMENTS = {
   },
   "retirement-planning": {
     "resources": [
-      "res-budget-planner",
-      "res-reading-list"
+      "budget-planner-system",
+      "notion-finance-tracker"
     ],
     "glossary": [
       "SIP (Systematic Investment Plan)",
@@ -9540,8 +9540,8 @@ export const CATEGORY_ENHANCEMENTS = {
   },
   "business": {
     "resources": [
-      "res-tax-deductions-list",
-      "res-cashflow-notion"
+      "budget-planner-system",
+      "notion-finance-tracker"
     ],
     "glossary": [
       "VAT (मूल्य अभिवृद्धि कर)",
@@ -9550,8 +9550,8 @@ export const CATEGORY_ENHANCEMENTS = {
   },
   "digital-payments": {
     "resources": [
-      "res-budget-planner",
-      "res-glossary-pocket"
+      "budget-planner-system",
+      "notion-finance-tracker"
     ],
     "glossary": [
       "QR Payment (Fonepay / NepalPay)",
@@ -9617,7 +9617,7 @@ export function getRelatedContent(type, slug, categorySlug = '') {
   }
 
   if (!resourceIds || resourceIds.length === 0) {
-    resourceIds = catEnhancement.resources || ['res-budget-planner', 'res-nepse-checklist'];
+    resourceIds = catEnhancement.resources || ['budget-planner-system', 'notion-finance-tracker'];
   }
 
   // Resolve Lessons
@@ -9680,19 +9680,15 @@ export function getRelatedContent(type, slug, categorySlug = '') {
   });
 
   // Resolve Resources
+  const allRes = getResources();
   const resources = resourceIds.map(rId => {
-    const r = FREE_RESOURCES.find(item => item.id === rId) || {
-      id: rId,
-      title: { en: 'Practical Financial Worksheet', np: 'व्यावहारिक वित्तीय चेकलिस्ट' },
-      type: 'Spreadsheet',
-      downloadUrl: '/resources/budget-planner-system'
-    };
+    const r = allRes.find(item => item.slug === rId || String(item.id) === rId) || allRes[0];
     return {
       type: 'resource',
-      id: r.id,
-      title: r.title,
-      resourceType: r.type,
-      href: r.downloadUrl
+      id: r.id || r.slug,
+      title: { en: r.title, np: r.title },
+      resourceType: r.category || 'System',
+      href: `/resources/${r.slug}`
     };
   });
 
@@ -10005,8 +10001,6 @@ export const GLOSSARY_PREVIEW = [
   }
 ];
 
-// ── 9. Free Downloadable Resources (7 Practical Tools) ──────────
-export { FREE_RESOURCES } from './freeResources.js';
 
 
 // ── 10. Continue Learning Default Data (Starter Prompt) ─────────

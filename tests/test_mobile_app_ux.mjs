@@ -38,10 +38,22 @@ async function runAudit() {
       '/courses/nepse-stock-market-basics/learn'
     ];
 
+    async function safeGoto(url) {
+      for (let attempt = 1; attempt <= 3; attempt++) {
+        try {
+          await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 15000 });
+          return;
+        } catch (err) {
+          if (attempt === 3) throw err;
+          await new Promise(r => setTimeout(r, 600));
+        }
+      }
+    }
+
     for (const vp of VIEWPORTS) {
       await page.setViewportSize({ width: vp.width, height: vp.height });
       for (const route of routesToTest) {
-        await page.goto(`${BASE_URL}${route}`, { waitUntil: 'domcontentloaded' });
+        await safeGoto(`${BASE_URL}${route}`);
         await page.waitForTimeout(150);
 
         const hasHorizontalOverflow = await page.evaluate(() => {

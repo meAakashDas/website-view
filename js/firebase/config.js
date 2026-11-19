@@ -1,7 +1,7 @@
 // ==============================================
 // risePaisa - Firebase Web Configuration
 // Modular, secure client configuration
-// Public web identifiers only — NEVER service account secrets
+// Public web identifiers only: NEVER service account secrets
 // ==============================================
 
 /**

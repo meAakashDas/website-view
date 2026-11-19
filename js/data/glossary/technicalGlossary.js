@@ -26,7 +26,7 @@ export const TECHNICAL_GLOSSARY = [
     },
     whyItMatters: {
       en: 'Unlike simple line charts that show only closing prices, a candlestick reveals the complete intraday volatility and price rejection. It shows whether buyers attempted to push prices higher but were violently beaten back by sellers.',
-      np: 'साधारण लाइन चार्टले अन्तिम मूल्य मात्र देखाउँछ भने क्यान्डलस्टिकले दिनभर बजारमा के भयो—कति माथि पुग्यो, कति तल झर्यो र कसको जित भयो—सम्पूर्ण भित्री अवस्था खुलाउँछ।'
+      np: 'साधारण लाइन चार्टले अन्तिम मूल्य मात्र देखाउँछ भने क्यान्डलस्टिकले दिनभर बजारमा के भयो (कति माथि पुग्यो, कति तल झर्यो र कसको जित भयो) भन्ने सम्पूर्ण भित्री अवस्था खुलाउँछ।'
     },
     howItWorks: {
       summary: {
@@ -223,7 +223,7 @@ export const TECHNICAL_GLOSSARY = [
       np: 'रिलेटिभ स्ट्रेन्थ इन्डेक्स (RSI) ले सेयर मूल्यमा आएको वृद्धिको गतिलाई ० देखि १०० सम्मको स्केलमा नापेर सेयर अत्यधिक खरिद (Overbought) वा अत्यधिक बिक्री (Oversold) भएको देखाउँछ।'
     },
     detailedExplanation: {
-      en: 'Developed by J. Welles Wilder Jr. in 1978, the RSI is one of the most widely utilized technical momentum indicators on NEPSE. Calculated over a standard 14-period lookback, the RSI oscillates between 0 and 100. Traditionally, an RSI reading above 70 indicates that an asset is "Overbought" (extended upside, ripe for a pullback or consolidation), while a reading below 30 indicates that it is "Oversold" (extended downside, potential buying opportunity). Crucially, seasoned NEPSE traders also look for "Divergence"—situations where the stock price prints a lower low but RSI prints a higher low, signaling an impending upward trend reversal.',
+      en: 'Developed by J. Welles Wilder Jr. in 1978, the RSI is one of the most widely utilized technical momentum indicators on NEPSE. Calculated over a standard 14-period lookback, the RSI oscillates between 0 and 100. Traditionally, an RSI reading above 70 indicates that an asset is "Overbought" (extended upside, ripe for a pullback or consolidation), while a reading below 30 indicates that it is "Oversold" (extended downside, potential buying opportunity). Crucially, seasoned NEPSE traders also look for "Divergence," where the stock price prints a lower low but RSI prints a higher low, signaling an impending upward trend reversal.',
       np: 'सन् १९७८ मा जे. वेल्स वाइल्डरले विकास गरेको आरएसआई प्राविधिक विश्लेषणमा सबैभन्दा बढी प्रयोग हुने सूचक हो। १४ दिनको औसत मूल्य परिवर्तनका आधारमा निकालिने यो सूचक ० देखि १०० बीचमा घुम्छ। सामान्यतया ७० भन्दा माथि पुग्दा बजार बढी किनेको (Overbought) र ३० भन्दा तल झर्दा बढी बेचेको (Oversold) मानिन्छ। यसबाहेक मूल्य र आरएसआई विपरीत दिशामा हिँड्ने डाइभर्जेन्स (Divergence) ले बजारमा ठूलो ट्रेन्ड परिवर्तनको पूर्वसंकेत गर्दछ।'
     },
     whyItMatters: {

@@ -149,6 +149,17 @@ ${ldJsonString}
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@600;700&display=swap" rel="stylesheet">
 
+  <!-- YouTube Stream & Embed Preconnects -->
+  <link rel="dns-prefetch" href="https://www.youtube.com">
+  <link rel="dns-prefetch" href="https://www.youtube-nocookie.com">
+  <link rel="dns-prefetch" href="https://i.ytimg.com">
+  <link rel="dns-prefetch" href="https://img.youtube.com">
+  <link rel="dns-prefetch" href="https://googlevideo.com">
+  <link rel="preconnect" href="https://www.youtube.com">
+  <link rel="preconnect" href="https://www.youtube-nocookie.com">
+  <link rel="preconnect" href="https://i.ytimg.com" crossorigin>
+  <link rel="preconnect" href="https://googlevideo.com" crossorigin>
+
   <!-- Theme Bootstrapper (Zero Flash: Default Light Mode for First-Time Visitors) -->
   <script>
     (function() {
@@ -162,16 +173,16 @@ ${ldJsonString}
     })();
   </script>
 
-  <!-- Video.js v10 Official Architecture & Skin -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@videojs/cdn@10.2.0/video.css">
-  <script type="module" src="https://cdn.jsdelivr.net/npm/@videojs/cdn@10.2.0/video.js"></script>
-  <script type="module" src="https://cdn.jsdelivr.net/npm/@videojs/cdn@10.2.0/media/youtube-video.js"></script>
+
 
   <!-- Stylesheets -->
   <link rel="stylesheet" href="css/variables.css">
   <link rel="stylesheet" href="css/base.css">
   <link rel="stylesheet" href="css/components.css">
   <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/videoPlayer.css">
+  <script type="module" src="assets/vendor/videojs/video.js"></script>
+  <script type="module" src="assets/vendor/videojs/media/youtube-video.js"></script>
   <link rel="stylesheet" href="css/pages.css?v=2">
   <link rel="stylesheet" href="css/calculators.css">
   <link rel="stylesheet" href="css/learn.css">

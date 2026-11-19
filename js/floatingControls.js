@@ -305,9 +305,9 @@ export function initCourseFloatingBuy({ course, isEnrolled = false, waBuyLink = 
           <span class="rp-btn-text">Continue Learning &rarr;</span>
         </a>
       ` : `
-        <a href="${waBuyLink}" target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp rp-floating-buy-btn" id="floating-buy-action-btn" aria-label="Buy Course — ${priceFormatted}">
+        <a href="${waBuyLink}" target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp rp-floating-buy-btn" id="floating-buy-action-btn" aria-label="Buy Course: ${priceFormatted}">
           <span class="rp-btn-icon">${ICONS.whatsapp}</span>
-          <span class="rp-btn-text">Buy Course — ${priceFormatted}</span>
+          <span class="rp-btn-text">Buy Course: ${priceFormatted}</span>
         </a>
       `}
     </aside>
@@ -413,9 +413,9 @@ export function initHomeFloatingBuy({ course, isEnrolled = false, waBuyLink = ''
           <span class="rp-btn-text">Continue Learning &rarr;</span>
         </a>
       ` : `
-        <a href="${buyLink}" target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp rp-floating-buy-btn" id="floating-buy-action-btn" aria-label="Buy Course — ${priceFormatted}">
+        <a href="${buyLink}" target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp rp-floating-buy-btn" id="floating-buy-action-btn" aria-label="Buy Course: ${priceFormatted}">
           <span class="rp-btn-icon">${ICONS.whatsapp}</span>
-          <span class="rp-btn-text">Buy Course — ${priceFormatted}</span>
+          <span class="rp-btn-text">Buy Course: ${priceFormatted}</span>
         </a>
       `}
     </aside>

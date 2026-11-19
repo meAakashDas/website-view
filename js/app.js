@@ -8,6 +8,7 @@ import { renderNavbar, renderFooter, renderWhatsAppFloat, initNavbar, updateNavb
 import { initAllEnhancements } from './enhancements.js';
 import { updatePageSEO } from './seo.js';
 import { ROUTES, resolveLegacyHash, getAppPathname, toBrowserPath } from './routes.js';
+import { LiquidGlassManager } from './liquid-glass.js';
 
 // ── Route Definitions (Dynamic Code-Split Imports) ──
 const routes = [
@@ -350,6 +351,7 @@ async function router() {
     }
     currentPageCleanup = null;
   }
+  LiquidGlassManager.destroyPageAndSliders();
 
   if (!matchedRoute) {
     try {
@@ -402,6 +404,7 @@ async function router() {
       navContainer.innerHTML = renderNavbar(navPath);
       initNavbar();
       currentNavRendered = true;
+      setTimeout(() => LiquidGlassManager.initHeaderGlass(), 60);
     } else {
       updateNavbarActive(navPath);
     }
@@ -445,25 +448,47 @@ async function router() {
     return;
   }
 
-  // Render page content
-  const content = matchedRoute.render(match, searchParams, pageModule);
+  // Render page content safely
+  let content = '';
+  try {
+    content = matchedRoute.render(match, searchParams, pageModule);
+  } catch (renderErr) {
+    console.error('[risePaisa] Page render error:', renderErr);
+    content = `
+      <div class="section not-found-section" style="min-height:60vh;display:flex;align-items:center;justify-content:center;padding:var(--space-12) 0">
+        <div class="container" style="max-width:540px;text-align:center">
+          <h2 style="font-size:var(--text-3xl);color:var(--color-heading);margin-bottom:var(--space-3)">Unable to Display Section</h2>
+          <p style="color:var(--color-text-secondary);margin-bottom:var(--space-6);line-height:1.6">There was a display issue with this view. Please retry or return home.</p>
+          <a href="/" class="btn btn-primary">Return Home</a>
+        </div>
+      </div>
+    `;
+  }
+
   const appEl = document.getElementById('app');
-  if (appEl) {
+  if (appEl && content) {
     appEl.innerHTML = content;
     appEl.classList.add('page-enter');
   }
 
-  // Initialize page interactivity and capture cleanup handler
+  // Initialize page interactivity safely and capture cleanup handler
   if (typeof matchedRoute.init === 'function') {
-    const cleanup = matchedRoute.init(match, searchParams, pageModule);
-    if (typeof cleanup === 'function') {
-      currentPageCleanup = cleanup;
+    try {
+      const cleanup = matchedRoute.init(match, searchParams, pageModule);
+      if (typeof cleanup === 'function') {
+        currentPageCleanup = cleanup;
+      }
+    } catch (initErr) {
+      console.error('[risePaisa] Page init error:', initErr);
     }
   }
 
   // Premium UI enhancements (runs after page init)
   if (!isFullscreen) {
     setTimeout(initAllEnhancements, 60);
+    setTimeout(() => {
+      LiquidGlassManager.initRouteGlass(pathname, document.getElementById('app'));
+    }, 120);
   }
 
   // Update page SEO metadata & Schema.org JSON-LD
@@ -540,6 +565,19 @@ function initApp() {
     waContainer.innerHTML = renderWhatsAppFloat();
     body.appendChild(waContainer);
   }
+
+  // Mobile Footer Accordion Interaction (< 768px)
+  document.addEventListener('click', (e) => {
+    const toggle = e.target.closest('.footer-section-toggle');
+    if (!toggle) return;
+    if (window.innerWidth >= 768) return;
+    e.preventDefault();
+    const section = toggle.closest('.footer-section');
+    if (!section) return;
+    const isNowOpen = !section.classList.contains('is-open');
+    section.classList.toggle('is-open', isNowOpen);
+    toggle.setAttribute('aria-expanded', String(isNowOpen));
+  });
 
   // Intercept internal link clicks and course card clicks for smooth client-side SPA transitions
   document.addEventListener('click', (e) => {

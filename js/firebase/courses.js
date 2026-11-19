@@ -849,10 +849,10 @@ export function normalizeCourseData(rawCourse) {
     });
   }
 
-  // Ensure previewVideoUrl reflects Lesson 1's YouTube URL if set
+  // Ensure previewVideoUrl reflects Lesson 1's YouTube URL if set (preserving explicit NEPSE free demo video)
   if (normalized.topics.length > 0 && normalized.topics[0].lessons?.length > 0) {
     const l1Url = normalized.topics[0].lessons[0].youtubeUrl;
-    if (l1Url) {
+    if (l1Url && (!normalized.previewVideoUrl || normalized.slug !== 'nepse-stock-market-basics')) {
       normalized.previewVideoUrl = l1Url;
     }
   }
@@ -2211,6 +2211,9 @@ export async function createStudentAccount(adminUid, params = {}, dbOverride = n
         }
       } else if (params.expiresAt) {
         expiresAt = params.expiresAt instanceof Date ? params.expiresAt : new Date(params.expiresAt);
+      } else {
+        // Enforce strict 1-year (365 days) course enrollment policy
+        expiresAt = new Date(Date.now() + 365 * 24 * 60 * 60 * 1000);
       }
 
       await grantStudentEnrollment(adminUid, studentUid, params.initialCourseId, {
@@ -2822,6 +2825,18 @@ export async function grantStudentEnrollment(adminUid, studentUid, courseId, opt
   let expiresAtVal = null;
   if (options.expiresAt) {
     expiresAtVal = options.expiresAt instanceof Date ? options.expiresAt : new Date(options.expiresAt);
+  } else if (options.accessDurationDays) {
+    const days = Number(options.accessDurationDays);
+    if (!isNaN(days) && days > 0) {
+      const startsMs = (startsAtVal instanceof Date) ? startsAtVal.getTime() : 0;
+      const baseMs = Math.max(Date.now(), startsMs);
+      expiresAtVal = new Date(baseMs + days * 24 * 60 * 60 * 1000);
+    }
+  } else {
+    // Default 1-year (365 days) course enrollment policy (courses strictly do not have indefinite lifetime access)
+    const startsMs = (startsAtVal instanceof Date) ? startsAtVal.getTime() : 0;
+    const baseMs = Math.max(Date.now(), startsMs);
+    expiresAtVal = new Date(baseMs + 365 * 24 * 60 * 60 * 1000);
   }
 
   const enrollmentPayload = {
@@ -2995,6 +3010,24 @@ export async function renewStudentEnrollment(adminUid, studentUid, courseId, opt
   let expiresAtVal = null;
   if (options.expiresAt) {
     expiresAtVal = options.expiresAt instanceof Date ? options.expiresAt : new Date(options.expiresAt);
+  } else if (options.accessDurationDays) {
+    const days = Number(options.accessDurationDays);
+    if (!isNaN(days) && days > 0) {
+      let existingExpiresMs = 0;
+      if (existingData && existingData.expiresAt) {
+        existingExpiresMs = parseDateToMillis(existingData.expiresAt) || 0;
+      }
+      const baseMs = Math.max(Date.now(), existingExpiresMs);
+      expiresAtVal = new Date(baseMs + days * 24 * 60 * 60 * 1000);
+    }
+  } else {
+    // Default renewal extends access by 365 days from current expiration or current time
+    let existingExpiresMs = 0;
+    if (existingData && existingData.expiresAt) {
+      existingExpiresMs = parseDateToMillis(existingData.expiresAt) || 0;
+    }
+    const baseMs = Math.max(Date.now(), existingExpiresMs);
+    expiresAtVal = new Date(baseMs + 365 * 24 * 60 * 60 * 1000);
   }
 
   const updatePayload = {
@@ -3223,7 +3256,7 @@ export async function saveAdminCourse(uid, courseData, dbOverride = null) {
   }));
 
   let previewUrl = courseData.previewVideoUrl || null;
-  if (normalizedTopics[0]?.lessons?.[0]?.youtubeUrl) {
+  if (normalizedTopics[0]?.lessons?.[0]?.youtubeUrl && (!previewUrl || cleanSlug !== 'nepse-stock-market-basics')) {
     previewUrl = normalizedTopics[0].lessons[0].youtubeUrl;
   }
 

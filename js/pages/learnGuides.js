@@ -6,17 +6,13 @@
 import {
   POPULAR_GUIDES,
   FINANCE_JOURNEYS,
-  LEARN_CATEGORIES,
-  CONTENT_TYPES,
   getLearnLanguage,
   setLearnLanguage,
-  onLearnLanguageChange,
   LEARN_UI,
   getSavedGuides,
-  toggleSavedGuide,
-  getRecentViews
+  toggleSavedGuide
 } from '../data/learn.js';
-import { ROUTES, buildCanonicalUrl, navigateTo } from '../routes.js';
+import { ROUTES } from '../routes.js';
 import { getCurrentUser, subscribeToAuth } from '../firebase/auth.js';
 import { promptSignInForBookmark } from '../firebase/ui.js';
 
@@ -39,15 +35,11 @@ export function renderLearnGuidesHubPage() {
   const isEn = lang === 'en';
 
   const savedGuideSlugs = getSavedGuides();
-  const recentViews = getRecentViews();
 
   // Featured Guide is PAN Guide
   const featured = POPULAR_GUIDES.find(g => g.slug === 'complete-pan-guide') || POPULAR_GUIDES[0];
   const featuredTitle = featured.title[lang] || featured.title.en;
   const featuredDesc = featured.desc[lang] || featured.desc.en;
-
-  // Distinct Categories present in Guides
-  const uniqueCategorySlugs = Array.from(new Set(POPULAR_GUIDES.map(g => g.categorySlug)));
 
   return `
     <div class="learn-page-wrapper guides-hub-page">
@@ -299,8 +291,6 @@ export function renderLearnGuidesHubPage() {
 }
 
 export function initLearnGuidesHubPage() {
-  const lang = getLearnLanguage();
-
   // 1. Language Toggle Listeners
   const langBtns = document.querySelectorAll('.guides-lang-toggle-wrap [data-set-lang]');
   langBtns.forEach(btn => {
@@ -377,6 +367,7 @@ export function initLearnGuidesHubPage() {
     chip.addEventListener('click', () => {
       categoryChips.forEach(c => c.classList.remove('active'));
       chip.classList.add('active');
+      chip.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
       activeCategory = chip.getAttribute('data-cat') || 'all';
       filterGuides();
     });
@@ -388,7 +379,13 @@ export function initLearnGuidesHubPage() {
       searchQuery = '';
       if (searchClear) searchClear.style.display = 'none';
       activeCategory = 'all';
-      categoryChips.forEach(c => c.classList.toggle('active', c.getAttribute('data-cat') === 'all'));
+      categoryChips.forEach(c => {
+        const isAll = c.getAttribute('data-cat') === 'all';
+        c.classList.toggle('active', isAll);
+        if (isAll) {
+          c.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+        }
+      });
       filterGuides();
     });
   }

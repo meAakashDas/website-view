@@ -9,6 +9,11 @@ import { getSettings } from '../data/settings.js';
 import { ROUTES } from '../routes.js';
 import { setPageMeta } from '../components.js';
 import {
+  createBrandedVideoPlayer,
+  initBrandedVideoPlayer,
+  destroyBrandedVideoPlayer
+} from '../components/videoPlayer.js';
+import {
   normalizeCourseData,
   fetchCourseData,
   toSafeYouTubeEmbedUrl,
@@ -27,11 +32,6 @@ import {
   updateLearningDockBookmark,
   unmountLearningDock
 } from '../floatingControls.js';
-import {
-  createBrandedVideoPlayer,
-  initBrandedVideoPlayer,
-  destroyBrandedVideoPlayer
-} from '../components/videoPlayer.js';
 
 // ── SVG Icons for Course Learning Interface ──────
 const CL_ICONS = {
@@ -42,7 +42,8 @@ const CL_ICONS = {
   download: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>`,
   fileText: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>`,
   spreadsheet: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M3 9h18"/><path d="M3 15h18"/><path d="M9 3v18"/></svg>`,
-  checklist: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 11 3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>`,
+  listChecks: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 17 2 2 4-4"/><path d="m3 7 2 2 4-4"/><path d="M13 6h8"/><path d="M13 12h8"/><path d="M13 18h8"/></svg>`,
+  checklist: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 17 2 2 4-4"/><path d="m3 7 2 2 4-4"/><path d="M13 6h8"/><path d="M13 12h8"/><path d="M13 18h8"/></svg>`,
   chevronDown: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>`,
   chevronLeft: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>`,
   chevronRight: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>`,
@@ -282,7 +283,7 @@ export function renderCourseLearnPage(slug, initialLessonId = null) {
         <div class="cl-top-bar">
           <div class="cl-top-bar-nav">
             <a href="${ROUTES.COURSE_DETAIL(course.slug)}" class="cl-back-course-link" title="Return to Course Overview &amp; Syllabus">
-              ${CL_ICONS.arrowLeft} <span>Course Overview &amp; Syllabus</span>
+              ${CL_ICONS.arrowLeft} <span class="cl-back-link-text">Course Overview &amp; Syllabus</span>
             </a>
             <span class="cl-top-divider" aria-hidden="true">|</span>
             <nav class="cl-breadcrumb" aria-label="Breadcrumb">
@@ -299,9 +300,9 @@ export function renderCourseLearnPage(slug, initialLessonId = null) {
           <!-- Header Actions -->
           <div class="cl-top-bar-actions">
             ${course.price ? `
-              <a href="${waEnrollUrl}" target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp btn-sm cl-top-enroll-cta" id="cl-top-enroll-cta" aria-label="Buy Course — NPR ${(course.price || 2999).toLocaleString()}">
+              <a href="${waEnrollUrl}" target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp btn-sm cl-top-enroll-cta" id="cl-top-enroll-cta" aria-label="Buy Course: NPR ${(course.price || 2999).toLocaleString()}">
                 <span class="rp-btn-icon">${CL_ICONS.whatsapp}</span>
-                <span class="rp-btn-text">Buy Course — NPR ${(course.price || 2999).toLocaleString()}</span>
+                <span class="rp-btn-text">Buy Course: NPR ${(course.price || 2999).toLocaleString()}</span>
               </a>
             ` : ''}
 
@@ -314,7 +315,7 @@ export function renderCourseLearnPage(slug, initialLessonId = null) {
               aria-expanded="false"
               aria-controls="cl-sidebar-card"
               aria-label="Open course contents outline">
-              <span class="cl-m-btn-icon">${CL_ICONS.checklist}</span>
+              <span class="cl-m-btn-icon">${CL_ICONS.listChecks}</span>
               <span class="cl-m-btn-text">Course Contents</span>
             </button>
           </div>
@@ -335,12 +336,11 @@ export function renderCourseLearnPage(slug, initialLessonId = null) {
             <section class="cl-main-player-col" aria-label="Lesson Video & Details">
               
               <!-- 16:9 Responsive Video Stage -->
-              <div class="cl-player-wrapper" id="cl-player-wrapper">
+              <div class="cl-player-wrapper ${(!isFreePreview || !embedUrl) ? 'cl-player-locked' : ''}" id="cl-player-wrapper">
                 ${isFreePreview && embedUrl ? createBrandedVideoPlayer({
-                  embedUrl,
-                  title: activeLesson.title || 'Course Lesson',
-                  iframeId: 'cl-video-iframe',
-                  containerId: 'cl-iframe-container'
+                  embedUrl: activeLesson.youtubeUrl || embedUrl,
+                  title: `${activeLesson.title || 'Course Lesson'} - ${course.title}`,
+                  playerId: 'cl-video-player'
                 }) : `
                   <div class="cl-locked-screen" id="cl-locked-screen">
                     <div class="cl-locked-content">
@@ -465,7 +465,7 @@ export function renderCourseLearnPage(slug, initialLessonId = null) {
                   aria-expanded="false"
                   aria-controls="cl-sidebar-card"
                   aria-label="Open course contents outline">
-                  <span class="cl-m-btn-icon">${CL_ICONS.checklist}</span>
+                  <span class="cl-m-btn-icon">${CL_ICONS.listChecks}</span>
                   <span class="cl-m-btn-text">Course Contents</span>
                 </button>
               </div>
@@ -575,6 +575,19 @@ export function initCourseLearnPage(slug, initialLessonId = null) {
   let activePlayerLessonId = null;
   let activePlayerAccess = null;
   let activePlayerEmbedUrl = null;
+  let activePlayerController = null;
+
+  // Initialize pre-rendered custom player if present
+  const initialPlayerEl = document.getElementById('cl-video-player');
+  if (initialPlayerEl) {
+    const initialVideoSrc = activeLesson.youtubeUrl || toSafeYouTubeEmbedUrl(activeLesson.youtubeUrl) || '';
+    activePlayerLessonId = activeLesson.id;
+    activePlayerAccess = Boolean(activeLesson.isFree || isEnrolled);
+    activePlayerEmbedUrl = initialVideoSrc;
+    initBrandedVideoPlayer(initialPlayerEl).then(ctrl => {
+      activePlayerController = ctrl;
+    }).catch(() => {});
+  }
 
   const updateBookmarkButtonUi = (bookmarked) => {
     const bookmarkBtn = document.getElementById('cl-bookmark-btn');
@@ -635,28 +648,49 @@ export function initCourseLearnPage(slug, initialLessonId = null) {
     if (!wrapper) return;
 
     if (hasAccess) {
-      const embedUrl = toSafeYouTubeEmbedUrl(lesson.youtubeUrl);
-      if (embedUrl) {
-        const existingPlayer = wrapper.querySelector('[data-rp-player]');
-        if (existingPlayer && activePlayerLessonId === lesson.id && activePlayerAccess === true && activePlayerEmbedUrl === embedUrl) {
+      wrapper.classList.remove('cl-player-locked');
+      const videoSrc = lesson.youtubeUrl || toSafeYouTubeEmbedUrl(lesson.youtubeUrl);
+      if (videoSrc) {
+        if (activePlayerLessonId === lesson.id && activePlayerAccess === true && activePlayerEmbedUrl === videoSrc) {
           return;
         }
         activePlayerLessonId = lesson.id;
         activePlayerAccess = true;
-        activePlayerEmbedUrl = embedUrl;
-        destroyBrandedVideoPlayer(existingPlayer);
+        activePlayerEmbedUrl = videoSrc;
+
+        const existingPlayerEl = document.getElementById('cl-video-player');
+        if (existingPlayerEl) {
+          const ctrl = activePlayerController || existingPlayerEl.__vjsController;
+          if (ctrl && typeof ctrl.src === 'function') {
+            activePlayerController = ctrl;
+            ctrl.src(videoSrc);
+            return;
+          }
+        }
+
+        if (activePlayerController) {
+          destroyBrandedVideoPlayer(wrapper);
+          activePlayerController = null;
+        }
         wrapper.innerHTML = createBrandedVideoPlayer({
-          embedUrl,
-          title: lesson.title || 'Course Lesson',
-          iframeId: 'cl-video-iframe',
-          containerId: 'cl-iframe-container'
+          embedUrl: videoSrc,
+          title: `${lesson.title || 'Course Lesson'} - ${course.title}`,
+          playerId: 'cl-video-player'
         });
-        initBrandedVideoPlayer(wrapper.querySelector('[data-rp-player]'));
+        const playerEl = document.getElementById('cl-video-player');
+        if (playerEl) {
+          initBrandedVideoPlayer(playerEl).then(ctrl => {
+            activePlayerController = ctrl;
+          }).catch(() => {});
+        }
       } else {
         activePlayerLessonId = lesson.id;
         activePlayerAccess = true;
         activePlayerEmbedUrl = null;
-        destroyBrandedVideoPlayer(wrapper.querySelector('[data-rp-player]'));
+        if (activePlayerController) {
+          destroyBrandedVideoPlayer(wrapper);
+          activePlayerController = null;
+        }
         // Video URL missing or invalid
         wrapper.innerHTML = `
           <div class="cl-empty-player-frame">
@@ -669,10 +703,14 @@ export function initCourseLearnPage(slug, initialLessonId = null) {
         `;
       }
     } else {
+      wrapper.classList.add('cl-player-locked');
+      if (activePlayerController) {
+        destroyBrandedVideoPlayer(wrapper);
+        activePlayerController = null;
+      }
       activePlayerLessonId = lesson.id;
       activePlayerAccess = false;
       activePlayerEmbedUrl = null;
-      destroyBrandedVideoPlayer(wrapper.querySelector('[data-rp-player]'));
       // Locked Screen - strictly NO iframe rendered
       let lockBadgeTag = 'Enrollment Required';
       let lockHeadline = 'This Lesson Requires Course Enrollment';
@@ -981,10 +1019,13 @@ export function initCourseLearnPage(slug, initialLessonId = null) {
     currentUser = user;
 
     if (!user) {
+      const wasEnrolled = isEnrolled;
       isEnrolled = false;
       enrollmentStatus = 'not_enrolled';
-      // Re-evaluate current lesson
-      selectLesson(currentLessonId, false);
+      // Only re-evaluate current lesson if enrollment state actually changed
+      if (wasEnrolled) {
+        selectLesson(currentLessonId, false);
+      }
       return;
     }
 
@@ -1220,8 +1261,13 @@ export function initCourseLearnPage(slug, initialLessonId = null) {
 
     const updatedActive = _findLessonInSequence(allLessons, currentLessonId) || allLessons[0];
     if (updatedActive) {
+      const prevActive = activeLesson;
       activeLesson = updatedActive;
-      selectLesson(activeLesson.id, false);
+      const prevVideoSrc = prevActive ? (prevActive.youtubeUrl || toSafeYouTubeEmbedUrl(prevActive.youtubeUrl)) : null;
+      const newVideoSrc = updatedActive.youtubeUrl || toSafeYouTubeEmbedUrl(updatedActive.youtubeUrl);
+      if (prevActive?.id !== updatedActive.id || prevVideoSrc !== newVideoSrc) {
+        selectLesson(activeLesson.id, false);
+      }
     }
   }).catch((err) => {
     console.warn('[risePaisa:CourseLearn] Note on live course synchronization:', err);
@@ -1249,8 +1295,11 @@ export function initCourseLearnPage(slug, initialLessonId = null) {
     window.removeEventListener('keydown', onKeydown);
     document.body.classList.remove('cl-drawer-open');
     document.body.classList.remove('page-course-learn');
+    if (activePlayerController) {
+      destroyBrandedVideoPlayer('cl-video-player');
+      activePlayerController = null;
+    }
     unmountLearningDock();
-    destroyBrandedVideoPlayer(document.getElementById('cl-player-wrapper')?.querySelector('[data-rp-player]'));
   };
 }
 

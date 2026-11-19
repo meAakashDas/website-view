@@ -128,7 +128,7 @@ export const FUNDAMENTAL_GLOSSARY = [
       np: 'मूल्य आम्दानी अनुपात (P/E Ratio) ले कम्पनीको १ रुपैयाँ नाफा कमाउनका लागि लगानीकर्ताले बजारमा कति रुपैयाँ तिरिरहेका छन् भन्ने देखाउँछ।'
     },
     detailedExplanation: {
-      en: 'The P/E multiple is the most widely cited valuation metric in equity investing. It is calculated by dividing the stock\'s current trading price on NEPSE by its annualized Earnings Per Share (EPS). A lower P/E ratio indicates that the stock may be undervalued or that the company operates in a mature, low-growth sector. A high P/E ratio suggests that investors anticipate rapid future earnings growth—or that the stock has become unsustainably overvalued due to market speculation.',
+      en: 'The P/E multiple is the most widely cited valuation metric in equity investing. It is calculated by dividing the stock\'s current trading price on NEPSE by its annualized Earnings Per Share (EPS). A lower P/E ratio indicates that the stock may be undervalued or that the company operates in a mature, low-growth sector. A high P/E ratio suggests that investors anticipate rapid future earnings growth, or that the stock has become unsustainably overvalued due to market speculation.',
       np: 'सेयर बजारमा कम्पनी सस्तो वा महँगो के छ भनेर जाँच्ने सबैभन्दा लोकप्रिय आधार नै पीई रेसियो हो। बजारमा चलिरहेको सेयर मूल्यलाई प्रति सेयर आम्दानी (EPS) ले भाग गरेर यो अनुपात निकालिन्छ। कम पीई हुनुको अर्थ कम्पनी सस्तो मूल्यमा पाइरहेको हुन सक्छ भने उच्च पीई हुनुको अर्थ बजारले भविष्यमा ठूलो वृद्धिको अपेक्षा गरेको वा सेयर बढी महँगो भएको हुन सक्छ।'
     },
     whyItMatters: {

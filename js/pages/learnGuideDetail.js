@@ -10,8 +10,7 @@ import {
   setLearnLanguage,
   LEARN_UI,
   toggleSavedGuide,
-  isGuideSaved,
-  getRelatedContent
+  isGuideSaved
 } from '../data/learn.js';
 import { ROUTES } from '../routes.js';
 import { initGlossaryTooltips } from '../enhancements.js';
@@ -82,9 +81,6 @@ export function renderLearnGuideDetailPage(guideSlug) {
   const summary = guide.oneLineSummary[lang] || guide.oneLineSummary.en;
   const categoryName = guide.categoryName ? (guide.categoryName[lang] || guide.categoryName.en) : guide.categorySlug;
   const isSaved = isGuideSaved(guide.slug);
-
-  // Smart cross-linking graph
-  const relatedContent = getRelatedContent('guide', guide.slug, guide.categorySlug);
 
   const nextLesson = guideData.whereToGoNext?.nextLesson || {
     title: isEn ? 'Personal Finance Fundamentals' : 'व्यक्तिगत वित्तका आधारभूत कुराहरू',

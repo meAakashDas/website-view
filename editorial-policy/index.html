@@ -198,6 +198,17 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@600;700&display=swap" rel="stylesheet">
 
+  <!-- YouTube Stream & Embed Preconnects -->
+  <link rel="dns-prefetch" href="https://www.youtube.com">
+  <link rel="dns-prefetch" href="https://www.youtube-nocookie.com">
+  <link rel="dns-prefetch" href="https://i.ytimg.com">
+  <link rel="dns-prefetch" href="https://img.youtube.com">
+  <link rel="dns-prefetch" href="https://googlevideo.com">
+  <link rel="preconnect" href="https://www.youtube.com">
+  <link rel="preconnect" href="https://www.youtube-nocookie.com">
+  <link rel="preconnect" href="https://i.ytimg.com" crossorigin>
+  <link rel="preconnect" href="https://googlevideo.com" crossorigin>
+
   <!-- Theme Bootstrapper (Zero Flash: Default Light Mode for First-Time Visitors) -->
   <script>
     (function() {
@@ -211,16 +222,16 @@
     })();
   </script>
 
-  <!-- Video.js v10 Official Architecture & Skin -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@videojs/cdn@10.2.0/video.css">
-  <script type="module" src="https://cdn.jsdelivr.net/npm/@videojs/cdn@10.2.0/video.js"></script>
-  <script type="module" src="https://cdn.jsdelivr.net/npm/@videojs/cdn@10.2.0/media/youtube-video.js"></script>
+
 
   <!-- Stylesheets -->
   <link rel="stylesheet" href="css/variables.css">
   <link rel="stylesheet" href="css/base.css">
   <link rel="stylesheet" href="css/components.css">
   <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/videoPlayer.css">
+  <script type="module" src="assets/vendor/videojs/video.js"></script>
+  <script type="module" src="assets/vendor/videojs/media/youtube-video.js"></script>
   <link rel="stylesheet" href="css/pages.css?v=2">
   <link rel="stylesheet" href="css/calculators.css">
   <link rel="stylesheet" href="css/learn.css">
@@ -238,6 +249,7 @@
         
         <!-- Desktop Nav Links (Center Desktop) -->
         <div class="nav-links">
+          <span class="nav-active-pill" id="nav-active-pill" aria-hidden="true"></span>
           <a href="/" class="nav-link " >Home</a><a href="/learn" class="nav-link " >Learn</a><a href="/courses" class="nav-link " >Courses</a><a href="/courses/nepse-stock-market-basics/learn?lesson=lesson-1" class="nav-link " >My Courses</a><a href="/calculators" class="nav-link " >Calculators</a>
 
           <a href="/resources" class="nav-link nav-link-tertiary" >Resources</a><a href="/blog" class="nav-link nav-link-tertiary" >Blog</a><a href="/about" class="nav-link nav-link-secondary" >About</a><a href="/contact" class="nav-link nav-link-secondary" >Contact</a>
@@ -282,7 +294,12 @@
             <span class="theme-icon theme-icon-sun" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg></span>
             <span class="theme-icon theme-icon-moon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></span>
           </button>
-          <div id="desktop-auth-container" class="nav-auth-slot"></div>
+          <div id="desktop-auth-container" class="nav-auth-slot">
+            <button type="button" class="nav-auth-btn" id="nav-signin-btn" aria-label="Sign in to your account">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/></svg>
+              <span>Sign In</span>
+            </button>
+          </div>
           <a href="https://wa.me/9779740269317?text=Hello%20RisePaisa%20team%2C%20I%20would%20like%20to%20get%20in%20touch." target="_blank" rel="noopener" class="btn btn-primary nav-cta">
             <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg> Contact
           </a>
@@ -294,6 +311,9 @@
             <span class="theme-icon theme-icon-sun" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg></span>
             <span class="theme-icon theme-icon-moon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></span>
           </button>
+          <button class="mobile-cluster-btn tablet-account-btn" id="tablet-account-btn" aria-label="Sign in to your account" type="button">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/></svg>
+          </button>
           <button class="nav-toggle" id="nav-toggle" aria-label="Open navigation menu" aria-expanded="false" aria-controls="mobile-menu" type="button">
             <span class="nav-toggle-bar"></span>
             <span class="nav-toggle-bar"></span>
@@ -301,112 +321,112 @@
           </button>
         </div>
       </div>
+    </nav>
       
-      <!-- Mobile Backdrop Overlay -->
-      <div class="mobile-menu-overlay" id="mobile-menu-overlay" aria-hidden="true"></div>
+    <!-- Mobile Backdrop Overlay -->
+    <div class="mobile-menu-overlay" id="mobile-menu-overlay" aria-hidden="true"></div>
 
-      <!-- Mobile Slide-Out Drawer (Slides in smoothly from right) -->
-      <aside class="mobile-menu" id="mobile-menu" role="dialog" aria-modal="true" aria-label="Mobile Navigation Menu">
-        <!-- Drawer Header -->
-        <div class="mobile-drawer-header">
-          <a href="/" class="drawer-logo" aria-label="risePaisa - Home">
-            <div class="logo-text">rise<span>Paisa</span></div>
-          </a>
-          <button class="mobile-menu-close" id="mobile-menu-close" aria-label="Close navigation menu" type="button">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    <!-- Mobile Slide-Out Drawer (Slides in smoothly from right) -->
+    <aside class="mobile-menu" id="mobile-menu" role="dialog" aria-modal="true" aria-label="Mobile Navigation Menu">
+      <!-- Drawer Header -->
+      <div class="mobile-drawer-header">
+        <a href="/" class="drawer-logo" aria-label="risePaisa - Home">
+          <div class="logo-text">rise<span>Paisa</span></div>
+        </a>
+        <button class="mobile-menu-close" id="mobile-menu-close" aria-label="Close navigation menu" type="button">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+
+      <div class="mobile-drawer-body">
+        <!-- Prominent Quick Search inside Drawer -->
+        <div class="mobile-drawer-search-wrap">
+          <button type="button" class="mobile-drawer-search-btn" id="mobile-drawer-search-btn" aria-label="Search finance topics and calculators">
+            <span class="mobile-drawer-search-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></span>
+            <span class="mobile-drawer-search-text">Search topics, tools, lessons…</span>
+            <kbd class="mobile-drawer-search-kbd">⌘K</kbd>
           </button>
         </div>
 
-        <div class="mobile-drawer-body">
-          <!-- Prominent Quick Search inside Drawer -->
-          <div class="mobile-drawer-search-wrap">
-            <button type="button" class="mobile-drawer-search-btn" id="mobile-drawer-search-btn" aria-label="Search finance topics and calculators">
-              <span class="mobile-drawer-search-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></span>
-              <span class="mobile-drawer-search-text">Search topics, tools, lessons…</span>
-              <kbd class="mobile-drawer-search-kbd">⌘K</kbd>
+        <!-- Account / Auth Drawer Slot -->
+        <div id="mobile-auth-container" class="mobile-drawer-auth-slot"></div>
+
+        <!-- Navigation Links List -->
+        <nav class="mobile-nav-links" aria-label="Mobile Navigation Links">
+          
+              <a href="/" class="mobile-link ">
+                <span class="mobile-link-icon-wrap" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg></span>
+                <span class="mobile-link-text">Home</span>
+                <span class="mobile-link-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
+              </a>
+            
+              <a href="/courses" class="mobile-link ">
+                <span class="mobile-link-icon-wrap" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg></span>
+                <span class="mobile-link-text">Courses</span>
+                <span class="mobile-link-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
+              </a>
+            
+              <a href="/learn" class="mobile-link ">
+                <span class="mobile-link-icon-wrap" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg></span>
+                <span class="mobile-link-text">Learn Academy</span>
+                <span class="mobile-link-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
+              </a>
+            
+              <a href="/calculators" class="mobile-link ">
+                <span class="mobile-link-icon-wrap" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="16" height="20" x="4" y="2" rx="2"/><line x1="8" x2="16" y1="6" y2="6"/><path d="M8 10h.01M12 10h.01M16 10h.01M8 14h.01M12 14h.01M16 14h.01M8 18h.01M12 18h.01M16 18h.01"/></svg></span>
+                <span class="mobile-link-text">Calculators</span>
+                <span class="mobile-link-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
+              </a>
+            
+              <a href="/resources" class="mobile-link ">
+                <span class="mobile-link-icon-wrap" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg></span>
+                <span class="mobile-link-text">Resources</span>
+                <span class="mobile-link-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
+              </a>
+            
+              <a href="/blog" class="mobile-link ">
+                <span class="mobile-link-icon-wrap" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2l-2 1-2-1-2 1-2-1-2 1-2-1-2 1-2-1Z"/><path d="M8 7h8"/><path d="M8 11h8"/><path d="M8 15h5"/></svg></span>
+                <span class="mobile-link-text">Articles & Blog</span>
+                <span class="mobile-link-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
+              </a>
+            
+              <a href="/about" class="mobile-link ">
+                <span class="mobile-link-icon-wrap" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span>
+                <span class="mobile-link-text">About Us</span>
+                <span class="mobile-link-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
+              </a>
+            
+              <a href="/contact" class="mobile-link ">
+                <span class="mobile-link-icon-wrap" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg></span>
+                <span class="mobile-link-text">Contact</span>
+                <span class="mobile-link-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
+              </a>
+            
+        </nav>
+
+        <!-- Appearance Theme Control -->
+        <div class="mobile-menu-theme-row">
+          <span class="mobile-menu-theme-label">Appearance</span>
+          <div class="mobile-theme-segmented" role="radiogroup" aria-label="Appearance">
+            <button type="button" class="mobile-theme-seg-btn" id="seg-btn-light" data-theme-val="light" aria-label="Light mode">
+              <span class="theme-seg-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg></span>
+              <span>Light</span>
+            </button>
+            <button type="button" class="mobile-theme-seg-btn" id="seg-btn-dark" data-theme-val="dark" aria-label="Dark mode">
+              <span class="theme-seg-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></span>
+              <span>Dark</span>
             </button>
           </div>
-
-          <!-- Account / Auth Drawer Slot -->
-          <div id="mobile-auth-container" class="mobile-drawer-auth-slot"></div>
-
-          <!-- Navigation Links List -->
-          <nav class="mobile-nav-links" aria-label="Mobile Navigation Links">
-            
-                <a href="/" class="mobile-link ">
-                  <span class="mobile-link-icon-wrap" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg></span>
-                  <span class="mobile-link-text">Home</span>
-                  <span class="mobile-link-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
-                </a>
-              
-                <a href="/courses" class="mobile-link ">
-                  <span class="mobile-link-icon-wrap" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg></span>
-                  <span class="mobile-link-text">Courses</span>
-                  <span class="mobile-link-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
-                </a>
-              
-                <a href="/learn" class="mobile-link ">
-                  <span class="mobile-link-icon-wrap" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg></span>
-                  <span class="mobile-link-text">Learn Academy</span>
-                  <span class="mobile-link-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
-                </a>
-              
-                <a href="/calculators" class="mobile-link ">
-                  <span class="mobile-link-icon-wrap" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="16" height="20" x="4" y="2" rx="2"/><line x1="8" x2="16" y1="6" y2="6"/><path d="M8 10h.01M12 10h.01M16 10h.01M8 14h.01M12 14h.01M16 14h.01M8 18h.01M12 18h.01M16 18h.01"/></svg></span>
-                  <span class="mobile-link-text">Calculators</span>
-                  <span class="mobile-link-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
-                </a>
-              
-                <a href="/resources" class="mobile-link ">
-                  <span class="mobile-link-icon-wrap" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg></span>
-                  <span class="mobile-link-text">Resources</span>
-                  <span class="mobile-link-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
-                </a>
-              
-                <a href="/blog" class="mobile-link ">
-                  <span class="mobile-link-icon-wrap" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2l-2 1-2-1-2 1-2-1-2 1-2-1-2 1-2-1Z"/><path d="M8 7h8"/><path d="M8 11h8"/><path d="M8 15h5"/></svg></span>
-                  <span class="mobile-link-text">Articles & Blog</span>
-                  <span class="mobile-link-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
-                </a>
-              
-                <a href="/about" class="mobile-link ">
-                  <span class="mobile-link-icon-wrap" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span>
-                  <span class="mobile-link-text">About Us</span>
-                  <span class="mobile-link-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
-                </a>
-              
-                <a href="/contact" class="mobile-link ">
-                  <span class="mobile-link-icon-wrap" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg></span>
-                  <span class="mobile-link-text">Contact</span>
-                  <span class="mobile-link-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
-                </a>
-              
-          </nav>
-
-          <!-- Appearance Theme Control -->
-          <div class="mobile-menu-theme-row">
-            <span class="mobile-menu-theme-label">Appearance</span>
-            <div class="mobile-theme-segmented" role="radiogroup" aria-label="Appearance">
-              <button type="button" class="mobile-theme-seg-btn" id="seg-btn-light" data-theme-val="light" aria-label="Light mode">
-                <span class="theme-seg-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg></span>
-                <span>Light</span>
-              </button>
-              <button type="button" class="mobile-theme-seg-btn" id="seg-btn-dark" data-theme-val="dark" aria-label="Dark mode">
-                <span class="theme-seg-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></span>
-                <span>Dark</span>
-              </button>
-            </div>
-          </div>
         </div>
+      </div>
 
-        <!-- Drawer Footer with WhatsApp Contact Button -->
-        <div class="mobile-drawer-footer">
-          <a href="https://wa.me/9779740269317?text=Hello%20RisePaisa%20team%2C%20I%20would%20like%20to%20get%20in%20touch." target="_blank" rel="noopener" class="btn btn-whatsapp btn-lg mobile-drawer-wa-btn">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg> Chat on WhatsApp
-          </a>
-        </div>
-      </aside>
-    </nav>
+      <!-- Drawer Footer with WhatsApp Contact Button -->
+      <div class="mobile-drawer-footer">
+        <a href="https://wa.me/9779740269317?text=Hello%20RisePaisa%20team%2C%20I%20would%20like%20to%20get%20in%20touch." target="_blank" rel="noopener" class="btn btn-whatsapp btn-lg mobile-drawer-wa-btn">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg> Chat on WhatsApp
+        </a>
+      </div>
+    </aside>
 
     <!-- ── Global Search Modal ──────────────────────────────────────── -->
     <div class="search-modal-overlay" id="search-modal-overlay" role="dialog" aria-modal="true" aria-label="Search RisePaisa">
@@ -456,7 +476,7 @@
       </div>
 
       <h1>Editorial Policy &amp; Research Standards</h1>
-      <p class="last-updated">Last verified &amp; updated: October 2026 · Editorial Desk</p>
+      <p class="last-updated">Last verified &amp; updated: November 2026 · Governed by the Laws of Nepal</p>
 
       <nav class="legal-nav-strip" aria-label="Legal Documentation Navigation">
         <a href="/terms" class="legal-nav-pill">Terms &amp; Conditions</a>
@@ -467,102 +487,118 @@
         <a href="/faq" class="legal-nav-pill">FAQ</a>
       </nav>
 
-      <div style="background:var(--color-surface);border:1px solid var(--color-border);border-left:4px solid var(--color-accent);padding:var(--space-5) var(--space-6);border-radius:var(--radius-md);margin-bottom:var(--space-8)">
-        <p style="margin:0;font-size:var(--text-sm);color:var(--color-text-secondary);line-height:1.6">
-          <strong style="color:var(--color-text)">Core Commitment:</strong> RisePaisa exists to build accurate, unbiased, and practical financial education tailored specifically to Nepal. We believe financial literacy must be founded on verifiable truth, statutory primary sources, and transparent authorship, never on speculative hype or sponsored stock promotion.
+      <div class="legal-callout-box">
+        <h4><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg> Core Editorial Commitment</h4>
+        <p>
+          RisePaisa exists to build authoritative, unbiased, and accessible financial education specifically for Nepal. We believe personal finance education must be anchored in verifiable primary statutory sources, rigorous fact-checking, and transparent authorship, free from speculative market promotion, sponsored stock tips, or artificial hype.
         </p>
       </div>
 
-      <h2>1. Purpose & Editorial Mission</h2>
+      <h2>1. Purpose &amp; Editorial Mission</h2>
       <p>
-        The financial landscape of Nepal presents unique regulatory, economic, and institutional nuances. From understanding the progressive tax slabs established by the Inland Revenue Department (IRD) to navigating initial public offerings (IPOs) governed by the Securities Board of Nepal (SEBON) and trading on the Nepal Stock Exchange (NEPSE), learners need dependable, jargon-free explanations.
+        <strong>1.1 Educational Mission:</strong> Nepal&rsquo;s economic and financial environment is shaped by distinct statutory directives, evolving tax slabs, and unique market mechanisms. From understanding progressive income tax under the <em>Income Tax Act, 2058</em> to applying for IPOs via C-ASBA and trading on the Nepal Stock Exchange (NEPSE), learners need clear, objective explanations.
       </p>
       <p>
-        RisePaisa, founded by Aakash Das, is committed to translating complex monetary circulars, fiscal acts, and capital market mechanisms into clear, step-by-step guides, calculators, and educational programs accessible to every Nepali earner.
+        <strong>1.2 Educational Publishing Only:</strong> RisePaisa, founded by Aakash Das in Kathmandu, translates complex fiscal acts, monetary circulars, and capital market rules into step-by-step guides, calculators, and curriculum modules. RisePaisa operates strictly as an educational publisher, not an investment brokerage or portfolio management firm.
       </p>
 
-      <h2>2. Hierarchy of Primary Sources</h2>
+      <h2>2. Hierarchy of Primary Sources &amp; Fact-Checking Standards</h2>
       <p>
-        We hold a strict policy regarding the sourcing of financial and regulatory information. We prioritize official statutory publications over secondary media commentary or unverified forum discussions:
+        We enforce a strict hierarchy of evidence. When researching and explaining financial topics in Nepal, we prioritize authoritative government gazettes and statutory publications over secondary media reports or social media chatter:
       </p>
       <ul>
-        <li><strong>Nepal Rastra Bank (NRB):</strong> Unified directives, annual and mid-term monetary policy statements, foreign exchange regulations, banking interest rate limits, and payment service operator directives.</li>
-        <li><strong>Securities Board of Nepal (SEBON):</strong> Securities Act provisions, mutual fund regulations, public issue allotment guidelines, and broker licensing rules.</li>
-        <li><strong>Nepal Stock Exchange (NEPSE) & CDSC:</strong> By-laws on secondary market trading, C-ASBA settlement mechanisms, DEMAT accounts, and MeroShare operating procedures.</li>
-        <li><strong>Inland Revenue Department (IRD Nepal):</strong> The Income Tax Act 2058, annual Finance Acts (Aarthik Vidheyak), progressive income tax slabs, and official withholding directives (TDS).</li>
-        <li><strong>Credit & Social Security Authorities:</strong> Social Security Fund (SSF), Employee Provident Fund (EPF/Karmachari Sanchaya Kosh), Citizen Investment Trust (CIT), and the Deposit and Credit Guarantee Fund (DCGF).</li>
-        <li><strong>Audited Company Reports:</strong> Official balance sheets, profit-and-loss statements, and prospectuses submitted directly by listed companies to NEPSE and SEBON.</li>
+        <li>
+          <strong>Nepal Law Commission (नेपाल कानून आयोग) &amp; Nepal Gazette:</strong> Official legislative statutes, gazette notifications, and ordinances, including the <em>Consumer Protection Act, 2075</em>, the <em>Electronic Commerce Act, 2081</em>, the <em>Securities Act, 2063</em>, and the <em>Individual Privacy Act, 2075</em>;
+        </li>
+        <li>
+          <strong>Nepal Rastra Bank (NRB):</strong> Unified Directives for Class A, B, and C financial institutions, annual and mid-term Monetary Policy statements, foreign exchange regulations, Base Rate determinations, interest rate spread caps, and Payment Service Operator (PSO/PSP) regulations;
+        </li>
+        <li>
+          <strong>Securities Board of Nepal (SEBON):</strong> Securities regulations, public issue allotment directives (C-ASBA guidelines), mutual fund guidelines, and official regulatory notices;
+        </li>
+        <li>
+          <strong>Inland Revenue Department (IRD Nepal):</strong> The <em>Income Tax Act, 2058</em>, annual Finance Acts (Aarthik Vidheyak), progressive income tax slabs, and official Tax Deducted at Source (TDS) withholding circulars;
+        </li>
+        <li>
+          <strong>Nepal Stock Exchange (NEPSE) &amp; CDSC:</strong> Secondary market trading by-laws, settlement and clearing rules, DEMAT operational guidelines, and MeroShare procedures;
+        </li>
+        <li>
+          <strong>Statutory Social Security &amp; Pension Funds:</strong> Official directives from the Social Security Fund (SSF), Employee Provident Fund (EPF / Karmachari Sanchaya Kosh), Citizen Investment Trust (CIT), and Deposit and Credit Guarantee Fund (DCGF);
+        </li>
+        <li>
+          <strong>Audited Corporate Filings:</strong> Balance sheets, profit and loss statements, and prospectuses submitted directly by listed public companies to NEPSE and SEBON.
+        </li>
       </ul>
 
-      <h2>3. Educational Content vs. Personalized Advice</h2>
+      <h2>3. Delineation of Facts, Estimates, Examples &amp; Opinions</h2>
       <p>
-        RisePaisa operates strictly as a financial education and research publisher. We maintain an uncompromising distinction between educational analysis and personalized financial advice:
+        To preserve reader clarity and avoid misleading financial expectations, we maintain transparent boundaries between categories of content:
       </p>
       <ul>
-        <li><strong>We do not provide individualized advice:</strong> We do not issue personalized buy/sell/hold calls or tell individuals how to allocate their private capital.</li>
-        <li><strong>No guaranteed return claims:</strong> We strictly prohibit promises of "guaranteed profits", "risk-free high returns", or speculative stock tips. All financial instruments, including equities and mutual funds, carry market risk.</li>
-        <li><strong>Objective evaluation:</strong> When discussing valuation methodologies (e.g., P/E, P/B, ROE, CAGR), we focus on teaching the underlying mathematical framework and historical context rather than pushing specific stocks.</li>
-        <li><strong>Professional consultation:</strong> We consistently advise readers to consult licensed Chartered Accountants (CAs), SEBON-registered investment advisors, or certified tax planners before executing significant financial contracts.</li>
+        <li><strong>Factual Statements:</strong> Statutory tax slabs, official NRB Base Rate formulas, regulatory filing deadlines, and statutory commission structures are verified directly against primary official circulars and presented as verifiable facts;</li>
+        <li><strong>Mathematical Estimates &amp; Simulations:</strong> Projections produced by our interactive financial engines (such as SIP compounding, retirement corpus models, or reducing-balance EMI schedules) are mathematical simulations based on user-entered inputs and explicit assumptions. They are clearly identified as planning estimates, not guarantees;</li>
+        <li><strong>Educational Case Studies:</strong> Historical chart patterns, corporate financial statements, and company ratios examined in our courses are academic case studies used solely to teach analytical methodologies (such as evaluating Debt-to-Equity or computing P/E ratios). They never constitute an endorsement, price target, or recommendation to trade that security;</li>
+        <li><strong>Educational Commentary:</strong> Pedagogical frameworks, budgeting philosophies, and financial planning frameworks are clearly presented as educational viewpoints to assist learners in structuring their own thinking.</li>
       </ul>
 
-      <h2>4. Authorship & Editorial Accountability</h2>
+      <h2>4. Editorial Independence &amp; Commercial Transparency</h2>
       <p>
-        Every substantive article, calculator guide, and curriculum module clearly states its author, original publication date, and last verified review date. 
-      </p>
-      <p>
-        Content on RisePaisa is authored and curated primarily by founder <a href="/aakash-das">Aakash Das</a> alongside verified financial educators. We believe that true topical authority is earned through sustained quality, transparent sourcing, and continuous factual accuracy, rather than manufactured accolades or generic AI-generated feeds.
-      </p>
-
-      <h2>5. Fact-Checking & Maintenance Cycle</h2>
-      <p>
-        Because financial laws and market parameters in Nepal evolve regularly (such as annual budget changes in Jestha, monetary policy announcements in Shrawan, and quarterly regulatory circulars), we enforce a systematic review process:
+        RisePaisa protects reader trust through strict editorial safeguards:
       </p>
       <ul>
-        <li><strong>Immediate Statutory Revisions:</strong> When new tax slabs or C-ASBA allotment procedures are legislated, related guides and calculators are updated immediately to match the current fiscal year (e.g., FY 2082/83).</li>
-        <li><strong>Verified Badging:</strong> Content cards feature explicit "Last Verified" timestamps indicating when the facts, calculations, and references were last manually verified against official notices.</li>
-        <li><strong>Historical Context Preservation:</strong> Where previous fiscal rules or historic policies are discussed for educational perspective, they are clearly contextualized with the applicable timeframe to prevent reader confusion.</li>
+        <li><strong>Zero Paid Stock Promotions:</strong> RisePaisa strictly prohibits and rejects paid promotional coverage, kickbacks, referral bounties, or equity allocations from publicly listed companies, promoters, or stock brokers seeking positive coverage or artificial share hype;</li>
+        <li><strong>Separation of Free Content and Courses:</strong> Access to our core research articles, learning guides, and interactive financial calculators remains 100% free and editorially uncompromised. Paid course offerings are structured educational masterclasses and do not alter the objectivity of our public guides;</li>
+        <li><strong>Commercial Disclosure:</strong> If any third-party book, software tool, or financial infrastructure provider is referenced under an affiliate relationship, clear and conspicuous disclosure is provided within that immediate context;</li>
+        <li><strong>Avoidance of Misleading Claims:</strong> We strictly avoid hyperbolic promises of &ldquo;risk-free income&rdquo;, &ldquo;wealth overnight&rdquo;, or &ldquo;guaranteed stock picks&rdquo;. All financial discussions honestly convey the realities of capital market volatility.</li>
       </ul>
 
-      <h2>6. Independence & Commercial Transparency</h2>
+      <h2>5. Authorship &amp; Editorial Accountability</h2>
       <p>
-        Editorial integrity is paramount. To preserve reader trust:
+        Every educational article, learning lesson, and calculator guide published on RisePaisa clearly identifies its author and editorial review status.
+      </p>
+      <p>
+        Content on RisePaisa is authored and curated primarily by founder <a href="/aakash-das">Aakash Das</a> alongside verified educators. We do not publish automated, unverified AI feeds or anonymous financial commentary. While we conduct rigorous internal research and fact-checking, we do not claim that every published educational article is independently audited by an external law firm or government agency unless specifically stated.
+      </p>
+
+      <h2>6. Regulatory Review Cycles &amp; Maintenance Schedule</h2>
+      <p>
+        Because financial rules, fiscal tax slabs, and monetary circulars in Nepal change regularly, we follow a proactive review schedule:
       </p>
       <ul>
-        <li><strong>Zero Paid Stock Promotions:</strong> RisePaisa does not accept compensation, kickbacks, or equity allocations from publicly listed companies, promoters, or stock brokers in exchange for positive coverage or favorable analysis.</li>
-        <li><strong>Separation of Education and Commercial Tools:</strong> While RisePaisa develops interactive financial tools and offers structured premium courses, access to foundational financial articles, calculators, and educational guides remains completely free and editorially uncompromised.</li>
-        <li><strong>Affiliate & Partner Disclosures:</strong> If any third-party software, books, or financial infrastructure platforms are referenced via affiliate relationships, clear and conspicuous disclosures are provided directly within the relevant context.</li>
+        <li><strong>Annual Budget &amp; Finance Act (Jestha):</strong> Immediate review and update of individual income tax slabs, deductions, and TDS withholding rates following official publication by the Ministry of Finance and IRD;</li>
+        <li><strong>Monetary Policy Announcements (Shrawan &amp; Quarterly):</strong> Review and update of commercial banking guidelines, LTV ceilings, and loan prepayment rules following Nepal Rastra Bank announcements;</li>
+        <li><strong>Ongoing Regulatory Notices:</strong> Continuous tracking of SEBON IPO allotment circulars, CDSC DEMAT directives, and digital payment circulars to keep guides up to date;</li>
+        <li><strong>Historical Context:</strong> Where prior fiscal years or historic rules are cited for comparison, they are explicitly labeled with their applicable fiscal year (e.g. FY 2081/82 vs. FY 2082/83) to avoid learner confusion.</li>
       </ul>
 
-      <h2>7. Corrections & Feedback Policy</h2>
+      <h2>7. Corrections &amp; Feedback Policy</h2>
       <p>
-        Despite rigorous verification, the complexity and shifting nature of financial rules means errors or ambiguities can occasionally arise. We treat every reader inquiry seriously and welcome constructive accountability.
+        Despite our dedication to accuracy, the evolving nature of financial regulations means that ambiguities or errors can occasionally arise. We treat every reader inquiry seriously and maintain a transparent corrections procedure.
       </p>
-      <div style="background:var(--color-surface);border:1px solid var(--color-border);padding:var(--space-6);border-radius:var(--radius-lg);margin:var(--space-6) 0">
-        <h3 style="margin-top:0;font-size:var(--text-lg);color:var(--color-heading);display:flex;align-items:center;gap:8px">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg> How to Report a Discrepancy or Correction
-        </h3>
-        <p style="font-size:var(--text-sm);color:var(--color-text-secondary);line-height:1.6">
-          If you identify any factual discrepancy, outdated regulatory citation, or mathematical ambiguity in any RisePaisa article, guide, or calculator:
+      <div class="legal-callout-box">
+        <h4><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg> How to Report an Editorial Discrepancy</h4>
+        <p>
+          If you identify an inaccurate statutory citation, outdated tax figure, broken link, or mathematical error in any RisePaisa guide or calculator:
         </p>
-        <ul style="font-size:var(--text-sm);color:var(--color-text-secondary);margin-bottom:var(--space-4)">
-          <li>Email our editorial desk at <a href="mailto:itsaakashdas@gmail.com"><strong>itsaakashdas@gmail.com</strong></a> with the subject line <em>"Editorial Correction: [Article Title]"</em>.</li>
-          <li>Or message our verified WhatsApp support line directly at <a href="https://wa.me/9779740269317" target="_blank" rel="noopener"><strong>+977 9740269317</strong></a>.</li>
-          <li>Please include the URL of the page, the specific sentence or calculation, and a citation to the primary official source (e.g., NRB circular number or IRD gazette).</li>
+        <ul style="margin-bottom:var(--space-3)">
+          <li>Email our editorial desk at <a href="mailto:itsaakashdas@gmail.com"><strong>itsaakashdas@gmail.com</strong></a> with the subject: <code>Editorial Correction: [Article or Page Title]</code>;</li>
+          <li>Or message our verified WhatsApp support line directly at <a href="https://wa.me/9779740269317" target="_blank" rel="noopener"><strong>+977 9740269317</strong></a>;</li>
+          <li>Please include the URL of the page, the specific sentence or figure, and a citation to the primary official source (e.g. official NRB directive number or IRD notification).</li>
         </ul>
         <p style="margin:0;font-size:var(--text-xs);color:var(--color-text-muted)">
-          Our editorial team reviews reported discrepancies within 48 business hours. Verified corrections are deployed immediately, with an explanatory note appended to the article when substantial.
+          Our editorial desk reviews reported discrepancies within <strong>48 business hours</strong>. Verified corrections are updated immediately, with an explanatory note appended where the correction is substantive.
         </p>
       </div>
 
-      <h2>8. Associated Policies & Resources</h2>
-      <p>
-        For further details regarding data privacy, platform terms, and educational disclaimers, please explore:
-      </p>
+      <h2>8. Associated Policies &amp; Resources</h2>
+      <p>For additional details regarding our platform standards, user privacy, and legal terms, please review:</p>
       <ul>
-        <li><a href="/disclaimer">Full Financial Disclaimer</a></li>
+        <li><a href="/disclaimer">Educational Disclaimer &amp; Risk Disclosure</a></li>
         <li><a href="/privacy">Privacy Policy</a></li>
-        <li><a href="/terms">Terms of Service</a></li>
-        <li><a href="/aakash-das">Aakash Das, Author & Founder Profile</a></li>
+        <li><a href="/terms">Terms &amp; Conditions</a></li>
+        <li><a href="/refund-policy">Refund &amp; Cancellation Policy</a></li>
+        <li><a href="/faq">Frequently Asked Questions</a></li>
+        <li><a href="/aakash-das">Aakash Das, Founder Profile</a></li>
       </ul>
     </div>
   </main>
@@ -572,11 +608,10 @@
         <div class="footer-grid">
           <div class="footer-brand">
             <a href="/" class="nav-logo">
-
               <div class="logo-text">rise<span>Paisa</span></div>
             </a>
             <p>Nepal's most practical financial education platform. Practical NEPSE, taxation, and personal finance strategies built for real income growth in Nepal.</p>
-            <p style="font-size:var(--text-xs);color:var(--color-text-muted);margin:var(--space-2) 0 var(--space-4)">
+            <p class="footer-founder" style="font-size:var(--text-xs);color:var(--color-text-muted);margin:var(--space-2) 0 var(--space-4)">
               Founded by <a href="/aakash-das" style="color:var(--color-text-secondary);text-decoration:underline;text-underline-offset:2px">Aakash Das</a>
             </p>
             <div class="footer-social">
@@ -587,39 +622,66 @@
             </div>
           </div>
           
-          <div class="footer-section">
-            <h4>Quick Links</h4>
-            <a href="/">Home</a>
-            <a href="/learn">Learn Academy</a>
-            <a href="/courses">Courses</a>
-            <a href="/calculators">Calculators</a>
-            <a href="/resources">Resources</a>
-            <a href="/blog">Articles</a>
-            <a href="/about">About Us</a>
-            <a href="/aakash-das">Aakash Das (Founder)</a>
-            <a href="/contact">Contact</a>
+          <div class="footer-section" data-collapsible="true">
+            <button type="button" class="footer-section-toggle" aria-expanded="false" aria-controls="footer-links-quick">
+              <h4>Quick Links</h4>
+              <span class="footer-toggle-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+              </span>
+            </button>
+            <div class="footer-links-content" id="footer-links-quick">
+              <div class="footer-links-inner">
+                <a href="/">Home</a>
+                <a href="/learn">Learn Academy</a>
+                <a href="/courses">Courses</a>
+                <a href="/calculators">Calculators</a>
+                <a href="/resources">Resources</a>
+                <a href="/blog">Articles</a>
+                <a href="/about">About Us</a>
+                <a href="/aakash-das">Aakash Das (Founder)</a>
+                <a href="/contact">Contact</a>
+              </div>
+            </div>
           </div>
           
-          <div class="footer-section">
-            <h4>Academy & Topics</h4>
-            <a href="/learn/investing">Investing</a>
-            <a href="/learn/nepse">NEPSE</a>
-            <a href="/learn/personal-finance">Personal Finance</a>
-            <a href="/learn/taxation">Taxation Nepal</a>
-            <a href="/learn/mutual-funds">Mutual Funds</a>
-            <a href="/learn/loans">Loans &amp; Banking</a>
-            <a href="/learn/insurance">Insurance</a>
-            <a href="/learn/retirement-planning">Retirement Planning</a>
+          <div class="footer-section" data-collapsible="true">
+            <button type="button" class="footer-section-toggle" aria-expanded="false" aria-controls="footer-links-topics">
+              <h4>Academy & Topics</h4>
+              <span class="footer-toggle-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+              </span>
+            </button>
+            <div class="footer-links-content" id="footer-links-topics">
+              <div class="footer-links-inner">
+                <a href="/learn/investing">Investing</a>
+                <a href="/learn/nepse">NEPSE</a>
+                <a href="/learn/personal-finance">Personal Finance</a>
+                <a href="/learn/taxation">Taxation Nepal</a>
+                <a href="/learn/mutual-funds">Mutual Funds</a>
+                <a href="/learn/loans">Loans &amp; Banking</a>
+                <a href="/learn/insurance">Insurance</a>
+                <a href="/learn/retirement-planning">Retirement Planning</a>
+              </div>
+            </div>
           </div>
           
-          <div class="footer-section">
-            <h4>Trust & Legal</h4>
-            <a href="/editorial-policy">Editorial Policy</a>
-            <a href="/disclaimer">Disclaimer</a>
-            <a href="/privacy">Privacy Policy</a>
-            <a href="/terms">Terms & Conditions</a>
-            <a href="/refund-policy">Refund Policy</a>
-            <a href="/faq">FAQ</a>
+          <div class="footer-section" data-collapsible="true">
+            <button type="button" class="footer-section-toggle" aria-expanded="false" aria-controls="footer-links-legal">
+              <h4>Trust & Legal</h4>
+              <span class="footer-toggle-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+              </span>
+            </button>
+            <div class="footer-links-content" id="footer-links-legal">
+              <div class="footer-links-inner">
+                <a href="/editorial-policy">Editorial Policy</a>
+                <a href="/disclaimer">Disclaimer</a>
+                <a href="/privacy">Privacy Policy</a>
+                <a href="/terms">Terms & Conditions</a>
+                <a href="/refund-policy">Refund Policy</a>
+                <a href="/faq">FAQ</a>
+              </div>
+            </div>
           </div>
         </div>
         

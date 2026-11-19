@@ -10,10 +10,7 @@ import {
   getLearnLanguage,
   setLearnLanguage,
   LEARN_UI,
-  POPULAR_GUIDES,
   GLOSSARY_PREVIEW,
-  FREE_RESOURCES,
-  CONTINUE_LEARNING_DEFAULT,
   FINANCE_JOURNEYS
 } from '../data/learn.js';
 import { getResources } from '../data/resources.js';
@@ -25,15 +22,12 @@ import { openAuthModal, promptSignInForBookmark } from '../firebase/ui.js';
 // ── SVG Helpers ─────────────────────────────────
 const BOOKMARK_ICON = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>`;
 const BOOKMARK_FILLED_ICON = `<svg viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>`;
-const DOWNLOAD_ICON = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>`;
 const CALC_ICON = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="16" height="20" x="4" y="2" rx="2"/><line x1="8" x2="16" y1="6" y2="6"/><path d="M8 10h.01M12 10h.01M16 10h.01M8 14h.01M12 14h.01M16 14h.01M8 18h.01M12 18h.01M16 18h.01"/></svg>`;
 const CHEVRON_DOWN = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>`;
-const CHECK_ICON = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>`;
 const MAP_ICON = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21"/><line x1="9" y1="3" x2="9" y2="18"/><line x1="15" y1="6" x2="15" y2="21"/></svg>`;
 const BOOK_ICON = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>`;
 const RESOURCE_ICON = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>`;
 const GLOSSARY_ICON = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>`;
-const PROGRESS_ICON = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>`;
 const TARGET_ICON = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>`;
 
 // ── Category Group Map ───────────────────────────
@@ -301,6 +295,14 @@ function renderBrowseTab(lang, ui) {
     </a>
   `).join('');
 
+  // Mobile category jump chips (<1024px)
+  const mobileCategoryChips = groups.map((group, idx) => `
+    <button type="button" class="learn-mobile-cat-chip${idx === 0 ? ' active' : ''}" data-group="${group.id}" aria-label="${group.label}">
+      <span class="learn-mobile-cat-emoji" aria-hidden="true">${group.emoji}</span>
+      <span>${group.label}</span>
+    </button>
+  `).join('');
+
   // Accordion groups
   const accordionGroupsHtml = groups.map((group, groupIdx) => {
     const groupCats = group.slugs.map(slug => catMap[slug]).filter(Boolean);
@@ -315,9 +317,8 @@ function renderBrowseTab(lang, ui) {
           <span class="learn-category-group-rule" aria-hidden="true"></span>
           <span class="learn-category-group-count">${groupCats.length} ${lang === 'np' ? 'विषय' : 'topics'} · ${groupLessonCount} ${lang === 'np' ? 'पाठ' : 'lessons'}</span>
         </div>
-        ${groupCats.map((cat, catIdx) => {
+        ${groupCats.map(cat => {
           const catData = cat[lang] || cat.en;
-          const isFirstInFirstGroup = groupIdx === 0 && catIdx === 0;
           return `
               <div class="learn-accordion"
                  id="accordion-${cat.slug}"
@@ -378,6 +379,13 @@ function renderBrowseTab(lang, ui) {
         </div>
       </div>
 
+      <!-- Mobile Category Quick-Jump Strip (visible <1024px) -->
+      <div class="learn-mobile-cat-strip" role="navigation" aria-label="${lang === 'np' ? 'श्रेणी नेभिगेसन' : 'Quick category jump'}">
+        <div class="learn-mobile-cat-strip-inner">
+          ${mobileCategoryChips}
+        </div>
+      </div>
+
       <!-- Layout: Sidebar + Main -->
       <div class="learn-browse-layout">
 
@@ -425,23 +433,15 @@ function renderResourcesTab(lang, ui) {
     external: `<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>`
   };
 
-  function renderResourceCards(resources, isPaid = false) {
+  function renderResourceCards(resources) {
     return resources.map(res => {
       const title = typeof res.title === 'object' ? (res.title[lang] || res.title.en) : res.title;
       const desc = typeof res.desc === 'object'
         ? (res.desc[lang] || res.desc.en)
         : (res.shortDescription || res.description || '');
-      const badge = typeof res.badge === 'object' ? (res.badge[lang] || res.badge.en) : (res.badge || res.category || 'Resource');
-      const time = res.estimatedTime ? (res.estimatedTime[lang] || res.estimatedTime.en) : '';
-      const price = isPaid ? `${res.currency || 'NPR'} ${res.price}` : '';
-      const href = isPaid 
-        ? `/resources/${res.slug}` 
-        : (res.downloadUrl || (res.downloadFilename ? `assets/downloads/${res.downloadFilename}` : 'assets/downloads/nepal-personal-budget-planner.csv'));
-      const isDirectDownload = !isPaid;
-      const isHtml = href.endsWith('.html');
-      const downloadAttr = isDirectDownload && !isHtml ? `download="${res.downloadFilename || 'resource'}"` : '';
-      const targetAttr = isDirectDownload && isHtml ? 'target="_blank" rel="noopener noreferrer"' : '';
-      const iconSvg = RES_ICONS[res.icon] || (isPaid ? RES_ICONS.ledger : RES_ICONS.spreadsheet);
+      const price = `${res.currency || 'NPR'} ${res.price}`;
+      const href = `/resources/${res.slug}`;
+      const iconSvg = RES_ICONS[res.icon] || RES_ICONS.ledger;
 
       const highlights = Array.isArray(res.highlights) ? res.highlights : [];
       const highlightsHtml = highlights.length > 0 ? `
@@ -450,43 +450,25 @@ function renderResourcesTab(lang, ui) {
         </div>
       ` : '';
 
-      const companionTitle = typeof res.companionLessonTitle === 'object' 
-        ? (res.companionLessonTitle[lang] || res.companionLessonTitle.en)
-        : (lang === 'np' ? 'सम्बन्धित पाठ' : 'Companion Lesson');
-
-      const companionLessonHtml = res.companionLesson ? `
-        <a href="/learn/${res.companionCategorySlug || 'personal-finance'}/${res.companionLesson}" class="learn-res-companion-badge" title="${lang === 'np' ? 'सम्बन्धित पाठ अध्ययन गर्नुहोस्' : 'Study companion curriculum lesson'}">
-          <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
-          <span>${companionTitle}</span>
-        </a>
-      ` : '';
-
       return `
-        <article class="learn-resource-card${isPaid ? ' learn-resource-card-paid' : ''}" id="${res.id}" role="listitem">
+        <article class="learn-resource-card learn-resource-card-paid" id="${res.id}" role="listitem">
           <div class="learn-resource-top">
             <div class="learn-res-format-pill">
               ${iconSvg}
-              <span>${isPaid ? (lang === 'np' ? 'प्रिमियम प्रणाली' : 'Premium System') : (res.formatBadge || badge)}</span>
+              <span>${lang === 'np' ? 'प्रिमियम प्रणाली' : 'Premium System'}</span>
             </div>
-            <span class="learn-resource-size">${price || `${time ? `${time} · ` : ''}${res.fileSize || res.format || ''}`}</span>
+            <span class="learn-resource-size">${price}</span>
           </div>
 
           <h4 class="learn-resource-title">${title}</h4>
           <p class="learn-resource-desc">${desc}</p>
           
           ${highlightsHtml}
-          ${companionLessonHtml}
 
           <div class="learn-resource-actions">
-            ${!isPaid ? `
-              <button type="button" class="learn-res-action-btn learn-res-preview-btn" data-res-id="${res.id}" aria-label="Quick Preview ${title.replace(/"/g, '&quot;')}">
-                ${RES_ICONS.eye}
-                <span>${lang === 'np' ? 'पूर्वावलोकन' : 'Quick Preview'}</span>
-              </button>
-            ` : ''}
-            <a href="${href}" class="learn-res-action-btn learn-res-primary-btn" ${downloadAttr} ${targetAttr} data-resource-title="${title.replace(/"/g, '&quot;')}">
-              ${isPaid ? ICONS.arrowRight : (isHtml ? RES_ICONS.external : RES_ICONS.download)}
-              <span>${isPaid ? (lang === 'np' ? 'विवरण हेर्नुहोस्' : 'Explore System') : (isHtml ? (lang === 'np' ? 'खोल्नुहोस् / प्रिन्ट' : 'Open / Print') : (lang === 'np' ? 'डाउनलोड गर्नुहोस्' : 'Download Template'))}</span>
+            <a href="${href}" class="learn-res-action-btn learn-res-primary-btn" data-resource-title="${title.replace(/"/g, '&quot;')}">
+              ${ICONS.arrowRight}
+              <span>${lang === 'np' ? 'विवरण हेर्नुहोस्' : 'Explore System'}</span>
             </a>
           </div>
         </article>
@@ -496,38 +478,20 @@ function renderResourcesTab(lang, ui) {
 
   return `
     <div class="learn-tab-panel" id="tab-resources" role="tabpanel" aria-labelledby="tab-btn-resources">
-      <!-- Free Resources -->
       <div class="learn-section-header-sm">
         <div>
-          <span class="learn-section-kicker" style="font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; color:var(--color-accent);">${lang === 'np' ? 'नि:शुल्क शैक्षिक सामग्री' : 'Community Toolkits'}</span>
-          <h3 class="learn-section-label" style="margin-top:2px;">${ui.freeResourcesTitle || 'Free Educational Resources'}</h3>
-          <p class="learn-section-sublabel">${ui.freeResourcesSubtitle || 'Practical templates, spreadsheets, and checklists to take control of your wealth in Nepal.'}</p>
+          <span class="learn-section-kicker" style="font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; color:var(--color-accent);">${lang === 'np' ? 'उन्नत वित्तीय प्रणाली' : 'Financial Frameworks'}</span>
+          <h3 class="learn-section-label" style="margin-top:2px;">${lang === 'np' ? 'वित्तीय प्रणाली र ड्यासबोर्ड' : 'Financial Systems & Dashboards'}</h3>
+          <p class="learn-section-sublabel">${lang === 'np' ? 'गहिरो वित्तीय व्यवस्थापनका लागि तयार पारिएका प्रिमियम उपकरणहरू।' : 'Comprehensive multi-year Notion architectures and financial planners designed for Nepal.'}</p>
         </div>
         <a href="${ROUTES.RESOURCES || '/resources'}" class="learn-section-link">
-          ${lang === 'np' ? 'सबै स्रोतहरू' : 'All Resources'} ${ICONS.arrowRight}
+          ${lang === 'np' ? 'सबै प्रणालीहरू' : 'Browse All Systems'} ${ICONS.arrowRight}
         </a>
       </div>
 
       <div class="learn-resources-grid" role="list">
-        ${renderResourceCards(FREE_RESOURCES || [])}
+        ${renderResourceCards(paidResources)}
       </div>
-
-      <div class="learn-section-divider"></div>
-      <div class="learn-section-header-sm">
-        <div>
-          <span class="learn-section-kicker" style="font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; color:var(--color-accent);">${lang === 'np' ? 'उन्नत वित्तीय प्रणाली' : 'Full Operating Systems'}</span>
-          <h3 class="learn-section-label" style="margin-top:2px;">${lang === 'np' ? 'सशुल्क वित्तीय स्रोतहरू' : 'Paid Financial Resources'}</h3>
-          <p class="learn-section-sublabel">${lang === 'np' ? 'गहिरो वित्तीय व्यवस्थापनका लागि तयार पारिएका प्रिमियम उपकरणहरू।' : 'Premium tools built for deeper financial planning and management.'}</p>
-        </div>
-        <a href="${ROUTES.RESOURCES || '/resources'}" class="learn-section-link">
-          ${lang === 'np' ? 'सबै स्रोतहरू' : 'Browse All Resources'} ${ICONS.arrowRight}
-        </a>
-      </div>
-
-      <div class="learn-resources-grid" role="list">
-        ${renderResourceCards(paidResources, true)}
-      </div>
-
     </div>
   `;
 }
@@ -1349,18 +1313,29 @@ export function initLearnPage() {
     observer.observe(learnHero);
   }
 
-  // ── 12. Sidebar Nav Active Highlighting ────
+  // ── 12. Sidebar Nav & Mobile Category Active Highlighting ────
   const sideNavLinks = document.querySelectorAll('.learn-side-nav-link');
-  if (sideNavLinks.length > 0) {
+  const mobileCatChips = document.querySelectorAll('.learn-mobile-cat-chip');
+  if (sideNavLinks.length > 0 || mobileCatChips.length > 0) {
     const groupObserver = new IntersectionObserver(
       (entries) => {
         entries.forEach(entry => {
+          if (!entry.isIntersecting) return;
           const id = entry.target.id;
+          const groupId = id.replace('group-', '');
+          sideNavLinks.forEach(l => l.classList.remove('active'));
           const link = document.querySelector(`.learn-side-nav-link[href="#${id}"]`);
-          if (link) link.classList.toggle('active', entry.isIntersecting);
+          if (link) link.classList.add('active');
+
+          mobileCatChips.forEach(c => c.classList.remove('active'));
+          const chip = document.querySelector(`.learn-mobile-cat-chip[data-group="${groupId}"]`);
+          if (chip) {
+            chip.classList.add('active');
+            chip.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+          }
         });
       },
-      { rootMargin: '-30% 0px -60% 0px' }
+      { rootMargin: '-20% 0px -60% 0px' }
     );
 
     document.querySelectorAll('.learn-category-group').forEach(section => {
@@ -1381,204 +1356,28 @@ export function initLearnPage() {
         }
       });
     });
+
+    mobileCatChips.forEach(chip => {
+      chip.addEventListener('click', (e) => {
+        e.preventDefault();
+        const groupId = chip.dataset.group;
+        const target = document.getElementById(`group-${groupId}`);
+        if (target) {
+          mobileCatChips.forEach(c => c.classList.remove('active'));
+          chip.classList.add('active');
+          const offset = 140; // Account for sticky nav + tabs + mobile strip
+          const top = target.getBoundingClientRect().top + window.scrollY - offset;
+          window.scrollTo({ top, behavior: 'smooth' });
+        }
+      });
+    });
   }
 
-  // ── 13. Free Resource Download Feedback & Quick Preview Modal ──
-  document.querySelectorAll('.learn-res-primary-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const resTitle = btn.getAttribute('data-resource-title') || 'Educational Resource';
-      showLearnToast(lang === 'np' ? `📥 नि:शुल्क डाउनलोड सुरु भयो: ${resTitle}` : `📥 Download started: ${resTitle}`);
-    });
-  });
-
-  document.querySelectorAll('.learn-res-preview-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const resId = btn.getAttribute('data-res-id');
-      if (resId) openResourcePreviewModal(resId, lang);
-    });
-  });
 
   // Return unmount cleanup function
   return () => {
     if (handleSlashKey) window.removeEventListener('keydown', handleSlashKey);
     if (browseSearchTimer) clearTimeout(browseSearchTimer);
   };
-}
-
-export function openResourcePreviewModal(resId, lang = 'en') {
-  const res = (FREE_RESOURCES || []).find(r => r.id === resId);
-  if (!res) return;
-
-  const title = typeof res.title === 'object' ? (res.title[lang] || res.title.en) : res.title;
-  const desc = typeof res.desc === 'object' ? (res.desc[lang] || res.desc.en) : (res.desc || '');
-  const badge = typeof res.badge === 'object' ? (res.badge[lang] || res.badge.en) : (res.formatBadge || res.type || 'Resource');
-  const href = res.downloadUrl || (res.downloadFilename ? `assets/downloads/${res.downloadFilename}` : '');
-  const isHtml = href.endsWith('.html');
-
-  let modal = document.getElementById('rp-resource-modal-overlay');
-  if (!modal) {
-    modal = document.createElement('div');
-    modal.id = 'rp-resource-modal-overlay';
-    modal.className = 'rp-res-modal-overlay';
-    document.body.appendChild(modal);
-  }
-
-  let contentHtml = '';
-  if (isHtml) {
-    contentHtml = `
-      <div class="rp-res-modal-iframe-wrap">
-        <iframe src="${href}" class="rp-res-modal-iframe" title="${title}"></iframe>
-      </div>
-    `;
-  } else {
-    contentHtml = `
-      <div class="rp-res-modal-csv-wrap" id="rp-res-csv-container">
-        <div class="rp-res-modal-loading">
-          <div class="rp-res-spinner"></div>
-          <span>${lang === 'np' ? 'स्प्रेडसिट तालिका लोड हुँदैछ...' : 'Loading spreadsheet preview...'}</span>
-        </div>
-      </div>
-    `;
-  }
-
-  modal.innerHTML = `
-    <div class="rp-res-modal-backdrop" onclick="window.closeResourcePreviewModal()"></div>
-    <div class="rp-res-modal-window" role="dialog" aria-modal="true" aria-labelledby="rp-res-modal-title">
-      <header class="rp-res-modal-header">
-        <div class="rp-res-modal-header-info">
-          <div style="display:flex; align-items:center; gap:8px; margin-bottom:6px;">
-            <span class="rp-res-modal-tag">${res.formatBadge || badge}</span>
-            <span style="font-size:12px; color:var(--color-text-muted); font-weight:500;">${res.fileSize || res.format || ''}</span>
-          </div>
-          <h3 id="rp-res-modal-title" class="rp-res-modal-title">${title}</h3>
-          <p class="rp-res-modal-desc">${desc}</p>
-        </div>
-        <button type="button" class="rp-res-modal-close" onclick="window.closeResourcePreviewModal()" aria-label="Close Preview">
-          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-        </button>
-      </header>
-
-      <div class="rp-res-modal-body">
-        ${contentHtml}
-      </div>
-
-      <footer class="rp-res-modal-footer">
-        <div class="rp-res-modal-footer-hint">
-          <span>💡 ${lang === 'np' ? 'अफलाइन प्रयोगका लागि फाइल डाउनलोड गर्नुहोस्।' : 'Instant in-browser preview. Download file for complete offline use.'}</span>
-        </div>
-        <div class="rp-res-modal-footer-actions">
-          <button type="button" class="btn btn-outline btn-sm" onclick="window.closeResourcePreviewModal()">
-            ${lang === 'np' ? 'बन्द गर्नुहोस्' : 'Close'}
-          </button>
-          <a href="${href}" ${!isHtml ? `download="${res.downloadFilename || 'resource'}"` : 'target="_blank" rel="noopener noreferrer"'} class="btn btn-primary btn-sm rp-res-modal-dl-btn">
-            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-            <span>${isHtml ? (lang === 'np' ? 'नयाँ ट्याबमा खोल्नुहोस् / प्रिन्ट' : 'Open Full Page / Print') : (lang === 'np' ? 'डाउनलोड गर्नुहोस्' : 'Download Template')}</span>
-          </a>
-        </div>
-      </footer>
-    </div>
-  `;
-
-  modal.classList.add('open');
-  document.body.style.overflow = 'hidden';
-
-  if (!isHtml) {
-    fetch(href)
-      .then(r => r.text())
-      .then(csvText => {
-        const container = document.getElementById('rp-res-csv-container');
-        if (!container) return;
-
-        const lines = csvText.trim().split('\n').map(l => l.trim()).filter(Boolean);
-        const dataLines = lines.filter(l => !l.startsWith('#'));
-
-        function parseCSVLine(line) {
-          const result = [];
-          let current = '';
-          let inQuotes = false;
-          for (let i = 0; i < line.length; i++) {
-            const char = line[i];
-            if (char === '"') {
-              inQuotes = !inQuotes;
-            } else if (char === ',' && !inQuotes) {
-              result.push(current);
-              current = '';
-            } else {
-              current += char;
-            }
-          }
-          result.push(current);
-          return result.map(s => s.trim().replace(/^"|"$/g, ''));
-        }
-
-        if (dataLines.length > 0) {
-          const headerCells = parseCSVLine(dataLines[0]);
-          let tableHtml = `<div class="rp-res-table-scroller"><table class="rp-res-preview-table"><thead><tr>`;
-          headerCells.forEach(h => {
-            tableHtml += `<th>${h}</th>`;
-          });
-          tableHtml += `</tr></thead><tbody>`;
-
-          for (let r = 1; r < dataLines.length; r++) {
-            const rowCells = parseCSVLine(dataLines[r]);
-            if (!rowCells.some(c => c && c.trim() && c.trim() !== '-')) continue;
-            const isTotalRow = rowCells[0] && (rowCells[0].includes('TOTAL') || rowCells[0].includes('NET WORTH') || rowCells[0].includes('GROSS ASSETS') || rowCells[0].includes('SURPLUS'));
-            tableHtml += `<tr class="${isTotalRow ? 'rp-res-table-total-row' : ''}">`;
-            rowCells.forEach((c) => {
-              const isNumeric = /^-?[\d,]+(\.\d+)?%?$/.test(c.trim()) || c.startsWith('NPR') || c.startsWith('+NPR') || c.startsWith('-NPR');
-              tableHtml += `<td class="${isNumeric ? 'text-right' : ''}">${c || '-'}</td>`;
-            });
-            tableHtml += `</tr>`;
-          }
-          tableHtml += `</tbody></table></div>`;
-          container.innerHTML = tableHtml;
-        } else {
-          container.innerHTML = `<p style="padding:20px; text-align:center; color:var(--color-text-muted);">Preview currently unavailable.</p>`;
-        }
-      })
-      .catch(() => {
-        const container = document.getElementById('rp-res-csv-container');
-        if (container) {
-          container.innerHTML = `<div style="padding:40px; text-align:center;"><p style="font-size:14px; margin-bottom:12px; color:var(--color-text-secondary);">Direct preview ready via file download.</p><a href="${href}" download class="btn btn-primary btn-sm">Download File Now</a></div>`;
-        }
-      });
-  }
-
-  function handleEsc(e) {
-    if (e.key === 'Escape') {
-      closeResourcePreviewModal();
-      document.removeEventListener('keydown', handleEsc);
-    }
-  }
-  document.addEventListener('keydown', handleEsc);
-}
-
-export function closeResourcePreviewModal() {
-  const modal = document.getElementById('rp-resource-modal-overlay');
-  if (modal) {
-    modal.classList.remove('open');
-  }
-  document.body.style.overflow = '';
-}
-
-if (typeof window !== 'undefined') {
-  window.openResourcePreviewModal = openResourcePreviewModal;
-  window.closeResourcePreviewModal = closeResourcePreviewModal;
-}
-
-function showLearnToast(message) {
-  let toast = document.getElementById('rp-learn-toast');
-  if (!toast) {
-    toast = document.createElement('div');
-    toast.id = 'rp-learn-toast';
-    toast.className = 'lesson-toast-notification';
-    document.body.appendChild(toast);
-  }
-  toast.textContent = message;
-  toast.classList.add('show');
-  clearTimeout(window.__learnToastTimer);
-  window.__learnToastTimer = setTimeout(() => {
-    toast.classList.remove('show');
-  }, 3500);
 }
 

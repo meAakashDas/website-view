@@ -4,11 +4,9 @@
 // ==============================================
 import {
   formatNPR,
-  formatCompactNPR,
   validateTaxInputs,
   calculateNepalIncomeTax,
   TAX_BOUNDS,
-  NEPAL_TAX_CONFIG,
   DEFAULT_FISCAL_YEAR,
 } from './engine.js';
 import { renderTaxDonutChart } from './charts.js';

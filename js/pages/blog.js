@@ -32,10 +32,12 @@ export function renderBlogPage(queryParams) {
           <span class="search-icon">${ICONS.search}</span>
           <input type="text" class="form-input" id="blog-search" placeholder="Search articles..." style="padding-left:var(--space-10)">
         </div>
-        <div class="filter-tabs" id="blog-filters">
-          ${categories.map(cat => `
-            <button class="filter-tab ${cat.slug === activeCat ? 'active' : ''}" data-category="${cat.slug}">${cat.label}</button>
-          `).join('')}
+        <div class="filter-tabs-wrapper">
+          <div class="filter-tabs" id="blog-filters">
+            ${categories.map(cat => `
+              <button class="filter-tab ${cat.slug === activeCat ? 'active' : ''}" data-category="${cat.slug}">${cat.label}</button>
+            `).join('')}
+          </div>
         </div>
         <div class="grid-3" id="blog-grid">
           ${filterArticles(activeCat, '').map(a => renderArticleCard(a)).join('')}
@@ -93,6 +95,7 @@ export function initBlogPage() {
     btn.addEventListener('click', () => {
       filters.forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
+      btn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
       currentCat = btn.dataset.category;
       updateGrid();
     });

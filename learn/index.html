@@ -261,6 +261,17 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@600;700&display=swap" rel="stylesheet">
 
+  <!-- YouTube Stream & Embed Preconnects -->
+  <link rel="dns-prefetch" href="https://www.youtube.com">
+  <link rel="dns-prefetch" href="https://www.youtube-nocookie.com">
+  <link rel="dns-prefetch" href="https://i.ytimg.com">
+  <link rel="dns-prefetch" href="https://img.youtube.com">
+  <link rel="dns-prefetch" href="https://googlevideo.com">
+  <link rel="preconnect" href="https://www.youtube.com">
+  <link rel="preconnect" href="https://www.youtube-nocookie.com">
+  <link rel="preconnect" href="https://i.ytimg.com" crossorigin>
+  <link rel="preconnect" href="https://googlevideo.com" crossorigin>
+
   <!-- Theme Bootstrapper (Zero Flash: Default Light Mode for First-Time Visitors) -->
   <script>
     (function() {
@@ -274,16 +285,16 @@
     })();
   </script>
 
-  <!-- Video.js v10 Official Architecture & Skin -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@videojs/cdn@10.2.0/video.css">
-  <script type="module" src="https://cdn.jsdelivr.net/npm/@videojs/cdn@10.2.0/video.js"></script>
-  <script type="module" src="https://cdn.jsdelivr.net/npm/@videojs/cdn@10.2.0/media/youtube-video.js"></script>
+
 
   <!-- Stylesheets -->
   <link rel="stylesheet" href="css/variables.css">
   <link rel="stylesheet" href="css/base.css">
   <link rel="stylesheet" href="css/components.css">
   <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/videoPlayer.css">
+  <script type="module" src="assets/vendor/videojs/video.js"></script>
+  <script type="module" src="assets/vendor/videojs/media/youtube-video.js"></script>
   <link rel="stylesheet" href="css/pages.css?v=2">
   <link rel="stylesheet" href="css/calculators.css">
   <link rel="stylesheet" href="css/learn.css">
@@ -301,6 +312,7 @@
         
         <!-- Desktop Nav Links (Center Desktop) -->
         <div class="nav-links">
+          <span class="nav-active-pill" id="nav-active-pill" aria-hidden="true"></span>
           <a href="/" class="nav-link " >Home</a><a href="/learn" class="nav-link active" aria-current="page">Learn</a><a href="/courses" class="nav-link " >Courses</a><a href="/courses/nepse-stock-market-basics/learn?lesson=lesson-1" class="nav-link " >My Courses</a><a href="/calculators" class="nav-link " >Calculators</a>
 
           <a href="/resources" class="nav-link nav-link-tertiary" >Resources</a><a href="/blog" class="nav-link nav-link-tertiary" >Blog</a><a href="/about" class="nav-link nav-link-secondary" >About</a><a href="/contact" class="nav-link nav-link-secondary" >Contact</a>
@@ -345,7 +357,12 @@
             <span class="theme-icon theme-icon-sun" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg></span>
             <span class="theme-icon theme-icon-moon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></span>
           </button>
-          <div id="desktop-auth-container" class="nav-auth-slot"></div>
+          <div id="desktop-auth-container" class="nav-auth-slot">
+            <button type="button" class="nav-auth-btn" id="nav-signin-btn" aria-label="Sign in to your account">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/></svg>
+              <span>Sign In</span>
+            </button>
+          </div>
           <a href="https://wa.me/9779740269317?text=Hello%20RisePaisa%20team%2C%20I%20would%20like%20to%20get%20in%20touch." target="_blank" rel="noopener" class="btn btn-primary nav-cta">
             <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg> Contact
           </a>
@@ -357,6 +374,9 @@
             <span class="theme-icon theme-icon-sun" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg></span>
             <span class="theme-icon theme-icon-moon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></span>
           </button>
+          <button class="mobile-cluster-btn tablet-account-btn" id="tablet-account-btn" aria-label="Sign in to your account" type="button">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/></svg>
+          </button>
           <button class="nav-toggle" id="nav-toggle" aria-label="Open navigation menu" aria-expanded="false" aria-controls="mobile-menu" type="button">
             <span class="nav-toggle-bar"></span>
             <span class="nav-toggle-bar"></span>
@@ -364,112 +384,112 @@
           </button>
         </div>
       </div>
+    </nav>
       
-      <!-- Mobile Backdrop Overlay -->
-      <div class="mobile-menu-overlay" id="mobile-menu-overlay" aria-hidden="true"></div>
+    <!-- Mobile Backdrop Overlay -->
+    <div class="mobile-menu-overlay" id="mobile-menu-overlay" aria-hidden="true"></div>
 
-      <!-- Mobile Slide-Out Drawer (Slides in smoothly from right) -->
-      <aside class="mobile-menu" id="mobile-menu" role="dialog" aria-modal="true" aria-label="Mobile Navigation Menu">
-        <!-- Drawer Header -->
-        <div class="mobile-drawer-header">
-          <a href="/" class="drawer-logo" aria-label="risePaisa - Home">
-            <div class="logo-text">rise<span>Paisa</span></div>
-          </a>
-          <button class="mobile-menu-close" id="mobile-menu-close" aria-label="Close navigation menu" type="button">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    <!-- Mobile Slide-Out Drawer (Slides in smoothly from right) -->
+    <aside class="mobile-menu" id="mobile-menu" role="dialog" aria-modal="true" aria-label="Mobile Navigation Menu">
+      <!-- Drawer Header -->
+      <div class="mobile-drawer-header">
+        <a href="/" class="drawer-logo" aria-label="risePaisa - Home">
+          <div class="logo-text">rise<span>Paisa</span></div>
+        </a>
+        <button class="mobile-menu-close" id="mobile-menu-close" aria-label="Close navigation menu" type="button">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+
+      <div class="mobile-drawer-body">
+        <!-- Prominent Quick Search inside Drawer -->
+        <div class="mobile-drawer-search-wrap">
+          <button type="button" class="mobile-drawer-search-btn" id="mobile-drawer-search-btn" aria-label="Search finance topics and calculators">
+            <span class="mobile-drawer-search-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></span>
+            <span class="mobile-drawer-search-text">Search topics, tools, lessons…</span>
+            <kbd class="mobile-drawer-search-kbd">⌘K</kbd>
           </button>
         </div>
 
-        <div class="mobile-drawer-body">
-          <!-- Prominent Quick Search inside Drawer -->
-          <div class="mobile-drawer-search-wrap">
-            <button type="button" class="mobile-drawer-search-btn" id="mobile-drawer-search-btn" aria-label="Search finance topics and calculators">
-              <span class="mobile-drawer-search-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></span>
-              <span class="mobile-drawer-search-text">Search topics, tools, lessons…</span>
-              <kbd class="mobile-drawer-search-kbd">⌘K</kbd>
+        <!-- Account / Auth Drawer Slot -->
+        <div id="mobile-auth-container" class="mobile-drawer-auth-slot"></div>
+
+        <!-- Navigation Links List -->
+        <nav class="mobile-nav-links" aria-label="Mobile Navigation Links">
+          
+              <a href="/" class="mobile-link ">
+                <span class="mobile-link-icon-wrap" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg></span>
+                <span class="mobile-link-text">Home</span>
+                <span class="mobile-link-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
+              </a>
+            
+              <a href="/courses" class="mobile-link ">
+                <span class="mobile-link-icon-wrap" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg></span>
+                <span class="mobile-link-text">Courses</span>
+                <span class="mobile-link-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
+              </a>
+            
+              <a href="/learn" class="mobile-link active">
+                <span class="mobile-link-icon-wrap" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg></span>
+                <span class="mobile-link-text">Learn Academy</span>
+                <span class="mobile-link-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
+              </a>
+            
+              <a href="/calculators" class="mobile-link ">
+                <span class="mobile-link-icon-wrap" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="16" height="20" x="4" y="2" rx="2"/><line x1="8" x2="16" y1="6" y2="6"/><path d="M8 10h.01M12 10h.01M16 10h.01M8 14h.01M12 14h.01M16 14h.01M8 18h.01M12 18h.01M16 18h.01"/></svg></span>
+                <span class="mobile-link-text">Calculators</span>
+                <span class="mobile-link-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
+              </a>
+            
+              <a href="/resources" class="mobile-link ">
+                <span class="mobile-link-icon-wrap" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg></span>
+                <span class="mobile-link-text">Resources</span>
+                <span class="mobile-link-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
+              </a>
+            
+              <a href="/blog" class="mobile-link ">
+                <span class="mobile-link-icon-wrap" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2l-2 1-2-1-2 1-2-1-2 1-2-1-2 1-2-1Z"/><path d="M8 7h8"/><path d="M8 11h8"/><path d="M8 15h5"/></svg></span>
+                <span class="mobile-link-text">Articles & Blog</span>
+                <span class="mobile-link-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
+              </a>
+            
+              <a href="/about" class="mobile-link ">
+                <span class="mobile-link-icon-wrap" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span>
+                <span class="mobile-link-text">About Us</span>
+                <span class="mobile-link-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
+              </a>
+            
+              <a href="/contact" class="mobile-link ">
+                <span class="mobile-link-icon-wrap" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg></span>
+                <span class="mobile-link-text">Contact</span>
+                <span class="mobile-link-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
+              </a>
+            
+        </nav>
+
+        <!-- Appearance Theme Control -->
+        <div class="mobile-menu-theme-row">
+          <span class="mobile-menu-theme-label">Appearance</span>
+          <div class="mobile-theme-segmented" role="radiogroup" aria-label="Appearance">
+            <button type="button" class="mobile-theme-seg-btn" id="seg-btn-light" data-theme-val="light" aria-label="Light mode">
+              <span class="theme-seg-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg></span>
+              <span>Light</span>
+            </button>
+            <button type="button" class="mobile-theme-seg-btn" id="seg-btn-dark" data-theme-val="dark" aria-label="Dark mode">
+              <span class="theme-seg-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></span>
+              <span>Dark</span>
             </button>
           </div>
-
-          <!-- Account / Auth Drawer Slot -->
-          <div id="mobile-auth-container" class="mobile-drawer-auth-slot"></div>
-
-          <!-- Navigation Links List -->
-          <nav class="mobile-nav-links" aria-label="Mobile Navigation Links">
-            
-                <a href="/" class="mobile-link ">
-                  <span class="mobile-link-icon-wrap" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg></span>
-                  <span class="mobile-link-text">Home</span>
-                  <span class="mobile-link-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
-                </a>
-              
-                <a href="/courses" class="mobile-link ">
-                  <span class="mobile-link-icon-wrap" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg></span>
-                  <span class="mobile-link-text">Courses</span>
-                  <span class="mobile-link-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
-                </a>
-              
-                <a href="/learn" class="mobile-link active">
-                  <span class="mobile-link-icon-wrap" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg></span>
-                  <span class="mobile-link-text">Learn Academy</span>
-                  <span class="mobile-link-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
-                </a>
-              
-                <a href="/calculators" class="mobile-link ">
-                  <span class="mobile-link-icon-wrap" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="16" height="20" x="4" y="2" rx="2"/><line x1="8" x2="16" y1="6" y2="6"/><path d="M8 10h.01M12 10h.01M16 10h.01M8 14h.01M12 14h.01M16 14h.01M8 18h.01M12 18h.01M16 18h.01"/></svg></span>
-                  <span class="mobile-link-text">Calculators</span>
-                  <span class="mobile-link-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
-                </a>
-              
-                <a href="/resources" class="mobile-link ">
-                  <span class="mobile-link-icon-wrap" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg></span>
-                  <span class="mobile-link-text">Resources</span>
-                  <span class="mobile-link-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
-                </a>
-              
-                <a href="/blog" class="mobile-link ">
-                  <span class="mobile-link-icon-wrap" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2l-2 1-2-1-2 1-2-1-2 1-2-1-2 1-2-1Z"/><path d="M8 7h8"/><path d="M8 11h8"/><path d="M8 15h5"/></svg></span>
-                  <span class="mobile-link-text">Articles & Blog</span>
-                  <span class="mobile-link-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
-                </a>
-              
-                <a href="/about" class="mobile-link ">
-                  <span class="mobile-link-icon-wrap" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span>
-                  <span class="mobile-link-text">About Us</span>
-                  <span class="mobile-link-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
-                </a>
-              
-                <a href="/contact" class="mobile-link ">
-                  <span class="mobile-link-icon-wrap" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg></span>
-                  <span class="mobile-link-text">Contact</span>
-                  <span class="mobile-link-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
-                </a>
-              
-          </nav>
-
-          <!-- Appearance Theme Control -->
-          <div class="mobile-menu-theme-row">
-            <span class="mobile-menu-theme-label">Appearance</span>
-            <div class="mobile-theme-segmented" role="radiogroup" aria-label="Appearance">
-              <button type="button" class="mobile-theme-seg-btn" id="seg-btn-light" data-theme-val="light" aria-label="Light mode">
-                <span class="theme-seg-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg></span>
-                <span>Light</span>
-              </button>
-              <button type="button" class="mobile-theme-seg-btn" id="seg-btn-dark" data-theme-val="dark" aria-label="Dark mode">
-                <span class="theme-seg-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></span>
-                <span>Dark</span>
-              </button>
-            </div>
-          </div>
         </div>
+      </div>
 
-        <!-- Drawer Footer with WhatsApp Contact Button -->
-        <div class="mobile-drawer-footer">
-          <a href="https://wa.me/9779740269317?text=Hello%20RisePaisa%20team%2C%20I%20would%20like%20to%20get%20in%20touch." target="_blank" rel="noopener" class="btn btn-whatsapp btn-lg mobile-drawer-wa-btn">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg> Chat on WhatsApp
-          </a>
-        </div>
-      </aside>
-    </nav>
+      <!-- Drawer Footer with WhatsApp Contact Button -->
+      <div class="mobile-drawer-footer">
+        <a href="https://wa.me/9779740269317?text=Hello%20RisePaisa%20team%2C%20I%20would%20like%20to%20get%20in%20touch." target="_blank" rel="noopener" class="btn btn-whatsapp btn-lg mobile-drawer-wa-btn">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg> Chat on WhatsApp
+        </a>
+      </div>
+    </aside>
 
     <!-- ── Global Search Modal ──────────────────────────────────────── -->
     <div class="search-modal-overlay" id="search-modal-overlay" role="dialog" aria-modal="true" aria-label="Search RisePaisa">
@@ -1117,6 +1137,38 @@
                  placeholder="Search lessons, topics..."
                  autocomplete="off"
                  aria-label="Search lessons" />
+        </div>
+      </div>
+
+      <!-- Mobile Category Quick-Jump Strip (visible <1024px) -->
+      <div class="learn-mobile-cat-strip" role="navigation" aria-label="Quick category jump">
+        <div class="learn-mobile-cat-strip-inner">
+          
+    <button type="button" class="learn-mobile-cat-chip active" data-group="foundation" aria-label="Foundation">
+      <span class="learn-mobile-cat-emoji" aria-hidden="true">🏗️</span>
+      <span>Foundation</span>
+    </button>
+  
+    <button type="button" class="learn-mobile-cat-chip" data-group="markets" aria-label="Markets & Investing">
+      <span class="learn-mobile-cat-emoji" aria-hidden="true">📈</span>
+      <span>Markets & Investing</span>
+    </button>
+  
+    <button type="button" class="learn-mobile-cat-chip" data-group="banking" aria-label="Banking & Debt">
+      <span class="learn-mobile-cat-emoji" aria-hidden="true">🏦</span>
+      <span>Banking & Debt</span>
+    </button>
+  
+    <button type="button" class="learn-mobile-cat-chip" data-group="tax" aria-label="Tax & Protection">
+      <span class="learn-mobile-cat-emoji" aria-hidden="true">🛡️</span>
+      <span>Tax & Protection</span>
+    </button>
+  
+    <button type="button" class="learn-mobile-cat-chip" data-group="advanced" aria-label="Specialized Topics">
+      <span class="learn-mobile-cat-emoji" aria-hidden="true">🚀</span>
+      <span>Specialized Topics</span>
+    </button>
+  
         </div>
       </div>
 
@@ -2477,297 +2529,14 @@
   
           
     <div class="learn-tab-panel" id="tab-resources" role="tabpanel" aria-labelledby="tab-btn-resources">
-      <!-- Free Resources -->
       <div class="learn-section-header-sm">
         <div>
-          <span class="learn-section-kicker" style="font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; color:var(--color-accent);">Community Toolkits</span>
-          <h3 class="learn-section-label" style="margin-top:2px;">Free Educational Resources</h3>
-          <p class="learn-section-sublabel">Practical templates, spreadsheets, and checklists to take control of your wealth.</p>
+          <span class="learn-section-kicker" style="font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; color:var(--color-accent);">Financial Frameworks</span>
+          <h3 class="learn-section-label" style="margin-top:2px;">Financial Systems & Dashboards</h3>
+          <p class="learn-section-sublabel">Comprehensive multi-year Notion architectures and financial planners designed for Nepal.</p>
         </div>
         <a href="/resources" class="learn-section-link">
-          All Resources <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-        </a>
-      </div>
-
-      <div class="learn-resources-grid" role="list">
-        
-        <article class="learn-resource-card" id="res-budget-planner" role="listitem">
-          <div class="learn-resource-top">
-            <div class="learn-res-format-pill">
-              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M3 15h18M9 3v18M15 3v18"/></svg>
-              <span>Spreadsheet</span>
-            </div>
-            <span class="learn-resource-size">15 Mins Setup · 142 KB</span>
-          </div>
-
-          <h4 class="learn-resource-title">Nepal Personal Budget Planner</h4>
-          <p class="learn-resource-desc">Clean Excel & Google Sheets template adapted for Nepali salaries, room rent, and festival sinking funds.</p>
-          
-          
-        <div class="learn-res-highlights">
-          <span class="learn-res-highlight-chip">50/30/20 Rule Engine</span><span class="learn-res-highlight-chip">Dashain Sinking Fund</span><span class="learn-res-highlight-chip">Excel & Google Sheets</span>
-        </div>
-      
-          
-        <a href="/learn/personal-finance/budgeting-50-30-20-nepal" class="learn-res-companion-badge" title="Study companion curriculum lesson">
-          <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
-          <span>50/30/20 Budgeting Rule for Nepal</span>
-        </a>
-      
-
-          <div class="learn-resource-actions">
-            
-              <button type="button" class="learn-res-action-btn learn-res-preview-btn" data-res-id="res-budget-planner" aria-label="Quick Preview Nepal Personal Budget Planner">
-                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
-                <span>Quick Preview</span>
-              </button>
-            
-            <a href="assets/downloads/nepal-personal-budget-planner.csv" class="learn-res-action-btn learn-res-primary-btn" download="nepal-personal-budget-planner.csv"  data-resource-title="Nepal Personal Budget Planner">
-              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-              <span>Download Template</span>
-            </a>
-          </div>
-        </article>
-      
-        <article class="learn-resource-card" id="res-cashflow-notion" role="listitem">
-          <div class="learn-resource-top">
-            <div class="learn-res-format-pill">
-              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
-              <span>Net Worth Ledger</span>
-            </div>
-            <span class="learn-resource-size">10 Mins Setup · 180 KB</span>
-          </div>
-
-          <h4 class="learn-resource-title">Monthly Cash Flow & Net Worth Tracker</h4>
-          <p class="learn-resource-desc">Comprehensive personal balance sheet ledger for tracking liquid wallets, investments, debts, and true net worth.</p>
-          
-          
-        <div class="learn-res-highlights">
-          <span class="learn-res-highlight-chip">Bank & Wallet Balances</span><span class="learn-res-highlight-chip">True Net Worth Formula</span><span class="learn-res-highlight-chip">Solvency & Runway Check</span>
-        </div>
-      
-          
-        <a href="/learn/personal-finance/tracking-money-leaks" class="learn-res-companion-badge" title="Study companion curriculum lesson">
-          <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
-          <span>How to Track Unseen Money Leaks</span>
-        </a>
-      
-
-          <div class="learn-resource-actions">
-            
-              <button type="button" class="learn-res-action-btn learn-res-preview-btn" data-res-id="res-cashflow-notion" aria-label="Quick Preview Monthly Cash Flow & Net Worth Tracker">
-                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
-                <span>Quick Preview</span>
-              </button>
-            
-            <a href="assets/downloads/nepal-cash-flow-tracker.csv" class="learn-res-action-btn learn-res-primary-btn" download="nepal-cash-flow-tracker.csv"  data-resource-title="Monthly Cash Flow & Net Worth Tracker">
-              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-              <span>Download Template</span>
-            </a>
-          </div>
-        </article>
-      
-        <article class="learn-resource-card" id="res-nepse-checklist" role="listitem">
-          <div class="learn-resource-top">
-            <div class="learn-res-format-pill">
-              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
-              <span>Interactive Checklist</span>
-            </div>
-            <span class="learn-resource-size">5 Mins Read · 320 KB</span>
-          </div>
-
-          <h4 class="learn-resource-title">First-Time NEPSE Investor Checklist</h4>
-          <p class="learn-resource-desc">A step-by-step printable and interactive checklist covering Demat opening, C-ASBA, broker selection, and TMS trading.</p>
-          
-          
-        <div class="learn-res-highlights">
-          <span class="learn-res-highlight-chip">18 Actionable Steps</span><span class="learn-res-highlight-chip">C-ASBA & CRN Guide</span><span class="learn-res-highlight-chip">Print / Save as PDF</span>
-        </div>
-      
-          
-        <a href="/learn/nepse/demat-meroshare-tms" class="learn-res-companion-badge" title="Study companion curriculum lesson">
-          <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
-          <span>Demat, MeroShare & TMS Account Guide</span>
-        </a>
-      
-
-          <div class="learn-resource-actions">
-            
-              <button type="button" class="learn-res-action-btn learn-res-preview-btn" data-res-id="res-nepse-checklist" aria-label="Quick Preview First-Time NEPSE Investor Checklist">
-                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
-                <span>Quick Preview</span>
-              </button>
-            
-            <a href="assets/downloads/nepse-first-time-investor-checklist.html" class="learn-res-action-btn learn-res-primary-btn"  target="_blank" rel="noopener noreferrer" data-resource-title="First-Time NEPSE Investor Checklist">
-              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-              <span>Open / Print</span>
-            </a>
-          </div>
-        </article>
-      
-        <article class="learn-resource-card" id="res-loan-comparison" role="listitem">
-          <div class="learn-resource-top">
-            <div class="learn-res-format-pill">
-              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18M3 7l4 4-4 4M21 7l-4 4 4 4"/></svg>
-              <span>Comparison Matrix</span>
-            </div>
-            <span class="learn-resource-size">15 Mins Analysis · 180 KB</span>
-          </div>
-
-          <h4 class="learn-resource-title">Commercial Bank Loan Comparison Worksheet</h4>
-          <p class="learn-resource-desc">Compare bank base rates, premium spreads, prepayment penalty clauses, and true repayment cost.</p>
-          
-          
-        <div class="learn-res-highlights">
-          <span class="learn-res-highlight-chip">5 Class-A Bank Matrix</span><span class="learn-res-highlight-chip">Base Rate + Premium</span><span class="learn-res-highlight-chip">NRB Fee Rules</span>
-        </div>
-      
-          
-        <a href="/learn/personal-finance/good-debt-vs-bad-debt" class="learn-res-companion-badge" title="Study companion curriculum lesson">
-          <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
-          <span>Good Debt vs Bad Debt in Nepal</span>
-        </a>
-      
-
-          <div class="learn-resource-actions">
-            
-              <button type="button" class="learn-res-action-btn learn-res-preview-btn" data-res-id="res-loan-comparison" aria-label="Quick Preview Commercial Bank Loan Comparison Worksheet">
-                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
-                <span>Quick Preview</span>
-              </button>
-            
-            <a href="assets/downloads/commercial-bank-loan-comparison-worksheet.csv" class="learn-res-action-btn learn-res-primary-btn" download="commercial-bank-loan-comparison-worksheet.csv"  data-resource-title="Commercial Bank Loan Comparison Worksheet">
-              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-              <span>Download Template</span>
-            </a>
-          </div>
-        </article>
-      
-        <article class="learn-resource-card" id="res-reading-list" role="listitem">
-          <div class="learn-resource-top">
-            <div class="learn-res-format-pill">
-              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
-              <span>Curated Handbook</span>
-            </div>
-            <span class="learn-resource-size">20 Mins Read · 410 KB</span>
-          </div>
-
-          <h4 class="learn-resource-title">Essential Finance Reading List for Nepal</h4>
-          <p class="learn-resource-desc">Curated handbook of timeless money books translated into Nepali context, policy primers, and resources.</p>
-          
-          
-        <div class="learn-res-highlights">
-          <span class="learn-res-highlight-chip">8 Classic Finance Books</span><span class="learn-res-highlight-chip">Nepali Context Analysis</span><span class="learn-res-highlight-chip">3-Tier Action Roadmap</span>
-        </div>
-      
-          
-        <a href="/learn/personal-finance/compound-interest-nepal" class="learn-res-companion-badge" title="Study companion curriculum lesson">
-          <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
-          <span>Compound Interest & Rupee Growth</span>
-        </a>
-      
-
-          <div class="learn-resource-actions">
-            
-              <button type="button" class="learn-res-action-btn learn-res-preview-btn" data-res-id="res-reading-list" aria-label="Quick Preview Essential Finance Reading List for Nepal">
-                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
-                <span>Quick Preview</span>
-              </button>
-            
-            <a href="assets/downloads/essential-finance-reading-list.html" class="learn-res-action-btn learn-res-primary-btn"  target="_blank" rel="noopener noreferrer" data-resource-title="Essential Finance Reading List for Nepal">
-              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-              <span>Open / Print</span>
-            </a>
-          </div>
-        </article>
-      
-        <article class="learn-resource-card" id="res-tax-deductions-list" role="listitem">
-          <div class="learn-resource-top">
-            <div class="learn-res-format-pill">
-              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
-              <span>Tax Blueprint</span>
-            </div>
-            <span class="learn-resource-size">10 Mins Check · 250 KB</span>
-          </div>
-
-          <h4 class="learn-resource-title">Salary Earner Legal Tax Deductions Checklist</h4>
-          <p class="learn-resource-desc">Every legitimate deduction you can claim: SSF, CIT, Life Insurance, Medical Tax Credit, and Remote Allowance.</p>
-          
-          
-        <div class="learn-res-highlights">
-          <span class="learn-res-highlight-chip">7 Statutory Deductions</span><span class="learn-res-highlight-chip">Section 63 CIT/SSF Rules</span><span class="learn-res-highlight-chip">Single vs Married Slabs</span>
-        </div>
-      
-          
-        <a href="/learn/taxation/income-tax-nepal-basics" class="learn-res-companion-badge" title="Study companion curriculum lesson">
-          <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
-          <span>Income Tax in Nepal: Slabs & Rules</span>
-        </a>
-      
-
-          <div class="learn-resource-actions">
-            
-              <button type="button" class="learn-res-action-btn learn-res-preview-btn" data-res-id="res-tax-deductions-list" aria-label="Quick Preview Salary Earner Legal Tax Deductions Checklist">
-                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
-                <span>Quick Preview</span>
-              </button>
-            
-            <a href="assets/downloads/nepal-salary-tax-deductions-checklist.html" class="learn-res-action-btn learn-res-primary-btn"  target="_blank" rel="noopener noreferrer" data-resource-title="Salary Earner Legal Tax Deductions Checklist">
-              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-              <span>Open / Print</span>
-            </a>
-          </div>
-        </article>
-      
-        <article class="learn-resource-card" id="res-glossary-pocket" role="listitem">
-          <div class="learn-resource-top">
-            <div class="learn-res-format-pill">
-              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>
-              <span>Bilingual Glossary</span>
-            </div>
-            <span class="learn-resource-size">Quick Reference · 490 KB</span>
-          </div>
-
-          <h4 class="learn-resource-title">Financial Jargon Pocket Reference Guide</h4>
-          <p class="learn-resource-desc">50+ essential Nepali stock market and banking terms with clear two-sentence explanations.</p>
-          
-          
-        <div class="learn-res-highlights">
-          <span class="learn-res-highlight-chip">Searchable Dictionary</span><span class="learn-res-highlight-chip">NEPSE, Banking & Tax</span><span class="learn-res-highlight-chip">English & Nepali Defs</span>
-        </div>
-      
-          
-        <a href="/learn/nepse/demat-meroshare-tms" class="learn-res-companion-badge" title="Study companion curriculum lesson">
-          <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
-          <span>Demat, MeroShare & TMS Account Guide</span>
-        </a>
-      
-
-          <div class="learn-resource-actions">
-            
-              <button type="button" class="learn-res-action-btn learn-res-preview-btn" data-res-id="res-glossary-pocket" aria-label="Quick Preview Financial Jargon Pocket Reference Guide">
-                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
-                <span>Quick Preview</span>
-              </button>
-            
-            <a href="assets/downloads/financial-jargon-pocket-guide.html" class="learn-res-action-btn learn-res-primary-btn"  target="_blank" rel="noopener noreferrer" data-resource-title="Financial Jargon Pocket Reference Guide">
-              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-              <span>Open / Print</span>
-            </a>
-          </div>
-        </article>
-      
-      </div>
-
-      <div class="learn-section-divider"></div>
-      <div class="learn-section-header-sm">
-        <div>
-          <span class="learn-section-kicker" style="font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; color:var(--color-accent);">Full Operating Systems</span>
-          <h3 class="learn-section-label" style="margin-top:2px;">Paid Financial Resources</h3>
-          <p class="learn-section-sublabel">Premium tools built for deeper financial planning and management.</p>
-        </div>
-        <a href="/resources" class="learn-section-link">
-          Browse All Resources <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          Browse All Systems <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
         </a>
       </div>
 
@@ -2786,11 +2555,9 @@
           <p class="learn-resource-desc">A complete Notion operating system to track Nepali income, room rent, festival sinking funds, eSewa/Khalti balances, and NEPSE portfolio growth.</p>
           
           
-          
 
           <div class="learn-resource-actions">
-            
-            <a href="/resources/notion-finance-tracker" class="learn-res-action-btn learn-res-primary-btn"   data-resource-title="Notion Finance Tracker">
+            <a href="/resources/notion-finance-tracker" class="learn-res-action-btn learn-res-primary-btn" data-resource-title="Notion Finance Tracker">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
               <span>Explore System</span>
             </a>
@@ -2810,11 +2577,9 @@
           <p class="learn-resource-desc">A powerful automated Google Sheets and Excel command center with 50/30/20 formula engine, festival sinking fund planner, and EMI debt payoff calculator.</p>
           
           
-          
 
           <div class="learn-resource-actions">
-            
-            <a href="/resources/budget-planner-system" class="learn-res-action-btn learn-res-primary-btn"   data-resource-title="Budget Planner System">
+            <a href="/resources/budget-planner-system" class="learn-res-action-btn learn-res-primary-btn" data-resource-title="Budget Planner System">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
               <span>Explore System</span>
             </a>
@@ -2822,7 +2587,6 @@
         </article>
       
       </div>
-
     </div>
   
           
@@ -3117,11 +2881,10 @@
         <div class="footer-grid">
           <div class="footer-brand">
             <a href="/" class="nav-logo">
-
               <div class="logo-text">rise<span>Paisa</span></div>
             </a>
             <p>Nepal's most practical financial education platform. Practical NEPSE, taxation, and personal finance strategies built for real income growth in Nepal.</p>
-            <p style="font-size:var(--text-xs);color:var(--color-text-muted);margin:var(--space-2) 0 var(--space-4)">
+            <p class="footer-founder" style="font-size:var(--text-xs);color:var(--color-text-muted);margin:var(--space-2) 0 var(--space-4)">
               Founded by <a href="/aakash-das" style="color:var(--color-text-secondary);text-decoration:underline;text-underline-offset:2px">Aakash Das</a>
             </p>
             <div class="footer-social">
@@ -3132,39 +2895,66 @@
             </div>
           </div>
           
-          <div class="footer-section">
-            <h4>Quick Links</h4>
-            <a href="/">Home</a>
-            <a href="/learn">Learn Academy</a>
-            <a href="/courses">Courses</a>
-            <a href="/calculators">Calculators</a>
-            <a href="/resources">Resources</a>
-            <a href="/blog">Articles</a>
-            <a href="/about">About Us</a>
-            <a href="/aakash-das">Aakash Das (Founder)</a>
-            <a href="/contact">Contact</a>
+          <div class="footer-section" data-collapsible="true">
+            <button type="button" class="footer-section-toggle" aria-expanded="false" aria-controls="footer-links-quick">
+              <h4>Quick Links</h4>
+              <span class="footer-toggle-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+              </span>
+            </button>
+            <div class="footer-links-content" id="footer-links-quick">
+              <div class="footer-links-inner">
+                <a href="/">Home</a>
+                <a href="/learn">Learn Academy</a>
+                <a href="/courses">Courses</a>
+                <a href="/calculators">Calculators</a>
+                <a href="/resources">Resources</a>
+                <a href="/blog">Articles</a>
+                <a href="/about">About Us</a>
+                <a href="/aakash-das">Aakash Das (Founder)</a>
+                <a href="/contact">Contact</a>
+              </div>
+            </div>
           </div>
           
-          <div class="footer-section">
-            <h4>Academy & Topics</h4>
-            <a href="/learn/investing">Investing</a>
-            <a href="/learn/nepse">NEPSE</a>
-            <a href="/learn/personal-finance">Personal Finance</a>
-            <a href="/learn/taxation">Taxation Nepal</a>
-            <a href="/learn/mutual-funds">Mutual Funds</a>
-            <a href="/learn/loans">Loans &amp; Banking</a>
-            <a href="/learn/insurance">Insurance</a>
-            <a href="/learn/retirement-planning">Retirement Planning</a>
+          <div class="footer-section" data-collapsible="true">
+            <button type="button" class="footer-section-toggle" aria-expanded="false" aria-controls="footer-links-topics">
+              <h4>Academy & Topics</h4>
+              <span class="footer-toggle-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+              </span>
+            </button>
+            <div class="footer-links-content" id="footer-links-topics">
+              <div class="footer-links-inner">
+                <a href="/learn/investing">Investing</a>
+                <a href="/learn/nepse">NEPSE</a>
+                <a href="/learn/personal-finance">Personal Finance</a>
+                <a href="/learn/taxation">Taxation Nepal</a>
+                <a href="/learn/mutual-funds">Mutual Funds</a>
+                <a href="/learn/loans">Loans &amp; Banking</a>
+                <a href="/learn/insurance">Insurance</a>
+                <a href="/learn/retirement-planning">Retirement Planning</a>
+              </div>
+            </div>
           </div>
           
-          <div class="footer-section">
-            <h4>Trust & Legal</h4>
-            <a href="/editorial-policy">Editorial Policy</a>
-            <a href="/disclaimer">Disclaimer</a>
-            <a href="/privacy">Privacy Policy</a>
-            <a href="/terms">Terms & Conditions</a>
-            <a href="/refund-policy">Refund Policy</a>
-            <a href="/faq">FAQ</a>
+          <div class="footer-section" data-collapsible="true">
+            <button type="button" class="footer-section-toggle" aria-expanded="false" aria-controls="footer-links-legal">
+              <h4>Trust & Legal</h4>
+              <span class="footer-toggle-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+              </span>
+            </button>
+            <div class="footer-links-content" id="footer-links-legal">
+              <div class="footer-links-inner">
+                <a href="/editorial-policy">Editorial Policy</a>
+                <a href="/disclaimer">Disclaimer</a>
+                <a href="/privacy">Privacy Policy</a>
+                <a href="/terms">Terms & Conditions</a>
+                <a href="/refund-policy">Refund Policy</a>
+                <a href="/faq">FAQ</a>
+              </div>
+            </div>
           </div>
         </div>
         

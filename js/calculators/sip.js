@@ -2,7 +2,7 @@
 // risePaisa - Nepal SIP Calculator Component
 // Interactive, responsive, high-performance calculator
 // ==============================================
-import { formatNPR, formatCompactNPR, validateSIPInputs, calculateSIP, SIP_BOUNDS } from './engine.js';
+import { formatNPR, validateSIPInputs, calculateSIP, SIP_BOUNDS } from './engine.js';
 import { renderDonutChart, renderGrowthChart, positionChartTooltip } from './charts.js';
 
 /**

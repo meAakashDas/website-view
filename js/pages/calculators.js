@@ -763,6 +763,16 @@ export function initCalculatorsPage(calcSlug = '') {
         window.history.pushState({}, '', toBrowserPath(meta.path));
       }
     }
+
+    try {
+      import('../liquid-glass.js').then(({ LiquidGlassManager, syncAllRangeSliders }) => {
+        if (panes[target]) {
+          LiquidGlassManager.initSliderGlass(panes[target]);
+          LiquidGlassManager.initControlsGlass(panes[target]);
+          if (syncAllRangeSliders) syncAllRangeSliders(panes[target]);
+        }
+      }).catch(() => {});
+    } catch {}
   }
 
   // Tab click listeners

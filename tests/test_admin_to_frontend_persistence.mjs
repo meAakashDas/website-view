@@ -154,7 +154,7 @@ console.log('TEST SUITE: ADMIN-TO-FRONTEND PERSISTENCE & DATA PARITY');
 console.log('========================================================\n');
 
 // ── Test A: Course Metadata ──────────────────────────────────────────────────
-console.log('--- Test A — Course Metadata Parity ---');
+console.log('--- Test A: Course Metadata Parity ---');
 
 await itAsync('A1: Saves updated course metadata and reflects on frontend synchronously & asynchronously', async () => {
   resetCourseCache();
@@ -231,7 +231,7 @@ await itAsync('A1: Saves updated course metadata and reflects on frontend synchr
 });
 
 // ── Test B: Lesson Information ───────────────────────────────────────────────
-console.log('\n--- Test B — Lesson Information Parity ---');
+console.log('\n--- Test B: Lesson Information Parity ---');
 
 await itAsync('B1: Updates lesson title, description, and duration; verified on frontend', async () => {
   resetCourseCache();
@@ -291,7 +291,7 @@ await itAsync('B1: Updates lesson title, description, and duration; verified on 
 });
 
 // ── Test C: YouTube URL Handling & Player Integration ────────────────────────
-console.log('\n--- Test C — YouTube URL Normalization & Video Player Rendering ---');
+console.log('\n--- Test C: YouTube URL Normalization & Video Player Rendering ---');
 
 await itAsync('C1: Validates, canonicalizes, and embeds updated YouTube URL in player', async () => {
   resetCourseCache();
@@ -353,7 +353,7 @@ await itAsync('C1: Validates, canonicalizes, and embeds updated YouTube URL in p
 });
 
 // ── Test D: Module & Lesson Ordering ─────────────────────────────────────────
-console.log('\n--- Test D — Module & Lesson Ordering Consistency ---');
+console.log('\n--- Test D: Module & Lesson Ordering Consistency ---');
 
 await itAsync('D1: Reorders modules and lessons; verifies sequence across views', async () => {
   resetCourseCache();
@@ -417,7 +417,7 @@ await itAsync('D1: Reorders modules and lessons; verifies sequence across views'
 });
 
 // ── Test E: Publication Settings ─────────────────────────────────────────────
-console.log('\n--- Test E — Publication Settings & Content Visibility Rules ---');
+console.log('\n--- Test E: Publication Settings & Content Visibility Rules ---');
 
 await itAsync('E1: Unpublished courses are excluded from public catalog and getCourses', async () => {
   resetCourseCache();
@@ -523,7 +523,7 @@ await itAsync('E2: Unpublished modules and lessons are hidden from students in l
 });
 
 // ── Test F: Downloadable Resources ───────────────────────────────────────────
-console.log('\n--- Test F — Downloadable Resources Parity & Access ---');
+console.log('\n--- Test F: Downloadable Resources Parity & Access ---');
 
 await itAsync('F1: Adds downloadable resources; renders valid links on learning interface', async () => {
   resetCourseCache();
@@ -588,7 +588,7 @@ await itAsync('F1: Adds downloadable resources; renders valid links on learning 
 });
 
 // ── Test G: Persistence Across Simulated Restart & Reload ────────────────────
-console.log('\n--- Test G — Persistence Across Fresh Session & Cache Eviction ---');
+console.log('\n--- Test G: Persistence Across Fresh Session & Cache Eviction ---');
 
 await itAsync('G1: Saved edits survive complete in-memory cache eviction and persist via localStorage & db', async () => {
   resetCourseCache();
@@ -648,7 +648,7 @@ await itAsync('G1: Saved edits survive complete in-memory cache eviction and per
 });
 
 // ── Test H: Regression & Security Invariants ─────────────────────────────────
-console.log('\n--- Test H — Regression, Slug Aliasing & Access Security ---');
+console.log('\n--- Test H: Regression, Slug Aliasing & Access Security ---');
 
 it('H1: Flagship NEPSE stock market course resolves reliably with valid defaults', () => {
   const nepse = getCourseBySlug('nepse-stock-market-basics');

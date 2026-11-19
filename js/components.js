@@ -223,7 +223,6 @@ function renderNavbar(currentPath) {
   const isMyCoursesActive = isNavLinkActive(ROUTES.MY_COURSES, currentPath);
   const isLearnActive = isNavLinkActive(ROUTES.LEARN, currentPath);
   const isCalculatorsActive = Boolean(currentPath && currentPath.startsWith('/calculators'));
-  const isOthersDesktopActive = isCalculatorsActive;
   const isOthersMobileActive = isCalculatorsActive || isLearnActive;
 
   return `
@@ -236,6 +235,7 @@ function renderNavbar(currentPath) {
         
         <!-- Desktop Nav Links (Center Desktop) -->
         <div class="nav-links">
+          <span class="nav-active-pill" id="nav-active-pill" aria-hidden="true"></span>
           ${primaryDesktopLinks.map(l => {
             const isActive = isNavLinkActive(l.path, currentPath);
             return `<a href="${l.path}" class="nav-link ${isActive ? 'active' : ''}" ${isActive ? 'aria-current="page"' : ''}>${l.label}</a>`;
@@ -290,7 +290,12 @@ function renderNavbar(currentPath) {
             <span class="theme-icon theme-icon-sun" aria-hidden="true">${ICONS.sun}</span>
             <span class="theme-icon theme-icon-moon" aria-hidden="true">${ICONS.moon}</span>
           </button>
-          <div id="desktop-auth-container" class="nav-auth-slot"></div>
+          <div id="desktop-auth-container" class="nav-auth-slot">
+            <button type="button" class="nav-auth-btn" id="nav-signin-btn" aria-label="Sign in to your account">
+              ${ICONS.user}
+              <span>Sign In</span>
+            </button>
+          </div>
           <a href="${waLink}" target="_blank" rel="noopener" class="btn btn-primary nav-cta">
             ${ICONS.whatsapp} Contact
           </a>
@@ -302,6 +307,9 @@ function renderNavbar(currentPath) {
             <span class="theme-icon theme-icon-sun" aria-hidden="true">${ICONS.sun}</span>
             <span class="theme-icon theme-icon-moon" aria-hidden="true">${ICONS.moon}</span>
           </button>
+          <button class="mobile-cluster-btn tablet-account-btn" id="tablet-account-btn" aria-label="Sign in to your account" type="button">
+            ${ICONS.user}
+          </button>
           <button class="nav-toggle" id="nav-toggle" aria-label="Open navigation menu" aria-expanded="false" aria-controls="mobile-menu" type="button">
             <span class="nav-toggle-bar"></span>
             <span class="nav-toggle-bar"></span>
@@ -309,73 +317,73 @@ function renderNavbar(currentPath) {
           </button>
         </div>
       </div>
+    </nav>
       
-      <!-- Mobile Backdrop Overlay -->
-      <div class="mobile-menu-overlay" id="mobile-menu-overlay" aria-hidden="true"></div>
+    <!-- Mobile Backdrop Overlay -->
+    <div class="mobile-menu-overlay" id="mobile-menu-overlay" aria-hidden="true"></div>
 
-      <!-- Mobile Slide-Out Drawer (Slides in smoothly from right) -->
-      <aside class="mobile-menu" id="mobile-menu" role="dialog" aria-modal="true" aria-label="Mobile Navigation Menu">
-        <!-- Drawer Header -->
-        <div class="mobile-drawer-header">
-          <a href="${ROUTES.HOME}" class="drawer-logo" aria-label="${SITE_NAME} - Home">
-            <div class="logo-text">rise<span>Paisa</span></div>
-          </a>
-          <button class="mobile-menu-close" id="mobile-menu-close" aria-label="Close navigation menu" type="button">
-            ${ICONS.x}
+    <!-- Mobile Slide-Out Drawer (Slides in smoothly from right) -->
+    <aside class="mobile-menu" id="mobile-menu" role="dialog" aria-modal="true" aria-label="Mobile Navigation Menu">
+      <!-- Drawer Header -->
+      <div class="mobile-drawer-header">
+        <a href="${ROUTES.HOME}" class="drawer-logo" aria-label="${SITE_NAME} - Home">
+          <div class="logo-text">rise<span>Paisa</span></div>
+        </a>
+        <button class="mobile-menu-close" id="mobile-menu-close" aria-label="Close navigation menu" type="button">
+          ${ICONS.x}
+        </button>
+      </div>
+
+      <div class="mobile-drawer-body">
+        <!-- Prominent Quick Search inside Drawer -->
+        <div class="mobile-drawer-search-wrap">
+          <button type="button" class="mobile-drawer-search-btn" id="mobile-drawer-search-btn" aria-label="Search finance topics and calculators">
+            <span class="mobile-drawer-search-icon">${ICONS.search}</span>
+            <span class="mobile-drawer-search-text">Search topics, tools, lessons…</span>
+            <kbd class="mobile-drawer-search-kbd">⌘K</kbd>
           </button>
         </div>
 
-        <div class="mobile-drawer-body">
-          <!-- Prominent Quick Search inside Drawer -->
-          <div class="mobile-drawer-search-wrap">
-            <button type="button" class="mobile-drawer-search-btn" id="mobile-drawer-search-btn" aria-label="Search finance topics and calculators">
-              <span class="mobile-drawer-search-icon">${ICONS.search}</span>
-              <span class="mobile-drawer-search-text">Search topics, tools, lessons…</span>
-              <kbd class="mobile-drawer-search-kbd">⌘K</kbd>
+        <!-- Account / Auth Drawer Slot -->
+        <div id="mobile-auth-container" class="mobile-drawer-auth-slot"></div>
+
+        <!-- Navigation Links List -->
+        <nav class="mobile-nav-links" aria-label="Mobile Navigation Links">
+          ${mobileDrawerLinks.map(l => {
+            const isActive = isNavLinkActive(l.path, currentPath);
+            return `
+              <a href="${l.path}" class="mobile-link ${isActive ? 'active' : ''}">
+                <span class="mobile-link-icon-wrap" aria-hidden="true">${l.icon}</span>
+                <span class="mobile-link-text">${l.label}</span>
+                <span class="mobile-link-arrow" aria-hidden="true">${ICONS.chevronRight}</span>
+              </a>
+            `;
+          }).join('')}
+        </nav>
+
+        <!-- Appearance Theme Control -->
+        <div class="mobile-menu-theme-row">
+          <span class="mobile-menu-theme-label">Appearance</span>
+          <div class="mobile-theme-segmented" role="radiogroup" aria-label="Appearance">
+            <button type="button" class="mobile-theme-seg-btn" id="seg-btn-light" data-theme-val="light" aria-label="Light mode">
+              <span class="theme-seg-icon" aria-hidden="true">${ICONS.sun}</span>
+              <span>Light</span>
+            </button>
+            <button type="button" class="mobile-theme-seg-btn" id="seg-btn-dark" data-theme-val="dark" aria-label="Dark mode">
+              <span class="theme-seg-icon" aria-hidden="true">${ICONS.moon}</span>
+              <span>Dark</span>
             </button>
           </div>
-
-          <!-- Account / Auth Drawer Slot -->
-          <div id="mobile-auth-container" class="mobile-drawer-auth-slot"></div>
-
-          <!-- Navigation Links List -->
-          <nav class="mobile-nav-links" aria-label="Mobile Navigation Links">
-            ${mobileDrawerLinks.map(l => {
-              const isActive = isNavLinkActive(l.path, currentPath);
-              return `
-                <a href="${l.path}" class="mobile-link ${isActive ? 'active' : ''}">
-                  <span class="mobile-link-icon-wrap" aria-hidden="true">${l.icon}</span>
-                  <span class="mobile-link-text">${l.label}</span>
-                  <span class="mobile-link-arrow" aria-hidden="true">${ICONS.chevronRight}</span>
-                </a>
-              `;
-            }).join('')}
-          </nav>
-
-          <!-- Appearance Theme Control -->
-          <div class="mobile-menu-theme-row">
-            <span class="mobile-menu-theme-label">Appearance</span>
-            <div class="mobile-theme-segmented" role="radiogroup" aria-label="Appearance">
-              <button type="button" class="mobile-theme-seg-btn" id="seg-btn-light" data-theme-val="light" aria-label="Light mode">
-                <span class="theme-seg-icon" aria-hidden="true">${ICONS.sun}</span>
-                <span>Light</span>
-              </button>
-              <button type="button" class="mobile-theme-seg-btn" id="seg-btn-dark" data-theme-val="dark" aria-label="Dark mode">
-                <span class="theme-seg-icon" aria-hidden="true">${ICONS.moon}</span>
-                <span>Dark</span>
-              </button>
-            </div>
-          </div>
         </div>
+      </div>
 
-        <!-- Drawer Footer with WhatsApp Contact Button -->
-        <div class="mobile-drawer-footer">
-          <a href="${waLink}" target="_blank" rel="noopener" class="btn btn-whatsapp btn-lg mobile-drawer-wa-btn">
-            ${ICONS.whatsapp} Chat on WhatsApp
-          </a>
-        </div>
-      </aside>
-    </nav>
+      <!-- Drawer Footer with WhatsApp Contact Button -->
+      <div class="mobile-drawer-footer">
+        <a href="${waLink}" target="_blank" rel="noopener" class="btn btn-whatsapp btn-lg mobile-drawer-wa-btn">
+          ${ICONS.whatsapp} Chat on WhatsApp
+        </a>
+      </div>
+    </aside>
 
     <!-- ── Global Search Modal ──────────────────────────────────────── -->
     <div class="search-modal-overlay" id="search-modal-overlay" role="dialog" aria-modal="true" aria-label="Search RisePaisa">
@@ -421,11 +429,10 @@ function renderFooter() {
         <div class="footer-grid">
           <div class="footer-brand">
             <a href="${ROUTES.HOME}" class="nav-logo">
-
               <div class="logo-text">rise<span>Paisa</span></div>
             </a>
             <p>Nepal's most practical financial education platform. Practical NEPSE, taxation, and personal finance strategies built for real income growth in Nepal.</p>
-            <p style="font-size:var(--text-xs);color:var(--color-text-muted);margin:var(--space-2) 0 var(--space-4)">
+            <p class="footer-founder" style="font-size:var(--text-xs);color:var(--color-text-muted);margin:var(--space-2) 0 var(--space-4)">
               Founded by <a href="${ROUTES.AAKASH_DAS}" style="color:var(--color-text-secondary);text-decoration:underline;text-underline-offset:2px">Aakash Das</a>
             </p>
             <div class="footer-social">
@@ -436,39 +443,66 @@ function renderFooter() {
             </div>
           </div>
           
-          <div class="footer-section">
-            <h4>Quick Links</h4>
-            <a href="${ROUTES.HOME}">Home</a>
-            <a href="${ROUTES.LEARN}">Learn Academy</a>
-            <a href="${ROUTES.COURSES}">Courses</a>
-            <a href="${ROUTES.CALCULATORS}">Calculators</a>
-            <a href="${ROUTES.RESOURCES}">Resources</a>
-            <a href="${ROUTES.BLOG}">Articles</a>
-            <a href="${ROUTES.ABOUT}">About Us</a>
-            <a href="${ROUTES.AAKASH_DAS}">Aakash Das (Founder)</a>
-            <a href="${ROUTES.CONTACT}">Contact</a>
+          <div class="footer-section" data-collapsible="true">
+            <button type="button" class="footer-section-toggle" aria-expanded="false" aria-controls="footer-links-quick">
+              <h4>Quick Links</h4>
+              <span class="footer-toggle-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+              </span>
+            </button>
+            <div class="footer-links-content" id="footer-links-quick">
+              <div class="footer-links-inner">
+                <a href="${ROUTES.HOME}">Home</a>
+                <a href="${ROUTES.LEARN}">Learn Academy</a>
+                <a href="${ROUTES.COURSES}">Courses</a>
+                <a href="${ROUTES.CALCULATORS}">Calculators</a>
+                <a href="${ROUTES.RESOURCES}">Resources</a>
+                <a href="${ROUTES.BLOG}">Articles</a>
+                <a href="${ROUTES.ABOUT}">About Us</a>
+                <a href="${ROUTES.AAKASH_DAS}">Aakash Das (Founder)</a>
+                <a href="${ROUTES.CONTACT}">Contact</a>
+              </div>
+            </div>
           </div>
           
-          <div class="footer-section">
-            <h4>Academy & Topics</h4>
-            <a href="${ROUTES.LEARN_CATEGORY('investing')}">Investing</a>
-            <a href="${ROUTES.LEARN_CATEGORY('nepse')}">NEPSE</a>
-            <a href="${ROUTES.LEARN_CATEGORY('personal-finance')}">Personal Finance</a>
-            <a href="${ROUTES.LEARN_CATEGORY('taxation')}">Taxation Nepal</a>
-            <a href="${ROUTES.LEARN_CATEGORY('mutual-funds')}">Mutual Funds</a>
-            <a href="${ROUTES.LEARN_CATEGORY('loans')}">Loans &amp; Banking</a>
-            <a href="${ROUTES.LEARN_CATEGORY('insurance')}">Insurance</a>
-            <a href="${ROUTES.LEARN_CATEGORY('retirement-planning')}">Retirement Planning</a>
+          <div class="footer-section" data-collapsible="true">
+            <button type="button" class="footer-section-toggle" aria-expanded="false" aria-controls="footer-links-topics">
+              <h4>Academy & Topics</h4>
+              <span class="footer-toggle-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+              </span>
+            </button>
+            <div class="footer-links-content" id="footer-links-topics">
+              <div class="footer-links-inner">
+                <a href="${ROUTES.LEARN_CATEGORY('investing')}">Investing</a>
+                <a href="${ROUTES.LEARN_CATEGORY('nepse')}">NEPSE</a>
+                <a href="${ROUTES.LEARN_CATEGORY('personal-finance')}">Personal Finance</a>
+                <a href="${ROUTES.LEARN_CATEGORY('taxation')}">Taxation Nepal</a>
+                <a href="${ROUTES.LEARN_CATEGORY('mutual-funds')}">Mutual Funds</a>
+                <a href="${ROUTES.LEARN_CATEGORY('loans')}">Loans &amp; Banking</a>
+                <a href="${ROUTES.LEARN_CATEGORY('insurance')}">Insurance</a>
+                <a href="${ROUTES.LEARN_CATEGORY('retirement-planning')}">Retirement Planning</a>
+              </div>
+            </div>
           </div>
           
-          <div class="footer-section">
-            <h4>Trust & Legal</h4>
-            <a href="${ROUTES.EDITORIAL_POLICY || '/editorial-policy'}">Editorial Policy</a>
-            <a href="${ROUTES.DISCLAIMER}">Disclaimer</a>
-            <a href="${ROUTES.PRIVACY}">Privacy Policy</a>
-            <a href="${ROUTES.TERMS}">Terms & Conditions</a>
-            <a href="${ROUTES.REFUND}">Refund Policy</a>
-            <a href="${ROUTES.FAQ}">FAQ</a>
+          <div class="footer-section" data-collapsible="true">
+            <button type="button" class="footer-section-toggle" aria-expanded="false" aria-controls="footer-links-legal">
+              <h4>Trust & Legal</h4>
+              <span class="footer-toggle-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+              </span>
+            </button>
+            <div class="footer-links-content" id="footer-links-legal">
+              <div class="footer-links-inner">
+                <a href="${ROUTES.EDITORIAL_POLICY || '/editorial-policy'}">Editorial Policy</a>
+                <a href="${ROUTES.DISCLAIMER}">Disclaimer</a>
+                <a href="${ROUTES.PRIVACY}">Privacy Policy</a>
+                <a href="${ROUTES.TERMS}">Terms & Conditions</a>
+                <a href="${ROUTES.REFUND}">Refund Policy</a>
+                <a href="${ROUTES.FAQ}">FAQ</a>
+              </div>
+            </div>
           </div>
         </div>
         
@@ -527,7 +561,7 @@ function renderCourseCard(course) {
           <div style="display:flex;gap:var(--space-2);align-items:center;flex-wrap:wrap">
             <a href="${targetUrl}" class="btn btn-secondary btn-sm">${isNepse ? 'Start Learning' : 'Syllabus'}</a>
             <a href="${waBuyUrl}" target="_blank" rel="noopener" class="btn btn-primary btn-sm btn-whatsapp" style="display:inline-flex;align-items:center;gap:5px;background:#25D366;color:#FFFFFF;border-color:#25D366">
-              ${ICONS.whatsapp} Buy Course — NPR ${course.price.toLocaleString()}
+              ${ICONS.whatsapp} Buy Course: NPR ${course.price.toLocaleString()}
             </a>
           </div>
         </div>
@@ -750,6 +784,35 @@ let _navbarInitialized = false;
 let _searchModalInitialized = false;
 
 /**
+ * Position the floating Liquid Glass active capsule behind the current/hovered nav link
+ */
+function positionActiveNavPill(targetLink = null) {
+  if (typeof document === 'undefined') return;
+  const track = document.getElementById('nav-links-track') || document.querySelector('.navbar .nav-links');
+  const pill = document.getElementById('nav-active-pill');
+  if (!track || !pill) return;
+
+  const activeLink = targetLink || track.querySelector('.nav-link.active');
+  if (activeLink && activeLink.offsetParent !== null) {
+    const trackRect = track.getBoundingClientRect();
+    const linkRect = activeLink.getBoundingClientRect();
+    const left = Math.round(linkRect.left - trackRect.left);
+    const top = Math.round(linkRect.top - trackRect.top);
+    const width = Math.round(linkRect.width);
+    const height = Math.round(linkRect.height);
+
+    pill.style.transform = `translate3d(${left}px, ${top}px, 0)`;
+    pill.style.width = `${width}px`;
+    pill.style.height = `${height}px`;
+    pill.style.opacity = '1';
+    track.classList.add('has-sliding-pill');
+  } else {
+    pill.style.opacity = '0';
+    track.classList.remove('has-sliding-pill');
+  }
+}
+
+/**
  * High-efficiency active link updater that does not destroy or recreate DOM
  */
 function updateNavbarActive(currentPath) {
@@ -766,6 +829,16 @@ function updateNavbarActive(currentPath) {
       link.removeAttribute('aria-current');
     }
   });
+
+  // Re-position the active pill for the newly active link
+  positionActiveNavPill();
+
+  // Notify shader glass if active
+  if (typeof window !== 'undefined') {
+    import('./shader-glass.js').then(({ getNavbarShaderInstance }) => {
+      getNavbarShaderInstance()?.markChanged?.();
+    }).catch(() => {});
+  }
 
   // Update mobile drawer links
   document.querySelectorAll('.mobile-menu .mobile-link').forEach(link => {
@@ -841,6 +914,8 @@ function updateNavbarActive(currentPath) {
 }
 
 // ── Navbar Interactivity ─────────────────────────
+let _dropdownListenersBound = false;
+
 function initNavbar() {
   const toggle = document.getElementById('nav-toggle');
   const mobileMenu = document.getElementById('mobile-menu');
@@ -851,20 +926,16 @@ function initNavbar() {
   let _savedScrollY = 0;
   function lockScroll() {
     _savedScrollY = window.scrollY || window.pageYOffset || 0;
-    document.body.style.position = 'fixed';
-    document.body.style.top = `-${_savedScrollY}px`;
-    document.body.style.width = '100%';
     document.body.style.overflow = 'hidden';
+    document.documentElement.style.overflow = 'hidden';
   }
 
   function unlockScroll() {
-    const prevTop = document.body.style.top;
+    document.body.style.overflow = '';
+    document.documentElement.style.overflow = '';
     document.body.style.position = '';
     document.body.style.top = '';
     document.body.style.width = '';
-    document.body.style.overflow = '';
-    const y = Math.abs(parseInt(prevTop || '0', 10));
-    window.scrollTo(0, isNaN(y) || y === 0 ? _savedScrollY : y);
   }
 
   function openMobileMenu(isKeyboard = false) {
@@ -875,6 +946,9 @@ function initNavbar() {
     mobileMenu.classList.add('open');
     overlay?.classList.add('open');
     lockScroll();
+    import('./liquid-glass.js').then(({ LiquidGlassManager }) => {
+      LiquidGlassManager.initSidebarGlass(mobileMenu);
+    }).catch(() => {});
     if (isKeyboard) {
       setTimeout(() => {
         closeBtn?.focus();
@@ -883,14 +957,15 @@ function initNavbar() {
   }
 
   function closeMobileMenu() {
-    if (mobileMenu && (mobileMenu.classList.contains('open') || overlay?.classList.contains('open'))) {
-      navbar?.classList.remove('has-mobile-open');
-      toggle?.classList.remove('open');
-      toggle?.setAttribute('aria-expanded', 'false');
-      mobileMenu.classList.remove('open');
-      overlay?.classList.remove('open');
-      unlockScroll();
-    }
+    navbar?.classList.remove('has-mobile-open');
+    toggle?.classList.remove('open');
+    toggle?.setAttribute('aria-expanded', 'false');
+    mobileMenu?.classList.remove('open');
+    overlay?.classList.remove('open');
+    unlockScroll();
+    import('./liquid-glass.js').then(({ LiquidGlassManager }) => {
+      LiquidGlassManager.destroySlot('sidebar');
+    }).catch(() => {});
   }
 
   // If already initialized once, close any open mobile menu and exit cleanly
@@ -925,6 +1000,16 @@ function initNavbar() {
       mobileWrapper.classList.remove('open');
       mobileTrigger?.setAttribute('aria-expanded', 'false');
     }
+    const userMenu = document.getElementById('nav-user-menu');
+    const userBadge = document.getElementById('nav-user-badge');
+    if (userMenu && userMenu.classList.contains('open')) {
+      userMenu.classList.remove('open');
+      userBadge?.classList.remove('open');
+      userBadge?.setAttribute('aria-expanded', 'false');
+    }
+    import('./liquid-glass.js').then(({ LiquidGlassManager }) => {
+      LiquidGlassManager.destroySlot('dropdown');
+    }).catch(() => {});
   }
 
   if (toggle && mobileMenu) {
@@ -947,6 +1032,37 @@ function initNavbar() {
     overlay?.addEventListener('click', () => {
       closeMobileMenu();
     });
+
+    overlay?.addEventListener('touchmove', (e) => {
+      e.preventDefault();
+    }, { passive: false });
+
+    // Desktop Sign-In trigger (immediate interaction fallback before full Firebase auth initialization)
+    const desktopSignInBtn = document.getElementById('nav-signin-btn');
+    if (desktopSignInBtn) {
+      desktopSignInBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        import('./firebase/ui.js').then((mod) => {
+          mod.openAuthModal('login');
+        }).catch(() => {});
+      });
+    }
+
+    // Tablet Account trigger (provides immediate accessible account access on 600px - 1023px)
+    const tabletAccountBtn = document.getElementById('tablet-account-btn');
+    if (tabletAccountBtn) {
+      tabletAccountBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        closeDropdowns();
+        import('./firebase/ui.js').then((mod) => {
+          if (typeof window !== 'undefined' && window._rpCurrentUser) {
+            openMobileMenu(false);
+          } else {
+            mod.openAuthModal('login');
+          }
+        }).catch(() => {});
+      });
+    }
 
     // Desktop Others Dropdown trigger (opens 2-option dropdown below desktop Others)
     const othersTrigger = document.getElementById('nav-others-trigger');
@@ -974,29 +1090,54 @@ function initNavbar() {
         if (willOpen) {
           mobileOthersWrapper.classList.add('open');
           mobileOthersBtn.setAttribute('aria-expanded', 'true');
+          const menu = document.getElementById('mobile-others-menu');
+          if (menu) {
+            import('./liquid-glass.js').then(({ LiquidGlassManager }) => {
+              LiquidGlassManager.initDropdownGlass(menu);
+            }).catch(() => {});
+          }
         }
       });
     }
 
-    // Close dropdowns when user clicks outside them
-    document.addEventListener('click', (e) => {
-      if (!othersWrapper?.contains(e.target) && !mobileOthersWrapper?.contains(e.target)) {
-        closeDropdowns();
-      }
-    });
+    // Close dropdowns when user clicks outside them or presses Escape (bound once)
+    if (!_dropdownListenersBound) {
+      _dropdownListenersBound = true;
 
-    // Close dropdowns on Escape key and return focus
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') {
-        const desktopOpen = othersWrapper?.classList.contains('open');
-        const mobileOpen = mobileOthersWrapper?.classList.contains('open');
-        if (desktopOpen || mobileOpen) {
+      document.addEventListener('click', (e) => {
+        const dWrapper = document.getElementById('nav-others-dropdown-wrapper');
+        const mWrapper = document.getElementById('mobile-others-wrapper');
+        const userContainer = document.getElementById('desktop-auth-container');
+        if (!dWrapper?.contains(e.target) && !mWrapper?.contains(e.target) && !userContainer?.contains(e.target)) {
           closeDropdowns();
-          if (desktopOpen) othersTrigger?.focus();
-          if (mobileOpen) mobileOthersBtn?.focus();
         }
-      }
-    });
+      });
+
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+          if (mobileMenu?.classList.contains('open')) {
+            closeMobileMenu();
+            toggle?.focus();
+            return;
+          }
+          const dWrapper = document.getElementById('nav-others-dropdown-wrapper');
+          const mWrapper = document.getElementById('mobile-others-wrapper');
+          const userMenu = document.getElementById('nav-user-menu');
+          const dTrigger = document.getElementById('nav-others-trigger');
+          const mBtn = document.getElementById('mobile-nav-others');
+          const userBadge = document.getElementById('nav-user-badge');
+          const desktopOpen = dWrapper?.classList.contains('open');
+          const mobileOpen = mWrapper?.classList.contains('open');
+          const userOpen = userMenu?.classList.contains('open');
+          if (desktopOpen || mobileOpen || userOpen) {
+            closeDropdowns();
+            if (desktopOpen) dTrigger?.focus();
+            if (mobileOpen) mBtn?.focus();
+            if (userOpen) userBadge?.focus();
+          }
+        }
+      });
+    }
 
     // Close dropdowns when the user selects an option
     document.querySelectorAll('.nav-dropdown-item').forEach(item => {
@@ -1051,13 +1192,6 @@ function initNavbar() {
         closeMobileMenu();
       }
     });
-
-    // Close menu on resize past desktop breakpoint
-    window.addEventListener('resize', () => {
-      if (window.innerWidth >= 1024 && mobileMenu.classList.contains('open')) {
-        closeMobileMenu();
-      }
-    }, { passive: true });
   }
 
   // Scroll behavior for navbar (RAF throttled to avoid main-thread scroll overhead)
@@ -1071,12 +1205,52 @@ function initNavbar() {
           if (shouldBeScrolled !== isScrolled) {
             isScrolled = shouldBeScrolled;
             navbar.classList.toggle('scrolled', isScrolled);
+            import('./shader-glass.js').then(({ getNavbarShaderInstance }) => {
+              getNavbarShaderInstance()?.markChanged?.();
+            }).catch(() => {});
           }
           ticking = false;
         });
         ticking = true;
       }
     }, { passive: true });
+  }
+
+  // Desktop sliding active pill & hover tracking
+  const navTrack = document.getElementById('nav-links-track') || document.querySelector('.navbar .nav-links');
+  if (navTrack) {
+    requestAnimationFrame(() => positionActiveNavPill());
+    if (typeof document !== 'undefined' && document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(() => positionActiveNavPill()).catch(() => {});
+    }
+
+    navTrack.querySelectorAll('.nav-link').forEach(link => {
+      link.addEventListener('mouseenter', () => positionActiveNavPill(link));
+      link.addEventListener('focus', () => positionActiveNavPill(link));
+    });
+
+    navTrack.addEventListener('mouseleave', () => positionActiveNavPill());
+  }
+
+  // Unified RAF-throttled window resize handler for smooth responsive adaptation
+  let _navResizeRaf = null;
+  window.addEventListener('resize', () => {
+    if (_navResizeRaf) cancelAnimationFrame(_navResizeRaf);
+    _navResizeRaf = requestAnimationFrame(() => {
+      positionActiveNavPill();
+      if (window.innerWidth > 900 && (mobileMenu?.classList.contains('open') || navbar?.classList.contains('has-mobile-open'))) {
+        closeMobileMenu();
+      }
+    });
+  }, { passive: true });
+
+  // Initialize WebGL Liquid Glass Shader on the top navigation bar
+  if (typeof window !== 'undefined') {
+    import('./shader-glass.js').then(({ initNavbarShaderGlass }) => {
+      initNavbarShaderGlass();
+    }).catch(err => {
+      console.warn('[risePaisa:ShaderGlass] Navbar shader fallback to CSS glass:', err);
+    });
   }
 
   // ── Search Modal ──────────────────────────────────────────────────
@@ -1100,6 +1274,13 @@ function openSearchModal() {
   setTimeout(() => input?.focus(), 60);
   // Show popular searches by default
   renderModalPopular();
+
+  const modal = document.getElementById('search-modal');
+  if (modal) {
+    import('./liquid-glass.js').then(({ LiquidGlassManager }) => {
+      LiquidGlassManager.initModalGlass(modal);
+    }).catch(() => {});
+  }
 }
 
 function closeSearchModal() {
@@ -1114,6 +1295,10 @@ function closeSearchModal() {
   if (input) input.value = '';
   const resultsEl = document.getElementById('search-modal-results');
   if (resultsEl) resultsEl.innerHTML = '';
+
+  import('./liquid-glass.js').then(({ LiquidGlassManager }) => {
+    LiquidGlassManager.destroySlot('modal');
+  }).catch(() => {});
 }
 
 function renderModalPopular() {
@@ -1453,6 +1638,6 @@ export {
   renderNavbar, renderFooter, renderWhatsAppFloat,
   renderCourseCard, renderResourceCard, renderArticleCard, renderShareButtons,
   formatDate, setPageMeta,
-  initNavbar, updateNavbarActive, initAccordions, initScrollAnimations, initStatCounters,
+  initNavbar, updateNavbarActive, positionActiveNavPill, initAccordions, initScrollAnimations, initStatCounters,
   initTheme, setTheme, getCurrentTheme, toggleTheme
 };

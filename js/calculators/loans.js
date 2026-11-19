@@ -11,7 +11,6 @@ import {
   calculateLTV,
   getLTVHealth,
   calculateLoanComparison,
-  validateLoanInputs,
   HOME_LOAN_DEFAULTS,
   PERSONAL_LOAN_DEFAULTS,
   VEHICLE_LOAN_DEFAULTS,
@@ -1454,6 +1453,14 @@ export function initLoanCalculators(initialTab = 'home') {
     if (getAppPathname().startsWith('/calculators/') && getAppPathname() !== targetUrl) {
       window.history.pushState({}, '', toBrowserPath(targetUrl));
     }
+
+    try {
+      import('../liquid-glass.js').then(({ LiquidGlassManager }) => {
+        if (subPanes[targetTab]) {
+          LiquidGlassManager.initSliderGlass(subPanes[targetTab]);
+        }
+      }).catch(() => {});
+    } catch {}
   }
 
   subTabBtns.forEach(btn => {

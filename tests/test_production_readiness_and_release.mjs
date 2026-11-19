@@ -58,8 +58,8 @@ assert(legalJs.includes('Duplicate or Accidental Excess Billing'), 'Refund terms
 assert(legalJs.includes('48 to 72'), 'Refund terms guarantee 48-72h resolution or refund for technical delivery failure');
 
 // Admin enrollment default alignment
-assert(adminEnrollmentsJs.includes('value="none" selected>No Expiration (Lifetime Access) — Standard</option>'), 'Admin enrollment grant modal defaults to Lifetime Access');
-assert(adminEnrollmentsJs.includes('value="0" selected>Lifetime Access (No Expiration) — Standard</option>'), 'Admin student creation modal defaults to Lifetime Access');
+assert(adminEnrollmentsJs.includes('value="none" selected>No Expiration (Lifetime Access) - Standard</option>'), 'Admin enrollment grant modal defaults to Lifetime Access');
+assert(adminEnrollmentsJs.includes('value="0" selected>Lifetime Access (No Expiration) - Standard</option>'), 'Admin student creation modal defaults to Lifetime Access');
 
 // ── 2. WHATSAPP ENROLLMENT PATHWAY ─────────────────────────────
 console.log('\n--- 2. Testing WhatsApp Purchase Link & Pre-filled Message ---');

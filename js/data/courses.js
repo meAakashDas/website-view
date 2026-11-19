@@ -97,6 +97,7 @@ The goal is to help you build a strong understanding of the Nepalese share marke
             videoTitle: 'What is Share Market?',
             duration: '7:41',
             shortDescription: "Introduction to Nepal's financial architecture, understanding how corporate capital formation works through NEPSE, the role of public equity ownership, and realistic financial expectations for beginners.",
+            youtubeUrl: 'https://www.youtube.com/watch?v=ddb4H0uPioo',
             resources: [
               {
                 title: 'NEPSE First-Time Investor Checklist',
@@ -110,21 +111,24 @@ The goal is to help you build a strong understanding of the Nepalese share marke
             title: 'Understanding the Key Participants in the Share Market',
             videoTitle: 'Important Parts of Share Market: Investor, CDSC, Broker, SEBON',
             duration: '7:10',
-            shortDescription: "Deep-dive into the four regulatory and structural pillars of Nepal's capital market: SEBON (market regulator), NEPSE (exchange operator), CDSC (clearing and central depository), and licensed stockbrokers."
+            shortDescription: "Deep-dive into the four regulatory and structural pillars of Nepal's capital market: SEBON (market regulator), NEPSE (exchange operator), CDSC (clearing and central depository), and licensed stockbrokers.",
+            youtubeUrl: 'https://www.youtube.com/watch?v=hR_O7RLSteE'
           },
           {
             rank: 3,
             title: 'Primary Market vs. Secondary Market',
             videoTitle: 'Primary Market Vs Secondary Market',
             duration: '8:22',
-            shortDescription: "Understanding the operational mechanics dividing the primary market (IPOs/FPOs at fixed par value via C-ASBA) and the secondary market (continuous matching price discovery on NEPSE)."
+            shortDescription: "Understanding the operational mechanics dividing the primary market (IPOs/FPOs at fixed par value via C-ASBA) and the secondary market (continuous matching price discovery on NEPSE).",
+            youtubeUrl: 'https://www.youtube.com/watch?v=_CuYZVWhsOY'
           },
           {
             rank: 4,
             title: 'How Companies Divide Ownership into Shares',
             videoTitle: 'What is Dilution? How Company Divides into Share',
             duration: '3:59',
-            shortDescription: "How corporate enterprises divide equity ownership into authorized, issued, and paid-up capital, how equity dilution works when issuing new shares, and calculating percentage ownership."
+            shortDescription: "How corporate enterprises divide equity ownership into authorized, issued, and paid-up capital, how equity dilution works when issuing new shares, and calculating percentage ownership.",
+            youtubeUrl: 'https://www.youtube.com/watch?v=o-Am8nkie3Q'
           }
         ]
       },
@@ -138,14 +142,16 @@ The goal is to help you build a strong understanding of the Nepalese share marke
             title: 'Understanding DEMAT, MeroShare and Trading Accounts',
             videoTitle: 'What are Demat Account, Mero Share and Trading Account?',
             duration: '1:51',
-            shortDescription: "Essential infrastructure requirements for every Nepali investor: 16-digit DEMAT BOID numbers, MeroShare portal navigation, CRN verification at commercial banks, and broker TMS accounts."
+            shortDescription: "Essential infrastructure requirements for every Nepali investor: 16-digit DEMAT BOID numbers, MeroShare portal navigation, CRN verification at commercial banks, and broker TMS accounts.",
+            youtubeUrl: 'https://www.youtube.com/watch?v=oYPDsBTE4U8'
           },
           {
             rank: 6,
             title: 'How to Open Share Market Accounts in Nepal',
             videoTitle: 'How to Open Share Market Accounts',
             duration: '10:17',
-            shortDescription: "Step-by-step account opening walkthrough across depository participants (DPs) and stockbrokers, KYC documentation standards, avoiding name-mismatch rejections, and C-ASBA activation."
+            shortDescription: "Step-by-step account opening walkthrough across depository participants (DPs) and stockbrokers, KYC documentation standards, avoiding name-mismatch rejections, and C-ASBA activation.",
+            youtubeUrl: 'https://www.youtube.com/watch?v=ostrgAybLD4'
           }
         ]
       },
@@ -159,14 +165,16 @@ The goal is to help you build a strong understanding of the Nepalese share marke
             title: 'Technical Analysis: The Complete Introduction',
             videoTitle: 'Technical Analysis Part 1',
             duration: '48:10',
-            shortDescription: "Foundation of technical analysis: understanding auction market theory, price action reflecting aggregate supply and demand, Dow Theory principles, and why charts visualize crowd psychology."
+            shortDescription: "Foundation of technical analysis: understanding auction market theory, price action reflecting aggregate supply and demand, Dow Theory principles, and why charts visualize crowd psychology.",
+            youtubeUrl: 'https://www.youtube.com/watch?v=ziVeMxMF4e8'
           },
           {
             rank: 8,
             title: 'Understanding Market Trends and Trend Analysis',
             videoTitle: 'Types of Trend and Trend Analysis',
             duration: '42:50',
-            shortDescription: "Market structure and trend identification: defining uptrends (higher highs & higher lows), downtrends (lower highs & lower lows), consolidation channels, and drawing multi-touch trendlines."
+            shortDescription: "Market structure and trend identification: defining uptrends (higher highs & higher lows), downtrends (lower highs & lower lows), consolidation channels, and drawing multi-touch trendlines.",
+            youtubeUrl: 'https://www.youtube.com/watch?v=924gdEaJQx4'
           }
         ]
       },
@@ -180,21 +188,24 @@ The goal is to help you build a strong understanding of the Nepalese share marke
             title: 'Understanding the Relationship Between Price and Volume',
             videoTitle: 'Relation Between Price And Volume',
             duration: '22:06',
-            shortDescription: "Interpreting volume as the fuel of price action: analyzing volume expansion on breakouts, recognizing divergence between price and trading turnover, and detecting institutional accumulation vs distribution."
+            shortDescription: "Interpreting volume as the fuel of price action: analyzing volume expansion on breakouts, recognizing divergence between price and trading turnover, and detecting institutional accumulation vs distribution.",
+            youtubeUrl: 'https://www.youtube.com/watch?v=Um-oKEuzwQI'
           },
           {
             rank: 10,
             title: 'Understanding Chart Patterns: Part 1',
             videoTitle: 'Types of Chart Patterns: Part 1',
             duration: '33:12',
-            shortDescription: "Comprehensive study of classical reversal chart patterns in NEPSE: Head & Shoulders, Inverse Head & Shoulders, Double Tops, Double Bottoms, and identifying neckline breakout confirmation."
+            shortDescription: "Comprehensive study of classical reversal chart patterns in NEPSE: Head & Shoulders, Inverse Head & Shoulders, Double Tops, Double Bottoms, and identifying neckline breakout confirmation.",
+            youtubeUrl: 'https://www.youtube.com/watch?v=FwnALVhZqPE'
           },
           {
             rank: 11,
             title: 'Understanding Chart Patterns: Part 2',
             videoTitle: 'Types of Chart Pattern: Part 2',
             duration: '37:04',
-            shortDescription: "Continuation and bilateral chart patterns: Bullish and Bearish Flags, Pennants, Symmetrical Triangles, Ascending Triangles, and measuring minimum price projection targets."
+            shortDescription: "Continuation and bilateral chart patterns: Bullish and Bearish Flags, Pennants, Symmetrical Triangles, Ascending Triangles, and measuring minimum price projection targets.",
+            youtubeUrl: 'https://www.youtube.com/watch?v=zjF8qdZQVTs'
           },
           {
             rank: 12,
@@ -215,28 +226,32 @@ The goal is to help you build a strong understanding of the Nepalese share marke
             title: 'Moving Averages and Supertrend',
             videoTitle: 'Indicator Part 1: Simple Moving Average, Super Trend',
             duration: '22:57',
-            shortDescription: "Trend-following indicators: Simple Moving Averages (20, 50, 200 SMA) and Exponential Moving Averages (EMA), Golden Cross and Death Cross signals, and dynamic support/resistance using Supertrend."
+            shortDescription: "Trend-following indicators: Simple Moving Averages (20, 50, 200 SMA) and Exponential Moving Averages (EMA), Golden Cross and Death Cross signals, and dynamic support/resistance using Supertrend.",
+            youtubeUrl: 'https://www.youtube.com/watch?v=GCJbnxnY1hg'
           },
           {
             rank: 14,
             title: 'Volume Indicator and Volume Analysis',
             videoTitle: 'Indicator Part 2: Volume',
             duration: '9:21',
-            shortDescription: "Advanced volume analysis on NEPSE: On-Balance Volume (OBV), Volume Moving Averages, spotting climactic volume at market tops and capitulation volume at market bottoms."
+            shortDescription: "Advanced volume analysis on NEPSE: On-Balance Volume (OBV), Volume Moving Averages, spotting climactic volume at market tops and capitulation volume at market bottoms.",
+            youtubeUrl: 'https://www.youtube.com/watch?v=59VGCjU-EtE'
           },
           {
             rank: 15,
             title: 'MACD Indicator: Understanding Momentum',
             videoTitle: 'Indicator Part 3: MACD',
             duration: '23:21',
-            shortDescription: "Momentum analysis with the MACD (Moving Average Convergence Divergence): MACD line, Signal line, zero-line crossovers, histogram momentum shifts, and identifying regular and hidden divergence."
+            shortDescription: "Momentum analysis with the MACD (Moving Average Convergence Divergence): MACD line, Signal line, zero-line crossovers, histogram momentum shifts, and identifying regular and hidden divergence.",
+            youtubeUrl: 'https://www.youtube.com/watch?v=KV11WIC3Ba0'
           },
           {
             rank: 16,
             title: 'Fibonacci Retracement: Identifying Potential Price Levels',
             videoTitle: 'Indicator Part 4: Fibonacci Retracement',
             duration: '17:40',
-            shortDescription: "Fibonacci Retracement and Extension analysis: identifying golden ratio pullbacks (38.2%, 50%, 61.8%) during healthy NEPSE corrections, and projecting take-profit expansion levels."
+            shortDescription: "Fibonacci Retracement and Extension analysis: identifying golden ratio pullbacks (38.2%, 50%, 61.8%) during healthy NEPSE corrections, and projecting take-profit expansion levels.",
+            youtubeUrl: 'https://www.youtube.com/watch?v=GELNh4m0TQY'
           }
         ]
       },
@@ -250,14 +265,16 @@ The goal is to help you build a strong understanding of the Nepalese share marke
             title: 'Complete Guide to Risk Management in the Share Market',
             videoTitle: 'Everything About Risk Management in the Share Market',
             duration: '1:11:27',
-            shortDescription: "The mathematical foundation of capital preservation: why survival precedes profits, calculating the risk-to-reward ratio (minimum 1:2), and enforcing the 1-2% maximum portfolio risk rule."
+            shortDescription: "The mathematical foundation of capital preservation: why survival precedes profits, calculating the risk-to-reward ratio (minimum 1:2), and enforcing the 1-2% maximum portfolio risk rule.",
+            youtubeUrl: 'https://www.youtube.com/watch?v=D5d_lUXde5A'
           },
           {
             rank: 18,
             title: 'Stop-Loss: Everything You Need to Know',
             videoTitle: 'Everything You Need to Learn about the StopLoss',
             duration: '1:08:30',
-            shortDescription: "Complete stop-loss masterclass: volatility-based stops (ATR), structural swing-point stops, trailing stops to lock in gains, and conquering emotional biases like loss aversion and revenge trading."
+            shortDescription: "Complete stop-loss masterclass: volatility-based stops (ATR), structural swing-point stops, trailing stops to lock in gains, and conquering emotional biases like loss aversion and revenge trading.",
+            youtubeUrl: 'https://www.youtube.com/watch?v=3RQZpl3e8-I'
           }
         ]
       },
@@ -271,14 +288,16 @@ The goal is to help you build a strong understanding of the Nepalese share marke
             title: 'How to Select Stocks Using Fundamental Analysis',
             videoTitle: 'How to Select Stock By Fundamental Analysis',
             duration: '38:00',
-            shortDescription: "Fundamental analysis framework for Nepali companies: evaluating the Income Statement, Balance Sheet, and Cash Flow Statement; interpreting revenue growth, operating profit margins, and net profits."
+            shortDescription: "Fundamental analysis framework for Nepali companies: evaluating the Income Statement, Balance Sheet, and Cash Flow Statement; interpreting revenue growth, operating profit margins, and net profits.",
+            youtubeUrl: 'https://www.youtube.com/watch?v=xTNOjBBJQGk'
           },
           {
             rank: 20,
             title: 'The Complete Stock Selection Process',
             videoTitle: 'Stock Selection Full Process',
             duration: '1:11:17',
-            shortDescription: "Comprehensive stock selection methodology: combining valuation ratios (P/E, P/B, EPS, ROE) with banking credit quality metrics (NPL, Capital Adequacy Ratio, Net Interest Margin) to identify high-quality long-term compounders."
+            shortDescription: "Comprehensive stock selection methodology: combining valuation ratios (P/E, P/B, EPS, ROE) with banking credit quality metrics (NPL, Capital Adequacy Ratio, Net Interest Margin) to identify high-quality long-term compounders.",
+            youtubeUrl: 'https://www.youtube.com/watch?v=4Vgx2xzJsew'
           }
         ]
       },
@@ -292,14 +311,16 @@ The goal is to help you build a strong understanding of the Nepalese share marke
             title: 'Fundamental Stock Analysis: Laxmi Bank',
             videoTitle: 'Complete Analysis of Laxmi Bank Stock (Past 5 Years)',
             duration: '45:53',
-            shortDescription: "Case study walkthrough: historical 5-year fundamental analysis of Laxmi Bank (LBL), analyzing loan book expansion, deposit growth, non-performing loan management, and merger valuation implications."
+            shortDescription: "Case study walkthrough: historical 5-year fundamental analysis of Laxmi Bank (LBL), analyzing loan book expansion, deposit growth, non-performing loan management, and merger valuation implications.",
+            youtubeUrl: 'https://www.youtube.com/watch?v=2pbKt3AlC-U'
           },
           {
             rank: 22,
             title: 'Fundamental Stock Analysis: Nabil Bank',
             videoTitle: 'Complete Analysis of Nabil Bank Stock (Past 5 Years)',
             duration: '1:08:35',
-            shortDescription: "Case study walkthrough: historical 5-year fundamental analysis of Nabil Bank (NABIL), dissecting cost of funds, return on equity (ROE), capital adequacy, dividend track record, and competitive moats."
+            shortDescription: "Case study walkthrough: historical 5-year fundamental analysis of Nabil Bank (NABIL), dissecting cost of funds, return on equity (ROE), capital adequacy, dividend track record, and competitive moats.",
+            youtubeUrl: 'https://www.youtube.com/watch?v=3pRWTbkXyx8'
           }
         ]
       }
@@ -463,8 +484,8 @@ function _harmonizeCourse(c) {
     }
   }
 
-  // Derive previewVideoUrl from first lesson if set
-  if (Array.isArray(course.topics) && course.topics[0]?.lessons?.[0]?.youtubeUrl) {
+  // Derive previewVideoUrl from first lesson if not already set
+  if (!course.previewVideoUrl && Array.isArray(course.topics) && course.topics[0]?.lessons?.[0]?.youtubeUrl) {
     course.previewVideoUrl = course.topics[0].lessons[0].youtubeUrl;
   }
 
@@ -568,7 +589,7 @@ export function getCourses() {
 
 /**
  * Single source of truth for the active canonical public course offering:
- * Share Market Full Course (NEPSE) — NPR 2,999
+ * Share Market Full Course (NEPSE) (NPR 2,999)
  */
 export function getPublicCourse() {
   const publicCourses = getCourses();

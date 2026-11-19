@@ -1,4 +1,4 @@
-# RisePaisa — Editorial & Entity Governance Guardrails
+# RisePaisa: Editorial & Entity Governance Guardrails
 
 > **Authoritative Internal Protocol for Future Developers, Authors, and Editors**  
 > *Last Updated: September 2026*
@@ -67,11 +67,11 @@ Whenever new articles, guides, or lessons are published on RisePaisa:
 ## 4. Financial Content Integrity & Regulatory Sourcing
 
 1. **Primary Regulatory Sources:** All analysis, tax numbers, and capital market rules for Nepal must cite official institutions:
-   - **Nepal Rastra Bank (NRB)** — Monetary policy, base rates, foreign exchange, circulars.
-   - **Securities Board of Nepal (SEBON)** — Securities regulations, issue guidelines, fee caps.
-   - **Nepal Stock Exchange (NEPSE)** — Trading rules, index data, listed companies.
-   - **CDS and Clearing Limited (CDSC)** — DEMAT, MeroShare, C-ASBA rules.
-   - **Inland Revenue Department (IRD Nepal)** — Income Tax Act 2058, Finance Acts, tax slabs.
+   - **Nepal Rastra Bank (NRB):** Monetary policy, base rates, foreign exchange, circulars.
+   - **Securities Board of Nepal (SEBON):** Securities regulations, issue guidelines, fee caps.
+   - **Nepal Stock Exchange (NEPSE):** Trading rules, index data, listed companies.
+   - **CDS and Clearing Limited (CDSC):** DEMAT, MeroShare, C-ASBA rules.
+   - **Inland Revenue Department (IRD Nepal):** Income Tax Act 2058, Finance Acts, tax slabs.
 2. **No Predictive Certainty:** Avoid phrases promising returns (*"This stock will give 50% returns"*). Use educational framing (*"Investors evaluating commercial banks may review credit loss provisions and NPL ratios"*).
 3. **Date Accuracy:** Clearly distinguish original publication dates from verification dates (`Verified: [date]`). State fiscal year contexts explicitly (e.g., `FY 2082/83`).
 4. **Mandatory Educational Disclaimer:** Include the contextual educational disclaimer on every article and course page.
@@ -82,5 +82,5 @@ Whenever new articles, guides, or lessons are published on RisePaisa:
 
 1. **Canonical URLs:** Ensure all canonical links use lowercase paths without trailing slashes (e.g., `https://risepaisa.com/aakash-das`).
 2. **Legacy Aliases:** Any legacy alias (`/author/aakash`, `/team/aakash`, `/aakash`) must redirect directly to `/aakash-das` in a single hop.
-3. **Image Optimization:** Always specify descriptive alt text, explicit width/height dimensions, and WebP/optimized JPEG formats. Wrap standalone portraits in `<figure>` with `<figcaption>Aakash Das — Founder of RisePaisa</figcaption>`.
+3. **Image Optimization:** Always specify descriptive alt text, explicit width/height dimensions, and WebP/optimized JPEG formats. Wrap standalone portraits in `<figure>` with `<figcaption>Aakash Das, Founder of RisePaisa</figcaption>`.
 4. **XML Sitemap:** Maintain `sitemap.xml` with clean canonical URLs and include `<image:image>` tags for core brand assets and the founder portrait. Never include redirected, noindexed, or temporary URLs.

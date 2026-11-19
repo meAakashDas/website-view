@@ -9,7 +9,7 @@ import {
   setLearnLanguage,
   LEARN_UI
 } from '../data/learn.js';
-import { ROUTES, buildCanonicalUrl } from '../routes.js';
+import { ROUTES } from '../routes.js';
 import { initGlossaryTooltips } from '../enhancements.js';
 import { getCurrentUser, subscribeToAuth } from '../firebase/auth.js';
 import { promptSignInForBookmark } from '../firebase/ui.js';
@@ -650,7 +650,6 @@ export function initLearnGlossaryDetailPage(termSlug) {
   const isEn = lang === 'en';
 
   // 1. SEO Title, Description, Canonical & JSON-LD DefinedTerm Schema
-  const canonicalUrl = buildCanonicalUrl(ROUTES.LEARN_GLOSSARY_TERM(term.slug));
   document.title = `${term.term} - Meaning, Practical Example & Nepal Context | RisePaisa Glossary`;
 
   let metaDesc = document.querySelector('meta[name="description"]');

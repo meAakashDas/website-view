@@ -15,7 +15,7 @@ const ICON_LINKEDIN = `<svg viewBox="0 0 24 24" fill="currentColor" width="18" h
 
 export function renderAakashDasPage() {
   setPageMeta(
-    'Aakash Das — Founder of RisePaisa | Finance Educator & Content Creator',
+    'Aakash Das, Founder of RisePaisa | Finance Educator & Content Creator',
     'Official profile of Aakash Das, founder of RisePaisa and RiseNepse. Explore his background, education, career journey, projects, publications, and financial education initiatives in Nepal.',
     ROUTES.AAKASH_DAS
   );
@@ -224,7 +224,7 @@ export function renderAakashDasPage() {
               <h3 class="timeline-title">Bachelor of Science (BSc) in Information Technology</h3>
               <div class="timeline-institution">Coventry University · Studied at Softwarica College of IT & E-Commerce, Kathmandu</div>
               <p class="timeline-desc">
-                Currently enrolled in an undergraduate degree in Information Technology. Studies focus on software engineering, relational database systems, web applications, and computational logic—directly informing the development of RisePaisa's mathematical calculation engines and digital platform. <em>(Degree in progress; expected completion August 2028).</em>
+                Currently enrolled in an undergraduate degree in Information Technology. Studies focus on software engineering, relational database systems, web applications, and computational logic, directly informing the development of RisePaisa's mathematical calculation engines and digital platform. <em>(Degree in progress; expected completion August 2028).</em>
               </p>
             </div>
           </div>
