@@ -103,10 +103,12 @@ test('Flagship description matches exact copy', () => {
   assert.ok(indexHtml.includes(expectedDesc), 'Flagship description in index.html');
 });
 
-test('Flagship cover badge has compact course-information line', () => {
-  const expectedBadge = '20+ Hours of Lessons · Practical NEPSE Analysis';
-  assert.ok(homeHtml.includes(expectedBadge), 'Cover badge in home.js');
-  assert.ok(indexHtml.includes(expectedBadge), 'Cover badge in index.html');
+test('Flagship cover badge is removed from course visual', () => {
+  const badgeText = '20+ Hours of Lessons · Practical NEPSE Analysis';
+  assert.ok(!homeHtml.includes(badgeText), 'Cover badge absent from home.js');
+  assert.ok(!indexHtml.includes(badgeText), 'Cover badge absent from index.html');
+  assert.ok(!homeHtml.includes('flagship-cover-badge'), 'flagship-cover-badge absent from home.js');
+  assert.ok(!indexHtml.includes('flagship-cover-badge'), 'flagship-cover-badge absent from index.html');
 });
 
 test('Flagship removed elements: highlights strip, metadata badges, audience callout, payment bar, and lifetime claims are absent', () => {

@@ -192,7 +192,7 @@ export function renderCourseDetailPage(slug) {
 
   const isNepseCourse = course.id === 1 || course.slug === 'nepse-stock-market-basics';
   const demoVideoUrl = (isNepseCourse || course.slug === 'nepse-stock-market-basics')
-    ? (course.previewVideoUrl && course.previewVideoUrl.includes('ziVeMxMF4e8') ? course.previewVideoUrl : 'https://youtu.be/ziVeMxMF4e8')
+    ? (course.previewVideoUrl && course.previewVideoUrl.includes('ddb4H0uPioo') ? course.previewVideoUrl : 'https://youtu.be/ddb4H0uPioo')
     : course.previewVideoUrl;
   const safeEmbedUrl = toSafeYouTubeEmbedUrl(demoVideoUrl);
 

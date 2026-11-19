@@ -68,9 +68,6 @@ export function renderHomePage() {
             <div class="flagship-col-visual">
               <a href="${nepseLearnUrl}" class="flagship-cover-link" aria-label="Explore ${nepseCourse.title}">
                 <img src="${nepseCourse.thumbnail || '/assets/images/course-nepse.png'}" alt="${nepseCourse.title} by RisePaisa" class="flagship-cover-image" loading="lazy" decoding="async" width="1376" height="768">
-                <span class="flagship-cover-badge">
-                  <span class="flagship-badge-dot"></span> 20+ Hours of Lessons · Practical NEPSE Analysis
-                </span>
               </a>
             </div>
 
