@@ -11,8 +11,46 @@ import {
   createBrandedVideoPlayer,
   initBrandedVideoPlayer
 } from '../components/videoPlayer.js';
+import {
+  checkUserResourceAccess,
+  verifyAndRedeemAccessCode
+} from '../firebase/resources.js';
+import { getCurrentUser } from '../firebase/auth.js';
+
+function renderResourceDownloadButtons(resource) {
+  const buttons = [];
+  if (Array.isArray(resource.downloadableFiles) && resource.downloadableFiles.length > 0) {
+    resource.downloadableFiles.forEach((file, idx) => {
+      const title = file.title || `Download File ${idx + 1}`;
+      const size = file.size ? ` (${file.size})` : '';
+      buttons.push(`
+        <a href="${file.url}" download="${title}" target="_blank" rel="noopener" class="btn btn-primary rp-download-btn" style="display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:12px 16px;border-radius:var(--radius-md, 12px);font-size:14px;font-weight:600;text-decoration:none;background:var(--color-primary);color:#fff;">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          <span>${title}${size}</span>
+        </a>
+      `);
+    });
+  }
+  if (resource.notionTemplateUrl) {
+    buttons.push(`
+      <a href="${resource.notionTemplateUrl}" target="_blank" rel="noopener" class="btn btn-primary rp-notion-btn" style="display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:12px 16px;border-radius:var(--radius-md, 12px);font-size:14px;font-weight:600;text-decoration:none;background:#111;color:#fff;">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M4.459 4.208c.746.606 1.026.56 2.428.466l13.215-.793c.28 0 .047-.28-.046-.326L17.86 1.968c-.42-.326-.981-.7-2.055-.607L3.01 2.387c-.466.046-.56.28-.373.466l1.822 1.355zm.84 3.034v13.017c0 .653.373 1.027 1.168.98l14.195-.84c.794-.047.934-.513.934-1.073V5.981c0-.56-.374-.886-.934-.84l-14.429.84c-.653.047-.934.373-.934.981zm13.447.887v10.873c0 .28-.187.373-.42.373-.234 0-.467-.14-.654-.373l-6.44-8.82v8.587c0 .327-.14.467-.467.467h-1.027c-.327 0-.467-.14-.467-.467V7.848c0-.28.187-.373.42-.373.28 0 .514.14.7.42l6.44 8.774V8.128c0-.327.14-.467.467-.467h1.028c.327 0 .42.14.42.468z"/></svg>
+        <span>Duplicate to Notion Workspace &rarr;</span>
+      </a>
+    `);
+  }
+  if (buttons.length === 0) {
+    buttons.push(`
+      <a href="https://risepaisa.notion.site" target="_blank" rel="noopener" class="btn btn-primary rp-notion-btn" style="display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:12px 16px;border-radius:var(--radius-md, 12px);font-size:14px;font-weight:600;text-decoration:none;background:#111;color:#fff;">
+        <span>Access Master System &rarr;</span>
+      </a>
+    `);
+  }
+  return buttons.join('');
+}
 
 function parseAudienceCards(resource) {
+  if (!resource.targetAudience) return [];
   const points = (resource.targetAudience || '')
     .split(/,\s*(?:and\s+)?|;\s*/)
     .map(s => s.trim().replace(/^and\s+/i, ''))
@@ -104,25 +142,34 @@ export function renderResourceDetailPage(slug, preferredLang = null) {
   const lang = preferredLang || getLearnLanguage();
   const isEn = lang === 'en';
   const WHATSAPP_NUMBER = getSettings().whatsapp;
-  const waLink    = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent('I want to buy the ' + resource.title + '.')}`;
-  const waAskLink = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent('I want to ask about the ' + resource.title + '.')}`;
+  const waLink = resource.whatsappUrl || `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent('I want to buy the ' + resource.title + '.')}`;
+  const waAskLink = resource.contactUrl || `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent('I want to ask about the ' + resource.title + '.')}`;
 
   const thumbMap = {
     1: 'assets/images/resource-notion.png',
     2: 'assets/images/resource-budget.png',
   };
+  const mainThumb = resource.thumbnail || resource.imageUrl || thumbMap[resource.id] || 'assets/images/resource-notion.png';
 
   // Calculate content stats
-  const totalItems = resource.whatsIncluded ? resource.whatsIncluded.length : 8;
+  const totalItems = resource.modulesCount || (resource.whatsIncluded ? resource.whatsIncluded.length : (resource.whatItContains ? resource.whatItContains.length : null));
 
-  // Anchor price (original price before discount)
-  const anchorPrice = Math.round(resource.price * 2);
+  // Anchor price & discount calculation
+  const hasOriginalPrice = resource.originalPrice && Number(resource.originalPrice) > Number(resource.price);
+  const anchorPrice = hasOriginalPrice ? Number(resource.originalPrice) : null;
+  const discountPercent = hasOriginalPrice ? Math.round(((resource.originalPrice - resource.price) / resource.originalPrice) * 100) : 0;
+  const isFree = Number(resource.price) === 0 || resource.accessType === 'free';
 
   // Parse structured audience cards
   const audienceCards = parseAudienceCards(resource);
 
   // Parse fullDescription into paragraphs
-  const descParagraphs = resource.fullDescription.split('\n').filter(p => p.trim());
+  const descParagraphs = (resource.fullDescription || resource.shortDescription || '')
+    .split('\n')
+    .map(p => p.trim())
+    .filter(Boolean);
+
+  const creatorName = resource.creator || 'Aakash Das';
 
   return `
     <div class="cd-page resource-detail-page">
@@ -145,7 +192,7 @@ export function renderResourceDetailPage(slug, preferredLang = null) {
 
               <!-- Category Badge & Rating -->
               <div class="cd-hero-badge-wrap">
-                <span class="cd-category-tag">${resource.category}</span>
+                <span class="cd-category-tag">${resource.category || 'Finance System'}</span>
                 <span class="cd-hero-rating">
                   <span class="cd-star-icon" aria-hidden="true">★</span> 4.9 · Verified Finance System
                 </span>
@@ -155,24 +202,25 @@ export function renderResourceDetailPage(slug, preferredLang = null) {
               <h1 class="cd-hero-title cd-course-title">${resource.title}</h1>
 
               <!-- Short Resource Description -->
-              <p class="cd-hero-subtitle cd-course-desc">${resource.shortDescription}</p>
+              ${resource.shortDescription ? `<p class="cd-hero-subtitle cd-course-desc">${resource.shortDescription}</p>` : ''}
 
               <!-- Compact Creator Information -->
               <div class="cd-instructor-row">
                 <div class="cd-instructor-avatar-wrap">
-                  <img src="assets/images/aakash-das-founder-risepaisa.jpg" alt="${resource.creator}, founder of RisePaisa" loading="lazy" decoding="async" width="40" height="40" class="cd-instructor-avatar" />
+                  <img src="assets/images/aakash-das-founder-risepaisa.jpg" alt="${creatorName}, founder of RisePaisa" loading="lazy" decoding="async" width="40" height="40" class="cd-instructor-avatar" />
                 </div>
                 <div class="cd-instructor-text">
                   <span class="cd-inst-label">Created by</span>
                   <div class="cd-instructor-primary">
-                    ${resource.creator === 'Aakash Das' ? `<a href="${ROUTES.AAKASH_DAS}" class="cd-instructor-link">Aakash Das</a>` : `<strong>${resource.creator}</strong>`}
+                    ${creatorName === 'Aakash Das' ? `<a href="${ROUTES.AAKASH_DAS}" class="cd-instructor-link">Aakash Das</a>` : `<strong>${creatorName}</strong>`}
                     <span class="cd-inst-role">· Founder of RisePaisa</span>
                   </div>
                 </div>
               </div>
             </div>
 
-            <!-- 2. Product Preview & Demonstration -->
+            <!-- 2. Product Preview & Demonstration (Render only if video, image, or screenshots present) -->
+            ${(resource.previewVideoUrl || resource.imageUrl || (resource.screenshots && resource.screenshots.length > 0)) ? `
             <section class="cd-section cd-demo-section" id="resource-preview">
               <div class="cd-demo-header">
                 <div class="cd-demo-label-block">
@@ -193,48 +241,44 @@ export function renderResourceDetailPage(slug, preferredLang = null) {
                     })}
                   </div>
                 `
-                : `<div class="cd-resource-preview-banner" style="background:linear-gradient(135deg, var(--color-surface) 0%, var(--color-surface-secondary, #f8fafc) 100%);border:1px solid var(--color-border);border-radius:var(--radius-lg);padding:var(--space-8);text-align:center;position:relative;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,0.04);margin-bottom:var(--space-6);">
-                    <div style="font-size:36px;margin-bottom:var(--space-3);">${resource.format === 'Notion' ? '📝' : '📊'}</div>
-                    <div style="font-weight:700;font-size:var(--text-lg);color:var(--color-heading);margin-bottom:var(--space-2);">${resource.title} - Digital Architecture</div>
-                    <p style="color:var(--color-text-secondary);font-size:var(--text-sm);max-width:540px;margin:0 auto var(--space-6);line-height:1.6;">
-                      ${resource.shortDescription || resource.description}
-                    </p>
-                    <div style="display:flex;flex-wrap:wrap;gap:var(--space-2);justify-content:center;margin-bottom:var(--space-4);">
-                      ${(resource.whatItContains || []).map(item => `
-                        <span style="display:inline-flex;align-items:center;gap:6px;padding:6px 12px;background:var(--color-surface);border:1px solid var(--color-border);border-radius:9999px;font-size:var(--text-xs);font-weight:600;color:var(--color-text);">
-                          <span style="color:var(--color-primary);">${ICONS.checkCircle}</span>
-                          ${item}
-                        </span>
-                      `).join('')}
+                : (resource.imageUrl ? `
+                  <div class="resource-preview-window" aria-label="${resource.title} live interface preview">
+                    <div class="resource-window-bar">
+                      <div class="resource-window-dots" aria-hidden="true">
+                        <span class="window-dot dot-red"></span>
+                        <span class="window-dot dot-yellow"></span>
+                        <span class="window-dot dot-green"></span>
+                      </div>
+                      <div class="resource-window-title">${resource.title} — System Architecture & Dashboard</div>
+                      <div class="resource-window-action">
+                        <span class="resource-window-badge">Live System</span>
+                      </div>
                     </div>
-                  </div>`
+                    <div class="resource-window-viewport">
+                      <img src="${resource.imageUrl}" alt="${resource.title} preview" loading="lazy" decoding="async">
+                    </div>
+                  </div>
+                ` : '')
               }
 
-              ${resource.imageUrl ? `
-              <div class="resource-preview-window" aria-label="${resource.title} live interface preview">
-                <div class="resource-window-bar">
-                  <div class="resource-window-dots" aria-hidden="true">
-                    <span class="window-dot dot-red"></span>
-                    <span class="window-dot dot-yellow"></span>
-                    <span class="window-dot dot-green"></span>
+              ${resource.screenshots && resource.screenshots.length > 0 ? `
+              <div class="resource-screenshots-grid" style="display:grid;grid-template-columns:repeat(auto-fit, minmax(200px, 1fr));gap:12px;margin-top:16px;">
+                ${resource.screenshots.map(s => `
+                  <div style="border-radius:var(--radius-md, 12px);overflow:hidden;border:1px solid var(--color-border);background:var(--color-surface);">
+                    <img src="${s}" alt="${resource.title} screenshot" loading="lazy" decoding="async" style="width:100%;height:auto;display:block;" />
                   </div>
-                  <div class="resource-window-title">${resource.title} — System Architecture & Dashboard</div>
-                  <div class="resource-window-action">
-                    <span class="resource-window-badge">Live System</span>
-                  </div>
-                </div>
-                <div class="resource-window-viewport">
-                  <img src="${resource.imageUrl}" alt="${resource.title} preview" loading="lazy" decoding="async">
-                </div>
+                `).join('')}
               </div>
               ` : ''}
 
               <!-- Unified Specifications Meta Bar -->
               <div class="cd-meta-bar">
+                ${totalItems ? `
                 <div class="cd-meta-item">
                   <span class="cd-meta-icon" aria-hidden="true">${ICONS.bookOpen}</span>
                   <span>${totalItems} Modules Included</span>
                 </div>
+                ` : ''}
                 <div class="cd-meta-item">
                   <span class="cd-meta-icon" aria-hidden="true">${ICONS.users}</span>
                   <span>All Skill Levels</span>
@@ -247,17 +291,20 @@ export function renderResourceDetailPage(slug, preferredLang = null) {
                 ` : ''}
               </div>
             </section>
+            ` : ''}
 
             <!-- 3. Product Overview -->
+            ${descParagraphs.length > 0 ? `
             <section class="cd-section" id="resource-description">
               <div class="cd-section-header">
                 <span class="cd-section-eyebrow">Overview</span>
                 <h2 class="cd-section-title cd-section-heading">About This Resource</h2>
               </div>
               <div class="cd-about-text">
-                ${descParagraphs.map(p => `<p>${p.trim()}</p>`).join('')}
+                ${descParagraphs.map(p => `<p>${p}</p>`).join('')}
               </div>
             </section>
+            ` : ''}
 
             <!-- 4. Recommended Learning Sequence -->
             ${(resource.recommendedBeforeLesson || resource.recommendedAfterLesson) ? `
@@ -283,11 +330,11 @@ export function renderResourceDetailPage(slug, preferredLang = null) {
                     </div>
                     <h3 class="cd-seq-title">
                       <a href="${ROUTES.LEARN_LESSON(resource.recommendedBeforeLesson.categorySlug, resource.recommendedBeforeLesson.slug)}">
-                        ${resource.recommendedBeforeLesson.title[lang] || resource.recommendedBeforeLesson.title.en} &rarr;
+                        ${(resource.recommendedBeforeLesson.title && (resource.recommendedBeforeLesson.title[lang] || resource.recommendedBeforeLesson.title.en)) || 'Prerequisite Lesson'} &rarr;
                       </a>
                     </h3>
                     <p class="cd-seq-desc">
-                      ${resource.recommendedBeforeLesson.why[lang] || resource.recommendedBeforeLesson.why.en}
+                      ${(resource.recommendedBeforeLesson.why && (resource.recommendedBeforeLesson.why[lang] || resource.recommendedBeforeLesson.why.en)) || ''}
                     </p>
                   </div>
                 </div>
@@ -302,7 +349,7 @@ export function renderResourceDetailPage(slug, preferredLang = null) {
                       ${isEn ? 'Hands-On Execution System' : 'व्यावहारिक कार्यान्वयन प्रणाली'}
                     </div>
                     <h3 class="cd-seq-title" style="color:var(--color-heading);">
-                      ${resource.title} (${resource.category})
+                      ${resource.title} (${resource.category || 'System'})
                     </h3>
                     <p class="cd-seq-desc">
                       ${isEn
@@ -323,11 +370,11 @@ export function renderResourceDetailPage(slug, preferredLang = null) {
                     </div>
                     <h3 class="cd-seq-title">
                       <a href="${ROUTES.LEARN_LESSON(resource.recommendedAfterLesson.categorySlug, resource.recommendedAfterLesson.slug)}">
-                        ${resource.recommendedAfterLesson.title[lang] || resource.recommendedAfterLesson.title.en} &rarr;
+                        ${(resource.recommendedAfterLesson.title && (resource.recommendedAfterLesson.title[lang] || resource.recommendedAfterLesson.title.en)) || 'Next Milestone'} &rarr;
                       </a>
                     </h3>
                     <p class="cd-seq-desc">
-                      ${resource.recommendedAfterLesson.why[lang] || resource.recommendedAfterLesson.why.en}
+                      ${(resource.recommendedAfterLesson.why && (resource.recommendedAfterLesson.why[lang] || resource.recommendedAfterLesson.why.en)) || ''}
                     </p>
                   </div>
                 </div>
@@ -342,11 +389,11 @@ export function renderResourceDetailPage(slug, preferredLang = null) {
               <div class="cd-section-header">
                 <span class="cd-section-eyebrow">Workflow & Deployment</span>
                 <h2 class="cd-section-title cd-section-heading">How to Use This Resource</h2>
-                <p class="cd-section-lead">Deploy this system into your routine in three straightforward steps:</p>
+                <p class="cd-section-lead">Deploy this system into your routine in straightforward steps:</p>
               </div>
               <div class="cd-how-grid">
                 ${resource.howToUse.map((step, idx) => {
-                  const cleanTitle = step.stepTitle.replace(/^\d+\.\s*/, '');
+                  const cleanTitle = (step.stepTitle || '').replace(/^\d+\.\s*/, '');
                   const stepNum = String(idx + 1).padStart(2, '0');
                   return `
                   <div class="cd-how-item">
@@ -356,7 +403,7 @@ export function renderResourceDetailPage(slug, preferredLang = null) {
                     </div>
                     <div class="cd-how-body">
                       <strong class="cd-how-step-title">${cleanTitle}</strong>
-                      <p class="cd-how-step-desc">${step.stepDesc}</p>
+                      <p class="cd-how-step-desc">${step.stepDesc || ''}</p>
                     </div>
                   </div>
                 `;}).join('')}
@@ -365,6 +412,7 @@ export function renderResourceDetailPage(slug, preferredLang = null) {
             ` : ''}
 
             <!-- 6. Who Is This For? -->
+            ${audienceCards.length > 0 ? `
             <section class="cd-section" id="resource-audience">
               <div class="cd-section-header">
                 <span class="cd-section-eyebrow">Audience</span>
@@ -385,8 +433,10 @@ export function renderResourceDetailPage(slug, preferredLang = null) {
                 `).join('')}
               </div>
             </section>
+            ` : ''}
 
             <!-- 7. What You'll Learn -->
+            ${resource.whatYouLearn && resource.whatYouLearn.length > 0 ? `
             <section class="cd-section" id="resource-outcomes">
               <div class="cd-section-header">
                 <span class="cd-section-eyebrow">Outcomes</span>
@@ -401,20 +451,22 @@ export function renderResourceDetailPage(slug, preferredLang = null) {
                 `).join('')}
               </div>
             </section>
+            ` : ''}
 
             <!-- 8. What's Included -->
+            ${resource.whatsIncluded && resource.whatsIncluded.length > 0 ? `
             <section class="cd-section" id="resource-content">
               <div class="cd-section-header">
                 <span class="cd-section-eyebrow">Package Contents</span>
                 <h2 class="cd-section-title cd-section-heading">What's Included</h2>
-                <p class="cd-curriculum-summary">${totalItems} items · Instant digital delivery</p>
+                <p class="cd-curriculum-summary">${resource.whatsIncluded.length} items · Instant digital delivery</p>
               </div>
               <div class="cd-accordion">
                 <div class="accordion-item active">
                   <button class="accordion-header" type="button" aria-expanded="true">
                     <div class="cd-acc-left">
                       <span class="cd-acc-title">Included in this resource</span>
-                      <span class="cd-acc-meta">${totalItems} modules</span>
+                      <span class="cd-acc-meta">${resource.whatsIncluded.length} modules</span>
                     </div>
                     <span class="chevron" aria-hidden="true">${ICONS.chevronDown}</span>
                   </button>
@@ -435,6 +487,7 @@ export function renderResourceDetailPage(slug, preferredLang = null) {
                 </div>
               </div>
             </section>
+            ` : ''}
 
             <!-- 9. Recommended Companion Tools -->
             ${resource.companionTools && resource.companionTools.length > 0 ? `
@@ -468,17 +521,21 @@ export function renderResourceDetailPage(slug, preferredLang = null) {
           <aside class="cd-sidebar-column cd-sidebar">
             <div class="cd-purchase-card cd-pricing-card" id="resource-pricing-card">
               <div class="cd-card-thumb-container">
-                <img src="${thumbMap[resource.id] || thumbMap[1]}" alt="${resource.title}" class="cd-card-thumb-img cd-pricing-thumb" loading="lazy" decoding="async">
+                <img src="${mainThumb}" alt="${resource.title}" class="cd-card-thumb-img cd-pricing-thumb" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='assets/images/resource-notion.png';">
               </div>
 
               <div class="cd-card-price-section cd-price-block">
                 <div class="cd-card-price-label">Lifetime Resource Access</div>
                 <div class="cd-card-price-row cd-price-row">
-                  <span class="cd-price-anchor">NPR ${anchorPrice.toLocaleString()}</span>
-                  <span class="cd-card-price-number cd-price-current"><span class="cd-card-currency cd-price-currency">NPR </span>${resource.price.toLocaleString()}</span>
-                  <span class="cd-discount-badge">50% OFF</span>
+                  ${hasOriginalPrice ? `<span class="cd-price-anchor">NPR ${anchorPrice.toLocaleString()}</span>` : ''}
+                  ${isFree ? `
+                    <span class="cd-card-price-number cd-price-current" style="color:var(--color-success,#16a34a)">FREE</span>
+                  ` : `
+                    <span class="cd-card-price-number cd-price-current"><span class="cd-card-currency cd-price-currency">NPR </span>${Number(resource.price).toLocaleString()}</span>
+                  `}
+                  ${hasOriginalPrice ? `<span class="cd-discount-badge">${discountPercent}% OFF</span>` : ''}
                 </div>
-                <div class="cd-card-price-sub">One-time payment · Instant digital delivery</div>
+                <div class="cd-card-price-sub">${isFree ? 'Free digital download' : 'One-time payment · Instant digital delivery'}</div>
               </div>
 
               <div class="cd-price-labels">
@@ -488,6 +545,7 @@ export function renderResourceDetailPage(slug, preferredLang = null) {
                 <span class="cd-label-item">Free updates</span>
               </div>
 
+              ${!isFree ? `
               <a href="${waLink}" target="_blank" rel="noopener" class="btn btn-whatsapp cd-primary-buy-cta cd-cta-primary" id="buy-whatsapp-btn">
                 <span class="cd-cta-whatsapp-icon">${ICONS.whatsapp}</span>
                 <span class="cd-cta-whatsapp-text">Buy Now via WhatsApp</span>
@@ -496,6 +554,35 @@ export function renderResourceDetailPage(slug, preferredLang = null) {
                 <span class="cd-cta-ask-icon">${ICONS.mail}</span>
                 <span>Ask a Question</span>
               </a>
+              ` : ''}
+
+              <!-- Access Code Unlock / Download Area -->
+              <div class="cd-access-unlock-box" id="resource-access-unlock-box" style="margin: 16px 0;">
+                ${isFree ? `
+                  <div class="rp-access-card rp-access-unlocked" style="background:var(--color-surface, #fff);border:1px solid var(--color-success, #16a34a);border-radius:var(--radius-lg, 16px);padding:18px;box-shadow:0 4px 16px rgba(22,163,74,0.08);">
+                    <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;color:var(--color-success,#16a34a);font-weight:600;font-size:14px;">
+                      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                      <span>Free Resource · Direct Download</span>
+                    </div>
+                    <div style="display:flex;flex-direction:column;gap:10px;">
+                      ${renderResourceDownloadButtons(resource)}
+                    </div>
+                  </div>
+                ` : `
+                  <div class="rp-access-card rp-access-locked" id="rp-access-locked-panel" style="background:var(--color-surface, #fff);border:1px solid var(--color-border);border-radius:var(--radius-lg, 16px);padding:18px;box-shadow:0 4px 16px rgba(0,0,0,0.04);">
+                    <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;color:var(--color-heading);font-weight:600;font-size:14px;">
+                      <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                      <span>Already purchased?</span>
+                    </div>
+                    <p style="font-size:12px;color:var(--color-text-secondary);margin-bottom:12px;line-height:1.4;">Enter your access code below to unlock your download.</p>
+                    <div style="display:flex;gap:8px;margin-bottom:8px;">
+                      <input type="text" id="rp-access-code-input" placeholder="RISE-XXXX-XXXX" maxlength="19" autocomplete="off" spellcheck="false" style="flex:1;padding:10px 12px;border:1px solid var(--color-border);border-radius:var(--radius-md, 8px);font-family:monospace;font-size:13px;font-weight:600;text-transform:uppercase;background:var(--color-bg);color:var(--color-text);" />
+                      <button type="button" id="rp-unlock-btn" class="btn btn-primary btn-sm" style="padding:10px 16px;border-radius:var(--radius-md, 8px);font-weight:600;white-space:nowrap;">Unlock</button>
+                    </div>
+                    <div id="rp-access-feedback" style="font-size:12px;min-height:16px;line-height:1.3;"></div>
+                  </div>
+                `}
+              </div>
 
               <!-- Single Consolidated Non-Redundant Benefit List -->
               <div class="cd-clean-benefits-list">
@@ -503,7 +590,7 @@ export function renderResourceDetailPage(slug, preferredLang = null) {
                   <span class="cd-check-icon" aria-hidden="true">
                     <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
                   </span>
-                  <span>Instant private template duplicate link upon checkout</span>
+                  <span>Instant digital access upon checkout</span>
                 </div>
                 <div class="cd-feature-item">
                   <span class="cd-check-icon" aria-hidden="true">
@@ -541,27 +628,41 @@ export function renderResourceDetailPage(slug, preferredLang = null) {
     <div class="cd-mobile-sticky-bar cd-mobile-cta" id="resource-mobile-cta" aria-label="Mobile Resource Purchase Bar">
       <div class="cd-mobile-sticky-inner cd-mobile-cta-inner">
         <div class="cd-mobile-sticky-price cd-mobile-price">
-          <span class="cd-sticky-price-label cd-mobile-anchor">NPR ${anchorPrice.toLocaleString()}</span>
-          <span class="cd-sticky-price-val cd-mobile-current">NPR ${resource.price.toLocaleString()}</span>
+          ${hasOriginalPrice ? `<span class="cd-sticky-price-label cd-mobile-anchor">NPR ${anchorPrice.toLocaleString()}</span>` : ''}
+          ${isFree ? `
+            <span class="cd-sticky-price-val cd-mobile-current" style="color:var(--color-success,#16a34a)">FREE</span>
+          ` : `
+            <span class="cd-sticky-price-val cd-mobile-current">NPR ${Number(resource.price).toLocaleString()}</span>
+          `}
         </div>
+        ${!isFree ? `
         <a href="${waLink}" target="_blank" rel="noopener" class="btn btn-whatsapp cd-sticky-buy-btn cd-mobile-buy" id="mobile-bar-whatsapp-btn">
           ${ICONS.whatsapp} Buy via WhatsApp
         </a>
+        ` : `
+        <a href="#resource-access-unlock-box" class="btn btn-primary cd-sticky-buy-btn cd-mobile-buy" style="border-radius:9999px;">
+          Download Free
+        </a>
+        `}
       </div>
     </div>
   `;
 }
 
-export function initResourceDetailPage() {
+export function initResourceDetailPage(slugFromRouter = '') {
   initAccordions();
 
-  // Initialize Video.js custom video player
+  // Resolve target resource
+  const cleanSlug = slugFromRouter || (typeof window !== 'undefined' ? window.location.pathname.split('/').filter(Boolean).pop() : '');
+  const resource = getResourceBySlug(cleanSlug);
+
+  // Initialize Video.js custom video player if element present
   const playerEl = document.getElementById('resource-preview-player');
   if (playerEl) {
     initBrandedVideoPlayer(playerEl).catch(() => {});
   }
 
-  // Mobile sticky CTA bar: Appear on mobile (< 1024px) when scrolled past purchase card
+  // Mobile sticky CTA bar
   const mobileBar = document.getElementById('resource-mobile-cta');
   const purchaseCard = document.getElementById('resource-pricing-card');
   let updateMobileBar = null;
@@ -616,6 +717,111 @@ export function initResourceDetailPage() {
     syncVisibility();
   }
 
+  // Wire Access Code and Download Unlocking
+  const accessBox = document.getElementById('resource-access-unlock-box');
+  if (accessBox && resource) {
+    const isFree = Number(resource.price) === 0 || resource.accessType === 'free';
+
+    const renderUnlockedState = () => {
+      accessBox.innerHTML = `
+        <div class="rp-access-card rp-access-unlocked" style="background:var(--color-surface, #fff);border:1px solid var(--color-success, #16a34a);border-radius:var(--radius-lg, 16px);padding:18px;box-shadow:0 4px 16px rgba(22,163,74,0.08);animation:fadeInUp 0.3s ease;">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;color:var(--color-success,#16a34a);font-weight:600;font-size:14px;">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+            <span>Access Unlocked · Ready to Download</span>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:10px;">
+            ${renderResourceDownloadButtons(resource)}
+          </div>
+        </div>
+      `;
+    };
+
+    if (isFree) {
+      renderUnlockedState();
+    } else {
+      // Check stored access (localStorage token or Firestore user record)
+      const user = getCurrentUser ? getCurrentUser() : null;
+      checkUserResourceAccess(user ? user.uid : null, resource.slug).then(res => {
+        if (res.hasAccess) {
+          renderUnlockedState();
+        }
+      }).catch(() => {});
+
+      const unlockBtn = document.getElementById('rp-unlock-btn');
+      const inputEl = document.getElementById('rp-access-code-input');
+      const feedbackEl = document.getElementById('rp-access-feedback');
+
+      const handleRedeem = async () => {
+        if (!inputEl) return;
+        const code = inputEl.value.trim().toUpperCase();
+        if (!code) {
+          if (feedbackEl) {
+            feedbackEl.textContent = 'Please enter your access code.';
+            feedbackEl.style.color = 'var(--color-danger, #ef4444)';
+          }
+          return;
+        }
+
+        if (unlockBtn) {
+          unlockBtn.disabled = true;
+          unlockBtn.textContent = 'Verifying...';
+        }
+        if (feedbackEl) {
+          feedbackEl.textContent = 'Verifying access code...';
+          feedbackEl.style.color = 'var(--color-text-secondary)';
+        }
+
+        try {
+          const currentUser = getCurrentUser ? getCurrentUser() : null;
+          const result = await verifyAndRedeemAccessCode(code, resource.slug, {
+            userUid: currentUser ? currentUser.uid : null
+          });
+
+          if (result.success) {
+            if (feedbackEl) {
+              feedbackEl.textContent = result.message || 'Access granted! Unlocking download...';
+              feedbackEl.style.color = 'var(--color-success, #16a34a)';
+            }
+            setTimeout(() => {
+              renderUnlockedState();
+            }, 500);
+          } else {
+            if (feedbackEl) {
+              feedbackEl.textContent = result.message || 'Invalid or exhausted access code.';
+              feedbackEl.style.color = 'var(--color-danger, #ef4444)';
+            }
+          }
+        } catch (err) {
+          if (feedbackEl) {
+            feedbackEl.textContent = err.message || 'Verification failed. Please try again.';
+            feedbackEl.style.color = 'var(--color-danger, #ef4444)';
+          }
+        } finally {
+          if (unlockBtn) {
+            unlockBtn.disabled = false;
+            unlockBtn.textContent = 'Unlock';
+          }
+        }
+      };
+
+      if (unlockBtn) {
+        unlockBtn.addEventListener('click', handleRedeem);
+      }
+      if (inputEl) {
+        inputEl.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter') {
+            e.preventDefault();
+            handleRedeem();
+          }
+        });
+        inputEl.addEventListener('input', () => {
+          inputEl.value = inputEl.value.toUpperCase();
+          if (feedbackEl) feedbackEl.textContent = '';
+        });
+      }
+    }
+  }
+
   return () => {
     if (cardObserver) {
       cardObserver.disconnect();
@@ -628,3 +834,4 @@ export function initResourceDetailPage() {
     document.body.classList.remove('has-mobile-cta');
   };
 }
+

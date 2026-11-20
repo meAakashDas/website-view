@@ -421,11 +421,26 @@ function _harmonizeCourse(c) {
   if (!c || typeof c !== 'object') return null;
   const course = { ...c };
 
-  // Harmonize description
+  // Harmonize description and core metadata
   course.description = course.description || course.fullDescription || course.shortDescription || '';
   course.fullDescription = course.fullDescription || course.description || course.shortDescription || '';
+  course.subtitle = course.subtitle || '';
+  course.category = course.category || 'General';
+  course.duration = course.duration || '';
+  course.price = typeof course.price === 'number' ? course.price : (Number(course.price) || 0);
+  course.originalPrice = typeof course.originalPrice === 'number' ? course.originalPrice : (Number(course.originalPrice) || course.price || 0);
+  course.currency = course.currency || 'NPR';
   course.instructor = course.instructor || 'Aakash Das';
   course.instructorRole = course.instructorRole || 'Founder of RisePaisa';
+  course.instructorNote = course.instructorNote || '';
+  course.instructorImage = course.instructorImage || 'assets/images/aakash-das-founder-risepaisa.jpg';
+  course.whatsappUrl = course.whatsappUrl || null;
+  course.supportWhatsappUrl = course.supportWhatsappUrl || null;
+  course.paymentMethods = Array.isArray(course.paymentMethods) && course.paymentMethods.length > 0
+    ? course.paymentMethods
+    : ['eSewa', 'Khalti', 'connectIPS', 'Bank Transfer'];
+  course.featuresList = Array.isArray(course.featuresList) ? course.featuresList : [];
+  course.whatYouWillGet = Array.isArray(course.whatYouWillGet) ? course.whatYouWillGet : [];
   course.published = course.published !== undefined ? Boolean(course.published) : (course.isPublished !== false);
   course.isPublished = course.published;
 
@@ -439,10 +454,13 @@ function _harmonizeCourse(c) {
         published: t.published !== false,
         lessons: (t.lessons || []).map(l => ({
           rank: l.displayOrder || 1,
+          id: l.id,
           title: l.title || '',
           duration: l.duration || '',
           shortDescription: l.shortDescription || '',
           youtubeUrl: l.youtubeUrl || null,
+          thumbnail: l.thumbnail || null,
+          locked: Boolean(l.locked),
           isFree: Boolean(l.isFree),
           published: l.published !== false,
           resources: l.resources || []
@@ -465,6 +483,8 @@ function _harmonizeCourse(c) {
               displayOrder: lIdx + 1,
               published: true,
               isFree: mIdx === 0 && lIdx === 0,
+              thumbnail: null,
+              locked: false,
               resources: []
             };
           }
@@ -474,6 +494,8 @@ function _harmonizeCourse(c) {
             duration: l.duration || '',
             shortDescription: l.shortDescription || '',
             youtubeUrl: l.youtubeUrl || null,
+            thumbnail: l.thumbnail || null,
+            locked: Boolean(l.locked),
             displayOrder: l.rank || lIdx + 1,
             published: l.published !== false,
             isFree: l.isFree !== undefined ? Boolean(l.isFree) : (mIdx === 0 && lIdx === 0),

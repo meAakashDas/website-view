@@ -62,7 +62,7 @@ const routes = [
     pattern: /^\/resources\/([a-z0-9-]+)\/?$/,
     load: () => import('./pages/resourceDetail.js'),
     render: (m, p, mod) => mod.renderResourceDetailPage(m[1]),
-    init: (m, p, mod) => mod.initResourceDetailPage(),
+    init: (m, p, mod) => mod.initResourceDetailPage(m ? m[1] : ''),
     nav: ROUTES.RESOURCES
   },
   // Legacy /resource/:slug redirect
@@ -214,6 +214,13 @@ const routes = [
   { pattern: /^\/faq\/?$/, load: () => import('./pages/legal.js'), render: (m, p, mod) => mod.renderLegalPage('faq'), init: (m, p, mod) => mod.initLegalPage(), nav: null },
 
   // 10. Admin Console
+  {
+    pattern: /^\/admin\/resources\/?$/,
+    load: () => import('./pages/adminResources.js'),
+    render: (m, p, mod) => mod.renderAdminResourcesPage(),
+    init: (m, p, mod) => mod.initAdminResourcesPage(),
+    nav: null
+  },
   {
     pattern: /^\/admin\/enrollments\/?$/,
     load: () => import('./pages/adminEnrollments.js'),

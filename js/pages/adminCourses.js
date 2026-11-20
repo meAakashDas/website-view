@@ -12,9 +12,12 @@ import {
   checkIsAdminDetailed,
   validateYouTubeUrl,
   toCanonicalYouTubeUrl,
+  extractYouTubeVideoId,
   validateResourceUrl,
   validateResourceFile,
   uploadCourseResource,
+  validateImageFile,
+  uploadCourseImage,
   generateStableId,
   reorderCollection,
   sanitizeText,
@@ -74,6 +77,9 @@ export function renderAdminCoursesPage() {
           </a>
           <a href="${ROUTES.ADMIN_ENROLLMENTS || '/admin/enrollments'}" class="ae-tab-btn" role="tab" aria-selected="false">
             ${AC_ICONS.user} Student Enrollments
+          </a>
+          <a href="${ROUTES.ADMIN_RESOURCES || '/admin/resources'}" class="ae-tab-btn" role="tab" aria-selected="false">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg> Resources &amp; Access Codes
           </a>
         </div>
       </div>
@@ -302,6 +308,38 @@ export function initAdminCoursesPage() {
     // Deep clone to isolate edits until saved
     editingCourse = JSON.parse(JSON.stringify(course));
     editingCourse._originalSlug = editingCourse.slug;
+    
+    // Ensure all standard fields exist with sane defaults
+    editingCourse.subtitle = editingCourse.subtitle || '';
+    editingCourse.category = editingCourse.category || 'NEPSE & Investing';
+    editingCourse.duration = editingCourse.duration || '20+ Hours';
+    editingCourse.price = typeof editingCourse.price === 'number' ? editingCourse.price : 2999;
+    editingCourse.originalPrice = typeof editingCourse.originalPrice === 'number' ? editingCourse.originalPrice : (editingCourse.price || 2999);
+    editingCourse.currency = editingCourse.currency || 'NPR';
+    editingCourse.whatsappUrl = editingCourse.whatsappUrl || '';
+    editingCourse.supportWhatsappUrl = editingCourse.supportWhatsappUrl || '';
+    editingCourse.paymentMethods = Array.isArray(editingCourse.paymentMethods) && editingCourse.paymentMethods.length > 0
+      ? editingCourse.paymentMethods
+      : ['eSewa', 'Khalti', 'connectIPS', 'Bank Transfer'];
+    editingCourse.featuresList = Array.isArray(editingCourse.featuresList)
+      ? [...editingCourse.featuresList]
+      : [
+          'Beginner Friendly',
+          'Beginner to Advanced',
+          '20+ Hours of Video Lessons',
+          'Weekly Course Updates',
+          'Weekly Live Q&A Sessions',
+          'PDF and Excel Learning Resources',
+          'Mobile + Desktop'
+        ];
+    editingCourse.whatYouWillGet = Array.isArray(editingCourse.whatYouWillGet)
+      ? JSON.parse(JSON.stringify(editingCourse.whatYouWillGet))
+      : [];
+    editingCourse.instructor = editingCourse.instructor || 'Aakash Das';
+    editingCourse.instructorRole = editingCourse.instructorRole || 'Founder of RisePaisa';
+    editingCourse.instructorNote = editingCourse.instructorNote || '';
+    editingCourse.instructorImage = editingCourse.instructorImage || 'assets/images/aakash-das-founder-risepaisa.jpg';
+    editingCourse.thumbnail = editingCourse.thumbnail || '';
     if (!Array.isArray(editingCourse.topics)) {
       editingCourse.topics = [];
     }
@@ -327,13 +365,16 @@ export function initAdminCoursesPage() {
   function renderEditorUI(isNew = false) {
     if (!editingCourse) return;
 
+    const paymentOptions = ['eSewa', 'Khalti', 'connectIPS', 'Bank Transfer', 'SCT / Debit Card'];
+    const activePayments = Array.isArray(editingCourse.paymentMethods) ? editingCourse.paymentMethods : [];
+
     workspace.innerHTML = `
       <div class="ac-editor-layout">
-        <!-- Section 1: Course Metadata -->
+        <!-- Section 1: Course Identity & Metadata -->
         <section class="ac-editor-card">
           <div class="ac-card-head">
-            <h2>Course Details</h2>
-            <span class="ac-pill-hint">Basic Metadata</span>
+            <h2>1. Course Information &amp; Identity</h2>
+            <span class="ac-pill-hint">Basic Metadata &amp; Syllabus</span>
           </div>
 
           <div class="ac-form-grid">
@@ -348,27 +389,27 @@ export function initAdminCoursesPage() {
               <small class="ac-input-help">Lowercase letters, numbers, and hyphens.</small>
             </div>
 
-            <div class="ac-form-group ac-col-12">
-              <label for="ac-input-shortdesc">Short Description *</label>
-              <textarea id="ac-input-shortdesc" class="ac-textarea" rows="2" placeholder="Brief summary for catalog cards">${sanitizeText(editingCourse.shortDescription)}</textarea>
+            <div class="ac-form-group ac-col-8">
+              <label for="ac-input-subtitle">Course Subtitle / Tagline</label>
+              <input type="text" id="ac-input-subtitle" class="ac-input" value="${sanitizeText(editingCourse.subtitle || '')}" placeholder="e.g. From beginner basics to technical analysis, fundamental analysis, and practical stock evaluation.">
             </div>
 
-            <div class="ac-form-group ac-col-12">
-              <label for="ac-input-desc">Full Course Description</label>
-              <textarea id="ac-input-desc" class="ac-textarea" rows="4" placeholder="Detailed syllabus explanation">${sanitizeText(editingCourse.description)}</textarea>
+            <div class="ac-form-group ac-col-4">
+              <label for="ac-input-category">Course Category</label>
+              <input type="text" id="ac-input-category" class="ac-input" value="${sanitizeText(editingCourse.category || 'NEPSE & Investing')}" placeholder="e.g. NEPSE &amp; Investing">
             </div>
 
-            <div class="ac-form-group ac-col-6">
-              <label for="ac-input-thumb">Thumbnail URL (optional)</label>
-              <input type="url" id="ac-input-thumb" class="ac-input" value="${sanitizeText(editingCourse.thumbnail || '')}" placeholder="https://...">
+            <div class="ac-form-group ac-col-4">
+              <label for="ac-input-duration">Course Duration</label>
+              <input type="text" id="ac-input-duration" class="ac-input" value="${sanitizeText(editingCourse.duration || '20+ Hours')}" placeholder="e.g. 20+ Hours">
             </div>
 
-            <div class="ac-form-group ac-col-3">
-              <label for="ac-input-order">Display Order</label>
+            <div class="ac-form-group ac-col-4">
+              <label for="ac-input-order">Catalog Display Order</label>
               <input type="number" id="ac-input-order" class="ac-input" value="${editingCourse.displayOrder || 1}" min="1">
             </div>
 
-            <div class="ac-form-group ac-col-3 ac-toggle-group">
+            <div class="ac-form-group ac-col-4 ac-toggle-group">
               <label>Publish Status</label>
               <label class="ac-switch">
                 <input type="checkbox" id="ac-input-published" ${editingCourse.published ? 'checked' : ''}>
@@ -376,17 +417,193 @@ export function initAdminCoursesPage() {
                 <span class="ac-switch-label" id="ac-switch-text">${editingCourse.published ? 'Published' : 'Draft'}</span>
               </label>
             </div>
+
+            <div class="ac-form-group ac-col-12">
+              <label for="ac-input-shortdesc">Short Description (for catalog cards &amp; SEO) *</label>
+              <textarea id="ac-input-shortdesc" class="ac-textarea" rows="2" placeholder="Brief summary of the course for cards and search results">${sanitizeText(editingCourse.shortDescription)}</textarea>
+            </div>
+
+            <div class="ac-form-group ac-col-12">
+              <label for="ac-input-desc">Full Course Description &amp; Syllabus Overview</label>
+              <textarea id="ac-input-desc" class="ac-textarea" rows="4" placeholder="Detailed description of what the course covers">${sanitizeText(editingCourse.description)}</textarea>
+            </div>
           </div>
         </section>
 
-        <!-- Section 2: Curriculum Structure (Topics & Lessons) -->
+        <!-- Section 2: Pricing & WhatsApp Purchase Settings -->
+        <section class="ac-editor-card">
+          <div class="ac-card-head">
+            <h2>2. Pricing &amp; Purchase Settings</h2>
+            <span class="ac-pill-hint">Payment Rails &amp; WhatsApp Integration</span>
+          </div>
+
+          <div class="ac-form-grid">
+            <div class="ac-form-group ac-col-4">
+              <label for="ac-input-price">Price (NPR) *</label>
+              <input type="number" id="ac-input-price" class="ac-input" value="${editingCourse.price !== undefined ? editingCourse.price : 2999}" min="0" required>
+            </div>
+
+            <div class="ac-form-group ac-col-4">
+              <label for="ac-input-origprice">Original Price (NPR) (for strike-through)</label>
+              <input type="number" id="ac-input-origprice" class="ac-input" value="${editingCourse.originalPrice !== undefined ? editingCourse.originalPrice : 4999}" min="0">
+            </div>
+
+            <div class="ac-form-group ac-col-4">
+              <label for="ac-input-currency">Currency Code</label>
+              <input type="text" id="ac-input-currency" class="ac-input" value="${sanitizeText(editingCourse.currency || 'NPR')}" readonly>
+            </div>
+
+            <div class="ac-form-group ac-col-6">
+              <label for="ac-input-whatsapp">WhatsApp Purchase Link (optional override)</label>
+              <input type="url" id="ac-input-whatsapp" class="ac-input" value="${sanitizeText(editingCourse.whatsappUrl || '')}" placeholder="https://wa.me/9779740269317?text=...">
+              <small class="ac-input-help">Leave empty to use automatic pre-filled WhatsApp enrollment URL.</small>
+            </div>
+
+            <div class="ac-form-group ac-col-6">
+              <label for="ac-input-support-whatsapp">WhatsApp Support Link (optional override)</label>
+              <input type="url" id="ac-input-support-whatsapp" class="ac-input" value="${sanitizeText(editingCourse.supportWhatsappUrl || '')}" placeholder="https://wa.me/9779740269317?text=...">
+              <small class="ac-input-help">Leave empty to use default advisor support link.</small>
+            </div>
+
+            <div class="ac-form-group ac-col-12">
+              <label>Accepted Payment Methods in Nepal</label>
+              <div class="ac-payment-chip-grid" id="ac-payment-methods-grid">
+                ${paymentOptions.map(method => `
+                  <label class="ac-payment-chip">
+                    <input type="checkbox" class="ac-pay-method-check" value="${method}" ${activePayments.includes(method) ? 'checked' : ''}>
+                    <span>${method}</span>
+                  </label>
+                `).join('')}
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Section 3: Course Poster & Thumbnail -->
+        <section class="ac-editor-card">
+          <div class="ac-card-head">
+            <h2>3. Course Thumbnail &amp; Poster</h2>
+            <span class="ac-pill-hint">Image Upload &amp; Preview</span>
+          </div>
+
+          <div class="ac-form-grid">
+            <div class="ac-form-group ac-col-6">
+              <label>Course Poster Preview</label>
+              <div class="ac-img-preview-box">
+                <div class="ac-img-preview-card" id="ac-course-thumb-preview-card">
+                  ${editingCourse.thumbnail ? `
+                    <img id="ac-course-thumb-img" src="${sanitizeText(editingCourse.thumbnail)}" alt="Course Poster Preview">
+                  ` : `
+                    <div class="ac-img-empty" id="ac-course-thumb-empty">
+                      No poster uploaded yet. (16:9 recommended)
+                    </div>
+                  `}
+                </div>
+                <div class="ac-img-actions">
+                  <label class="ac-img-upload-label" title="Upload course thumbnail from device">
+                    <input type="file" id="ac-input-thumb-file" accept="image/jpeg,image/png,image/webp,image/svg+xml" style="display:none">
+                    ${AC_ICONS.upload} Upload Poster Image
+                  </label>
+                  <button type="button" class="ac-img-remove-btn" id="ac-remove-thumb-btn" ${!editingCourse.thumbnail ? 'style="display:none"' : ''}>
+                    ${AC_ICONS.trash} Remove Poster
+                  </button>
+                </div>
+                <div class="ac-res-progress-wrap" id="ac-thumb-progress" style="display:none">
+                  <div class="ac-res-progress-msg" id="ac-thumb-progress-msg">Uploading poster...</div>
+                  <div class="ac-res-progress-bar">
+                    <div class="ac-res-progress-fill" id="ac-thumb-progress-fill" style="width:0%"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="ac-form-group ac-col-6">
+              <label for="ac-input-thumb">Poster Image URL (or uploaded path)</label>
+              <input type="url" id="ac-input-thumb" class="ac-input" value="${sanitizeText(editingCourse.thumbnail || '')}" placeholder="https://... or /assets/images/course-nepse.png">
+              <small class="ac-input-help">You can upload a file directly or paste an external HTTPS / local asset image URL.</small>
+            </div>
+          </div>
+        </section>
+
+        <!-- Section 4: Instructor Profile -->
+        <section class="ac-editor-card">
+          <div class="ac-card-head">
+            <h2>4. Instructor Profile</h2>
+            <span class="ac-pill-hint">Educator Identity &amp; Bio</span>
+          </div>
+
+          <div class="ac-form-grid">
+            <div class="ac-form-group ac-col-4">
+              <label>Instructor Avatar</label>
+              <div style="display:flex;align-items:center;gap:14px;background:var(--color-surface-sunken);border:1px solid var(--color-border);padding:12px;border-radius:var(--radius-md)">
+                <div class="ac-avatar-preview-card" id="ac-avatar-preview-card">
+                  <img id="ac-avatar-img" src="${sanitizeText(editingCourse.instructorImage || 'assets/images/aakash-das-founder-risepaisa.jpg')}" alt="Instructor Avatar">
+                </div>
+                <div style="display:flex;flex-direction:column;gap:6px">
+                  <label class="ac-img-upload-label" style="font-size:11px;padding:4px 10px">
+                    <input type="file" id="ac-input-avatar-file" accept="image/jpeg,image/png,image/webp,image/svg+xml" style="display:none">
+                    ${AC_ICONS.upload} Upload Avatar
+                  </label>
+                  <input type="text" id="ac-input-inst-image" class="ac-input" style="font-size:11px;padding:4px 8px" value="${sanitizeText(editingCourse.instructorImage || '')}" placeholder="Avatar URL">
+                </div>
+              </div>
+            </div>
+
+            <div class="ac-form-group ac-col-4">
+              <label for="ac-input-instructor">Instructor Name</label>
+              <input type="text" id="ac-input-instructor" class="ac-input" value="${sanitizeText(editingCourse.instructor || 'Aakash Das')}">
+            </div>
+
+            <div class="ac-form-group ac-col-4">
+              <label for="ac-input-inst-role">Instructor Title / Role</label>
+              <input type="text" id="ac-input-inst-role" class="ac-input" value="${sanitizeText(editingCourse.instructorRole || 'Founder of RisePaisa')}">
+            </div>
+
+            <div class="ac-form-group ac-col-12">
+              <label for="ac-input-inst-note">Instructor Note &amp; Co-instructors</label>
+              <input type="text" id="ac-input-inst-note" class="ac-input" value="${sanitizeText(editingCourse.instructorNote || '')}" placeholder="e.g. Primarily taught by Aakash Das, with technical analysis sessions by guest veteran traders.">
+            </div>
+          </div>
+        </section>
+
+        <!-- Section 5: Course Features & Benefits -->
+        <section class="ac-editor-card">
+          <div class="ac-card-head">
+            <h2>5. Course Features &amp; Benefits</h2>
+            <span class="ac-pill-hint">Enrollment Inclusions</span>
+          </div>
+
+          <div class="ac-form-grid">
+            <div class="ac-form-group ac-col-12">
+              <label>Feature Bullets (Included with Enrollment)</label>
+              <div class="ac-features-editor-wrap" id="ac-features-editor-wrap">
+                ${(editingCourse.featuresList || []).map((feat, fIdx) => `
+                  <div class="ac-feature-row" data-fidx="${fIdx}">
+                    <input type="text" class="ac-input ac-feature-input" data-fidx="${fIdx}" value="${sanitizeText(feat)}" placeholder="Feature description">
+                    <button type="button" class="btn btn-icon btn-danger ac-del-feature-btn" data-fidx="${fIdx}" title="Remove feature">
+                      ${AC_ICONS.trash}
+                    </button>
+                  </div>
+                `).join('')}
+              </div>
+              <div style="margin-top:10px;display:flex;gap:8px">
+                <input type="text" id="ac-new-feature-input" class="ac-input" placeholder="Add new course feature bullet..." style="flex:1">
+                <button type="button" class="btn btn-outline btn-sm" id="ac-add-feature-btn">
+                  ${AC_ICONS.plus} Add Feature
+                </button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Section 6: Curriculum Structure (Topics & Lessons) -->
         <section class="ac-curriculum-section">
           <div class="ac-section-head">
             <div>
-              <h2>Course Modules & Lessons</h2>
-              <p class="ac-subhead">Manage topics, lesson video URLs, and downloadable files.</p>
+              <h2>6. Course Modules &amp; Video Lessons</h2>
+              <p class="ac-subhead">Manage modules, YouTube video URLs, custom lesson thumbnails, and downloadable study files.</p>
             </div>
-            <button type="button" class="btn btn-outline" id="ac-add-topic-btn">
+            <button type="button" class="btn btn-primary" id="ac-add-topic-btn">
               ${AC_ICONS.plus} Add Module
             </button>
           </div>
@@ -406,12 +623,148 @@ export function initAdminCoursesPage() {
       editingCourse.published = pubCheckbox.checked;
     });
 
-    // Add Topic Button
+    // Wire Thumbnail File Upload
+    const thumbFileInput = document.getElementById('ac-input-thumb-file');
+    thumbFileInput?.addEventListener('change', async (e) => {
+      const file = e.target.files?.[0];
+      if (!file) return;
+
+      const progressWrap = document.getElementById('ac-thumb-progress');
+      const progressMsg = document.getElementById('ac-thumb-progress-msg');
+      const progressFill = document.getElementById('ac-thumb-progress-fill');
+      const thumbUrlInput = document.getElementById('ac-input-thumb');
+      const thumbPreviewCard = document.getElementById('ac-course-thumb-preview-card');
+      const removeBtn = document.getElementById('ac-remove-thumb-btn');
+
+      const val = validateImageFile(file);
+      if (!val.valid) {
+        showAlert(val.error, 'error');
+        thumbFileInput.value = '';
+        return;
+      }
+
+      // Instant local preview
+      const localPreviewUrl = URL.createObjectURL(file);
+      if (thumbPreviewCard) {
+        thumbPreviewCard.innerHTML = `<img id="ac-course-thumb-img" src="${localPreviewUrl}" alt="Course Poster Preview">`;
+      }
+      if (removeBtn) removeBtn.style.display = 'inline-flex';
+
+      try {
+        if (progressWrap) progressWrap.style.display = 'block';
+        if (progressMsg) progressMsg.textContent = `Uploading poster "${file.name}" (0%)...`;
+        if (progressFill) progressFill.style.width = '0%';
+
+        const uploaded = await uploadCourseImage(
+          editingCourse.slug || 'general',
+          file,
+          (pct) => {
+            if (progressMsg) progressMsg.textContent = `Uploading poster "${file.name}" (${pct}%)...`;
+            if (progressFill) progressFill.style.width = `${pct}%`;
+          },
+          { uid: currentUser?.uid }
+        );
+
+        editingCourse.thumbnail = uploaded.url;
+        if (thumbUrlInput) thumbUrlInput.value = uploaded.url;
+        showAlert('Course poster image uploaded successfully!', 'success');
+      } catch (err) {
+        console.error('[risePaisa:Admin] Failed to upload poster:', err);
+        showAlert(`Image upload failed: ${err.message}. You can also paste an image URL directly.`, 'error');
+      } finally {
+        if (progressWrap) progressWrap.style.display = 'none';
+        thumbFileInput.value = '';
+      }
+    });
+
+    // Wire Remove Thumbnail Button
+    document.getElementById('ac-remove-thumb-btn')?.addEventListener('click', () => {
+      editingCourse.thumbnail = '';
+      const thumbUrlInput = document.getElementById('ac-input-thumb');
+      const thumbPreviewCard = document.getElementById('ac-course-thumb-preview-card');
+      const removeBtn = document.getElementById('ac-remove-thumb-btn');
+      if (thumbUrlInput) thumbUrlInput.value = '';
+      if (thumbPreviewCard) {
+        thumbPreviewCard.innerHTML = `<div class="ac-img-empty">No poster uploaded yet. (16:9 recommended)</div>`;
+      }
+      if (removeBtn) removeBtn.style.display = 'none';
+    });
+
+    // Wire Poster URL text input change
+    document.getElementById('ac-input-thumb')?.addEventListener('input', (e) => {
+      const val = e.target.value.trim();
+      editingCourse.thumbnail = val;
+      const thumbPreviewCard = document.getElementById('ac-course-thumb-preview-card');
+      const removeBtn = document.getElementById('ac-remove-thumb-btn');
+      if (val) {
+        if (thumbPreviewCard) {
+          thumbPreviewCard.innerHTML = `<img id="ac-course-thumb-img" src="${sanitizeText(val)}" alt="Course Poster Preview">`;
+        }
+        if (removeBtn) removeBtn.style.display = 'inline-flex';
+      } else {
+        if (thumbPreviewCard) {
+          thumbPreviewCard.innerHTML = `<div class="ac-img-empty">No poster uploaded yet. (16:9 recommended)</div>`;
+        }
+        if (removeBtn) removeBtn.style.display = 'none';
+      }
+    });
+
+    // Wire Instructor Avatar Upload
+    const avatarFileInput = document.getElementById('ac-input-avatar-file');
+    avatarFileInput?.addEventListener('change', async (e) => {
+      const file = e.target.files?.[0];
+      if (!file) return;
+
+      const avatarInput = document.getElementById('ac-input-inst-image');
+      const avatarImg = document.getElementById('ac-avatar-img');
+
+      const val = validateImageFile(file);
+      if (!val.valid) {
+        showAlert(val.error, 'error');
+        avatarFileInput.value = '';
+        return;
+      }
+
+      if (avatarImg) {
+        avatarImg.src = URL.createObjectURL(file);
+      }
+
+      try {
+        const uploaded = await uploadCourseImage(
+          editingCourse.slug || 'general',
+          file,
+          null,
+          { uid: currentUser?.uid, folder: 'avatars' }
+        );
+
+        editingCourse.instructorImage = uploaded.url;
+        if (avatarInput) avatarInput.value = uploaded.url;
+        if (avatarImg) avatarImg.src = uploaded.url;
+        showAlert('Instructor avatar uploaded successfully!', 'success');
+      } catch (err) {
+        showAlert(`Avatar upload failed: ${err.message}`, 'error');
+      } finally {
+        avatarFileInput.value = '';
+      }
+    });
+
+    // Wire Features List additions & deletions
+    document.getElementById('ac-add-feature-btn')?.addEventListener('click', () => {
+      const input = document.getElementById('ac-new-feature-input');
+      const val = input?.value.trim();
+      if (!val) return;
+      if (!Array.isArray(editingCourse.featuresList)) editingCourse.featuresList = [];
+      editingCourse.featuresList.push(val);
+      if (input) input.value = '';
+      renderFeaturesContainer();
+    });
+
+    // Wire Add Topic Button
     document.getElementById('ac-add-topic-btn')?.addEventListener('click', () => {
       const newTopicOrder = (editingCourse.topics || []).length + 1;
       editingCourse.topics.push({
         id: generateStableId('topic'),
-        title: `Module ${newTopicOrder}: Untitled Topic`,
+        title: `Module ${newTopicOrder}: Untitled Module`,
         shortDescription: '',
         displayOrder: newTopicOrder,
         published: true,
@@ -420,7 +773,44 @@ export function initAdminCoursesPage() {
       renderTopicsContainer();
     });
 
+    wireFeaturesEventHandlers();
     wireTopicsEventHandlers();
+  }
+
+  function renderFeaturesContainer() {
+    const wrap = document.getElementById('ac-features-editor-wrap');
+    if (!wrap || !editingCourse) return;
+    wrap.innerHTML = (editingCourse.featuresList || []).map((feat, fIdx) => `
+      <div class="ac-feature-row" data-fidx="${fIdx}">
+        <input type="text" class="ac-input ac-feature-input" data-fidx="${fIdx}" value="${sanitizeText(feat)}" placeholder="Feature description">
+        <button type="button" class="btn btn-icon btn-danger ac-del-feature-btn" data-fidx="${fIdx}" title="Remove feature">
+          ${AC_ICONS.trash}
+        </button>
+      </div>
+    `).join('');
+    wireFeaturesEventHandlers();
+  }
+
+  function wireFeaturesEventHandlers() {
+    const wrap = document.getElementById('ac-features-editor-wrap');
+    if (!wrap || !editingCourse) return;
+    wrap.querySelectorAll('.ac-feature-input').forEach(input => {
+      input.addEventListener('input', () => {
+        const fIdx = parseInt(input.getAttribute('data-fidx'), 10);
+        if (Array.isArray(editingCourse.featuresList) && editingCourse.featuresList[fIdx] !== undefined) {
+          editingCourse.featuresList[fIdx] = input.value;
+        }
+      });
+    });
+    wrap.querySelectorAll('.ac-del-feature-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const fIdx = parseInt(btn.getAttribute('data-fidx'), 10);
+        if (Array.isArray(editingCourse.featuresList) && editingCourse.featuresList[fIdx] !== undefined) {
+          editingCourse.featuresList.splice(fIdx, 1);
+          renderFeaturesContainer();
+        }
+      });
+    });
   }
 
   function renderTopicsList(topics = []) {
@@ -439,9 +829,12 @@ export function initAdminCoursesPage() {
         <div class="ac-topic-card" data-tidx="${tIdx}">
           <!-- Topic Header Bar -->
           <div class="ac-topic-header">
-            <div class="ac-topic-title-area">
+            <div class="ac-topic-title-area" style="flex:1">
               <span class="ac-topic-num">#${topic.displayOrder || tIdx + 1}</span>
-              <input type="text" class="ac-topic-title-input" data-tidx="${tIdx}" value="${sanitizeText(topic.title)}" placeholder="Topic / Module Title">
+              <div style="flex:1;display:flex;flex-direction:column;gap:6px">
+                <input type="text" class="ac-topic-title-input" data-tidx="${tIdx}" value="${sanitizeText(topic.title)}" placeholder="Module Title (e.g. Module 01: Nepse Foundations)">
+                <input type="text" class="ac-topic-desc-input" data-tidx="${tIdx}" value="${sanitizeText(topic.shortDescription || '')}" placeholder="Module description or learning goal (optional)" style="font-size:11px;padding:3px 8px;border-radius:4px;background:var(--color-bg-secondary);border:1px solid var(--color-border);color:var(--color-text-secondary)">
+              </div>
             </div>
             <div class="ac-topic-controls">
               <label class="ac-topic-pub-label">
@@ -454,7 +847,7 @@ export function initAdminCoursesPage() {
               <button type="button" class="btn btn-icon ac-topic-move-down" data-tidx="${tIdx}" title="Move Down" ${tIdx === topics.length - 1 ? 'disabled' : ''}>
                 ${AC_ICONS.arrowDown}
               </button>
-              <button type="button" class="btn btn-icon btn-danger ac-topic-delete" data-tidx="${tIdx}" title="Delete Topic">
+              <button type="button" class="btn btn-icon btn-danger ac-topic-delete" data-tidx="${tIdx}" title="Delete Module">
                 ${AC_ICONS.trash}
               </button>
             </div>
@@ -463,7 +856,7 @@ export function initAdminCoursesPage() {
           <!-- Topic Lessons List -->
           <div class="ac-lessons-wrap">
             <div class="ac-lessons-list" data-tidx="${tIdx}">
-              ${renderLessonsList(lessons, tIdx)}
+              ${renderLessonsList(lessons, tIdx, topics)}
             </div>
             <button type="button" class="btn btn-outline btn-sm ac-add-lesson-btn" data-tidx="${tIdx}">
               ${AC_ICONS.plus} Add Lesson
@@ -474,13 +867,14 @@ export function initAdminCoursesPage() {
     }).join('');
   }
 
-  function renderLessonsList(lessons = [], tIdx) {
+  function renderLessonsList(lessons = [], tIdx, topics = []) {
     if (!lessons || lessons.length === 0) {
       return `<p class="ac-lessons-empty">No lessons in this module. Click "+ Add Lesson" below.</p>`;
     }
 
     return lessons.map((les, lIdx) => {
       const resources = les.resources || [];
+      const ytId = les.youtubeUrl ? extractYouTubeVideoId(les.youtubeUrl) : null;
       const hasValidYoutube = les.youtubeUrl ? validateYouTubeUrl(les.youtubeUrl) : true;
 
       return `
@@ -489,13 +883,17 @@ export function initAdminCoursesPage() {
             <div class="ac-lesson-order">${les.displayOrder || lIdx + 1}</div>
             
             <div class="ac-lesson-inputs">
-              <!-- Lesson Title & Free Preview -->
+              <!-- Lesson Title & Flags -->
               <div class="ac-lesson-line1">
                 <input type="text" class="ac-lesson-title-input" data-tidx="${tIdx}" data-lidx="${lIdx}" value="${sanitizeText(les.title)}" placeholder="Lesson Title" required>
                 <div class="ac-lesson-flags">
                   <label class="ac-check-pill" title="Free Preview allows public access without enrollment">
                     <input type="checkbox" class="ac-lesson-free-check" data-tidx="${tIdx}" data-lidx="${lIdx}" ${les.isFree ? 'checked' : ''}>
                     <span>Free Preview</span>
+                  </label>
+                  <label class="ac-check-pill" title="Locked requires students to enroll or meet prerequisites">
+                    <input type="checkbox" class="ac-lesson-lock-check" data-tidx="${tIdx}" data-lidx="${lIdx}" ${les.locked ? 'checked' : ''}>
+                    <span>Locked</span>
                   </label>
                   <label class="ac-check-pill">
                     <input type="checkbox" class="ac-lesson-pub-check" data-tidx="${tIdx}" data-lidx="${lIdx}" ${les.published !== false ? 'checked' : ''}>
@@ -506,15 +904,53 @@ export function initAdminCoursesPage() {
 
               <!-- YouTube URL and Duration -->
               <div class="ac-lesson-line2">
-                <div class="ac-yt-wrap ${!hasValidYoutube ? 'ac-has-error' : ''}">
+                <div class="ac-yt-wrap ${!hasValidYoutube ? 'ac-has-error' : ''}" style="position:relative;display:flex;align-items:center;width:100%">
                   <span class="ac-yt-icon">${AC_ICONS.youtube}</span>
                   <input type="url" class="ac-lesson-yt-input" data-tidx="${tIdx}" data-lidx="${lIdx}" value="${sanitizeText(les.youtubeUrl || '')}" placeholder="YouTube URL: https://youtube.com/watch?v=... or https://youtu.be/...">
+                  <span class="ac-yt-id-badge" id="ac-yt-badge-${tIdx}-${lIdx}" style="${ytId ? '' : 'display:none;'}position:absolute;right:8px;font-size:10px;font-family:monospace;background:rgba(52,199,89,0.18);color:#34c759;padding:2px 6px;border-radius:4px;pointer-events:none">
+                    ${ytId ? `ID: ${sanitizeText(ytId)}` : ''}
+                  </span>
                 </div>
                 <input type="text" class="ac-lesson-dur-input" data-tidx="${tIdx}" data-lidx="${lIdx}" value="${sanitizeText(les.duration || '')}" placeholder="Duration (e.g. 15 mins)">
               </div>
 
-              <!-- Lesson Short Description -->
+              <!-- Lesson Short Description / Goal -->
               <input type="text" class="ac-lesson-desc-input" data-tidx="${tIdx}" data-lidx="${lIdx}" value="${sanitizeText(les.shortDescription || '')}" placeholder="Short lesson summary / learning outcome (optional)">
+
+              <!-- Lesson Thumbnail & Move-to-Module Bar -->
+              <div class="ac-lesson-thumb-row">
+                <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;flex:1">
+                  <div class="ac-lesson-thumb-preview" id="ac-les-thumb-prev-${tIdx}-${lIdx}">
+                    ${les.thumbnail ? `<img src="${sanitizeText(les.thumbnail)}" alt="Thumbnail">` : `<span style="font-size:10px;color:var(--color-text-muted)">No thumb</span>`}
+                  </div>
+                  <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap">
+                    <label class="ac-img-upload-label" style="font-size:11px;padding:3px 8px;cursor:pointer" title="Upload custom lesson thumbnail">
+                      <input type="file" class="ac-lesson-thumb-file" data-tidx="${tIdx}" data-lidx="${lIdx}" accept="image/jpeg,image/png,image/webp,image/svg+xml" style="display:none">
+                      ${AC_ICONS.upload} Upload
+                    </label>
+                    <input type="text" class="ac-lesson-thumb-input" data-tidx="${tIdx}" data-lidx="${lIdx}" value="${sanitizeText(les.thumbnail || '')}" placeholder="or image URL..." style="font-size:11px;padding:4px 8px;border-radius:4px;background:var(--color-bg-secondary);border:1px solid var(--color-border);width:150px">
+                    ${les.thumbnail ? `
+                      <button type="button" class="btn btn-icon btn-sm ac-lesson-thumb-remove" data-tidx="${tIdx}" data-lidx="${lIdx}" title="Remove custom thumbnail">
+                        ${AC_ICONS.trash}
+                      </button>
+                    ` : ''}
+                  </div>
+                  <div id="ac-les-thumb-prog-${tIdx}-${lIdx}" style="display:none;font-size:10px;color:var(--color-primary);margin-left:6px">Uploading...</div>
+                </div>
+
+                ${topics && topics.length > 1 ? `
+                  <div style="display:flex;align-items:center;gap:6px;margin-left:auto">
+                    <span style="font-size:11px;color:var(--color-text-muted);white-space:nowrap">Move to:</span>
+                    <select class="ac-move-topic-select" data-tidx="${tIdx}" data-lidx="${lIdx}">
+                      ${topics.map((top, otherTidx) => `
+                        <option value="${otherTidx}" ${otherTidx === tIdx ? 'selected' : ''}>
+                          ${otherTidx === tIdx ? '(Current) ' : ''}${sanitizeText(top.title || `Module ${otherTidx + 1}`)}
+                        </option>
+                      `).join('')}
+                    </select>
+                  </div>
+                ` : ''}
+              </div>
 
               <!-- Downloadable Resources List -->
               <div class="ac-resources-box" data-tidx="${tIdx}" data-lidx="${lIdx}">
@@ -547,13 +983,13 @@ export function initAdminCoursesPage() {
 
             <!-- Action Controls -->
             <div class="ac-lesson-actions">
-              <button type="button" class="btn btn-icon ac-les-move-up" data-tidx="${tIdx}" data-lidx="${lIdx}" ${lIdx === 0 ? 'disabled' : ''}>
+              <button type="button" class="btn btn-icon ac-les-move-up" data-tidx="${tIdx}" data-lidx="${lIdx}" title="Move Up" ${lIdx === 0 ? 'disabled' : ''}>
                 ${AC_ICONS.arrowUp}
               </button>
-              <button type="button" class="btn btn-icon ac-les-move-down" data-tidx="${tIdx}" data-lidx="${lIdx}" ${lIdx === lessons.length - 1 ? 'disabled' : ''}>
+              <button type="button" class="btn btn-icon ac-les-move-down" data-tidx="${tIdx}" data-lidx="${lIdx}" title="Move Down" ${lIdx === lessons.length - 1 ? 'disabled' : ''}>
                 ${AC_ICONS.arrowDown}
               </button>
-              <button type="button" class="btn btn-icon btn-danger ac-les-delete" data-tidx="${tIdx}" data-lidx="${lIdx}">
+              <button type="button" class="btn btn-icon btn-danger ac-les-delete" data-tidx="${tIdx}" data-lidx="${lIdx}" title="Delete Lesson">
                 ${AC_ICONS.trash}
               </button>
             </div>
@@ -593,14 +1029,30 @@ export function initAdminCoursesPage() {
     if (!editingCourse) return;
     const titleEl = document.getElementById('ac-input-title');
     const slugEl = document.getElementById('ac-input-slug');
+    const subtitleEl = document.getElementById('ac-input-subtitle');
+    const categoryEl = document.getElementById('ac-input-category');
+    const durationEl = document.getElementById('ac-input-duration');
     const shortDescEl = document.getElementById('ac-input-shortdesc');
     const descEl = document.getElementById('ac-input-desc');
     const thumbEl = document.getElementById('ac-input-thumb');
     const orderEl = document.getElementById('ac-input-order');
     const pubEl = document.getElementById('ac-input-published');
 
+    const priceEl = document.getElementById('ac-input-price');
+    const origPriceEl = document.getElementById('ac-input-orig-price');
+    const waUrlEl = document.getElementById('ac-input-wa-url');
+    const supportWaUrlEl = document.getElementById('ac-input-support-wa-url');
+
+    const instNameEl = document.getElementById('ac-input-instructor');
+    const instRoleEl = document.getElementById('ac-input-inst-role');
+    const instNoteEl = document.getElementById('ac-input-inst-note');
+    const instImageEl = document.getElementById('ac-input-inst-image');
+
     if (titleEl) editingCourse.title = titleEl.value.trim();
     if (slugEl) editingCourse.slug = slugEl.value.trim().toLowerCase();
+    if (subtitleEl) editingCourse.subtitle = subtitleEl.value.trim();
+    if (categoryEl) editingCourse.category = categoryEl.value.trim();
+    if (durationEl) editingCourse.duration = durationEl.value.trim();
     if (shortDescEl) editingCourse.shortDescription = shortDescEl.value.trim();
     if (descEl) {
       editingCourse.description = descEl.value.trim();
@@ -613,6 +1065,37 @@ export function initAdminCoursesPage() {
       editingCourse.isPublished = pubEl.checked;
     }
 
+    if (priceEl) editingCourse.price = parseFloat(priceEl.value) || 0;
+    if (origPriceEl) editingCourse.originalPrice = parseFloat(origPriceEl.value) || 0;
+    if (waUrlEl) editingCourse.whatsappUrl = waUrlEl.value.trim();
+    if (supportWaUrlEl) editingCourse.supportWhatsappUrl = supportWaUrlEl.value.trim();
+
+    if (instNameEl) editingCourse.instructor = instNameEl.value.trim();
+    if (instRoleEl) editingCourse.instructorRole = instRoleEl.value.trim();
+    if (instNoteEl) editingCourse.instructorNote = instNoteEl.value.trim();
+    if (instImageEl) editingCourse.instructorImage = instImageEl.value.trim();
+
+    // Sync payment methods
+    const payChecks = document.querySelectorAll('.ac-pay-method-check');
+    if (payChecks.length > 0) {
+      const selectedMethods = [];
+      payChecks.forEach(chk => {
+        if (chk.checked) selectedMethods.push(chk.value);
+      });
+      editingCourse.paymentMethods = selectedMethods;
+    }
+
+    // Sync features
+    const featureInputs = document.querySelectorAll('.ac-feature-input');
+    if (featureInputs.length > 0) {
+      const feats = [];
+      featureInputs.forEach(fi => {
+        const v = fi.value.trim();
+        if (v) feats.push(v);
+      });
+      editingCourse.featuresList = feats;
+    }
+
     const container = document.getElementById('ac-topics-container');
     if (!container || !Array.isArray(editingCourse.topics)) return;
 
@@ -621,6 +1104,13 @@ export function initAdminCoursesPage() {
       const tIdx = parseInt(input.getAttribute('data-tidx'), 10);
       if (editingCourse.topics[tIdx]) {
         editingCourse.topics[tIdx].title = input.value;
+      }
+    });
+
+    container.querySelectorAll('.ac-topic-desc-input').forEach(input => {
+      const tIdx = parseInt(input.getAttribute('data-tidx'), 10);
+      if (editingCourse.topics[tIdx]) {
+        editingCourse.topics[tIdx].shortDescription = input.value.trim();
       }
     });
 
@@ -645,6 +1135,14 @@ export function initAdminCoursesPage() {
       const lIdx = parseInt(chk.getAttribute('data-lidx'), 10);
       if (editingCourse.topics[tIdx]?.lessons?.[lIdx]) {
         editingCourse.topics[tIdx].lessons[lIdx].isFree = chk.checked;
+      }
+    });
+
+    container.querySelectorAll('.ac-lesson-lock-check').forEach(chk => {
+      const tIdx = parseInt(chk.getAttribute('data-tidx'), 10);
+      const lIdx = parseInt(chk.getAttribute('data-lidx'), 10);
+      if (editingCourse.topics[tIdx]?.lessons?.[lIdx]) {
+        editingCourse.topics[tIdx].lessons[lIdx].locked = chk.checked;
       }
     });
 
@@ -677,6 +1175,14 @@ export function initAdminCoursesPage() {
       const lIdx = parseInt(input.getAttribute('data-lidx'), 10);
       if (editingCourse.topics[tIdx]?.lessons?.[lIdx]) {
         editingCourse.topics[tIdx].lessons[lIdx].shortDescription = input.value.trim();
+      }
+    });
+
+    container.querySelectorAll('.ac-lesson-thumb-input').forEach(input => {
+      const tIdx = parseInt(input.getAttribute('data-tidx'), 10);
+      const lIdx = parseInt(input.getAttribute('data-lidx'), 10);
+      if (editingCourse.topics[tIdx]?.lessons?.[lIdx]) {
+        editingCourse.topics[tIdx].lessons[lIdx].thumbnail = input.value.trim() || null;
       }
     });
 
@@ -728,6 +1234,16 @@ export function initAdminCoursesPage() {
       });
     });
 
+    // Topic shortDescription / goal edit
+    container.querySelectorAll('.ac-topic-desc-input').forEach(input => {
+      input.addEventListener('input', () => {
+        const tIdx = parseInt(input.getAttribute('data-tidx'), 10);
+        if (editingCourse.topics[tIdx]) {
+          editingCourse.topics[tIdx].shortDescription = input.value;
+        }
+      });
+    });
+
     // Topic publish check
     container.querySelectorAll('.ac-topic-pub-checkbox').forEach(chk => {
       chk.addEventListener('change', () => {
@@ -762,16 +1278,108 @@ export function initAdminCoursesPage() {
       });
     });
 
-    // Topic delete
+    // Safe Topic Delete
     container.querySelectorAll('.ac-topic-delete').forEach(btn => {
       btn.addEventListener('click', () => {
         const tIdx = parseInt(btn.getAttribute('data-tidx'), 10);
         const topic = editingCourse.topics[tIdx];
-        if (window.confirm(`Delete module "${topic.title}" and its lessons?`)) {
-          editingCourse.topics.splice(tIdx, 1);
-          editingCourse.topics = reorderCollection(editingCourse.topics, 0, 0); // Re-index
-          renderTopicsContainer();
+        if (!topic) return;
+
+        const lessonsCount = (topic.lessons || []).length;
+        if (lessonsCount === 0) {
+          if (window.confirm(`Delete empty module "${topic.title}"?`)) {
+            editingCourse.topics.splice(tIdx, 1);
+            editingCourse.topics = reorderCollection(editingCourse.topics, 0, 0);
+            renderTopicsContainer();
+          }
+          return;
         }
+
+        const otherTopics = editingCourse.topics.filter((_, idx) => idx !== tIdx);
+        if (!modalSlot) {
+          if (window.confirm(`Module "${topic.title}" contains ${lessonsCount} lesson(s). Delete module and ALL lessons?`)) {
+            editingCourse.topics.splice(tIdx, 1);
+            editingCourse.topics = reorderCollection(editingCourse.topics, 0, 0);
+            renderTopicsContainer();
+          }
+          return;
+        }
+
+        modalSlot.innerHTML = `
+          <div class="ae-modal-backdrop" id="ac-modal-backdrop">
+            <div class="ae-modal-card ac-safe-modal-card" role="dialog" aria-labelledby="ac-safe-del-title" aria-modal="true">
+              <div class="ae-modal-head">
+                <h3 class="ae-modal-title" id="ac-safe-del-title" style="color:var(--color-danger, #ef4444)">
+                  ${AC_ICONS.trash} Delete Module: "${sanitizeText(topic.title)}"
+                </h3>
+                <button type="button" class="ae-modal-close" id="ac-safe-del-close">&times;</button>
+              </div>
+              <div class="ae-modal-body" style="padding:16px 20px">
+                <p style="margin-bottom:14px;color:var(--color-heading);font-weight:500">
+                  This module currently contains <strong>${lessonsCount} lesson(s)</strong>. To prevent accidental data loss, please choose how you would like to proceed:
+                </p>
+
+                ${otherTopics.length > 0 ? `
+                  <div style="background:var(--color-bg-secondary);border:1px solid var(--color-border);border-radius:8px;padding:12px;margin-bottom:14px">
+                    <h4 style="font-size:13px;font-weight:600;margin-bottom:6px">Option 1: Move lessons to another module (Recommended)</h4>
+                    <p style="font-size:12px;color:var(--color-text-secondary);margin-bottom:8px">Keep all ${lessonsCount} lessons safe by transferring them to an existing module before deleting this one.</p>
+                    <div style="display:flex;gap:8px;align-items:center">
+                      <select id="ac-safe-dest-topic" class="ac-input" style="flex:1;font-size:12px">
+                        ${otherTopics.map(ot => `<option value="${ot.id}">${sanitizeText(ot.title)}</option>`).join('')}
+                      </select>
+                      <button type="button" class="btn btn-primary btn-sm" id="ac-safe-move-and-del-btn">
+                        Move Lessons &amp; Delete
+                      </button>
+                    </div>
+                  </div>
+                ` : ''}
+
+                <div style="background:rgba(239,68,68,0.06);border:1px solid rgba(239,68,68,0.25);border-radius:8px;padding:12px">
+                  <h4 style="font-size:13px;font-weight:600;color:var(--color-danger, #ef4444);margin-bottom:6px">
+                    Option ${otherTopics.length > 0 ? '2' : '1'}: Permanently Delete Module AND All ${lessonsCount} Lessons
+                  </h4>
+                  <p style="font-size:12px;color:var(--color-text-secondary);margin-bottom:8px">This will remove the module and permanently delete all its video links, descriptions, and resources.</p>
+                  <button type="button" class="btn btn-danger btn-sm" id="ac-safe-force-del-btn">
+                    Delete Module &amp; Lessons
+                  </button>
+                </div>
+              </div>
+              <div class="ae-modal-foot" style="padding:12px 20px;display:flex;justify-content:flex-end">
+                <button type="button" class="btn btn-outline btn-sm" id="ac-safe-del-cancel">Cancel</button>
+              </div>
+            </div>
+          </div>
+        `;
+
+        const closeModal = () => { modalSlot.innerHTML = ''; };
+        document.getElementById('ac-safe-del-close')?.addEventListener('click', closeModal);
+        document.getElementById('ac-safe-del-cancel')?.addEventListener('click', closeModal);
+
+        document.getElementById('ac-safe-move-and-del-btn')?.addEventListener('click', () => {
+          const destId = document.getElementById('ac-safe-dest-topic')?.value;
+          const destTopic = editingCourse.topics.find(t => t.id === destId);
+          if (destTopic) {
+            if (!Array.isArray(destTopic.lessons)) destTopic.lessons = [];
+            topic.lessons.forEach(l => {
+              l.topicId = destTopic.id;
+              destTopic.lessons.push(l);
+            });
+            destTopic.lessons = reorderCollection(destTopic.lessons, 0, 0);
+          }
+          editingCourse.topics.splice(tIdx, 1);
+          editingCourse.topics = reorderCollection(editingCourse.topics, 0, 0);
+          closeModal();
+          showAlert(`Transferred ${lessonsCount} lessons to "${destTopic?.title}" and removed module.`, 'success');
+          renderTopicsContainer();
+        });
+
+        document.getElementById('ac-safe-force-del-btn')?.addEventListener('click', () => {
+          editingCourse.topics.splice(tIdx, 1);
+          editingCourse.topics = reorderCollection(editingCourse.topics, 0, 0);
+          closeModal();
+          showAlert(`Deleted module "${topic.title}" and its ${lessonsCount} lessons.`, 'info');
+          renderTopicsContainer();
+        });
       });
     });
 
@@ -794,6 +1402,8 @@ export function initAdminCoursesPage() {
           displayOrder: newLesOrder,
           published: true,
           isFree: false,
+          locked: false,
+          thumbnail: null,
           resources: []
         });
         renderTopicsContainer();
@@ -822,6 +1432,17 @@ export function initAdminCoursesPage() {
       });
     });
 
+    // Lesson locked toggle
+    container.querySelectorAll('.ac-lesson-lock-check').forEach(chk => {
+      chk.addEventListener('change', () => {
+        const tIdx = parseInt(chk.getAttribute('data-tidx'), 10);
+        const lIdx = parseInt(chk.getAttribute('data-lidx'), 10);
+        if (editingCourse.topics[tIdx]?.lessons[lIdx]) {
+          editingCourse.topics[tIdx].lessons[lIdx].locked = chk.checked;
+        }
+      });
+    });
+
     // Lesson publish toggle
     container.querySelectorAll('.ac-lesson-pub-check').forEach(chk => {
       chk.addEventListener('change', () => {
@@ -835,28 +1456,152 @@ export function initAdminCoursesPage() {
       });
     });
 
-    // Lesson YouTube input
+    // Real-time YouTube validation & ID indicator
     container.querySelectorAll('.ac-lesson-yt-input').forEach(input => {
       const updateYt = () => {
         const tIdx = parseInt(input.getAttribute('data-tidx'), 10);
         const lIdx = parseInt(input.getAttribute('data-lidx'), 10);
         const val = input.value.trim();
         const wrapper = input.closest('.ac-yt-wrap');
+        const badge = document.getElementById(`ac-yt-badge-${tIdx}-${lIdx}`);
 
         if (editingCourse.topics[tIdx]?.lessons[lIdx]) {
           editingCourse.topics[tIdx].lessons[lIdx].youtubeUrl = val;
         }
 
-        if (val && !validateYouTubeUrl(val)) {
-          wrapper?.classList.add('ac-has-error');
-        } else {
+        if (!val) {
           wrapper?.classList.remove('ac-has-error');
+          if (badge) badge.style.display = 'none';
+          return;
+        }
+
+        const isValid = validateYouTubeUrl(val);
+        const videoId = extractYouTubeVideoId(val);
+
+        if (isValid && videoId) {
+          wrapper?.classList.remove('ac-has-error');
+          if (badge) {
+            badge.textContent = `ID: ${videoId}`;
+            badge.style.display = 'inline-block';
+          }
+        } else {
+          wrapper?.classList.add('ac-has-error');
+          if (badge) badge.style.display = 'none';
         }
       };
 
       input.addEventListener('input', updateYt);
       input.addEventListener('change', updateYt);
       input.addEventListener('blur', updateYt);
+    });
+
+    // Lesson thumbnail upload
+    container.querySelectorAll('.ac-lesson-thumb-file').forEach(input => {
+      input.addEventListener('change', async (e) => {
+        const file = e.target.files?.[0];
+        if (!file) return;
+
+        const tIdx = parseInt(input.getAttribute('data-tidx'), 10);
+        const lIdx = parseInt(input.getAttribute('data-lidx'), 10);
+        const les = editingCourse.topics[tIdx]?.lessons[lIdx];
+        if (!les) return;
+
+        const val = validateImageFile(file);
+        if (!val.valid) {
+          showAlert(val.error, 'error');
+          input.value = '';
+          return;
+        }
+
+        const progEl = document.getElementById(`ac-les-thumb-prog-${tIdx}-${lIdx}`);
+        const prevEl = document.getElementById(`ac-les-thumb-prev-${tIdx}-${lIdx}`);
+        if (progEl) {
+          progEl.style.display = 'inline-block';
+          progEl.textContent = 'Uploading...';
+        }
+        if (prevEl) {
+          prevEl.innerHTML = `<img src="${URL.createObjectURL(file)}" alt="Thumbnail Preview">`;
+        }
+
+        try {
+          const uploaded = await uploadCourseImage(
+            editingCourse.slug || 'general',
+            file,
+            (pct) => {
+              if (progEl) progEl.textContent = `${pct}%`;
+            },
+            { uid: currentUser?.uid, folder: 'lesson-thumbnails' }
+          );
+
+          les.thumbnail = uploaded.url;
+          showAlert(`Thumbnail for "${les.title}" uploaded!`, 'success');
+          renderTopicsContainer();
+        } catch (err) {
+          showAlert(`Thumbnail upload failed: ${err.message}`, 'error');
+          if (progEl) progEl.style.display = 'none';
+        } finally {
+          input.value = '';
+        }
+      });
+    });
+
+    // Lesson thumbnail manual URL input
+    container.querySelectorAll('.ac-lesson-thumb-input').forEach(input => {
+      input.addEventListener('input', () => {
+        const tIdx = parseInt(input.getAttribute('data-tidx'), 10);
+        const lIdx = parseInt(input.getAttribute('data-lidx'), 10);
+        const les = editingCourse.topics[tIdx]?.lessons[lIdx];
+        if (les) {
+          les.thumbnail = input.value.trim() || null;
+          const prevEl = document.getElementById(`ac-les-thumb-prev-${tIdx}-${lIdx}`);
+          if (prevEl) {
+            prevEl.innerHTML = les.thumbnail
+              ? `<img src="${sanitizeText(les.thumbnail)}" alt="Thumbnail Preview">`
+              : `<span style="font-size:10px;color:var(--color-text-muted)">No thumb</span>`;
+          }
+        }
+      });
+    });
+
+    // Lesson thumbnail remove button
+    container.querySelectorAll('.ac-lesson-thumb-remove').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const tIdx = parseInt(btn.getAttribute('data-tidx'), 10);
+        const lIdx = parseInt(btn.getAttribute('data-lidx'), 10);
+        const les = editingCourse.topics[tIdx]?.lessons[lIdx];
+        if (les) {
+          les.thumbnail = null;
+          renderTopicsContainer();
+        }
+      });
+    });
+
+    // Move lesson to another module
+    container.querySelectorAll('.ac-move-topic-select').forEach(sel => {
+      sel.addEventListener('change', () => {
+        const srcTidx = parseInt(sel.getAttribute('data-tidx'), 10);
+        const lIdx = parseInt(sel.getAttribute('data-lidx'), 10);
+        const destTidx = parseInt(sel.value, 10);
+        if (srcTidx === destTidx) return;
+
+        const srcTopic = editingCourse.topics[srcTidx];
+        const destTopic = editingCourse.topics[destTidx];
+        if (!srcTopic || !destTopic) return;
+
+        const [movedLes] = srcTopic.lessons.splice(lIdx, 1);
+        if (!movedLes) return;
+
+        movedLes.topicId = destTopic.id;
+        if (!Array.isArray(destTopic.lessons)) destTopic.lessons = [];
+        destTopic.lessons.push(movedLes);
+
+        // Re-index both topics
+        srcTopic.lessons = reorderCollection(srcTopic.lessons, 0, 0);
+        destTopic.lessons = reorderCollection(destTopic.lessons, 0, 0);
+
+        showAlert(`Moved "${movedLes.title}" to "${destTopic.title}".`, 'success');
+        renderTopicsContainer();
+      });
     });
 
     // Lesson duration input

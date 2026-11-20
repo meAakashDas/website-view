@@ -29,6 +29,36 @@ service firebase.storage {
       allow delete: if isAdmin();
     }
 
+    // Course and lesson images (posters, thumbnails, instructor avatars):
+    match /courses/{courseSlug}/images/{fileName} {
+      // Publicly viewable on the website
+      allow read: if true;
+
+      // Only authorized administrators can upload, overwrite, or delete images
+      allow write: if isAdmin()
+                   && request.resource.size <= 5 * 1024 * 1024
+                   && request.resource.contentType.matches('image/.*');
+
+      allow delete: if isAdmin();
+    }
+
+    // Resource images (thumbnails, screenshots):
+    match /resources/{resourceSlug}/images/{fileName} {
+      allow read: if true;
+      allow write: if isAdmin()
+                   && request.resource.size <= 5 * 1024 * 1024
+                   && request.resource.contentType.matches('image/.*');
+      allow delete: if isAdmin();
+    }
+
+    // Downloadable resource files (PDF, XLSX, CSV, ZIP, docs):
+    match /resources/{resourceSlug}/files/{fileName} {
+      allow read: if true;
+      allow write: if isAdmin()
+                   && request.resource.size <= 50 * 1024 * 1024;
+      allow delete: if isAdmin();
+    }
+
     // Default deny catch-all
     match /{allPaths=**} {
       allow read, write: if false;

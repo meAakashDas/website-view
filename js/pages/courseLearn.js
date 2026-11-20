@@ -117,6 +117,9 @@ function _findLessonInSequence(sequence, lessonId) {
  * Build WhatsApp enrollment URL with pre-filled course title and fee.
  */
 function _buildWhatsAppEnrollUrl(course) {
+  if (course && course.whatsappUrl) {
+    return course.whatsappUrl;
+  }
   const settings = getSettings ? getSettings() : {};
   const rawPhone = settings.whatsapp || '9779740269317';
   const cleanPhone = rawPhone.replace(/[^0-9]/g, '');

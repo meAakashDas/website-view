@@ -11084,6 +11084,232 @@ button.btn-icon svg,
   animation: spin 0.8s linear infinite;
 }
 
+/* Image Upload & Preview Box */
+.ac-img-preview-box {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  background: var(--color-surface-sunken);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 16px;
+}
+
+.ac-img-preview-card {
+  position: relative;
+  width: 100%;
+  max-width: 360px;
+  aspect-ratio: 16 / 9;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background: var(--color-surface);
+  border: 1px dashed var(--color-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ac-img-preview-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.ac-img-preview-card .ac-img-empty {
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+  text-align: center;
+  padding: 12px;
+}
+
+.ac-avatar-preview-card {
+  width: 64px;
+  height: 64px;
+  border-radius: var(--radius-full);
+  overflow: hidden;
+  background: var(--color-surface);
+  border: 1px dashed var(--color-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.ac-avatar-preview-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.ac-img-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.ac-img-upload-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  color: var(--color-heading);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.ac-img-upload-label:hover {
+  background: var(--color-surface-hover);
+  border-color: var(--color-accent);
+}
+
+.ac-img-remove-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 12px;
+  background: none;
+  border: 1px solid transparent;
+  color: #DC2626;
+  font-size: var(--text-xs);
+  cursor: pointer;
+  border-radius: var(--radius-sm);
+  transition: all 0.15s ease;
+}
+
+.ac-img-remove-btn:hover {
+  background: rgba(239, 68, 68, 0.08);
+  border-color: rgba(239, 68, 68, 0.2);
+}
+
+/* Payment Methods Grid */
+.ac-payment-chip-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.ac-payment-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  background: var(--color-surface-sunken);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-full);
+  font-size: var(--text-xs);
+  font-weight: 500;
+  color: var(--color-heading);
+  cursor: pointer;
+  user-select: none;
+  transition: all 0.15s ease;
+}
+
+.ac-payment-chip:has(input:checked) {
+  background: rgba(0, 113, 227, 0.1);
+  border-color: var(--color-accent, #0071e3);
+  color: var(--color-accent, #0071e3);
+  font-weight: 600;
+}
+
+.ac-payment-chip input {
+  margin: 0;
+  cursor: pointer;
+}
+
+/* Feature Bullets Editor */
+.ac-features-editor-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.ac-feature-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.ac-feature-row input {
+  flex: 1;
+}
+
+.ac-feature-row .btn-icon {
+  flex-shrink: 0;
+}
+
+/* Outcome Cards Editor */
+.ac-outcome-row {
+  background: var(--color-surface-sunken);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  position: relative;
+}
+
+.ac-outcome-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Move Lesson to Module Selector */
+.ac-move-topic-select {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xs);
+  padding: 4px 8px;
+  font-size: 11px;
+  color: var(--color-heading);
+  cursor: pointer;
+}
+
+/* Lesson Thumbnail inside Lesson Item */
+.ac-lesson-thumb-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 12px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-sm);
+  font-size: var(--text-xs);
+}
+
+.ac-lesson-thumb-preview {
+  width: 54px;
+  height: 30px;
+  border-radius: 4px;
+  background: var(--color-surface-sunken);
+  border: 1px solid var(--color-border);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.ac-lesson-thumb-preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Safe Delete Module Modal */
+.ac-safe-modal-card {
+  max-width: 520px;
+}
+
 /* ── Admin Enrollment Management (.ae-) ───────────────────────────────────────── */
 .ae-page {
   padding-bottom: 80px;

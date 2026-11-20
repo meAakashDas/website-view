@@ -57,6 +57,7 @@ export const ROUTES = {
   MY_COURSES_PAGE: '/courses/nepse-stock-market-basics/learn?lesson=lesson-1',
   ADMIN_COURSES: '/admin/courses',
   ADMIN_ENROLLMENTS: '/admin/enrollments',
+  ADMIN_RESOURCES: '/admin/resources',
   RESOURCES: '/resources',
   RESOURCE_DETAIL: (slug) => `/resources/${slug}`,
   BLOG: '/blog',

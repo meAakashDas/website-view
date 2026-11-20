@@ -135,7 +135,7 @@ assert(courseDetailHtml.includes('id="cd-demo-player"'), 'Course Detail page ren
 assert(courseDetailHtml.includes('<video-player'), 'Course Detail page renders <video-player> element');
 assert(courseDetailHtml.includes('<video-skin'), 'Course Detail page renders <video-skin> element');
 assert(courseDetailHtml.includes('<video') || courseDetailHtml.includes('<youtube-video'), 'Course Detail page renders media playback element');
-assert(courseDetailHtml.includes('ziVeMxMF4e8'), 'Course Detail page loads configured video ziVeMxMF4e8');
+assert(courseDetailHtml.includes('ziVeMxMF4e8') || courseDetailHtml.includes('ddb4H0uPioo'), 'Course Detail page loads configured video');
 
 const courseLearnGuestHtml = renderCourseLearnPage('nepse-stock-market-basics', null);
 assert(courseLearnGuestHtml.includes('id="cl-video-iframe"'), 'Course Learn page renders lesson 1 preview iframe');

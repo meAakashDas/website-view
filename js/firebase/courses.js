@@ -50,6 +50,32 @@ export const RESOURCE_FILE_TYPES = Object.freeze([
 export const MAX_RESOURCE_FILE_SIZE_BYTES = 25 * 1024 * 1024;
 
 /**
+ * Maximum permitted size for course and lesson image uploads (5 Megabytes)
+ */
+export const MAX_IMAGE_FILE_SIZE_BYTES = 5 * 1024 * 1024;
+
+/**
+ * Permitted file extensions for physical course image uploads
+ */
+export const ALLOWED_IMAGE_EXTENSIONS = Object.freeze([
+  'jpg',
+  'jpeg',
+  'png',
+  'webp',
+  'svg'
+]);
+
+/**
+ * Permitted MIME types for physical course image uploads
+ */
+export const ALLOWED_IMAGE_MIME_TYPES = Object.freeze([
+  'image/jpeg',
+  'image/png',
+  'image/webp',
+  'image/svg+xml'
+]);
+
+/**
  * Permitted file extensions for physical course file uploads
  */
 export const ALLOWED_RESOURCE_EXTENSIONS = Object.freeze([
@@ -294,6 +320,152 @@ export async function uploadCourseResource(courseSlug, file, onProgress, options
 }
 
 /**
+ * Validate an image file before initiating storage upload.
+ * Validates maximum file size (5MB), allowed image extensions, and image MIME types.
+ *
+ * @param {File|object} file
+ * @returns {{ valid: boolean, error?: string, extension?: string, sanitizedName?: string }}
+ */
+export function validateImageFile(file) {
+  if (!file) {
+    return { valid: false, error: 'Image file object is required.' };
+  }
+  const name = typeof file.name === 'string' ? file.name.trim() : '';
+  const size = typeof file.size === 'number' ? file.size : 0;
+
+  if (!name || name.length === 0) {
+    return { valid: false, error: 'Image file name is required.' };
+  }
+  if (name.length > 255) {
+    return { valid: false, error: 'Image file name exceeds 255 characters.' };
+  }
+  if (name.includes('..') || name.includes('/') || name.includes('\\')) {
+    return { valid: false, error: 'Image file name contains forbidden path characters.' };
+  }
+
+  if (size <= 0) {
+    return { valid: false, error: 'Image file is empty (0 bytes).' };
+  }
+  if (size > MAX_IMAGE_FILE_SIZE_BYTES) {
+    const mb = Math.round(MAX_IMAGE_FILE_SIZE_BYTES / (1024 * 1024));
+    return { valid: false, error: `Image file size exceeds the maximum limit of ${mb}MB.` };
+  }
+
+  const extMatch = name.match(/\.([a-zA-Z0-9]+)$/);
+  const ext = extMatch ? extMatch[1].toLowerCase() : '';
+  if (!ext || !ALLOWED_IMAGE_EXTENSIONS.includes(ext)) {
+    return {
+      valid: false,
+      error: `Unsupported image format ".${ext}". Allowed: ${ALLOWED_IMAGE_EXTENSIONS.join(', ')}.`
+    };
+  }
+
+  if (file.type && typeof file.type === 'string' && file.type.length > 0) {
+    if (!file.type.startsWith('image/')) {
+      return {
+        valid: false,
+        error: `Invalid file MIME type "${file.type}". Must be a valid image.`
+      };
+    }
+  }
+
+  const sanitizedName = name.replace(/[^a-zA-Z0-9._-]/g, '_');
+  return { valid: true, extension: ext, sanitizedName };
+}
+
+/**
+ * Upload a course or lesson image (poster, thumbnail, instructor avatar) to Firebase Storage.
+ *
+ * @param {string} courseSlug - Target course slug
+ * @param {File|object} file - Physical image file
+ * @param {Function} [onProgress] - Callback for upload percentage (0-100)
+ * @param {object} [options] - Additional options ({ uid, storageAdapter, folder })
+ * @returns {Promise<{ success: boolean, url: string, fileName: string, size: number, storagePath: string }>}
+ */
+export async function uploadCourseImage(courseSlug, file, onProgress, options = {}) {
+  const { uid, storageAdapter, folder = 'images' } = options;
+
+  if (uid) {
+    const isAdmin = await checkIsAdmin(uid);
+    if (!isAdmin) {
+      throw new Error('Access Denied: Administrative permissions required to upload images.');
+    }
+  }
+
+  const validation = validateImageFile(file);
+  if (!validation.valid) {
+    throw new Error(validation.error);
+  }
+
+  const cleanSlug = (courseSlug || 'general').trim().toLowerCase().replace(/[^a-z0-9-]/g, '');
+  const cleanFileName = `${Date.now()}_${validation.sanitizedName}`;
+  const storagePath = `courses/${cleanSlug}/${folder}/${cleanFileName}`;
+
+  // Custom storage adapter support (for tests and mocking)
+  if (storageAdapter && typeof storageAdapter.upload === 'function') {
+    if (typeof onProgress === 'function') onProgress(50);
+    const res = await storageAdapter.upload(storagePath, file);
+    if (typeof onProgress === 'function') onProgress(100);
+    return {
+      success: true,
+      url: res.downloadUrl,
+      fileName: cleanFileName,
+      size: file.size,
+      storagePath
+    };
+  }
+
+  // Browser execution via modular Firebase Storage SDK
+  if (typeof window !== 'undefined') {
+    const app = await getFirebaseApp();
+    if (!app) {
+      throw new Error('Firebase application is not initialized.');
+    }
+
+    const { getStorage, ref, uploadBytesResumable, getDownloadURL } = await import('https://www.gstatic.com/firebasejs/10.12.2/firebase-storage.js');
+    const storage = getStorage(app);
+    const storageRef = ref(storage, storagePath);
+
+    return new Promise((resolve, reject) => {
+      const mime = file.type || (validation.extension === 'svg' ? 'image/svg+xml' : `image/${validation.extension}`);
+      const uploadTask = uploadBytesResumable(storageRef, file, {
+        contentType: mime
+      });
+
+      uploadTask.on(
+        'state_changed',
+        (snapshot) => {
+          const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          if (typeof onProgress === 'function') {
+            onProgress(Math.round(progress));
+          }
+        },
+        (error) => {
+          console.error('[risePaisa:Storage] Image upload error:', error);
+          reject(new Error(`Image upload failed: ${error.message}`));
+        },
+        async () => {
+          try {
+            const downloadUrl = await getDownloadURL(uploadTask.snapshot.ref);
+            resolve({
+              success: true,
+              url: downloadUrl,
+              fileName: cleanFileName,
+              size: file.size,
+              storagePath
+            });
+          } catch (urlErr) {
+            reject(new Error(`Failed to retrieve download URL: ${urlErr.message}`));
+          }
+        }
+      );
+    });
+  }
+
+  throw new Error('Image uploads are only supported in browser environments or with a storage adapter.');
+}
+
+/**
  * In-memory enrollment session cache to prevent redundant Firestore queries
  * Key: `${uid}_${courseId}` -> { enrolled: boolean, status: string, timestamp: number }
  */
@@ -523,6 +695,54 @@ export function validateCourse(course) {
     errors.push('Course displayOrder must be a valid number.');
   }
 
+  if (course.price !== undefined && course.price !== null) {
+    if (typeof course.price !== 'number' || isNaN(course.price) || course.price < 0) {
+      errors.push('Course price must be a non-negative number.');
+    }
+  }
+
+  if (course.originalPrice !== undefined && course.originalPrice !== null) {
+    if (typeof course.originalPrice !== 'number' || isNaN(course.originalPrice) || course.originalPrice < 0) {
+      errors.push('Course originalPrice must be a non-negative number.');
+    }
+  }
+
+  if (course.currency !== undefined && course.currency !== null) {
+    if (typeof course.currency !== 'string' || course.currency.trim().length === 0) {
+      errors.push('Course currency must be a non-empty string.');
+    }
+  }
+
+  if (course.whatsappUrl !== undefined && course.whatsappUrl !== null && course.whatsappUrl !== '') {
+    if (typeof course.whatsappUrl !== 'string' || (!course.whatsappUrl.startsWith('https://') && !course.whatsappUrl.startsWith('http://'))) {
+      errors.push('WhatsApp purchase link must be a valid web URL starting with https://');
+    }
+  }
+
+  if (course.supportWhatsappUrl !== undefined && course.supportWhatsappUrl !== null && course.supportWhatsappUrl !== '') {
+    if (typeof course.supportWhatsappUrl !== 'string' || (!course.supportWhatsappUrl.startsWith('https://') && !course.supportWhatsappUrl.startsWith('http://'))) {
+      errors.push('WhatsApp support link must be a valid web URL starting with https://');
+    }
+  }
+
+  if (course.featuresList !== undefined && course.featuresList !== null) {
+    if (!Array.isArray(course.featuresList)) {
+      errors.push('Course featuresList must be an array.');
+    }
+  }
+
+  if (course.paymentMethods !== undefined && course.paymentMethods !== null) {
+    if (!Array.isArray(course.paymentMethods)) {
+      errors.push('Course paymentMethods must be an array.');
+    }
+  }
+
+  if (course.whatYouWillGet !== undefined && course.whatYouWillGet !== null) {
+    if (!Array.isArray(course.whatYouWillGet)) {
+      errors.push('Course whatYouWillGet must be an array.');
+    }
+  }
+
   return {
     valid: errors.length === 0,
     errors
@@ -676,17 +896,25 @@ export function normalizeCourseData(rawCourse) {
     id: courseId,
     slug: slug,
     title: rawCourse.title || '',
+    subtitle: rawCourse.subtitle || '',
     shortDescription: rawCourse.shortDescription || '',
     description: rawCourse.description || rawCourse.fullDescription || rawCourse.shortDescription || '',
     fullDescription: rawCourse.fullDescription || rawCourse.description || rawCourse.shortDescription || '',
     thumbnail: rawCourse.thumbnail || null,
-    price: rawCourse.price || 0,
+    price: typeof rawCourse.price === 'number' ? rawCourse.price : (Number(rawCourse.price) || 0),
+    originalPrice: typeof rawCourse.originalPrice === 'number' ? rawCourse.originalPrice : (Number(rawCourse.originalPrice) || rawCourse.price || 0),
     currency: rawCourse.currency || 'NPR',
     duration: rawCourse.duration || '',
     category: rawCourse.category || 'General',
     instructor: rawCourse.instructor || 'Aakash Das',
     instructorRole: rawCourse.instructorRole || 'Founder of RisePaisa',
     instructorNote: rawCourse.instructorNote || '',
+    instructorImage: rawCourse.instructorImage || 'assets/images/aakash-das-founder-risepaisa.jpg',
+    whatsappUrl: rawCourse.whatsappUrl || null,
+    supportWhatsappUrl: rawCourse.supportWhatsappUrl || null,
+    paymentMethods: Array.isArray(rawCourse.paymentMethods) && rawCourse.paymentMethods.length > 0
+      ? rawCourse.paymentMethods
+      : ['eSewa', 'Khalti', 'connectIPS', 'Bank Transfer'],
     level: rawCourse.level || 'Beginner to Advanced',
     format: rawCourse.format || 'Beginner Friendly',
     compatibility: rawCourse.compatibility || 'Mobile + Desktop',
@@ -726,6 +954,10 @@ export function normalizeCourseData(rawCourse) {
           ? Boolean(les.isFree)
           : Boolean(topIdx === 0 && lesIdx === 0);
 
+        const isLessonLocked = les.locked !== undefined
+          ? Boolean(les.locked)
+          : false;
+
         const isLessonPublished = les.published !== undefined
           ? Boolean(les.published)
           : true;
@@ -741,6 +973,8 @@ export function normalizeCourseData(rawCourse) {
           goal: les.shortDescription || les.goal || '',
           youtubeUrl: lessonYouTubeUrl,
           duration: lessonDuration,
+          thumbnail: les.thumbnail || null,
+          locked: isLessonLocked,
           displayOrder: lessonOrder,
           rank: lessonOrder,
           published: isLessonPublished,
@@ -804,6 +1038,10 @@ export function normalizeCourseData(rawCourse) {
           ? Boolean(les.isFree)
           : Boolean(modIdx === 0 && lesIdx === 0);
 
+        const isLessonLocked = (typeof les === 'object' && les.locked !== undefined)
+          ? Boolean(les.locked)
+          : false;
+
         const lessonYouTubeUrl = (typeof les === 'object' && les.youtubeUrl)
           ? (toCanonicalYouTubeUrl(les.youtubeUrl) || les.youtubeUrl)
           : ((modIdx === 0 && lesIdx === 0 && rawCourse.previewVideoUrl) ? (toCanonicalYouTubeUrl(rawCourse.previewVideoUrl) || rawCourse.previewVideoUrl) : null);
@@ -825,6 +1063,8 @@ export function normalizeCourseData(rawCourse) {
             : (les.goal || ''),
           youtubeUrl: lessonYouTubeUrl,
           duration: lessonDuration,
+          thumbnail: (typeof les === 'object' && les.thumbnail) ? les.thumbnail : null,
+          locked: isLessonLocked,
           displayOrder: lessonOrder,
           rank: lessonOrder,
           published: isLessonPublished,
@@ -865,10 +1105,13 @@ export function normalizeCourseData(rawCourse) {
     published: t.published,
     lessons: (t.lessons || []).map(l => ({
       rank: l.displayOrder,
+      id: l.id,
       title: l.title,
       duration: l.duration || '',
       shortDescription: l.shortDescription || '',
       youtubeUrl: l.youtubeUrl || null,
+      thumbnail: l.thumbnail || null,
+      locked: Boolean(l.locked),
       isFree: l.isFree,
       published: l.published,
       resources: l.resources || []
@@ -3265,10 +3508,27 @@ export async function saveAdminCourse(uid, courseData, dbOverride = null) {
     id: String(courseData.id || cleanSlug),
     slug: cleanSlug,
     title: courseData.title.trim(),
+    subtitle: typeof courseData.subtitle === 'string' ? courseData.subtitle.trim() : (courseData.subtitle || ''),
     shortDescription: courseData.shortDescription.trim(),
     description: (courseData.description || courseData.fullDescription || '').trim(),
     fullDescription: (courseData.fullDescription || courseData.description || '').trim(),
     thumbnail: courseData.thumbnail || null,
+    price: typeof courseData.price === 'number' ? courseData.price : (Number(courseData.price) || 0),
+    originalPrice: typeof courseData.originalPrice === 'number' ? courseData.originalPrice : (Number(courseData.originalPrice) || 0),
+    currency: (courseData.currency || 'NPR').trim(),
+    duration: typeof courseData.duration === 'string' ? courseData.duration.trim() : '',
+    category: typeof courseData.category === 'string' ? courseData.category.trim() : 'General',
+    instructor: typeof courseData.instructor === 'string' ? courseData.instructor.trim() : 'Aakash Das',
+    instructorRole: typeof courseData.instructorRole === 'string' ? courseData.instructorRole.trim() : 'Founder of RisePaisa',
+    instructorNote: typeof courseData.instructorNote === 'string' ? courseData.instructorNote.trim() : '',
+    instructorImage: courseData.instructorImage || null,
+    whatsappUrl: courseData.whatsappUrl ? String(courseData.whatsappUrl).trim() : null,
+    supportWhatsappUrl: courseData.supportWhatsappUrl ? String(courseData.supportWhatsappUrl).trim() : null,
+    paymentMethods: Array.isArray(courseData.paymentMethods)
+      ? courseData.paymentMethods
+      : ['eSewa', 'Khalti', 'connectIPS', 'Bank Transfer'],
+    featuresList: Array.isArray(courseData.featuresList) ? courseData.featuresList : [],
+    whatYouWillGet: Array.isArray(courseData.whatYouWillGet) ? courseData.whatYouWillGet : [],
     published: Boolean(courseData.published),
     isPublished: Boolean(courseData.published),
     displayOrder: Number(courseData.displayOrder) || 1,

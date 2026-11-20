@@ -10,7 +10,7 @@ export function renderResourcesPage(customList = null) {
   );
 
   const RESOURCES = Array.isArray(customList) ? customList : getResources();
-  const categories = ['All', ...new Set(RESOURCES.map(r => r.category))];
+  const categories = ['All', ...new Set(RESOURCES.map(r => r.category).filter(Boolean))];
 
   return `
     <div class="page-header" id="resources-header">

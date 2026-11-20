@@ -327,6 +327,121 @@ export async function initBrandedVideoPlayer(target, customOptions = {}) {
     mediaEl.addEventListener('loadedmetadata', dismissSpinner, { passive: true });
   }
 
+  // Mobile Fullscreen & Orientation Management
+  const isMobileDevice = () => {
+    if (typeof window === 'undefined') return false;
+    const ua = navigator.userAgent || '';
+    const isMobileUA = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(ua);
+    const isMobileScreen = Boolean(window.matchMedia && window.matchMedia('(max-width: 1024px) and (pointer: coarse)').matches);
+    return isMobileUA || isMobileScreen;
+  };
+
+  const lockOrientationToLandscape = () => {
+    try {
+      if (typeof screen !== 'undefined' && screen.orientation && typeof screen.orientation.lock === 'function') {
+        screen.orientation.lock('landscape').catch(() => {
+          screen.orientation.lock('landscape-primary').catch(() => {});
+        });
+      } else if (typeof screen !== 'undefined' && typeof screen.lockOrientation === 'function') {
+        screen.lockOrientation('landscape');
+      }
+    } catch (_) {}
+  };
+
+  const unlockOrientation = () => {
+    try {
+      if (typeof screen !== 'undefined' && screen.orientation && typeof screen.orientation.unlock === 'function') {
+        screen.orientation.unlock();
+      } else if (typeof screen !== 'undefined' && typeof screen.unlockOrientation === 'function') {
+        screen.unlockOrientation();
+      }
+    } catch (_) {}
+  };
+
+  const supportsNativeFullscreen = () => {
+    return Boolean(
+      document.fullscreenEnabled ||
+      document.webkitFullscreenEnabled ||
+      (document.documentElement && (document.documentElement.requestFullscreen || document.documentElement.webkitRequestFullscreen))
+    );
+  };
+
+  const enterMobileFallbackFullscreen = () => {
+    skinEl?.classList.add('rp-mobile-fullscreen');
+    document.body.classList.add('is-fullscreen', 'rp-fullscreen-active', 'rp-mobile-fs-active');
+    document.documentElement.classList.add('rp-fullscreen-active');
+    const btn = skinEl?.shadowRoot?.querySelector('media-fullscreen-button');
+    if (btn) btn.setAttribute('data-fullscreen', '');
+    lockOrientationToLandscape();
+  };
+
+  const exitMobileFallbackFullscreen = () => {
+    skinEl?.classList.remove('rp-mobile-fullscreen');
+    document.body.classList.remove('is-fullscreen', 'rp-fullscreen-active', 'rp-mobile-fs-active');
+    document.documentElement.classList.remove('rp-fullscreen-active');
+    const btn = skinEl?.shadowRoot?.querySelector('media-fullscreen-button');
+    if (btn) btn.removeAttribute('data-fullscreen');
+    unlockOrientation();
+  };
+
+  const handleFsButtonClick = (e) => {
+    const path = e.composedPath ? e.composedPath() : [];
+    const isFsBtn = path.some(el => el && el.tagName === 'MEDIA-FULLSCREEN-BUTTON');
+    if (!isFsBtn) return;
+
+    if (isMobileDevice()) {
+      if (!supportsNativeFullscreen()) {
+        e.preventDefault();
+        e.stopPropagation();
+        const isFs = skinEl?.classList.contains('rp-mobile-fullscreen');
+        if (isFs) {
+          exitMobileFallbackFullscreen();
+        } else {
+          enterMobileFallbackFullscreen();
+        }
+      } else {
+        lockOrientationToLandscape();
+      }
+    }
+  };
+
+  const handleFullscreenChange = () => {
+    const fsEl = document.fullscreenElement || document.webkitFullscreenElement;
+    const isPlayerFs = Boolean(
+      fsEl && (
+        fsEl === root ||
+        fsEl === playerEl ||
+        fsEl === skinEl ||
+        (skinEl?.shadowRoot && skinEl.shadowRoot.fullscreenElement) ||
+        root?.contains?.(fsEl) ||
+        playerEl?.contains?.(fsEl)
+      )
+    );
+
+    if (isPlayerFs) {
+      if (isMobileDevice()) {
+        skinEl?.classList.add('rp-mobile-fullscreen');
+        document.body.classList.add('rp-mobile-fs-active');
+        lockOrientationToLandscape();
+      }
+    } else {
+      if (skinEl?.classList.contains('rp-mobile-fullscreen')) {
+        skinEl.classList.remove('rp-mobile-fullscreen');
+        document.body.classList.remove('rp-mobile-fs-active');
+        if (isMobileDevice()) {
+          unlockOrientation();
+        }
+      }
+    }
+  };
+
+  if (skinEl) {
+    skinEl.addEventListener('click', handleFsButtonClick);
+    skinEl.addEventListener('touchend', handleFsButtonClick);
+  }
+  document.addEventListener('fullscreenchange', handleFullscreenChange);
+  document.addEventListener('webkitfullscreenchange', handleFullscreenChange);
+
   const controller = {
     el: playerEl || root,
     skin: skinEl,
@@ -353,6 +468,29 @@ export async function initBrandedVideoPlayer(target, customOptions = {}) {
     },
     get duration() {
       return mediaEl ? mediaEl.duration : 0;
+    },
+    requestFullscreen() {
+      if (isMobileDevice() && !supportsNativeFullscreen()) {
+        enterMobileFallbackFullscreen();
+        return Promise.resolve();
+      }
+      if (skinEl) {
+        const targetEl = skinEl.shadowRoot?.querySelector('media-container') || skinEl;
+        if (targetEl.requestFullscreen) return targetEl.requestFullscreen();
+        if (targetEl.webkitRequestFullscreen) return targetEl.webkitRequestFullscreen();
+      }
+      return Promise.resolve();
+    },
+    exitFullscreen() {
+      if (skinEl?.classList.contains('rp-mobile-fullscreen')) {
+        exitMobileFallbackFullscreen();
+        return Promise.resolve();
+      }
+      if (document.fullscreenElement || document.webkitFullscreenElement) {
+        if (document.exitFullscreen) return document.exitFullscreen();
+        if (document.webkitExitFullscreen) return document.webkitExitFullscreen();
+      }
+      return Promise.resolve();
     },
     src(newSrc) {
       if (newSrc && mediaEl) {
@@ -391,7 +529,16 @@ export async function initBrandedVideoPlayer(target, customOptions = {}) {
       return mediaEl ? mediaEl.src : '';
     },
     dispose() {
-      // Clean teardown if needed
+      document.removeEventListener('fullscreenchange', handleFullscreenChange);
+      document.removeEventListener('webkitfullscreenchange', handleFullscreenChange);
+      if (skinEl) {
+        skinEl.removeEventListener('click', handleFsButtonClick);
+        skinEl.removeEventListener('touchend', handleFsButtonClick);
+        if (skinEl.classList.contains('rp-mobile-fullscreen')) {
+          exitMobileFallbackFullscreen();
+        }
+      }
+      unlockOrientation();
     }
   };
 

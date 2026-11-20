@@ -179,8 +179,8 @@ export function renderCourseDetailPage(slug) {
   const isPublicOffering = course.isPublicOffering !== false && course.slug !== 'personal-finance-masterclass';
   setPageMeta(course.title, course.shortDescription, ROUTES.COURSE_DETAIL(course.slug));
 
-  const waBuyLink = getWhatsAppPurchaseUrl(course.title, course.price || 2999);
-  const waAskLink = getWhatsAppAdvisorUrl(course.title);
+  const waBuyLink = course.whatsappUrl || getWhatsAppPurchaseUrl(course.title, course.price || 2999);
+  const waAskLink = course.supportWhatsappUrl || getWhatsAppAdvisorUrl(course.title);
 
   const thumbMap = {
     1: 'assets/images/course-nepse.png',
@@ -267,8 +267,8 @@ export function renderCourseDetailPage(slug) {
               <div class="cd-instructor-avatar-wrap">
                 <img
                   class="cd-instructor-avatar"
-                  src="assets/images/aakash-das-founder-risepaisa.jpg"
-                  alt="${course.instructor}, Founder of RisePaisa"
+                  src="${course.instructorImage || 'assets/images/aakash-das-founder-risepaisa.jpg'}"
+                  alt="${course.instructor}, ${course.instructorRole || 'Founder of RisePaisa'}"
                   width="36"
                   height="36"
                   loading="lazy"
@@ -283,7 +283,7 @@ export function renderCourseDetailPage(slug) {
                   <span class="cd-inst-role">· ${course.instructorRole || 'Founder of RisePaisa'}</span>
                 </div>
                 <div class="cd-instructor-sub">
-                  Selected lessons co-taught by <strong>Bikash Das</strong> · With guest technical sessions by NEPSE veteran traders
+                  ${course.instructorNote || 'Selected lessons co-taught by <strong>Bikash Das</strong> · With guest technical sessions by NEPSE veteran traders'}
                 </div>
               </div>
             </div>
@@ -531,10 +531,9 @@ export function renderCourseDetailPage(slug) {
                 <div class="cd-card-payments-accepted">
                   <span class="cd-payments-label">Accepted in Nepal</span>
                   <div class="cd-payments-tags">
-                    <span class="cd-pay-tag">eSewa</span>
-                    <span class="cd-pay-tag">Khalti</span>
-                    <span class="cd-pay-tag">connectIPS</span>
-                    <span class="cd-pay-tag">Bank Transfer</span>
+                    ${(Array.isArray(course.paymentMethods) && course.paymentMethods.length > 0 ? course.paymentMethods : ['eSewa', 'Khalti', 'connectIPS', 'Bank Transfer']).map(pm => `
+                      <span class="cd-pay-tag">${pm}</span>
+                    `).join('')}
                   </div>
                 </div>
               ` : `

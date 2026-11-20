@@ -576,26 +576,31 @@ function renderResourceCard(resource) {
     1: 'assets/images/resource-notion.png',
     2: 'assets/images/resource-budget.png',
   };
-  const thumb = thumbMap[resource.id] || 'assets/images/resource-notion.png';
+  const thumb = resource.thumbnail || resource.imageUrl || thumbMap[resource.id] || 'assets/images/resource-notion.png';
   const isNotion = (resource.category || '').toLowerCase().includes('notion');
   const formatIcon = isNotion
     ? `<svg viewBox="0 0 24 24" width="12" height="12" fill="currentColor"><path d="M4.459 4.208c.746.606 1.026.56 2.428.466l13.215-.793c.28 0 .047-.28-.046-.326L17.86 1.968c-.42-.326-.981-.7-2.055-.607L3.01 2.387c-.466.046-.56.28-.373.466l1.822 1.355zm.84 3.034v13.017c0 .653.373 1.027 1.168.98l14.195-.84c.794-.047.934-.513.934-1.073V5.981c0-.56-.374-.886-.934-.84l-14.429.84c-.653.047-.934.373-.934.981zm13.447.887v10.873c0 .28-.187.373-.42.373-.234 0-.467-.14-.654-.373l-6.44-8.82v8.587c0 .327-.14.467-.467.467h-1.027c-.327 0-.467-.14-.467-.467V7.848c0-.28.187-.373.42-.373.28 0 .514.14.7.42l6.44 8.774V8.128c0-.327.14-.467.467-.467h1.028c.327 0 .42.14.42.468z"/></svg>`
     : `<svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>`;
 
-  const itemsCount = resource.whatsIncluded ? resource.whatsIncluded.length : (resource.whatItContains ? resource.whatItContains.length : null);
+  const itemsCount = resource.modulesCount || (resource.whatsIncluded ? resource.whatsIncluded.length : (resource.whatItContains ? resource.whatItContains.length : null));
   const timeLabel = resource.expectedTime || (resource.setupTime ? resource.setupTime.split('·')[0].trim() : '15 min');
+  const shortDesc = resource.shortDescription || (resource.fullDescription ? resource.fullDescription.slice(0, 140) + '...' : '');
+
+  const hasOriginalPrice = resource.originalPrice && Number(resource.originalPrice) > Number(resource.price);
+  const isFree = Number(resource.price) === 0 || resource.accessType === 'free';
 
   return `
-    <article class="resource-card" id="resource-card-${resource.id}">
+    <article class="resource-card" id="resource-card-${resource.id || resource.slug}">
       <a href="${ROUTES.RESOURCE_DETAIL(resource.slug)}" class="card-image-link" aria-label="${resource.title}">
-        <img src="${thumb}" alt="${resource.title}" class="card-image" loading="lazy" decoding="async">
+        <img src="${thumb}" alt="${resource.title}" class="card-image" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='assets/images/resource-notion.png';">
       </a>
       <div class="card-body">
         <div class="card-badges">
           <span class="badge badge-primary">${formatIcon} ${resource.category || 'Template'}</span>
+          ${hasOriginalPrice ? `<span class="badge badge-success" style="font-size:11px;padding:2px 8px;font-weight:600;border-radius:9999px;">${Math.round(((resource.originalPrice - resource.price) / resource.originalPrice) * 100)}% OFF</span>` : ''}
         </div>
         <h3><a href="${ROUTES.RESOURCE_DETAIL(resource.slug)}" style="color:inherit;text-decoration:none">${resource.title}</a></h3>
-        <p>${resource.shortDescription}</p>
+        ${shortDesc ? `<p>${shortDesc}</p>` : ''}
 
         <div class="resource-meta-strip">
           <span class="resource-meta-item">
@@ -612,7 +617,8 @@ function renderResourceCard(resource) {
 
         <div class="card-meta">
           <div class="course-price">
-            <span class="currency">NPR</span>${resource.price.toLocaleString()}
+            ${hasOriginalPrice ? `<span class="original-price" style="text-decoration:line-through;color:var(--color-text-muted);font-size:13px;margin-right:6px">NPR ${Number(resource.originalPrice).toLocaleString()}</span>` : ''}
+            ${isFree ? `<span style="font-weight:700;color:var(--color-success,#16a34a)">FREE</span>` : `<span class="currency">NPR</span>${Number(resource.price).toLocaleString()}`}
           </div>
           <a href="${ROUTES.RESOURCE_DETAIL(resource.slug)}" class="btn btn-secondary btn-sm">View Details</a>
         </div>
